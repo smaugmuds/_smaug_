@@ -33,43 +33,49 @@ NEED_REG = -lgnuregex
 #Uncomment the line below if you are getting undefined crypt errors
 NEED_CRYPT = -lcrypt
 
-DBUGFLG = -DREQUESTS
+USE_IMC = -DUSE_IMC
 
-#USE_IMC = -DUSE_IMC
+## DEVELOPER CFLAGS (All Warnings) ##
+
+# DEBUG_FLAGS = -DREQUESTS
+
+# CFLAGS += -Wall -Wuninitialized $(DEBUG_FLAGS)
+
+CFLAGS += \
+-Wno-all -Wno-cast-align -Wno-unused-result -Wno-write-strings \
+-Wno-unused-but-set-variable -Wno-pointer-to-int-cast \
+-Wno-address -Wno-int-to-pointer-cast -Wno-uninitialized
 
 # Uncomment the line below if you want a performance increase though beware
 # your core files may not be as much of a benefit if you do.
-OPT_FLAG = -finline-functions -funroll-loops -fdefer-pop -fstrength-reduce
+PFLAGS = -finline-functions -funroll-loops -fdefer-pop -fstrength-reduce
 
 CFLAGS += \
-$(OPT_FLAG) -O -g3 -Wall -Wuninitialized \
-$(PROF) $(NOCRYPT) $(DBUGFLG) -DSMAUG \
+-O -g3 $(PROF) $(NOCRYPT) -DSMAUG \
 $(SOLARIS_FLAG) $(TIME) $(REG) $(USE_IMC)
 
-LDFLAGS += $(OPT_FLAG) $(PROF) $(SOLARIS_LINK) $(NEED_CRYPT)
+LDFLAGS += $(PFLAGS) $(PROF) $(SOLARIS_LINK) $(NEED_CRYPT)
 
 bin_PROGRAMS = smaug$(EXEEXT)
 
 CLEANFILES = *~ *.o smaug.h smaug$(EXEEXT) stamp-h1
 
 smaug_SOURCES = \
+ice.c icec.c icec-mercbase.c iced.c imc.c imc-config.c imc-events.c \
+imc-interp.c imc-mail.c imc-mercbase.c imc-util.c imc-version.c \
 act_comm.c   build.c     deity.c    ident.c     mpxset.c     requests.c  starmap.c \
-act_info.c   fight.c     imm_host.c mud_comm.c  reset.c      stat_obj.c \
+act_info.c   fight.c     imm_host.c mud_comm.c  reset.c      stat_obj.c sha256.c \
 act_move.c   clans.c     grub.c     interp.c    mud_prog.c   save.c      tables.c \
-act_obj.c    colorize.c  handler.c  news.c      services.c   track.c \
+act_obj.c    colorize.c  handler.c  news.c      services.c   track.c     liquids.c \
 act_wiz.c    comm.c      hashstr.c  magic.c     planes.c     shops.c     update.c \
 adminlist.c  comments.c  hint.c     makeobjs.c  player.c     skills.c    variables.c \
 ban.c        const.c     house.c    mapout.c    polymorph.c  special.c \
 boards.c     db.c        ibuild.c   misc.c      renumber.c   stances.c
 
+include_HEADERS = smaug.h mud.h bet.h house.h liquids.h hint.h news.h sha256.h \
+icec.h icec-mercbase.h iced.h ice.h imc-config.h imc.h imc-mercbase.h imc-mercdefs.h
 
-include_HEADERS = smaug.h mud.h \
-bet.h house.h liquids.h hint.h news.h
+smaug_CXXFLAGS = $(CFLAGS)
+smaug_CFLAGS = $(CFLAGS)
 
-CFLAGS_COMMON = \
--Wno-all -Wno-cast-align -Wno-unused-result -Wno-write-strings \
--Wunused-but-set-variable
-
-smaug_CXXFLAGS = $(CFLAGS) $(CFLAGS_COMMON)
-smaug_CFLAGS = $(CFLAGS) $(CFLAGS_COMMON)
-
+smaug_LDFLAGS = $(LDFLAGS)

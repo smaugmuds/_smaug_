@@ -37,7 +37,7 @@
 #define ADDED_ROOM_HOUSING_AREA "houses.are"
 
 /* Location of housing directory */
-#define HOUSE_DIR             "../houses/"
+#define HOUSE_DIR             RUNDIR "houses/"
 /* Location of housing list for loadup of houses */
 #define HOUSE_LIST            "house.lst" 
 /* Location of automated housing auction file */

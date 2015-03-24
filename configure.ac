@@ -43,7 +43,7 @@ AC_COPYRIGHT(["2014-2015 (c) Antonio Cao (@burzumishi)"])
 LT_INIT
 LT_LANG([C])
 
-AM_INIT_AUTOMAKE([-Wno-all -Wunused-but-set-variable -Wno-cast-align -Wno-unused-result -Wno-write-strings])
+AM_INIT_AUTOMAKE([-Wno-all -Waddress -Wno-pointer-to-int-cast -Wno-unused-but-set-variable -Wno-cast-align -Wno-unused-result -Wno-write-strings])
 AM_PROG_LIBTOOL
 AM_SANITY_CHECK
 AM_INIT_AUTOMAKE

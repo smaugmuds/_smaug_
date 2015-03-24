@@ -37,7 +37,7 @@ automake -a
 
 test -x configure || exit
 
-./configure --prefix=/opt/xsmaug
+./configure --prefix=/opt/smaug
 
 exit
 

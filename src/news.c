@@ -50,9 +50,6 @@
                                     break;                              \
                                 }
 
-#ifdef FCLOSE
-#undef FCLOSE
-#endif
 #define FCLOSE(fp) fclose(fp); fp=NULL;
 
 /* locals */

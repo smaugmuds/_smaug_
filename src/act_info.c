@@ -4615,7 +4615,7 @@ void do_password( CHAR_DATA *ch, char *argument )
     }
 
 /*
-    if ( strcmp( crypt( arg1, ch->pcdata->pwd ), ch->pcdata->pwd ) )
+    if ( strcmp( sha256_crypt( arg1, ch->pcdata->pwd ), ch->pcdata->pwd ) )
     {
 	WAIT_STATE( ch, 40 );
 	send_to_char( "Wrong password.  Wait 10 seconds.\n\r", ch );
@@ -4639,7 +4639,7 @@ void do_password( CHAR_DATA *ch, char *argument )
     /*
      * No tilde allowed because of player file format.
      */
-    pwdnew = crypt( arg2, ch->name );
+    pwdnew = sha256_crypt( arg2, ch->name );
     for ( p = pwdnew; *p != '\0'; p++ )
     {
 	if ( *p == '~' )
@@ -6067,7 +6067,7 @@ void do_version(CHAR_DATA* ch, char* argument)
 	  return;
 
 	set_char_color(AT_YELLOW, ch);
-	ch_printf(ch, "SMAUG %s.%s\n\r", SMAUG_VERSION_MAJOR, SMAUG_VERSION_MINOR);
+	ch_printf(ch, "SMAUG %s by @(burzumishi)\n\r", PACKAGE_VERSION);
 
 	if(IS_IMMORTAL(ch))
 	  ch_printf(ch, "Compiled on %s at %s.\n\r", __DATE__, __TIME__);

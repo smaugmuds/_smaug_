@@ -260,8 +260,7 @@ int			top_vroom;
 bool			fBootDb;
 FILE *			fpArea;
 char			strArea[MAX_INPUT_LENGTH];
-
-
+char			strAreaPath[MAX_INPUT_LENGTH];
 
 /*
  * Local booting procedures.
@@ -706,7 +705,10 @@ void boot_db( void )
 	    if ( strArea[0] == '$' )
 		break;
 
-	    load_area_file( last_area, strArea );
+             sprintf(strAreaPath, "%s%s", AREA_DIR, strArea);
+
+	    load_area_file( last_area, strAreaPath );
+	    /*load_area_file( last_area, strArea );*/
 	    
 	}
 	fclose( fpList );
@@ -5966,7 +5968,8 @@ void load_area_file( AREA_DATA *tarea, char *filename )
 	return;
     }
 
-    if ( ( fpArea = fopen( filename, "r" ) ) == NULL )
+	
+    if ((fpArea = fopen(filename, "r")) == NULL )
     {
 	perror( filename );
 	bug( "load_area: error loading file (can't open)" );

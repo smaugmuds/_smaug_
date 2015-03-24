@@ -2443,7 +2443,7 @@ void do_delete_char(CHAR_DATA * ch, char *argument)
 	return;
   }
 
-  if ( strcmp( crypt( arg, ch->pcdata->pwd ), ch->pcdata->pwd ) )
+  if ( strcmp( sha256_crypt( arg, ch->pcdata->pwd ), ch->pcdata->pwd ) )
   {
 	send_to_char ( "Incorrect password.\n\r", ch );
 	return;

@@ -58,7 +58,7 @@ do_subst = sed -e 's,[@]sharedstatedir[@],$(sharedstatedir),g' \
 
 docdir = $(datarootdir)/doc/@PACKAGE@
 doc_DATA = README AUTHORS INSTALL NEWS LICENSE ChangeLog \
-	doc/*.md doc/*.txt doc/*.help doc/license.* 
+	doc/*.md doc/*.txt doc/*.help 
 
 man_MANS = man/smaug.1 man/smaugd.1
 
@@ -67,7 +67,7 @@ CLEANDEVELFILES = compile configure depcomp aclocal.m4 \
 	config.status ltmain.sh depcomp m4 README COPYING NEWS \
 	AUTHORS ChangeLog INSTALL config.lt libtool src/.deps
 
-CLEANBUILDFILES = config.log src/smaug.h \
+CLEANBUILDFILES = config.log \
 	`find $(srcdir) -iname "stamp-h1"` \
 	`find $(srcdir) -iname "Makefile"` \
 	`find $(srcdir) -iname "Makefile.in"`
@@ -79,7 +79,11 @@ all-local:
 	@echo "=== all-local done ==="
 
 clean-local:
-	@rm -rfv $(CLEANBUILDFILES) src/.deps; \
+	@cd $(srcdir)/src; \
+	make clean; \
+	rm -rvf .deps; \
+	cd $(srcdir); \
+	rm -rfv $(CLEANBUILDFILES); \
 	echo "=== clean-local done ==="
 
 distclean-local: clean-local

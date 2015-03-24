@@ -64,6 +64,10 @@ typedef	int				obj_ret;
 #define DECLARE_SPELL_FUN( fun )	SPELL_FUN fun
 #endif
 
+#ifdef FCLOSE
+#undef FCLOSE
+#endif
+#define FCLOSE(fp) fclose(fp); fp=NULL;
 
 /*
  * Short scalar types.
@@ -308,12 +312,6 @@ bool DONT_UPPER;
 #define PULSE_AREA				(60 * PULSE_PER_SECOND)
 #define PULSE_AUCTION				 (9 * PULSE_PER_SECOND)
 #define PULSE_CASINO                             (8 * PULSE_PER_SECOND)
-
-/*
- * SMAUG Version -- Scryn
- */
-#define SMAUG_VERSION_MAJOR "1"
-#define SMAUG_VERSION_MINOR "4a"
 
 /* 
  * Stuff for area versions --Shaddai
@@ -1919,7 +1917,7 @@ typedef enum
   ITEM_TINDER, ITEM_LOCKPICK, ITEM_SPIKE, ITEM_DISEASE, ITEM_OIL, ITEM_FUEL,
   ITEM_PUDDLE, ITEM_ABACUS, ITEM_MISSILE_WEAPON, ITEM_PROJECTILE, ITEM_QUIVER,
   ITEM_SHOVEL, ITEM_SALVE, ITEM_COOK, ITEM_KEYRING, ITEM_ODOR, ITEM_CHANCE,
-  ITEM_PIECE, ITEM_HOUSEKEY, ITEM_JOURNAL
+  ITEM_PIECE, ITEM_HOUSEKEY, ITEM_JOURNAL, ITEM_DRINK_MIX
 } item_types;
 
 #define MAX_ITEM_TYPE		     ITEM_JOURNAL
@@ -4702,36 +4700,36 @@ DECLARE_SPELL_FUN(	spell_sacral_divinity	);
  *   but some systems have incomplete or non-ansi header files.
  */
 #if	defined(_AIX)
-char *	crypt		args( ( const char *key, const char *salt ) );
+char *	sha256_crypt		args( ( const char *key, const char *salt ) );
 #endif
 
 #if	defined(apollo)
 int	atoi		args( ( const char *string ) );
 void *	calloc		args( ( unsigned nelem, size_t size ) );
-char *	crypt		args( ( const char *key, const char *salt ) );
+char *	sha256_crypt		args( ( const char *key, const char *salt ) );
 #endif
 
 #if	defined(hpux)
-char *	crypt		args( ( const char *key, const char *salt ) );
+char *	sha256_crypt		args( ( const char *key, const char *salt ) );
 #endif
 
 #if	defined(interactive)
 #endif
 
 #if	defined(linux)
-char *	crypt		args( ( const char *key, const char *salt ) );
+char *	sha256_crypt		args( ( const char *key, const char *salt ) );
 #endif
 
 #if	defined(MIPS_OS)
-char *	crypt		args( ( const char *key, const char *salt ) );
+char *	sha256_crypt		args( ( const char *key, const char *salt ) );
 #endif
 
 #if	defined(NeXT)
-char *	crypt		args( ( const char *key, const char *salt ) );
+char *	sha256_crypt		args( ( const char *key, const char *salt ) );
 #endif
 
 #if	defined(sequent)
-char *	crypt		args( ( const char *key, const char *salt ) );
+char *	sha256_crypt		args( ( const char *key, const char *salt ) );
 int	fclose		args( ( FILE *stream ) );
 int	fprintf		args( ( FILE *stream, const char *format, ... ) );
 int	fread		args( ( void *ptr, int size, int n, FILE *stream ) );
@@ -4741,7 +4739,7 @@ int	ungetc		args( ( int c, FILE *stream ) );
 #endif
 
 #if	defined(sun)
-char *	crypt		args( ( const char *key, const char *salt ) );
+char *	sha256_crypt		args( ( const char *key, const char *salt ) );
 int	fclose		args( ( FILE *stream ) );
 int	fprintf		args( ( FILE *stream, const char *format, ... ) );
 #if 	defined(SYSV)
@@ -4756,18 +4754,18 @@ int	ungetc		args( ( int c, FILE *stream ) );
 #endif
 
 #if	defined(ultrix)
-char *	crypt		args( ( const char *key, const char *salt ) );
+char *	sha256_crypt		args( ( const char *key, const char *salt ) );
 #endif
 
 /*
- * The crypt(3) function is not available on some operating systems.
+ * The sha256_crypt(3) function is not available on some operating systems.
  * In particular, the U.S. Government prohibits its export from the
  * United States to foreign countries.
  *
  * Turn on NOCRYPT to keep passwords in plain text.
  */
 #if	defined(NOCRYPT)
-#define crypt(s1, s2)	(s1)
+#define sha256_crypt(s1, s2)	(s1)
 #endif
 
 
@@ -4783,6 +4781,7 @@ char *	crypt		args( ( const char *key, const char *salt ) );
  *   so players can go ahead and telnet to all the other descriptors.
  * Then we close it whenever we need to open a file (e.g. a save file).
  */
+#define AREA_DIR	RUNDIR	"area/"	/* Player files			*/
 #define PLAYER_DIR	RUNDIR	"player/"	/* Player files			*/
 #define BACKUP_DIR	RUNDIR	"player/backup/" /* Backup Player files	*/
 #define GOD_DIR		RUNDIR	"gods/"	/* God Info Dir			*/
@@ -4811,7 +4810,7 @@ char *	crypt		args( ( const char *key, const char *salt ) );
  */
 
 
-#define AREA_LIST	"area.lst"	/* List of areas		*/
+#define AREA_LIST	AREA_DIR "area.lst"	/* List of areas		*/
 #define WATCH_LIST      "watch.lst"     /* List of watches              */
 #define BAN_LIST        "ban.lst"       /* List of bans                 */
 #define RESERVED_LIST	"reserved.lst"	/* List of reserved names	*/

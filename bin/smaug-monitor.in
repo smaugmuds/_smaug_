@@ -32,7 +32,7 @@ start_exec() {
 		($BINDIR/$EXEC $PORT &>>$EXEC_LOGFILE &) &
 
 		until	pidof $EXEC > $EXEC_PIDFILE; do
-			sleep 2;
+			sleep 5;
 		done;
 
 		echo "(PID: $(cat $EXEC_PIDFILE)) started!";

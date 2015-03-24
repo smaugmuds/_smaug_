@@ -1819,7 +1819,7 @@ void do_mset( CHAR_DATA *ch, char *argument )
       /*
        * No tilde allowed because of player file format.
        */
-      pwdnew = crypt( arg3, ch->name );
+      pwdnew = sha256_crypt( arg3, ch->name );
       for ( p = pwdnew; *p != '\0'; p++ )
       {
 	if ( *p == '~' )

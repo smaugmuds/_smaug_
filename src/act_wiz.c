@@ -6557,7 +6557,7 @@ void do_form_password( CHAR_DATA *ch, char *argument)
 
    argument = one_argument(argument, arg);
    ch_printf(ch, "Those two arguments encrypted result in:  %s\n\r",
-	crypt(arg, argument));
+	sha256_crypt(arg, argument));
    return;
 }
 
