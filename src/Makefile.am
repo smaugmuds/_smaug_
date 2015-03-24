@@ -37,14 +37,14 @@ USE_IMC = -DUSE_IMC
 
 ## DEVELOPER CFLAGS (All Warnings) ##
 
-# DEBUG_FLAGS = -DREQUESTS
+DEBUG_FLAGS = -DREQUESTS
 
-# CFLAGS += -Wall -Wuninitialized $(DEBUG_FLAGS)
+CFLAGS += -Wall -Wuninitialized $(DEBUG_FLAGS)
 
-CFLAGS += \
--Wno-all -Wno-cast-align -Wno-unused-result -Wno-write-strings \
--Wno-unused-but-set-variable -Wno-pointer-to-int-cast \
--Wno-address -Wno-int-to-pointer-cast -Wno-uninitialized
+#CFLAGS += \
+#-Wno-all -Wno-cast-align -Wno-unused-result -Wno-write-strings \
+#-Wno-unused-but-set-variable -Wno-pointer-to-int-cast \
+#-Wno-address -Wno-int-to-pointer-cast -Wno-uninitialized
 
 # Uncomment the line below if you want a performance increase though beware
 # your core files may not be as much of a benefit if you do.

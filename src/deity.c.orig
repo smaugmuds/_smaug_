@@ -52,12 +52,11 @@ void write_deity_list( )
 {
      DEITY_DATA *tdeity;
      FILE *fpout;
-     // char filename[256];
+     char filename[256];
 
-     // sprintf( filename, "%s%s", DEITY_DIR, DEITY_LIST );
+     sprintf( filename, "%s%s", DEITY_DIR, DEITY_LIST );
      fclose(fpReserve);
-     // fpout = fopen( filename, "w" );
-     fpout = fopen( DEITY_LIST, "w" );
+     fpout = fopen( filename, "w" );
      if ( !fpout )
 	bug( "FATAL: cannot open deity.lst for writing!\n\r", 0 );
      else
@@ -279,15 +278,15 @@ void fread_deity( DEITY_DATA *deity, FILE *fp )
 
 bool load_deity_file( char *deityfile )
 {
-     // char filename[256];
+     char filename[256];
      DEITY_DATA *deity;
      FILE *fp;
      bool found;
 
      found = FALSE;
-     // sprintf( filename, "%s%s", DEITY_DIR, deityfile );
+     sprintf( filename, "%s%s", DEITY_DIR, deityfile );
 
-     if ( ( fp = fopen( deityfile, "r" ) ) != NULL )
+     if ( ( fp = fopen( filename, "r" ) ) != NULL )
      {
 	for ( ; ; )
 	{
@@ -344,8 +343,7 @@ void load_deity( )
 
     log_string( "Loading deities..." );
 
-    // sprintf( deitylist, "%s%s", DEITY_DIR, DEITY_LIST );
-    sprintf( deitylist, "%s", DEITY_LIST );
+    sprintf( deitylist, "%s%s", DEITY_DIR, DEITY_LIST );
     if ( ( fpList = fopen ( deitylist, "r" ) ) == NULL )
     {
 	perror( deitylist );
@@ -975,8 +973,7 @@ void do_makedeity( CHAR_DATA *ch, char *argument )
     }
 
     found = FALSE;
-    // sprintf( filename, "%s%s", DEITY_DIR, strlower(argument) );
-    sprintf( filename, "%s", strlower(argument) );
+    sprintf( filename, "%s%s", DEITY_DIR, strlower(argument) );
     CREATE( deity, DEITY_DATA, 1 );
     LINK( deity, first_deity, last_deity, next, prev );
     deity->name		= STRALLOC( argument );

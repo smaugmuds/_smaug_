@@ -65,7 +65,7 @@ man_MANS = man/smaug.1 man/smaugd.1
 CLEANDEVELFILES = compile configure depcomp aclocal.m4 \
 	autom4te.cache config.guess config.sub install-sh missing \
 	config.status ltmain.sh depcomp m4 README COPYING NEWS \
-	AUTHORS ChangeLog INSTALL config.lt libtool src/.deps
+	AUTHORS ChangeLog LICENSE INSTALL config.lt libtool src/.deps
 
 CLEANBUILDFILES = config.log \
 	`find $(srcdir) -iname "stamp-h1"` \

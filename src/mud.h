@@ -4819,7 +4819,7 @@ char *	sha256_crypt		args( ( const char *key, const char *salt ) );
 #define COUNCIL_LIST	"council.lst"	/* List of councils		*/
 #define GUILD_LIST      "guild.lst"     /* List of guilds               */
 #define GOD_LIST	"gods.lst"	/* List of gods			*/
-#define DEITY_LIST	"deity.lst"	/* List of deities		*/
+#define DEITY_LIST	DEITY_DIR "deity.lst"	/* List of deities		*/
 #define	CLASS_LIST	"class.lst"	/* List of classes		*/
 #define	RACE_LIST	"race.lst"	/* List of races		*/
 #define VAULT_LIST      "vault.lst" /* list of storage vaults */

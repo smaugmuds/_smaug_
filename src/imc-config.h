@@ -128,7 +128,7 @@ have a wacky setup that you don't want switched. 1/5/99 -- Scion */
 //#define IMC_VERSIONID "imc2-1.03g webcgi"
 //#define IMC_VERSIONID "imc2-1.03g circle"
 //#define IMC_VERSIONID "imc2-1.03g smaug102"
-#define IMC_VERSIONID "imc2-1.03g smaug1.4a"
+#define IMC_VERSIONID "imc2-1.03g smaug1.4a smaug1.8.2"
 //#define IMC_VERSIONID "imc2-1.03g ack"
 //#define IMC_VERSIONID "imc2-1.03g envy"
 //#define IMC_VERSIONID "imc2-1.03g merc"
