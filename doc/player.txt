@@ -1,0 +1,14 @@
+SMAUG Release 1.0
+December 15, 1996
+
+Thoric  thoric@realms.game.org
+
+=== Player Directory
+
+This directory contains subdirectories 'a' to 'z' where player files are
+organized by the first letter in their name. Player files are straight ascii
+files, one player per file.  You can grep them, edit them, rename them, move
+them to other computer systems, whatever you want.
+
+Unlike the original Merc release, only non-default relevant information
+is saved to the player files so that less work is needed to load them in.

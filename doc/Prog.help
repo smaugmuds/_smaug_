@@ -1,0 +1,587 @@
+                    A Guideline for Making Progams
+                    ------------------------------
+This is intended as a set of guidelines to those who are just beginning
+as Builders.  Nothing here is written in stone, this file is based on my
+experience and the online help files.   (Herne the Hunter)
+
+Remember that most important command: SAVEAREA
+
+Giving Life to your Areas
+-------------------------
+This is by no means the LAST word on how to make programs for SMAUG-type
+MUDs, this is merely intended as a "place to start".  There are many
+people who have MUCH more experience when it comes to making programs,
+and this file is my crude attempt at helping those who are just starting
+out.  The main thing is, this file will provide all the required HELP
+files in one place for the new programmer.
+
+Programs are the tools that provide "life" to an area, from something as
+simple as providing "atmosphere" to something as complicated as a fight
+program.  Programs bring the MUD alive.
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  % For complete infomation, reference the mob program documentation %
+  % available via FTP on realms.game.org:                            %
+  % building.tar.gz/building.tar.Z/building.zip)                     %
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+How to Make Programs
+--------------------
+Programs can be linked to either rooms, mobs or objects, but all programs
+require a trigger to set them in motion.  A trigger is an action, phrase,
+or game event that causes a program held within a room, mob or object, to
+begin playing out its commands.  Triggers can be anything from a player
+or mob entering a room, to a player stating a particular phrase within a
+room, or to a mob or an object.  Depending on whether a trigger is linked
+to a room, mob or object, the syntax for each program can be slightly
+different.  For detailed information on triggers, see: RPTRIGGERS,
+MPTRIGGERS, and OPTRIGGERS
+
+
+ROOMTRIGGERS RPTRIGGERS
+Trigger Opt Triggering Variable Explanation
+------- --- ------------------- -----------
+Act     {p} <keyword / phrase>  [emotes, socials, actions, bamfs]
+Speech  {p} <keyword / phrase>  [says or tells from same room as mob]
+Rand        <percentage>        [randomly triggered based on %]
+Fight       <percentage>        [random, within a fight, based on %]
+Hitprcnt    <percentage>        [percent is % of mob's max H.P.]
+Greet       <percentage>        [entry that mob can see, by mob/player]
+Allgreet    <percentage>        [entry by mob/player, regardless if seen]
+Entry       <percentage>        [when the mob itself enters a room]
+Bribe       <amount of gold>    [when a player gives the mob money]
+Death       <percentage>        [when the mob dies]
+Script {hour}                   [Runs script. Hour triggers start]
+Time        <hour>              [script, runs once on hour specified]
+Hour        <hour>              [loops as Script for hr from start hr]
+ 
+*NOTE* {hour}/<hour> is in military time. ie, 15 hours is 3pm mud time.
+*NOTE* The mpcommand MPDONOTHING currently only works in Script progs,
+       NOT in Time or Hour progs.
+ 
+For mobs, see also: MPSTAT, MPEDIT, TRIGGER, MPCOMMANDS, IFCHECKS,
+VARIABLES.
+
+
+OBJTRIGGERS OPTRIGGERS
+Trigger Opt Triggering Variable Explanation
+------- --- ------------------- -----------
+Wear        <percentage>        [when a player wears the object]
+Remove      <percentage>        [when a player removes the object]
+Speech  {p} <keyword/phrase>    [says or tells from same room as mob]
+Rand        <percentage>        [randomly triggered based on %]
+Sac         <percentage>        [when a player sacrifices the object]
+Zap         <percentage>        [when the player is zapped due to align]
+Get         <percentage>        [when a player gets the object]
+Drop        <percentage>        [when a player drops the object]
+Damage      <percentage>        [when the object is damaged]
+Repair      <percentage>        [when the object is repaired]
+Greet       <percentage>        [when a mob/player enters the room]
+Exa         <percentage>        [when the obj is Examined or Looked upon]
+Look        ** THIS TRIGGER IS NOT CURRENTLY IN USE **
+Push        <percentage>        [when a player pushes an object]
+Pull        <percentage>        [when a player pulls an object]
+Use         <percentage>        [see 'help useprog' for details]
+ 
+For objects see also: OPSTAT, OPEDIT, TRIGGER, OPCOMMANDS, IFCHECKS,
+VARIABLES.
+
+
+USEPROG
+Syntax : opedit <object> <command> [number] [use_prog] [percentage]
+Example: opedit helmet add use 50  (Prog triggers 50% of the time worn)
+     
+The use_prog is an objtrigger that can be used in object programs.  The
+use_prog will be executed when the item is used.  To define what will
+trigger the use_prog, here is a list:
+
+* Wands                            - when you zap
+* Staves                           - when you brandish
+* Food/pills                       - when you eat
+* Blood/fountains/drink containers - when you drink
+* Lights/armour/weapons            - when you wear/wield/hold
+* Potions                          - when you quaff
+* Pipes                            - when you smoke
+ 
+When the use_prog is executed you will not see the standard 'use message'
+(ie You quaff a violet potion). What you will will be any mpechoes placed
+in the program.  Also, any mobprog commands can be used in use_prog (see 
+MPCOMMANDS).
+
+**NOTE** The use_progs on lights, armour, and weapons are executed BEFORE
+the player wears/holds/wields any item.  Therefore, a mpforce to remove
+the item will not work in the use_prog.  You will have to use a wear
+trigger to accomplish this.
+
+
+MOBTRIGGERS MUDTRIGGERS MPTRIGGERS
+Trigger Opt Triggering Var    Explanation
+------- --- ----------------- -----------
+Act     {p} <keyword/phrase>  [emotes, socials, actions, bamfs]
+Speech  {p} <keyword/phrase>  [says or tells from same room as mob]
+Rand        <percentage>      [randomly triggered based on percentile]
+Fight       <percentage>      [random, within a fight, based on %]
+Hitprcnt    <percentage>      [percent is % of mob's max H.P.]
+Greet       <percentage>      [entry that mob can see, by mob/player]
+Allgreet    <percentage>      [entry by a mob/player, regardless if seen]
+Entry       <percentage>      [when the mob itself enters a room]
+Bribe       <amount of gold>  [when a player gives the mob money]
+Death       <percentage>      [when the mob dies]
+Script {hour}                 [loops 1 line at a time. Hr triggers start]
+Time        <hour>            [script prog, runs once on hr specified]
+Hour        <hour>            [loops as Script for 1 hr from start hour]
+ 
+*NOTE* {hour}/<hour> is in military time. ie, 15 hours is 3p.m. mud time.
+*NOTE* The mpcommand MPDONOTHING currently only works in Script progs,
+       NOT in Time or Hour progs.
+ 
+For mobs, see also: MPSTAT, MPEDIT, TRIGGER, MPCOMMANDS, IFCHECKS,
+VARIABLES.
+
+
+Commands for Editting Programs
+------------------------------
+MPEDIT
+Syntax:  mpedit <mobile> <command> [number]  [program] [arguments]
+Syntax:  mpedit <mobile> add       <program> <arguments>
+Syntax:  mpedit <mobile> insert    <number>  <program> <arguments>
+Syntax:  mpedit <mobile> edit      <number>  [program] [arguments]
+Syntax:  mpedit <mobile> delete    <number>
+Syntax:  mpedit <mobile> list
+ 
+Add, insert and edit will put you into the line editor to edit your
+program.  The arguments consist of a trigger, plus any arguments
+associated with that trigger.
+
+See MPSTAT, TRIGGER, MPTRIGGERS, MPCOMMANDS, IFCHECKS, IFCHECKS2,
+VARIABLES
+
+MPSTAT
+Syntax:  mpstat <mob/mobvnum>
+ 
+Mpstat will display all of the mobprograms that have been written for the
+specified mob.  If an instance of that mob exists in the game, it can be
+accessed with its vnum.
+ 
+See MPEDIT, TRIGGER, MPTRIGGERS, MPCOMMANDS, IFCHECKS, IFCHECKS2,
+VARIABLES
+
+
+OPEDIT
+Syntax:  opedit <object> <command> [number]  [program] [arguments]
+Syntax:  opedit <object> add       <program> <arguments>
+Syntax:  opedit <object> insert    <number>  <program> <arguments>
+Syntax:  opedit <object> edit      <number>  [program] [arguments]
+Syntax:  opedit <object> delete    <number>
+Syntax:  opedit <object> list
+ 
+Add, insert and edit will put you into the line editor to edit your
+program.  The arguments consist of a trigger, plus any arguments
+associated with that trigger.  Object programs are like mobprograms, with
+trigger differences.
+ 
+To edit an Objprogram, you must be holding the object in your inventory.
+ 
+See OPSTAT, TRIGGER, OPTRIGGERS, OPCOMMANDS, IFCHECKS, IFCHECKS2,
+VARIABLES
+
+OPSTAT
+Syntax: opstat <object/object vnum>
+ 
+Opstat will display all of the objprograms that have been written for the
+specified object.  If a copy of the object exists in the game, it can be
+accessed by its vnum.
+ 
+See OPEDIT, TRIGGER, OPTRIGGERS, OPCOMMANDS, IFCHECKS, IFCHECKS2
+VARIABLES
+
+
+RPEDIT
+Syntax:  rpedit <command> [number]  [program] [arguments]
+Syntax:  rpedit add       <program> <arguments>
+Syntax:  rpedit insert    <number>  <program> <arguments>
+Syntax:  rpedit edit      <number>  [program] [arguments]
+Syntax:  rpedit delete    <number>
+Syntax:  rpedit list
+ 
+Add, insert and edit will put you into the line editor to edit your
+program.  The arguments consist of a trigger, plus any arguments 
+ssociated with that trigger.
+ 
+To edit a roomprogram you must be in the room.
+ 
+See RPSTAT, TRIGGER, RPTRIGGERS, RPCOMMANDS, IFCHECKS, IFCHECKS2,
+VARIABLES
+
+RPSTAT
+Syntax:  rpstat
+ 
+Rpstat will display all of the roomprograms that have been written for a 
+room.  You must be standing in the room that you are rpstatting (though
+you can also use 'rpstat' in conjunction with the 'at' command to rpstat
+a room remotely).
+ 
+See RPEDIT, TRIGGER, RPTRIGGERS, RPCOMMANDS, IFCHECKS, IFCHECKS2,
+VARIABLES
+
+
+The Meat of the Program
+-----------------------
+Once you've set the trigger for a program, you enter into a note-like
+text editor that you use to write the program itself.  Just like writing
+a program for a PC, a MUD Program can perform many tasks such as issuing
+mpcommands (MUD Program Commands), ifchecks, or merely printing text to
+the screen.
+
+What follows are the help files for MPCOMMANDS, IFCHECKS, and the
+VARIABLES that can be used within the programs.  I've also included a
+couple of sample programs using some of these commands to help you
+understand and get started on your own.
+
+
+MPCOMMANDS RPCOMMANDS OPCOMMANDS
+The following commands can be used for Room, Mob and Object progs. The
+commands listed at the bottom are for mob progs only.  Each command also
+has its own help file.  Type HELP <COMMAND>.
+ 
+MPCOMMAND       PARAMETERS            MPCOMMAND      PARAMETERS
+--------------  -------------------   -------------  --------------------
+MPASOUND        <phrase>              MPJUNK         <name/var>
+MPECHOAROUND    <name/var><phrase>    MPECHOAT       <name/var><phrase>
+MPECHO          <phrase>              MPMLOAD        <mob vnum>
+MPOLOAD         <object vnum>         MPPURGE        <object/mobile name>
+MPADVANCE       <player name><level>  MPTRANSFER     <name/all>
+MPFORCE         <name/all><actions>   MPSLAY         <victim>
+MPDREAM         <name><phrase>        MPDAMAGE       <name><#hps> 
+MPCLOSEPASSAGE  <room><direction>     MPOPENPASSAGE  <origin><dest><dir>
+** MPPRACTICE   <victim> (skill|spell) (max_percent)
+Mobs only:
+MPKILL           <name>                 MPGOTO <vnum>
+MPAT             <vnum> <command>
+
+** Indicates command under development. 
+See also: MPSTAT, RPSTAT, OPSTAT, MPEDIT, RPEDIT, OPEDIT, TRIGGER,
+MPTRIGGERS, RPTRIGGERS, OPTRIGGERS, IFCHECKS, VARIABLES.
+
+
+MPDAMAGE
+Syntax :  mpdamage <victim> <amount>
+Example:  mpdamage 0.$n 100      (Do 100 hps damage to player $n)
+ 
+This command inflicts a specified amount of damage on the victim.
+This damage will be affected by sanctuary, but is not affected by
+protect, saving throws or resists.
+ 
+A mob should _never_ mpdamage itself, at risk of crashing.
+
+MPINVIS
+Syntax:  mpinvis
+Syntax:  mpinvis <level>
+ 
+This command controls a mob's ability to use a modified form of wizinvis.
+Use 'mpinvis' alone to toggle the invisibility.
+Use 'mpinvis <level>' to set the level at which the mob will be invis.
+ 
+Mortals under the mobinvis level of the mob will be unable to see the mob
+when it goes mobinvis; they cannot see it with any spell, it will be
+completely invisible to them.
+ 
+Be warned, however, that its programs will still function as normal, the
+mortal will simply see a 'someone' if it performs an action or an echo
+that they see, just as if a wizinvis immortal performed the action.
+ 
+Also be warned that at the present time, area attacks _will_ hit a
+mobinvis creature even if it is invisible.
+
+MPRESTORE
+Syntax :  mprestore <victim> <amount>
+Example:  mprestore self 200     (Triggerer restores self with 200 Hps)
+This command restores a specified number of hitpoints to the victim.
+
+MPSLAY
+Syntax:  mpslay <victim>
+This command orders the mob to slay the victim in cold blood; the
+victim gets no saving throw.
+
+MPASOUND
+Syntax: MPASOUND <phrase>
+Displays a phrase to all surrounding rooms.
+
+MPECHOAROUND
+Syntax: MPECHOAROUND <name> <phrase>
+Displays a phrase to all in the room except victim.
+[The abbreviation "mer" may be used for mpechoaround.]
+(See also ECHO_COLOURS)
+
+MPECHO
+Syntax: MPECHO <phrase>
+Displays a phrase to the entire room.
+(See also ECHO_COLOURS)
+
+MPFORCE
+Syntax: MPFORCE <name/all>
+Forces a player/mob to do a command (non-functional on immortals, all
+will only force all in room).
+
+MPDREAM
+Syntax: MPDREAM <name> <phrase>
+Sends a message to a sleeping character.
+
+MPJUNK
+Syntax: MPJUNK <name>
+Destroys an object in inventory/being worn - can be used with all.object.
+
+MPECHOAT
+Syntax: MPECHOAT <name> <phrase>
+Displays a phrase to only the victim.
+[The abbreviation "mea" may be used for mpechoat.]
+(See also ECHO_COLOURS)
+
+MPMLOAD MPOLOAD
+Syntax : MPMLOAD <vnum> <level>
+Example: mpmload 1000 20     (Invoke mob 1000 at level 20)
+
+Syntax : MPOLOAD <vnum> <level> <timer>
+Example: mpoload 1000 20     (Invoke obj 1000 at level 20)
+         mpoload 1000 20 30  (Same as above, but with a 30 tick timer)
+
+Loads a mob or object.  In the case of objects, the level must be set, or
+supermob will end up setting the level.  Timer is optional, and is the
+decay timer for objects.
+
+MPPURGE
+Syntax : MPPURGE <object/mobile>
+Example: mppurge                 (Purges entire room)
+         mppurge key             (Purge the first key)
+         mppurge dog             (Purge the mob named "dog")
+
+Purges the room, or a specified object/mobile.
+
+MPTRANSFER
+Syntax : MPTRANSFER <name/all> <location>
+Example: mptransfer $n 1000   (Transfer triggerer to room 1000)
+         mptransfer $n joe    (Transfer triggerer to mob "joe")
+         mptransfer all 1000  (Transfer all in trigger room to room 1000)
+Transfers one or all in the room to a specified location.
+
+MPOPENPASSAGE MPCLOSEPASSAGE
+Syntax : MPOPENPASSAGE <origin> <destination> <direction>
+Example: mpopenpassage 1000 1002 n
+         (Open a passage north from room 1000 to room 1002)
+Opens a passage to a room (does not affect pre-existing doors)
+
+Syntax : MPCLOSEPASSAGE <room> <direction>
+Example: mpclosepassage 1000 n  (Close the north passage in room 1000)
+Closes a passage to a room (does not affect pre-existing doors that were
+not created with mpopenpassage)
+
+MPKILL
+Syntax: MPKILL <name>
+Kills a player without using murder.
+
+MPAT
+Syntax : MPAT <vnum> <command>
+Example: mpat 1000 drop all    (Mob drops its inventory at room 1000)
+
+Lets the mobile perform a command at another location.
+
+MPGOTO
+Syntax: MPGOTO <vnum>
+Goes to any room which is not private.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% These three commands really shouldn't be used;                        %
+% MPADVANCE                                                             %
+% Syntax: MPADVANCE <name> <level>                                      %
+% Advances the level of a player (not functional in prototype programs) %
+%                                                                       %
+% MPPKSET                                                               %
+% Syntax:  mppkset <victim> yes/no                                      %
+% This command tells the mob to set the victim to either deadly or      %
+% non-deadly status.                                                    %
+%                                                                       %
+% Mppkset yes will set the victim to deadly status.                     %
+% Mppkset no will set the victim to non-deadly status.                  %
+%                                                                       %
+% MPPRACTICE                                                            %
+% Syntax:  mppractice <victim> <skill/spell/language> <amount>          %
+%                                                                       %
+% This command will set the victim's percentage of proficiency in the   %
+% specified skill/spell/language to the specified amount.               %
+%                                                                       %
+% It cannot train a character in a skill/spell/language the character   %
+% does not have as a part of its class and that it does not already     %
+% have as a result of its level.  In other words, it canot train a      %
+% warrior in fireball, or a level 1 thief in gouge.                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+IFCHECKS
+VALUE CHECKS                        TRUE/FALSE CHECKS
+(If check == #/string/vnum)
+Ifcheck    Question                 Ifcheck     Question
+---------  ------------------------ ----------  ---------------------
+Hitprcnt   %'age of hit/max_hit?    Isnpc       Mob?
+Inroom     Room #?                  Ispc        Player character?
+Sex        Sex #?                   Isgood      Align +350 or higher?
+Position   Position #?              Isneutral   Align < 350 & > -350?
+Level      Experience level?        Isevil      Align -350 or lower?
+Objtype    Type of Object?          Ispkill     Pkill?
+Objval#    Value# equal to this?    Isfight     Fighting?
+Number     Is its vnum = to this?   Isimmort    Immortal?
+Name       Name?  (STRING)          Ischarmed   Charmed?
+Clan       Clan name? (STRING)      Isfollow    Following master in room?
+Race       Race name?  (STRING)     Rand (#)    Equal to or less?
+Mobinroom  How many of mob? (VNUM)  Isaffected  Affected_by name?
+Guild      Guild name? (STRING)     Canpkill    Pkill >lev 5,18 yrs+?
+Goldamt    How much gold ya got?    Ismounted   Mounted?
+Class      Class name? (STRING)     Ismobinvis  Mobinvis? (vs invis)
+Str        What's your strength?    Mobinvislevel Level of invis?
+Int        What's your intell?      Economy       if economy >=< xxx
+Wis        What's your wisdom?      Favor         What's your favor?
+Dex        What's your dexterity?   Isdevoted     Is target devoted?
+Con        What's your constitution?
+Cha        What's your charisma?
+Lck        What's your luck?
+Deity      What's your deity?
+Norecall   Is target's room norecall?   Not Implemented: DOING_QUEST
+
+*    New ifchecks:  see HELP IFCHECKS2
+**   Value checks can use:
+      ==  (equals),  > (greater than),  < (less than),  ! (not)
+     Combine for:  != (not equal), >= (greater than or equal to)
+ 
+Also: MPSTAT, RPSTAT, OPSTAT, MPEDIT, RPEDIT, OPEDIT, TRIGGER,
+MPTRIGGERS, RPTRIGGERS, OPTRIGGERS, MPCOMMANDS, RPCOMMANDS, OPCOMMANDS,
+VARIABLES, AFFECTEDBY (for a list of affect types)
+
+IFCHECKS2
+TimesKilled
+if timeskilled($* OR vnum) == amount
+   - for character checks only, can use any normal mobprog operator
+           
+OvnumHere, OvnumRoom, OvnumCarry, OvnumWear, OvnumInv
+if ovnum<place>(vnum) == amount
+  - for objs only, counts how many objs of vnum 'vnum' exist in <place>
+  - can use any normal mobprog operator
+ 
+OtypeHere, OtypeRoom, OtypeCarry, OtypeWear, OtypeInv
+if otype<place>(type OR value) == amount
+  - for objs only, counts how many objs of type 'value' are in <place>
+  - can use any normal mobprog operator
+  - will convert the type names (light is 1, for example)
+ 
+<place> definitions:
+ ... room  - in the room the mobile is in
+ ... wear  - worn by the mobile as equipment
+ ... inv   - in the mobile's inventory
+ ... carry - worn or in inventory
+ ... here  - all of the above
+ 
+Also: MPSTAT, RPSTAT, OPSTAT, MPEDIT, RPEDIT, OPEDIT, TRIGGER,
+MPTRIGGERS, RPTRIGGERS, OPTRIGGERS, MPCOMMANDS, RPCOMMANDS, OPCOMMANDS,
+VARIABLES, AFFECTEDBY (for a list of affect types) and IFCHECKS
+
+
+VARIABLES
+This is the list of variables to be used in actiondescs for objects and
+in mob/room/object programs.
+ 
+VARIABLE         MOBILE  ACTOR  VICTIM  RANDOM  OBJECT  2ND_OBJECT
+---------------  ------  -----  ------  ------  ------  ----------
+Name               $i     $n      $t      $r      $o        $p
+shrt_desc/title    $I     $N      $T      $R      $O        $P
+he/she/it          $j     $e      $E      $J      --        --
+him/her/it         $k     $m      $M      $K      --        --
+his/hers/its       $l     $s      $S      $L      --        --
+a/an               --     --      --      --      $a        $A
+ 
+See also: MPSTAT, RPSTAT, OPSTAT, MPEDIT, RPEDIT, OPEDIT, TRIGGER,
+MPTRIGGERS, RPTRIGGERS, OPTRIGGERS, MPCOMMANDS, RPCOMMANDS, OPCOMMANDS,
+IFCHECKS.
+
+
+ECHO_COLOURS
+The following 16 colors are supported in the commands echo, recho,
+mpecho, mpechoat and mpechoaround.  ** When choosing a colour, remember
+that not everyone sees screen colours as you do. **
+
+Code | Colour                     Code | Colour
+-----+--------------              -----+------------
+_whi | White (Default Colour)     _yel | Yellow
+_blu | Blue                       _dbl | Dark Blue
+_lbl | Light Blue                 _cya | Cyan
+_gre | Green                      _dgr | Dark Green
+_cha | Charcoal (Grey)            _dch | Dark Charcoal (Dark Grey)
+_pur | Purple (Magenta)           _red | Red
+_ora | Orange                     _bro | Brown
+_pin | Pink                       _bla | Black
+
+If the indicator is preceded by an asterisk, the message will blink.
+To save line space, yYou only need to enter as much of the color
+indicator as required to uniquely identify it.
+
+Examples:
+recho _red              This is an example of recho in red.
+recho *red              This is an example of recho in blinking red.
+mpecho _yel             This is an example of mpecho in yellow.
+mpe _yel                This is an example of mpecho in yellow.
+mpechoat $n _blu        This is an example of mpechoat in blue.
+mea $n _blu             This is an example of mpechoat in blue.
+mpechoaround $n _bro    This is an example of mpechoaround in brown.
+mer $n _bro             This is an example of mpechoaround in brown.
+
+
+Sample Programs
+---------------
+Program 1:  Basic shopkeeper greet program.
+                                  [Comments:] 
+mpedit joe add greet 100          [Add a 100% greet prog to "Joe"  ]
+if ispc($n)                       [Check if triggerer is Player    ]
+  mea $n Greetings $n!            [If True: Echo at Player {phrase}]
+ else                             [Otherwise                       ]
+  say Hello, $I.                  [If False: say "Hello" to NPC    ]
+endif                             [Every "if" MUST have an "endif" ]
+
+Program 2:  A simple bribe program.
+                                  [Comments:]
+mpedit joe add bribe 1000         [Add bribe program, cost 1000 coins]
+if ispc($n)                       [Is it a Player?                   ]
+  mea $n Here's your key, $n      [True: Echo at Player              ]
+  mpoload 1000 0                  [Load object 1000 at level 0       ]
+  give key $n                     [Give key to Player                ]
+ else                             [Otherwise                         ]
+  say Thanks for the gold, chump! [False: say phrase                 ]
+endif                             [Endif to match If                 ]
+
+Program 3:  A simple act program
+                                  [Comments:] 
+mpedit joe add act p heal me      [Add act prog triggered by phrase]
+if ispc($n)                       [Is it a Player?                 ]
+  if isevil($n)                   [True: Is player evil?           ]
+   say I don't heal evil people!  [True: say phrase                ]
+  else                            [Otherwise                       ]
+   say I will heal you, $n.       [Not evil (False): say phrase    ]
+   mpforce $n give 5000 coins joe [Force player give mob 5000 coins]
+   c 'heal' $n                    [Cast heal on player             ]
+ else                             [Otherwise (first if statement)  ]
+  say I don't heal mobs!          [Not PC (False): say phrase      ]
+ endif                            [Endif to match If               ]
+endif                             [Endif to match If               ]
+
+Program 4:  A simple "atmosphere"-type room program
+                                  [Comments:] 
+rpedit add rand 5                 [Add a random program - 5% chance]
+mpecho The crickets chirp in the grass.  [Echo phrase to whole room]
+
+Program 5:  A simple Object program
+                                                 [Comments:]
+opedit sword add repair                          [Add repair program]
+mea $n A silver sword says, 'Oh! That's better!' [Echo at Player]
+mer $n A silver sword gleams in $n's hand.       [Echo around Player]
+
+
+The Economy Code
+----------------
+The Economy Code is something fairly new that was added to the MUD to
+encourage players to explore many areas instead of just sitting in one
+area repeatedly 

@@ -1,0 +1,32 @@
+#CLAN
+Name         Guild of Augurers~
+Filename     augurer.gui~
+Motto        ~
+Description  ~
+Deity        ~
+Leader       ~
+NumberOne    ~
+NumberTwo    ~
+PKills       0
+PDeaths      0
+MKills       0
+MDeaths      0
+IllegalPK    0
+Score        0
+Type         14
+Class        7
+Favour       0
+Strikes      0
+Members      0
+Alignment    0
+Board        21433
+ClanObjOne   0
+ClanObjTwo   0
+ClanObjThree 0
+Recall       21430
+Storeroom    21434
+GuardOne     0
+GuardTwo     0
+End
+
+#END

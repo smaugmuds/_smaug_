@@ -1,0 +1,61 @@
+#SYSTEM
+MudName	     Realms of Despair~
+PortName	     4000~
+Highplayers    842
+Highplayertime Thu Nov 22 23:10:40 2001~
+NewsPath	     ~
+CheckImmHost   1
+Nameresolving  1
+Waitforauth    1
+Readallmail    59
+Readmailfree   51
+Writemailfree  51
+Takeothersmail 59
+IMCMailVnum    21497
+Muse           55
+Think          58
+Build          53
+Log            53
+Protoflag      56
+Overridepriv   59
+Msetplayer     57
+Stunplrvsplr   80
+Stunregular    15
+Gougepvp       65
+Gougenontank   80
+Bashpvp        50
+Bashnontank    75
+Dodgemod       4
+Parrymod       4
+Tumblemod      6
+Tumblepk	     9
+Damplrvsplr    110
+Damplrvsmob    80
+Dammobvsplr    120
+Dammobvsmob    100
+Damnonavvsmob  100
+Dammobvsnonav  90
+Peaceexpmod    100
+Deadlyexpmod   100
+Forcepc        57
+Guildoverseer  Ceirana~
+Guildadvisor   Kinux~
+Saveflags      10469
+Savefreq       5
+Bestowdif      20
+BanSiteLevel   57
+BanRaceLevel   61
+BanClassLevel  61
+MorphOpt       1
+PetSave	     0
+IdentTries     15
+Pkloot	     1
+Pkchannels     0
+Pksilence	     0
+SaveVersion    6
+Wizlock        1
+Magichell      1
+MaxNews	     -1
+End
+
+#END

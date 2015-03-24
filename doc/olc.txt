@@ -1,0 +1,98 @@
+ ****************************************************************************
+ * [S]imulated [M]edieval [A]dventure multi[U]ser [G]ame      |   \\._.//   *
+ * -----------------------------------------------------------|   (0...0)   *
+ * SMAUG 1.4 (C) 1994, 1995, 1996, 1997, 1998 by Derek Snider |    ).:.(    *
+ * -----------------------------------------------------------|    {o o}    *
+ * SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,      |   / ' ' \   *
+ * Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,      |~'~.VxvxV.~'~*
+ * Tricops and Fireblade                                      |             *
+ ****************************************************************************
+
+SMAUG has a very rich, full featured set of online building, creating and
+editing commands, that go way beyond just area creation.
+
+There are commands to edit and create not only rooms, mobiles and objects,
+but resets, shops, repairshops, bulletin boards, mudprograms, spells,
+herbs and more.
+
+At the time of writting this text file, no good documentation was prepared,
+but here is a brief summary of how area creation works with SMAUG.
+
+
+--> 03/31/97, new olc help files have been provided by Herne of RoD, and
+    can be found in this directory as Room.help, Object.help, Mob.help,
+    Resets.help and Prog.help
+
+
+To create and edit rooms, one must be a "Creator" (level 53), and have an
+assigned room range of "vnums" (virtual numbers).  The command "rassign" is
+used by a high level god to assign a range of numbers to a Creator.
+
+Once a Creator has a vnum range assigned, they can type "goto #", where #
+is the vnum they wish to create.  Once at this new location, they can
+use "redit" to edit the various aspects of a room.
+
+The "vnums" command can be used to see what number ranges are already in
+use.
+
+Similarily, the "oassign" and "massign" are used to give out object and
+mobile ranges respectively.  For an immortal to create and edit objects
+and mobiles, they must be at least a Savior (level 54).
+
+For creating objects and mobiles, the commands "ocreate" and "mcreate" are
+used.  The syntax being "ocreate <vnum> [vnum] <name>", where the first
+vnum is the number to use, the second (optional) vnum can be used to make
+this new object a duplicate on another existing object.
+
+Once an object or mobile is created, the oset and mset commands can be
+used to edit them.
+
+Newly created objects, mobiles and rooms all have a special flag called
+the "prototype" flag.  When this flag is set, all changes to an instance
+of that object or mobile will change the base or "prototype" structure.
+
+When the area is completed, it is installed by a (very) high level god
+with the "installarea" command.  This process will make the area into a
+real game area, and remove all the prototype flags.
+
+
+A note on resets:
+
+Resets are typically a messy and confusing issue for builders.  Included
+with the SMAUG distribution are several ways of dealing with resets.
+
+The "reset" command will allow you to do manual, low level reset editing.
+This includes adding, inserting, deleting and editing resets directly by
+number and type.
+
+The reset command also has support to do room based reset commands, which
+is a lot more natural and easy to understand.
+
+Finally, there is "instazone" (and "instaroom") command.  This lets you
+set up your area in the most natural way... placing mobiles into the rooms
+you want them in... making them wear the equipment you want them to wear...
+setting everything up how you want it, then simply type "instazone", and
+it will create resets based on the way your area is set up.
+
+The recommended way to do resets, is to use instazone first... then use
+the other reset commands to fine tune your area.
+
+Lastly, mudprogram editing (via mpedit, opedit, rpedit), can only be done
+by a Demi God, since they can be very dangerous to your mud.
+
+Many steps have been taken to try and make mudprograms safer, including
+making mudprograms on prototype areas restricted (commands like mpforce,
+mpadvance etc are restricted), but mudprograms can still lock up your
+mud if they are made to cause a loop.
+
+
+As of release 1.02, the ability for more than one immortal to work on the
+same area has been added.
+
+An example of this would be a scenario as such:
+Bob has an area (Bob.are), and has agreed that he wants John to help him
+with it.
+
+A high god can BESTOW John with Bob.are ("bestow John Bob.are"), and then
+John can assign himself Bob's area ("aassign Bob.are"), and use loadarea,
+savearea, and have full editing access to Bob's area.

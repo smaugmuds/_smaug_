@@ -1,0 +1,3813 @@
+#AREA   Tullfuhrzky Manor~
+
+
+
+#AUTHOR Cedrick~
+
+#RANGES
+0 10 0 60
+$
+
+#FLAGS
+0 10
+
+#ECONOMY 0 59671270
+
+#MOBILES
+#2405
+snake python~
+a python~
+A python lies here, ready to sink its fangs into you.
+~
+This snake could pick you up and swallow you whole!  You're terrified at
+the thought of coming anywhere near it. 
+~
+67 0 -100 C
+7 0 -20 5d4+60 2d3+1
+7000 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+79 3 0 0 1 1 0
+0 0 67617 288 0 0 1 0
+> greet_prog 85~
+mpechoat $n The python hisses blindly at you.
+~
+> rand_prog 5~
+emote hisses, flicking its tongue out.
+~
+> fight_prog 40~
+emote rears back to strike.
+~
+> death_prog 100~
+if level($n) > 19
+  mpecho The python's corpse is cut to shreds!
+  mpoload 2415
+else
+  mpecho The python hisses loudly as the life drains from its body.
+  mpecho As the python falls to the ground, a piece of its hide is severed from
+  mpecho its body.
+  mpoload 2414
+  mpoload 2415
+endif
+~
+|
+#2407
+dog collie~
+a collie~
+A collie approaches you, looking rather dangerous.
+~
+Although friendly with family members, this collie is a superb watchdog.
+She doesn't approve of your presence in the house.
+~
+3 0 150 C
+5 0 -10 1d1+50 1d1+1
+0 0
+8 8 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+73 3 0 0 1 1 0
+0 0 328381 0 0 1024 0 0
+> greet_prog 100~
+mpechoat $n The collie is not too happy to see you.
+bark $n
+snarl $n
+~
+> rand_prog 5~
+mpecho The dog scratches her ears.
+~
+> rand_prog 5~
+growl
+~
+> fight_prog 35~
+snarl
+growl $n
+~
+|
+#2408
+a large rat~
+a large rat~
+An enormous rat scurries around here.
+~
+Disgusting and disease-ridden fur makes this rat something that you 
+do not want to approach.
+~
+65 0 -200 C
+4 0 -10 0d0+0 3d3+3
+75 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+77 3 0 0 1 1 0
+0 0 67081 0 0 0 0 0
+> death_prog 100~
+mpecho The rat hisses and squeals with its dying breath.
+~
+|
+#2409
+large rat~
+A large rat~
+A large rat wanders about here.
+~
+Disgusting and disease-ridden fur makes this rat something that you 
+do not want to approach.
+~
+3 0 -1 C
+5 0 -10 5d4+60 3d2+2
+75 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+77 3 0 0 395666 324275 0
+0 0 327685 0 0 0 0 0
+> greet_prog 100~
+mpecho $I hisses at you.
+~
+> fight_prog 40~
+mpecho The rat hisses and squeals.
+~
+> death_prog 100~
+if level($n) > 14
+  mpecho Thhe savage attack has reduced the corpse to shreds.
+else
+  mpecho The final blow detaches some of the rat's skin from its body.
+  mpoload 2447
+endif
+~
+|
+#2410
+grandpa man~
+old grandpa~
+An old grandpa sits here, smoking a pipe and reading a book.
+~
+This old man has been around for a long, long time.  Although ancient, a
+dangerous glimmer in his eye makes you wonder just how frail he is.
+~
+3 0 275 C
+7 0 10 5d2+60 2d2+1
+2000 0
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 2047 0 0 0 0 0
+> greet_prog 100~
+mpechoat $n Grandpa squints in your direction.
+say Who are you?  I don't know you.
+if rand(50)
+  mpechoat $n Grandpa tries to hit you with his book!
+  mpechoaround $n Grandpa tries to hit $n with a book!
+  if rand(50)
+    mpechoat $n That hurt!
+    mpechoaround $n Grandpa smacks $n right in the face!
+    mpdamage $n 3
+  else
+    mpechoat $n You duck out of the way just in time!
+    mpechoaround $n $n ducks just in time.
+  endif
+else
+  snarl $n 
+endif
+~
+> fight_prog 50~
+if rand(50)
+  mpecho Grandpa starts coughing with the exertion of the fight.
+  if rand(75)
+    mpechoat $n Your attacks seem to be causing more damage.
+  endif
+else
+  mpechoat $n Grandpa tries to knee you in the stomach!
+  if rand(65)
+    mpechoat $n Grandpa drives his knee into your gut!
+    mpdamage $n 8
+    mpechoaround $n Grandpa knees $n in the stomach!
+  endif
+endif
+~
+> death_prog 100~
+if level($n) > 14
+  mpecho The savagery of the attack reduces some of $I's belongings to scrap.
+  mpjunk 'smoking jacket'
+endif
+~
+|
+#2411
+lady cook Kery~
+the fat cook~
+An old, fat lady is preparing food here.
+~
+Kery the cook looks like she really enjoys taste-testing!  She is very large,
+and very friendly.  
+~
+3 4194305 250 C
+5 0 0 5d4+40 3d1+1
+2000 0
+8 8 2
+13 6 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 2047 0 0 0 0 0
+> greet_prog 100~
+if ispc($n)
+  say Hey, $n, either help me or get out of here.
+  mpechoat $n The cook shoves a mop at you.
+endif
+~
+> rand_prog 5~
+grumble
+say Overworked...underpaid.
+sigh
+close cabinet
+~
+> fight_prog 60~
+if rand(50)
+mpechoat $n The cook grits her teeth and redoubles her efforts.
+else
+mpechoat $n The cook narrows her eyes into a glare of pure hate.
+endif
+if rand(50)
+mpechoat $n The cook pulls your shirt over your head!
+mpechoaround $n The cook pulls $n's shirt over $s head!
+if rand(50)
+mpdamage $n 1
+mpechoat $n The cook knees you in the face!
+mpechoaround $n The cook knees $n in the face!
+else
+mpechoat $n The cook tries to elbow you, but misses.
+mpechoaround $n The cook swings an elbow at $n, but misses.
+endif
+else
+mpecho The cook is starting to look tired.
+endif
+~
+|
+#2412
+rat large~
+a huge rat~
+An enormous rat scurries around here.
+~
+Disgusting and disease-ridden fur makes this rat something that you 
+do not want to approach.
+~
+65 0 -200 C
+5 0 -10 5d5+52 3d2+2
+75 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+77 3 0 0 1 1 0
+0 0 67081 0 0 0 0 0
+#2420
+child~
+A small child~
+A small child washes himself in the tub.
+~
+This is one of the young children in the Tullfuhrzky family.  
+~
+3 0 250 C
+5 0 -10 3d3+45 2d2+2
+400 0
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 2047 0 0 0 0 0
+> greet_prog 100~
+hug $n
+mpechoat $n The child looks innocently up at you.
+say Hello!
+~
+> rand_prog 5~
+emote splashes water around.
+~
+> fight_prog 33~
+if rand(50)
+  say You're hurting me!
+  cry
+else
+  cry
+  yell Mommy!  Help me!
+endif
+~
+> death_prog 100~
+mpechoat $n The child looks up at you, draws his last breath, and dies.
+mpechoaround $n The child looks up at $n, draws his last breath, and dies.
+~
+|
+#2421
+baby~
+a baby~
+A cute baby crawls along on the floor.
+~
+The baby is so little and helpless.  You feel a sense of calm come over you, 
+and couldn't even consider violence.  It would be a sin to harm such a precious
+little creature.
+~
+3 0 1000 C
+3 0 -10 5d5+50 2d2+1
+10 0
+8 8 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 2047 0 0 0 0 0
+> greet_prog 100~
+mpechoat $n The baby looks up at you.
+smile $n
+~
+> fight_prog 55~
+scream
+cry
+~
+> death_prog 100~
+mpechoat $n The baby looks up pitifully at you as its life comes to an end.
+mpechoat $n Good job!  You have slain a helpless baby.
+mpechoat $n A magical force has transferred you to another dimension.
+mptrans $n 2485
+mpat $n mpforce $n say Help!
+~
+> rand_prog 5~
+mpecho The baby crawls around.
+~
+|
+#2422
+Robert boy child~
+Robert~
+Robert Tullfuhrzky is drawing pictures here.
+~
+Robert Tullfuhrzky is quite a budding artist at age 4.  He is very friendly, 
+and is not afraid of anyone.
+~
+3 0 250 C
+6 0 -10 5d6+80 2d2+2
+1000 0
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 1023 0 0 0 32 0
+> greet_prog 100~
+mpechoat $n Robert looks at you.
+say Hello.  Would you like to see one of my paintings?
+smile
+mpechoat $n Robert thrusts a painting in your face.
+mpechoaround $n Robert shoves a painting at $n
+~
+> fight_prog 45~
+if rand(50) 
+  mpecho Robert screams in pain.
+  scream
+else
+  if rand(50)
+    cry
+    yell Help!  Help me!
+    mpechoat $n Robert tries to flee your attack.
+  else
+    scream
+    mpechoat $n $I looks at you, wondering why you have decided to hurt him.
+  endif
+endif
+~
+|
+#2423
+young child~
+a young child~
+A young child sits on his bed.
+~
+This is a young child of the Tullfuhrzky household.
+~
+3 0 150 C
+3 0 1 4d5+75 2d3+2
+600 0
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 2047 0 0 0 0 0
+#2425
+Joshua Tullfuhrzky master man~
+Master Tullfuhrzky~
+Master Tullfuhrzky is angered by your presence.
+~
+Mr. Joshua Tullfuhrzky is a bear of a man, standing over two meters tall.
+Although he is aging, you can see that he still has some fight left in him.
+~
+3 40 350 C
+12 0 1 7d5+130 5d3+4
+7000 0
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+1 0 2047 0 2048 0 0 2
+> fight_prog 50~
+, snarls in rage.
+if rand(60)
+  mpechoat $n Master Tullfuhrzky swings his cane at your head!
+  mpechoaround $n $I swings his cane at $n's head!
+  if rand(80)
+    mpechoat $n His strike glances off your shoulder
+    mpechoaround $n His strike glances off $n's shoulder. 
+    mpdamage $n 15
+  else
+    if rand(45)
+      mpechoat $n His strike bashes you in the face!
+      mpechoaround $n His strike bashes $n in the face!
+      mpdamage $n 20
+    else
+      if rand(20)
+        mpechoat $n His strike nails you in the skull!
+        mpechoaround $n His strike nails $n in the skull!
+        mpdamage $n 35
+      endif
+    endif
+  endif
+else
+  mpechoat $n Master Tullfuhrzky misses you with his cane.
+  mpechoaround $n $I misses $n with his cane.
+endif
+~
+> greet_prog 100~
+if ispc($n)
+  snarl
+  if rand(50)
+    say Begone from my home!  Get out!
+    curse $n
+  else
+    say $n, you are not welcome here.  LEAVE!
+    glare $n
+  endif
+  if rand(50)
+    mpechoat $n Master Tullfuhrzky slaps you across the face!
+    mpechoat $n Ouch!  That hurt!
+    mpechoaround $n Master Tullfuhrzky slaps $n across the face!
+    mpdamage $n 3
+  else
+    mpechoat $n Master Tullfuhrzky tries to slap you, but misses.
+    mpechoaround $n Master Tullfuhrzky takes a swing at $n, but misses.
+  endif
+endif
+~
+> death_prog 100~
+if level($n) > 19
+  mpjunk ring
+endif
+~
+|
+#2426
+Lady Tullfuhrzky woman~
+Lady Tullfuhrzky~
+Lady Tullfuhrzky is terrified by your presence.
+~
+Lady Tullfuhrzky is one of the most beautiful women you have ever seen.
+She is tall and lithe, with dark brown hair, sparkling eyes, and a
+dazzling smile.
+~
+3 40 350 C
+10 0 1 10d2+130 5d3+4
+4000 0
+8 8 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 2047 0 2048 0 16 0
+> fight_prog 30~
+if rand(50)
+  yell Joshua!  Children!  Help me!
+else
+  say Get AWAY from me!
+  glare $n
+endif
+~
+> death_prog 100~
+mpechoat $n With her dying breath, Lady Tullfuhrzky looks you in the eye and
+mpechoat $n says, "Please, tell my children..."
+if level($n) > 19
+  mpecho The brutality of the attack reduces $I's belongings to scraps.
+  mpjunk all
+endif
+~
+> greet_prog 100~
+if ispc($n)
+  mpasound A woman's scream comes from somewhere nearby.
+  scream
+  say Who are you?
+  cringe $n
+  mpechoat $n Lady Tullfhurzky tries to kick you!
+  mpechoaround $n Lady Tullfuhrzky tries to kick $n!
+  if rand(60)
+    mpechoat $n Her kick connects with your shin!
+    mpechoaround $n Lady Tullfuhrzky kicks $n in the shin!
+    mpdamage $n 3
+    mpforce $n wince
+  else
+    mpechoat $n You dodge out of the way just in time.
+    mpechoaround $n $n dodges Lady Tullfhurzky's kick!
+  endif
+endif
+~
+|
+#2442
+spirit~
+the corpse's spirit~
+The corpse's spirit floats above the rotting carcass.
+~
+There's not really much to see, since this is the ghost of a man.  Peering
+intently, you seem to be able to make out a vague shape of shimmering energy.
+~
+3 6291498 -200 C
+6 0 1 1d1+55 5d5+5
+100 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+36 3 0 0 1 1 0
+0 0 0 0 0 0 0 2
+> act_prog p gets a panther-crested shield from a rotting corpse.~
+say $n, you have INVADED my privacy.
+vis
+mpecho The spirit of the corpse fades into existance.
+say You die!
+mpkill $n
+~
+> death_prog 100~
+if level($n) > 19
+else
+  mpoload 2426
+endif
+~
+> rand_prog 4~
+mpecho You sense a presence moving about the room.
+~
+> rand_prog 5~
+mpecho You feel something brush past you.
+mpat 3 c invis
+~
+|
+#2443
+rotting corpse~
+this mob is not used~
+A corpse slowly decomposes here.
+~
+~
+1 0 0 C
+1 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 2047 0 0 0 0 0
+#2450
+torturer~
+an evil-looking torturer~
+A black-hooded torturer stands here, ready to massacre you.
+~
+You see a man dressed completely in black.  His entire body is covered, except
+for his mouth, which is drawn into an evil grin.  He looks like he enjoys
+dishing out pain.
+~
+3 4194344 -500 C
+11 0 1 10d3+120 3d2+6
+25000 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+2 0 2046 0 2048 0 33 2
+> fight_prog 40~
+if rand(50)
+  mpechoat $n The torturer snarls angrily as he tries to destroy you.
+else
+  mpechoat $n The torturer cracks his whip at your face, but misses.
+endif
+if rand(70)
+else
+  say You think you're pretty tough, hotshot?
+  if rand(50)
+    say I shall bury you in an unmarked grave, coward.
+  endif
+endif
+~
+> all_greet_prog 100~
+mpechoat $n The torturer looks at you with a glint in his eye.
+grin
+say $n... you have the name of a coward.
+say Congratulations, you have found me.
+say You may now have a taste of my whip.
+mpkill $n
+~
+> death_prog 100~
+if level($n) > 29
+  mpecho The corpse of this once fearsome man now lies mangled.
+  mpjunk all
+endif
+~
+|
+#2455
+riding horse~
+a riding horse~
+A beautiful manor riding horse stands here.
+~
+A strong, proud, and properly groomed manor horse meets your gaze.
+You are just dying for a ride, aren't you?
+~
+262145 40 200 C
+8 0 1 9d3+100 3d3+2
+1000 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+86 3 0 0 1 262145 0
+0 0 66621 0 0 0 0 0
+> rand_prog 4~
+mpecho The horse swishes its tail.
+~
+> rand_prog 4~
+nuzzle $n
+~
+|
+#2456
+stablehand man~
+a stablehand~
+An old stablehand is hard at work.
+~
+You see an old man with gnarled hands.  He has been performing the same
+tasks for over thirty-five years, and is quite bitter about it.
+~
+1 0 200 C
+7 0 1 5d5+80 3d2+1
+3000 0
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 2047 0 0 0 0 0
+> greet_prog 100~
+mpechoat $n The stablehand looks up at you and sees nothing of interest.
+~
+|
+#2460
+Nanny Nana~
+a decrepit old nanny~
+Nana is here, rocking merrily away.
+~
+Nana can't be less than 100 years old.  Her skin is wrinkled, her eyesight
+is failing, and her hearing is poor.  In spite of this, her face has a 
+kindness to it.
+~
+65 0 250 C
+7 0 1 10d2+60 2d2+1
+25000 0
+8 8 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 79 0 0 0 0 0
+> all_greet_prog 100~
+if isnpc($n)
+else
+  mpechoat $n Nana looks at you in confusion.
+  if rand(50)
+    say Joshua?  Is that you?
+  else
+    say Robert?  Come to grandma.
+    smile $n
+  endif
+endif
+~
+|
+#2462
+servant boy~
+a servant boy~
+A small servant boy relaxes here.
+~
+The little boy is only about five years old, and has already been introduced
+to the harsh world of forced labor.
+~
+3 8 -100 C
+5 0 15 3d3+60 2d2+2
+20 0
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 2047 0 0 0 0 0
+> greet_prog 100~
+mpechoat $n The little boy is terrified of you.
+cringe $n
+~
+> fight_prog 35~
+cry
+if rand(50)
+  say You're hurting me!
+else
+  say Stop hurting me!
+endif
+~
+> fight_prog 35~
+yell $n is killing children!  Help me!
+~
+|
+#2463
+man servant~
+a house servant~
+A house servant rests after a long day.
+~
+Years of labor have worn this man down.  He looks tired and unhappy, and
+is not particularly happy to be looking at you.
+~
+3 0 200 C
+6 0 1 4d5+60 2d3+3
+3000 0
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 2047 0 0 0 0 0
+> all_greet_prog 100~
+if ispc($n)
+  if rand(50)
+    say What're ya doin' here?  Get outta here!  Go on, move yer butt.
+  else
+    snarl $n
+    say Get LOST!  This is MY house.
+  endif
+  mpechoat $n The servant shoves you toward the door.
+  mpechoaround $n The house servant shoves $n toward the door.
+    if rand(40)
+    mpechoat $n The house servant kicks you out the door...literally!
+    mpdamage $n 3
+    mpechoat $n That hurt!
+    mpechoaround $n $n gets kicked out the door!
+    mpforce $n south
+  endif
+endif
+~
+|
+#2465
+gardener man~
+the gardener~
+The gardener works hard to produce fresh vegetables.
+~
+The man before you has been worn down by years of tilling the soil.
+He looks old and frail, but has a glint of wisdom in his eye.
+~
+7 0 250 C
+9 0 1 5d5+160 4d5+5
+4000 0
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 2047 0 2048 0 32 0
+> act_prog p sits down.~
+say Here is what I have to offer you.  Please, take your time.
+mpforce $n list
+~
+> act_prog p stands up.~
+if rand(50)
+  say Leaving so soon?  Have a good day, $n.
+  wave $n
+else
+  say Please come again.
+  shake $n
+endif
+~
+> rand_prog 5~
+emote starts tilling the soil.
+~
+> all_greet_prog 100~
+if isnpc($n)
+else
+  mpechoaround $n The gardener looks at $n.
+  if rand(50)
+    say Greetings, $n, please have a seat and examine my produce.
+    smile $n
+  else
+    bow $n
+    say Hello, $n, please sit down.
+  endif 
+endif
+mpechoat $n The gardener motions for you to sit.
+~
+|
+#2471
+cockroach roach~
+a giant cockroach~
+An extremely LARGE roach wanders about.
+~
+This is the biggest, most disgusting roach you have ever seen in your life.
+~
+65 0 -275 C
+7 0 1 4d3+78 3d4+4
+100 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+83 3 0 0 1 1 0
+0 0 9273 1 0 256 0 0
+> death_prog 100~
+if level($n) > 19
+  mpecho The carcass of the roach is damaged beyond recognition.
+else
+  mpecho As the roach falls its exoskeleton detaches from the rest of its body.
+  mpoload 2429
+endif
+~
+|
+#2472
+cockroach roach~
+this mob is not used~
+An extremely LARGE roach wanders about.
+~
+This is the biggest, most disgusting roach you have ever seen in your life.
+~
+65 0 -275 C
+3 0 0 4d3+20 3d2+2
+0 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+83 3 0 0 1 1 0
+0 0 9273 1 0 256 0 0
+#2484
+judge~
+The Judge~
+The Final Judge glares at you.
+~
+The Judge is dressed in long, flowing robes, and has an air of arrogant
+superiority about him.
+~
+1073741829 369098920 -1000 C
+2 0 0 1d1+30000 1d1+1000
+0 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 34815 224 1052159 0 1359405504 532583
+> all_greet_prog 100~
+mea 0.$n $I looks at you with a glare of hatred in his eyes.
+say VERMIN!  You SCUM!  CHILD KILLER!
+yell $n Is a CHILD killer!
+say You do not deserve LIFE.
+say However, I will pardon you this time.
+mea 0.$n The Judge points his finger at you...
+say Begone, you vile murderer!
+mea 0.$n By the Judge's mercy, you have been transferred to...
+if ispkill($n)
+  mea 0.$n Gravoc's waiting presence.
+  mptrans 0.$n 3009
+else
+  if rand(35)
+    mea 0.$n $n Hawk Street & Law Avenue
+    mptrans 0.$n 21016
+  else
+    if rand(45)
+      mea 0.$n Dwarven Day Care
+      mptrans 0.$n 6601
+    else
+      if rand(50)
+        mea 0.$n The Miden'nir
+        mptrans 0.$n 3504
+      else
+        mea 0.$n Thoth's Rune
+        mptrans 0.$n 21001
+      endif
+    endif 
+  endif
+endif
+~
+|
+#0
+
+
+#OBJECTS
+#2400
+toybox box~
+a cute wooden toybox~
+A cute wooden toybox sits here~
+~
+15 0 0
+50 5 0 0
+0 0 0
+E
+box toybox~
+The box is painted white, with pictures of butterflies and wooden blocks.
+~
+#2401
+mixing bowl~
+a mixing bowl~
+Here sits a large mixing bowl.~
+~
+15 0 1
+30 0 0 0
+1 50 5
+#2402
+wooden spoon~
+a wooden spoon~
+A cook's wooden spoon has been dropped here.~
+~
+5 262208 8193
+12 2 5 0
+1 100 10
+E
+spoon~
+The spoon is long and strong.
+~
+A
+18 1
+A
+19 1
+#2403
+well~
+a well~
+A small stone water well descends into the ground here.~
+~
+25 0 0
+0 0 0 0
+0 0 0
+#2404
+baker's apron~
+this object is not used~
+A plain baker's apron has been discarded here.~
+~
+15 0 1
+0 0 0 0
+0 0 0
+#2405
+rolling pin~
+a rolling pin~
+A rolling pin lies on the ground, forgotten.~
+~
+5 8454208 8193
+12 0 0 7
+3 500 50
+A
+18 2
+A
+1 1
+#2406
+pile gold coins~
+a large pile of gold~
+A large pile of gold coins lies here.~
+~
+20 0 1
+40000 0 0 0
+0 50000 5000
+#2407
+safe~
+a safe~
+A safe sits in the corner.~
+~
+15 8 0
+100 15 2425 0
+0 0 0
+#2408
+book~
+a book entitled "50 Ways to Heal the Dying"~
+A book entitled "50 Ways to Heal the Dying" lies on the ground.~
+~
+3 64 16385
+15 3 3 15
+0 0 0
+E
+book~
+Instructions:  just hold this book and zap somebody with it to make
+them feel better!
+~
+#2409
+smoking jacket~
+a plaid smoking jacket~
+A old, plaid smoking jacket has been left on the ground.~
+~
+9 256 9
+6 5 0 0
+8 0 0
+A
+17 -4
+A
+18 1
+#2410
+pipe~
+a hand-carved pipe~
+Someone carelessly dropped their pipe on the ground.~
+~
+4 0 16385
+11 3 3 72
+2 4000 400
+A
+3 2
+#2411
+row cabinet cabinets~
+a large array of cabinets~
+A large row of cabinets hangs above the sink.~
+~
+15 0 0
+30 5 0 0
+0 0 0
+#2412
+toolshed shed~
+a small toolshed~
+A small toolshed stands on the grounds here.~
+~
+15 0 0
+999 5 0 0
+0 0 0
+#2413
+gardening shears~
+a small pair of gardening shears~
+A small pair of gardening shears sits here.~
+~
+5 16908352 8193
+12 0 0 1
+4 0 0
+A
+19 1
+A
+2 1
+#2414
+snakeskin hide cloak~
+the hide of a python~
+A cloak made from the skin of a python lies here.~
+~
+9 262144 1025
+6 6 0 0
+2 0 0
+A
+5 1
+A
+27 256
+#2415
+wand venom fang~
+a fang filled with venom~
+A fang filled with python's venom has been dropped here.~
+~
+3 0 16385
+15 6 6 33
+1 2000 200
+#2416
+dresser~
+object not used~
+Some god dropped a newly created dresser here.~
+~
+15 0 0
+10 5 0 0
+0 0 0
+#2417
+panther-crested ring~
+panther-crested ring~
+A ring with the crest of a panther glitters on the ground.~
+~
+9 524352 3
+5 5 0 0
+1 4000 400
+A
+2 1
+A
+1 1
+A
+18 1
+#2418
+bar soap~
+a bar of soap~
+A bar of soap is here for you to trip over.~
+~
+26 0 1
+30 28 1 81
+1 3000 300
+#2419
+nightshirt shirt~
+a nightshirt~
+A nightshirt with the image of a panther has been discarded here.~
+~
+9 0 9
+5 0 0 0
+2 100 10
+A
+17 -10
+A
+5 1
+#2420
+cabinet~
+a small wooden cabinet~
+A cabinet is here, waiting to be opened.~
+~
+15 0 0
+50 5 0 0
+0 0 0
+#2421
+silk robe~
+a silk bathrobe~
+A soft silk bathrobe sits here, waiting to be worn.~
+~
+9 262144 9
+8 0 0 0
+7 1600 160
+A
+17 -4
+A
+4 1
+A
+25 1
+#2422
+ivory cane~
+an ivory cane~
+An expensive-looking ivory cane has been carelessly left here.~
+~
+4 320 16385
+1 1 1 36
+15 10000 1000
+#2423
+black patent leather shoes~
+black patent leather shoes~
+Some rich person has left their black patent leather shoes here.~
+~
+9 262144 65
+5 5 0 0
+2 1000 100
+A
+17 -5
+A
+14 50
+#2424
+sapphire ring~
+a dazzling sapphire ring~
+A sapphire ring glistens and sparkles.~
+~
+9 65 3
+5 5 0 0
+1 2000 200
+A
+13 5
+A
+2 1
+A
+18 2
+#2425
+key safekey~
+a small, metal safe key~
+A small, metal safe key sits here.~
+~
+18 524288 1
+2407 0 0 0
+0 0 0
+#2426
+vial potion undead~
+a vial of undead spirits~
+On the ground is a vial of undead spirit potion.~
+~
+10 80 1
+10 28 18 29
+1 3000 300
+#2427
+dog collar~
+a gem encrusted dog collar~
+On the ground sits a gem-encrusted dog collar.~
+~
+9 524288 5
+3 3 0 0
+8 0 0
+A
+17 -1
+A
+3 1
+> wear_prog 100~
+if level($n) > 10
+  mpechoat $n You seem to have outgrown this collar.
+  mpechoaround $n $n's neck is too big for $O.
+  mpforce $n remove $o
+endif
+~
+|
+#2428
+cowhide whip~
+a cowhide whip~
+A long whip made of cowhide lies on the ground.~
+~
+5 8651776 8193
+12 2 6 4
+2 560 56
+A
+18 2
+#2429
+exoskeleton breastplate plate~
+a cockroach's exoskeleton~
+Here lies a breastplate fashioned from the exoskeleton of an enormous roach.~
+~
+9 262144 9
+5 7 0 0
+3 10000 1000
+A
+5 1
+A
+17 -7
+> use_prog 100~
+mpechoaround $n Squishing noises abound as $n squeezes into $O.
+mpechoat $n Squishing noises abound as you squeeze into $O.
+~
+|
+#2430
+gold~
+this object is not used~
+25000 gold coins lie here.~
+~
+20 0 1
+0 0 0 0
+0 25000 2500
+#2431
+purse coin~
+a coin purse~
+A small coin purse lies here.~
+~
+15 320 1
+65 5 0 0
+1 50 5
+#2432
+spectacles glasses~
+gold spectacles~
+Somebody has lost their spectacles here.~
+~
+9 524288 131073
+4 3 0 0
+1 8600 860
+A
+3 1
+#2433
+shawl~
+a shawl~
+A raggedy shawl is lying in the dirt.~
+~
+9 256 5
+4 3 0 0
+4 4000 400
+A
+17 -5
+A
+4 1
+#2434
+wooden knife~
+a wooden knife~
+A child has dropped a wooden knife here.~
+~
+5 262208 8193
+12 0 0 2
+1 50 5
+#2435
+fairy tale book~
+a book of fairy tales~
+A book of fairy tales has been left on the floor.~
+~
+2 0 1
+2 20 56 1
+1 1000 100
+#2436
+pocket watch~
+an expensive-looking pocket watch~
+An expensive-looking pocket watch has been left here.~
+~
+9 524288 16385
+4 4 0 0
+2 24000 2400
+A
+2 1
+A
+9 -14
+#2437
+candle~
+a wax candle~
+A wax candle flickers in the darkness.~
+~
+1 1 16385
+0 0 65 0
+1 0 0
+#2438
+cloth diaper~
+a cloth diaper~
+A cloth diaper lies on the ground.~
+~
+9 0 2049
+1 1 0 0
+0 0 0
+#2439
+paintbrush brush~
+a paintbrush~
+A brush drips with fresh watercolor paint.~
+~
+3 64 16385
+9 4 4 10
+1 0 0
+#2440
+make-up compact~
+an ivory make-up compact~
+A small, ivory make-up compact has been forgotten on the floor.~
+~
+4 320 16385
+14 3 3 226
+1 1000 100
+#2441
+chef apron~
+a chef's apron~
+A white chef's apron has been discarded here.~
+~
+9 0 9
+3 3 0 0
+1 1000 100
+A
+17 -5
+A
+13 5
+#2442
+panther-crested helmet~
+a panther-crested helmet~
+Someone has dropped a helmet with the crest of a panther here.~
+~
+9 0 17
+2 4 0 0
+2 75 7
+A
+5 1
+#2443
+panther-crested shield~
+a panther-crested shield~
+Lying here is a shield with the crest of a panther.~
+~
+9 0 513
+4 4 0 0
+3 50 5
+A
+17 -6
+A
+24 -1
+#2444
+rotting corpse~
+a rotting corpse~
+A grotesque corpse rots away.~
+~
+15 0 0
+5 0 0 0
+0 0 0
+#2445
+scroll avatar avatar's~
+an avatar's scroll~
+An avatar's scroll lies here.~
+~
+2 65 1
+4 39 228 227
+1 10000 1000
+E
+scroll~
+You are looking at a scroll which contains the 5 best lines heard over the
+avatar channel.  To view the entries, type "look one", "look two", etc.
+~
+E
+one~
+"Let it be known that if I ever start to resemble Iceman in any way, shape,
+or form, I want to be killed immediately."
+-Quoted from Kyra
+~
+E
+two~
+"Link, you buy the dumbest things on auction."
+-Quoted from Boheme
+~
+E
+three~
+"What is stupid?  Anything said by Zippy."
+-Quoted from Rhianna
+~
+E
+four~
+"You may address me as master."
+-Quoted from Zippy.  This proves Rhianna's theory.  See number three.
+~
+E
+five~
+"Where can I buy roots?"
+-Overheard by Beran.  Speakers name withheld for fear of slaying.
+~
+#2446
+tin shield~
+a tin shield~
+Somebody dropped a cheap tin shield on the floor.~
+~
+9 0 513
+2 2 0 0
+3 50 5
+A
+17 -3
+A
+22 -1
+#2447
+rat fur cloak~
+a rat fur cloak~
+A cloak made of rat fur sits on the ground.~
+~
+9 262144 1025
+3 4 0 0
+2 100 10
+A
+17 -6
+A
+13 10
+#2448
+small mirror~
+a small mirror~
+A small mirror has been left on the ground.~
+~
+3 320 16385
+10 2 2 7
+1 50 5
+#2449
+undershirt shirt tattered~
+a tattered undershirt~
+An old, tattered undershirt has been discarded here.~
+~
+9 0 9
+1 3 0 0
+1 50 5
+A
+17 -4
+#2450
+key~
+skeleton key~
+A skeleton key lies here.~
+~
+18 0 1
+2450 0 0 0
+0 0 0
+#2451
+torturer's whip~
+a nasty torturer's whip~
+A long, nasty-looking whip lies here.~
+~
+5 199252 8193
+12 0 0 4
+2 5400 540
+A
+13 20
+A
+18 4
+A
+19 5
+#2452
+torturer's mask~
+black torturer's mask~
+On the ground lies a black mask with two eyeholes.~
+~
+9 199188 17
+4 5 0 0
+3 3000 300
+A
+3 1
+A
+18 1
+#2453
+torn pants~
+a pair of torn pants~
+An old pair of torn pants have been dropped here.~
+~
+9 0 33
+2 3 0 0
+1 100 10
+A
+17 -2
+#2454
+gavel judgement~
+the Gavel of Judgement~
+The Gavel of Judgement lies on the ground.~
+~
+5 0 8193
+12 50 70 7
+5 2000000 200000
+#2455
+riding stick~
+a riding stick~
+A riding stick has been dropped here.~
+~
+5 64 8193
+12 0 0 0
+4 450 45
+A
+18 1
+A
+19 2
+A
+2 -1
+#2456
+pair of chaps~
+a pair of leather chaps~
+A pair of leather chaps have been discarded here.~
+~
+9 262144 33
+2 5 0 0
+2 630 63
+A
+17 -2
+#2457
+oil lamp~
+an oil lamp~
+An oil lamp burns brightly.~
+~
+1 524289 1
+0 0 70 0
+4 5 0
+#2458
+carrot~
+an orange carrot~
+A large, orange carrot pokes up from the ground.~
+~
+26 262144 1
+3 19 -1 -1
+6 500 50
+#2460
+chest drawers~
+a chest of drawers~
+A chest of drawers sits in the corner.~
+~
+15 262144 0
+30 5 0 0
+0 0 0
+#2461
+watermelon~
+a juicy watermelon~
+A tantalizing watermelon grows here.~
+~
+26 262144 1
+5 39 56 -1
+15 900 90
+#2462
+head lettuce~
+a head of lettuce~
+A head of lettuce is growing here.~
+~
+26 262144 1
+14 15 -1 -1
+4 500 50
+#2463
+port barrel wine~
+a barrel of port wine~
+Several barrels of port wine are stacked here.~
+~
+17 262144 1
+20 20 2 0
+14 0 0
+#2464
+dried meat~
+some dried meat~
+On a shelf sits some dried meat.~
+~
+19 0 1
+5 0 0 0
+1 0 0
+#2465
+cheese~
+delicious cheddar cheese~
+The shelves contain some wonderful cheddar cheese.~
+~
+19 0 1
+0 0 0 0
+1 0 0
+#2466
+deck cards~
+a deck of playing cards~
+A deck of playing cards lies here.~
+~
+9 0 16385
+2 2 0 0
+2 0 0
+A
+4 1
+A
+2 1
+#2486
+trough~
+a water trough~
+A trough filled with cool water stands here.~
+~
+25 0 0
+0 0 0 0
+0 0 0
+#2498
+sword~
+not used~
+A deadly elvenbane lies here.~
+~
+5 0 8193
+12 60 100 3
+0 0 0
+A
+17 -399
+A
+18 100
+A
+19 100
+#2499
+potion sprite~
+not used~
+A Sprite~
+~
+10 0 1
+50 28 28 28
+0 0 0
+#0
+
+
+#ROOMS
+#2400
+The Main Gate~
+As you reach the top of the hill, you come upon a large, three-story manor.
+Past the gate, you can see a nice, well-maintained yard, with trees and
+flowers.  The house is red brick with white trim, and two candle lamps are
+on either side of the door.  You could turn around and go back the way you 
+came, or enter the yard through the gate.  As you look to your right, you
+see a small bronze plaque embedded in a rock.
+~
+0 8 0
+D0
+You see the front of a manor.
+~
+gate~
+3 -1 2401
+D5
+This direction leads back down the hill.
+~
+~
+0 -1 2467
+E
+plaque~
+Welcome!  This area is intended for levels 1 to 10.  Remember, LOOK at 
+everything.  There is a lot you will miss if you don't stop and examine your
+surroundings.  Good luck and have fun!
+-Cedrick, April 1996
+~
+E
+rock~
+The rock has a small plaque embedded in it.
+~
+S
+#2401
+Before the Front Door~
+As you pass through the gate, you come up to the house's front door.  The
+white lacy blinds are drawn across the front windows, preventing you from
+peeking inside.  You peer through the window in the door.  Apparently
+nobody is home.  It really is a nice looking house.  It wouldn't hurt to
+take a quick look inside, would it?  Or, you could wander into the yard,
+which extends east and west.
+~
+0 8 0
+D0
+The door leads into the house.
+~
+door~
+3 -1 2406
+D1
+The yard continues on to the east.
+~
+~
+0 -1 2402
+D2
+The main gate is this way.
+~
+gate~
+3 -1 2400
+D3
+The yard continues on to the west.
+~
+~
+0 -1 2403
+E
+door~
+The door has a small square window built into it.
+~
+E
+window~
+Looks pretty empty.
+~
+S
+#2402
+East of the Front Door~
+You walk around the east side of the house.  Looking in the windows, you
+can see a parlor.  To the west is the front door to the home, and east takes
+you around the house.
+~
+0 12 0
+D1
+The yard continues to the east.
+~
+~
+0 -1 2405
+D3
+You see the front of the house.
+~
+~
+0 -1 2401
+S
+#2403
+West of the Front Door~
+You are standing in the yard, west of the front door.  A small well is
+full of cold, clear water.  The beautiful lawn takes you around the manor
+to the west, or back east to the main enterance.
+~
+0 12 0
+D1
+The main enterance is this way.
+~
+~
+0 -1 2401
+D3
+The yard continues west.
+~
+~
+0 -1 2404
+S
+#2404
+Southwest Corner of the Manor~
+This is the southwest corner of the manor house.  To the north, you see the
+yard extends far back into the distance.  A large fence prevents movement
+to the west.  More yard lies north, or you could return the way you came.
+~
+0 12 0
+D0
+The yard continues north.
+~
+~
+0 -1 2412
+D1
+The yard continues east.
+~
+~
+0 -1 2403
+E
+fence~
+The fence is about fifteen feet high.  Looks like the owners don't want
+anyone wandering around here.
+~
+S
+#2405
+Southeast Corner of the Manor~
+You are standing at the southeast corner of the manor.  A large fence prevents
+movement to the east.  Your only choices are to go around the house to the
+north, or to return west to the front door.
+~
+0 12 0
+D0
+The yard continues north.
+~
+~
+0 -1 2415
+D3
+The yard continues to the west.
+~
+~
+0 -1 2402
+S
+#2406
+The Foyer~
+As you step into the house, you take a look around.  You are standing in
+what appears to be the front hallway.  A mirror hangs on the wall to the
+east, and a coat stand sits in the corner.  On the floor, a beautiful rug
+draws your attention.  Wait!  What's that?  You hear noises coming from
+within the house.  Maybe somebody is home after all.  You consider this
+as you decide whether or not to continue on.
+~
+0 8 0
+D0
+You see a comfortable room ahead.
+~
+~
+0 -1 2408
+D1
+A parlor lies this way.
+~
+~
+0 -1 2464
+D2
+This leads out of the house.
+~
+~
+3 -1 2401
+D5
+~
+trapdoor~
+11 -1 2407
+E
+rug~
+As you lift up the rug, you see...a trapdoor!
+~
+E
+mirror~
+You see...YOU!
+~
+E
+trapdoor~
+The trapdoor leads into darkness.
+~
+E
+stand~
+Would you care to hang your coat?
+~
+S
+#2407
+The Basement~
+Oops!  You wonder why you went down without looking first.  You slide down a
+chute, and land with a *THUMP* on the well-padded floor.  As you look at the 
+opening well above your head, you realize that you will have to find another
+way out of here.  Other than a small safe built into the wall, there does
+not seem to be anything else of interest here.
+~
+0 3153928 0
+D2
+South leads to a staircase.
+~
+~
+3 -1 2474
+S
+#2408
+A Luxurious Living Room~
+You find yourself in a comfortable living room.  Beautiful artwork adorns
+the walls, and you take a second to look at it all.  A crackling fire burns
+in the fireplace.  A large, sturdy oak chair and a nice couch makes this
+place feel like home.  Turning around, you see the curtains which prevented
+you from looking through the windows.  There are also a few potted plants
+sitting next to the windows, soaking up sunlight.  A beautiful grandfather
+clock sits against the west wall.  A staircase leads up from here.
+~
+0 8 0
+D0
+The kitchen is this way.
+~
+~
+0 -1 2411
+D1
+You see the study.
+~
+~
+1 -1 2410
+D2
+The foyer lies to the south.
+~
+~
+0 -1 2406
+D4
+The staircase leads to the second floor.
+~
+staircase~
+0 -1 2419
+D5
+~
+~
+0 -1 2409
+E
+artwork~
+Wow!  A real Picasso!
+~
+E
+fireplace~
+This brick fireplace appears to get a lot of use.
+~
+E
+fire~
+It looks like....well, a fire.
+~
+E
+couch~
+Makes you really want a nap.
+~
+E
+curtains~
+White lace curtains are drawn across the windows.
+~
+E
+plant~
+Just your run-of-the-mill houseplant.
+~
+E
+chair~
+A sturdy, oak chair.
+~
+E
+art~
+Wow!  A real Picasso!
+~
+S
+#2409
+The Secret Room~
+Well what do you know?  A secret room!  It is quite dark in here, although
+the living room windows provide enough light to see with.  It is very damp
+in this room, and there is a tunnel leading down from here.  You try to peer
+down, but can not penetrate the blackness.  You shiver unconsciously and 
+decide to move on.
+~
+0 12 0
+D4
+~
+~
+0 -1 2408
+D5
+You see darkness.
+~
+~
+0 -1 2429
+S
+#2410
+A Comfortable Study~
+As you enter a large room, all you see is books, books, and more books!
+Every wall is lined with bookshelves.  They run from the ceiling to the
+floor, all completely full.  You glance over some of the titles.  Two
+leather chairs sit in the corner with a coffee table between them.
+Underneath your feet is a large Persian rug.  A window in the east wall
+reveals the yard outside.
+~
+0 8 0
+D3
+West takes you back to the living room.
+~
+~
+1 -1 2408
+E
+books~
+Some of the titles include "Immortality on the Realms of Despair", "How to
+Build an Area In Less Than 80 Days", "1,001 Ways to Annoy Taboo", "50 Reasons
+Why All Areas Should Have DT's", "The Sad Life of an Avatar", and "Arkin's
+Coding: A SlaveDriver Speaks".
+~
+E
+bookshelves~
+Never in your life have you seen so many shelves.
+~
+E
+window~
+You can see the yard outside.
+~
+E
+rug~
+This thing must have cost a fortune!
+~
+S
+#2411
+The Kitchen~
+Upon entering the kitchen, you begin to feel very warm.  A huge oven
+dominates the entire west wall.  Looking under it, you see the large
+amount of wood fueling the flame.  Along the north wall is a small
+basin, with a pitcher and towel alongside.  There are cabinets above
+the basin, which probably contain dishes and glassware.  Hanging on
+the south wall is a large array of knives.  In the middle of the
+room is a large wooden table.  You may leave the house to the north,
+or enter the pantry to the east.
+~
+0 8 0
+D0
+The door leads outside.
+~
+~
+3 -1 2418
+D1
+There is quite a bit of food this way.
+~
+~
+3 -1 2463
+D2
+You see a spacious living room.
+~
+~
+0 -1 2408
+S
+#2412
+West of the Manor~
+You are standing west of the manor.  Other than a toolshed sitting here,
+there is nothing of interest.  The fence prevents your going west.
+~
+0 12 0
+D0
+yard continues north.
+~
+~
+0 -1 2413
+D2
+The yard continues south.
+~
+~
+0 -1 2404
+S
+#2413
+Continuing Along the West Side of the Manor~
+The yard continues north around the house.
+~
+0 12 0
+D0
+The yard continues north.
+~
+~
+0 -1 2414
+D2
+The yard continues south.
+~
+~
+0 -1 2412
+S
+#2414
+Northwest Corner of the Manor~
+This is the northwest corner of the manor.  The fence prevents your
+movement north and west.  To the east, you can see the back door to the
+home.  
+~
+0 12 0
+D1
+East takes you to the backyard.
+~
+~
+0 -1 2418
+D2
+The yard continues south.
+~
+~
+0 -1 2413
+S
+#2415
+East of the Manor~
+You are walking around the east side of the house.  The fence runs along
+to your right.
+~
+0 12 0
+D0
+The yard continues north.
+~
+~
+0 -1 2416
+D2
+The yard continues south.
+~
+~
+0 -1 2405
+S
+#2416
+Continuing Along the East Side of the Manor~
+You are following the yard around the east side of the house.  You can see a
+study through a window to the west.  The fence still runs to your right. 
+~
+0 12 0
+D0
+The yard continues north.
+~
+~
+0 -1 2417
+D2
+The yard continues south.
+~
+~
+0 -1 2415
+S
+#2417
+Northeast Corner of the Manor~
+You are standing at the northeast corner of the house.  Going west leads to
+more yard.  South takes you back towards the front of the house.
+~
+0 12 0
+D2
+The yard continues south.
+~
+~
+0 -1 2416
+D3
+West leads to the backyard.
+~
+~
+0 -1 2418
+S
+#2418
+The Backyard~
+You are standing behind the manor.  The yard stretches out to the north.
+Looking that way, you see two small structures standing next to each other.
+Farther on, you see a small garden, and beyond that, you think you can see
+another building but can't quite make it out behind all the hedges.  The
+yard splits off in all directions here.  East and west takes you back
+around the manor,  and south leads back into the house.
+~
+0 12 0
+D0
+North leads farther into the backyard.
+~
+~
+0 -1 2451
+D1
+The yard continues east.
+~
+~
+0 -1 2417
+D2
+The door leads into the rear of the house.
+~
+~
+3 -1 2411
+D3
+~
+~
+0 -1 2414
+S
+#2419
+The Second Floor Landing~
+The second floor branches off in all directions.  The carpeting here is
+worn and stained.  It evidently gets quite a bit of use, because you can
+see the wood floor in the spots where the carpet has worn through.  You see
+paintings on the wall, along with a portrait of the entire family.  Looking
+north, you see another hallway.  To the west is a playroom, and east looks
+like a bathroom.  Turning around, you notice yet another hallway leading
+south, and also a staircase leading up.  You wonder which way to go.
+~
+0 8 0
+D0
+You see another hallway.
+~
+~
+0 -1 2422
+D1
+You see a bathroom.
+~
+~
+3 -1 2420
+D2
+You see another hallway.
+~
+~
+0 -1 2458
+D3
+West leads to the playroom.
+~
+~
+3 -1 2421
+D4
+It is really dark...
+~
+staircase~
+0 -1 2426
+D5
+The staircase takes you back to the living room.
+~
+staircase~
+0 -1 2408
+S
+#2420
+A Large Bathroom~
+This is just a standard bathroom.  A wash basin, complete with a pitcher
+and towel, sits to your left.  Above that is a small, but adequate mirror.
+Linen cabinets line the wall.  A large tub sits along the wall to your right.
+A candle chandelier provides overhead illumination.
+~
+0 8 0
+D3
+The landing lies in this direction.
+~
+~
+3 -1 2419
+E
+basin~
+Just a standard basin, used for washing up.
+~
+E
+cabinets~
+The cabinet probably has towels and linens.
+~
+E
+mirror~
+Yup...it's you all right.
+~
+E
+chandelier~
+It appears to be made of diamond.
+~
+E
+pitcher~
+The pitcher is used to fill the basin.
+~
+E
+tub~
+You aren't sure if you're looking at a tub or a swimming pool.
+~
+S
+#2421
+The Playroom~
+What a mess!  There are toys strewn about the room, and children are 
+everywhere.  You carefully aviod stepping on anything.  The windows to the
+west offer you a view of the endless forest beyond the house.  A toybox sits
+along the north wall.
+~
+0 8 0
+D1
+East will return you to the landing.
+~
+~
+3 -1 2419
+E
+window~
+You see a sprawling forest.
+~
+S
+#2422
+A Hallway on the Second Floor~
+You are in a hallway on the second floor.  To the east, you can see
+a fairly large bed and a dresser.  It doesn't appear to be in use, and you
+figure that it is a guest room.  To the west is a room filled with beds and
+several dressers.  North you can see a huge room with an enormous bed and
+a shield hanging on the wall.  
+~
+0 8 0
+D0
+North leads you to the Master Bedroom.
+~
+~
+3 -1 2425
+D1
+Just another bedroom.
+~
+~
+3 -1 2424
+D2
+South leads to the landing.
+~
+~
+0 -1 2419
+D3
+You see a room full of beds and dressers.
+~
+~
+3 -1 2423
+S
+#2423
+The Children's Bedroom~
+Here is where all the children in the house sleep.  Beds line the wall to the
+north, and rows of dressers sit to the south.  It is brightly painted, giving
+a sense of happiness and warmth.  Hanging on the walls are whimsical drawings
+which the children created.  
+~
+0 8 0
+D1
+You see the hallway.
+~
+~
+3 -1 2422
+E
+drawing painting drawings~
+What a cute drawing!  You see a picture of the entire family, mom, dad,
+and all the siblings.
+~
+S
+#2424
+The Guest Bedroom~
+This room is small and spartan, containing a bed, a chair, and a tiny
+Oriental rug.  The master of the manor must not entertain a lot of house
+guests.  The tiny window in the east wall provides a poor view of the 
+outlying forest. 
+~
+0 8 0
+D3
+You see the hallway.
+~
+~
+3 -1 2422
+E
+bed~
+Your baby crib was bigger than this.
+~
+E
+chair~
+This chair has no cushion, no arm rests, and does not look comfortable at all.
+~
+E
+window~
+Peering through the tiny window, you get a glimpse of the yard and surrounding 
+forest.
+~
+E
+oriental rug~
+A remnant of the Ming dynasty.
+~
+S
+#2425
+The Master Bedroom~
+Well, you have found your way to the master bedroom.  The owner would not be
+pleased with your intrustion.  You see a huge, comfortable king-sized bed, 
+along with a large desk, two dressers, and a full-length mirror.  Several
+large windows offer you a wonderful view of the outlying forest.  Hanging
+on the wall is a shield with the crest of a panther.  Crossed over the shield
+are two deadly scimitars.
+~
+0 8 0
+D1
+~
+~
+3 -1 2466
+D2
+You see the hallway.
+~
+~
+3 -1 2422
+E
+bed~
+The king-sized bed looks VERY inviting.
+~
+E
+mirror~
+You look into the mirror, and a horrible beast stares back!  You draw your
+weapon and prepare for battle!  Oh, wait, that's just you.
+~
+E
+window~
+You see a sprawling forest.
+~
+E
+scimitar~
+This blade could do some serious damage.
+~
+E
+shield~
+A large shield, crested with a panther.
+~
+S
+#2426
+The Attic~
+You are in the attic.  It is cold, damp, and really dark.  You can
+barely see five feet in front of your face.  As you walk on the floorboards,
+you can feel them bending beneath your feet.  Apparently nobody comes up here.
+It does not look like this place has been entered in years.  The layer of
+dust on the walls is thick enough to write your name in.  The attic continues
+to the west, where it is pitch black.  You could leave back down the stairs.
+A cold chill runs down your spine as you decide what to do. 
+~
+0 13 0
+D3
+It is REALLY dark that way.
+~
+~
+0 -1 2427
+D5
+You can leave down.  The concept entices you.
+~
+staircase~
+0 -1 2419
+S
+#2427
+Further Into the Attic~
+You really feel scared now.  The boards are bending more now, and making
+odd creaking sounds.  There aren't even rats up here.  The darkness is
+so thick that your light can't penetrate more than two meters.  As you try
+to peer north, you get a really bad feeling.  Maybe you should turn back 
+right now.
+~
+0 13 0
+D0
+The darkness gives you a bad feeling...
+~
+~
+0 -1 2428
+D1
+You can leave to the east.  Maybe that's a good idea.
+~
+~
+0 -1 2426
+S
+#2428
+Oops~
+On your next step, your foot goes right through the floorboard.  Unable to keep
+you balance, you fall forward.  Fortunately, you fall onto a solid part of the
+floor.  The part of the floor by the door crumbles away, leaving a gaping
+hole!  There's no way out...
+~
+0 12 0
+S
+#2429
+The Sub-Basement~
+It is really dark down here.  You can't see a thing.  You seriously
+consider turning around immediately.  As a matter of fact, that might
+be a good idea.
+~
+0 13 0
+D1
+It is so dark...
+~
+~
+0 -1 2430
+D4
+You think you can see light above.
+~
+~
+0 -1 2409
+S
+#2430
+The Labyrinth~
+Looking up, you see a burning torch mounted high on the wall.  Maybe that's
+why it was so dark in the room to the west.  The torch must have gone out.
+This room is utterly empty.  Damp, moldy walls make this place reek.  Your 
+only choice is to continue on or turn back.
+~
+0 12 0
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2431
+D3
+West leads out of here.
+~
+~
+0 -1 2429
+S
+#2431
+The Laybrinth~
+You are in some sort of maze underneath the manor house.  The dark gray, moldy
+walls are disorienting.  You realize that it would be very easy to get 
+hopelessly lost in here.  Looking back, you see the way you came, the path
+back to safety.  In the other directions, all you see is corridors, dark
+and dismal.
+~
+0 12 0
+D0
+The exit to this place is north.
+~
+~
+0 -1 2430
+D1
+You see nothing but darkened corridors.
+~
+~
+0 -1 2434
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2432
+S
+#2432
+The Laybrinth~
+The laybrinth branches off in many directions.
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2431
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2438
+D3
+This is the enterance to the wine cellar.
+~
+~
+0 -1 2433
+D6
+You see nothing but darkened corridors.
+~
+~
+0 -1 2434
+D8
+You see nothing but darkened corridors.
+~
+~
+0 -1 2439
+S
+#2433
+The Wine Cellar~
+This room is cold and damp.  Wooden kegs of wine are stacked from the floor
+to the ceiling.  Along one wall is a huge wine rack, filled with various
+bottles of choice vintages.
+~
+0 8 0
+D1
+~
+~
+0 -1 2432
+S
+#2434
+An Intersection~
+The dark corridors branch off here.  You have no way of knowing which path
+to choose.  You can only pick one, and hope...
+~
+0 8 0
+D1
+You see nothing but darkened corridors.
+~
+~
+0 -1 2435
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2440
+D3
+You see nothing but darkened corridors.
+~
+~
+0 -1 2431
+D6
+You see nothing but darkened corridors.
+~
+~
+0 -1 2437
+D9
+You see nothing but darkened corridors.
+~
+~
+0 -1 2432
+S
+#2435
+The Laybrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2437
+D1
+You see nothing but darkened corridors.
+~
+~
+0 -1 2436
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2445
+D3
+You see nothing but darkened corridors.
+~
+~
+0 -1 2434
+S
+#2436
+The Laybrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2446
+D3
+You see nothing but darkened corridors.
+~
+~
+0 -1 2435
+D7
+You see nothing but darkened corridors.
+~
+~
+0 -1 2437
+S
+#2437
+The Laybrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2441
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2435
+D8
+You see nothing but darkened corridors.
+~
+~
+0 -1 2436
+D9
+You see nothing but darkened corridors.
+~
+~
+0 -1 2434
+S
+#2438
+The Laybrinth~
+As you come up on a corner, you begin to feel completely lost.  Which way
+did you come from?  You can't remember.  What could be lurking down here?
+You shudder at the thought.  Best to keep moving.
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2432
+D1
+You see nothing but darkened corridors.
+~
+~
+0 -1 2439
+S
+#2439
+The Laybrinth~
+You are really lost now.  As you come up on yet another intersection, you
+spy a massive slate-grey metal door to the south.  Curious, you pull on the
+handle, but it does not budge.  Pressing your ear to the door, you hear 
+the sound of...machinery?  
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2440
+D2
+~
+~
+1063 2450 2450
+D3
+You see nothing but darkened corridors.
+~
+~
+0 -1 2438
+D7
+You see nothing but darkened corridors.
+~
+~
+0 -1 2432
+S
+#2440
+The Laybrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2434
+D1
+You see nothing but darkened corridors.
+~
+~
+0 -1 2445
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2439
+S
+#2441
+The Laybrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2442
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2437
+S
+#2442
+The Laybrinth~
+You are lost in a maze of corridors.  An absolutely repulsive stench drifts in
+from the west.  From the east, you hear a fearsome hissing and rattling.  You 
+shiver as you decide what to do.
+~
+0 8 0
+D1
+~
+~
+0 -1 2444
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2441
+D3
+~
+~
+0 -1 2443
+S
+#2443
+The Laybrinth~
+This is the final resting point of some poor adventurer.  Built into the
+wall is a small niche in which the corpse of a man lies.  The body is beginning
+to decompose, making the whole room stink.  You think about searching the 
+corpse for anything useful, but the very idea repulses you.
+~
+0 8 0
+D1
+~
+~
+0 -1 2442
+S
+#2444
+A Gruesome Lair~
+What a disgusting, horrible place!  Blood covers every square centimeter
+of the walls.  The decaying guts of several animals...or maybe people...
+are scattered across the floor.  Bones are everywhere.  This whole room
+reminds you of only one thing - DEATH.
+~
+0 8 0
+D3
+~
+~
+0 -1 2442
+S
+#2445
+The Laybrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2435
+D3
+You see nothing but darkened corridors.
+~
+~
+0 -1 2440
+D8
+You see nothing but darkened corridors.
+~
+~
+0 -1 2468
+S
+#2446
+The Labyrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2436
+D1
+You see nothing but darkened corridors.
+~
+~
+0 -1 2447
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2468
+S
+#2447
+The Labyrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2448
+D3
+You see nothing but darkened corridors.
+~
+~
+0 -1 2446
+S
+#2448
+The Labyrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2447
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2449
+S
+#2449
+The Labyrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2448
+D7
+You see nothing but darkened corridors.
+~
+~
+0 -1 2468
+S
+#2450
+Torture Room~
+Now you've done it.  Maybe you shouldn't have been so curious about
+this room.  Deadly looking machines and instruments are everywhere.
+You see equipment for every type of torture imaginable.  Cringing,
+you turn around and are greeted with an array of whips, spears,
+and chains.  A chill runs down your spine as you contemplate
+the evil that can occur here.
+~
+0 8 0
+D0
+North will take you out of this horrible place.
+~
+~
+33 0 2439
+S
+#2451
+Farther into the Backyard~
+You find yourself standing right outside two wooden shacks.  The one to 
+the west smells horrible.  The shack to the north appears to be a residence
+of some sort.  The yard continues to the east, and also leads back south to
+the manor.
+~
+0 12 0
+D0
+You see the servants' home.
+~
+~
+3 -1 2462
+D1
+Several paths intersect this way.
+~
+~
+0 -1 2453
+D2
+South takes you closer to the house.
+~
+~
+0 -1 2418
+D3
+You catch a whiff of a putrid odor...
+~
+~
+3 -1 2452
+S
+#2452
+The Outhouse~
+Phew!  You really want to get out of here.  The whole place absolutely 
+reeks.  How can the servants stand living right next to such a stench?
+Apparently, the master of the house does not care.  At least the walls seem
+to be solid, and the roof is relatively whole.  You hold your nose, for the
+smell is starting to gag you.  
+~
+0 12 0
+D1
+East leads to the yard...and fresh air!
+~
+~
+3 -1 2451
+> rand_prog 10~
+mpecho The horrid stench has overcome you.  You feel very sick.
+mpforce all puke
+~
+|
+S
+#2453
+An Intersection~
+A few paths intersect here.  The north one brings you to a small, but very
+beautiful garden.  Heading west brings you back to the manor.  From the 
+east, you catch a whiff of...hay?  
+~
+0 12 0
+D0
+You see a garden.
+~
+~
+0 -1 2465
+D1
+You see the stables.
+~
+~
+0 -1 2454
+D3
+West will take you back toward the house.
+~
+~
+0 -1 2451
+S
+#2454
+The Stable Entrance~
+This is the gate to the stables.  Oddly enough, the stables seem to be in 
+better condition than the servants' quarters.  It doesn't smell as bad either.
+As you peer past the gate, you think that you see some motion from within. 
+Maybe somebody's in there.
+~
+0 12 0
+D1
+The horses are corraled here.
+~
+gate~
+3 -1 2455
+D3
+You see an intersection of paths.
+~
+~
+0 -1 2453
+S
+#2455
+The Horse Stalls~
+This is the private stables for the manor.  You see 5 separate stalls,
+each with it's own bed of hay and feeding trough.  The floor is kept 
+incredibly clean.  The owner must take really good care of the horses.
+~
+0 12 0
+D0
+~
+gate~
+33 -1 2457
+D2
+You see lots of horse equimpent.
+~
+~
+0 -1 2456
+D3
+You see the enterance to the stables.
+~
+gate~
+3 -1 2454
+S
+#2456
+Equipment Storage~
+This room is used to store extra equipment for the horses.  On the northern
+wall you see several saddles and bridles.  An array of horseshoes dominates
+the west wall.  Hanging on the south wall are several pieces of jockey
+equipment:  whips, riding sticks, and chaps.  The only way out of here is
+back to the north.
+~
+0 12 0
+D0
+You see the horse stalls.
+~
+~
+0 -1 2455
+S
+#2457
+The Field~
+You are in a large field.  This is the area in which the horses are ridden.
+You see several obstacles in various spots in the field.  The grass is fairly
+worn.  The owner is obviuosly an avid equestrian.  The field continues north
+and west, and the stables lie to the south.
+~
+0 0 2
+D0
+~
+~
+0 -1 2483
+D2
+You see horse stalls.
+~
+gate~
+1 -1 2455
+D3
+~
+~
+0 -1 2482
+S
+#2458
+A Darkened Hallway on the Second Floor~
+You are in a hallway on the second floor.  It is much darker here than the
+rest of the house.  This must be the servant's section of the manor.  East
+and south appear to be bedrooms, and to the west lies another bathroom.
+Apparently, the owners do not want the servants to use the same bathroom.
+~
+0 8 0
+D0
+The landing lies in this direction.
+~
+~
+0 -1 2419
+D1
+You see a bedroom.
+~
+~
+3 -1 2459
+D2
+You see a bedroom.
+~
+~
+3 -1 2460
+D3
+This leads to a ridiculously small bathroom.
+~
+~
+3 -1 2461
+S
+#2459
+The Cook's Bedroom~
+This room is absolutely pathetic.  You've seen prison cells with more
+furniture than this.  The only things in the room are the bed, one chair, 
+and a mirror that probably would fit into your pocket.  
+~
+0 8 0
+D3
+The hallway lies in this direction.
+~
+~
+3 -1 2458
+S
+#2460
+Nanny's Bedroom~
+This is where the nanny retires for the evening.  It is a sparse room, with
+a bed, a small rocking chair, and a rug.  Nothing hangs on the cold, white
+walls.  A tiny window provides minimal light during the daytime.  A single
+candle is on a nightstand next to the bed, and a chest of drawers sits in
+the corner.  The only way out of here is back the way you came.
+~
+0 8 0
+D0
+lead back into the hall.
+~
+~
+3 -1 2458
+E
+bed~
+A tiny bed with a cheap mattress.
+~
+E
+chair~
+Your typical nanny's rocking chair.
+~
+E
+rug~
+You see a small rug, which prevents what little heat in the room from escaping 
+through the floor
+~
+S
+#2461
+A Tiny Bathroom~
+You can't believe how small this room is.  You barely have room to walk, 
+let alone do anything else.  There is one candle on the wall, providing 
+scant light for the room.  You can not imagine anyone older than 5 fitting
+into that minute tub.  The washing basin is no wider than a dinner plate.
+Even the pitcher is small.  You start getting claustrophobic, and want to
+leave.
+~
+0 8 0
+D1
+You desperately want to get out of this TINY room.
+~
+~
+3 -1 2458
+E
+candle~
+It provides a little light for the room.
+~
+E
+tub~
+~
+S
+#2462
+Servants' Quarters~
+You walk through the doorway into a wooden shack.  You know that servants
+don't usually get the best accomodations, but this is ridiculous.  The whole
+room is virtually empty, except for a small straw mat and a cabinet, and
+underneath your feet is clay;  the poor servants don't even have a floor to
+their house.  Poorly built walls have no chance of keeping any heat within
+the shack, and the windows aren't even windows; they're small squares cut in
+the wall covered with animal skin.  Above you is a straw roof, which has
+holes in several places.  The only exit is to the south.  
+~
+0 12 0
+D2
+This way leads you out of this wretched place.
+~
+~
+3 -1 2451
+E
+mat~
+A simple straw mat serves as a bed.
+~
+S
+#2463
+The Pantry~
+You have never seen so much food.  It is everywhere, stacked on the floor,
+and on shelves.  You see flour, dried meat, and grain on one wall.  On the
+other side sits pastries, cheese, and baskets full of fruit.  Stacked on
+the floor are a few barrels of portwine.  You become really hungry, and
+decide to take something.
+~
+0 8 0
+D3
+West will take you back to the kitchen.
+~
+~
+3 -1 2411
+S
+#2464
+The Parlor~
+You are in a small, comfortable room.  Several high-backed chairs line the
+walls, and between them are solid cherry coffee tables.  The walls are made
+of oak paneling, with stunning crystal candlelamps providing light.  In
+the center of the room sits a round table with several chairs surrounding
+it.  There is a deck of cards sitting on it.  The floor is carpeted, and
+meticulously maintained.  Some works of art are hanging on the walls.  The
+only exit is west, which takes you back to the main foyer.
+~
+0 8 0
+D3
+West will return you to the foyer.
+~
+~
+0 -1 2406
+E
+lamp~
+Within the beautiful crystal lamp burns a solitary white candle.
+~
+E
+chair~
+A rather large chair, upholstered with red velvet.
+~
+E
+art~
+Looks like a genuine Breugel.
+~
+S
+#2465
+The Garden~
+You are standing in a beautiful garden.  Row upon row of flowers stretch
+off into the distance.  A small patch of vegetables grows here as well.  
+A wall standing six meters tall surrounds the garden.  Just beyond the wall
+is a small forest of trees. 
+~
+0 0 0
+D2
+~
+~
+0 -1 2453
+S
+#2466
+The Master Bathroom~
+Never in your life have you seen a more expensive bathroom.  The elegance and
+ostentatiousness of this room astounds you.  Almost everything in the room is
+made of marble.  The mirror hanging on the wall is framed in gold.  Overhead,
+a diamond chandelier provides light.
+~
+0 8 0
+D3
+~
+~
+3 -1 2425
+E
+mirror~
+Just looking at this thing makes you feel rich.
+~
+E
+chandelier~
+The chandelier is made totally of gold and diamonds.
+~
+S
+#2467
+A Gentle Hill~
+Your progress becomes a little difficult as the ground slopes up into a hill.
+To the east and west, all you can see is forest, and at the top of the hill
+you think you can make out a gate and a large fence.  You can continue on
+and explore what lies ahead, or return south toward the pond.
+~
+0 0 4
+D2
+You see a small path.
+~
+~
+0 -1 2492
+D4
+You think you see a small gate ahead.
+~
+~
+0 -1 2400
+S
+#2468
+An Intersection~
+The dark corridors branch off here.  You have no way of knowing which 
+path to choose.  You can only pick one, and hope...
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2446
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2469
+D7
+You see nothing but darkened corridors.
+~
+~
+0 -1 2445
+D8
+You see nothing but darkened corridors.
+~
+~
+0 -1 2449
+S
+#2469
+The Labyrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2468
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2470
+D8
+You see nothing but darkened corridors.
+~
+~
+0 -1 2491
+S
+#2470
+The Labyrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2469
+D3
+You see nothing but darkened corridors.
+~
+~
+0 -1 2471
+S
+#2471
+The Labyrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D1
+You see nothing but darkened corridors.
+~
+~
+0 -1 2470
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2473
+D3
+You see nothing but darkened corridors.
+~
+~
+0 -1 2472
+S
+#2472
+The Labyrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D1
+You see nothing but darkened corridors.
+~
+~
+0 -1 2471
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2475
+D3
+You see nothing but darkened corridors.
+~
+~
+0 -1 2478
+S
+#2473
+The Labyrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2471
+D8
+You see nothing but darkened corridors.
+~
+~
+0 -1 2488
+S
+#2474
+A Staircase~
+Ah!  You knew there had to be a way out!  You climb the stairs and come to 
+a door.  You push the door open, and finds that it opens into the parlor.
+Looking at the other side of the door, you find that it is ingeniously 
+concealed in the wall.  You realize that you will not be able to re-enter
+this room from the parlor.
+~
+0 12 0
+D0
+North will take you back into the basement.
+~
+~
+3 -1 2407
+D4
+~
+~
+0 -1 2464
+S
+#2475
+The Labyrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2472
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2476
+S
+#2476
+The Labyrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2475
+D3
+You see nothing but darkened corridors.
+~
+~
+0 -1 2487
+S
+#2477
+The Labyrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2478
+S
+#2478
+An Intersection~
+The dark corridors branch off here.  You have no way of knowing which
+path to choose.  You can only pick one, and hope...
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2477
+D1
+You see nothing but darkened corridors.
+~
+~
+0 -1 2472
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2479
+D3
+You see nothing but darkened corridors.
+~
+~
+0 -1 2481
+S
+#2479
+The Labyrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2478
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2487
+D3
+You see nothing but darkened corridors.
+~
+~
+0 -1 2480
+S
+#2480
+The Labyrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2481
+D1
+You see nothing but darkened corridors.
+~
+~
+0 -1 2479
+S
+#2481
+The Labyrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D1
+You see nothing but darkened corridors.
+~
+~
+0 -1 2478
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2480
+S
+#2482
+The Field~
+The field leads north and east from here.  The ground does not appear to be
+as worn here.  You can see a water trough to the north.
+~
+0 0 2
+D0
+~
+~
+0 -1 2486
+D1
+~
+~
+0 -1 2457
+S
+#2483
+The Field~
+You are in the northeast corner of the field.  There is nothing here but
+open grass.  Well, it used to be grass.  It has been used so much that now
+there is just a large area of mud.
+~
+0 0 2
+D2
+~
+~
+0 -1 2457
+D3
+~
+~
+0 -1 2486
+S
+#2484
+Final Judgment~
+You have really done it now.  You are floating, helpless, in a void. 
+The judge sits behind his desk, ready to pass judgment on you.
+~
+0 3145804 0
+S
+#2485
+An Antechamber~
+You are in a room with no walls at all.  Looking around, you see nothing. 
+Complete and total nothingness.  A chill envelops your body.  Down below, 
+you can see an important-looking man sitting in a chair.  He doesn't look too
+happy, and you would just as soon leave.
+~
+0 3154060 0
+D5
+~
+~
+0 -1 2484
+> speech_prog p Help!~
+mpforce $n down
+~
+|
+S
+#2486
+The Field~
+This is the northwest corner of the field.  The mud is ankle deep here, and
+is sticking to your shoes.  Apparently, the horses like to walk around the 
+water trough.
+~
+0 0 2
+D1
+~
+~
+0 -1 2483
+D2
+~
+~
+0 -1 2482
+S
+#2487
+The Labyrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2479
+D1
+You see nothing but darkened corridors.
+~
+~
+0 -1 2476
+S
+#2488
+The Labyrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D1
+You see nothing but darkened corridors.
+~
+~
+0 -1 2489
+D7
+You see nothing but darkened corridors.
+~
+~
+0 -1 2473
+S
+#2489
+The Labyrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2490
+D3
+You see nothing but darkened corridors.
+~
+~
+0 -1 2488
+S
+#2490
+The Labyrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D0
+You see nothing but darkened corridors.
+~
+~
+0 -1 2491
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2489
+S
+#2491
+The Labyrinth~
+You are lost in a maze of corridors.
+~
+0 8 0
+D2
+You see nothing but darkened corridors.
+~
+~
+0 -1 2490
+D7
+You see nothing but darkened corridors.
+~
+~
+0 -1 2469
+S
+#2492
+A small path in the forest~
+You find yourself wandering along a small path through the forest.  Ahead of
+you is a gently sloping hill.  You can't quite make out what is at the top.
+Trees and brush surround you to the east and west.  You can investigate
+what lies ahead, or return south to the pond.
+~
+0 0 3
+D0
+A gentle hill rises slowly ahead...
+~
+~
+0 -1 2467
+D9
+A small pond...
+~
+~
+0 -1 2096
+S
+#2493
+Floating in a void~
+~
+0 12 0
+S
+#2494
+Floating in a void~
+~
+0 12 0
+S
+#2495
+Floating in a void~
+~
+0 3145740 0
+S
+#2496
+Floating in a void~
+~
+0 12 0
+S
+#2497
+Floating in a void~
+~
+0 12 0
+S
+#2498
+Floating in a void~
+~
+0 12 0
+S
+#2499
+Floating in a void~
+~
+0 12 0
+S
+#0
+
+
+#RESETS
+D 0 2400 0 1
+D 0 2401 0 1
+D 0 2401 2 1
+O 1 2403 1 2403
+M 0 2407 1 2406
+E 1 2427 1 3
+D 0 2406 2 1
+D 0 2406 5 1
+M 0 2409 2 2407
+O 1 2407 1 2407
+P 1 2450 1 2407
+P 1 2406 1 2407
+P 1 2445 1 2407
+D 0 2407 2 1
+D 0 2408 1 0
+M 0 2410 1 2410
+G 1 2436 1
+G 1 2408 1
+E 1 2410 1 17
+E 1 2409 1 5
+D 0 2410 3 0
+M 0 2411 1 2411
+E 1 2405 1 16
+E 1 2441 1 5
+O 1 2411 1 2411
+P 1 2402 1 2411
+P 1 2401 1 2411
+D 0 2411 0 1
+D 0 2411 1 1
+O 1 2412 1 2412
+P 1 2413 1 2412
+D 0 2418 2 1
+D 0 2419 1 1
+D 0 2419 3 1
+M 0 2420 1 2420
+O 1 2420 1 2420
+P 1 2421 1 2420
+D 0 2420 3 1
+M 0 2421 1 2421
+E 1 2438 1 13
+O 1 2400 1 2421
+P 1 2434 1 2400
+P 1 2435 1 2400
+D 0 2421 1 1
+D 0 2422 0 1
+D 0 2422 1 1
+D 0 2422 3 1
+M 0 2422 1 2423
+E 1 2439 1 17
+D 0 2423 1 1
+D 0 2424 3 1
+M 0 2425 1 2425
+E 1 2422 1 17
+E 1 2423 1 8
+E 1 2424 1 1
+G 1 2425 1
+D 0 2425 1 1
+D 0 2425 2 1
+O 1 2463 2 2433
+M 0 2408 2 2435
+D 0 2439 2 2
+M 0 2412 4 2440
+M 0 2442 1 2443
+G 1 2426 1
+O 1 2444 1 2443
+P 1 2442 1 2444
+P 1 2443 1 2444
+M 0 2405 1 2444
+M 0 2471 4 2447
+M 0 2408 2 2449
+M 0 2450 1 2450
+E 1 2452 1 6
+E 1 2451 1 16
+D 0 2451 0 1
+D 0 2451 3 1
+D 0 2452 1 1
+D 0 2454 1 1
+M 0 2455 3 2455
+M 0 2455 3 2455
+D 0 2455 0 0
+D 0 2455 3 1
+M 0 2456 1 2456
+E 1 2428 1 16
+O 1 2455 1 2456
+O 1 2456 1 2456
+D 0 2457 2 0
+D 0 2458 1 1
+D 0 2458 2 1
+D 0 2458 3 1
+O 1 2448 1 2459
+D 0 2459 3 1
+M 0 2460 1 2460
+E 1 2433 1 3
+E 1 2432 1 20
+O 1 2460 1 2460
+P 1 2440 1 2460
+P 1 2431 1 2460
+D 0 2460 0 1
+O 1 2437 1 2461
+D 0 2461 1 1
+M 0 2462 1 2462
+E 1 2449 1 5
+M 0 2463 1 2462
+E 1 2453 1 7
+O 1 2457 1 2462
+D 0 2462 2 1
+O 1 2464 1 2463
+O 1 2465 1 2463
+O 1 2463 2 2463
+D 0 2463 3 1
+O 1 2466 1 2464
+M 0 2465 1 2465
+G 1 2462 1
+G 1 2461 1
+G 1 2458 1
+M 0 2426 1 2466
+E 1 2419 1 5
+E 1 2418 1 17
+E 1 2417 1 1
+D 0 2466 3 1
+M 0 2412 4 2468
+O 1 2446 1 2468
+M 0 2409 2 2470
+M 0 2471 4 2472
+D 0 2474 0 1
+M 0 2412 4 2479
+O 1 2447 1 2479
+M 0 2412 4 2481
+M 0 2484 1 2484
+E 1 2454 1 16
+M 0 2455 3 2486
+O 1 2486 1 2486
+M 0 2471 4 2488
+M 0 2471 4 2490
+S
+
+
+#SHOPS
+ 2465    0  0  0  0  0   150  90         0 23    ; the gardener
+0
+
+
+#REPAIRS
+0
+
+
+#SPECIALS
+M  2405 spec_poison
+M  2462 spec_thief
+M  2484 spec_janitor
+S
+
+
+#$

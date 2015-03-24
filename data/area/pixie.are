@@ -1,0 +1,867 @@
+#AREA   Pixie Forest~
+
+
+
+#AUTHOR Caine~
+
+#RANGES
+1 5 0 60
+$
+
+#RESETMSG A pixie pops into view then flutters away, giggling...~
+
+#FLAGS
+0 5
+
+#ECONOMY 0 14805000
+
+#MOBILES
+#2070
+brown forest bear~
+a forest bear~
+A brown forest bear casually strolls through his wooded domain.
+~
+This large fellow, a forest dweller, has brown fur which matches his brown
+eyes - which very nearly match his yellowish-brown teeth, which he looks to
+be interested in matching with your neck, skull and other parts.  The
+undisputed ruler of this forest, he is arrogant in his disdain of
+your presence.
+ 
+~
+65 0 0 C
+7 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+24 3 0 0 512 513 0
+0 0 263725 0 0 0 2 0
+> death_prog 100~
+mpe _yel As the bear breathes its last and collapses with a thud.
+mpe _yel You notice one of its long, curved claws has fallen loose.
+mpoload 2071
+~
+> fight_prog 15~
+, spreads its jaws wide and nearly roars you backwards!
+~
+|
+#2071
+air sprite pixie~
+an air sprite~
+A minute air sprite darts about upon the currents of clear air.
+~
+You find it difficult to get a good look as the creature flies quickly
+by, streaming what you could swear to be the pixie dust of myth behind
+it as it bobs and darts about.
+ 
+~
+65 524296 0 C
+3 0 0 0d0+0 0d0+1
+1000 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+4 3 0 0 9 9 0
+0 0 34543 0 0 0 0 2
+> fight_prog 20~
+mpe _cya $I shrieks wildly through the air, trying to avoid harm.
+~
+> death_prog 100~
+mpe _cya As the small creature plunges to the surface, a wing is torn off.
+mpoload 2072
+~
+|
+#2072
+quasit demon imp~
+a demonic quasit imp~
+A quasit imp lurks through the shadows along the ground.
+~
+This little (relatively) quasit appears to have taken over a small cave
+within the pixie forest.  His leathery grey skin, horns, bony frame and
+spiked tail mark him as a minor demon, perhaps here of his own accord,
+or perhaps to keep a watchful eye on the forest's creatures...
+ 
+~
+3 0 -1000 C
+5 0 0 0d0+0 0d0+0
+1500 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+85 3 0 0 9 9 0
+0 0 1115887 0 2048 0 0 2
+> fight_prog 15~
+mpe $I's shriek resounds through the cave!
+~
+> death_prog 100~
+mpe _red As the foul imp perishes, a small object slips its grasp...
+mpoload 2070
+~
+|
+#2073
+water pixie sprite~
+a water pixie~
+A water pixie frolics and dances along the water.
+~
+A lithe water sprite dances upon the surface here, enjoying your presence
+with a delightful laugh... oblivious to the danger you present.
+ 
+~
+3 524288 0 C
+4 0 0 0d0+0 0d0+0
+1000 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+4 3 0 0 9 9 0
+0 0 34543 0 2048 0 0 2
+> fight_prog 10~
+mpe _cya $I releases a lash of iced-filled water from its outstretched hand!
+mpdamage $n 3
+~
+> death_prog 100~
+mpe _cya $I collapses into the water, forming a circle of liquid.
+mpoload 2073
+~
+|
+#0
+
+
+#OBJECTS
+#2070
+pearl black~
+a black pearl~
+A strange black pearl seems to stare back at you.~
+~
+9 262208 16385
+5 5 0 0
+1 400 40
+A
+14 25
+A
+4 1
+A
+12 10
+> use_prog 100~
+mea 0.$n You wrap your palm tightly around the strange black pearl.
+mer 0.$n $n wraps $s palm tightly around a strange black pearl.
+~
+|
+#2071
+claw forest bear~
+the claw of a forest bear~
+The giant claw of a forest bear draws your curiosity.~
+~
+5 262144 8193
+0 0 0 5
+0 0 0
+A
+5 2
+A
+1 1
+#2072
+crystal pixie wing~
+a crystal pixie wing~
+A crystal pixie wing flutters aimlessly.~
+~
+9 262208 65537
+1 2 0 0
+1 1 0
+A
+3 2
+> use_prog 100~
+mea 0.$n You affix a tiny wing of crystal to your earlobe.
+mer 0.$n $n affixes a tiny wing of crystal to $s earlobe.
+~
+|
+#2073
+hoop water sprite ring~
+a hoop of flowing water~
+A ring formed from a circle of flowing water lies here.~
+~
+22 64 3
+0 0 0 0
+2 100 10
+A
+12 12
+#2074
+beaker plentiful potions potion~
+a beaker of plentiful potions~
+A mystical concoction is here waiting to be quaffed.~
+~
+10 64 1
+10 15 1 81
+2 1500 150
+#2075
+pad paper~
+A pad of paper~
+A pad of paper rests upon a table here.~
+~
+12 0 0
+0 0 0 0
+10000 0 0
+#2076
+smooth waters water~
+waters smooth as crystal~
+Waters smooth as crystal absorb the ripples of your passage.~
+~
+25 1073741824 0
+30000 30000 0 0
+1 0 0
+> rand_prog 3~
+~
+|
+#0
+
+
+#ROOMS
+#2070
+A small clearing~
+You stand near the southwestern edge of a grassy clearing.  A slight 
+breeze blows from the north, bending the blades of dark green grass
+towards you.  The clearing continues to the east and to the north.
+~
+0 0 2
+D0
+A small clearing
+~
+~
+0 -1 2072
+D1
+A small clearing
+~
+~
+0 -1 2071
+S
+#2071
+A small clearing~
+You stand close to the southeastern edge of a grassy meadow.  A large
+oak nearby casts a shadow over much of this section of the clearing.
+The clearing continues to the north and to the west.
+~
+0 0 2
+D0
+A small clearing
+~
+~
+0 -1 2073
+D3
+A small clearing
+~
+~
+0 -1 2070
+E
+tree oak~
+This ancient oak casts a shadow across much of the southeastern section
+of the clearing.  Upon close inspection you notice that the tree has many
+hollows in it where some of the air sprites make their homes.
+~
+S
+#2072
+A small clearing~
+You stand near the northwestern edge of the grassy clearing, a small
+gust of wind from the north ruffles your clothing.  The clearing 
+continues to the east and to the south.
+~
+0 0 2
+D1
+A small clearing
+~
+~
+0 -1 2073
+D2
+A small clearing
+~
+~
+0 -1 2070
+S
+#2073
+A small clearing~
+You stand near the northeastern part of this grass filled meadow.  To
+the north and east paths lead off into the forest.  The clearing itself
+leads on to the south and west.
+~
+0 0 2
+D0
+A path 
+~
+~
+0 -1 2075
+D1
+A path
+~
+~
+0 -1 2074
+D2
+A small clearing
+~
+~
+0 -1 2071
+D3
+A small clearing
+~
+~
+0 -1 2072
+S
+#2074
+A junction in the forest path~
+You have reached a cross of trails leading in four directions.  A clearing
+can be seen to the west, and pathways wander off into the forest to the
+northeast, southeast and north.  From somewhere above, a beam of light
+shines down.
+~
+0 0 3
+D0
+A path
+~
+~
+0 -1 2076
+D3
+A small clearing
+~
+~
+0 -1 2073
+D6
+A further bend in the path.
+~
+~
+0 -1 2099
+D8
+A curve in the forest trail.
+~
+~
+0 -1 21404
+S
+#2075
+A path through the forest~
+The dirt path you are following through this light forest continues
+to the east and to the south.
+~
+0 0 3
+D1
+A path
+~
+~
+0 -1 2076
+D2
+A small clearing
+~
+~
+0 -1 2073
+S
+#2076
+A path through the forest~
+The path you are following through the forest leads to the north, south
+and west.  The woods north of here seem a bit darker then the rest of
+the woods.
+~
+0 0 3
+D0
+A small clearing
+~
+~
+0 -1 2084
+D2
+A path
+~
+~
+0 -1 2074
+D3
+A path
+~
+~
+0 -1 2075
+S
+#2077
+A path through the forest~
+The dirt path through this forest continues to the east and south.  The
+footprint of a large animal can be made out where the creature once 
+stepped in some mud which has now dried.
+~
+0 0 3
+D1
+An intersection in the path
+~
+~
+0 -1 2078
+D2
+A path
+~
+~
+0 -1 2099
+E
+track~
+You recognize the track as belonging to a brown forest bear, whom
+are normally quite docial in this neck of the woods.
+~
+S
+#2078
+An intersection in the path~
+The forest path splits off to the north here.  The original trail 
+leads to the east and west.
+~
+0 0 3
+D0
+A path
+~
+~
+0 -1 2086
+D1
+A path
+~
+~
+0 -1 2079
+D3
+A path
+~
+~
+0 -1 2077
+S
+#2079
+A path through thicker foliage~
+The path through the forest here is crowded in upon by the density
+of tree growth.  The path leads to the north and west and a small
+opening in a cliff face can be seen to the east.
+~
+0 0 3
+D0
+A path
+~
+~
+0 -1 2087
+D1
+Too dark to tell
+~
+~
+0 -1 2080
+D3
+An intersection in the path
+~
+~
+0 -1 2078
+S
+#2080
+Within a cave~
+You stand within a crevice that leads out into the forest westwards
+and deeper into the darkness eastwards.  The odor of a predator
+lingers in the air here.
+~
+0 0 3
+D1
+Too dark to tell
+~
+~
+0 -1 2081
+D3
+A path
+~
+~
+0 -1 2079
+S
+#2081
+Within a cozy cave~
+The cave continues to the north and west here with the stone walls showing
+signs of wear from constant claw marks.
+~
+0 9 0
+D0
+Too dark to tell
+~
+~
+0 -1 2089
+D3
+Too dark to tell
+~
+~
+0 -1 2080
+S
+#2082
+Deep inside a damp cave~
+Here, deep within the cave, is the decrepit lair of something small.
+Small and ugly and cruel.  The cave floor is littered with the bones
+of small rodents and other creatures, and a dark presence seems to
+loom over the entire cavern.
+~
+0 1049097 13
+D1
+Too dark to tell
+~
+~
+0 -1 2083
+S
+#2083
+Inside a damp cave~
+The tight, damp cave seems to have no walls, the shadows eagerly devouring
+what little light there is.  The darkness continues to the west, while a
+faint ray of light marks the entrance to the east.
+~
+0 9 13
+D1
+A dark clearing
+~
+~
+0 -1 2084
+D3
+Too dark to tell
+~
+~
+0 -1 2082
+S
+#2084
+A dark clearing outside a cave~
+The grass in this clearing has been trampled down by cloven feet.  The
+cave to the west is dark and emits a putrid stench.  Undoubtedly, there
+is some evil afoot within this sanctuary of peaceful creatures.  Paths
+lead on into the forest to the north and to the south.
+~
+0 0 4
+D0
+A small pond
+~
+~
+0 -1 2090
+D2
+A path
+~
+~
+0 -1 2076
+D3
+Too dark to tell
+~
+~
+0 -1 2083
+S
+#2085
+A grassy beach~
+The grass of this beach is soft, warm and dry, and the ground seems to
+emanate a natural heat, warming your being.  A small pond spreading to
+the north looks to be an inviting place to relax and bathe, and a path
+enters the forest to the east.
+~
+0 0 2
+D0
+A small pond
+~
+~
+0 -1 2091
+D1
+A path
+~
+~
+0 -1 2086
+S
+#2086
+A path through the forest~
+The forest path continues to the north and to the south.  Westwards
+a grassy beach can be seen bordering a small pond.
+~
+0 0 3
+D0
+A dense forest path
+~
+~
+0 -1 2092
+D2
+An intersection in the path
+~
+~
+0 -1 2078
+D3
+A grassy beach
+~
+~
+0 -1 2085
+S
+#2087
+A path through the forest~
+The trees grow less dense on this north and south bound path. To the
+east a cavern entrance can be seen.
+~
+0 0 3
+D0
+A path
+~
+~
+0 -1 2093
+D1
+Before a cave entrance
+~
+~
+0 -1 2088
+D2
+A path
+~
+~
+0 -1 2079
+S
+#2088
+Before a cave entrance~
+You stand upon a slab of grey stone.  A path leads into the pixie forest
+to the west and the darker regions of a cave lie to the east.
+~
+0 0 3
+D1
+Too dark to tell
+~
+~
+0 -1 2089
+D3
+A path
+~
+~
+0 -1 2087
+S
+#2089
+Within a cozy cave~
+You stand within a rather comfortable cave.  The cavern leads off to the
+north and south with the entrance to the west.  A few dried fish skeletons
+litter the ground, too frail to pick up.
+~
+0 9 0
+D0
+Too dark to tell
+~
+~
+0 -1 2095
+D2
+Too dark to tell
+~
+~
+0 -1 2081
+D3
+~
+~
+0 -1 2088
+S
+#2090
+On a small pond~
+You stand in the southwestern portion of a small pond, shallow enough
+that the cool water comes only up to your waist even at its deepest.
+The pond leads to the north and east while a path leads to south
+unto higher, green grounds.
+~
+0 0 2
+D0
+A small pond
+~
+~
+0 -1 2096
+D1
+A small pond
+~
+~
+0 -1 2091
+D2
+A dark clearing
+~
+~
+0 -1 2084
+S
+#2091
+On a small pond~
+You wade just inside the southeastern portion of this small, beautiful
+pond.  To the south a grassy beach sprawls invitingly, while the pond
+itself continues to curve to the north and to west.
+~
+0 0 2
+D0
+A small pond
+~
+~
+0 -1 2097
+D2
+A grassy beach
+~
+~
+0 -1 2085
+D3
+A small pond
+~
+~
+0 -1 2090
+S
+#2092
+A path through thick foliage~
+The path continues to the north, east and south.  The sound of chimes
+can be heard from the north, enticing you to explore further in that
+direction.
+~
+0 0 3
+D0
+Too dense to see through the foliage
+~
+~
+0 -1 2098
+D1
+A path
+~
+~
+0 -1 2093
+D2
+A path
+~
+~
+0 -1 2086
+S
+#2093
+A turn in the path~
+The path through the forest continues to the south and to the west.  A
+tree near the path has a number of claw markings upon its surface.
+~
+0 0 3
+D2
+A path
+~
+~
+0 -1 2087
+D3
+Dense foliage
+~
+~
+0 -1 2092
+E
+tree claw markings scratches~
+Great gashes have been made vertically in this tree by the claws of a large
+creature.
+~
+S
+#2094
+The bear's sleeping area~
+You have entered the lair of a family of brown bears.  The atmosphere
+is one of peace an tranquility.  Surprisingly the floor is clean and
+free of any remains from previous dinners.
+~
+0 9 0
+D1
+Too ark to tell
+~
+~
+0 -1 2095
+S
+#2095
+A bend in the cave~
+The cave continues to the south and west here.  A small spring runs along
+the northern wall offering clean drinking water.
+~
+0 9 0
+D2
+Too dark to tell
+~
+~
+0 -1 2089
+D3
+Too dark to tell
+~
+~
+0 -1 2094
+S
+#2096
+On a small pond~
+You wade through the northwestern portion of a small pond.  The light blue
+waters seem to make your reflection look somehow more youthful.  The pond
+and its strange, shallow waters continue to the east and south, while a
+small pathway to the northeast meanders to the top of a distant hill.
+~
+0 0 2
+D1
+A small pond
+~
+~
+0 -1 2097
+D2
+A small pond
+~
+~
+0 -1 2090
+D6
+~
+~
+0 -1 2492
+E
+reflection~
+Your reflection seems to depict you as you were at the age of twenty.
+~
+S
+#2097
+On a small pond~
+You stand knee-deep in the northeastern portion of a small pond, stirring
+its sandy bottom into the water, turning it ever murkier with each of your
+footsteps.  The pond curves around to the south and to the west.
+~
+0 0 2
+D2
+A small pond
+~
+~
+0 -1 2091
+D3
+A small pond
+~
+~
+0 -1 2096
+S
+#2098
+The crystaline grove~
+You have entered a truly remarkable portion of the forest for every
+tree, leaf, blade of grass is made of a prismatic crystal.  The light
+from above is separated to form an elegant display of natural colors.
+You fear stepping off the stone path, thinking that you may accidentally
+destroy the fine balance of crystaline beauty.
+~
+0 3145740 3
+D2
+Dense foliage
+~
+~
+0 -1 2092
+S
+#2099
+A bend in the path~
+The forest path turns here leading to the north and to the west.  The
+dirt seems very solid, as if used quite frequently.
+~
+0 0 3
+D0
+A path
+~
+~
+0 -1 2077
+D9
+A junction in the forest.
+~
+~
+0 -1 2074
+S
+#0
+
+
+#RESETS
+M 0 2070 1 2094
+M 0 2071 4 2071
+M 0 2072 1 2082
+M 0 2073 2 2097
+G 1 2074 1
+E 1 2073 1 2
+M 0 2073 2 2090
+G 1 2074 1
+O 0 2076 1 2090
+O 0 2076 1 2096
+O 0 2076 1 2097
+O 0 2076 1 2091
+S
+
+
+#SHOPS
+0
+
+
+#REPAIRS
+0
+
+
+#SPECIALS
+M  2070 spec_fido
+S
+
+
+#$

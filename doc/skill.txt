@@ -1,0 +1,325 @@
+SMAUG release 1.4
+
+Thoric  thoric@realms.game.org
+
+=== Skills and Spells
+
+The central organizing table for skills and spells is skill_table, an array
+of type 'struct skill_type' (mud.h), and is loaded from 'skills.dat' in the
+system directory.  Skills include spells, weapon proficiencies and languages,
+(tongues).  Indexes into this table are 'skill numbers' or 'spell numbers',
+abbreviated 'sn'.  An 'sn' is a purely internal value, and can vary over time
+as skills and spells are added.  This way, the skill table can be expanded
+conveniently.
+
+The 'practice' command and player saving/loading are completely table-driven
+from skill_table.  Skills and spells may be freely added or deleted without
+changing these functions.
+
+The fields of skill_table are:
+
+    char *	name;
+
+	The name is used for practising the skill or spell and by the 'cast'
+	command.  Mobiles which cast spells also often invoke the spell by
+	name.  Save files contain this name.
+
+    sh_int	skill_level[MAX_CLASS];
+
+	This array is indexed by character class, GET_CLASS(ch).  It contains
+	the minimum level which each class needs in order to practice the skill
+	or spell.  If a given class cannot use this skill or spell, the level
+	is set to 37, so that all immortals can use all skills and spells.
+	Mobiles ignore this table; generally their skill percentages are a
+	simple function of level.
+
+    SPELL_FUN *	spell_fun;
+
+	This is the function which implements the spell.  Spell functions
+	take four arguments: an 'sn', a level, a caster, and a pointer to a
+	target victim or object.  This field is unused for skills, weapon
+	proficiencies and tongues.
+
+    DO_FUN *	do_fun;
+
+	This is the function which implements the skill.  Skill functions
+	take two arguments: a pointer to the character using the skill,
+	and an argument.  This field is unused for spells, weapon
+	proficiencies and tongues.
+
+    sh_int	target;
+
+	This identifies the targets of the spell.  The legal values are:
+
+	    TAR_IGNORE			Spell chooses its own targets.
+	    TAR_CHAR_OFFENSIVE		Spell is offensive (starts combat).
+	    TAR_CHAR_DEFENSIVE		Spell is defensive (any char is legal).
+	    TAR_CHAR_SELF		Spell is personal-effect only.
+	    TAR_OBJ_INV			Spell is used on an object.
+
+	PC's that are not pkillers will get flagged as an ATTACKER for
+	attacking another player. These spells also cause the victim to
+	attack the caster.
+
+	This field is unused for skills unless the skill is pointed to
+	a spell function.
+
+    sh_int	minimum_position;
+
+	This is the minimum position needed to use the spell/skill.
+	It is usually POSITION_FIGHTING or POSITION_STANDING for spells.
+
+    sh_int	slot;
+
+	This is the slot number, which indexes the spell from magical objects
+	in #OBJECTS sections of area files (but not save files, which use the
+	ascii name).  Once assigned, a slot number can never be changed.
+	Slot numbers are only used for spells.
+
+    sh_int	min_mana;
+
+	This is the minimum mana required to cast this spell by a sufficiently
+	high level spell caster.  A lower level spell caster will need more
+	mana than the minimum; see 'do_cast' in 'magic.c' for the algorithm.
+
+    sh_int	beats;
+
+	This is the delay time, in pulses, imposed on the user of a spell or
+	a skill.  One pulse is 0.25 second (this is derived from
+	PULSE_PER_SECOND in mud.h).
+
+    char *	noun_damage;
+
+	This is a noun or noun phrase containing the damage message for skills
+	or spells that perform damage.
+
+    char *	msg_off;
+
+	This is the message sent to the character when the skill or spell wears
+	off.
+
+    sh_int	guild;
+
+	Which guild the skill belongs to (defaults to -1).
+
+    sh_int	type;
+
+	Type of skill (SKILL_SPELL, SKILL_SKILL, SKILL_WEAPON, or SKILL_TONGUE)
+
+    int		flags;
+
+	Flags mainly reserved for SMAUG spells.
+
+    char *	hit_char;
+
+	Success message sent to the caster.
+
+    char *	hit_vict;
+
+	Success message sent to the victim.
+
+    char *	hit_room;
+
+	Success message sent to the room.
+
+    char *	miss_char;
+
+	Failure message send to the caster.
+
+    char *	miss_vict;
+
+	Failure message sent to the victim.
+
+    char *	miss_room;
+
+	Failure message sent to the room.
+
+    char *	die_char;
+
+	Victim death message sent to the caster.
+
+    char *	die_vict;
+
+	Victim death message sent to the victim.
+
+    char *	die_room;
+
+	Victim death message sent to the room.
+
+    char *	imm_char;
+
+	Victim immunity message sent to the caster.
+
+    char *	imm_vict;
+
+	Victim immunity message sent to the victim.
+
+    char *	imm_room;
+	Victim immunity message sent to the room.
+
+    char *	dice;
+
+	Dice roll (SMAUG spells only).
+
+    int		value;
+
+	Miscellaneous value used by SMAUG spells.
+
+    char	saves;
+
+	What saving throw is given (SMAUG spells).
+
+    char	difficulty;
+
+	How difficult the spell is to cast and learn.
+
+    SMAUG_AFF *	affects;
+
+	For SMAUG spells... what affects this spell has.
+
+    char *	components;
+
+	A space separated list of spell component information.
+
+    char *	teachers;
+
+	A space separated list of mob vnums that teach this skill.
+
+    char	participants;
+
+	For (multicaster) spells.  The number of required participants.
+
+    int		num_uses;
+
+	How many times this skill has been used this boot.
+
+
+=== Examples
+
+Here's what the armor spell looks like.
+For more examples see the skills.dat file, or use slookup.
+
+#SKILL
+Name         armor~
+Type         Spell
+Flags        0
+Target       2
+Minpos       8
+Slot         1
+Mana         5
+Rounds       12
+Code         spell_smaug
+Dammsg       ~
+Wearoff      Your armor returns to its mundane value.~
+Hitchar      $N's armor begins to glow softly as it is enhanced by a cantrip.~
+Hitvict      Your armor begins to glow softly as it is enhanced by a cantrip.~
+Hitroom      $N's armor begins to glow softly as it is enhanced by a cantrip.~
+Affect       'l*10' 17 '-20' 0
+Class        0 5 95
+Class        1 1 95
+Class        5 1 95
+Class        6 20 85
+Class        7 2 90
+Minlevel     1
+End
+
+
+=== Indexing skill_table
+
+'skill_table' is indexed by an 'sn' or 'gsn'.  The function 'skill_lookup'
+takes a string and returns the appropriate sn, or -1 if the name is not found.
+
+Some skills, such as 'second attack', are referenced very frequently.  For
+these skills, a global variable such as 'gsn_second_attack' is initialized to
+the sn of this skill.  Most of the fighter and thief skills have gsn's; only a
+few spells need gsn's.
+
+Gsn's are initialized at boot time in boot_db using the macro ASSIGN_GSN.
+Example: ASSIGN_GSN( gsn_fireball, "fireball" )
+The macro searches the skill table for the keyword, and returns the index
+to the specified variable.
+
+Magic items (potions, scrolls, pills, wands, and staves) have charges of
+magical spells.  These spells are referenced by 'slot number' in area files.
+(Slot numbers are also used in the save files).  The function 'slot_lookup'
+converts slot numbers to skill numbers.
+
+The range of slot numbers is 0 to 32767.  There is no need to assign them
+consecutively.  In the future, slot numbers may disappear completely, and
+area files may reference spells directly by name instead of by slot number.
+
+[For those familiar with original Diku code ... slot numbers are simply the
+original Diku spell numbers.]
+
+
+
+=== The spell driver
+
+The spell driver level is the first half of 'magic.c'.  It consists of
+'do_cast' for the 'cast' command and 'obj_cast_spell' which is called from
+'do_brandish', 'do_eat', 'do_quaff', 'do_recite', and 'do_zap'.
+
+The spell driver takes care of level checking, position checking, target
+selection, target validation (such as preventing PC's from casting offensive
+spells on other PC's), staff area effect (just multi-target selection), mana
+costs, wait states, and starting combat for offensive spells.  All of these
+things are table-driven by 'skill_table'.
+
+The spell function itself takes care of calling functions like 'damage' and
+'affect_to_char'.  Read the existing ones to see what is needed for a new one.
+
+Some spells, such as 'earthquake', 'locate object' or 'summon', perform their
+own target selection.  These spells are target type TAR_IGNORE.  Within the
+spell function, the variable 'target_name' is available (set by the spell
+driver).
+
+
+
+=== Adding a new spell
+
+(1) Find a free slot number.  Make sure it's not already used in 'skills.dat'.
+    SMAUG reserves slot numbers below 500 for future expansion.  We promise we
+    won't use numbers 500 or above in future SMAUG releases.  Thus if you
+    number your spells 500 or above, you will have an easier time upgrading to future
+    releases of the SMAUG base code.
+
+(2) Use the sset command to create a new skill: sset create skill <name>
+
+(3) Use the sset command to set the appropriate fields:
+    sset <sn> <field> <value> (see 'help sset')
+
+(3) If this spell is too unique to use spell_smaug, add the 'spell_*'
+    function declaration to the 'DECLARE_SPELL_FUN' section of 'mud.h',
+    and drop the code for the spell function into 'magic.c'.
+
+(5) If your spell needs 'AFF_*' bits, create new 'AFF_* bits' in 'mud.h'.
+
+(6) You may need to increase 'MAX_SKILL' in 'mud.h', and recompile.
+
+
+
+=== Adding a new skill
+
+Skills are either automatic (such as 'parry') or manual (such as 'rescue').
+Many automatic skills are referenced in 'fight.c'; look at 'multi_hit' for
+examples of the use of 'gsn_second_attack' and 'gsn_third_attack'.
+
+An explicit skill such as 'rescue' has its associated command 'do_rescue'.
+This command is defined and called in the normal way in interp.c.  Within
+'do_rescue', 'gsn_rescue' is used to find fields such as 'beats'.
+
+To add a new skill:
+
+(1) Use the sset command to create a new skill: sset create skill <name>
+
+(2) Use the sset command to set the appropriate fields:
+    sset <sn> <field> <value> (see 'help sset')
+
+(3) You'll probably need a 'gsn'.  Declare it in 'mud.h' and 'db.c'.
+    Add a ASSIGN_GSN line into db.c.
+
+(4) If the skill is automatic, just use 'ch->pcdata->learned[gsn_new_skill]'
+    in your code.  If your skill is manual, you need to write an appropriate
+    command function for it.
+
+(5) You may need to increase 'MAX_SKILL' in 'mud.h'.

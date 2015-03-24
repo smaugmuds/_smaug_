@@ -1,0 +1,54 @@
+Name        Drow~
+Race        11
+Classes     360
+Str_Plus    -1
+Dex_Plus    2
+Wis_Plus    0
+Int_Plus    1
+Con_Plus    -1
+Cha_Plus    -4
+Lck_Plus    1
+Hit         1
+Mana        12
+Affected    16777728
+Resist      256
+Suscept     0
+Language    2
+Align       -500
+Min_Align  -1000
+Max_Align	-250
+AC_Plus    0
+Exp_Mult   108
+Attacks    0
+Defenses   0
+Height     67
+Weight     93
+Hunger_Mod  0
+Thirst_mod  -1
+Mana_Regen  28936
+HP_Regen    2082
+Race_Recall 0
+WhereName  <used as light>     ~
+WhereName  <worn on finger>    ~
+WhereName  <worn on finger>    ~
+WhereName  <worn around neck>  ~
+WhereName  <worn around neck>  ~
+WhereName  <worn on body>      ~
+WhereName  <worn on head>      ~
+WhereName  <worn on legs>      ~
+WhereName  <worn on feet>      ~
+WhereName  <worn on hands>     ~
+WhereName  <worn on arms>      ~
+WhereName  <worn as shield>    ~
+WhereName  <worn about body>   ~
+WhereName  <worn about waist>  ~
+WhereName  <worn around wrist> ~
+WhereName  <worn around wrist> ~
+WhereName  <wielded>           ~
+WhereName  <held>              ~
+WhereName  <dual wielded>      ~
+WhereName  <worn on ears>      ~
+WhereName  <worn on eyes>      ~
+WhereName  <missile wielded>   ~
+WhereName  (null)~
+End

@@ -1,0 +1,551 @@
+                     A Guide to Object Creation
+                     --------------------------
+This is intended as a set of guidelines to those who are just beginning
+as Builders.  Nothing here is written in stone, this file is based on my
+experience and the online help files.   (Herne the Hunter)
+
+Always remember that most important command: SAVEAREA
+
+How to Make Objects from the Ground Up
+--------------------------------------
+Once a new Builder has proven that s/he can read and understand the help
+files behind room building, they move up to the next level of Building;
+Object Creation.  Without objects, there would be no armour to protect
+yourself, no weapons to fight mobs with, and no consumables to cure the
+damage that mobs do or enhance a character's attributes.
+
+There are three very important commands when dealing with Objects;
+OCREATE to create new objects, OSET to modify a new object, and OSTAT to
+view that stats on an object.  You should become familiar with these
+commands before creating new objects.
+
+I also find it's a good idea to make a scratch list of my object (and
+mob) vnumbers so that I can cross off each vnum as I use it to create a
+new object.  The MUD won't allow you to create a new object with an
+existing vnum, but it solves problems if you keep a list of the numbers
+you've already used.
+
+Step 1.  Object Creation
+------------------------
+OCREATE                             (Shortform: OCR)
+Syntax: ocreate <vnum> <keywords>
+Syntax: ocreate <vnum> [copy vnum] <item name>
+
+A prototype object will be created with the selected vnum, and set up
+with the plainest of default values.  A material image of the magical
+prototype will appear before you, for you to futher modify with OSET.
+Once an object vnum is invoked, it cannot be destroyed or deleted, but it
+CAN be modified completely.
+
+EXAMPLE: ocr 1000 helmet silver kings
+This would create an object with the vnum 1000 and the keywords 'helmet
+silver kings'.  Always try to use more than 1 keyword for your objects as
+it makes it easier to distinguish different objects when they're in your
+inventory.  There may be 100 "helmets" in the game, and some of them may
+also be "silver", but it's a good chance that only a couple will be
+"kings" as well.  It's not enough to simply name an object "helmet" or
+"potion" or "scroll", at least one keyword should be unique or rare.
+
+Ocreate can also be used to copy an existing object to a new vnumber.
+
+EXAMPLE: ocr 1001 1000 helmet copper kings
+This would take the stats of object vnum 1000 and copy them to object
+vnum 1001 with the new keywords of 'helmet copper kings'.  This is useful
+if you have several similar objects that have slightly different flags or
+effects.
+
+Step 2: Setting the Objects Stats
+---------------------------------
+Once you have your proto object created, you'll need to set the various
+values on it to make it into whatever object you intend it to be.  This
+is accomplish with the OSET command.
+
+HELP OSET
+Syntax: oset <object> <field>  <value>
+        oset <object> on
+
+Field being one of:
+  flags wear level weight cost rent timer
+  name short long ed rmed actiondesc
+  type value0 value1 value2 value3 value4 value5
+  affect rmaffect layers
+For weapons:             For armor:
+  weapontype condition     ac condition
+For scrolls, potions and pills:
+  slevel spell1 spell2 spell3
+For wands and staves:
+  slevel spell maxcharges charges
+For containers:          For levers and switches:
+  cflags key capacity      tflags
+**(More Detailed Help Files Follow)**
+ 
+If the copy of the object you are currently modifying has the PROTOTYPE
+flag, your modifications will also modify the index of that object, which
+all other instances of the object are based on.  In the future, every
+copy of that obj will reflect your modifications.
+ 
+Also be aware that modifications to the object affect list (everything
+that is listed after 'object values') will affect _every_ copy of that
+object in the game, including old copies (even if they are not online). 
+Thus if you change a prototype-flagged copy of a sword to +4 damroll,
+every copy of that vnum ever made will reflect that change.  If you add a
+'magic' flag to that sword, however, only copies made after the change
+will be affected.
+ 
+If the copy of the object you are modifying does NOT have the PROTOTYPE
+flag, your modifications will affect only that copy you have in your
+possession.
+ 
+OSET ON will lock you onto a particular object.  Once locked on, all
+commands will imply 'oset <object>'.  Hitting enter while in OSET ON
+gives you an ostat of the object you are working on.  To get out of OSET
+ON, simply type the word DONE.
+
+Example:  oset staff on
+          long A long gnarled staff of burnished oak lies here.
+          type staff
+          done
+ 
+See AFFECTTYPES, WEARFLAGS, OBJECTFLAGS, OBJECTTYPES, ARMORCLASS
+ITEMVALUES, WEAPONTYPES, VARIABLES, OMENU and LAYERING
+
+Step 3: Viewing an Item's Stats.
+--------------------------------
+To view any item's stats, you'll need to use the OSTAT command.
+
+HELP OSTAT
+Syntax  : ostat <object/object vnum>
+Examples: ostat helmet
+          ostat 1000
+
+OSTAT shows you statistics on an object.  If a copy of the object is
+present in the game, you can access it using its vnum.
+
+Ostat will default first to an item on the ground, second to an item in
+your inventory, and third to an item in the game with the keyword you
+specified.
+
+ 
+Step 4: Listing the Objects you Created in Your Assigned Range.
+---------------------------------------------------------------
+OLIST
+Syntax: olist
+      :	olist <first object>
+      :	olist <first object> <last object>
+
+This command will list all of the prototype objects in your area, when
+used with no arguments.  When used with a single argument it will list
+all objects including and after the argument, and when used with two
+arguments, it will list all objects including and between the two. 
+
+
+The Help Files in Detail for OSET Fields
+----------------------------------------
+OBJECTTYPES
+Object types listed in bit order:
+ 
+  None        Light     Scroll     Wand        Staff       Weapon
+  Fireweapon  Missile   Treasure   Armor       Potion      Worn
+  Furniture   Trash     Oldtrap    Container   Note        Drink_con
+  Key         Food      Money      Pen         Boat        Corpse_npc
+  Corpse_pc   Fountain  Pill       Blood       Bloodstain  Scraps
+  Pipe        Herb_con  Herb       Incense     Fire        Book
+  Switch      Lever     Pullchain  Button      Dial        Rune
+  Runepouch   Match     Trap       Map         Portal      Paper
+  Tinder      Lockpick  Spike      Disease     Oil         Fuel
+  Short_bow   Long_bow  Crossbow   Projectile  Quiver      Shovel
+  Salve
+ 
+Not all are implemented.
+See OSET ITEMVALUES ARMORCLASS.
+
+
+WEARFLAGS
+These flags should be self explanitory:
+ take   finger   neck    body    head   legs
+ feet   hands    arms    shield  about  waist
+ wrist  wield    hold    ears    eyes
+
+See OSET and RESETCMDS.
+
+
+OBJECTFLAGS
+Flags that objects can have:
+ 
+Flag       | Affect              | Flag         | Affect
+-----------+-------------------- | -------------+----------------------
+glow       | n/a                 | hum          | n/a
+dark       | n/a                 | loyal        | loyalty ('help loyal')
+evil       | glow on det. evil   | antievil     | zap if align -350  
+magic      | prevents enchant    |              | & lower.          
+bless      | +20% resist dam.    | antigood     | zap if align +350 & up
+           | 2 x duration poison | antineutral  | zap if align -350 to
+           | weapon              |              | +350
+invis      | invisible           | inventory    | purge upon char. death
+nodrop     | cannot drop         | antithief    | zap if thief
+noremove   | cannot remove w/o   | anticleric   | zap if cleric
+           | 'remove curse'      | antimage     | zap if mage/augurer
+organic    | +20% suscept. dam.  | antiwarrior  | zap if warrior/ranger  
+metal      | +20% resist damage  | antidruid    | zap if druid
+donation   | prevents get all    | antivampire  | zap if vampire
+clanobject | n/a                 | clancorpse   | n/a
+prototype  | n/a                 | nolocate     | locate spell fails
+
+Additional flags:
+
+Covering:  Items inside this are 'covered', use 'look under <object>' to
+           see 'inside'.  The object does not have to be a container to
+           be a covering object.  Use 'reset put' to indicate objects to
+           be covered by this object.
+
+
+ITEMVALUES
+In these values, 'sn' is a spell number;  a negative value means 'no
+spell'.
+Item Type|V0        |V1         |V2        |V3        |V4      |V5
+---------|----------|-----------|----------|----------|--------|-------
+armor    |current AC|original AC|          |          |        |
+container|capacity  |flags      |key vnum  |condition |        |
+drinkcon |capacity  |quantity   |liquid #  |poison?   |        |
+food     |food value|(condition)|          |poison?   |        |
+herb     |          |charges    |herb #    |          |        |
+key      |(lock #)  |           |          |          |        |
+lever    |leverflags|vnum/sn    |vnum      |vnum/value|        |
+light    |          |           |hours left|          |        |
+money    |# of coins|coin type  |          |          |        |
+pill     |spell lvl |sn 1       |sn 2      |sn 3      |food val|
+potion   |spell lvl |sn 1       |sn 2      |sn 3      |        |
+salve    |spell lvl |max charge |charges   |delay     |sn      |sn
+scroll   |spell lvl |sn 1       |sn 2      |sn3       |        |
+staff    |spell lvl |max charges|charges   |sn        |        |
+switch   |leverflags|vnum/sn    |vnum      |vnum/value|        |
+trap     |charges   |type       |level     |flags     |        |
+treasure |(type)    |(condition)|          |          |        |
+wand     |level     |max charges|charges   |sn        |        |
+weapon   |condition |num dice   |size dice |weapontype|        |
+                                
+See OBJECTTYPES, WEAPONTYPES, SLOOKUP, LIQUIDTYPES, LEVERFLAGS, OSET,
+ARMORCLASS, and WEAPONCONDITION.
+
+
+SLOOKUP                            (Shortform: SLO)
+Syntax : slookup <skill-or-spell>
+Syntax : slookup all
+Example: slookup faerie fire
+         slookup parry
+
+SLOOKUP shows you the internal 'sn' and external 'slot' for the given
+skill or spell.  The 'sn' is used for OSET and OSTAT.  The 'slot' is used
+for area files.  Neither 'sn' nor 'slot' is used for player files; these
+operate with the actual skill and spell names.
+
+SLOOKUP ALL shows this information for all skills and spells.
+
+
+ARMORCLASS
+There are two values used with armour class for objecttype Armor:
+ 
+Value0: Variable amount based on level of item at repop.
+Value1: Maximum repairable armor setting for the object.
+
+Setting Value0 has no effect. It will re-adjust itself on repop based on
+the repop level of the item. Setting Value1 below the expected repop
+value for Value0 will result in an item that cannot be repaired until
+Value0 drops below Value1's setting.  The listing below gives you a rough
+approximation of the values returned for Value0 based on level:
+ 
+     Level Invoked | Value 0   Level Invoked | Value 0
+     --------------+---------  --------------+--------
+           1       |  1-3           30       |   8-10
+          10       |  3-5           40       |  11-13
+          20       |  6-8           50       |  13-15
+
+The amount that Value0 is set to determines the amount the player's AC
+will be adjusted.  Different wear locations have a different multiplying
+effect on AC:
+
+0 x Value0 : Wield, Ears.
+1 x Value0 : Arms, Finger, Neck, Feet, Hands, Shield, Waist, Wrist,
+             Hold, Eyes.
+2 x Value0 : Head, Legs, About.
+3 x Value0 : Body.
+
+See also OSET, AFFECTTYPES, WEARFLAGS, OBJECTFLAGS, OBJECTTYPES,
+ITEMVALUES, WEAPONTYPES, and VARIABLES.
+
+
+LAYERS
+Layers are currently available on the following wear locations:
+About, Arms, Body, Feet, Hands, Legs, Waist.
+
+Layers are set with a numeric value, or combination of values.  The
+lower the value, the lower the layer, or thinner the item of clothing or
+armor is.
+ 
+Valid numeric values are:
+0, 1, 2, 4, 8, 16, 32, 64, 128.
+ 
+Or any combination of the above. A value of zero means no other items
+can be layered with this item. Items of clothing can be layered over one
+another as long as their layer values do not overlap. ie, if leather
+armor were set to a value of 56 (8, 16, and 32), it could not layer with,
+say, a set of heavy chain that is set to a value of 96 (32 and 64), as
+they overlap on the layer value of 32.
+ 
+See also OSET, AFFECTTYPES, WEARFLAGS, OBJECTFLAGS, OBJECTTYPES,
+ITEMVALUES, WEAPONTYPES, VARIABLES, ARMORCLASS, LAYERS2, and OMENU.
+
+LAYERS2
+Layer Bit Vectors
+|1              |       | 
+|2|6|3|1        |       |
+|8|4|2|6|8|4|2|1| Layer | Suggested Armor Type
++-+-+-+-+-+-+-+-+-------+---------------------------------------------
+|0 0 0 0 0 0 0 0|   0   | (Default - Nothing Layers)
+|0 0 0 0 0 0 0 1|   1   | silk shirt, light cloth tunic (Lowest Layer)  
+|0 0 0 0 0 0 1 0|   2   | leather vest, heavy cloth
+|0 0 0 0 0 1 0 0|   4   | light chainmail, padded gambeson
+|0 0 0 0 0 1 1 0|   6   | padded chainmail
+|0 0 0 0 1 0 0 0|   8   | leather jacket, reinforced chainmail
+|0 0 0 0 1 1 0 0|  12   | platemail, similarly rigid armor
+|0 0 0 1 0 0 0 0|  16   | light cloak, loose robes
+|0 0 0 1 1 0 0 0|  24   | heavy fur cloak
+|0 0 1 0 0 0 0 0|  32   | loose cloaks, surcoats
+|0 1 0 0 0 0 0 0|  64   | capes
+|1 0 0 0 0 0 0 0| 128   | magical effects (auras, clouds of dust, etc)
+|1 1 1 1 1 1 1 1| 255   | (Highest Layer - Nothing Layers)
++-+-+-+-+-+-+-+-+-------+---------------------------------------------
+* Thick or bulky items may need to occupy more than one layer.
+  (example; padded chain covers 2 layers)
+* A "body" wear position will have more layers than other positions such
+  as "arms", "hands", "legs", and "feet".
+  (example for "hands"; silk gloves | leather gloves | chain gauntlets)
+* Currently the only positions that you can layer are:
+  "body", "legs", "feet", "arms", "hands", "about" and "waist".
+
+See also OSET, AFFECTTYPES, WEARFLAGS, OBJECTFLAGS, OBJECTTYPES,
+ITEMVALUES, WEAPONTYPES, VARIABLES, ARMORCLASS, LAYERS, and OMENU.
+
+
+AFFECTTYPES APPLYTYPES
+none       strength   dexterity  intelligence wisdom       constitution
+sex        level      age        height       weight       mana     
+hit        move       gold       experience   armor        hitroll
+damroll    save_para  save_rod   save_poison  save_breath  save_spell
+charisma   resistant  immune     susceptible  affected     luck
+
+**(The following are still in the testing stages - Don't use)**
+backstab   pick       track      steal        sneak        hide 
+detrap     dodge      peek       scan         gouge        search
+mount      disarm     kick       parry        bash         stun
+punch      climb      grip       scribe       brew
+ 
+Additionally:
+(The following are very powerful and should be used only rarely)
+weaponspell <sn>: Will cast a spell on victim with every blow of a weapon
+wearspell   <sn>: Will cast a spell on wearer when object is worn
+removespell <sn>: Will cast a spell on wearer when object is removed
+
+(Not currently working)
+<skill> <modifier>  Will modifify a player's ability in a skill
+ 
+See AFFECTEDBY
+
+
+AFFECTEDBY AFFECTED_BY
+The following are affect flags that can be used when osetting an item
+(with oset <item> affect affected <affect flag>).  These flags can also
+be used when msetting a mobile (mset <mob name> affected <affect flag>).
+They may additionally be used to mset players if your level allows it.
+ 
+Blind          Invisible    Detect_evil  Detect_invis  Detect_magic
+Detect_hidden  **Hold**     Sanctuary    Faerie_fire   Infrared
+Curse          **Flaming**  Poison       Protect       Paralysis
+Sneak          Hide         Sleep        Charm         Flying
+Pass_door      Floating     Truesight    Detect_traps  Scrying
+Fireshield     Shockshield  Iceshield    Aqua_breath   Possess
+ 
+Note - Hold and Flaming are current not in use.
+See also: OSET AFFECTTYPES
+
+
+LIQUIDTYPES
+Value | Liquid Type      | Affects
+-------------------------+--------------
+  0   | water            | Thirst Quench
+  1   | beer             | Alcoholic
+  2   | wine             | Alcoholic
+  3   | ale              | Alcoholic
+  4   | dark ale         | Alcoholic
+  5   | whiskey          | Alcoholic
+  6   | lemonade         | Thirst Quench
+  7   | firebreather     | Alcoholic
+  8   | local specialty  | Alcoholic
+  9   | slime mold juice | Poison?
+ 10   | milk             | Thirst Quench
+ 11   | tea              | Thirst Quench
+ 12   | coffee           | Thirst Quench
+ 13   | salt water       |
+ 14   | cola             | Thirst Quench
+
+Note: Liquids that are Alcoholic or Poisonous will affect a PC's
+      mentalstate for the worse.
+
+See OSET and ITEMVALUES.
+
+
+WEAPONTYPES
+For items of type "weapon", the value3 field specifies the weapon type:
+
+Value3 | Type     | Weapons     | Skill Affected
+-------+----------+-------------+---------------
+   0   | hit      | general     | Pugilism
+   1   | slice    | knife/sword | Long Blades
+   2   | stab     | dagger      | Short Blades
+   3   | slash    | sword       | Long Blades
+   4   | whip     | whip        | Flexible Arms
+   5   | claw     | claw        | Talonous Arms
+   6   | blast    | magical     | Pugilism
+   7   | pound    | club/hammer | Bludgeons
+   8   | crush    | club/hammer | Bludgeons
+   9   | grep     |             | 
+  10   | bite     |             | Pugilism
+  11   | pierce   | dagger      | Short Blades
+  12   | suction  |             | Pugilism
+
+See OSET.
+
+
+OBJECTCONDITION WEAPONCONDITION ARMORCONDITION
+ Value | Condition                 Value | Condition
+ ------+------------------------   ------+--------------------------
+  12   | in superb condition.        5   | in great need of repair.
+  11   | in excellent condition.     4   | in dire need of repair.
+  10   | in very good condition.     3   | very badly worn.
+   9   | in good shape.              2   | practically worthless.
+   8   | showing a bit of wear.      1   | almost broken.
+   7   | a little run down.          0   | broken.
+   6   | in need of repair.
+
+See also OSET, OBJECTTYPES, WEAPONTYPES, ITEMVALUES and OMENU.
+
+
+WEAPONDAMAGE
+The damage a weapon does depends on the values you set when you make the
+object.  Value1 refers to the number of die used, and Value2 refers to
+the number of sides on the die used. (Example: Val1=5, Val2=4 - generates
+a damage range of 5-20 (ave 13). If no values are specified, the MUD will
+generate the appropriate damage done by the weapon based on its level.
+ 
+This table is intended to use as a guideline when generating damage for
+weapons, it's based on the numbers the MUD generates;
+ 
+      Level |   Ave Damage     Level |   Ave Damage   
+      ------+----------------  ------+----------------
+         1  |   1 - 6  (3)       30  |   8 - 30 (19) 
+         5  |   2 - 10 (6)       35  |  11 - 32 (21) 
+        10  |   5 - 13 (9)       40  |  12 - 38 (25) 
+        15  |   5 - 17 (11)      45  |  14 - 41 (27)  
+        20  |   6 - 22 (14)      50  |  15 - 43 (29) 
+        25  |  10 - 24 (17)  
+
+     
+PULL PUSH LEVERS PULLCHAINS SWITCHES BUTTONS
+Syntax: pull <trigger>
+Syntax: push <trigger>
+
+Levers, switches, pullchains and buttons can do all sorts of interesting
+things... open or unlock doors, change exits around, teleport you to
+another location, cast a spell, summon a monster... you name it!
+
+
+LEVERFLAGS SWITCHFLAGS BUTTONFLAGS PULLCHAINFLAGS DIALFLAGS
+Flag Name     | Bitvector |  Description
+--------------+-----------+-------------------------------------------
+UP            |        1  |  Trigger is UP 
+UNLOCK        |        2  |  Trigger unlocks something
+LOCK          |        4  |  Trigger locks something
+D_NORTH       |        8  |  Affects the north exit
+D_SOUTH       |       16  |  Affects the south exit
+D_EAST        |       32  |  Affects the east exit
+D_WEST        |       64  |  Affects the west exit
+D_UP          |      128  |  Affects the exit up
+D_DOWN        |      256  |  Affects the exit down
+DOOR          |      512  |  Affects a door
+CONTAINER    *|     1024  |  Affects a container
+OPEN          |     2048  |  Opens something
+CLOSE         |     4096  |  Closes something
+PASSAGE       |     8192  |  Creates a passage
+OLOAD        *|    16384  |  Loads up an object
+MLOAD        *|    32768  |  Loads up a mobile
+TELEPORT      |    65536  |  Teleports the puller
+TELEPORTALL  *|   131072  |  Teleports everyone in the room
+TELEPORTPLUS *|   262144  |  Teleports everything in the room
+DEATH        *|   524288  |  Causes instant death
+CAST         *|  1048567  |  Casts a spell (sn in value1)
+FAKEBLADE    *|  2097152  |  Lever is a wax covered sword blade (OUCH)
+RAND4         |  4194304  |  Randomizes the exits N, S, E, W
+RAND6         |  8388608  |  Randomizes the exits N, S, E, W, U, D
+TRAPDOOR     *| 16777216  |  Opens a trap door, everthing falls down
+
+See OSET and ITEMVALUES.  * = not yet implemented.
+
+
+A Template for Object Making  (The Advanced Method)
+---------------------------------------------------
+This is the template I use when I'm creating new objects.  What I do is
+create a file from this template for each new object I make, delete those
+lines that I don't need, and then I send the file 1 line at a time using
+an ASCII upload.  This way, I can create objects offline and then log in
+to the building node and create all my objects at once.
+
+-----CUT HERE-----
+ocr (vnum) (keywords)
+oset (keyword) type                [See OBJECTTYPES]
+oset (keyword) short (short desc of object)
+oset (keyword) long  (long desc of object)
+oset (keyword) wear                [See WEARFLAGS]
+oset (keyword) flags               [See OBJECTFLAGS]
+oset (keyword) timer 0             [Optional Decay Timer]
+oset (keyword) weight #
+oset (keyword) cost #
+oset (keyword) level #
+oset (keyword) value0 0            [See ITEMVALUES]
+oset (keyword) value1 0            [See ITEMVALUES]
+oset (keyword) value2 0            [See ITEMVALUES]
+oset (keyword) value3 0            [See ITEMVALUES]
+oset (keyword) value4 0            [See ITEMVALUES]
+oset (keyword) value5 0            [See ITEMVALUES]
+oset (keyword) actiondesc (action) [Optional for FOOD itemtypes]
+oset (keyword) affect (affect)     [See AFFECTTYPES]
+oset (keyword) affect (affect)     [See AFFECTTYPES]
+ :       :       :       :         [More can be added]
+oset (keyword) affect (affect)     [See AFFECTTYPES]
+oset (keyword) affect (affect)     [See AFFECTTYPES]
+oset (keyword) ed (keywords)       [More than 1 ed can be used]
+01234567890123456789012345678901234567890123456789012345678901234567890
++---------+---------+---------+---------+---------+---------+---------+
+(This is a guide to use when writing eds, delete it before uploading.)
+-----END OF TEMPLATE-----
+
+
+An Example of an Object Template
+--------------------------------
+---START FILE---
+ocr 1000 wool woolen cape
+oset woolen type armor
+oset woolen short a warm woolen cape
+oset woolen long A heap of wool rests on the ground here.
+oset woolen wear take neck
+oset woolen flags organic
+oset woolen weight 5
+oset woolen cost 5000
+oset woolen level 13
+oset woolen affect hit 5
+oset woolen affect mana 10
+oset woolen affect save_spell -3
+oset woolen affect move -20
+oset woolen ed wool woolen cape
+This cape should keep you warm on those cold night watches.
+/s
+---END FILE---

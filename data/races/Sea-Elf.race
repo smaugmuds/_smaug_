@@ -1,0 +1,54 @@
+Name        Sea-Elf~
+Race        12
+Classes     848
+Str_Plus    -1
+Dex_Plus    2
+Wis_Plus    0
+Int_Plus    1
+Con_Plus    -1
+Cha_Plus    1
+Lck_Plus    1
+Hit         -2
+Mana        10
+Affected    -2147483632
+Resist      2
+Suscept     0
+Language    2
+Align       600
+Min_Align  -1000
+Max_Align	1000
+AC_Plus    0
+Exp_Mult   112
+Attacks    0
+Defenses   0
+Height     67
+Weight     110
+Hunger_Mod  -1
+Thirst_mod  -3
+Mana_Regen  -11560
+HP_Regen    2089
+Race_Recall 0
+WhereName  <used as light>     ~
+WhereName  <worn on finger>    ~
+WhereName  <worn on finger>    ~
+WhereName  <worn around neck>  ~
+WhereName  <worn around neck>  ~
+WhereName  <worn on body>      ~
+WhereName  <worn on head>      ~
+WhereName  <worn on legs>      ~
+WhereName  <worn on feet>      ~
+WhereName  <worn on hands>     ~
+WhereName  <worn on arms>      ~
+WhereName  <worn as shield>    ~
+WhereName  <worn about body>   ~
+WhereName  <worn about waist>  ~
+WhereName  <worn around wrist> ~
+WhereName  <worn around wrist> ~
+WhereName  <wielded>           ~
+WhereName  <held>              ~
+WhereName  <dual wielded>      ~
+WhereName  <worn on ears>      ~
+WhereName  <worn on eyes>      ~
+WhereName  <missile wielded>   ~
+WhereName  (null)~
+End

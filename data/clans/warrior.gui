@@ -1,0 +1,32 @@
+#CLAN
+Name         Guild of Warriors~
+Filename     warrior.gui~
+Motto        ~
+Description  ~
+Deity        ~
+Leader       ~
+NumberOne    ~
+NumberTwo    ~
+PKills       0
+PDeaths      0
+MKills       0
+MDeaths      0
+IllegalPK    0
+Score        0
+Type         14
+Class        3
+Favour       0
+Strikes      0
+Members      0
+Alignment    0
+Board        21239
+ClanObjOne   0
+ClanObjTwo   0
+ClanObjThree 0
+Recall       21236
+Storeroom    21240
+GuardOne     0
+GuardTwo     0
+End
+
+#END

@@ -1,0 +1,52 @@
+#DEITY
+Filename		test.dty~
+Name		Test~
+Description	Test, Deity of the Vampire, bares his pearly white fangs in pleasure as
+his followers drain the blood of their foes. Test praises his vampires
+for the use of their gothic spells while in combat, and delights in seeing them
+drain the blood of fallen foes. Created by Vl'arescht to rule over the evil
+Vampire, Test has adapted to the changing way of the vampire and honours
+the neutral and good-aligned vampires as well as his evil followers.  Believing
+that the Vampire should be the only un-dead, immortal class, Test hates the
+gods and their representations.
+~
+Alignment		0
+Worshippers	1673
+Flee		-2
+Flee_npcrace	0
+Flee_npcfoe	0
+Kill		10
+Kill_npcrace	0
+Kill_npcfoe	20
+Kill_magic	1
+Sac		2
+Bury_corpse	0
+Aid_spell		1
+Aid		3
+Steal		0
+Backstab		0
+Die		-125
+Die_npcrace	0
+Die_npcfoe	-65
+Spell_aid		1
+Dig_corpse	-6
+Scorpse		1425
+Savatar		700
+Sdeityobj		750
+Srecall		900
+Race		-1
+Class		4
+Element		0
+Sex		-1
+Affected		0
+Npcrace		0
+Npcfoe		90
+Suscept		0
+Race2		-1
+Susceptnum	0
+Elementnum	0
+Affectednum	0
+Objstat		4
+End
+
+#END

@@ -1,0 +1,335 @@
+SMAUG - Frequently asked questions
+
+1) What is SMAUG?
+
+  SMAUG (Simulated Medieval Adventure multiUser Game) is a multi-user
+internet gaming system.  It is an extension of the MERC 2.1 gaming system
+over the last approximately five years on Realms of Despair, by Thoric and
+various other people he recruited as the game got larger.  In December of
+1996, Thoric released SMAUG 1.01 for other games to use as a "code base",
+or starter set of code to expand on as MERC 2.1 is the base for SMAUG.
+
+2) Where can I get SMAUG?
+
+  SMAUG may be obtained by ftping to ftp.game.org, in the /pub/smaug
+directory, or can be downloaded from the world wide web at
+http://www.game.org.
+
+3a) I have SMAUG, now what?
+
+  Well to start, make sure you have the version of SMAUG that you wish to
+run.  The latest version is 1.02a as of the time of this writing.  The
+latest version of SMAUG is usually linked to smaug.tgz.  If you wish to run
+SMAUG under Windows 95 or Windows NT, you will also need the corresponding
+smaugw32*.zip file.
+  The installation procedure differs for Linux and other Unix flavors
+(herein referred to as simply 'unix') and Windows.
+  To install under unix, change to your home directory (cd ~), and move the
+smaug.tgz into your home directory if you downloaded it to a different
+directory.  Enter the command 'gunzip -cd smaug.tgz | tar -xvf -', without
+the quotes.  This will create a directory called dist in your home
+directory, and will place SMAUG and its data files in subdirectories beneath
+that.  You will now need to change to ~/dist/src, and run make.  This will
+compile SMAUG into an executable program.
+  To run SMAUG, change to ~/dist/src, and run ./startup 4000.  Startup is a
+script which will run SMAUG repetitively until a shutdown command is
+executed by an immortal in the game.
+  For Windows, you will need to obtain the program Winzip to decompress the
+zipped files.  Winzip can be obtained on the world wide web from
+http://www.tucows.com, among other places.  Run Winzip, and select
+smaug.tgz.  Click on uncompress, and when it asks you where to unzip to,
+enter C:\ (or whichever drive you would like).  Note that this creates it
+own subdirectory, so it is best to install to the root directory of the
+drive.  As with the unix installation, this will create C:\dist, and fill it
+with SMAUG and its data files.  Now select the smaugw32*.zip file, and
+uncompress it into C:\dist\src.  Move C:\dist\src\cygwin.dll into
+C:\windows\system (or wherever your windows system directory is).
+  To run under Windows, change to C:\dist\area (note: AREA directory.  SMAUG
+expects to be run from here.  The startup script in unix does this
+automatically), and run '..\src\smaug.exe 4000' (without the quotes).
+  The Windows version does not have a batch file to keep rebooting SMAUG (at
+least currently).  You will have to manually reboot the game if you crash.
+
+3b) SMAUG defaults to port 4000, how do I change which port to run on?
+
+  Run it with a different argument.  In unix, run ./startup <port>.  In
+Windows, run ..\src\smaug.exe <port>.
+
+4a) I compiled SMAUG under unix, but I'm getting two warnings in interp.c
+
+  Older versions of Linux used a long int in the time structure.  If you
+have one of these older versions, you will need to change the two %d's to
+%ld's on line 551 in interp.c.  Other flavors of Unix may also see those
+warnings, and the same fix applies.
+
+4b) I compiled SMAUG under unix, but I'm getting other errors
+
+  Some flavors of unix may require extra libraries, or may have slightly
+different header files.  Consult with your system administrator if you do
+not understand the errors.
+
+4c) I compiled SMAUG under unix, or made my own port to Windows or another
+    operating system, but I don't have crypt()
+
+  Either define NOCRYPT in your makefile, or try to find the crypt library. 
+Note that some flavors of unix DO have crypt, but needs the crypt library
+linked in when the MUD compiles.  This is the same problem as question 4a.
+
+5) I'm running SMAUG under Win95 or WinNT, but it won't run properly
+
+  Make sure you installed everything according to question 3, and that you
+are running SMAUG from the area directory.
+  Also, Winzip doesn't create empty directories, which causes an error in
+the 1.02a version of the Windows executable.  Below is a list of the empty
+directories, but note that not all of them are required in the Windows
+version (for example, the log directory, which is used by the startup script
+in unix, which the Windows port has no equivalent of).
+  The missing directories are:
+    C:\dist\backup
+    C:\dist\building
+    C:\dist\corpses
+    C:\dist\deleted
+    C:\dist\gods
+    C:\dist\log
+    C:\dist\new
+    C:\dist\player
+    C:\dist\player\a
+    C:\dist\player\b
+    ...
+    C:\dist\player\z
+
+6a) I'm running something other than unix or Windows, can I use SMAUG?
+
+  There is a Macintosh port of SMAUG which can be found on the MacOS web
+pages at http://www.eden.com/~hsoi/mud/ and
+http://rarloa-4.pr.mcs.net/~fear/.
+
+  As far as I know, there are currently no ports of SMAUG to any other operating
+systems up for ftp from ftp.game.org.  You will either have to write your own
+port, or find someone who already has written a port to your operating system.
+
+6b) I'm running Windows 3.1, can I use SMAUG?
+
+  The currently available Windows ports of SMAUG are for 32-bit Windows. 
+They will not run in 3.1's 16-bit environment.  I don't know if they can be
+used with Win32s.  See question 6a.
+
+7a) SMAUG is up and running, how do I connected?
+
+  Load up your telnet program, and connect to port 4000 on localhost.  If
+you do not know what a telnet program is, try the command
+'telnet localhost 4000' (without the quotes).
+
+7b) How can other people connect?
+
+  You will need to know your ip address, or (if you have one) your host
+name.  People can then telnet to port 4000 at that address.
+
+8) SMAUG is up and running, why can't I be like God?
+
+  Version 1.02 and 1.02a (and possibly others) have authorization turned on
+by default.  You will need to load up your favorite text editor and edit
+/dist/system/sysdata.dat, and change WaitForAuth to 0.  This will turn off
+authorization.  Now log on as a new player and save.  Log off and edit your
+player file and change Level to 65.  Player files are found in /dist/player. 
+The subdirectories are the initials of the player names.  Select the
+appropriate directory for your name.
+
+9) What other known bugs are there in SMAUG?
+
+  In release 1.02a (and possibly others) the vnum for hell has been
+programmed in the source as room 8, but in the area, hell is vnum 6.  You
+will have to shutdown the MUD and edit /dist/area/limbo.are.  Under #ROOMS,
+change #6 to #8 (line 556 in the 1.02a release).  Under #RESETS, change 6 to
+8 (line 1023).
+
+10a) What can I do with SMAUG?
+
+  Anything you'd like.  As long as you follow all three license agreements
+(DIKU, MERC, and SMAUG), you are free to modify or distribute SMAUG as you'd
+like.  Please read the license agreements completely.  If you do not agree
+with any part of any of the three agreements, remove SMAUG and either find a
+code base with whose license you can agree, or write your own code base.
+
+10b) I don't run SMAUG, but I'd like to implement some of SMAUG's features
+     into my game, am I allowed to do this?
+
+  Yes.  You may use any part of SMAUG, as long as you follow all of the
+license agreements as listed in question 10a.  The same license applies for
+part of SMAUG as it does if you use SMAUG in its entirety.
+
+10c) I run SMAUG, but I'd like to implement features from another code base,
+     am I allowed to do this?
+
+  Again, yes.  You must, however comply with the other code base's license
+as well as those listed in question 10a.  This applies to any code that has
+been written and released by an author other than yourself.
+
+11) I want to build areas for SMAUG, but I don't know where to start
+
+  There is extensive (if somewhat confusing) online help for building in
+SMAUG, as well as a (out of date) text file in /dist/doc.  There is also a
+web page dedicated to building on SMAUG, found at
+http://www.erols.com/moodyg/olc.html.
+
+12) Adding the power of Crayola -- inline color parsing
+
+  SMAUG 1.02a (and possibly 1.02) have added the option of inline color
+parsing - the ability to change colors from within a string, whether it be a
+channel or a room description.  However, in the distribution this ability
+has been limited to certain commands (such as help files).
+
+12a) Adding color parsing to say and other one-liners -- act()
+
+  Open comm.c and find the call to write_to_buffer on line 2740.  This line
+should be in the function act(), and look like:
+
+  write_to_buffer( to->desc, txt, strlen(txt) );
+
+Change that line to read:
+
+  send_to_char_color( txt, to );
+
+12b) Adding color to the entire game!
+Open mud.h, and goto the very end of the file.  Add the two lines:
+
+  #define send_to_char	send_to_char_color
+  #define send_to_pager	send_to_pager_color
+
+This well tell the compiler to use the color counterparts whenever either of
+those two functions are called.  Then in comm.c, comment out the two functions
+send_to_char() and send_to_pager() so that the compiler won't be trying to
+compile two compies of the same function (the real one and the one that's
+created when the #defines are convertted by the preprocessor).
+
+12c) I only want to add color part of the game, not all of it!
+
+  This one you'll have to do by hand.  Start with copying ch_printf and
+pager_printf to ch_printf_color and pager_printf_color respectively.  Change
+the send_to_char and send_to_pager calls to send_to_char_color and
+send_to_pager_color, which will activate the color routines for those two
+functions.  If you only want some calls to act() parsed for color, but not
+others, you will need to add a boolean to the parameter list and either call
+the write_to_buffer or send_to_char_color as mentioned in 12a depending on
+that boolean.
+
+12d) I want to add color to the initial login screen, before players enter
+     their names.
+
+  This one is tough, because they won't have a character yet.  You will also
+need to add another CON_ state to ask whether or not they would like ANSI
+color before the screen is displayed, and a bool to DESCRIPTOR_DATA to
+record their answer.  Probably the easiest would be to create a dummy character in
+nanny(), such as the following:
+
+  CHAR_DATA dummy;
+
+  if (!d->character)
+  {
+    memset(&dummy, 0, sizeof(dummy));
+    d->character = &dummy;
+    dummy.desc = d;
+    if (d->ansi) /* The bool mentioned above */
+      SET_BIT(dummy.act, PLR_ANSI);
+  }
+
+You can then replace all the write_to_buffer()s with send_to_char_color()s
+in nanny(), the same as was done in act() in 12a.
+** Make sure you NULL-terminate all your strings before you
+send_to_char_color() them.  The one in act() was NULL-terminated previously,
+but there may be some in nanny() which aren't.
+
+12e) How do I add color to the new player login sequence?
+
+  The new player login is run through nanny() just as the initial login
+screen would be once you added the 'Would you like color' prompt as
+mentioned in 12d.  Therefore, the same procedure applies.
+
+12f) Send_to_char_color is outputting two copies of everything -- the real
+     copy and an uncolorized copy.
+
+  In comm.c, around line 2302, there should be a line that looks like:
+    write_to_buffer(d, prevstr, (colstr-prevstr));
+
+  The problem comes when the first character in a string is a color code. 
+It makes colstr equal to prevstr, so subtracting them returns 0, which
+write_to_buffer() uses to mean find the length of the string itself, so the
+result is write_to_buffer() writing out the full string and then the function
+continuing the write the colorized string.
+
+  Before that line, add the following, such as:
+
+    if (colstr > prevstr)
+      write_to_buffer(d, prevstr, (colstr-prevstr));
+
+  This will make it so that write_to_buffer() is only called when subtracting
+the two values returns a result greater than 0.
+
+13a) What are all these string macros/functions?
+
+  In SMAUG, strings have the ability to be hashed, but aren't necessarily. 
+You must not mix up hashed and unhashed strings or bad things will happen.
+The rule is:
+
+STRALLOC()'d or fread_string()'d -> STRFREE()		/* hashed */
+str_dup()'d or fread_string_nohash()'d -> DISPOSE()	/* not hashed */
+
+  Any strings that you want to keep past the end of a function MUST be
+allocated.  As a general rule, its also not a good idea to mix in the system
+allocation functions -- it just adds more confusion, and the SMAUG functions
+do the same job.
+  QUICKLINK must only be used with hashed strings (STRALLOC/fread_string).  If
+QUICKLINK is used on an unhashed string, bad things can result.
+  QUICKMATCH should also only be used with hashed strings.  Although it won't
+create a fatal error, it will always return FALSE on unhashed strings.
+
+13b) Where do I use hashed strings and where do I use unhashed?
+
+  Hashing is normally used for strings which are repeated in the MUD often
+(mob names, object, names, etc), where as unhashed strings are more for
+things that are a one-shot and are not likely to be duplicated (player
+names, etc).  Having an unhashed string with the same literal characters as
+a hashed string is not a problem, as long as they aren't the same physical
+string (a player whose name is the same as a mob's name or something, for
+example).
+
+13c) What are all these other memory macros?
+
+  CREATE() should always be used to allocate non-string memory, and DISPOSE()
+should always be used to free it.  RECREATE() can be used to resize an old
+block of memory, but be careful if you have other pointers into the same
+memory block, as it may not return the same block as it was when you called
+RECREATE().  These functions are basically overheads for the system
+allocation routines, which again shouldn't be used in SMAUG for the sake of
+simplicity.
+
+13d) Whats this LINK/UNLINK/etc stuff?
+
+  In a singly-linked list (like MERC/ROM/Envy uses), 'a' points to 'b',
+which in turn points to 'c', looking somewhat like a->b->c->NULL.
+  SMAUG uses doubly-linked lists.  This means that 'a' points to 'b', which
+points both back to 'a' (prev), and forward to 'c' (next).  This structure
+looks something like NULL<-a<->b<->c->NULL.  Doubly-linked lists, although
+using a little bit more memory (4 bytes with 32bit pointers), is both much
+easier to use and much faster to unlink (you already have a pointer to the
+previous item in the list).  This also brings rise to the macros.
+
+  LINK(): add a pointer to the END of a list.
+  INSERT(): insert a pointer BEFORE the item 'insert'.  If you want to
+	    insert an item after, reverse first, next, and prev in the call
+	    (so it would be called INSERT(link, insert, last, prev, next),
+	    which will insert it before insert, but backwards, so when the
+	    list is read forward, link will be after insert.
+  UNLINK(): remove a pointer from anywhere in a list.
+  CHECK_LINKS(): Will run through a doubly-linked list and report any errors
+		 in the list.  It will also attempt to fix the errors, but
+		 if you DO see an error from CHECK_LINKS, you should
+		 probably reboot the mud as soon as possible, as the error
+		 correction routine is not overly intelligent.  It does what
+		 it can, but you could easily lose part or all of the list.
+
+14) I've read the FAQ, but still have questions.  Where do I turn?
+
+  There is a mailing list set up for questions about SMAUG.  To subscribe
+send an email to smaug-request@realms.game.org, with the line
+'subscribe smaug' (without the quotes).

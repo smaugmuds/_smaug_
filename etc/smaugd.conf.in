@@ -1,0 +1,52 @@
+ ############################################################################
+ #                                                                          #
+ #   X      X  ******* **    **  ******  **    **  ******                   #
+ #    X    X  ******** ***  *** ******** **    ** ********       \\._.//    #
+ #     X  X   **       ******** **    ** **    ** **             (0...0)    #
+ #      XX    *******  ******** ******** **    ** **  ****        ).:.(     #
+ #      XX     ******* ** ** ** ******** **    ** **  ****        {o o}     #
+ #     X  X         ** **    ** **    ** **    ** **    **       / ' ' \    #
+ #    X    X  ******** **    ** **    ** ******** ********    -^^.VxvxV.^^- #
+ #   X      X *******  **    ** **    **  ******   ******                   #
+ #                                                                          #
+ # ------------------------------------------------------------------------ #
+ # Ne[X]t Generation [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame  #
+ # ------------------------------------------------------------------------ #
+ # XSMAUG 2.5 (C) 2014  by Antonio Cao @burzumishi                          #
+ # ------------------------------------------------------------------------ #
+ #                                 @PACKAGE@                                  #
+ #                                  Config                                  #
+ ############################################################################
+
+@PACKAGE@=@PACKAGE@;
+VERSION=@VERSION@;
+
+NAME=@PACKAGE@
+DESC="@DESCRIPTION@"
+
+USER=@USER@
+GROUP=@GROUP@
+
+HOST=localhost
+PORT=4000
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:@bindir@
+BINDIR=@bindir@
+INITD=@sysconfdir@/init.d
+
+SU="su"
+
+EXEC=$NAME
+MONITOR=@PACKAGE@-monitor
+DAEMON=@PACKAGE@d
+HTTPD=httpd
+
+RUNDIR=@localstatedir@/run
+EXEC_PIDFILE=$RUNDIR/@PACKAGE@.pid
+MONITOR_PIDFILE=$RUNDIR/@PACKAGE@-monitor.pid
+HTTPD_PIDFILE=$RUNDIR/@PACKAGE@-httpd.pid
+
+LOGDIR=@localstatedir@/log/@PACKAGE@
+EXEC_LOGFILE=$LOGDIR/@PACKAGE@.log
+MONITOR_LOGFILE=$LOGDIR/@PACKAGE@-monitor.log
+HTTPD_LOGFILE=$LOGDIR/@PACKAGE@-httpd.log

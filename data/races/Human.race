@@ -1,0 +1,54 @@
+Name        Human~
+Race        0
+Classes     0
+Str_Plus    0
+Dex_Plus    0
+Wis_Plus    0
+Int_Plus    0
+Con_Plus    0
+Cha_Plus    0
+Lck_Plus    0
+Hit         0
+Mana        0
+Affected    0
+Resist      0
+Suscept     0
+Language    1
+Align       0
+Min_Align  -1000
+Max_Align	1000
+AC_Plus    0
+Exp_Mult   100
+Attacks    0
+Defenses   0
+Height     66
+Weight     150
+Hunger_Mod  0
+Thirst_mod  0
+Mana_Regen  0
+HP_Regen    0
+Race_Recall 0
+WhereName  <used as light>     ~
+WhereName  <worn on finger>    ~
+WhereName  <worn on finger>    ~
+WhereName  <worn around neck>  ~
+WhereName  <worn around neck>  ~
+WhereName  <worn on body>      ~
+WhereName  <worn on head>      ~
+WhereName  <worn on legs>      ~
+WhereName  <worn on feet>      ~
+WhereName  <worn on hands>     ~
+WhereName  <worn on arms>      ~
+WhereName  <worn as shield>    ~
+WhereName  <worn about body>   ~
+WhereName  <worn about waist>  ~
+WhereName  <worn around wrist> ~
+WhereName  <worn around wrist> ~
+WhereName  <wielded>           ~
+WhereName  <held>              ~
+WhereName  <dual wielded>      ~
+WhereName  <worn on ears>      ~
+WhereName  <worn on eyes>      ~
+WhereName  <missile wielded>   ~
+WhereName  (null)~
+End

@@ -1,0 +1,301 @@
+Name        Vampire~
+Class       4
+AttrPrime   2
+AttrSecond   0
+AttrDeficient   0
+Weapon      10312
+Guild       3036
+Skilladept  95
+Thac0       18
+Thac32      7
+Hpmin       9
+Hpmax       14
+Mana        0
+Expbase     1500
+Affected    0
+Resist	 0
+Suscept	 0
+Skill 'chill touch' 3 95
+Skill 'control weather' 18 95
+Skill 'detect magic' 20 85
+Skill 'detect traps' 20 90
+Skill 'dispel magic' 25 95
+Skill 'enchant weapon' 40 85
+Skill 'energy drain' 17 95
+Skill 'float' 1 95
+Skill 'fly' 10 95
+Skill 'harm' 13 95
+Skill 'identify' 15 95
+Skill 'infravision' 1 95
+Skill 'invis' 10 95
+Skill 'kindred strength' 15 95
+Skill 'know alignment' 6 95
+Skill 'lightning bolt' 17 95
+Skill 'locate object' 20 95
+Skill 'poison' 6 95
+Skill 'scry' 29 95
+Skill 'shield' 27 95
+Skill 'shocking grasp' 12 95
+Skill 'sleep' 12 95
+Skill 'stone skin' 30 95
+Skill 'teleport' 11 95
+Skill 'transport' 45 40
+Skill 'ventriloquate' 9 95
+Skill 'weaken' 6 95
+Skill 'word of recall' 30 95
+Skill 'aggressive style' 4 95
+Skill 'aid' 21 60
+Skill 'berserk style' 12 80
+Skill 'bite' 11 95
+Skill 'bloodlet' 11 95
+Skill 'broach' 41 60
+Skill 'climb' 8 95
+Skill 'cook' 1 95
+Skill 'defensive style' 16 90
+Skill 'dig' 2 95
+Skill 'disarm' 25 95
+Skill 'dodge' 22 95
+Skill 'dominate' 14 95
+Skill 'dual wield' 35 95
+Skill 'elbow' 15 85
+Skill 'enhanced damage' 5 95
+Skill 'evasive style' 12 90
+Skill 'feed' 3 95
+Skill 'fourth attack' 38 85
+Skill 'grasp suspiria' 50 95
+Skill 'hide' 3 95
+Skill 'knee' 20 60
+Skill 'leap' 18 80
+Skill 'mistform' 18 95
+Skill 'mistwalk' 31 90
+Skill 'mount' 16 95
+Skill 'occulutus visum' 12 95
+Skill 'parry' 11 95
+Skill 'peek' 16 95
+Skill 'pounce' 5 80
+Skill 'scan' 36 85
+Skill 'search' 9 95
+Skill 'second attack' 11 95
+Skill 'shriek' 35 95
+Skill 'sneak' 3 95
+Skill 'standard style' 1 90
+Skill 'steal' 6 95
+Skill 'strike' 2 90
+Skill 'third attack' 23 95
+Skill 'vomica pravus' 13 45
+Skill 'bludgeons' 1 50
+Skill 'flexible arms' 1 40
+Skill 'long blades' 1 85
+Skill 'pugilism' 1 95
+Skill 'short blades' 1 95
+Skill 'talonous arms' 1 95
+Skill 'common' 1 99
+Skill 'dwarven' 1 99
+Skill 'elvish' 1 99
+Skill 'gith' 1 99
+Skill 'gnomish' 1 99
+Skill 'goblin' 1 99
+Skill 'halfling' 1 99
+Skill 'ogre' 1 99
+Skill 'orcish' 1 99
+Skill 'pixie' 1 99
+Skill 'trollese' 1 99
+Title
+Vampire~
+Vampiress~
+Title
+Apprentice of Blood~
+Apprentice of Blood~
+Title
+Blood Student~
+Blood Student~
+Title
+Scholar of Blood~
+Scholar of Blood~
+Title
+Delver in Blood~
+Delveress in Blood~
+Title
+Medium of Blood~
+Medium of Blood~
+Title
+Scribe of Blood~
+Scribess of Blood~
+Title
+Seer of Blood~
+Seeress of Blood~
+Title
+Blood Sage~
+Blood Sage~
+Title
+Illusionist~
+Illusionist~
+Title
+Abjurer~
+Abjuress~
+Title
+Invoker~
+Invoker~
+Title
+Enchanter~
+Enchantress~
+Title
+Conjurer~
+Conjuress~
+Title
+Magician~
+Witch~
+Title
+Maker~
+Maker~
+Title
+Savant~
+Savant~
+Title
+Magus~
+Craftess~
+Title
+Warlock~
+War Witch~
+Title
+Demi-Sorcerer~
+Demi-Sorceress~
+Title
+Sorcerer~
+Sorceress~
+Title
+Elder Sorcerer~
+Elder Sorceress~
+Title
+Grand Sorcerer~
+Grand Sorceress~
+Title
+Great Sorcerer~
+Great Sorceress~
+Title
+Zombie Maker~
+Zombie Maker~
+Title
+Greater Zombie Maker~
+Greater Zombie Maker~
+Title
+Maker of Stones~
+Maker of Stones~
+Title
+Maker of Poisons~
+Maker of Poisons~
+Title
+Maker of Slaves~
+Maker of Slaves~
+Title
+Green Wizard~
+Green Wizard~
+Title
+Brown Wizard~
+Brown Wizard~
+Title
+Blue Wizard~
+Blue Wizard~
+Title
+Red Wizard~
+Red Wizard~
+Title
+Grey Wizard~
+Grey Wizard~
+Title
+White Wizard~
+White Wizard~
+Title
+Silver Wizard~
+Silver Wizard~
+Title
+Gold Wizard~
+Gold Wizard~
+Title
+Platinum Wizard~
+Platinum Wizard~
+Title
+Diamond Wizard~
+Diamond Wizard~
+Title
+Archmage of Rods~
+Archmage of Rods~
+Title
+Archmage of Wands~
+Archmage of Wands~
+Title
+Archmage of Staves~
+Archmage of Staves~
+Title
+Archmage of Orbs~
+Archmage of Orbs~
+Title
+Demon Summoner~
+Demon Summoner~
+Title
+Greater Demon Summoner~
+Greater Demon Summoner~
+Title
+Dragon Charmer~
+Dragon Charmer~
+Title
+Greater Dragon Charmer~
+Greater Dragon Charmer~
+Title
+Master of Demons~
+Mistress of Demons~
+Title
+Master of Dragons~
+Mistress of Dragons~
+Title
+Master of all Magic~
+Mistress of all Magic~
+Title
+Avatar~
+Avatar~
+Title
+Neophyte~
+Neophyte~
+Title
+Acolyte~
+Acolyte~
+Title
+Creator~
+Creator~
+Title
+Savior~
+Savior~
+Title
+Demi God~
+Demi Goddess~
+Title
+Immortal~
+Immortal~
+Title
+Lesser God~
+Lesser Goddess~
+Title
+God~
+Goddess~
+Title
+Greater God~
+Greater Goddess~
+Title
+Ascendant God~
+Acendant Goddess~
+Title
+Exalted God~
+Exalted Goddess~
+Title
+Ancient One~
+Ancient One~
+Title
+Eternal One~
+Eternal One~
+Title
+Infinite One~
+Infinite One~
+Title
+Supreme Entity~
+Supreme Entity~
+End

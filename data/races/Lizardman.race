@@ -1,0 +1,61 @@
+Name        Lizardman~
+Race        13
+Classes     16383
+Str_Plus    2
+Dex_Plus    -3
+Wis_Plus    -6
+Int_Plus    -6
+Con_Plus    2
+Cha_Plus    -2
+Lck_Plus    -4
+Hit         2
+Mana        0
+Affected    -2147483648
+Resist      64
+Suscept     0
+Language    1
+Align       0
+Min_Align  -1000
+Max_Align	500
+AC_Plus    0
+Exp_Mult   91
+Attacks    4
+Defenses   0
+Height     78
+Weight     215
+Hunger_Mod  -2
+Thirst_mod  -3
+Mana_Regen  0
+HP_Regen    0
+Race_Recall 0
+WhereName  <used as light>     ~
+WhereName  <worn on finger>    ~
+WhereName  <worn on finger>    ~
+WhereName  <worn around neck>  ~
+WhereName  <worn around neck>  ~
+WhereName  <worn on body>      ~
+WhereName  <worn on head>      ~
+WhereName  <worn on legs>      ~
+WhereName  <worn on feet>      ~
+WhereName  <worn on hands>     ~
+WhereName  <worn on arms>      ~
+WhereName  <worn as shield>    ~
+WhereName  <worn about body>   ~
+WhereName  <worn about waist>  ~
+WhereName  <worn around wrist> ~
+WhereName  <worn around wrist> ~
+WhereName  <wielded>           ~
+WhereName  <held>              ~
+WhereName  <dual wielded>      ~
+WhereName  <worn on ears>      ~
+WhereName  <worn on eyes>      ~
+WhereName  <missile wielded>   ~
+WhereName  <worn on back>  ~
+WhereName  <worn over face>  ~
+WhereName  <worn around ankle>  ~
+WhereName  <worn around ankle>  ~
+WhereName  <BUG Inform Nivek>  ~
+WhereName  <BUG Inform Nivek>  ~
+WhereName  <BUG Inform Nivek>  ~
+WhereName  (null)~
+End

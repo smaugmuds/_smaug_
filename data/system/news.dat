@@ -1,0 +1,1198 @@
+#NEWSTYPE
+Name          news~
+Cmd_Name      news~
+Header        &WNews of the Realms ...
+~
+Vnum          0
+Level	       0
+End
+#NEWS
+Title    'Garb' command added.~
+Name     Realms~
+Date     05/06/02~
+Type     0
+POST     The 'garb' command displays all wear locations available, whether
+empty or not.  (Thanks Shargate)
+~
+End
+#NEWS
+Title    &rBloodlet&W now inflicts minor damage.~
+Name     Realms~
+Date     05/06/02~
+Type     0
+POST     If you'd trim your nail, it wouldn't hurt as much.
+~
+End
+#NEWS
+Title    &rFeed&W boost has been modified.~
+Name     Realms~
+Date     05/06/02~
+Type     0
+POST     Feeding will return a small number of hitpoints to the vampire, but
+will not revert health to a lower level.  For example, if a vampire
+removes his equipment and feeds, his health will remain the same
+rather than being 'healed down' to its maximum health with equipment
+off.
+~
+End
+#NEWS
+Title    The &GGreen Forest &Warea has been added.~
+Name     Realms~
+Date     05/06/02~
+Type     0
+POST     This is a low-level area located along the northwestern wall of
+New Darkhaven.
+~
+End
+#NEWS
+Title    The &w'compass'&W command (and config) is implemented.~
+Name     Realms~
+Date     05/06/02~
+Type     0
+POST     An on-screen compass display.  See '&whelp compass&G'.
+~
+End
+#NEWS
+Title    Crashes?  What crashes?~
+Name     Realms~
+Date     05/06/02~
+Type     0
+POST     No, the recent crashes have nothing to do with any of the recent
+code changes.  One problem caused a string of crashes, and in the
+process of fixing it we brought over a number of code changes.
+~
+End
+#NEWS
+Title    You can now 'note list <player>' on boards.~
+Name     Realms~
+Date     05/06/02~
+Type     0
+POST     ~
+End
+#NEWS
+Title    Desert of Despair has found its way into the Realms.~
+Name     Edmond~
+Date     05/06/02~
+Type     0
+POST     Thanks to the efforts of our builders again, a small portion of Desert
+of Despair has found its way into the Realms.  Look for larger portions
+to come in the future.  Plot/Storyline and the majority of what is
+currently seen was completed by Moro. Additional descriptions completed
+by Iliana.  Special thanks to all the building staff for making this
+a living, breathing area.
+~
+End
+#NEWS
+Title    Colorschemes are in.~
+Name     Realms~
+Date     05/06/02~
+Type     0
+POST     A set of admittedly (and intentionally) limited colorschemes for rooms
+have been added.  Type 'colorschemes' or 'help colorschemes' for more
+information.  Thanks to Altrag - though he didn't create this, it does
+make use of his old colorize code and would not have been implemented
+otherwise.
+~
+End
+#NEWS
+Title    New 'news' system in - we like it! (Updated)~
+Name     Realms~
+Date     05/06/02~
+Type     0
+POST     The news system is a very slightly modified version of Noplex's
+extended news code.  We will be extending this to several other
+functions such as 'changes' and news for organizations.
+~
+End
+#NEWS
+Title    A change to deadlies and channels.~
+Name     Realms~
+Date     05/06/02~
+Type     0
+POST     Deadlies will no longer have access to public channels after reboot.
+Wartalk and clantalk remain.  This may or may not be permanent.
+~
+End
+#NEWS
+Title    Portals in Darkhaven - read for more information~
+Name     Blodkai~
+Date     05/06/02~
+Type     0
+POST     Portals can no longer be made into or out of Darkhaven.
+This has been a long-standing rule, but is now
+enforced in code.  (In short, attempts to cast a portal
+into or out of Darkhaven will automatically fail.)
+~
+End
+#NEWS
+Title    Crashes?  Yes, crashes!~
+Name     Realms~
+Date     05/06/02~
+Type     0
+POST     Please be patient while we work through the crash problem.
+ 
+(And nope, it's still not related to new code.)
+~
+End
+#NEWS
+Title    The Deadly-only 'Cleave' skill is in!~
+Name     Moonbeam~
+Date     05/06/02~
+Type     0
+POST     Thank you to Einik for the idea and Shargate for the implementation.
+~
+End
+#NEWS
+Title    Stability returns ... ?~
+Name     Realms~
+Date     05/08/02~
+Type     0
+POST     One of the more unstable periods we've had for a while has hopefully
+been put behind us.  The problem was obscure, and was not related to
+new code but to the first-ever heavy use of existing code.  While
+the crashes were frustrating to us all, some things just don't
+rear their ugly heads until 500+ characters are thrown into the mix.
+ 
+This code is powerful and extremely flexible, and gives us the
+ability to do things we couldn't dream of in the past.  The brief
+problems will have been well worth it.  Of course there always
+exists the potential for a crash, but the string of them we've
+experienced over the past few days from this problem have
+been highly unusual.  (Sometimes we forget what it's like to have
+been running stable for so long.)
+ 
+Many thanks to Thoric, Altrag and Edmond for their attention to
+and eventual resolution of the problem.
+~
+End
+#NEWS
+Title    Pets can enter NO MOB rooms.~
+Name     Edmond~
+Date     05/14/02~
+Type     0
+POST     After a long time, we've begun to allow pets to enter through rooms a
+normal mob cannot.  Now you and your loved companion can adventure 
+together.  Credit:  Leart.
+~
+End
+#NEWS
+Title    Notes got a small modification~
+Name     Edmond~
+Date     05/14/02~
+Type     0
+POST     Notes addressed to all can no longer be removed by any person. Only the
+originator, designated removers to the board, and immortals can remove
+these notes.  Credit:  Leart.
+~
+End
+#NEWS
+Title    New command 'chardelete' added.~
+Name     Blodkai~
+Date     05/18/02~
+Type     0
+POST     Due to heavy demand for the ability to recreate a character in an
+attempt to give it a better start on life, characters between levels
+2 and 5 can now choose to delete themselves with the 'chardelete'
+command.  (Thanks to Conran)
+~
+End
+#NEWS
+Title    PVP damage has been increased.~
+Name     Moonbeam~
+Date     05/19/02~
+Type     0
+POST     Player versus player damage has been increased by 10%.  Run Faster :)
+~
+End
+#NEWS
+Title    Worn equipment zaps to inventory in arenas.~
+Name     Blodkai~
+Date     05/27/02~
+Type     0
+POST     Small update - only equipment currently worn zaps into inventory.
+Equipment that zaps _upon_ being worn will fall to the ground.
+~
+End
+#NEWS
+Title    Typos fixed... some anyway~
+Name     Edmond~
+Date     05/27/02~
+Type     0
+POST     After a night of hard work, a large number of reported typos have been fixed
+and adjusted.  We appreciate all of you who continue to give the feedback
+when you see the errors.  Keep up the good work!
+~
+End
+#NEWS
+Title    help scroll added~
+Name     Moonbeam~
+Date     05/27/02~
+Type     0
+POST     Thanks Tical for added the help scroll helpfile.
+~
+End
+#NEWS
+Title    New Law file added 'Mobassist'~
+Name     Moonbeam~
+Date     05/28/02~
+Type     0
+POST     Thank you to Destre for this addition
+Type: laws mobassist
+~
+End
+#NEWS
+Title    Guild abbreviations are usable with the "guilds" command.~
+Name     Edmond~
+Date     06/01/02~
+Type     0
+POST     ~
+End
+#NEWS
+Title    A few code changes have been made.~
+Name     Edmond~
+Date     06/01/02~
+Type     0
+POST     - Both "eq" and "garb" commands have been updated to accomodate the use of
+  ankle wear.
+ 
+- Say has had some modifications to it to make use of ending punctuation.
+ 
+- Rosters should now remove all autodeleted characters after a reboot.
+~
+End
+#NEWS
+Title    Trance and meditate are upgraded.~
+Name     Edmond~
+Date     06/01/02~
+Type     0
+POST     Trance and meditate are now continuous.  Using the skills should yield some
+self explanatory results.  In addition, a character will show being in
+"meditation" or "trance" in the room when they enter these states.  (This also
+affects some other skills)
+~
+End
+#NEWS
+Title    Expect tweaks to trance and meditate.~
+Name     Blodkai~
+Date     06/01/02~
+Type     0
+POST     The changes will be in keeping with the skills.
+~
+End
+#NEWS
+Title    Augurers get climb.~
+Name     Blodkai~
+Date     06/01/02~
+Type     0
+POST     ~
+End
+#NEWS
+Title    Practice has been modified slightly~
+Name     Edmond~
+Date     06/03/02~
+Type     0
+POST     Practice now works the same way cast does.  If you want to practice a multi-
+word spell, you must put the single quotes around it.
+ 
+eg.  practice 'detect hidden'
+~
+End
+#NEWS
+Title    New Social 'zuh' added~
+Name     Moonbeam~
+Date     06/06/02~
+Type     0
+POST     Thank you Gryvon for your submission
+~
+End
+#NEWS
+Title    Violin social added~
+Name     Moonbeam~
+Date     06/06/02~
+Type     0
+POST     ~
+End
+#NEWS
+Title    Hidecrime social added~
+Name     Moonbeam~
+Date     06/06/02~
+Type     0
+POST     ~
+End
+#NEWS
+Title    Some commands no longer break trance/meditate~
+Name     Blodkai~
+Date     06/07/02~
+Type     0
+POST     These include save, score, oldscore and a few others.
+~
+End
+#NEWS
+Title    Hscratch social added~
+Name     Moonbeam~
+Date     06/09/02~
+Type     0
+POST     Hscratch social has been added
+~
+End
+#NEWS
+Title    'goodnight' social added~
+Name     Moonbeam~
+Date     06/09/02~
+Type     0
+POST     New social - Goodnight
+~
+End
+#NEWS
+Title    Login messages have been added.~
+Name     Edmond~
+Date     06/15/02~
+Type     0
+POST     Certain game functions will now leave you a login message if you are link
+dead when they occur.
+~
+End
+#NEWS
+Title    Small bugs fixed in Desert of Despair~
+Name     Edmond~
+Date     06/16/02~
+Type     0
+POST     Some folks will notice two significant bugs were fixed in Desert of
+Despair today.
+~
+End
+#NEWS
+Title    The many reboots this weekend.~
+Name     Blodkai~
+Date     06/23/02~
+Type     0
+POST     There were no functional changes.  A problem with storage room saving
+was uncovered and should now be fixed.  If you've got a storage room,
+especially one that was having a problem, thank Ed for spending most
+of his Saturday (literally) correcting the problem and recovering
+what was lost.
+~
+End
+#NEWS
+Title    Shimmering Razors~
+Name     Tumult~
+Date     07/04/02~
+Type     0
+POST     Shimmering Razors have been temporarily been altered.  The remove
+programs are off for a short period of time.  They will return as soon as
+the bug is worked out of it.
+~
+End
+#NEWS
+Title    The passing of a Goddess~
+Name     Ofcol Town Crier~
+Date     07/13/02~
+Type     0
+POST     It is with a somber heart that I proclaim, on this the Day of Thunder,
+3rd the Month of Nature, on the moist earth of our Village the lifeblood
+of a goddess was spilled.
+  Earlier in the night, a being known as Pseulak appeared in town.  She
+spoke blasphemously of our gods and beseeched others to follow it.  When
+a suitable crowd had gathered, Pseulak lashed out and killed all within
+reach.  Wave after wave of hero threw themselves at Pseulak, but with
+each blow Pseulak returned more powerful.
+   After the battle was waged for an hour, the goddess Nae'trelle, fair in
+her beauty, arrived and came to our aid.  She healed and blessed those
+who fled the battle.
+   But then Pseulak slipped from the battle and came face to face with the
+goddess.  A harsh exchanges of words flew between them.  Then suddenly, Pseulak
+lashed out with a wicked sharp claw and slit the throat of Nae'trelle.  The
+ground shook with her death keen as her blood poured to the earth.  As the
+quake increased their was a blinding light and all was silent.
+   When the light subsided, the corpse of Nae'trelle was gone.  All that
+remained was Pseulak and half a dozen of her demonic minions.  Pseulak
+fled, leaving the demons to cover his retreat.
+ 
+ 
+   It is with great sadness that we mourn the loss of the Goddess of Innocence.
+Farewell Nae'trelle.
+~
+End
+#NEWS
+Title    A few small pkill changes - pkillers should read soon~
+Name     Blodkai~
+Date     07/13/02~
+Type     0
+POST     One note on each of the pkill boards in the ruins with regard to
+a change in loyal/disarm, and the Angel's sanctuary.
+~
+End
+#NEWS
+Title    An unfortunate incident~
+Name     Priest of Volarh~
+Date     07/14/02~
+Type     0
+POST     In a vision, my god has spoken to me.  Heed my words, followers of
+Volarh and those blasphemers who follow weak gods.
+   A time has come for the Lesser Gods to rise!  The Greater Gods ignore
+us.  They spurn our sacrifices.  Our cries fall on deaf ears.  And for what?
+To watch as minor deities are slain by inferior beings?  A time has come for
+a change in order.
+   My god, Volarh offered his hand to his brother Ch'Aranol only to have it
+slapped away.  My god's servant, Vorus, then dealt with the upstart in the
+only fitting manner possible, death.
+ 
+Come.  Follow a god with vision, a god who will not be weak in this time of
+strife.  Submit to the will of Volarh.
+~
+End
+#NEWS
+Title    Housing commands are temporarily disabled~
+Name     Edmond~
+Date     07/14/02~
+Type     0
+POST     In order to complete some changes, housing commands have been temporarily
+disabled.  Any questions can be taken to Edmond for explanation.
+~
+End
+#NEWS
+Title    Horrors~
+Name     Jhen~
+Date     07/16/02~
+Type     0
+POST     The sky lit up with flames!  The flames swirled downward against the
+wind currents and took to torching the town.  One of the guardsmen,
+poor lad, had his face scorched off.  The skin, it...it just melted off
+his face it did.  Well, as I was saying, the flames were everywhere.
+Then some heroes from Darkhaven arrived, brave souls.  They looked
+scorched and burnt when they arrived.  Seems they had been fighting
+these things down in the Old Marsh.  Also fought their Lord or some
+such who was runnin' rampant in New Thalos.
+   Well, as I was saying, the heroes arrived and made short work of
+those flames, what with their quantum blast things and their lifeblades
+and whatever you call them.  They fought one here in my own shop.
+Terrifyin' it was.
+  Well, as I was saying, there was a Lord of Fire running around New
+Thalos.  It seems he was using these other fires to lure out E'soa.
+She used her winds to weaken the flames in the Marsh and here in
+Solace.  Then when all the flames were extinguished, he turned to
+her and burned her to a crisp.  The skin just rolled right off her
+body, I hear.  Horrid, horrid.  Hopefully this Furmas fellow who
+killed her is long gone.
+   Well, that's all I'm saying.
+~
+End
+#NEWS
+Title    Blood in the Forest~
+Name     Innkeeper Jed~
+Date     07/18/02~
+Type     0
+POST     There was a lot of hootin' and hollerin', I remember that.  Aalakab
+entered the world promising more power to his undead followers through
+some ritual charm he invented.  So like a bunch of damn fools, all them
+Darkhaven heroes run off to help him.  Yeah, help the deity of evil undead
+vampires.  Fools.
+  Sorry, got off track.  Anyway, fast as you can say glory, these people are
+running all over gathering ingredients.  I think Mephie, Zwanth, Asmodeous and
+Ferokonon helped him the most.  So Aalakab has all his ingredients, then he
+asks for some more things and people blindly rush off and get it for him.
+  Then this god shows up right outside my inn in the middle of the Forest.  He
+summons all those who helped him while he works his charm.  Apparently the fool
+wants to block out the sun and all these other fools just helped him and are
+standing around watching.  Well, he does this charm without bothering to make
+sure everything he asked for is there.  Seems this Ferokonon fellow left and
+he had one of the crucial ingredients.  So instead of this fantastic charm to
+block out the sun, we get Mahsstrac this giant dragon.  This dragon was
+supposed to block out the sun, see, but since it was missing whatever
+Ferokonon was supposed to bring it went nuts.  Flat out berserk.  Breathing
+gas and shredding people with its claws.  So then Aalakab steps in thinking
+he can stop the thing and SPLAT!  The dragon summons a demon that destroys
+him.  That's what you get for mucking with dark magicks and having
+undependable help I guess.  And all the rest of you fools, quit helping these
+deities.  They are no good I tell you, the lot of them.  You are better off
+spending some time at my inn, which has some reduced ale right now.
+~
+End
+#NEWS
+Title    The touche social has been removed~
+Name     Moonbeam~
+Date     07/24/02~
+Type     0
+POST     This social was interfering with some commands.  So away it goes.
+~
+End
+#NEWS
+Title    Glory/Extra descriptions~
+Name     Kali~
+Date     07/26/02~
+Type     0
+POST     The glory rate for extra descriptions has been modified.
+This was done to clear up previous cost confusion.
+ 
+For those who don't feel like checking help glory rates, this is
+the modified rate:
+5 glory for an extra description of 5 lines or less.  Any additional
+lines in the extra description will cost one glory per line.  Before
+someone bothers asking, no, you can not just buy 1 line for 1 glory.
+5 is the base cost for any number of lines ranging 1 through 5.
+~
+End
+#NEWS
+Title    The typo file has been reviewed.~
+Name     Edmond~
+Date     07/28/02~
+Type     0
+POST     Expect to see the changes in response to the typos reported with the
+"typo" command soon.  Special thanks to Hobanoliv for a good number of
+reports this time around.
+~
+End
+#NEWS
+Title    Stat names - bye bye~
+Name     Blodkai~
+Date     08/05/02~
+Type     0
+POST     The title says it all.  If you want to keep trying to get these names
+authorized, and you manage to do so, and you don't have any embarrassment
+issues with running around as Ganerlutozufeyiulixieu - more power to you.
+But the name will no longer determine your stats.
+~
+End
+#NEWS
+Title    Traitorous Vorus~
+Name     Priest of Volarh~
+Date     08/06/02~
+Type     0
+POST     In a vision, I saw my god wail in anger as he discovered an artifact
+of power had been stolen from him.  He suspected the only one debauched
+enough to attempt this was the God of Sins, Er'res.  Volarh descended
+from the heavens to locate Er'res and regain his artifact.  He found
+Er'res in search of the Ultimate Sin, which had gone missing from the
+heavens.
+   The former disciple of my God, Vorus, appeared to Er'res and Volarh.
+Vorus disclosed that the artifacts has been shattered and buried deep
+within the ground.  Before the deities could react, Vorus was gone.
+   The gods sought out mortals to obtain the shattered remains of their
+lost artifacts.  A group of twenty completed these tasks swiftly, upturning
+the earth around the Abattoir Asylum.
+   But Vorus was sly, even moreso that the gods of thievery and sin.  He
+poisoned the fragments with foul magick.  Upon their assembly, the immortal
+powers of Er'res and Volarh were drained.  As their powers vanished, the
+gods made men went mad.  They struck at those who had brought them the
+fragments.  The mortals were forced to slay the mortal remains of my god
+and Er'res.  I report this with great sadness, for my purpose in the world
+is no more.  This is the last entry I will pen before my self-inflicted
+demise.  Farewell.
+~
+End
+#NEWS
+Title    The Goddess Circe~
+Name     A Darkhaven Guard~
+Date     08/07/02~
+Type     0
+POST     As I was watching my post over Haon Dor, I saw a most magical thing.
+A group of young adventurers were gathering pieces of a small damaged
+statue with the aid of a divine sculptress.  It seems the fragments
+held the essence of the goddess Circe who was assaulted in the home of
+Maidenstone.
+   Hours later as my shift came to an end, the last of the fragments were
+gathered.  As the goddess emerged from the form of the statue, the divine
+sculptress mutated into Wakshaa the godslayer.  While Circe was groggy and
+unaware, her powers were drained and she collapsed.  While I did not
+see if she survived or not, I can say for sure her powers are gone.
+A sadder thing I have never seen.
+~
+End
+#NEWS
+Title    Vorus and the other Godslayers~
+Name     Kali~
+Date     08/09/02~
+Type     0
+POST     Bor'hin, the god of the poor, was slain tonight by Vorus.  This Vorus
+is the same entity that destroyed Volarh, patron of thieves and my
+comrade.
+ 
+This Vorus is no more.  In a decisive battle, he was slain by the
+avatars of Darkhaven, with some small aid from myself.
+ 
+For those others who have struck against the gods, Furmas, Pseulak,
+Wakshaa and Mahstraac and other allies you may have, this is the
+only warning I will lend you.  Should you challenge the gods in
+my presence, you will be destroyed.
+ 
+The only sympathies I can lend to those who follow Bor'Hin is the
+knowledge that your god was avenged.
+~
+End
+#NEWS
+Title    My failure~
+Name     The Sage of the Mountain~
+Date     08/12/02~
+Type     0
+POST     My foolishness this day has greatly cost the Realms.  A pregnant matron
+who I now know by the name Lady Yul, approached me in disguise and sold
+me poisoned provisions, which I offered up to the goddess Vaiza.
+The powerful poisons overcame the goddess, but she seemed still to live.
+As I searched frantically through Kontaur trying to find an antidote,
+a man approached me and queried as to my frantic state.  I told him of
+the horrible fate that had befallen my goddess.  Upon relating the
+symptions, he straightaway knew a means to remedy her condition.  But
+the items laid too far apart for me to find them alone, so I beseeched
+those of Darkhaven for aid.  Straight away they came to me with the
+ingredients and I did mix them swiftly.  But the antidote was not an
+antidote at all, but a more powerful poison.  Combined the two poisons
+overcame Vaiza and she admonished me with her last breath.  The strange
+man appeared, proclaimed his name as Wakshaa and told us that he and
+the Lady Yul would return for all of us once the gods were fallen.
+ 
+I do not understand this.  It makes no sense.  Surely the gods will
+not ignore us in this time of need?  Why do they not strike at these
+horrid beings?  Are we no longer worthy?  What will become of us?
+I fear my questions will not be answered until it is too late.
+~
+End
+#NEWS
+Title    The End~
+Name     Pseulak~
+Date     08/13/02~
+Type     0
+POST     Your gods are dying.
+Eskhatos is coming.
+There is nothing they can do to save or protect you.
+I slit Finaglera's throat as easily as I would a pig.
+Soon, when the gods are gone...
+I will come for you.
+~
+End
+#NEWS
+Title    Scryn~
+Name     Kali~
+Date     08/13/02~
+Type     0
+POST     Though his mighty presence has not been known for some ages, Scryn
+returned to the Realms to hunt the Godslayers.  Though he was wise
+to seek aid, he did so only from mortals.  Though those who came to
+his side fought valiantly, they were unable to dispatch H'rugg, the
+shadow of all that has died.
+   Learning of this battle I rushed to Scryn's side.  The combined
+might of Scryn, the avatars and myself demolish H'rugg and his allies.
+ 
+However, the poison which had killed Vaiza was also applied to H'rugg's
+weapon.  Though I searched for an antidote, I did not arrive in time.
+ 
+Scryn has passed from the Realms of immortality and we will mourn him.
+~
+End
+#NEWS
+Title    Scried visions~
+Name     Lord Xyranthas~
+Date     08/15/02~
+Type     0
+POST     Through my scrying glass, I observed the cause of strange energies.
+Ba'akshai, "The Claws of Night", the Spirit of Raw Violence tore a rift from
+his hell dimension into these lands and entered through it into Darkhaven.
+Seeking bloodshed many mortals arrived and obliged but several times they
+were able to quell the manifestation known as the Hellbringer.
+ 
+Ba'akshai's spike armor was bloodied in many places from the mortals he had
+slain but then came the meeting with Omanith whom he had come to challenge.
+The ensuing battle did not last long as Ba'akshai called upon ancient evils
+which had dwelt in the Abyss biding their time. With these powers he tore
+Omanith into the two equal parts of magic and physical combat. Via performing
+these dark rituals was Ba'akshai able to then use his combined might and
+destroy the first half of Omanith's spirit.
+ 
+Then, Ba'akshai manifested into Malik Harjaq, a 12 armed viking whose awesome
+power smote many more mortals and managed to put a final end to Omanith. This
+enraged the champions who were gathered and with their combined might were
+able to force Ba'akshai into retreat to return to the realm from whence he
+came. Although.. Ba'akshai spoke of a time when he might return...
+ 
+I am unsure whether to bide my time or act on what has happened.  Perhaps
+it is not too late to accept that offer...
+~
+End
+#NEWS
+Title    A day of tragedy and victory~
+Name     Marshall Diana~
+Date     08/16/02~
+Type     0
+POST     I felt blessed that the deities of magic and battle chose New Ofcol
+as the site to erect a ward to defend the gods from the hideous acts of
+the Godslayers.  Il'liara and Cru'udakh appeared in a swirling mist and
+called for the aid of those loyal to them.
+   'Bring us the runic symbols of the elements' Il'liara cried, her soft
+lilting voice carrying far across the Realms.  'Bring them to us' she cried,
+'that I may erect a ward to defend your gods from the scourge that is upon us'.
+Quickly heroes far and wide took up her cause, retrieving the runes from the
+depths of the sea and earth, braving winds and fires to succeed.  The symbols
+were brought to Il'liara, who was guarded by Cru'udakh.  She worked her magicks
+carefully.  A green streak shot in the air and then exploded into the globe of
+protection over all of Ofcol.
+   From the Plains of the North, Cabal cried out to his brother and sister, 
+seeking shelter within their ward.  Though they were hesitant, they agreed to
+lower the shield but a moment and allow Cabal passage.  Once Cabal was safely
+within the confines of the city, Il'liara restored the ward.
+   But then Cabal was surrounded in smoke and from the cloud Pseulak appeared.
+Her ruse had gained her entrance through the ward.  Though she was beset by
+avatars and Cru'udakh alike, Pseulak managed to drain Il'liara of her powers.
+The ward collapsed and Pseulak raised her hands in triumph.  The Godslayers
+beaten in past battles rose from the mist, attacking Cru'udakh and the heroes.
+   The battle was long and bloody as H'rugg, Ba'akshi and Vorus struck at the
+god and his defenders.  One by one the Godslayers were dispelled by the might
+of the mortal army.  Each dispersed, vowing to return.  Only Pseulak escaped,
+~
+End
+#NEWS
+Title    A day of tragedy and victory, part 2~
+Name     Marshall Diana~
+Date     08/16/02~
+Type     0
+POST     crying for vengence from the shadows.
+   Though we have saved Cru'udakh, the death of Il'liara has surely been
+the most costly death yet.  With her passing, the magicks of the realm
+seem to have grown unstable.  The extent is unknown, but we fear the
+worst.
+   Should any Godslayers return, they will surely have a great advantage.
+Our magicks will fail.  But our steel shall not.  In the name of Cru'udakh,
+we will prevail.
+~
+End
+#NEWS
+Title    Rebirth~
+Name     Oisin~
+Date     08/16/02~
+Type     0
+POST     Though the halls of our Castle are oft filled with excitement, nothing
+I have seen in my short years compares to the acts I have seen this night.
+ 
+The foul Orc Grishnakh challenged King Anmect to a duel.  Believing his
+foe to have lost all immortal power, Anmect readily accepted.  An
+ethereal wall was erected to separate the combatants from the gathering
+crowd.  The match was even at first, until Grishnakh unveiled the truth
+behind his charade.  His immortal powers remained intact and he slowly
+began to use them to crush his for King Anmect.  Wracked with pain and
+beaten to a pulp, Anmect refused to yield to the taunt and torture of
+the great Orc.
+ 
+Then, through the crowd, stepped Entropen.  He proclaimed himself the
+servant of Khaloobh the Voracious and stepped through the ethereal
+barrier.  He challenged Grishnakh, who charged into the fray.  Easily
+avoiding this charge, Entropen struck Grishnakh from behind, levelling
+the Orc in one blow.   The Dark Knight ordered Grishnakh to his knees
+and ordered him to beg for his life.  The Orc only spat blood at the
+Knight's feet.  Entropen struck again and Grishnakh, tears welling in
+his eyes, begged his mother for forgiveness.  With that, Entropen
+beheaded Grishnakh, departing before the head of the mighty Orc finished
+rolling across the floor.
+ 
+But then, unexpectedly, from the corpse sparks arose and an elven man formed.
+~
+End
+#NEWS
+Title    Rebirth part 2~
+Name     Oisin~
+Date     08/16/02~
+Type     0
+POST     As the light faded, it was instantly known that this elf was Myershim,
+the elven child whom ages ago had been stolen by orcs and twisted by
+Sauron.  Through his death, Grishnakh was released from his eternal
+torment and returned to his true form.
+ 
+Though the God of Battles has died, it does my heart proud to see an
+ancient wrong set right.
+ 
+Thoric's blessing to you Myershim, may you dwell in peace.
+~
+End
+#NEWSTYPE
+Name          news~
+Cmd_Name      news~
+Header        (null)~
+Vnum          1
+Level	       0
+End
+#NEWSTYPE
+Name          immnews~
+Cmd_Name      immnews~
+Header        &YImmortal News and Updates ...
+~
+Vnum          2
+Level	       51
+End
+#NEWS
+Title    Immortal helpfile for connect changed to immconnect~
+Name     Blodkai~
+Date     05/06/02~
+Type     2
+POST     ~
+End
+#NEWS
+Title    New 'garb' command courtesy of Shargate~
+Name     Blodkai~
+Date     05/06/02~
+Type     2
+POST     ~
+End
+#NEWS
+Title    New invis token for imms on channels~
+Name     Blodkai~
+Date     05/06/02~
+Type     2
+POST     Thanks to Raltaris, displays your invis level while talking on
+channels.
+~
+End
+#NEWS
+Title    Conran's code to show what you're voting on is in!~
+Name     Blodkai~
+Date     05/06/02~
+Type     2
+POST     ~
+End
+#NEWS
+Title    Tell programs are in - read for details~
+Name     Blodkai~
+Date     05/06/02~
+Type     2
+POST     Speech programs work for says.
+Tell programs work for tells and whispers.
+~
+End
+#NEWS
+Title    Variable code for mobprogs are in - &YCAUTION~
+Name     Blodkai~
+Date     05/06/02~
+Type     2
+POST     Use with extreme care and caution.  Programs should be tested on another
+port before being used here.
+~
+End
+#NEWS
+Title    Converted roomflags to XBV - can now create new roomflags~
+Name     Blodkai~
+Date     05/06/02~
+Type     2
+POST     ~
+End
+#NEWS
+Title    Nohomepage command in - thanks Conran~
+Name     Blodkai~
+Date     05/06/02~
+Type     2
+POST     ~
+End
+#NEWS
+Title    Nosummon flag now works for mobiles~
+Name     Blodkai~
+Date     05/06/02~
+Type     2
+POST     ~
+End
+#NEWS
+Title    Do not fold eastdesert.are without talking to Edmond~
+Name     Blodkai~
+Date     05/06/02~
+Type     2
+POST     ~
+End
+#NEWS
+Title    Deadlies now have limited channels~
+Name     Blodkai~
+Date     05/06/02~
+Type     2
+POST     For the time being, deadlies have access only to private channels,
+counciltalk, clantalk and wartalk.  Newbie pkill chars also have
+access to newbiechat.
+ 
+This is most likely going to be short-lived, unless something happens
+to change that decision.
+~
+End
+#NEWS
+Title    Two new area flags - noportalin, noportalout~
+Name     Blodkai~
+Date     05/06/02~
+Type     2
+POST     Noportalin - cannot portal in to the victim
+Noportalout - character cannot portal out
+~
+End
+#NEWS
+Title    Darkhaven is now noportal~
+Name     Blodkai~
+Date     05/06/02~
+Type     2
+POST     Noportalin/noportal out both applied.
+~
+End
+#NEWS
+Title    We should be stable again~
+Name     Blodkai~
+Date     05/08/02~
+Type     2
+POST     See 'news 15' for more details.  Thoric, Alty and Ed deserve a
+big hand for the fixes.
+~
+End
+#NEWS
+Title    Newstype level added~
+Name     Blodkai~
+Date     05/08/02~
+Type     2
+POST     Added a level setting for news types, mortals can no longer read
+immnews.
+~
+End
+#NEWS
+Title    A board for website discussion is NE of 1200.~
+Name     Blodkai~
+Date     05/09/02~
+Type     2
+POST     See the roomdesc for details.
+~
+End
+#NEWS
+Title    The &Y'silent' &Wcommand for m/r/oprograms~
+Name     Edmond~
+Date     05/10/02~
+Type     2
+POST     &WSyntax:  &RSILENT <COMMANDS>
+ 
+&GUsage: M/O/Rprograms
+ 
+&GAdding this word to the beginning of a line in a mob program will force the
+resulting command to be silenced to all players in the room.  An example would
+be:
+ 
+&wsilent mpforce 0.$n remove all
+ 
+&GThis will cause the player to remove all.  Only mobs in the room with the
+character will see the remove messages.  This can also be used to silently
+trigger other mobprograms in the room.
+~
+End
+#NEWS
+Title    Help Immrooms added~
+Name     Moonbeam~
+Date     05/11/02~
+Type     2
+POST     'Help Immrooms' helpfile added 
+~
+End
+#NEWS
+Title    Journals are here!~
+Name     Moonbeam~
+Date     05/11/02~
+Type     2
+POST     Journal object types have been added and are available to immortals
+only at the moment.  Try them out they are really cool !!!
+ 
+Thank you Leart for this addition.
+~
+End
+#NEWS
+Title    Reminder ~
+Name     Moonbeam~
+Date     05/11/02~
+Type     2
+POST     Please take time to go through the notes on the board in 1214 and
+refamiliarize yourself with policy.  If anything confuses you or
+if you have comments or questions about anything on that board, please
+feel free to ask Moonbeam.
+~
+End
+#NEWS
+Title    'Cleave' now has a helpfile~
+Name     Moonbeam~
+Date     05/13/02~
+Type     2
+POST     Thank you Shargate
+~
+End
+#NEWS
+Title    The reset command has gotten an upgrade.~
+Name     Edmond~
+Date     05/13/02~
+Type     2
+POST     Syntax: reset list   [start] [end] <parameter>
+ 
+RESET LIST parameter must be one of the following:
+  A = ALL objects (E, G, O, and P)
+  B = Bit                           D = Door
+  E = Equip object worn by mob      G = object Given to mob (inventory)
+  H = Hide flag on object           M = Mob
+  O = Object placed in room         P = object Put in container
+  R = Randomized rooms (maze)       T = Trap
+ 
+Thanks to Tiki for the upgrade!
+~
+End
+#NEWS
+Title    Area flags, room flags, and more....~
+Name     Edmond~
+Date     05/13/02~
+Type     2
+POST     New room flags available:
+ 
+   Noquit
+   Nolog
+   Noyell
+ 
+Area Flags:
+   Noastral
+ 
+Thanks to Leart!
+~
+End
+#NEWS
+Title    New building utility commands have been added.~
+Name     Edmond~
+Date     05/13/02~
+Type     2
+POST     Findexit:
+Syntax:  findexit <vnum> [<start> <stop> [mud]]
+ 
+Find all the rooms whose exits go into the room you designate.  This is
+restricted by level the same as redit.  The information displayed is the
+information for the exits INTO the room.
+ 
+(Coded by Edmond)
+ 
+Alinks:
+Syntax:  alinks <areaname>
+ 
+Find all the areas linked to the given area, as well as their exit/entrance
+vnums and information about the exits.  This command is restricted to the level
+of astat.
+ 
+(Coded by Luc)
+~
+End
+#NEWS
+Title    New building utility commands have been added. (cont)~
+Name     Edmond~
+Date     05/13/02~
+Type     2
+POST     Rloop:
+Syntax: rloop <start> <end> redit <arguments>
+ 
+This provides a "rat" command to the level 54+ builders that can only be used
+withing their assigned vnums.  Use with caution, and warn about spam prior to
+using please. This version of rloop is restricted to using the "redit" command.
+ 
+(Coded by Conran)
+~
+End
+#NEWS
+Title    New tool for checking the variables on a player~
+Name     Edmond~
+Date     05/13/02~
+Type     2
+POST     Command:  VSTAT
+ 
+Syntax:  vstat <playername>
+ 
+This command will display the data held by the variable a player is tagged
+with.
+ 
+(Coded by Edmond)
+~
+End
+#NEWS
+Title    The ability to do area wide echos is in~
+Name     Edmond~
+Date     05/13/02~
+Type     2
+POST     Command:  AECHO
+ 
+Syntax:  aecho [color] <message>
+ 
+Same usage as recho and echo.
+ 
+(Coded by Conran)
+~
+End
+#NEWS
+Title    Help files for mpflag/mptag and associated commands~
+Name     Edmond~
+Date     05/14/02~
+Type     2
+POST     They're here
+ 
+help mpflag
+help mptag
+help ifcheck istagged
+help ifcheck isflagged
+~
+End
+#NEWS
+Title    Change to 'give' for immortals/mobiles~
+Name     Blodkai~
+Date     05/14/02~
+Type     2
+POST     Immortals and mobiles flagged with the 'immortal' flag should now
+be able to hand an item to someone regardless of whether the target
+is already carrying too many items or too much weight, or if the
+target can even see the item.
+~
+End
+#NEWS
+Title    Minor change at Tsythia~
+Name     Blodkai~
+Date     05/18/02~
+Type     2
+POST     Characters that go LD at Tsythia for now will be transed to 10442,
+which has a one-way exit east to Tsythia.
+~
+End
+#NEWS
+Title    Mob index level displayed in mstat~
+Name     Edmond~
+Date     05/30/02~
+Type     2
+POST     The level a mob is "mset" to is displayed in parantheses now next to the
+actual mob level, so you can help determine what levels things should be
+done at, for example mpoloads that you specify a level with.
+ 
+~
+End
+#NEWS
+Title    "message" command to send messages to be seen on login.~
+Name     Edmond~
+Date     06/09/02~
+Type     2
+POST     See the appropriate helpfile
+~
+End
+#NEWS
+Title    The count value in mstat for players has changed.~
+Name     Edmond~
+Date     06/15/02~
+Type     2
+POST     With some nifty modifications to the way player IP's are counted, the "count"
+value in mstat now reflects the IP count of a particular player.
+~
+End
+#NEWS
+Title    Message types have been expanded for the "message" command.~
+Name     Edmond~
+Date     06/22/02~
+Type     2
+POST     &GThe "message" command currently supports a "type" argument. (eg. message
+edmond type 1).  The message displayed for each of the different types is
+displayed in the help file 'message types' for those with access to the
+command.
+ 
+A reminder - these messages are sent automatically if the player is link-dead
+when one of the particular instances occurs.  For example, if you load up a
+character to have him outcast, you do NOT need to send the message to the
+character via the message command. The code will send the message for you.
+ 
+Any suggestions for standard messages can be submitted to Eddy for review.
+Additionally - while a character is linkdead - if he is killed he will receive
+a message that looks like the following:
+ 
+&YThe game administrators have left you the following message:
+ 
+&Rou were killed by Clifford the Big Red Dog while link-dead.  You should look
+&Rfor your corpse immediately.
+ 
+&GSee also:  &Whelp 'message types'
+~
+End

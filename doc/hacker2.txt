@@ -1,0 +1,92 @@
+SMAUG Release 1.4
+Tuesday 24 Feburary 1998
+
+Thoric  thoric@realms.game.org
+
+
+While Furey's 'hacker.txt' is an excellent document on programming in
+general, I thought I'd toss in a little something directed more towards
+MUD programming.
+
+
+=== 'Segmentation fault'
+
+The two most feared words for the mud coder to see on his screen.
+Once you start coding, you're going to become very familiar with these
+words, (unless you're programming under a Windows environment).
+
+Because most muds involve huge amounts of data (relative to code size),
+endless pointers and complex structures, it can be extremely easy to
+inadvertently corrupt the data, leading to unexpected happenings and
+crashes.
+
+Consider finding a bug that consistantly causes an immediate crash a
+blessing.  This usually means that it will be quite easy to track down what
+is causing the problem through debugging the core dump.
+
+Learn how to use your debugger.  It can be your best friend in times of
+need.
+
+
+
+=== Weird Happenings
+
+Memory corruption can be very subtle, and may cause a crash at a much later
+time, or may not even cause a crash at all.
+Either way, memory corruption can be very hard to track down without use of
+an advanced memory debugging tool (Purify, Insure).
+
+The most common memory corruption comes from using an uninitialized pointer.
+The uninitialized pointer could have any value, and almost always seems to
+point to a valid memory location within your program.  By writing to a
+random memory location, you will most likely be corrupting pointers in
+a structure somewhere, that will trigger a crash at a later date.
+
+This most commonly seems to end up being the pointer to an exit in some
+room somewhere, which doesn't trigger a crash until a mobile or player
+walks into the room.  (The reason for this is that rooms generally make up
+the bulk of the memory used by a mud.)
+
+Sometimes analyzing the corrupted data can give a clue to what code did
+the corrupting.  For example, if you find that a bad pointer has a value
+of 0x1, then it could be likely that a piece of code somewhere is
+incrementing a value in a structure pointed to by a bad pointer.
+
+
+
+=== Easy Mistakes
+
+A lot of time, frustration and aggravation can be saved by making sure your
+code is correct in the first place so you won't be haunted by it later on.
+Rushing to complete a new feature could introduce a plethora of new bugs.
+
+Here are some simple rules to help you maintain your sanity:
+
+1) Always make sure that your variables are initialized before using them.
+It is good practice to initialize variables with default values where they
+are declared.  Make sure that new structures are properly initialized as
+well.
+
+2) Make sure not to intermix hashed strings with non-hashed strings!
+The macros STRALLOC, QUICKLINK, QUICKMATCH, STRFREE and the function
+fread_string() are for use with hash strings only.
+Use strdup(), DISPOSE and fread_string_nohash() for strings that you do not
+want to hash.
+
+3) Do not dereference a pointer if there is a possibility that it may be NULL.
+Many crashes are caused by a function accessing ch->pcdata when dealing with
+a mobile.  Keep in mind the possibility that a mobile may be using that
+command, skill or spell.
+
+4) Keep your code neat, readable and consistent.  Keep your indentations and
+braces lined up so that your can easily follow the logic flow.
+
+
+
+If all else fails, it's time to ask for help.  The SMAUG mailing list is
+full of intelligent helpful people that can do their best to help you out
+with a sticky bug.
+
+
+
+-Thoric

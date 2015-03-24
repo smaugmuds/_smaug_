@@ -1,0 +1,515 @@
+                A Guideline for Building Mobs
+                -----------------------------
+This is intended as a set of guidelines to those who are just beginning
+as Builders.  Nothing here is written in stone, this file is based on my
+experience and the online help files.   (Herne the Hunter)
+
+Remember that most important command: SAVEAREA
+
+Populating Your World
+---------------------
+Mob making isn't an exact science, I've been told.  There are no hard and
+fast rules for making mobs, one must use what resources s/he has to find
+a good balance.  Using equal amounts of research into existing mobs,
+imagination, and common sense, one can come up with some pretty decent
+mobs that will provide hours of enjoyment and adventure.
+
+You can't go at mob-making by thinking things like "I'm gonna murder
+those Av's!", those kind of mobs hardly ever work and more often than
+not, you will be asked to downgrade them to something sensible.  Mob
+strength should be based on the level of the area, and the theme of the
+area, keeping in mind what kind of damage a player of the same level
+could inflict on the mob. A "Newbie Area" type mob may have only 100 HPs
+and do only 5-10 HPs of damage per attack, while a "Super Av" type mob
+may have 30000 HPs and do 75-100 points of damage, the trick is to find a
+nice balance.
+
+Where to Start
+--------------
+As with objects, it is a good idea to keep a scratch list of the vnums
+you've been assigned so that you can cross off those numbers that you've
+already used.  The MUD won't let you create a new mob over an existing
+vnumber, but you can completely modify a mob once you've created it.
+ 
+To begin making mobs, you should read and understand the following three
+help files; MCREATE, MSET, and MSTAT.  Once you have read these files and
+understand the workings of them, you are ready to create your first mob
+and begin populating your areas.
+
+Step 1: Making a Mob.
+---------------------
+MCREATE                                   (Shortform: MCR)
+Syntax: mcreate <vnum> <keywords>
+Syntax: mcreate <vnum> [cvnum] <keywords>
+
+Creates a new mobile.  A prototype monster will be created with the
+selected vnum, and set up with the plainest of default values.  A
+material image of the magical prototype will appear before you, for you
+to futher modify with MSET.
+
+You can also use MCREATE to copy an existing mob to a new vnumber.
+Example: mcr 1001 1000 man guard kings
+
+This will create a new mob with the vnumber of 1001 with the same stats
+as the mob with the vnum 1000, and the keywords of 'man guard kings'.
+
+Step 2: Modifying Your Mob.
+---------------------------
+MSET
+Syntax: mset <victim> <field> <value>
+
+Field being one of:
+  str int wis dex con cha lck sex class
+  gold hp mana move practice align race
+  hitroll damroll armor affected level
+  thirst drunk full blood flags
+  pos defpos part (see BODYPARTS)
+  sav1 sav2 sav4 sav4 sav5 (see SAVINGTHROWS)
+  resistant immune susceptible (see RIS)
+  attack defense numattacks
+  speaking speaks (see LANGUAGES)
+  name short long description title spec clan
+  council quest qp qpa favor deity
+For editing index/prototype mobiles:
+  hitnumdie hitsizedie hitplus (hit points)
+  damnumdie damsizedie damplus (damage roll)
+To toggle area flag: aloaded
+To toggle pkill flag: pkill
+
+MSET sets the properties of mobiles.
+
+If a mobile has the PROTOTYPE flag, modifying an instance of the mobile
+will also modify the index mobile, which all other instances of the
+mobile are based on.  (In other words, if a mob is prototype, anything
+you do to one copy will affect all other copies with the same vnum.)
+
+[Help Files follow...don't be afraid!]
+ 
+Step 3: Checking up on your Mobs
+--------------------------------
+MSTAT
+Syntax :  mstat <mob or mobvnum>
+Example:  mstat stag
+          mstat 1000 
+
+MSTAT shows you statistics on a character or mobile.  If a copy of the
+mobile is present in the game, you can access it using its vnum.  MSTAT
+defaults to the mob in the room with you (assuming it matches the mob
+you're searching for).
+ 
+MLIST                                      (Shortform: MLI)
+Syntax: mlist
+Syntax:	mlist <first mob>               Example: mlist 1000
+Syntax:	mlist <first mob> <last mob>    Example: mlist 1000 1025
+
+This command will list all of the prototype mobs in your area, when used 
+with no arguments.  When used with a single argument it will list all 
+mobs including and after the argument, and when used with two arguments, 
+it will list all mobs including and between the two. 
+
+The Advanced Way of Mob Making
+------------------------------
+When I make mobs, I take the template that follows and make an ASCII file
+for each mob I create.  Then I can upload the file 1 line at a time with
+an ASCII uploading-type terminal program or a cut-and-paste will work.
+There is no need to send the entire template every time you make a mob,
+only send the parts of the mob that you wish to modify. 
+ 
+(I've included a sample mob-file at the end of this file.)
+
+-----TEMPLATE START-----
+mcr (vnum) (keywords)        [Try to include at least 1 unique keyword]
+mset (keyword) short (short desc)
+mset (keyword) long (long desc)
+mset (keyword) sex #               [0 Neutral/1 Male/2 Female]
+mset (keyword) level #             [Based on your area]
+mset (keyword) class #             [See NPC_CLASS]
+mset (keyword) race (race)         [See NPC_RACES]
+mset (keyword) str 13              [Default Value]
+mset (keyword) int 13              [Default Value]
+mset (keyword) wis 13              [Default Value]
+mset (keyword) dex 13              [Default Value]
+mset (keyword) con 13              [Default Value]
+mset (keyword) cha 13              [Default Value]
+mset (keyword) lck 13              [Default Value]
+mset (keyword) gold #              [Based on Area Level]
+mset (keyword) align #             [>-350=E, -350-+350=N, +350<=G]
+mset (keyword) hitroll #           [+/- Mob's HR]
+mset (keyword) damroll #           [+/- Mob's DR]
+mset (keyword) hitdie #d#+#        [Mob's HPs - See HP_GUIDELINES]
+mset (keyword) damdie #d#+#        [Dmg Mob does - See DMG_GUIDELINES]
+mset (keyword) numattacks #        [Number of attacks/round]
+mset (keyword) sav1 0              [See SAVINGTHROWS]
+mset (keyword) sav2 0              [See SAVINGTHROWS]
+mset (keyword) sav3 0              [See SAVINGTHROWS]
+mset (keyword) sav4 0              [See SAVINGTHROWS]
+mset (keyword) sav5 0              [See SAVINGTHROWS]
+mset (keyword) flags (act flags)   [See ACTFLAGS]
+mset (keyword) spec (specfuncs)    [See SPEC_FUNCTIONS]
+mset (keyword) affected (affects)  [See AFFECTED_BY]
+mset (keyword) speaks (languages spoken)    [See LANG_GUIDELINES]
+mset (keyword) speaking (language speaking) [See LANG_GUIDELINES]
+mset (keyword) part head arms legs heart guts hands feet [See BODYPARTS]
+mset (keyword) resistant (resists)     [See RESISTANCES]
+mset (keyword) immune (immunes)        [See IMMUNES]
+mset (keyword) susceptible (suscepts)  [See SUSCEPTS]
+mset (keyword) attack (attacks)        [See ATTACKS]
+mset (keyword) defense (defenses)      [See DEFENSES]
+mset (keyword) armor (AC)              [Mob's AC without Armor]
+mset (keyword) description             [Mob's Description]
+01234567890123456789012345678901234567890123456789012345678901234567890
++---------+---------+---------+---------+---------+---------+---------+
+(The above 2 lines are intended as a guide for line length when making
+ up a mob description.  Delete before sending.)
+-----END OF TEMPLATE-----
+
+The Help Files
+--------------
+NPC_CLASS
+Classes are represented by their numerical value when using MSET.
+ 
+     Value | Class           Value | Special NPC Class
+     ------+-------------    ------+------------------
+       0   | Mage              20  | Baker
+       1   | Cleric            21  | Butcher 
+       2   | Thief             22  | Blacksmith
+       3   | Warrior           23  | Mayor
+       4   | Vampire           24  | King
+       5   | Druid             25  | Queen
+       6   | Ranger
+       7   | Augurer
+       8   | Paladin*
+
+* Not yet fully implemented
+
+HP_GUIDELINES
+One of the hardest decisions when making a mob.  A mob can have as many
+or as few HPs as you want it to, depending on what you're trying to
+accomplish with it.  The following table is what *I* use as a guideline
+when I'm making mobs (Thanks to Brittany for this):
+ 
+Mob Level | HPs/Lvl    HPs are expressed as a #d#+# value so that when
+----------+--------    the mob repops, the MUD can generate a random
+    1-10  |  10        level of HPs.  What this means is;
+   11-20  |  25         "(number of dice) x (dice size) + (number)"
+   21-30  |  50        So a L1 mob might have 1d10+90 HPs or a range
+   31-40  | 100        of 91-100 HPs depending on how it repops.
+   41-50  | 200+       If you wish to generate a SPECIFIC level of HPs,
+                       say 500 HPs, it would translate to:  1d1+499.
+
+DMG_GUIDELINES
+This is the amount of damage a mob will do when it's fighting unarmed.
+Much like HPs, the amount of damage a mob can do will vary greatly
+depending on what you're trying to accomplish.  Your main goal is to keep
+the mob's damage "believable" while at the same time, you want to inflict
+some sort of damage on players within the Mob's level range.  I usually
+try to make the damage done by a mob comparable to that done by a warrior
+of the same level (how you do it is up to you).
+ 
+Damage is generated the same way as HPs; (numdice)x(dicesize)+(number).
+So a mob doing 5d8+12 damage will generate a range of 17-52 points of
+damage each time it lands a blow.
+
+NPCRACES NPC_RACES
+A mobile may be any of the following races:
+ 
+human        elf        dwarf       halfling    pixie       vampire 
+half-ogre    half-orc   half-troll  half-elf    gith        ant     
+ape          baboon     bat         bear        bee         beetle  
+boar         bugbear    cat         dog         dragon      ferret  
+fly          gargoyle   gelatin     ghoul       gnoll       gnome   
+goblin       golem      gorgon      harpy       hobgoblin   kobold  
+lizardman    locust     lycanthrope minotaur    mold        mule 
+neanderthal  ooze       orc         rat         rustmonster shadow 
+shapeshifter shrew      shrieker    skeleton    slime       snake 
+spider       stirge     thoul       troglodyte  undead      wight 
+wolf         worm       zombie      bovine      canine      feline
+porcine      mammal     rodent      avis        reptile     amphibian 
+fish         crustacean insect      spirit      magical     horse 
+animal       humanoid   monster     god
+ 
+** Try to match your Mob's race as close as you can so we don't have
+    mobs like, 'a small horse' with a race of Halfling.
+
+LANG_GUIDELINES
+A mob might speak more than one language for whatever reason you have. 
+All mobs know "common" and "clan" as defaults and it's up to you to set
+whatever other language(s) the mob will speak.  Here's a list of the
+languages currently available;  Common, Elvish, Dwarven, Pixie, Ogre,
+Orcish, Trollese, Rodent, Insectoid, Mammal, Reptile, Dragon, Spiritual,
+Magical, Goblin, God, Ancient, Halfling, Clan, Gith.
+
+If you wish for your mob to KNOW more than one language, simply;
+mset (mob) speaks (language) (language) (language)
+
+To force a mob to be speaking a certain tongue when it repops, simply;
+mset (mob) speaking (language)
+ 
+Examples;  mset horse speaks mammal
+           mset horse speaking mammal
+ 
+Try to match the language your mob is speaking to it's race, IE: A
+'horse' shouldn't repop speaking common.
+
+** NOTE: Anything your mob 'says' or 'emotes' will be shown to players
+   in the language the mob is SPEAKING.
+
+SAVINGTHROWS
+Saving throws:
+  sav1 - Saving vs. poison or death
+  sav2 - Saving vs. wands
+  sav3 - Saving vs. paralysis or petrification
+  sav4 - Saving vs. breath (dragon breath)
+  sav5 - Saving vs. spells or staves
+
+ACTFLAGS
+Flag         | Description
+-------------+---------------------------------------
+sentinel     | Mobile always stays at its post.
+scavenger    | Mobile picks up items of value.
+aggressive   | Mobile attacks players.
+stayarea     | Mobile does not leave its home area.
+wimpy        | Mobile flees when low in hits.
+practice     | Players can "practice" at this mobile.
+immortal     | Mobile is immortal (not implemented).
+deadly       | Mobile has a deadly poison (not implemented).
+meta_aggr    | Mobile is VERY aggressive (not implemented).
+nowander     | Mobile doesn't wander unless attacked.
+mountable    | Mobile can be mounted.
+prototype    | Mobile is under construction.
+running      | Mobile is running (Moves twice as fast).
+noassist     | Mobile won't assist other mobs in a fight.
+
+SPECFUNCS
+These special functions are available to assign to mobiles.
+Use them sparingly:
+
+To add spec:  mset <mob> spec <function> (ex. mset guard spec spec_guard)
+  To remove:  mset <mob> spec none
+
+Special Function      | Description
+----------------------+----------------------------------------------
+spec_breath_any       | Mobiles breathes 1 of the 5 breaths randomly.
+spec_breath_acid      | Mobile has breath of acid.
+spec_breath_fire      | Mobile has breath of fire.
+spec_breath_frost     | Mobile has breath of frost.
+spec_breath_gas       | Mobile has breath of gas.
+spec_breath_lightning | Mobile has breath of lightning.
+spec_cast_adept       | Mobile casts helpful spells.
+spec_cast_cleric      | Mobile casts healing spells.
+spec_cast_mage        | Mobile casts offensive spells during battle.
+spec_cast_undead      | Mobile casts offensive spells during battle.
+                      |  (Mob will also summon those who flee.)
+spec_guard            | Mobile attacks KILLERS and THIEVES.
+spec_executioner      | Same as above except summons guards to help.
+spec_fido             | Mobile eats corpses.
+spec_janitor          | Mobile picks up trash.
+spec_mayor            | Reserved for the mayor... don't use.
+spec_poison           | Mobile poisons during battle.
+spec_thief            | Mobile steals gold from players.
+
+AFFECTEDBY AFFECTED_BY
+The following are affect flags that can be used when osetting an item
+(with oset <item> affect affected <affect flag>).  These flags can also
+be used when msetting a mobile (mset <mob name> affected <affect flag>).
+They may additionally be used to mset players if your level allows it.
+ 
+Blind          Invisible    Detect_evil  Detect_invis  Detect_magic
+Detect_hidden  **Hold**     Sanctuary    Faerie_fire   Infrared
+Curse          **Flaming**  Poison       Protect       Paralysis
+Sneak          Hide         Sleep        Charm         Flying
+Pass_door      Floating     Truesight    Detect_traps  Scrying
+Fireshield     Shockshield  Iceshield    Aqua_breath   Possess
+ 
+Note - Hold and Flaming are current not in use.
+
+PART BODYPARTS XFLAGS
+Misc body parts:
+Head     Arms    Legs    Heart        Brains      Guts        Hands  
+Fingers  Ear     Eye     Long_Tongue  Eyestalks   Tentacles   Fins   
+Wings    Tail    Scales  Hooves       Haunches    Forelegs    Feet
+
+Used for attacking:
+Claws    Horns   Tusks   Tailattack   Sharpscales
+
+RIS RESISTANT IMMUNE SUSCEPTIBLE
+Players and mobiles may have resistance, suceptibility or immunity to
+certain types of attack:
+
+Fire      Cold      Electricity  Energy     Blunt     Pierce     Slash
+Acid      Poison    Drain        Sleep      Charm     Hold       Nonmagic
+Plus1     Plus2     Plus3        Plus4      Plus5     Plus6      Magic
+Paralysis
+
+ATTACKS   
+[These are in ADDITION to numattacks.]
+Bite          Claws        Tail        Sting      Punch        Kick
+Trip          Bash         Stun        Gouge      Backstab     Feed
+Drain         Firebreath   Frostbreath Acidbreath Lightnbreath Gasbreath
+Poison        Nastypoison  Gaze        Blindness  Causeserious Earthquake
+Causecritical Curse        Flamestrike Harm       Fireball     Colorspray
+Weaken
+** (Some are not implemented).
+
+DEFENSES
+Parry        Dodge      Heal       Curelight   Cureserious   Curecritical
+Dispelmagic  Dispelevil Sanctuary  Fireshield  Shockshield   Shield
+Bless        Stoneskin  Teleport   Monsum1     Monsum2       Monsum3
+Monsum4      Disarm
+(Some are not implemented).
+
+
+Special Mobs - Shops!
+---------------------
+Shops and Repairshops are SPECIAL functions that Mobs do.  A mob must be
+specifically set as a shop before it will sell the items in its inventory
+or repair an item.  The following help files explain how to make a shop.
+
+MAKESHOP
+Syntax: makeshop <mobile vnum>
+
+Creates a new shop and assigns it to a mobile.
+The levels of the items in the shop are picked randomly based on item
+type and the level of the area:
+
+              Item Type | Level Range
+              ----------+-----------------------
+               default  | 0                             
+               pill     | 0 to 10                       
+               potion   | 0 to 10                       
+               scroll   | value[0] of the scroll
+               wand     | 10 to 20                      
+               staff    | 15 to 25                      
+               armor    | 5 to 15                       
+               weapon   | 5 to 15                       
+
+SHOPSET
+Lets you set certain stats on a shop.
+
+Syntax : shopset <mobile vnum> <field> <value>
+Example: shopset 1000 buy1 armor   [Shop will buy armor          ]
+         shopset 1000 open 8       [Shop opens at 8am            ]
+         shopset 1000 close 21     [Shop closes at 9pm           ]
+         shopset 1000 buy 90       [Shop pays 90% of value to BUY]
+         shopset 1000 sell 130     [Shop makes 30% profit on SELL]
+
+    Fields | Meaning
+    -------+---------------------------------------------------
+    buy#   | Types of items the keeper will buy 
+    buy    | Percentage of item's value mob will pay for an obj
+    sell   | Percentage of item's value mob will sell an obj at
+    open   | Hour shop opens                    
+    close  | Hour shop closes                   
+    keeper | Vnum of shop keeper                
+
+
+SHOPSTAT
+Syntax: shopstat <mobile vnum>
+Shows statistics on a specific mobile's shop.
+
+SHOPS
+Syntax: shops
+Displays statistics on all the shops in the MUD.
+
+SHOPVALUES
+Syntax : shopset <mobile vnum> buy# <value>
+Example: shopset 1000 buy1 8         [Mob will buy Treasures]
+         shopset 1000 buy1 treasure  [Either form works     ]
+ 
+1  - light               21 - pen                41 - rune
+2  - scroll              22 - boat               42 - runepouch
+3  - wand                23 - corpse             43 - match
+4  - staff               24 - corpse_pc          44 - trap
+5  - weapon              25 - fountain           45 - map
+6  - _fireweapon         26 - pill               46 - portal
+7  - _missile            27 - blood              47 - paper
+8  - treasure            28 - bloodstain         48 - tinder
+9  - armor               29 - scraps             49 - lockpick
+10 - potion              30 - pipe               50 - spike
+11 - _worn               31 - herbcon            51 - disease
+12 - furniture           32 - herb               52 - oil
+13 - trash               33 - incense            53 - fuel
+14 - _oldtrap            34 - fire               54 - shortbow
+15 - container           35 - book               55 - longbow
+16 - _note               36 - switch             56 - crossbow
+17 - drinkcon            37 - lever              57 - projectile
+18 - key                 38 - pullchain          58 - quiver
+19 - food                39 - button             59 - shovel
+20 - money               40 - dial               60 - salve
+** (Not all are implemented) 
+
+Repair Shops
+------------
+When equipment gets damaged, it needs to be repaired, and (so far) only
+special repair mobs can do that job.  Currently, repairshops can only
+repair armor OR recharge wands/staves, they can't do both.
+
+MAKEREPAIR
+Syntax:  makerepair <mobvnum>
+ 
+Automatically gives the mobile the ability to repair damaged equipment.
+Use 'repairset' to set the parameters by which the shop will function.
+See REPAIRSET, REPAIRSTAT, REPAIRSHOPS
+
+
+REPAIRSET
+Syntax : repairset <mobile vnum> <field> <value>
+Example: repairset 1000 fix1 armor [Mob will repair armor          ]
+         repairset 1000 profit 125 [Mob charges 25% more than usual]
+         repairset 1000 type 1     [Mob is a standard repair shop  ]
+         repairset 1000 open 13    [Mob opens shop at 1pm          ]
+         repairset 1000 close 0    [Mob closes shop at 12am        ]
+
+This command allows you to set the following fields for repair shops:
+
+        Fields | Meaning
+        -------+----------------------------------------------
+        fix#   | Types of items the keeper will fix 
+               | (armor, weapon, wand, staff - see SHOPVALUES)
+        profit | Profit on fixing items 
+        type   | Repair shop type      
+               |  [type 1 = standard]   
+               |  [type 2 = recharge]  
+        open   | Hour shop opens       
+        close  | Hour shop closes      
+        keeper | Vnum of repair shop keeper
+ 
+
+REPAIRSHOPS
+Syntax: repairshops
+Displays statistics on all the repair shops in the MUD.
+
+REPAIRSTAT
+Syntax: repairstat <mobile vnum>
+Shows statistics on a specific mobile's repair shop.
+
+
+A Sample Mob File:
+------------------
+-----START FILE-----
+mcr 8442 stag deer dun dark
+mset stag short A dun coloured stag
+mset stag long A dark stag patrols the forest, watching for predators.
+mset stag sex 1
+mset stag level 20
+mset stag class 3
+mset stag race mammal
+mset stag gold 1000
+mset stag align 0
+mset stag hitdie 5d10+450
+mset stag damdie 2d10+5
+mset stag numattacks 2
+mset stag flags stayarea wimpy noassist
+mset stag affected hide detect_hidden
+mset stag speaks mammal
+mset stag speaking mammal
+mset stag part head heart guts horns forelegs hooves haunches
+mset stag resistant charm
+mset stag attack kick bash
+mset stag defense dodge
+mset stag description
+A proud dun coloured stag regards you with some trepidation, as it's
+ever-twitching nose tests the air in an attempt to catch your scent,
+and determine if you're friend or foe.
+/s
+-----END OF FILE-----

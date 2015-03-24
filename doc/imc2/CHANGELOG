@@ -1,0 +1,426 @@
+imc2-1.00b     01/29/99
+* keepalive problem resolved. imc-list maintained by close-notify packets,
+  request-keepalive packets and boot-only keepalives.
+* autohub load balancing - temporary connections to less busy hubs.
+* hubs don't ping the world, just their direct connections.
+* muds dont transmit to every hub they are connected to. Just the least busy
+  one.
+* some new fields , and some old ones made mandatory in the config file.
+* InfoDetail can be entered mutliple times for multiple lines.
+imc2-0.10     12/11/97
+* ICE client/server prototype code
+* rwhois doesn't see rinvis characters any more
+* 'Bind' option added to config to bind to a specific IP
+* better behavior of imc_idle if no descriptors are active
+-- 0.9a-ice1 released --
+* bugfix for huge IMC version numbers (where -do- people think these things
+  up? :) from Trevor@Morgaelin
+* various patches from Graucho@BerMUDa
+* verify_format fix
+* IMC_NUKE_RCHAT added to prevent forwarding - rchat is gone
+* huge numbers of ICE fixes and enhancements
+* rchat no longer in the channel table by default
+* levels in packets, wizi/see/invis greatly simplified (to a simple
+  imm/mortal distinction).
+* last connected field added - mainly for hubs - to imc_info / imclist
+* IMC_NOTIFY turned back on, to point at toof.net
+-- 0.9a-ice2 released --
+* notifications fixed
+* more patches/bugfixes from Graucho@10T - destroy fixes, empty message
+  handling, icec_showchannel bug.
+* imc_packet and imc_internal merged
+* version 0 and version 1 support removed
+* rping (ping and traceroute) added
+* info-request, info-reply, info-unavailable added
+* InfoXYZ fields added to config. InfoName and InfoEmail are -REQUIRED-
+  to start IMC.
+* Added README.info
+* format1/format2 fixes
+* icommand refresh accepts *, and handles nonexistant channels by sending
+  a destroy
+* imc-mercbase, channels renamed to imc_channels
+* imc-mercbase, replaced _C with COL due to some header conflicts with ctype.h
+* imc-mercbase, quiet mode now a macro
+* save problems with icec channels resolved
+
+imc2-0.9a     08/06/97
+* added Circle 3.0bpl11 patch from Trevor@Morgaelin <tman@dial.pipex.com>
+* fixed the stuff that the circle patch broke :P
+* IMC_NOTIFY is now off by default
+* webclient socket() fix
+* documentation updates
+
+imc2-0.9      30/06/97
+
+* memory leak in imc-rom's imc_recv_who plugged
+* various typos fixed
+* rignore now reports a correct count
+* Merc 2.2 and SMAUG 1.01c patches and interface files added, thanks to
+  Altrag <altrag@game.org>
+* imc_makename only declared once in imc.h (pthbtbt Erwin ;)
+* fixed smaug command positions
+* started on README.hub
+* sendignore loop fixed if you ignored yourself (heh)
+* AFK and switched chars get rtells added to their replay buffers (ROM)
+* imc-analyse.c nuked
+* IMC mail should run a lot faster with multiple recipients when muds are
+  up (basically just timeout tweaks - reset the timeout on a successful send)
+* documentation restructure
+* prewritten installation files (imc-rom.c, INSTALL.rom, etc) moved into
+  codebase-specific subdirs (install/codebase-name)
+* router changed to log password failures to rinfo, too
+* EWOULDBLOCK handled as a return from read() etc (evidently on some systems
+  EAGAIN != EWOULDBLOCK)
+* imc_name and imc_port (new var) are now read from a new-format config
+  file.
+* imc_name and imc_active are now handled in imc-comm.c, not imc.c. imc_startup
+  and imc_ll_startup are much more tightly coupled now.
+* many checks for imc_active added. If IMC fails to start then nothing nasty
+  should happen during the main operation of the mud.
+* patch to ROM comm.c to concatenate page_to_char's (need to test this)
+* channels don't use page_to_char any more in ROM (risky, but I don't forsee
+  rchats getting >4k :)
+* IMC->CGI gateway (webclient.c, webserver.c) added
+* imc_list behavior changed
+* do_imclist changed so that it calls imc_list to get a list of only active
+  muds by default, and needs a 'direct' argument to show direct connections
+  (imc_list 0,1,2)
+* reconnect timeouts increase over time, IMC_RECONNECT_TIME #defines changed
+  to IMC_(MIN|MAX)_RECONNECT_TIME
+* problems early in imc_connect_to don't cause reconnects to start failing
+  (main problem was failed hostname lookups)
+* timers added to imc_list level 2
+* rdisconnect can be used on numeric descriptors
+* 120s connection timeout placed on all connections (ie. they must reach
+  the IMC_CONNECTED state within 120s from when they were initiated, or they
+  will be closed)
+* new packet types: whois, whois-reply
+* new command: rwhois <player>, asks all muds with the given <player> on to
+  respond with information.
+* rtell, rbeep changed to do exact matches before prefix matches on names
+* imc-merc, imc-rom, imc-envy, and imc-smaug integrated into a single pair
+  of files, imc-mercbase.[ch]
+* some sanity checks are made in rwho, etc, and users are warned if the
+  specified mud isn't known to be active (hence their query may get eaten)
+* channels bugfix for directed channels (oops), thanks to NargoRoth/Droopy
+* very old packets are dropped (should reduce repetition problems)
+* wrapper added around the mail-sending stuff
+* imclist config added
+* IMC_INTERNAL is gone
+* event queues added to handle timeouts etc
+* imc_recv_who changed to farm who/finger requests to other functions
+* IMC_MUD_INFO is now -required-
+* 'direct', 'finger' added to rquery
+* rfinger command (alias for rquery xxx finger yyy) added
+* integrated imc.h and imc-comm.h. imc.c and imc-comm.c are now a single
+  unit for the purposes of external interfaces
+* flag interpretation changed
+* rignores save as flags
+* updated router.c, webclient.c to new interface
+* added imc_readconfighook, imc_saveconfighook, and added password/logging
+  config to router config file
+* split imc-util.c and imc-events.c from imc.c
+* central server UDP notification added, see #ifdef IMC_NOTIFY in imc.c
+* added timeout parameters passed to imc_idle
+* spam counters are now event-based, and run slightly differently
+* loop in imc_idle_select separated (should speed up some forwarding cases)
+* configuration/ignores load/save/editing moved to imc-config.c
+* changed mailing list to event system, improved queue output format
+* imc-comm.c is now imc-interp.c, contains only packet interpretation code
+  (imc_recv_*, imc_send_*)
+-- 0.9beta released --
+* CHECKMUD doesn't warn about the local mud not having a reminfo entry
+* spamcounter fixes
+* LocalName warning fixed
+* config saves when changing local name/port
+* many changes from numeric -> #defined imc_active values
+* SMAUG patches updated to 0.9
+* color support for SMAUG added
+* mud-specific #defines moved to imc-mercbase.c, to handle SMAUG's
+  mud.h vs. merc.h thing
+* introduced IMC_COLORCHAR2 (needed for SMAUG's ^ codes)
+* fixed imc_post_mail to not switch subject/date, and to do color conversion
+* don't try to accept connections if not listening
+* logging is configurable remotely (router.c)
+-- 0.9beta2 released --
+* added quiet flag (for hubs mainly) for troublesome connections that go up
+  and down a lot
+* Ack! modifications added to imc-mercbase.[ch]
+* ROM uses ->comm not ->act for notell/nochan
+* played around with color some more, to allow better integration of the Ack!
+  stuff
+* markmemory/markstrings brought up to date
+* added flock() on a lock file to check for multiple muds running from the same
+  config file. If this happens, autoconnects are not done (and the port bind
+  will probably fail - but we try, at least)
+* added expired reminfo state
+* fixed repeat-prevention code
+* fixed rignore save/load (doh)
+* allow rignores to be both prefix and suffix at the same time
+* various webclient/webserver enhancements
+* make the control socket non-blocking, just in case accept gets confused
+* found&fixed the real accept problem (select + signals) in webserver.c
+* failing to open files for write doesn't crash the mail system
+* use lockf not flock (for sun compatibility)
+* webserver, webclient updates
+* SunOS tweaks (NO_EINTR)
+* Default config file paths for the hubs and CGI gateway have changed!
+* who-reply packet expanded to include a sequence number:
+  sequence>=0 -> this is the nth reply packet for this request, n=sequence+1
+  sequence<0  -> this is the last reply packet, -sequence packets in this reply
+* UDP packets send once/day when active
+* added invisibility to rwho/rtell/rbeep (also means you can't use channels)
+  enable/disable with rchan +rinvis and rchan -rinvis
+* rchan takes +/-all and multiple options in one command
+* updated help files
+* cleaner color integration for Ack!
+* bugfix in imc_command with NULL imc_name
+* Envy 2.2 patch added
+* routers now only ping directly connected muds
+-- 0.9beta3 released --
+* documentation updates
+* numerous small fixes
+* router reworked a little (reload, reboot, password handling, etc)
+* webclient/webserver now work :)
+* rchannels bugfix
+* Merc patch brought up to speed
+* other stuff ;)
+
+imc2-0.8       19/01/97
+
+* escape ~? -> nothing for old-version muds (version 0); they interpret ~ 
+  as a \n\r
+* IMC channels can now be allowed/denied on a channel-by-channel basis
+* rcode defaults to LEVEL_IMMORTAL
+* added an example of adding a new local channel 
+* added the ability to turn off rtells/rbeeps, and allow/deny them
+* (imc-rom.c) $? in imc_log/imc_debug doesn't confuse wiznet
+* getname changed to strip the @name for local users
+* 'imc' help output is now up-to-date
+* new 'rchannels' command that displays IMC channel state/toggles IMC
+  channels
+* new 'rchanset' command that handles displaying/setting/clearing the new
+  channel allow/deny flags for players
+* imc.h #defines tweaked to allow external setting. Note that the syntax
+  for the #defines has now changed - they should be #defined to 1 to enable.
+* channels/rtell/rbeep in interp.c changed to level 0 (needed for the new
+  allow code), rchannels/rchanset added
+* targetted channels are more efficient (only send to muds that are up)
+* pings by default removed. Only hubs should now ping (and in that case,
+  in response to keepalives)
+* reminfo timed out every 10s, not every keepalive interval
+* routers (hubs) should now be compiled with -DROUTER for the new ping code
+* 'imc reload' added - reloads the IMC config/rignore files
+* IMC detects if imc_idle was never called and logs this - should pick up
+  what is the #1 installation error slightly more often :P
+* IMC help file written (set up for imm helps at level 991, you will need
+  to adjust this)
+* imc-rom/imc-envy .h #defines changed for new allow/deny system
+* better checking for spurious calls to imc_startup, etc
+* imc_shutdown logs an error if imc_idle was never called
+* rignores are now a linked list
+* rignores are a more generic prefix/suffix/exact check
+  ie. you can rignore player@mud, *@mud, player@*, etc
+* spurious "none" on rignore list nuked
+* imc/imc_info are now lists, many changes to accomodate this
+* imc_remoteinfo renamed to imc_reminfo_list
+* packet memory rewritten the Right Way (ring buffer, no expiry timeouts)
+* I/O buffers resize dynamically
+* forward() loops through active connections, not all configured connections,
+  for broadcasts - should be more efficient
+* closed connections go through IMC_CLOSED and are removed at the end of the
+  idle loop - makes things safer with the new list stuff 
+* buffers shrink if the extra size isn't used for a while
+* can't 'imc add' an already configured mudname
+* various cases where a NULL string _might_ have been freed fixed
+* maximum packet size received/transmitted appears in istats
+* config file is now colon-separated so that empty strings save/load 
+  correctly (old config files should load fine as long as they have no lines
+  with colons in them)
+* page_to_char used instead of send_to_char for rwho responses
+* imc_recv_who generates the buffer, then sends it through color_mtoi right
+  at the end once. Use mud color codes when generating info in there in
+  future.
+* don't allow imc notes to 'all'
+* imclist, mailqueue, rsockets also page_to_char'd
+* rbeeps can be received even when quiet/afk
+* Envy code synced better, copied imc-rom.c and patched back
+* acts changed to sprintf format strings in the channel table
+* calls to act() removed because of buffer overflow problems:
+  ROM now uses page_to_char, Envy uses send_to_char (apparently there is a
+  memory leak in the stock version of paging for Envy, you may want to check
+  this)
+* ROM wiznet imc-debug logging only logs the first 130chars of a packet, 
+  again because of buffer size problems
+* potential overflows in color_mtoi/color_itom fixed
+* rignore flags can now be set. Currently these are just 'ignore' (the
+  default) or 'notrust' which makes the rignored players appear to be 
+  level 0 mortals for the purposes of visibility
+* rignores save after changes
+* color_mtoi and color_itom check for overflows (and may be slightly more
+  efficient, too)
+* ROM imc_recv_who now constructs replies in a buffer, this should solve
+  overflow problems
+* tells/beeps/who-requests to xxx@* are blocked
+* NO_VSNPRINTF also does snprintf->sprintf conversions
+* can't 'imc add' yourself
+* Envy note code doesn't forget the date stamp on imc notes
+
+imc2-0.7a      4/1/97
+
+* using imc_prefix after freeing in imc_shutdown fixed
+* rcvstamp initialised on outgoing packets correctly
+
+imc2-0.7       2/1/97
+
+* istats now returns correct info
+* imc-rom.c #define fix
+* spam values tweaked
+* sunos compile fixes
+* interp.c rearrangements for imc vs. imclist
+* channel table reworked to make private channels much easier
+* mud-specific channel support added
+* standardised color conversion added. Make sure you tweak imc-[envy|rom].c
+  for your own color system!
+* Envy2 and ROM code synchronized
+* spamcounter values added to rsockets
+* new config fields: rcvstamp and noforward. Incoming packets get the rcvstamp
+  of whatever connection they are received on; broadcast packets will never be
+  forwarded to a mud which has any of the bits in the rcvstamp of the packet
+  set in its noforward field. For example:
+    connection A has rcvstamp=1  noforward=1
+    connection B has rcvstamp=2  noforward=0
+    connection C has rcvstamp=1  noforward=3
+  produces the following behavior:
+    packets from A won't be forwarded to C
+    packets from B won't be forwarded to C
+    packets from C won't be forwarded to A
+* new 'imc' commands for noforward/rcvstamp setting (imc set <mud> noforward x,
+  imc set <mud> rcvstamp x), 'imc set all' expanded
+* mem/string marking code added to imc-envy.[ch]
+* tells from the system (ie. *@mudname, saying "x is not here") don't set
+  ch->rreply/ch->rreply_name
+* rlist -> imclist rename in imc-envy.[ch]
+* newline at end of rwho in router.c added
+* can't use rchannels while in quiet mode (imc-rom.c)
+* rconnect, rdisconnect display better error messages if no args given
+* rtells are not accepted when a character is switched
+* ch->imc, ch->rreply and ch->rreply_name moved to pcdata (since NPCs cannot
+  use IMC - the protocol doesn't currently allow spaces in names)
+* nuked spurious ROM handler.c patch
+* removed '[' shortcut from interp.c (didn't I do this before??)
+
+imc2-0.6       29/12/96
+
+* IS_NPC checks in imc-rom.c
+* memmove() replacement for those that don't have it
+* new_qnode bugfix, imc_ll_shutdown divide error fixed (thanks Erwin)
+* export anything which uses a string so I can walk it for string checks
+* rlist formatting fix
+* rx packet count without IMC_PARANOIA fix
+* fix freeing NULL strings occasionally in mail subsystem
+* rignores work for mail
+* when there's a non-direct 'best route' to a directly connected mud, send
+  the packet along both connections just in case
+* use all names in the paths of incoming packets to update the routing table,
+  not just the sender
+* increased memory size/timeouts AGAIN. sigh..
+* exported imc_isignored from imc-comm.c
+* BIG bugfix in inpath that was causing nasty echoing
+* another bugfix in imc-mail for freeing an invalid mailid in free_idlist
+  (reported by Lordrom)
+* lots of structures exported, memory/string marking functions added for
+  mud consistency checkers
+* rquery info only appears on the list if its supported
+* delete_mq would access memory after freeing it, fixed
+* mail to multiple muds should work (ie. note to a@b c@d e@f)
+* lots of formatting, commenting changes
+* config files are now standardised, with a prefix being passed to imc_startup.
+  This means you can eg. run multiple muds off the same directory without
+  conflicts, or set up an imc subdir and pass 'imc/' as the prefix.
+* rlist renamed to imclist in patches (too many conflicts with the common OLC
+  command of the same name)
+* header files reformatted
+* use vsnprintf in logging fns if available
+* system-dependent stuff handled in one place (top of imc.h); currently
+  provides replacements for memmove, strtoul, vsnprintf, strerror (primitive)
+* imclist port numbers >32767 displayed/saved correctly
+* istats divide error (okaaay, istats just on a reboot _might_ trigger it :)
+* rignores save/load
+* primitive anti-spam code in place (the thresholds will probably need playing
+  with)
+* rignores affect rwho
+* "0ms" unknown pings now appear as "unknown" on imclist
+
+imc2-0.5       03/10/96
+
+* fixed 'output buffer overflow' loop that occured when using the router code
+* be less draconian in branding a connection 'unknown' in imc_getdescname
+* rnote is in :) .. see imc-mail.[ch] and additional patches in Rom24/
+* IMC_PARANOIA additions for path/sender checking
+* close old connections in serverpassword to avoid the double-connection
+  syndrome (ick)
+* min level to see rchat etc. is now 5, in line with the command levels
+* imc statistics added (imc_getstats, do_istat, etc)
+* added basic routing (a bit messy; I need to clean up the interface between
+  imc.c and imc-comm.c)
+* imc_mail_showqueue, do_mailqueue, etc. added
+* router changes for mail handling
+* moved lastinpath to imc.c, exported imc_firstinpath and imc_lastinpath
+* removed IMC_NOFORWARD (didn't work right anyway, and the new routing code
+  breaks it even further)
+* allow blank lines in the config file (*bonk self*)
+* changed default rquery type to 'help'
+
+imc2-0.4b      26/09/96
+
+* stupid bugs in imc-rom.c, router.c fixed
+
+imc2-0.4a      25/09/96
+
+* changed rquery to pass strings, not integers
+
+imc2-0.4       24/09/96
+
+! Note that you will have to add imc-version.o to your Makefile if 
+! patching from imc2-0.3!
+
+* decided I ought to have a CHANGELOG, and made one :)
+* added code to automatically find the default out-queue size for TIOCOUTQ
+* exported reminfo (now imc_reminfo) from imc-comm.c
+* cleaned up imc-comm.c namespace
+* changed all memory allocation/freeing to call wrapper functions:
+  imc_malloc, imc_free, imc_strdup, imc_strfree (all in imc-rom.c)
+* fixed some braindamaged code in imc-comm that was doing what imc_getindex
+  does, the hard way
+* changed behavior of imc_disconnect to kill all unconnected-but-pending-
+  connection sockets for the specified mud
+* added rename to imc_command
+* bad config file lines are now logged, and it continues to read the file
+  after an error is encountered
+* bugfix in imc-rom.c for ch->comm vs. ch->imc
+* exported imc_internal and imc_vinfo (previously vinfo) when 
+  IMC_INTERNALS is defined in imc.h; made imc-version.c independant of imc.c
+  and removed the #include
+* added the Envy2 patches from Erwin S. Andreasen <erwin@pip.dknet.dk>
+  (imc-envy.c, imc-envy.h, envy2.diff, INSTALL.envy2)
+* added some randomness to the reconnect times to avoid the simultaneous
+  connect problem
+* increased the memory timeouts and array size somewhat
+* increased the time between pings to reduce the ping traffic somewhat. The
+  real solution is to put in some decent routing code, but that is some
+  distance away.
+* sanity checking on packet interpretation/generation, this time bad (hand-
+  generated) packets shouldn't crash every mud on imc ;)
+* updated flag checks for IMC_DENY
+* updated copyright in headers so I don't have to keep changing the version
+  number :P
+* added a 'type' field to rwho; type 0 is normal rwho, type 1 can be for
+  mud ads/info etc, no other types defined yet. rquery (new command) 
+  maps to rwho(1), or the user can specify a query type. Note that I 
+  modified envy2.diff by hand to add rquery, and modifying diffs is always a 
+  little hairy; YMMV.
+
+imc2-0.3       20/09/96
+
+* released first public version of the code

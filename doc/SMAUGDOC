@@ -1,0 +1,1554 @@
+********************************************************************************
+*									       *
+*   SMAUG HOWTO   	by	Nivek aka Kevin London (london@cs.utk.edu)     *
+*									       *
+*   This version covers 1.4a 			Doc date:	2/24/99	       *
+*									       *
+* The FAQ in section 11 is a large portion of Altrag's FAQ and the section on  *
+* gdb was written by Thoric.						       *
+*
+* Updates to this HOWTO can be found at:
+*		http://www.cs.utk.edu/~london/smaug/SMAUGDOC
+********************************************************************************
+
+This doc is for SMAUG release 1.4a and higher.  When later releases come out
+if there is a change to how something is done it will be noted like this:
+***Version 1.4b update***
+This document is an ongoing process so if you see anything you would like added,
+more clarification on a subject or I messed up something email me at the above
+address.  
+
+*************************  INDEX  **********************************************
+Section 1		   Getting Started
+Section	2		   Adding New Races to Smaug
+Section 3		   Adding New Classes to Smaug
+Section 4		   Adding New Spell/Skill/Herbs to Smaug
+Section 5		   Adding New Languages/Channels
+Section 6		   Adding Clans/guilds/orders
+Section 7		   Adding Boards
+Section 8		   Adding Deities
+Section 9		   Adding Polymorphs
+Section 10		   How to use gdb
+Section 11		   Frequently Asked Questions
+
+*************************  Section 1  ******************************************
+Getting Started
+********************************************************************************
+So you need to get started do you?  Will the first question is do you
+have a Windows box or a Unix box?  Go to the appropriate section that 
+applies to you.
+*************************  UNIX       ******************************************
+First thing you need to do is untar the distribution, this can be done in one
+of two ways depending on the tar version you are using.  If you have GNU's
+version of tar it can be done like this:
+	tar -zxvf smaug.tar.gz     (Where smaug.tar.gz is the name of the
+				    distribution)
+or if you don't have that version (Doesn't like the -z flag) you can do it in
+two steps like this:
+	gunzip smaug.tar.gz
+	tar -xvf smaug.tar	  (Notice it removes the .gz ending)
+
+So now you should have several directories under a main dist directory.  Next
+you need to go to the source directory to get there from the directory you
+untarred the distributions type:
+	cd dist/src
+Here you need to make the directory.  This is done through the make command.
+Simply type:
+	make all
+If you have errors it could be a couple of reasons.  First you may not have
+crypt linked in.  Edit the makefile with your favorite editor, if you don't
+know how to use one, read the man pages on pico, joe, vi, emacs and I am sure
+there are more out there. To use man type:
+	man <subject>  --- Example:  man vi
+Then uncomment the line specified in the Makefile.  Anyline with a # at the
+beginning is a comment remove the # to uncomment a line.
+Another error you might get is about sockets, if you are on a solaris box,
+then there are also lines you need to uncomment in the makefile for it to
+work.  If you still have problems porting to a new architecture contact
+the smaug mailing list: smaug@game.org or myself london@cs.utk.edu for some
+help.
+
+Now all you need to do is startup the mud, startup on the ports you need to
+by specifing it on the command line, or it defaults to port 4000 but it will
+also bind to that port +1, +10 and +20.  So with the case of 4000 it will setup
+on port 4000, 4001, 4010, and 4020.  To start it up in the src directory,
+type:
+	./startup 4000 &
+If your mud stops when you logout try running it this way:
+	nohup ./startup 4000 &
+The first time you login you should change waitforauth so you can log in.
+To do this type the following:
+	cd ../system	(Will be in dist/system)
+	vi sysdata.dat	(Switch vi for your favorite editor)
+	Change the 1 beside Waitforauth to 0
+Then you can logon by telneting to the port you set it up on:
+	telnet localhost 4000
+Make your char, save and quit out.  Then you will need to edit your pfile.
+You will need to change your level to 65 by the following:
+	cd ../player
+Then you will need to go to the directory with your name which is the lowercase
+first letter of your name.  So for example Shaddai would be:
+	cd s
+Then edit the pfile:
+	vi Shaddai
+	Change the 2 beside Level to 65 save it.
+Now your ready to go. ENJOY.
+
+*************************  WINDOWS    ******************************************
+
+*************************  Section 2  ******************************************
+How to setup a new Race
+********************************************************************************
+First you must setup the new race this is done online via:  setrace
+The syntax to use is *  setrace <new race name> create
+So for example to create a half-coder race you would type:
+setrace half-coder create
+This simply sets up the data and name to be set, it does not save the race.
+To do that you must use setrace save this will also write out the list
+of races to load at boot time.
+Once this is done you can start custimizing the race there are several options
+that you can set. But remember after you set your options you need to save
+them with the following command:  setrace <race name> save
+
+*strplus, dexplus, wisplus, intplus, conplus, chaplus, lckplus are the bonuses 
+  or penalties players of that recieve.  For example if I set the race to:
+	setrace half-coder conplus 2
+	setrace half-coder lckplus -2
+If a player would have had a 16 Con, and a 10 Lck then it would be 18 Con and
+8 Lck if they choose the half-coder race.
+
+*affected, resist, suscept and immunities -  These are natural affects/ris that
+  the race has, they will always have these even if they dispel magic.
+  For Example:
+  	setrace half-coder affected fireshield
+	setrace half-coder immune cold
+	setrace half-coder suscept blunt
+	setrace half-coder resist pierce
+
+*name -  This is what the race is called.
+	Example:     setrace half-coder name coder
+This would change a race from half-coder to coder.  Remember to save after
+this and it will leave the half-coder file intact but that won't get loaded
+at reboot.  So if you really want to get rid of the file you will need to
+delete it from the shell.
+
+*hit, mana -  This is the extra hps and mana a char gets for choosing this
+	class.  It is a one time bonus and you only get it on new players.
+	Example:  setrace half-coders hit 20
+This would give half-coders 20 extra hitpoints when starting off.
+
+*language -  The languages a race knows from the start.
+	While you setup races here, the setup will not create a new language
+	for the newly created race.  To do that go to Section 5 which is
+	about how to setup new languages.
+	raceset half-coder language common
+
+*attack, defense
+
+*alignment --  This is what alignment a NEW character starts at.  Set this to
+	be between the min and maxaligns for the classes that are allowed to
+	be this race.
+	Example:	setrace half-coder alignment -1000
+This would start a half-coder out at a -1000 alignment.
+
+*minalign, maxalign -- This is the Minimum and maximum alignment that a char
+	is allowed to be.  If you don't want a minimum or maximum set the
+	minimum to -1000 and the maximum to 1000.  Right now this doesn't
+	affect a char except that it sends a message to the person.
+	Examples:
+		setrace half-coder minalign -1000
+		setrace half-coder maxalign 1000
+This sets it up so they can be any alignment.
+
+*height, weight -- This sets up the height and weight a race will be + or -
+	10%.   Height is done in inches, weight is done in pounds.
+	Example: 	setrace  half-coder height 72
+			setrace  half-coder weight 200
+This would make it where a half-coder race could be between 5 foot 4 inches to
+6 foot 6 inches and weight from 180 to 220 pounds.
+
+*hungermod, thirstmod -- As of version 1.4a these are unsupported and do
+	nothing.
+
+*expmultiplier -- This is the extra experience or less experience you get from
+	being this race.  So for example 96 is 96% of the exp you normally
+	would get. 102 is 2% more exp than you would normally get.
+	Example:  
+		setrace half-coder expmultiplier 99
+This would give a half-coder 99% of the exp recieved normally.
+
+*saving_poison_death, saving_wand, saving_para_petri, saving_breath, and
+  saving_spell_staff  these adjust someones saving throws to various
+  skills/spells. This is the base saving throw that things will be adjusted on.
+  For example:
+  	setrace half-coder saving_wand 10
+	setrace half-coder saving_poison_death -10
+This will give the person a 10 base saving throw in wands and -10 in poison and
+death.  Keep in mind negative is good.
+
+race_recall --   This is where that race recalls too.  This is how recall is
+    setup:  If they are in a clan they go to that recall, if they are deadly
+    they go to the deadly recall. If none of the above then they goto race 
+    recall, if there isn't a race recall they go to the temple (Harakiem).
+    Example:	setrace half-coder race_recall 1200
+Then non-pkill - non order/guilded/clanned players will recall to room 1200.
+
+mana_regen, hp_regen --  As of 1.4a these two are not supported so do nothing.
+
+*************************  Section 3  ******************************************
+How to add a New Class
+********************************************************************************
+First you must setup the new class.  This is done online via:  setclass
+The syntax to use is * setclass <new class name> create *
+So for example to create a coder class you would type:
+	setclass coder create
+This simply sets up the data and name to be set, it does not save the class.
+To do that you muse use * setclass save * this will also write out the list of 
+classes to be loaded at boot time.  *NOTE* If you don't want anyone to use
+this class yet, which you probably don't..... Use ban, to ban the class and
+this will prevent it from being choosen.  Once this has been done you can 
+start custimizing the class.  There are several options that you can set,
+but remember to save your changes after you make them with the following
+command:     	setclass <class name> save
+
+*name   -- This will rename the class.  For example to rename mage to 
+	wizard, you would use:
+	setclass mage name Wizard
+
+*mtitle/ftitle -- This gives the default title to a character when they
+	advance to a new level.  mtitle is for Males, ftitle is for females.
+	For example to set a level 2 male mage title to the Apprentice.
+	You would use:
+	setclass mage mtitle 2 the Apprentice.
+
+*prime  -- This is the prime attribute that the class has and allows that
+	attribute to get to 25, instead of the maximum of 20.
+*second -- This is a secondary attribute and allows that class to get that
+	attribute to 22, instead of the maximum of 20.
+*deficient -- This is a deficient attribute that prohibits the class from
+	getting a 20 in that attribute and restricts them to a max of 16.
+
+To set these, use * setclass <class name> <prime/second/deficient> <attribute>
+The valid attributes are: <none, strength, dexterity, intelligence, wisdom,
+	constitution, luck>
+For example I could setup a mage like this:
+	setclass mage prime intelligence
+	setclass mage deficient strength
+Then the mage would have a max of 25 in intelligence and a max of 16 in strength
+
+*resist/suscept -- This makes a class naturally resistant or suscept to certain
+	things.
+To set these, use * setclass <class name> <resist/suscept> <resist flag>
+The valid resist flags are: <fire, cold, electricity, energy, blunt, pierce, 
+	slash, acid, poison, drain, sleep, charm, hold, nonmagic, magic,
+	paralysis>
+So for example to set mages resistant to charm and magic, the command would be:
+	setclass mage resist charm magic
+To turn a resist off simply reset it for example:
+	setclass mage resist charm magic
+Would set the mage class to not be resistant to those two again.
+
+*affected -- This makes a class affected by a certain affect.
+To set these, use * setclass <class name> affected flag [flag]
+The valid affect flags are: <blind, invisible, detect_evil, detect_invis,
+	detect_magic, detect_hidden, hold, sanctuary,  infrared, protect, 
+	sneak, hide, flying, pass_door, floating, truesight, detect_traps,
+	scrying, fireshield, shockshield, iceshield, aqua_breath>
+So for example to set mages affected by truesight and scrying you would use:
+	setclass mage affected truesight scrying
+Once again to turn a affect off you just reset it by setting that affect
+again and it will toggle it off.
+
+*expbase -- This sets up how much experience is needed to go up a level.
+	The basic formula is this:  base*lvl*lvl*lvl
+	So for example if you set the base to 1000, then 2nd level would need
+	2*2*2*1000 or 6,000 exp would be needed for second level.  To
+	set a mage to this level you would use:
+		setclass mage expbase 1000
+
+*hpmin/hpmax -- This sets the minimum and maximum hitpoints a class can gain
+	when the advance a level. So for example to set a mage to a minimum
+	of 3 hps and a max of 6 hps per level you would use the following:
+		setclass mage hpmin 3
+		setclass mage hpmax 6
+
+*mana  -- This sets if a class gets mana or not the flags available are either
+	Y or N.  If set to yes the class will gain mana each levelup, otherwise
+	they won't.  For example to set vampires so they don't gain mana:
+		setclass vampire mana N
+
+*thac0/thac32 -- This affects the to hitroll versus a 0 armor class for a
+	particular class.  This is a fairly complex formula but Thac0 should
+	be a higher number than Thac32, and to give you an idea on strengths.
+	Warriors are Thac0=18 and Thac32=6, while mages are Thac0=18 and
+	Thac32=10
+	An example of setting a warrior to the above Thac would be:
+		setclass warrior thac0 18
+		setclass warrior thac32 6
+
+*weapon -- **Don't use it is outdated**  This use to be the weapon vnum that
+	a class started out with in the game but the code is now commented
+	out so this does nothing now.
+*guild  -- **Don't use it is outdated** This use to be the vnum that was the
+	entrance to a guild was, and when a character moved it checked to see
+	if it was that class, and if they weren't wouldn't let them move there.
+	Since mob progs have been put in to take care of that the code that
+	this worked on has been removed so this does nothing right now.
+
+*************************  Section 4  ******************************************
+How to add a new Spell,Skill or Herb
+********************************************************************************
+The first thing you need to do to create a new skill/herb or ability is
+create a new one with the sset command.
+	sset create herb 'new herb'
+ 	sset create skill 'new skill'
+	sset create ability 'new ability'
+If these give you a error message about MAX_HERB or MAX_SKILL needing to be 
+upped you need to open up mud.h, up the appropriate variable a few places,
+make clean and then make.
+The difference between a skill and an ability is that an ability gets set
+to type SKILL_RACIAL.  Which means only certain races can use that ability.
+Right now this is unsupported however.
+So to set up a new herb called sunflower and a new skill called coding,
+you would issue the following commands:
+	sset create herb 'sunflower'
+	sset create skill 'coding'
+Once you do that you will be able to set various fields on each:
+*name -- This is what the skill or herb is called in the above cases they 
+	would be set to sunflower and coding.
+	Example:    sset 107 name sunflower
+*code -- This is the code executed when the skill/spell is called or the
+	herb is used.
+	Example:    sset 107 code spell_smaug
+*target -- This sets what type of spell it is or what it would affect.
+	The options are ignore, offensive, defensive, self, objinv.
+	Things like area attack/affect spells would use target ignore as
+	well as the new missile type spells which must be target ignore,
+	range>0, and use code type spell_smaug for it to be a ranged spell
+	attack.  Offensive would be used for damage/curse type spells, when
+	cast on someone these will initiate a fight, for example the fireball
+	spell.  Defensive is used for things that should not initiate a fight
+	when cast on another mob/pc, like sanctuary.  Finally objinv is used
+	for any spells cast on an object in your inventory, like enchant
+	weapon.
+	Example:    sset 107 target offensive
+
+*minpos --  This is the minimum position you have to be in to use this
+	spell/skill. This is done using numbers to represent the positions.
+	This is defined in mud.h and as of smaug 1.4a Starts with 0
+	(being position dead) and increases by one for each position.
+	With the positions being: dead, mortal, incapicitated, stunned,
+	sleeping, berserk, resting, aggressive, sitting, fighting, defensive,
+	evasive, standing, mounted, shove, drag.  Drag is number 15.
+	berserk, aggressive, fighting, defensive, and evasive correspond to
+	the different fighting styles with fighting be the standard style.
+	 Example: sset 107 minpos 10
+
+*slot -- This sets up which slot the spell/skill will use.
+	 For Example:  sset 107 slot 1000
+
+*mana -- This is the amount of mana required to use the spell.
+	 For Example:  sset 107 mana 100
+
+*beats -- This is how long the spell/skill will lag you when it is used.
+	This is done in beats with around 12 beats being about one round.
+	Example:    sset 107 beats 12
+
+*dammsg --  This is a word to describe the damage of the spell.  For example
+	if you set it to fireball and cast the spell you might see:
+		Your fireball brushes Shaddai.
+	Example:    sset 107 dammsg fireball
+
+*wearoff --  For spells this is the message that is given when the spell
+	wears off.  Example:    
+ 	sset 107 wearoff The torrents of cascading energy suddenly fade away.
+
+*guild -- This wasn't quite ever implemented, but it basically allows pkill
+	clans to have their own skills/spells to get it to work you have to
+	set this to the class number of the class you want to get the skill
+	and you have to set the class variable in setclan to the same class.
+	For example:
+		sset 107 guild 1
+
+*minlevel -- This only works in herbs, this will set the MAXIMUM level that
+	spell will be cast at.  For example if you set it at 25, and
+	the player was level 50, it would be cast as a level 25, if the
+	character was level 20 it would be cast at level 20. 
+	For example:	sset 107 minlevel 25
+
+*type -- This sets the type of the skill.  Currently there are 6 types.
+	Race, Spell, Skill, Weapon, Tongue, Herb.
+	The Race sets it to a racial skill this is currently not supported.
+	Spell sets it up so you have to cast it, like a protection spell.
+	Skill sets it up so you use this skill by typing its name, for example
+	kick or punch. A weapon is used for things like pugilism, pierce, etc..
+	The tongue is setup for the language.  See Section 5 -- Setting up
+	new languages and channels for more info on that.  And finally an
+	herb is 
+	Example:    sset 107 type spell
+
+*damtype --  This is the type of damage the spell causes.  The possibilities
+	are none, fire, cold, electricity, energy, acid, poison, drain.
+	This affects which resistances help again this spell.
+	Example:  sset 107 damtype fire
+
+*acttype --  This is the action type a spell uses, this in conjunction with
+	classtype, and power type have a great control over what happens with
+	the spell.  Moe on this after powertype.  The possibilities are
+	none, create, destroy, resist, suscept, divinate, obscure, change.
+
+*classtype -- This along with powertype will determine what a smaug spell
+	will do.  See online documentation for more information.
+	For example: sset 107 classtype death
+
+*powertype -- This along with classtup will determine what a smaug spell will
+	do.  See online documentation for more information.
+	For example: sset 107 powertype none
+
+*seffect -- This changes the save_negates and save_half_dam flags.  The new 
+	options are, none, negate, halfdam, quarterdam, eighthdam,
+	3qtrdam, absorb, reflect.  Absorb will absorb any damage and add that
+	many hitpoints, for example if it did 8 points of damamge and you 
+	saved you would gain 8 exp.  Reflect will cast the spell back
+	on that caster.
+	For example: sset 107 seffect absorb
+
+*flag -- This can change several things, for example if it can be scribed,
+	brewed see spellflags online for what is available.  
+	For example: sset 107 flag noscribe
+
+*dice -- A diceformula used for rolling things like damage.  For more info
+	on this see diceformulas online.  
+	For example: sset 107 dice l/3 + 3
+
+*value -- This is a reserved slot for storing things like vnums of objects
+	created in spells.  
+	For example: sset 107 value 1000
+
+*difficulty -- This sets how difficult the spell/skill is to learn.  The
+	basic formula for this is a number_percent() + difficulty*5
+	and if that number is higher than the learned number the PC has then
+	you lose your concentration and can't cast spell.  
+	For example:  sset 107 difficulty 5
+
+*affect -- This will apply an affect when the skill or spell is used, for
+	more information see affecttypes online.
+	For example: sset 107 affect luck 4
+
+*rmaffect --  This will remove an affect you have set for example to remove
+	the above you could use one of two things (Assuming the above was
+	the only affect)
+	For example: sset 107 rmaffect 1		OR
+	
+*level -- This sets the level a class gets the spell, for example say
+	coder class is class #2, and you want them to get it at level 20.
+	You would use:  sset 107 level 2 20
+
+*adept -- This sets a class's adept level.  For example say you want a coder
+	class to adept the spell at 80%.  
+	You would use:  sset 107 adept 2 80
+
+*components --  These are the components necessary to cast a spell.  This field
+	currently only affects spells but should also affect skills as well
+	soon.  clear will clear out the components.  Then the syntax gets a
+	bit more complex.  
+	The basic setup is done using:
+	T###	this checks for item of type ###
+	V#####  this checks for item of vnum ####
+ 	Kword	check for item with keyword 'word'
+	G####	check if player has ##### amount of gold
+	H####	check if player has #### amount of hitpoints
+
+        There are several operators that can be used....
+	! spells fails if player has this, 
+        + dont' consume this component,
+	@ decrease component's value[0], and extract it if it reaches 0
+	# decrease component's value[0], and extract it if it reaches 0
+	$ decrease component's value[2], and extract it if it reaches 0
+	% decrease component's value[3], and extract it if it reaches 0
+	^ decrease component's value[4], and extract it if it reaches 0
+	& decrease component's value[5], and extract it if it reaches 0
+
+	Here are a couple examples:
+	sset 107 components V@43  need item with vnum 43 to cast this spell,
+		decrease it value[0] by one and use it up if it reaches 0.
+	sset 107 components T+01 would look for itemtype 01 to cast the spell
+		but don't use it up.
+
+*racelevel --  This is the level a certain race gets a spell. For example to
+	set it so that humans get it at level 50 you would use:
+	sset 107 racelevel human 50
+
+*raceadept -- This is the adept that a certain race can get in a spell.  For
+	example to set it so that humans adept the spell at 70% use:
+	sset 107 raceadept human 70
+
+*************************  Section 5  ******************************************
+How to add new Channels/Languages
+********************************************************************************
+To create a new language you need to find the lang_array in comm.c which in
+smaug 1.4a is around line 2970.
+   Here add LANG_(Your Lang Name) before LANG_UNKNOWN.
+Then go to the lang_names which is just below lang_array and right before
+"" (and right after "gith", in SMAUG 1.4a) 
+   Add "(your lang name)",
+Example:
+ Last line of lang_array would look like this:
+   LANG_CLAN, LANG_GITH, LANG_CODER, LANG_UNKNOWN };
+ Last line of lang_name would look like this:
+   "halfling", "clan", "gith", "coder", "" };
+Then you need to open up mud.h
+Then search for LANG_  after the last BV language add in the in yours.
+For Example:
+	#define LANG_GITH	BV19
+	#define LANG_CODER      BV20  <----- Added this line
+Then in the VALID_LANGS add your language into that:
+For Example:
+	| LANG_HALFLING | LANG_GITH )
+becomes
+	| LANG_HALFLING | LANG_GITH | LANG_CODER )
+Then make clean and recompile.
+Then online you have to make that language......
+sset create skill (language)
+sset (lang) type tongue
+sset (lang) guild -1
+sset (lang) code spell_null
+sset save skill table
+
+Then you need to edit the levels at which the classes get that language 
+by editing the class files or by sset level (classnum) (level)
+Then sset adept (classnum) (adept%)
+You can also set it up as a innate race ability for example
+setrace coder language (language)
+
+Example:
+	sset create skill coder
+	sset coder type tongue
+	sset coder guild -1
+	sset coder code spell_null
+Then to set it up by classes add:
+	sset coder level 0 1
+  	sset coder adept 0 99
+Or to make it a inate race ability:
+	setrace coder language coder
+
+        sset save skill table
+
+That should about do it for languages now on to channels........
+
+*************************  Section 6  ******************************************
+How to add new Clans/Guilds/Orders
+********************************************************************************
+First create a file in the clan directory with the name of the clan.  For
+example dslay.clan and setup a very basic clan file like:
+	#CLAN
+	Name	Dragonslayer~
+	Filename dslay.clan~
+	End
+	#END
+Then add that to the name in the clan.lst For example in this case we would
+add the following:
+	dslay.clan
+
+Then reboot the mud and you will be ready to start setting up the clan online
+with the setclan command.  You can use the following options:
+
+*deity -- This will set the immortal to be a deity of the clan.  For example
+	say Shaddai was supposed to be the leader you would use:
+	setclan dragonslayer deity Shaddai
+
+*leader -- This will set the leader of the clan.  For example say you want
+	Nivek to be the leader of the clan you would use:
+	setclan dragonslayer leader Nivek
+
+*number1 -- This will set number1 of the clan set just like the leader.
+
+*number2 -- This will set number2 of the clan set just like the leader.
+
+*members -- This is the number of the clan members and shouldn't ever be set
+	unless occasionally you use a grub to find the correct number of
+	members (IE ones missed through autodeletings, etc....)
+	setclan dragonslayer members 200
+
+*board -- This lists their boards vnum usually the same object vnum and
+	room vnum but it doesn't actually do anything, other than keeping
+	track of the numbers.
+	setclan dragonslayer board 1200
+
+*recall -- This is the vnum that clan members will recall too.
+	setclan dragonslayer recall 1200
+
+*storage -- This is the clans storage room.  When you set this and someone
+	puts an item in a container in this room it will be saved in the
+	clan.vault.  You also need to set the clanstoreroom flag on the room.
+	setclan dragonslayer storage 1200
+
+*guard1 -- This lists the first clan guardian vnum but doesn't actually
+	do anything so you really don't have to do anything with this
+	variable.
+	setclan dragonslayer guard1 1200
+
+*guard2 -- This lists the second clan guardian vnum and like above doesn't
+	really do anything.
+	setclan dragonslayer guard2 1201
+
+*align --  This is no longer used.
+
+*memlimit -- This will limit the number of members a clan have.  For example
+	if you set it to 50 the clan would be limited to 50 members and if
+	a leader inducted 50 people and tried to induct another person it
+	wouldn't let them until their membership went under 50.
+	setclan dragonslayer memlimit 50
+
+*leadrank -- This will be what the leaders "rank" is shown as or in the same
+	column that Avatar shows in the who command.  For example to set the
+	leaders rank to loser you would do:
+	setclan dragonslayer leadrank Loser
+
+*onerank -- This is what the number ones "rank" is shown as, set it the same
+	as you would the leaders rank.
+
+*tworank -- This is what the number twos "rank" is shown as, set it the same
+	as you would the leaders rank.
+
+*obj[1-5] -- These are the objects the clan leader can make, obj1 is set to
+	level 40, obj2 is set to level 45, obj3 is set to level 50, obj4
+	is set to level 35, object5 is set to level 1.  For example to set
+	one of the objects the leader can make to an object with vnum 1200.
+	And have that object set to level 40 you would use:
+	setclan dragonslayer obj1 40
+
+*name -- This changes the name of the clan, for example to change Dragonslayers
+	to Manslayers you would use:
+	setclan dragonslayer name Manslayer
+
+*filename -- This changes the filename the clan is kept in and also updates
+	the clan.lst   To change the filename to manslayer.clan you would use:
+	setclan dragonslayer filename manslayer.clan
+
+*motto -- This gives the clans motto when using the clans/orders/guilds commands
+	For example:
+	setclan brujah motto Die in your boots, not on your knees.
+	This would show up something like this when using clans brujah
+	Brujah, 'Die in your boots, not on your knees.'
+
+*desc -- This is a description of the clan you get when using the clans/orders/
+	guilds command.  To use this just do:
+	setclan dragonslayer desc
+	This will drop you into an editor and you can edit the description
+	just like you would a note.
+
+*favour -- This isn't currently used.
+
+*strikes -- This isn't currently used.
+
+*type -- This is the type of the clan it is, for example guild, order, 
+	clan.  The valid types are guild, order or the # of the type.
+	So for example to set the type to pkill you would do:
+	setclan dragonslayer type 0
+
+*class -- This works in conjunction with guilds for the class allowed as well
+	as the special skills clans could get.  The argument is the class
+	number of what you want for example say the coder class is # 2.
+	You would use:
+	setclan dragonslayer class 2
+
+*pkill[1-7] -- This keeps track of pkills in the ranges of 1-9, 10-14, 
+	15-19, 20-29, 30-39, 40-49 and 50.  This means you killed someone of
+	this level, and these should never be changed unless you want to
+	reset the pkills a clan has for example:
+	setclan dragonslayer pkill1 0
+
+*pdeath[1-7] This keeps tracks of the pdeaths in the same ranges as above,
+	This is the level of the clanie that died. This also shouldn't
+	need to be changed unless you want to reset the pdeaths a clan
+	has, for example:
+	setclan dragonslayer pdeath2 0
+
+
+*************************  Section 7  ******************************************
+How to add new Boards
+********************************************************************************
+
+The first thing you need to do is:
+	makeboard <filename>  
+For example makeboard myboard.brd
+This will create a new board file and setup defaults.  The next thing you need
+to do is setup a board object, to do this create an object and setup the
+object just like you would do for any object and remember its vnum.  Then you
+need to set up the defaults on the board using bset.
+
+The arguments that can be used with bset are as follows:
+
+*ovnum --  This is the board that you setup in the previous step.  Set this
+	to the objects vnum.
+	Example:	bset myboard.brd 1000
+
+*read --   This is the minimum level you have to be to read the board.
+	For example to set it to 51, so only immortals can read it you would
+	use:
+		bset myboard.brd read 51
+
+*post --   This is the minimum level you need to be to post on the board.
+	So for example say the board above is a complaint board and you want
+	mortals to be able to use it, you could set it to level 1 like this:
+		bset myboard.brd post 1
+
+*remove -- This is the minimum level you need to be able to remove a note
+	on the board.  So say you want only high level immortals to remove
+	the notes on the above board you could set it to level 58 like this:
+		bset myboard.brd remove 58
+
+*maxpost -- This sets the maximum number of posts allowed on one board,
+	this should be set to a fairly low number, 200 is a good place to
+	start.  This prevents some known crash bugs, with the number of posts
+	on a board.  To set a board to 200 use:
+		bset myboard.brd maxpost 200
+
+*filename -- This renames the file to a new filename for example say you have 
+	been using myboard.brd and don't need it, and have a new council
+	code council that needs a board.  You can rename the file so it
+	reflects that (Though it isn't necessary)/
+		bset myboard.brd filename codecouncil.brd
+
+*type -- This is what commands can be used on the board.  For example if it
+	is a mail board or a note board.  To set it to a note board:
+		bset myboard.brd type 0
+	For a mail board it would be:
+		bset myboard.brd type 1
+
+*read_group --  This allows a group of people to read a board, even if they
+	aren't high enough level.  This is good for things like newbie councils
+	that you don't want mortals to read it outside of the newbie council,
+	but you don't want to keep updating the extra_readers.  The groups can
+	be a clan/order/guild or council.  So for example if your council was
+	'Newbie Council'  You would set it like this:
+		bset myboard.brd read_group Newbie Council
+
+*post_group --  This allows a group of people to post to a board and works 
+	just like above.  So to let the Newbie Council post on a board use:
+		bset myboard.brd post_group Newbie Council
+
+*extra_readers -- This allows player[s] to read a board that isn't in their
+	level range.  When you add a name it automatically gets added to the
+	list, to remove a name you need to clear it like:
+		bset myboard.brd extra_readers none
+	And then reset the ones you want as readers.  For example to add
+	Nivek and Shaddai as extra readers you would use:
+		bset myboard.brd extra_readers Nivek Shaddai
+
+*extra_removers -- This is just like above but this lets a player remove from
+	a board that their level normally wouldn't let them.  It works just
+	like above so to add Nivek and Shaddai as extra removers you would do:
+		bset myboard.brd extra_removers Nivek Shaddai
+
+*oremove -- This is the message other people see when someone removes a note.
+	So for example if you want it to say Shaddai clears up some clutter.
+	When Shaddai removes a note it would be:
+		bset myboard.brd oremove $n clears up some clutter.
+
+*otake -- This is the message other people see when someone takes a note.
+	So for example if you want it to say Shaddai takes a bounty note.
+	When Shaddai takes a note from this board it would be:
+		bset myboard.brd otake $n takes a bounty note.
+
+*olist -- This is the message other people see when a person does a note list.
+	So for example if you want it to say Shaddai reads over the bounties.
+	When Shaddai does a note list it would be:
+		bset myboard.brd olist $n reads over the bounties.
+
+*ocopy -- This is the message other people see when a person does a note copy.
+	For example:	bset myboard.brd ocopy $n makes a note of a bounty.
+
+*opost -- This is the message other people see when a person posts a note.
+	For example:	bset myboard.brd opost $n puts up a new bounty.
+
+*postmesg -- This is what you see when you post a note.
+	For example:	bset myboard.brd postmesg You post a new bounty.
+
+Then just make sure you add the board object into resets and you have a new
+board :)
+
+*************************  Section 8  ******************************************
+How to add new Deities
+********************************************************************************
+The first thing you need to do is create the deity file.  This is done using
+the makedeity command.  So for example if you wanted a deity called Shaddai:
+	makedeity Shaddai
+This creates the file and sets up some defaults and writes it to the list of
+deities to load during bootup.
+
+Then you use setdeity to setup the deity the way you would like it.
+
+*filename -- This will change the filename of the deity file and will also
+	update the list of deities to loadup at bootup.  To change a deity
+	file for the deity Shaddai you would use:
+		setdeity shaddai filename Shaddai.dty
+
+*name --  This will change the name of the deity that everyone uses to devote
+	too, etc...  For example to change the deity Shaddai to Nivek you 
+	would use:
+		setdeity shaddai name Nivek
+
+*description -- This is the Description that is given when a mortal uses the
+	deities <deity name> command.  It can be changed by using the command
+		setdeity shaddai description
+	This will drop you into an editor and then you can work on it just like
+	you would a note or a room description.
+
+*alignment -- This is the alignment of the deity, it affects several things,
+	first if a mortal supplicates a avatar, then the avatar is the same
+	alignment as the deity.  Also if your alignment is too far off what
+	your deities is, then you will start lossing favor. To set a neutral
+	deity for example would be:
+		setdeity shaddai alignment 0
+
+*worshippers -- This is how many people currently worship (are devoted) to the
+	deity.  This number really doesn't need to be changed.
+
+*npcfoe -- This is the # of the race that the deity "dislikes" so you get more
+	favour of killing a mob of this race. For example to set this deities
+	npcfoe to coder which lets say is race #4, you could do either:
+		setdeity shaddai npcfoe 4		OR
+		setdeity shaddai npcfoe coder
+
+*susceptnum -- This sets the amount of favour needed otherwise, you get
+	set to any suscepts the deity has.  For example if it was set to
+	500 and your favour was 400, you would be susceptible to whatever
+	this deities suscepts are.  
+		setdeity shaddai susceptnum 500
+
+*race	-- If this is set then this deity only accepts worshippers of a certain
+	race.  This too can be set by the name of the race or by the number.
+	So for example if you wanted the deity so only humans can devote to
+	it you would do:
+		setdeity shaddai race human
+	To clear this value set it to -1, like this:
+		setdeity shaddai race -1
+
+*race2  -- If this is set 2 races can devote to this deity, but it will only be
+	checked if race is set as well.  So if you wanted Shaddai deity to
+	have worshippers of humans AND dwarfs, you would do this:
+		setdeity shaddai race2 dwarf
+	Just like above to clear this flag set it to -1.
+
+*npcrace -- This is similar to npcfoe, but you get a little less favour from
+	killing these than a npcfoe.  
+		setdeity shaddai npcrace human
+
+*class
+*element
+*sex
+*affected 
+*suscept
+*elementnum
+*affectednum
+*flee
+*flee_npcrace
+*kill
+*kill_npcrace
+*kill_magic
+*die
+*die_npcrace
+*dig_corpse
+*bury_corpse
+*spell_aid
+*steal
+*backstab
+*aid
+*aid_spell
+*sac
+*kill_npcfoe
+*die_npcfoe
+*flee_npcfoe
+*scorpse
+*savatar
+*sdeityobj
+*srecall
+*objstat
+
+
+*************************  Section 9  ******************************************
+Adding Polymorphs
+********************************************************************************
+
+First you need to create the morph you do that with the morphcreate command.
+There are two different ways to use it, first if you just want to create
+a new morph, you use:  morphcreate <name>
+For example:  morphcreate 'Dire Wolf'
+or if you want to copy a morph that already exists you would use:
+	morphcreate <vnum> copy
+This will setup a new morph with a different vnum but with all the defaults
+setup for you.
+
+Once you have a morph created, it is time to start changing it to how
+you would like it to be.  This is done through setmorph.
+Remember also that when you change the morph you need to save it by:
+	setmorph <vnum/name> save
+
+When you set it up there are several other commands to help you with your
+morphs,  first there is morphstat that will take the name or vnum of the morph
+as an argument.  And if you use:
+		morphstat <vnum/name> help
+It will list the descriptions, shorts, etc......
+
+Then there is immmorph and immunmorph which allows an immortal to morph/unmorph
+into anything themselves OR morph/unmorph any player into anything.
+
+morphdestroy deletes a morph, this is safe to use even if a player is already
+morphed into that and even if they have logged off and log back in morphed as
+that.
+
+The spell polymorph will allow players to morph into whatever they can according
+to what has been setup.
+
+And finally mpmorph and mpunmorph for mob/room/obj progs to allow you to setup
+morphs that players can't morph into with a spell and/or morphs that don't
+have a timer so they have to find a "healer" or something to unmorph.
+
+To use in conjuction with the mpmorph and mpunmorph there are a couple new
+ifchecks that progs can use:
+*ismorphed -- Returns true if a player is morphed, false if they aren't
+*morph -- Returns true if a particular morph is set by vnum.  For example:
+	if morph($n) == 1000
+
+
+setmorph is very complicated and has several things you can set:
+
+*ac -- This will affect the players ac when they morph into it, for example
+	if it is set to -50, the player would gain 50 ac improvement.
+		morphset 1000 ac -50 
+
+*affected -- This will add affects to a player when they morph, for example
+	to add sanctuary as an affect you would use:
+		morphset 1000 affected sanctuary
+
+*blood -- This is how much blood you lose/gain when you morph, this is 
+	interperted at morph time and uses the dice formulas.  So for example
+	you could do:
+		morphset 1000 blood l/2
+	Also note that this adds to the persons blood level.
+
+*bloodused -- This is the amount of blood used to morph, kind of like when
+	a vampire casts a spell.  If that amount of blood isn't available
+	the morph fails.
+		morphset 1000 bloodused 20
+
+*cha -- This is the amount of charisma you gain/lose when you morph.
+	This is an integer and is not interperted as dice.
+		morphset 1000 cha 1
+
+*class -- If anything is set on here, then only classes with the bit set can
+	morph into this particular morph.  For example if you want only
+	vampires to morph into this particular morph you would do:
+		morphset 1000 class vampire
+	To disallow a class after you have set it, just set it again and it will
+	untoggle the class.
+
+*con -- This is the amount of constitution that the player will gain/lose
+	whenever they morph, for example to make them lose a con point:
+		morphset 1000 con -1
+
+*damroll -- This is the amount of damroll the player gains/loses whenever they
+	morph, this uses dice formulas as well, so for example to make a
+	player lose half their level in damroll you would do:
+		morphset 1000 damroll -l/2
+
+*dayfrom -- This prevents someone morphing into a morph if it doesn't fall
+	during the dayfrom - dayto period.  Setting this value to -1 sets
+	it to not check this time period.  Valid numbers are 1-31
+		morphset 1000 dayfrom 2
+
+*deity -- This makes it so only people devoted to a certain deity can morph
+	For example to let only people devoted to the deity Shaddai morph
+	you would use:
+		morphset 1000 deity Shaddai
+
+*description -- This is the description of the morph, that is when someone 		looks at you what they see (A furry bat, whatever.)  To use this,
+	you do:
+		morphset 1000 desc
+	This will drop you into a note editor and then you can edit the
+	description just like you would with a note.
+
+*defpos -- If you are in the default position set here then when someone
+	looks they see whatever was set on the long description of the morph.
+		morphset 1000 defpos 6
+
+*dex -- This is how much dexterity the player will gain/lose when they morph.
+		morphset 1000 dex 2
+
+*dodge -- This is how much more dodge they gain or lose when they morph from
+	a range of -100 to 100.  For example to give them 20% more change to
+	dodge:
+		morphset 1000 dodge 20
+
+*favourused -- This is how much favour it takes the player to morph.  If they
+	don't have enough they can't morph, if they have enough they lose that
+	amount of favour to morph. For example:
+		morphset 1000 favourused 500
+
+*gloryused -- This is how much glory is used to morph, if the player doesn't
+	have enough then they can't morph, if they have enough then they
+	lose that amount of glory to morph.  For example:
+		morphset 1000 gloryused 100
+
+*help -- This is what the player see's when they look at the morph files for
+	a particular morph.  You use the following command which will drop
+	you into a editor and you can then edit it just like a note.
+		morphset 1000 help
+
+*hitroll -- This is how much hitroll a player gains/loses when they morph.
+	This can be a dice formula so for example to have them gain 1/2 their
+	level in hitroll you would use:
+		morphset 1000 hitroll l/2
+	
+*hp -- This is how much hitpoints a player gains/loses when they morph.
+	This can be a dice formula so for example to have them gain 1/2 their
+	level in hitpoints you would use:
+		morphset 1000 hp l/2
+
+*hpused -- This is how many hitpoints are lost when they morph, if they don't
+	have enough hitpoints to keep them alive, the morph fails.  This
+	can be considered the "pain" of morphing into this particular morph.
+	For example if you wanted them to lose 100 hitpoints you would use:
+		morphset 1000 hpused 100
+
+*immune -- These are immunities the player gains whenever they morph.  To remove
+	an immunity you set it again to un-toggle that immunity.  For example
+	to add an immunity to magic you would use:
+		morphset 1000 immune magic
+
+*int -- This is how much intelligence the player gains/loses when they morph.
+	For example to make the player lose 3 intelligence points when they
+	morph you would use:
+		morphset 1000 int -3
+
+*str -- This is how much strength the player gains/loses when they morph.
+	For example to make the player gain 3 strength points when they morph
+	you would use:
+		morphset 1000 str 3
+
+*keyword -- This is the keyword needed to hit the player now.  For example if
+	they morphed into a bat, and you wanted people to be able to use
+	murder bat, then you would do:
+		morphset 1000 keyword bat
+
+*lck -- This is how much luck a player gains/loses when they morph.  For example
+	to make the player lose 3 luck points when they morph you would use:
+		morphset 1000 lck -3
+
+*level -- This is the level the player needs to be before they can use this 
+	morph.  For example to make it so only level 25+ can use a particular
+	morph you would use:
+		morphset 1000 level 25
+
+*long -- This is what other players see when the morphed player is in the
+	default position.  For example:
+		morphset 1000 long A large dire wolf is resting here.
+
+*mana -- This is the amount of mana a player gains/loses whenever they morph.
+	This is a dice formula so for example you could do:
+		morphset 1000 mana l/2
+
+*manaused -- This is the amount of mana used to morph into a particular morph.
+	For example to make it cost 50 mana you would do:
+		morphset 1000 manaused 50
+
+*morphother -- This is what other people see whenever you morph.
+	For example:	
+		morphset 1000 $n shrinks down into the form of a cute puppy.
+
+*morphself -- This is what the player sees when they morph.
+	For example:
+		morphset 1000 You shrink down into the form of a cute puppy.
+
+*move -- This is the amount of move that a player gains/loses whenever they
+	morph.
+	For example:
+		morphset 1000 move -100
+
+*moveused --  This is the amount of move that is used up whenever a player 
+	morphs.  If there is not enough move the morph fails.
+		morphset 1000 moveused 100
+
+*name -- This is the name of the morph or what other players see whenever the
+	player says or does something.  For example;
+		morphset 1000 name puppy
+
+*noaffected -- This PREVENTS a player from ever being affected by certain
+	affects.  So for example if you set sanctuary they will never be 
+	affected by sanctuary no matter if it they have an item that grants
+	it or have the spell cast on them.  Setting the same affect twice
+	removes it.
+		morphset 1000 noaffected sanctuary
+
+*nocast -- This means that a player can't cast polymorph to morph into this
+	particular morph.  It must be done by an item, a mob (being bit by
+	a vampire for example) or some other way.  The values are 1 and 0.
+	1 means that they can't cast to morph, 0 means they can cast.
+		morphset 1000 nocast 1
+
+*noimmune -- This means that a player can't be immune to certain immunities just
+	like noaffected.
+		morphset 1000 noimmune magic
+
+*noresistant -- This means that a player can't be resistant to certain 
+	resistants, just like noaffected and noimmune.
+		morphset 1000 noresistant magic
+
+*noskills  -- This means that a player can't use certain skills whenever they
+	are morphed.  Like bash or whatever.....
+		morphset 1000 noskills bash
+	To remove the skills from being prevented do:
+		morphset 1000 noskills bash
+
+*nosusceptible -- This means a player can't be susceptible to certain things
+	just like noaffected, noimmune and noresistant.
+		morphset 1000 nosusceptible magic
+
+*obj[1-3] -- This can in conjunction with objuse[1-3] or by itself.  It prevents
+	morphing unless you have the objects specified by obj[1-3].  This is
+	done by vnum.
+		morphset 1000 obj1 1200
+
+*objuse[1-3] -- This is like above prevents morphing unless you have the 
+	objects specified by objuse[1-3] but in this case it also "uses" up
+	the object.
+		morphset 1000 objuse1 1201
+
+*parry -- This is the percentage that a player gains/loses to parry.
+		morphset 1000 parry -50
+
+*pkill -- This sets who can actually use this morph, the agruments are either
+	pkill, peace or none.  pkill only allows pkillers to use the morph,
+	peace only allows peaceful's to use the morph and none lets either
+	use the morph.
+		morphset 1000 pkill pkill
+
+*race -- These are the races that are NOT allowed to use the morph.  For
+	example to disallow pixies to not use the morph:
+		morphset 1000 race pixie
+	Also to remove that race, simply reset it to toggle it off.
+
+*resistant -- These are the resistances that a player gains whenever they 
+	morph.  For example:
+		morphset 1000 resistant fire
+	To remove the resistant just set it again to toggle it off.
+
+*sav[1-5] -- This is the amount of saving throw a player gains/loses whenever
+	they morph. Valid values are -30 to 30. (Remember - is good + is bad)
+		morphset 1000 sav1 -10
+
+*sex -- This is the sex the person has to be to be able to morph. Valid
+	numbers are 0-2 and -1 to turn it off.
+		morphset 1000 sex 1
+
+*short -- This is what is seen as you walk around not in default position.
+	For example:
+		morphset 1000 short A cute puppy
+
+*skills -- These are skills that a player gains whenever they morph, for example
+	if you wanted the morph to be able to bash you would do:
+		morphset 1000 skills bash
+
+*susceptible -- These are the susceptibilities a player gains whenever they
+	morph.
+		morphset 1000 susceptible cold
+
+*timefrom -- When used in conjunction with timeto, it only allows morphing
+	during these time periods, for example at night for a were-wolf or
+	whatever :)   (Valid numbers are 0 - 23 )
+		morphset 1000 timefrom 23
+
+*timer -- This is how long the morph lasts in tics.  Values are >0 or -1.
+	-1 means the morph lasts forever, also there is NO command for a
+	player to unmorph at will and dispel magic will not work :) So
+	setting a timer to -1 is good for giving a disease they need to
+	find someone to remove like being a Vampire or whatever.
+		morphset 1000 timer 100
+
+*timeto -- When used in conjunction with timefrom, it only allows morphing
+	during these time periods. (Valid numbers are 0-23)
+		morphset 1000 timeto 4
+
+*tumble -- This is the percentage a player loses/gains from tumble if they 
+	morph.
+		morphset 1000 tumble 20
+
+*unmorphother -- This is what other people see whenever you unmorph from
+	a morph.
+		morphset 1000 The puppy before you explodes and $n appears where it was standing.
+
+*unmorphself -- This is what you see whenever you unmorph from a morph.
+		morphset 1000 You revert to your original form.
+
+*wis -- This is the wisdom that a player gains/loses whenever they morph.
+		morphset 1000 wis 5
+
+
+*************************  Section 10  *****************************************
+How to use gdb
+********************************************************************************
+This how to was written by Thoric with a few edits to make it more general.
+
+Using GDB.
+
+Gdb is a very powerful debugging tool.  It is what you use to examine the
+dreaded core files that the mud makes when it crashes... and it can even be
+used to attach to a running mud process if it gets locked up (looping).
+
+Syntax: gdb <executable> <core file>
+        gdb <executable> <process id>
+        gdb <executable>
+
+The current mud executable should be: dist/src/smaug
+The latest core dump file should be:  dist/area/core
+
+If the mud is locked up, you can debug the running copy by using the second
+syntax mentioned above.  The process id can be found via the "ps" command.
+Type "ps ax | grep mud".  The number on the far left is the process id,
+and make sure to grab the one for "../src/smaug".
+
+When debugging the running mud, you'll need to press control-C to stop the
+process so that you can see at what point it is currently executing.
+To make it continue from where it left off... type "cont".  You can then
+press control-C in a second or two, see where it stopped, and repeat this
+a few times to get a good idea of what is causing the looping.  (Almost
+always a mobprogram).
+
+When you have gdb going on a core file, or have stopped the running mud
+process, you have many choices before you.  (Note:  you need to be logged
+in as "mud" to attach to the running mud process).
+------------------------------------------------------------------------------
+
+GDB Commands.
+
+o bt:           This command will trace back through all the functions
+                called to show the path of execution to the current function.
+                This can help you determine what lead up to the crash.
+
+o up:           This command will move you up to the function that called
+                the function you currently in.
+
+o down:         This command will move you down to the next function that
+                gets called from the function you currently in.
+
+o list:         This will list the lines of source code surrounding the line
+                that you are currently on.  You can also specify the line to
+                start from, as well as the file to look at.
+
+o cont:         This command will continue execution of the program from
+                where it last stopped.
+
+o break:        This command will set a breakpoint on the specified line,
+                and optionally the specified file.  (ie:  break comm.c:150)
+                A breakpoint is a spot where the program will stop executing
+                so that you can examine the variables at that point.
+
+o print:        This command will allow you to examine variables.  It
+                accepts typecasts just like in your C code, as well as
+                pointer defererencing.  You can type "print ch->name" to
+                see the name of a character in a function, "print *ch" to
+                dump the entire char_data structure pointed to by "ch", etc.
+                This is one the most important and most powerful commands.
+
+*************************  Section 11  *****************************************
+Frequently Asked Questions
+********************************************************************************
+Some of these FAQs were taken from Altrag's FAQ and updated to 1.4 if necessary.
+Q: What is Smaug?
+A: SMAUG (Simulated Medieval Adventure multiUser Game) is a multi-user internet gaming system. It is an extension of the MERC 2.1 gaming system over the last approximately five years on Realms of Despair, by Thoric and various other people he recruited as the game got larger. In December of 1996, Thoric released SMAUG 1.01 for other games to use as a "code base", or starter set of code to expand on as MERC 2.1 is the base for SMAUG. 
+
+Q: Where can I get SMAUG?
+A: SMAUG may be obtained by ftping to ftp.game.org, in the /pub/smaug directory, or can be downloaded from the world wide web at http://www.game.org 
+
+Q: I have SMAUG, now what?
+A: Well to start, make sure you have the version of SMAUG that you wish to run.
+   The latest version is 1.4a as of the time of this writing. The latest 
+   version of SMAUG is usually linked to smaug.tgz. If you wish to run SMAUG 
+   under Windows 95 or Windows NT, you will also need the corresponding 
+   smaugw32*.zip file. 
+
+   The installation procedure differs for Linux and other Unix flavors (herein 
+   referred to as simply 'unix') and Windows. To install under unix, change to 
+   your home directory (cd ~), and move the smaug.tgz into your home directory 
+   if you downloaded it to a different directory. Enter the command 
+   'gunzip -cd smaug.tgz | tar -xvf -', without the quotes. This will create a 
+   directory called dist in your home directory, and will place SMAUG and its 
+   data files in subdirectories beneath that. You will now need to change to 
+   ~/dist/src, and run make. This will compile SMAUG into an executable 
+   program. 
+
+   To run SMAUG, change to ~/dist/src, and run ./startup 4000. Startup is a 
+   script which will run SMAUG repetitively until a shutdown command is  
+   executed by an immortal in the game. 
+
+   For Windows, you will need to obtain the program Winzip to decompress the 
+   zipped files. Winzip can be obtained on the world wide web from 
+   www.tucows.com, among other places. Run Winzip, and select smaug.tgz. 
+   Click on uncompress, and when it asks you where to unzip to, enter C:\ 
+   (or whichever drive you would like). Note that this creates it own 
+   subdirectory, so it is best to install to the root directory of the drive. 
+   As with the unix installation, this will create C:\dist, and fill it with 
+   SMAUG and its data files. Now select the smaugw32*.zip file, and uncompress 
+   it into C:\dist\src. Move C:\dist\src\cygwin.dll into C:\windows\system 
+   (or wherever your windows system directory is). 
+
+   To run under Windows, change to C:\dist\area (note: AREA directory. SMAUG 
+   expects to be run from here. The startup script in unix does this 
+   automatically), and run '..\src\smaug.exe 4000' (without the quotes). 
+   The Windows version does not have a batch file to keep rebooting SMAUG 
+   (at least currently). You will have to manually reboot the game if you crash. 
+Q: SMAUG defaults to port 4000, how do I change which port to run on?
+A: Run it with a different argument. In unix, run ./startup . In Windows, 
+   run ..\src\smaug.exe . 
+
+Q: I'm running something other than unix or Windows, can I use SMAUG?
+A: There is a Macintosh port of SMAUG which can be found on the MacOS web pages 
+   at these two locations: 
+
+          http://www.eden.com/~hsoi/mud/ 
+          http://rarloa-4.pr.mcs.net/~fear/ 
+
+   As far as I know, there are currently no ports of SMAUG to any other 
+   operating systems up for ftp from ftp.game.org. You will either have to 
+   write your own port, or find someone who already has written a port to your 
+   operating system. 
+
+Q: I'm running Windows 3.1, can I use SMAUG?
+A: The currently available Windows ports of SMAUG are for 32-bit Windows. 
+   They will not run in 3.1's 16-bit environment. I don't know if they can be 
+   used with Win32s. 
+
+Q: SMAUG is up and running, how do I connected?
+A: Load up your telnet program, and connect to port 4000 on localhost. If you 
+   do not know what a telnet program is, try the command 
+   'telnet localhost 4000' (without the quotes). 
+
+Q: How can other people connect?
+A: You will need to know your ip address, or (if you have one) your host name. 
+   People can then telnet to port 4000 at that address. 
+
+Q: SMAUG is up and running, why can't I be like God?
+A: Version 1.02 and 1.02a (and possibly others) have authorization turned on 
+   by default. You will need to load up your favorite text editor and edit 
+   /dist/system/sysdata.dat, and change WaitForAuth to 0. This will turn off 
+   authorization. Now log on as a new player and save. Log off and edit your 
+   player file and change Level to 65. Player files are found in /dist/player. 
+   The subdirectories are the initials of the player names. Select the 
+   appropriate directory for your name. 
+
+Q: How do I change the message you see when logging on?
+A: As a god online type 'hedit greeting' (without the quotes) 
+   Edit it and when you are finished use 'hset save' (without the quotes)
+   to save the file.
+
+Q: What other known bugs are there in SMAUG?
+A: In Release 1.4a the only known bug is that is you oset/mset on something
+   and it gets purged, then when you try to set something the mud will crash.
+   There will be a workaround for this in 1.4b.
+
+Q: What can I do with SMAUG?
+A:Anything you'd like. As long as you follow all three license agreements 
+  (DIKU, MERC, and SMAUG), you are free to modify or distribute SMAUG as you'd 
+  like. Please read the license agreements completely. If you do not agree with
+  any part of any of the three agreements, remove SMAUG and either find a code 
+  base with whose license you can agree, or write your own code base. 
+
+Q: I don't run SMAUG, but I'd like to implement some of SMAUG's features into 
+   my game, am I allowed to do this?
+A: Yes. You may use any part of SMAUG, as long as you follow all of the license
+  agreements as listed in question 10a. The same license applies for part of 
+  SMAUG as it does if you use SMAUG in its entirety. 
+
+Q: I run SMAUG, but I'd like to implement features from another code base, 
+   am I allowed to do this? 
+A: Again, yes. You must, however comply with the other code base's license as 
+   well as those listed in question 10a. This applies to any code that has been
+   written and released by an author other than yourself. 
+
+Q: I want to build areas for SMAUG, but I don't know where to start 
+A: There is extensive (if somewhat confusing) online help for building in SMAUG,
+   as well as a (out of date) text file in /dist/doc. There are also two web 
+   pages dedicated to building on SMAUG. They are located at: 
+
+   http://www.erols.com/moodyg/olc.html
+   ftp://cube.ice.net/pub/home/pinion/smaugolc.txt 
+
+Q: Adding the power of Crayola -- inline color parsing
+A: SMAUG 1.02a+  have added the option of inline color 
+  parsing - the ability to change colors from within a string, whether it be a 
+  channel or a room description. However, in the distribution this ability has 
+  been limited to certain commands (such as help files). 
+
+Q: Adding color parsing to say and other one-liners -- act()
+A: Open comm.c and find the call to write_to_buffer on line 2740 in 1.02a and on
+   line 2933 in 1.4a. This line should be in the function act(), and look like: 
+             write_to_buffer( to->desc, txt, strlen(txt) );
+   Change that line to read: 
+             send_to_char_color( txt, to );
+
+Q: Adding color to the entire game!
+A: Open mud.h, and goto the very end of the file. Add the two lines: 
+
+            #define send_to_char	send_to_char_color
+            #define send_to_pager	send_to_pager_color
+   This well tell the compiler to use the color counterparts whenever either of
+   those two functions are called. Then in comm.c, comment out the two 
+   functions send_to_char() and send_to_pager() so that the compiler won't be 
+   trying to compile two compies of the same function (the real one and the one
+   that's created when the #defines are convertted by the preprocessor). 
+
+Q: I only want to add color part of the game, not all of it!
+A: This one you'll have to do by hand. Start with copying ch_printf and 
+   pager_printf to ch_printf_color and pager_printf_color respectively. Change 
+   the send_to_char and send_to_pager calls to send_to_char_color and 
+   send_to_pager_color, which will activate the color routines for those two 
+   functions. If you only want some calls to act() parsed for color, but not 
+   others, you will need to add a boolean to the parameter list and either call
+   the write_to_buffer or send_to_char_color as mentioned above depending on 
+   that boolean. 
+
+Q: I want to add color to the initial login screen, before players enter their 
+   names. 
+A: This one is tough, because they won't have a character yet. You will also 
+   need to add another CON_ state to ask whether or not they would like ANSI 
+   color before the screen is displayed, and a bool to DESCRIPTOR_DATA to 
+   record their answer. Probably the easiest would be to create a dummy 
+   character in nanny(), such as the following: 
+
+
+    CHAR_DATA dummy;
+
+    if (!d->character)
+    {
+      memset(&dummy, 0, sizeof(dummy));
+      d->character = &dummy;
+      dummy.desc = d;
+      if (d->ansi) /* The bool mentioned above */
+        SET_BIT(dummy.act, PLR_ANSI);
+    }
+
+    You can then replace all the write_to_buffer()s with send_to_char_color()s 
+    in nanny(), the same as was done in act() above. ** Make sure you 
+    NULL-terminate all your strings before you send_to_char_color() them. 
+    The one in act() was NULL-terminated previously, but there may be some in 
+    nanny() which aren't. 
+
+Q: How do I add color to the new player login sequence? 
+A: The new player login is run through nanny() just as the initial login 
+   screen would be once you added the 'Would you like color' prompt as 
+   mentioned above. Therefore, the same procedure applies. 
+
+Q: Send_to_char_color is outputting two copies of everything -- the real copy 
+   and an uncolorized copy. 
+A: In comm.c, around line 2302 in smaug 1.02a and, there should be a line 
+   that looks like: 
+
+          write_to_buffer(d, prevstr, (colstr-prevstr));
+
+   This problem is already fixed in smaug 1.4a
+   The problem comes when the first character in a string is a color code. 
+   It makes colstr equal to prevstr, so subtracting them returns 0, which 
+   write_to_buffer() uses to mean find the length of the string itself, so the 
+   result is write_to_buffer() writing out the full string and then the 
+   function continuing the write the colorized string. 
+
+   Before that line, add the following, such as: 
+
+    if (colstr > prevstr)
+      write_to_buffer(d, prevstr, (colstr-prevstr));
+   This will make it so that write_to_buffer() is only called when subtracting 
+   the two values returns a result greater than 0. 
+
+Q: What are all these string macros/functions? 
+A: In SMAUG, strings have the ability to be hashed, but aren't necessarily. 
+   You must not mix up hashed and unhashed strings or bad things will happen. 
+   The rule is: 
+
+   STRALLOC()'d or fread_string()'d -> STRFREE()		/* hashed */
+   str_dup()'d or fread_string_nohash()'d -> DISPOSE()	/* not hashed */
+   Any strings that you want to keep past the end of a function MUST be 
+   allocated. As a general rule, its also not a good idea to mix in the system 
+   allocation functions -- it just adds more confusion, and the SMAUG 
+   functions do the same job. 
+
+   QUICKLINK must only be used with hashed strings (STRALLOC/fread_string). 
+   If QUICKLINK is used on an unhashed string, bad things can result. 
+   QUICKMATCH should also only be used with hashed strings. Although it won't 
+   create a fatal error, it will always return FALSE on unhashed strings. 
+
+Q: Where do I use hashed strings and where do I use unhashed?
+A: Hashing is normally used for strings which are repeated in the MUD often 
+   (mob names, object, names, etc), where as unhashed strings are more for 
+   things that are a one-shot and are not likely to be duplicated (player 
+   names, etc). Having an unhashed string with the same literal characters 
+   as a hashed string is not a problem, as long as they aren't the same 
+   physical string (a player whose name is the same as a mob's name or 
+   something, for example). 
+
+Q: What are all these other memory macros?
+A: CREATE() should always be used to allocate non-string memory, and DISPOSE() 
+  should always be used to free it. RECREATE() can be used to resize an old 
+  block of memory, but be careful if you have other pointers into the same 
+  memory block, as it may not return the same block as it was when you called 
+  RECREATE(). These functions are basically overheads for the system allocation
+  routines, which again shouldn't be used in SMAUG for the sake of simplicity. 
+
+Q: Whats this LINK/UNLINK/etc stuff?
+A: In a singly-linked list (like MERC/ROM/Envy uses), 'a' points to 'b', 
+   which in turn points to 'c', looking somewhat like a->b->c->NULL. SMAUG 
+   uses doubly-linked lists. This means that 'a' points to 'b', which points 
+   both back to 'a' (prev), and forward to 'c' (next). This structure looks 
+   something like NULL<-a<->b<->c->NULL. Doubly-linked lists, although using a 
+   little bit more memory (4 bytes with 32bit pointers), is both much easier to
+   use and much faster to unlink (you already have a pointer to the previous 
+   item in the list). This also brings rise to the macros. 
+
+    LINK(): add a pointer to the END of a list.
+    INSERT(): insert a pointer BEFORE the item 'insert'.  If you want to
+	    insert an item after, reverse first, next, and prev in the call
+	    (so it would be called INSERT(link, insert, last, prev, next),
+	    which will insert it before insert, but backwards, so when the
+	    list is read forward, link will be after insert.
+    UNLINK(): remove a pointer from anywhere in a list.
+    CHECK_LINKS(): Will run through a doubly-linked list and report any errors
+		 in the list.  It will also attempt to fix the errors, but
+		 if you DO see an error from CHECK_LINKS, you should
+		 probably reboot the mud as soon as possible, as the error
+		 correction routine is not overly intelligent.  It does what
+		 it can, but you could easily lose part or all of the list.
+
+Q: What are these extended bitvectors?
+A:
+
+Q: I subscribed to the mailing list but I can't unsubscribe.
+A: These could be several reasons for thist.  You need to send a emaiL
+   to smaug-request@realms.game.org with the line 'unsubscribe smaug'
+   (without quotes).  If that doesn't work check to make sure you have html
+   turned off if sending mail from a browser.  If that doesn't work send
+   a email to smaug-request@realms.game.org with the line 'who smaug'
+   (without quotes).  Then find the email address that is yours and send
+   a email to smaug-request@realms.game.org with the line 
+   'unsubscribe smaug username@your.host.com' (without quotes).
+
+Q: Can I get all the areas Realms of Despair uses?
+A: No
+
+Q: Can I go to realms and ask smaug questions?
+A: Most immortals on realms have nothing to do with the smaug releases,
+   so they can't answer your questions.  Also those that do don't whant
+   to answer smaug related questions when they are online. So if you see
+   Nivek .....[Head of Code Council] online don't ask I won't answer. This
+   is rude and should not be done.  If you have a question send it to the
+   smaug mailing list.  If you don't know how to sign up go to the bottom
+   of this FAQ.
+
+Q: Will realms upgrade to version 1.4?
+A: Realms of Despair runs the most current version of smaug all the time.
+   That means realms was running version 1.4 months before it was released.
+
+Q: I've read the FAQ, but still have questions. Where do I turn?
+A: There is a mailing list set up for questions about SMAUG. To subscribe send 
+   an email to smaug-request@realms.game.org with the line 'subscribe smaug' 
+   (without the quotes). 

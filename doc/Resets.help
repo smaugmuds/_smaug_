@@ -1,0 +1,244 @@
+                 A Guideline for Making Reset Lists
+                 ----------------------------------
+This is intended as a set of guidelines to those who are just beginning
+as Builders.  Nothing here is written in stone, this file is based on my
+experience and the online help files.   (Herne the Hunter)
+
+Remember that most important command: SAVEAREA
+
+The Heart of the System
+-----------------------
+Without a reset list, an area wouldn't refill itself when it came time
+for "repop".  The reset list is the file the MUD uses to set everything
+in the area back to where it should be, restocks the mobs, and resets all
+the doors.
+ 
+Making a Reset List
+-------------------
+Every area MUST have a reset list.  Whether you use INSTAZONE, INSTAROOM
+or add the resets manually with RESET ADD is up to you, but an area must
+have a reset list.  Also, any time you make a new mob, object or exit
+with a door, you must add a reset for it or it will not repop when the
+area resets itself.
+
+The two easy methods of making a reset list; INSTAZONE and INSTAROOM.
+  
+INSTAZONE                                     (Shortform: INSTAZ)
+Syntax: instazone
+        instazone nodoors
+
+Instazone will write (or rewrite) the resets for the entire area based on
+the current positions of your mobs and objects.  All you have to do is
+place each mob in its proper room, wearing what it should be wearing,
+carrying what it should be carrying, and objects in their proper places,
+or in their proper containers, and doors in their proper states, (open,
+closed, locked).  It's kind of like taking a "snapshot" of your proto
+area, everything will be set on the reset list as it appears in the area. 
+If you've left a door open, it will always repop as open.  If you've
+forgotten to add a mob, it won't appear unless you either manually add
+it, or do another Instazone.  You may also add the option of "nodoors"
+and no door resets will be created.
+ 
+**NOTE:**
+This command will wipe out ALL existing resets!  Do not use this command
+after you have added your own resets with 'reset add'.  The recommended
+procedure is to use instazone, then use the 'RESET' command to add any
+special resets, and NOT use instazone again.
+ 
+INSTAROOM
+Syntax:  instaroom                            (Shortform: INSTAR)
+Functions the same as instazone, but is room-based instead of area-based,
+this command will write (or rewrite) the resets for the room you are in. 
+This command is most useful for making small modifications to an existing
+reset list.
+
+**WARNING:**
+Both "Instazone" and "Instaroom" have a problem when it comes to handling
+nesting objects, ie: objects that repop within containers on the ground. 
+The best way to handle these objects is to add them manually with RESET.
+
+
+RESET RESET
+Syntax: reset list   [start] [end]         (Example: reset list 1 10)
+Syntax: reset delete [number]              (Example: reset delete 5)
+Syntax: reset add    <resetcommand> <parameters>
+Syntax: reset insert <number> <resetcommand> <parameters>
+Syntax: reset edit   <number> <resetcommand> <parameters>
+Syntax: reset area   (will "reset" your area based on the defined resets)
+ 
+**WARNING:**
+  The order that resets are in is VERY important.  You cannot equip a
+  mobile with an object before putting the mobile into a room first.
+  Likewise, you cannot put an object into a container until the container
+  is put into a room first.
+ 
+This command is used to display, edit, delete, add and insert resets for
+your area.
+
+
+RESETCMDS RESETCOMMANDS
+Syntax: reset edit   <number> <commands>
+Syntax: reset insert <number> <commands>
+Syntax: reset add    <commands>
+
+Commands:
+MOB   <mobile vnum> <room vnum> [limit]  loads a mobile into a room
+OBJ   <object vnum> <room vnum> [limit]  loads an object into a room
+GIVE  <object vnum> [limit]              gives obj to last loaded mob
+EQUIP <object vnum> <position> [limit]   equips obj on last loaded mob
+PUT   <object vnum> <object vnum>        puts and obj into another obj
+DOOR  <room vnum> <door dir> <state>     resets a door to a certain state
+RAND  <room vnum> <last door dir>        randomizes a range of exits
+TRAP  <vnum> <type> <charges> <flags>    sets a trap
+HIDE  <object vnum>                      hides an obj (last obj loaded)
+
+Examples:
+reset add mob 1000 1000 1      (Loads mob 1000 into room 1000, limit 1)
+reset add obj 1200 1000 5      (Loads obj 1200 into room 1000, limit 5)
+reset add give 1000            (Gives obj 1000 to the last mob loaded)
+reset add equip 1000 7         (Gives obj 1000 to the last mob loaded
+                                  and forces it to wear object on legs)
+reset add put 1000 1200        (Puts obj 1000 into obj 1200 - Obj 1200
+                                  must already exist as last obj loaded)
+reset add door 0 1             (Close the north door - door must exist)
+reset add rand 3               (Randomize exits n, s, e, w)
+reset add hide 1000            (Hide object 1000 - defaults to last obj
+                                  loaded if object not specified)
+
+For EQUIP position, see WEARLOCS.
+For DOOR door dir, see DOORDIRS.
+For TRAP setting see TRAPSETTING.
+
+
+WEARLOCS
+Here are the various locations where items may be equipped:
+
+     Numb| Location     Numb| Location     Numb| Location
+     ----+------------  ----+------------  ----+------------
+       0 | light          1 | finger1        2 | finger2
+       3 | neck1          4 | neck2          5 | body
+       6 | head           7 | legs           8 | feet
+       9 | hands         10 | arms          11 | shield
+      12 | about         13 | waist         14 | wrist1
+      15 | wrist2        16 | wield         17 | hold
+      18 | dual_wield    19 | ears          20 | eyes
+
+See RESETS and RESETCMDS.
+
+
+HELP DOORDIRS
+When making an exit, the direction can be specified numerically or as a
+character.  Here is the order of the exits, and their corresponding
+bitvector values:
+
+      Direction | Value | Short    Direction | Value | Short          
+      ----------+-------+------    ----------+-------+------
+      North     |   0   |  N       Northeast |   6   |  NE
+      East      |   1   |  E       Northwest |   7   |  NW
+      South     |   2   |  S       Southeast |   8   |  SE
+      West      |   3   |  W       Southwest |   9   |  SW
+      Up        |   4   |  U       Somewhere |  10   |  ?
+      Down      |   5   |  D 
+ 
+See REDIT, RSTAT and RESETCMDS.
+
+
+Something a bit unusual, Traps
+------------------------------
+Most of the following trap effects can be duplicated with room programs. 
+The only difference is, room programs can't be disarmed nor do they run
+out of charges like traps do.
+
+HELP TRAPFLAGS
+Flags to describe a trap and what triggers it:
+
+Flag    | Description
+--------+---------------------------------------------
+ROOM    | Trap is in a room
+OBJ     | Trap is on an object
+ENTER   | Trap is triggered by entering the room
+LEAVE   | Trap is triggered by leaving the room
+OPEN    | Trap is triggered by opening
+CLOSE   | Trap is triggered by closing
+GET     | Trap is triggered by getting the object
+PUT     | Trap is triggered by putting the object
+EXAMINE | Trap is triggered by examining the object
+PICK    | Trap is triggered by picking the object
+UNLOCK  | Trap is triggered by unlocking the object
+NORTH   | Trap is triggered by moving north
+SOUTH   | Trap is triggered by moving south
+EAST    | Trap is triggered by moving east
+WEST    | Trap is triggered by moving west
+UP      | Trap is triggered by moving up
+DOWN    | Trap is triggered by moving down
+
+See RESET, TRAPSETTING and TRAPTYPES.
+
+
+HELP TRAPSETTING
+Setting a trap is a little tricky.
+
+Parameters: <vnum> <type> <charges> <flags>
+VNUM    - The vnum of either the room or object to be trapped.
+TYPE    - The type of trap.  (See TRAPTYPES)
+CHARGES - The number of charges this trap should contain.
+FLAGS   - Flags specifying the characteristics of the trap.
+          (ie: room trap or object trap, what triggers the trap, etc.)
+
+See RESETS, TRAPTYPES and TRAPFLAGS.
+
+
+HELP TRAPTYPES
+Types of traps:
+
+  Number | Description            Number | Description      
+ --------+------------------     --------+------------------
+     1   | Poison gas                8   | Flame            
+     2   | Poison dart               9   | Explosion        
+     3   | Poison needle            10   | Acid Spray       
+     4   | Poison dagger            11   | Electric Shock   
+     5   | Poison arrow             12   | Blade            
+     6   | Blindness gas            13   | Sex change spell 
+     7   | Sleeping gas                              
+
+See RESETS, TRAPSETTING and TRAPFLAGS.
+
+
+A Final Word
+------------
+When you've finally completed your area, you will need to provide answers
+to a few questions, while others will be pre-determined for you, before
+your area can be installed as a regularly loaded area.  Most Builders
+won't have access to this command, but it's important for all Builders to
+know the parameters needed to complete an area before it is installed.  
+
+ASET
+Syntax:  aset <area filename> <field> <value>
+ 
+Aset is used to set the following fields for an individual area:
+author    - The name of the area's author    [Builder Name]
+name      - The full "name" of an area...    [Builder supplies this]
+filename  - The filename (ie: somearea.are)  [Usually depends on name]
+lo_room   - The lowest room vnum             [Already assigned]
+hi_room   - The highest room vnum            [Already assigned]
+lo_obj    - The lowest obj vnum              [Already assigned]
+hi_obj    - The highest obj vnum             [Already assigned]
+lo_mob    - The lowest mob vnum              [Already assigned]
+hi_mob    - The highest mob vnum             [Already assigned]
+low_economy - minumum amount of gold the area will start with at reboot
+max_economy - maximum amount of gold the area _can_ start with at reboot
+softrange - The level range the area is intended for   [Ex: 1 - 10]
+hardrange - The enforced level range (if any)
+resetmsg  - Message displayed throughout the area at reset
+resetfrq  - Number of minutes between area resets  [Default is 20]
+flags     - Area-wide flags:  nopkill
+ 
+
+You should be ready to supply the following information when your area is
+to be installed;
+The name of the Area           (Example: The Castle of Rasputin)
+The suggested soft level range (Example: 20 - 40)
+A suggested unique filename    (Example: rasputin.are)
+A resetmsg [70 char limit]     (Example: Maniacal laughter echoes through
+  the ancient castle.) [Default is "You hear some squeaking noises"]
+Your resetfrq       [Newbie areas would reset faster than Av areas.]

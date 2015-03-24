@@ -1,0 +1,61 @@
+Name        Gnome~
+Race        14
+Classes     856
+Str_Plus    -2
+Dex_Plus    0
+Wis_Plus    1
+Int_Plus    2
+Con_Plus    -1
+Cha_Plus    -1
+Lck_Plus    1
+Hit         -3
+Mana        18
+Affected    528
+Resist      8
+Suscept     1
+Language    1048576
+Align       0
+Min_Align  -1000
+Max_Align	1000
+AC_Plus    0
+Exp_Mult   120
+Attacks    0
+Defenses   0
+Height     44
+Weight     110
+Hunger_Mod  -1
+Thirst_mod  -1
+Mana_Regen  0
+HP_Regen    0
+Race_Recall 0
+WhereName  <used as light>     ~
+WhereName  <worn on finger>    ~
+WhereName  <worn on finger>    ~
+WhereName  <worn around neck>  ~
+WhereName  <worn around neck>  ~
+WhereName  <worn on body>      ~
+WhereName  <worn on head>      ~
+WhereName  <worn on legs>      ~
+WhereName  <worn on feet>      ~
+WhereName  <worn on hands>     ~
+WhereName  <worn on arms>      ~
+WhereName  <worn as shield>    ~
+WhereName  <worn about body>   ~
+WhereName  <worn about waist>  ~
+WhereName  <worn around wrist> ~
+WhereName  <worn around wrist> ~
+WhereName  <wielded>           ~
+WhereName  <held>              ~
+WhereName  <dual wielded>      ~
+WhereName  <worn on ears>      ~
+WhereName  <worn on eyes>      ~
+WhereName  <missile wielded>   ~
+WhereName  (null)~
+WhereName  <worn over face>  ~
+WhereName  <worn around ankle>  ~
+WhereName  <worn around ankle>  ~
+WhereName  <BUG Inform Nivek>  ~
+WhereName  <BUG Inform Nivek>  ~
+WhereName  <BUG Inform Nivek>  ~
+WhereName  (null)~
+End

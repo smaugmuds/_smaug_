@@ -1,0 +1,111 @@
+#!@ENV@ @BASH@
+
+############################################################################
+#                                                                          #
+#   X      X  ******* **    **  ******  **    **  ******                   #
+#    X    X  ******** ***  *** ******** **    ** ********       \\._.//    #
+#     X  X   **       ******** **    ** **    ** **             (0...0)    #
+#      XX    *******  ******** ******** **    ** **  ****        ).:.(     #
+#      XX     ******* ** ** ** ******** **    ** **  ****        {o o}     #
+#     X  X         ** **    ** **    ** **    ** **    **       / ' ' \    #
+#    X    X  ******** **    ** **    ** ******** ********    -^^.VxvxV.^^- #
+#   X      X *******  **    ** **    **  ******   ******                   #
+#                                                                          #
+# ------------------------------------------------------------------------ #
+# Ne[X]t Generation [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame  #
+# ------------------------------------------------------------------------ #
+# XSMAUG 2.4 (C) 2014  by Antonio Cao @burzumishi                          #
+# ------------------------------------------------------------------------ #
+#                   						@PACKAGE@d   				                        #
+############################################################################
+
+source @sysconfdir@/@PACKAGE@/@PACKAGE@d.conf
+
+true=0;
+false=1;
+
+test -x $BINDIR/$EXEC || exit $false;
+test -x $BINDIR/$MONITOR || exit $false;
+
+set -e;
+
+start_daemon() {
+	if test ! -f "$MONITOR_PIDFILE"; then
+		($SU $USER -c $BINDIR/$MONITOR &>>$MONITOR_LOGFILE &) &
+	fi;
+
+	until test -f $MONITOR_PIDFILE;	do
+		sleep 2;
+	done
+
+	echo -n "$MONITOR ($(cat $MONITOR_PIDFILE)) ... ";
+
+	until test -f $EXEC_PIDFILE; do
+		sleep 2;
+	done
+
+	echo -n "$EXEC ($(cat $EXEC_PIDFILE)) ... ";
+}
+
+stop_daemon() {
+	if test -f "$MONITOR_PIDFILE"; then
+		if test -f "/proc/$(cat $MONITOR_PIDFILE)/status"; then
+			kill -9 $(cat $MONITOR_PIDFILE) &>/dev/null;
+		fi;
+
+		$SU $USER -c "rm -f $MONITOR_PIDFILE";
+	fi;
+
+	echo -n "$MONITOR (Stopped) ... ";
+
+	if test -f "$EXEC_PIDFILE"; then
+		if test -f "/proc/$(cat $EXEC_PIDFILE)/status"; then
+			kill -9 $(cat $EXEC_PIDFILE) &>/dev/null;
+		fi;
+
+		$SU $USER -c "rm -f $EXEC_PIDFILE";
+
+	fi;
+
+	echo -n "$EXEC (Stopped) ... ";
+}
+
+status_daemon() {
+	if test -f "$MONITOR_PIDFILE"; then
+		echo -n "$MONITOR ($(cat $MONITOR_PIDFILE)) ... ";
+	else
+		echo -n "$MONITOR (Stopped) ... ";
+	fi;
+
+	if test -f "$EXEC_PIDFILE"; then
+		echo -n "$EXEC ($(cat $EXEC_PIDFILE)) ... ";
+	else
+		echo -n "$EXEC (Stopped) ... ";
+	fi;
+}
+
+case $1 in
+  start) echo -n "Starting $DESC ... ";
+         start_daemon;
+				 echo "done.";
+	;;
+  stop) echo -n "Stopping $DESC ... ";
+        stop_daemon;
+			  echo "done.";
+	;;
+	status) echo -n "Status $DESC ... ";
+					status_daemon;
+				  echo "done.";
+	;;
+  restart) echo -n "Restarting $DESC ... ";
+        	 stop_daemon;
+					 sleep 2;
+					 start_daemon;
+					 echo "done.";
+	;;
+  *) echo "Usage: $0 {start|stop|restart|status}" >&2;
+		 exit $false;
+	;;
+esac;
+
+exit $true;

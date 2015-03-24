@@ -1,0 +1,105 @@
+#AREA   Gods~
+
+
+
+#AUTHOR ROD~
+
+#RANGES
+0 60 0 60
+$
+
+#RESETMSG A low humming noise can be heard.~
+
+#FLAGS
+0
+
+#ECONOMY 0 45000000
+
+#MOBILES
+#1200
+mobile~
+a mobile~
+A mobile is here.
+~
+~
+1073741825 0 0 C
+1 50 0 0d0+0 0d0+0
+100 4000
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 0
+3 0 0 0 131073 1 0
+0 0 0 0 0 0 0 0
+#0
+
+
+#OBJECTS
+#1200
+immortal board~
+the immortal board~
+Mystical sparkling colors converge here to form arcane runes...~
+~
+12 0 0
+0 0 0 0
+0 10 1
+#0
+
+
+#ROOMS
+#1200
+The Parlour of the Immortals~
+You are lounging in a quiet cosy parlour, warmed by a gentle magical fire
+which twinkles happily in a warm fireplace. 
+ 
+~
+0 3145740 0
+S
+#1201
+Thoric's Den~
+You find yourself in a cozy little room.
+This is the place where Thoric comes to relax, and get inspired!
+Looking around yourself, you find this to be quite a comfortable, medieval
+room, which seems to be inside some sort of log cabin.  There's a very nice
+looking leather chair here in front of a huge fireplace, with a good blaze 
+going. On the mantle you see a fine assortment of pipes, and a couple jars
+of high quality pipeweed.
+On the floor you spot a full bear-skin rug in front of the fireplace, and you
+suddenly get the urge to make yourself comfortable in front of the fire with
+a mug of hot coffee, fill a pipe up with some pipeweed, relax and listen to
+tales of days long past.
+~
+0 3146252 0
+E
+fireplace~
+The fireplace contains a nice warm fire.
+~
+E
+rug~
+It sure does look inviting.
+~
+E
+chair~
+It looks very comfortable.
+~
+S
+#0
+
+
+#RESETS
+O 0 1200 1 1200
+S
+
+
+#SHOPS
+0
+
+
+#REPAIRS
+0
+
+
+#SPECIALS
+S
+
+
+#$

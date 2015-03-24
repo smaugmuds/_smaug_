@@ -1,0 +1,385 @@
+                       A Guide to Building Rooms
+                       -------------------------
+This is intended as a set of guidelines to those who are just beginning
+as Builders.  Nothing here is written in stone, this file is based on my
+experience and the online help files.   (Herne the Hunter)
+ 
+Making a Map as a Staring Point
+-------------------------------
+Before doing any building, a Creator level Immortal should make a basic
+outline of their intended area layout on paper (Graph paper works well
+for this).  Mapping out how each room relates to another will save a lot
+of time when you go to link the rooms with exits.  Once you have your
+outline mapped out with "boxes" or "circles", go ahead and number each
+box with your vnumbers, the starting point doesn't really matter, as long
+as it makes sense to you.  It's also a good idea to mark NORTH on your
+paper map while you're at it, then you'll always know which direction
+you're looking.
+
+Example map;                       A map can be as complicated or as
+                                   simple as you like, it is merely a
+  N     .----.   .----.   .----.   tool to help you when you're making
+  ^     |1000|---|1001|---|1002|   rooms and linking exits.
+ w+e    `----'   `----'  /`----'   A "room" can represent a 10x10 room
+  s                |    /          in a house, or a mile of trail. How
+                 .----./  .----.   many "rooms" you use to represent
+                 |1003|---|1004|   what you want is up to you.
+                 `----'   `----'
+
+Once you have created a map, you're ready to go online and begin creating
+your new area.  But before jumping too far, you should become familiar
+with the following commands; REDIT, RSTAT, and RLIST (help files follow).
+
+Creating Rooms out of Thin Air
+------------------------------
+After you have read and understood these three files, you are ready to
+start creating new rooms.  In order to link an exit to a room, the room
+must first exist in the MUD. To "make" a room exist simply GOTO that room
+vnum (You can only "make" a new room within your assigned vnum range). 
+Since you already have a map, you know approximately how many rooms you
+require, so a method I use is to create small groups of rooms (20-25
+rooms) by using GOTO several times in succession, (ex; goto 1000, goto
+1001, goto 1002, ...goto 1025) and once I have a body of rooms MADE, I
+can begin linking those rooms together.  I prefer to make a "skeleton" of
+my linked rooms before I "flesh out" the rooms with roomflags, etc.  Most
+importantly, be sure to SAVEAREA after you make any additions or changes
+to your new area.
+
+   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   = SAVEAREA LOADAREA                                           =
+   = Syntax: savearea  [Savearea will save your prototype area.] =
+   =         loadarea  [Loadarea will load your prototype area.] =
+   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+Getting to the Proper Commands
+------------------------------
+The most important command in room creation is "REDIT".  Simply typing
+REDIT by itself will return this file to you.
+
+REDIT                    
+Syntax: redit <field> value
+Field being one of:
+  name desc ed rmed
+  exit bexit exdesc exflags exname exkey
+  flags sector teledelay televnum tunnel
+  rlist exdistance
+
+There are two ways of using REDIT;  You can either type REDIT every time
+you wish to enter a new value (ex: redit flags dark) or you can type
+REDIT ON and you will be locked into editing the room you are currently
+standing in, with the MUD assuming that anything you type is preceded by
+the REDIT command (ex: flags dark).  I prefer the first method.
+
+The second most important command is RSTAT (shortform RST);
+HELP RSTAT
+Syntax:  rstat 
+Syntax:  rstat <location>
+
+RSTAT shows you statistics on a location.  The location may be specified
+as a roomvnum (ex; rst 1200), as the name of a mobile (ex; rst Seth), or
+as the name of an object (ex; rst post).  RSTAT with no argument returns
+the statistics on your present room.
+ 
+The third command you have for rooms is RLIST (shortform RLI);
+HELP RLIST
+Syntax: rlist
+Syntax:	rlist <first room>                [ex: rlist 1000]
+Syntax:	rlist <first room> <last room>    [ex: rlist 1000 1010]
+
+This command will list all of the prototype rooms in your area, when used
+with no arguments.  When used with a single argument it will list all 
+rooms including and after the argument, and when used with two arguments,
+it will list all rooms including and between the two. 
+
+The Help Files...
+-----------------
+HELP REDIT
+Syntax: REDIT FIELD [parameter list]
+Syntax: REDIT ON
+
+Field  | Parameters              | Description / notes
+-------+-------------------------+-----------------------------------
+name   | <room name>             | Sets the room name / short description
+exit   | <direction> [vnum] [exittype] [key] [keywords]
+bexit  | same as above, but does the exit in both directions
+desc   | none                    | Places you into the buffer editor. 
+exdesc | <direction> [text]      | Sets/clears an exit's description
+ed     | <keyword(s)>            | Adds/edits an extra desc to the room
+rmed   | <first keyword>         | Removes an extra desc from the room
+sector | <value>                 | Sets the sector type [See SECTORTYPES]
+flags  | <flag> [flag]           | Toggles room flags [See ROOMFLAGS]
+exflags| <dir> [flags]           | Displays/toggles exit flags
+exname | <dir> [keywords]        | Sets an exit's keywords
+exkey  | <dir> <key vnum>        | Sets an exit's key vnum [See OBJECTS]
+
+Examples;
+1. redit name The Captain's Room  [sets room name - watch capitals]
+2. redit exit n 1001              [sets a 1-way exit north to room 1001]
+3. redit bexit n 1001             [sets a 2-way exit north to room 1001]
+4. redit exdesc n Looking into a bare room.  [sets the north exit desc]
+5. redit exname n gate            [sets the north exit name to 'gate']
+    [It's not a good idea to have 2 exits with the same exname in a room]
+6. redit ed wall scratches runes  [puts you into an edit buffer that's ]
+    [keyed to the words 'wall scratches runes'.  When PC types 'look]
+    [wall' or 'look runes', they'll see this edit.]
+7. redit rmed wall                [will delete the 'wall' edit and any ]
+    [related keywords. (as shown above; 'wall scratches runes')]
+
+REDIT ON will lock you into a mode in which 'redit' is implied in each
+command sequence, and hitting enter will give you an instant rstat of
+whichever room you are in at the time. To get out of REDIT ON, simply
+type the word DONE. 
+
+Example;  redit on
+          name A dark and foreboding hallway
+          flags dark indoors
+          done
+
+See EXITTYPES, EXFLAGS, EXITMAKING, SECTORTYPES and ROOMFLAGS.
+
+
+HELP DOORDIRS
+When making an exit, the direction can be specified numerically or as a
+character.  Here is the order of the exits, and their corresponding
+bitvector values:
+
+   Direction | Value | Short    Direction | Value | Short          
+   ----------+-------+------    ----------+-------+------
+   North     |   0   |  N       Northeast |   6   |  NE
+   East      |   1   |  E       Northwest |   7   |  NW
+   South     |   2   |  S       Southeast |   8   |  SE
+   West      |   3   |  W       Southwest |   9   |  SW
+   Up        |   4   |  U       Somewhere |  10   |  ?
+   Down      |   5   |  D 
+ 
+See REDIT, RSTAT and RESETCMDS.
+
+
+HELP EXITTYPES
+When making an exit, you can include the bitvectors for any flags at the
+time of making the exit (the hard way) or you simply redit the exflags
+after the exit is made (the easy way).
+These are the currently valid exit-types:
+
+    Bit | Flag 
+  ------+-------------------------------------------------------
+      0 | Plain exit
+      1 | Door exists         (Required to be closed or locked)
+      2 | Door is Closed
+      4 | Door is Locked
+      8 | Door is Secret      (Trying to go that way won't reveal door)
+     32 | Door is Pickproof   (Door can't be picked by spell or skill)
+     64 | Need to be able to fly to go that way
+    128 | Need to be able to climb to go that way
+   1024 | Door is Passdoor proof
+
+NOTE: You must ADD the values together to generate an exit-type:
+        3 = a closed door
+        7 = a closed and locked door
+       11 = a closed secret door
+       15 = a closed, locked and secret door
+
+-- Use the 'redit exflags' command to change these flags, and to set the
+   advanced exit flags, most of which are not shown above.
+
+See EXFLAGS and EXITMAKING.
+
+
+HELP EXITMAKING
+The 'redit exit' command is used to create, modify and remove exits in a
+room.  For more than one exit in the same direction see ADVANCEDEXITS.
+
+The syntax of the 'redit exit' command is as follows:
+redit exit <direction> [vnum] [exit-type] [key] [keyword(s)]
+
+direction: one of: n, s, e, w, u, d, ne, nw, se, sw or ?
+vnum     : the room number in which the exit leads to.
+exit-type: the bitvector numbers for the exflags on this door.
+key      : a vnum corresponding to a key object to unlock this door.
+keywords : keywords used to refer to the door, (or exit).
+
+If only 'redit exit <direction>' is specified, the exit will be removed.
+The 'key' field is optional when specifying keywords.  All other fields
+are required previous to the field desired.
+
+Examples:
+redit exit n 3001           - Creates an exit north to room 3001
+redit exit n 3001 3 gate    - Changes the exit n to have a closed "gate"
+redit exit n 3001 3 15 gate - Changes the gate to allow a key (vnum 15)
+redit exit n                - Removes the north exit
+
+See EXITTYPES for generating the exit-type value.
+
+
+HELP ADVANCEDEXITS
+SMAUG supports having more than one exit in the same direction,
+as well as the special direction 'somewhere', represented by a '?'.
+ 
+If you already have an exit leading north, and would like another one,
+use a plus sign '+' in front of the direction:
+redit exit +n 3001          - Adds another exit north to room 3001
+ 
+To modify an extra exit like this, or to remove it, you'll have to
+refer to it by number:
+redit exit #2 3002          - Change the second exit to go to room 3002
+ 
+To know what number an exit is, do an "rstat".
+ 
+For someone to be able to use the second north exit, you have to set one
+of the extra flags (see EXFLAGS) like CAN_CLIMB.  It is also usually a
+good idea to set the HIDDEN flag for any special exit so that it looks
+nicer with autoexits on.
+ 
+The AUTO flag makes it possible to go in a direction by simply typing the
+keyword for that exit:
+redit exit ? 3001           - Create a 'somewhere' exit to 3001
+redit exflags ? auto hidden - Set the proper flags
+redit exname ? swim         - Set the keyword "swim"
+If a player types 'swim' in the room, they will move to room 3001.
+
+
+HELP EXFLAGS
+Syntax  : redit exflags <dir> [flag]
+Examples: redit exflags n isdoor closed locked
+                (Flags can be stacked as shown)
+          redit exflags n
+                (By itself will show the current flags set)   
+
+The following flags are accepted:
+Flag          | Description
+--------------+-------------------------------------------------------
+ISDOOR        | A door exists in that direction
+CLOSED        | The door is closed
+LOCKED        | The door is locked
+SECRET        | The door is a secret door
+SWIM        * | Must be able to swim to go that way (not implemented)
+PICKPROOF     | Door is pickproof
+FLY           | Must be able to fly to go that way
+CLIMB         | Must be able to climb to go that way
+DIG           | Passage is blocked and must be dug out
+NOPASSDOOR    | Door is resistant to the passdoor spell
+HIDDEN        | Door is not "obvious" -- doesn't appear with autoexits
+CAN_CLIMB     | Can use the climb command to go this way
+CAN_ENTER     | Can use the enter command to go this way
+CAN_LEAVE     | Can use the leave command to go this way
+AUTO          | Keyword can be typed to go this way
+SEARCHABLE    | Searching in this direction can remove the SECRET flag
+BASHED        | Door has already been bashed in
+BASHPROOF     | Door cannot be bashed open
+NOMOB         | Mobs will not go through this exit (includes pets)
+WINDOW        | Can scan through but cannot go through this exit unless
+              |  'isdoor' is added - doesn't appear with autoexits 
+CAN_LOOK      | Allows Player to view destination room with 'look'
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+|  My method of making exits;                                       |
+|                                                                   |
+| 1. Set the exit (either 1-way or 2-way) and direction.            |
+| 2. Set the exit flags.                                            |
+| 3. Set the exit description.                                      |
+| 4. Set the exit name (if required).                               |
+| 5. Set the exit keyvnum (if required) [note: a key is an OBJECT]  |
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+HELP SECTORTYPES
+Flag            |Sector| Comments
+----------------+------+------------------------------------
+INSIDE          |   0  | Weather doesn't show.
+CITY            |   1  | 
+FIELD           |   2  | 
+FOREST          |   3  | 
+HILLS           |   4  | 
+MOUNTAIN        |   5  |
+WATER_SWIM      |   6  | PC needs aqua_breath/fly/float or boat
+WATER_NOSWIM    |   7  | PC needs aqua_breath/fly/float or boat
+UNDERWATER      |   8  | PC needs aqua_breath
+AIR             |   9  |
+DESERT          |  10  |
+UNKNOWN         |  11  |
+OCEANFLOOR      |  12  | PC needs aqua_breath.  Can dig here.
+UNDERGROUND     |  13  | Can dig here.
+
+
+HELP ROOMFLAGS
+Flag Name     | Description
+--------------+--------------------------------------------------
+DARK          | Room is always dark 
+DEATH         | Room causes instant death (a DT)
+NOMOB         | Mobs cannot wander into this room
+INDOORS       | Room is indoors - MUST also use sectortype 0
+LAWFUL        | Room is oriented to those of lawful alignment
+NEUTRAL       | Room is oriented to those of neutral alignment
+CHAOTIC       | Room is oriented to those of chaotic alignment
+NOMAGIC       | Magic cannot be used in this room
+TUNNEL        | Room is a tunnel - x number of players allowed
+                (use 'redit tunnel #' to  set the number)
+PRIVATE       | Room is private (restricted to 2 people)
+SAFE          | Room is safe... no violence allowed
+SOLITARY      | Room is solitary (restricted to 1 person)
+PETSHOP       | Petshop (next vnum must be the storeroom)
+NORECALL      | Players cannot recall out of this room
+DONATION      | Donation room... cannot get all
+NODROPALL     | Cannot drop all in this room
+SILENCE       | Not a sound can be made or heard in this room
+LOGSPEECH     | All speech in this room is logged (Don't use)
+NODROP        | Nothing can be dropped in this room
+CLANSTOREROOM | Clan storage room (Room contents is saved)
+NOSUMMON      | Player cannot be summoned out of this room
+NOASTRAL      | People cannot astral/mistwalk/teleport to this room
+TELEPORT      | People in this room will be teleported out
+TELESHOWDESC  | Players will see the room desc of the dest room
+NOFLOOR       | Room has no floor: exit down + no fly = fall
+PROTOTYPE     | Room is a prototype, (under construction)
+
+
+HELP EXDISTANCE
+Syntax : redit <direction> exdistance <# of rooms>
+Example: redit n exdistance 5
+
+This is relatively new and mostly unsupported programming.  When an exit
+has an exdistance specified, the MUD will generate the number of rooms
+called for and give each of these "virtual rooms" a random description
+based on the sectortype and roomflags in the originating room.  Players
+that quit in these virtual rooms will find themselves in Limbo when they
+re-enter the game as the rooms only exist as long as there's an active
+player in them.  Similarly, objects left in these rooms will probably be
+lost as soon as the player leaves the area.
+ 
+For example;
+Room 1000 is sectortype 12 and has a roomflag "dark", and an exdistance
+between room 1000 and 1001 of 3 has been specified.  When a player leaves
+in the direction with the exdistance, the 3 rooms will be generated, all
+will be sectortype 12 and all will be dark.  The room desc in each will
+be generated randomly from a file that has been made for each sectortype
+(ie: sector 12 would have a "seafloor" type description).  ** Note: These
+description files aren't completely fleshed out as of yet.  Unless exdist
+is specified as being in both directions, it will only function 1-way.  
+
+
+A Final Word
+-------------
+When making rooms for the first time, it's a good idea to make yourself
+some kind of checklist so that you don't miss adding something to the
+room that should be there.  This will save time for those who have to
+check your work, and it will save you having to go back to re-write all
+those things you missed.  Remember; Spelling and grammar count!
+ 
+The REDIT menu makes an easy checklist;
+  Name      : Every room needs a unique and descriptive name.
+              (Mazes are the exception.)
+  Desc      : Descriptions should give the "layout" of the room so that
+              a player can imagine where they are.  Avoid weak 2 or 3
+              line descriptions.
+  Ed        : Extra descriptions add more flavor to the room descs.
+  Exdesc    : EVERY exit from a room MUST have an exdesc.
+  Exflags   : These are optional.
+  Exname    : These are optional.  Avoid 2 identical exnames in the room.
+  Exkey     : If your door is locked, you'll need a key.
+  Exdistance: This is optional. (Not fully supported yet)
+  Flags     : These are optional, unless sectortype is 0.
+  Sector    : EVERY room MUST have a sectortype.
+  Teledelay : An option for those teleporting rooms.
+  Televnum  : If the room is a teleport room.
+  Tunnel    : Optional.  Mobs are included in the number specified.
