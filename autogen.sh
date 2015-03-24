@@ -27,7 +27,7 @@ autoheader
 
 ln -sf doc/readme.txt INSTALL
 ln -sf doc/license.txt COPYING
-ln -sf doc/readme.txt README
+ln -sf README.md README
 ln -sf doc/readme.txt AUTHORS
 ln -sf doc/smaug.txt NEWS
 ln -sf doc/readme.txt ChangeLog
