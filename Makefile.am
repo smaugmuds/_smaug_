@@ -78,11 +78,11 @@ CLEANFILES = $(CLEANBUILDFILES) \
 all-local:
 	@echo "=== all-local done ==="
 
-clean-local: clean
+clean-local:
 	@rm -rfv $(CLEANBUILDFILES) src/.deps; \
 	echo "=== clean-local done ==="
 
-distclean-local: distclean
+distclean-local: clean-local
 	@echo "=== distclean-local done ==="
 
 devdistclean-local: distclean-local

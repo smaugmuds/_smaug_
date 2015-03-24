@@ -30,8 +30,10 @@
 #include <time.h>
 #include <sys/stat.h>
 #include "mud.h"
-#include "imc-mercbase.h"
 
+#ifdef USE_IMC
+#include "imc-mercbase.h"
+#endif
 
 
 

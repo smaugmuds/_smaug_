@@ -35,7 +35,7 @@ NEED_CRYPT = -lcrypt
 
 DBUGFLG = -DREQUESTS
 
-USE_IMC = -DUSE_IMC
+#USE_IMC = -DUSE_IMC
 
 # Uncomment the line below if you want a performance increase though beware
 # your core files may not be as much of a benefit if you do.
@@ -54,18 +54,17 @@ CLEANFILES = *~ *.o smaug.h smaug$(EXEEXT) stamp-h1
 
 smaug_SOURCES = \
 act_comm.c   build.c     deity.c    ident.c     mpxset.c     requests.c  starmap.c \
-act_info.c   chess.c     fight.c    imm_host.c  mud_comm.c   reset.c     stat_obj.c \
+act_info.c   fight.c     imm_host.c mud_comm.c  reset.c      stat_obj.c \
 act_move.c   clans.c     grub.c     interp.c    mud_prog.c   save.c      tables.c \
-act_obj.c    colorize.c  handler.c  liquids.c   news.c       services.c  track.c \
+act_obj.c    colorize.c  handler.c  news.c      services.c   track.c \
 act_wiz.c    comm.c      hashstr.c  magic.c     planes.c     shops.c     update.c \
 adminlist.c  comments.c  hint.c     makeobjs.c  player.c     skills.c    variables.c \
 ban.c        const.c     house.c    mapout.c    polymorph.c  special.c \
 boards.c     db.c        ibuild.c   misc.c      renumber.c   stances.c
 
 
-include_HEADERS = \
-bet.h house.h liquids.h smaug.h \
-chess.h mud.h hint.h news.h
+include_HEADERS = smaug.h mud.h \
+bet.h house.h liquids.h hint.h news.h
 
 CFLAGS_COMMON = \
 -Wno-all -Wno-cast-align -Wno-unused-result -Wno-write-strings \

@@ -25,6 +25,7 @@ aclocal
 autoconf
 autoheader
 
+ln -sf doc/LICENSE._smaug_ LICENSE
 ln -sf doc/readme.txt INSTALL
 ln -sf doc/license.txt COPYING
 ln -sf README.md README
