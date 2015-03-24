@@ -69,10 +69,10 @@ act_move.c   clans.c     grub.c     interp.c    mud_prog.c   save.c      tables.
 act_obj.c    colorize.c  handler.c  news.c      services.c   track.c     liquids.c \
 act_wiz.c    comm.c      hashstr.c  magic.c     planes.c     shops.c     update.c \
 adminlist.c  comments.c  hint.c     makeobjs.c  player.c     skills.c    variables.c \
-ban.c        const.c     house.c    mapout.c    polymorph.c  special.c \
+ban.c        const.c     house.c    mapout.c    polymorph.c  special.c   chess.c \
 boards.c     db.c        ibuild.c   misc.c      renumber.c   stances.c
 
-include_HEADERS = smaug.h mud.h bet.h house.h liquids.h hint.h news.h sha256.h \
+include_HEADERS = smaug.h mud.h chess.h bet.h house.h liquids.h hint.h news.h sha256.h \
 icec.h icec-mercbase.h iced.h ice.h imc-config.h imc.h imc-mercbase.h imc-mercdefs.h
 
 smaug_CXXFLAGS = $(CFLAGS)
