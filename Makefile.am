@@ -62,10 +62,10 @@ doc_DATA = README AUTHORS INSTALL NEWS LICENSE ChangeLog \
 
 man_MANS = man/smaug.1 man/smaugd.1
 
-CLEANDEVELFILES = compile configure depcomp aclocal.m4 \
+CLEANDEVELFILES = compile configure depcomp aclocal.m4 src/smaug.h \
 	autom4te.cache config.guess config.sub install-sh missing \
-	config.status ltmain.sh depcomp m4 README COPYING NEWS \
-	AUTHORS ChangeLog LICENSE INSTALL config.lt libtool src/.deps
+	config.status ltmain.sh depcomp m4 README COPYING NEWS src/smaug \
+	AUTHORS ChangeLog LICENSE INSTALL config.lt libtool src/.deps src/*.o
 
 CLEANBUILDFILES = config.log \
 	`find $(srcdir) -iname "stamp-h1"` \
@@ -79,11 +79,7 @@ all-local:
 	@echo "=== all-local done ==="
 
 clean-local:
-	@cd $(srcdir)/src; \
-	make clean; \
-	rm -rvf .deps; \
-	cd $(srcdir); \
-	rm -rfv $(CLEANBUILDFILES); \
+	@rm -rfv $(CLEANBUILDFILES); \
 	echo "=== clean-local done ==="
 
 distclean-local: clean-local

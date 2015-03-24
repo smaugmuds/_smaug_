@@ -24,6 +24,10 @@ CXX = g++
 
 ARCH = `uname -m`
 
+#PROF = -p
+
+#TIME = -DTIMEFORMAT
+
 #Uncomment the line below if you are getting implicit decleration of re_exec
 REG = -DREGEX
 
@@ -39,22 +43,21 @@ USE_IMC = -DUSE_IMC
 
 DEBUG_FLAGS = -DREQUESTS
 
-CFLAGS += -Wall -Wuninitialized $(DEBUG_FLAGS)
+AM_CFLAGS = -Wall -Wuninitialized $(DEBUG_FLAGS)
 
-#CFLAGS += \
+#AM_CFLAGS = \
 #-Wno-all -Wno-cast-align -Wno-unused-result -Wno-write-strings \
 #-Wno-unused-but-set-variable -Wno-pointer-to-int-cast \
 #-Wno-address -Wno-int-to-pointer-cast -Wno-uninitialized
 
 # Uncomment the line below if you want a performance increase though beware
 # your core files may not be as much of a benefit if you do.
-PFLAGS = -finline-functions -funroll-loops -fdefer-pop -fstrength-reduce
+AM_PFLAGS = -finline-functions -funroll-loops -fdefer-pop -fstrength-reduce
 
-CFLAGS += \
--O -g3 $(PROF) $(NOCRYPT) -DSMAUG \
-$(SOLARIS_FLAG) $(TIME) $(REG) $(USE_IMC)
+AM_CFLAGS += \
+-O -g3 $(PROF) $(NOCRYPT) -DSMAUG $(TIME) $(REG) $(USE_IMC)
 
-LDFLAGS += $(PFLAGS) $(PROF) $(SOLARIS_LINK) $(NEED_CRYPT)
+AM_LDFLAGS = $(AM_PFLAGS) $(PROF) $(SOLARIS_LINK) $(NEED_CRYPT)
 
 bin_PROGRAMS = smaug$(EXEEXT)
 
@@ -69,13 +72,13 @@ act_move.c   clans.c     grub.c     interp.c    mud_prog.c   save.c      tables.
 act_obj.c    colorize.c  handler.c  news.c      services.c   track.c     liquids.c \
 act_wiz.c    comm.c      hashstr.c  magic.c     planes.c     shops.c     update.c \
 adminlist.c  comments.c  hint.c     makeobjs.c  player.c     skills.c    variables.c \
-ban.c        const.c     house.c    mapout.c    polymorph.c  special.c   chess.c \
+ban.c        const.c     house.c    mapout.c    polymorph.c  special.c \
 boards.c     db.c        ibuild.c   misc.c      renumber.c   stances.c
 
-include_HEADERS = smaug.h mud.h chess.h bet.h house.h liquids.h hint.h news.h sha256.h \
+include_HEADERS = smaug.h mud.h bet.h house.h liquids.h hint.h news.h sha256.h \
 icec.h icec-mercbase.h iced.h ice.h imc-config.h imc.h imc-mercbase.h imc-mercdefs.h
 
-smaug_CXXFLAGS = $(CFLAGS)
-smaug_CFLAGS = $(CFLAGS)
+smaug_CXXFLAGS = $(AM_CFLAGS)
+smaug_CFLAGS = $(AM_CFLAGS)
 
-smaug_LDFLAGS = $(LDFLAGS)
+smaug_LDFLAGS = $(AM_LDFLAGS)
