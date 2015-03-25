@@ -40,14 +40,7 @@
 #include <signal.h>
 #include <stdarg.h>
 
-
 #include "mud.h"
-
-#ifdef USE_IMC
-#include "imc.h"
-#include "icec.h"
-#endif
-
 
 /*
  * Socket and TCP/IP stuff.
@@ -295,19 +288,6 @@ int port;
     conclient= init_socket( port+10);
     conjava  = init_socket( port+20);
     
-#ifdef OLD_IMC
-    /* Be sure to change RoD to your mud's name! */
-    if(port == 4000)
-	imc_startup ("RoD", port+5, "imc/");
-    else
-	imc_startup("RoDBLD", port+5, "imc/");
-#else
-#ifdef USE_IMC
-    imc_startup ("imc/");
-    icec_init();
-#endif
-#endif
-
     /* I don't know how well this will work on an unnamed machine as I don't
        have one handy, and the man pages are ever-so-helpful.. -- Alty */
     if (gethostname(hostn, sizeof(hostn)) < 0)
@@ -324,10 +304,6 @@ int port;
     log_string( log_buf );
 
     game_loop( );
-    
-#ifdef USE_IMC
-    imc_shutdown(); /* shut down IMC */
-#endif
     
     closesocket( control  );
     closesocket( control2 );
@@ -541,10 +517,6 @@ void accept_new( int ctrl )
 	}
 	auth_maxdesc(&maxdesc, &in_set, &out_set, &exc_set);
 	
-#ifdef USE_IMC
-	maxdesc=imc_fill_fdsets(maxdesc, &in_set, &out_set, &exc_set);
-#endif
-
 	if ( select( maxdesc+1, &in_set, &out_set, &exc_set, &null_time ) < 0 )
 	{
 	    perror( "accept_new: select: poll" );
@@ -689,11 +661,6 @@ void game_loop( )
 	      break;
 	}
 	
-#ifdef USE_IMC
-	/* kick IMC */
-	imc_idle_select(&in_set, &out_set, &exc_set, current_time);
-#endif
-
 	/*
 	 * Autonomous game motion.
 	 */
@@ -1276,7 +1243,7 @@ void read_from_buffer( DESCRIPTOR_DATA *d )
 bool flush_buffer( DESCRIPTOR_DATA *d, bool fPrompt )
 {
     char buf[MAX_INPUT_LENGTH];
-    extern bool mud_down;
+//    extern bool mud_down;
 
     /*
      * If buffer has more than 4K inside, spit out .5K at a time   -Thoric

@@ -36,19 +36,6 @@
 
 #include "mud.h"
 
-
-#ifdef USE_IMC
-#include "imc.h"
-#include "icec.h"
-#endif
-
-/*
-#ifdef USE_IMC
-#include "imc-mercbase.h"
-#include "icec-mercbase.h"
-#endif
-*/
-
 #if defined(KEY)
 #undef KEY
 #endif

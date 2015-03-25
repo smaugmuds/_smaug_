@@ -35,18 +35,6 @@
 
 #include "mud.h"
 
-#ifdef USE_IMC
-#include "imc.h"
-#include "icec.h"
-#endif
-
-/*
-#ifdef USE_IMC
-#include "imc-mercbase.h"
-#include "icec-mercbase.h"
-#endif
-*/
-
 #if defined(KEY)
 #undef KEY
 #endif
@@ -396,19 +384,10 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_hset" ))		return do_hset;
 	break;
     case 'i':
-#ifdef USE_IMC
-	if ( !str_cmp( name, "do_ichannels" ))		return do_ichannels;
-	if ( !str_cmp( name, "do_icommand" ))		return do_icommand;
-#endif
 	if ( !str_cmp( name, "do_icq" ))		return do_icq;
 	if ( !str_cmp( name, "do_ide" ))		return do_ide;
 	if ( !str_cmp( name, "do_idea" ))		return do_idea;
 	if ( !str_cmp( name, "do_ignore" ))		return do_ignore;
-#ifdef USE_IMC
-	if ( !str_cmp( name, "do_ilist" ))		return do_ilist;
-	if ( !str_cmp( name, "do_imc" ))		return do_imc;
-	if ( !str_cmp( name, "do_imclist" ))		return do_imclist;
-#endif
 	if ( !str_cmp( name, "do_imm_news" ))		return do_imm_news;
 	if ( !str_cmp( name, "do_immortalize" ))	return do_immortalize;
 	if ( !str_cmp( name, "do_immtalk" ))		return do_immtalk;
@@ -421,10 +400,6 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_inventory" ))		return do_inventory;
 	if ( !str_cmp( name, "do_invis" ))		return do_invis;
         if ( !str_cmp( name, "do_ipcompare" ))		return do_ipcompare;
-#ifdef USE_IMC
-        if ( !str_cmp( name, "do_isetup" ))		return do_isetup;
-	if ( !str_cmp( name, "do_istats" ))		return do_istats;
-#endif
 	break;
     case 'j':
 	if ( !str_cmp( name, "do_journal" ))		return do_journal;
@@ -454,9 +429,6 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_low_purge" ))		return do_low_purge;
 	break;
     case 'm':
-#ifdef USE_IMC
-	if ( !str_cmp( name, "do_mailqueue" ))		return do_mailqueue;
-#endif
 	if ( !str_cmp( name, "do_mailroom" ))		return do_mailroom;
 	if ( !str_cmp( name, "do_make" ))		return do_make;
         if ( !str_cmp( name, "do_makeadminlist" ))      return do_makeadminlist;
@@ -660,17 +632,8 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_rap" ))		return do_rap;
 	if ( !str_cmp( name, "do_rassign" ))		return do_rassign;
 	if ( !str_cmp( name, "do_rat" ))		return do_rat;
-#ifdef USE_IMC
-	if ( !str_cmp( name, "do_rbeep" ))		return do_rbeep;
-	if ( !str_cmp( name, "do_rchannels" ))		return do_rchannels;
-	if ( !str_cmp( name, "do_rchanset" ))		return do_rchanset;
-	if ( !str_cmp( name, "do_rconnect" ))		return do_rconnect;
-#endif
 	if ( !str_cmp( name, "do_rdelete" ))		return do_rdelete;
 	if ( !str_cmp( name, "do_rdig" ))		return do_rdig;
-#ifdef USE_IMC
-	if ( !str_cmp( name, "do_rdisconnect" ))	return do_rdisconnect;
-#endif
 	if ( !str_cmp( name, "do_reboo" ))		return do_reboo;
 	if ( !str_cmp( name, "do_reboot" ))		return do_reboot;
 	if ( !str_cmp( name, "do_recho" ))		return do_recho;
@@ -703,15 +666,8 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_retiredtalk" ))	return do_retiredtalk;
 	if ( !str_cmp( name, "do_retran" ))		return do_retran;
 	if ( !str_cmp( name, "do_return" ))		return do_return;
-#ifdef USE_IMC
-	if ( !str_cmp( name, "do_rfinger" ))		return do_rfinger;
-#endif
 	if ( !str_cmp( name, "do_rgrid" ))		return do_rgrid;
 	if ( !str_cmp( name, "do_rgrub" ))		return do_rgrub;
-#ifdef USE_IMC
-	if ( !str_cmp( name, "do_rignore" ))		return do_rignore;
-	if ( !str_cmp( name, "do_rinfo" ))		return do_rinfo;
-#endif
 	if ( !str_cmp( name, "do_rip" ))		return do_rip;
 	if ( !str_cmp( name, "do_rlist" ))		return do_rlist;
 	if ( !str_cmp( name, "do_rloop" ))		return do_rloop;
@@ -721,25 +677,10 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_roster" ))		return do_roster;
 	if ( !str_cmp( name, "do_rpedit" ))		return do_rpedit;
 	if ( !str_cmp( name, "do_rpfind" ))		return do_rpfind;
-#ifdef USE_IMC
-	if ( !str_cmp( name, "do_rping" ))		return do_rping;
-#endif
 	if ( !str_cmp( name, "do_rpstat" ))		return do_rpstat;
-#ifdef USE_IMC
-	if ( !str_cmp( name, "do_rquery" ))		return do_rquery;
-	if ( !str_cmp( name, "do_rreply" ))		return do_rreply;
-#endif
  	if ( !str_cmp( name, "do_rreset" ))		return do_rreset;
  	if ( !str_cmp( name, "do_rset" ))		return do_rset;
-#ifdef USE_IMC
-	if ( !str_cmp( name, "do_rsockets" ))		return do_rsockets;
-#endif
  	if ( !str_cmp( name, "do_rstat" ))		return do_rstat;
-#ifdef USE_IMC
-	if ( !str_cmp( name, "do_rtell" ))		return do_rtell;
-	if ( !str_cmp( name, "do_rwho" ))		return do_rwho;
-	if ( !str_cmp( name, "do_rwhois" ))		return do_rwhois;
-#endif
 	break;
     case 's':
 	if ( !str_cmp( name, "do_sacrifice" ))		return do_sacrifice;
@@ -1168,10 +1109,6 @@ char *skill_name( DO_FUN *skill )
     if ( skill == do_ide )		return "do_ide";
     if ( skill == do_idea )		return "do_idea";
     if ( skill == do_ignore )		return "do_ignore";
-#ifdef USE_IMC
-    if ( skill == do_imc )		return "do_imc";
-    if ( skill == do_imclist )		return "do_imclist";
-#endif
     if ( skill == do_imm_news )		return "do_imm_news";
     if ( skill == do_immortalize )	return "do_immortalize";
     if ( skill == do_add_imm_host )     return "do_add_imm_host";
@@ -1185,9 +1122,6 @@ char *skill_name( DO_FUN *skill )
     if ( skill == do_inventory )	return "do_inventory";
     if ( skill == do_invis )		return "do_invis";
     if ( skill == do_ipcompare )	return "do_ipcompare";
-#ifdef USE_IMC
-    if ( skill == do_istats )		return "do_istats";
-#endif
     if ( skill == do_journal )		return "do_journal";
     if ( skill == do_khistory )		return "do_khistory";
     if ( skill == do_kick )		return "do_kick";
@@ -1209,9 +1143,6 @@ char *skill_name( DO_FUN *skill )
     if ( skill == do_lookmap )		return "do_lookmap";
     if ( skill == do_loop )		return "do_loop";
     if ( skill == do_low_purge )	return "do_low_purge";
-#ifdef USE_IMC
-    if ( skill == do_mailqueue )	return "do_mailqueue";
-#endif
     if ( skill == do_mailroom )		return "do_mailroom";
     if ( skill == do_make )		return "do_make";
     if ( skill == do_makeadminlist )    return "do_makeadminlist";  
@@ -1403,17 +1334,8 @@ char *skill_name( DO_FUN *skill )
     if ( skill == do_rap )		return "do_rap";
     if ( skill == do_rassign )		return "do_rassign";
     if ( skill == do_rat )		return "do_rat";
-#ifdef USE_IMC
-    if ( skill == do_rbeep )		return "do_rbeep";
-    if ( skill == do_rchannels )	return "do_rchannels";
-    if ( skill == do_rchanset )		return "do_rchanset";
-    if ( skill == do_rconnect )		return "do_rconnect";
-#endif
     if ( skill == do_rdelete )		return "do_rdelete";
     if ( skill == do_rdig )		return "do_rdig";
-#ifdef USE_IMC
-    if ( skill == do_rdisconnect )	return "do_rdisconnect";
-#endif
     if ( skill == do_reboo )		return "do_reboo";
     if ( skill == do_reboot )		return "do_reboot";
     if ( skill == do_recho )		return "do_recho";
@@ -1446,18 +1368,11 @@ char *skill_name( DO_FUN *skill )
     if ( skill == do_retiredtalk )	return "do_retiredtalk";
     if ( skill == do_retran )		return "do_retran";
     if ( skill == do_return )		return "do_return";
-#ifdef USE_IMC
-    if ( skill == do_rfinger )	return "do_rfinger";
-#endif
     if ( skill == do_rgrid )		return "do_rgrid";
     if ( skill == do_rgrub )		return "do_rgrub";
-#ifdef USE_IMC
-    if ( skill == do_rignore )	return "do_rignore";
-    if ( skill == do_rinfo )		return "do_rinfo";
-#endif
     if ( skill == do_rip )			return "do_rip";
     if ( skill == do_rlist )		return "do_rlist";
-		if ( skill == do_rloop )		return "do_rloop";
+    if ( skill == do_rloop )		return "do_rloop";
     if ( skill == do_rmenu )		return "do_rmenu";
     if ( skill == do_rolldie )	return "do_rolldie";
     if ( skill == do_roster )		return "do_roster";
@@ -1465,21 +1380,9 @@ char *skill_name( DO_FUN *skill )
     if ( skill == do_rpedit )		return "do_rpedit";
     if ( skill == do_rpfind )		return "do_rpfind";
     if ( skill == do_rpstat )		return "do_rpstat";
-#ifdef USE_IMC
-    if ( skill == do_rquery )		return "do_rquery";
-    if ( skill == do_rreply )		return "do_rreply";
-#endif
     if ( skill == do_rreset )		return "do_rreset";
     if ( skill == do_rset )			return "do_rset";
-#ifdef USE_IMC
-    if ( skill == do_rsockets )	return "do_rsockets";
-#endif
     if ( skill == do_rstat )		return "do_rstat";
-#ifdef USE_IMC
-    if ( skill == do_rtell )		return "do_rtell";
-    if ( skill == do_rwho )			return "do_rwho";
-    if ( skill == do_rwhois )		return "do_rwhois";
-#endif
     if ( skill == do_sacrifice )	return "do_sacrifice";
     if ( skill == do_save )			return "do_save";
     if ( skill == do_savearea )		return "do_savearea";
@@ -1596,13 +1499,6 @@ char *skill_name( DO_FUN *skill )
     if ( skill == do_yell )		return "do_yell";
     if ( skill == do_zap )		return "do_zap";
     if ( skill == do_zones )		return "do_zones";
-#ifdef USE_IMC
-    if ( skill == do_icommand )		return "do_icommand";
-    if ( skill == do_isetup )		return "do_isetup";
-    if ( skill == do_ichannels )	return "do_ichannels";
-    if ( skill == do_ilist )		return "do_ilist";
-    if ( skill == do_rping )		return "do_rping";
-#endif
 
     sprintf( buf, "(%p)", skill );
     return buf;

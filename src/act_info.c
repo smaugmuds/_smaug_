@@ -112,7 +112,7 @@ void    show_condition          args( ( CHAR_DATA *ch, CHAR_DATA *victim ) );
         sh_int str_prefix_level( const char *astr, const char *bstr );
         void similar_help_files(CHAR_DATA *ch, char *argument);
 
-extern 	bool	in_same_house	args( ( CHAR_DATA *ch, CHAR_DATA *vch ) );
+// extern 	bool	in_same_house	args( ( CHAR_DATA *ch, CHAR_DATA *vch ) );
 
 
 

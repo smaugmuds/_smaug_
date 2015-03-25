@@ -43,7 +43,7 @@ int	hit_gain	args( ( CHAR_DATA *ch ) );
 int	mana_gain	args( ( CHAR_DATA *ch ) );
 int	move_gain	args( ( CHAR_DATA *ch ) );
 void	mobile_update	args( ( void ) );
-void	weather_update	args( ( void ) );
+// void	weather_update	args( ( void ) );
 void	time_update	args( ( void ) );	/* FB */
 void	char_update	args( ( void ) );
 void	hint_update	args( ( void ) );
@@ -2346,7 +2346,7 @@ void reboot_check( time_t reset )
   if ( new_boot_time_t <= current_time )
   {
     CHAR_DATA *vch;
-    extern bool mud_down;
+//    extern bool mud_down;
     
     if ( auction->item )
     {

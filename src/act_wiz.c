@@ -59,7 +59,7 @@ int generate_itemlevel  args ( ( AREA_DATA *pArea, OBJ_INDEX_DATA *pObjIndex ));
 
 /* from comm.c */
 bool	write_to_descriptor	args( ( int desc, char *txt, int length ) );
-bool	check_parse_name        args( ( char *name, bool newchar ) );
+// bool	check_parse_name        args( ( char *name, bool newchar ) );
 
 /* from boards.c */
 void	note_attach( CHAR_DATA *ch);
@@ -81,7 +81,7 @@ void    remove_member           args( ( char *clanname, char *membername ) );
  */
 ROOM_INDEX_DATA * find_location	  args( ( CHAR_DATA *ch, char *arg ) );
 void              save_watchlist  args( ( void ) );
-void              save_banlist    args( ( void ) );
+//void              save_banlist    args( ( void ) );
 void              close_area      args( ( AREA_DATA *pArea ) );
 
 int               get_color (char *argument); /* function proto */
@@ -100,6 +100,7 @@ NOTE_DATA 	* get_log_by_number  		args( ( PROJECT_DATA *pproject, int pnum ) );
 char reboot_time[50];
 time_t new_boot_time_t;
 extern struct tm new_boot_struct;
+extern ROOM_INDEX_DATA *room_index_hash[MAX_KEY_HASH];
 extern OBJ_INDEX_DATA *obj_index_hash[MAX_KEY_HASH];
 extern MOB_INDEX_DATA *mob_index_hash[MAX_KEY_HASH];
 
@@ -3133,7 +3134,7 @@ void do_reboot( CHAR_DATA *ch, char *argument )
 {
     char buf[MAX_STRING_LENGTH];
     char buf2[MAX_STRING_LENGTH];
-    extern bool mud_down;
+//    extern bool mud_down;
     CHAR_DATA *vch;
 
     set_char_color( AT_IMMORT, ch );
@@ -3181,7 +3182,7 @@ void do_shutdown( CHAR_DATA *ch, char *argument )
 {
     char buf[MAX_STRING_LENGTH];
     char buf2[MAX_STRING_LENGTH];
-    extern bool mud_down;
+//    extern bool mud_down;
     CHAR_DATA *vch;
 
     set_char_color( AT_IMMORT, ch );
@@ -6591,9 +6592,9 @@ void do_destro( CHAR_DATA *ch, char *argument )
  */
 void close_area( AREA_DATA *pArea )
 {
-  extern ROOM_INDEX_DATA *room_index_hash[MAX_KEY_HASH];
+/*  extern ROOM_INDEX_DATA *room_index_hash[MAX_KEY_HASH];
   extern OBJ_INDEX_DATA   *obj_index_hash[MAX_KEY_HASH];
-  extern MOB_INDEX_DATA   *mob_index_hash[MAX_KEY_HASH];
+  extern MOB_INDEX_DATA   *mob_index_hash[MAX_KEY_HASH]; */
   CHAR_DATA *ech;
   CHAR_DATA *ech_next;
   OBJ_DATA *eobj;
@@ -7188,8 +7189,8 @@ void do_cset( CHAR_DATA *ch, char *argument )
     pager_printf_color(ch, "\n\r&WPort_name: %s", sysdata.port_name );
     pager_printf_color(ch, "\n\r&WMail:\n\r  &wRead all mail: &W%d  &wRead mail for free: &W%d  &wWrite mail for free: &W%d\n\r",
 	    sysdata.read_all_mail, sysdata.read_mail_free, sysdata.write_mail_free );
-    pager_printf_color(ch, "  &wTake all mail: &W%d  &wIMC mail board vnum: &W%d\n\r",
-	    sysdata.take_others_mail, sysdata.imc_mail_vnum);
+//    pager_printf_color(ch, "  &wTake all mail: &W%d  &wIMC mail board vnum: &W%d\n\r",
+//	    sysdata.take_others_mail, sysdata.imc_mail_vnum);
     pager_printf_color(ch, "&WChannels:\n\r  &wMuse: &W%d   &wThink: &W%d   &wLog: &W%d   &wBuild: &W%d\n\r",
  	    sysdata.muse_level, sysdata.think_level, sysdata.log_level, 
 	    sysdata.build_level);
@@ -7496,14 +7497,16 @@ void do_cset( CHAR_DATA *ch, char *argument )
     send_to_char("Ok.\n\r", ch);      
     return;
   }
-  
+ 
+/* 
   if ( !str_cmp(arg, "imc_vnum") || !str_cmp(arg, "imc_mail_vnum") )
   {
     sysdata.imc_mail_vnum = level;
     send_to_char("Ok.\n\r", ch);
     return;
   }
-  
+ */
+ 
   if (!str_cmp(arg, "ident_retries") || !str_cmp(arg, "ident"))
   {
     sysdata.ident_retries = level;

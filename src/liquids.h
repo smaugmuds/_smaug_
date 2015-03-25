@@ -87,18 +87,22 @@ LIQUID_MIXTURE_LIST *first_mixture;
 LIQUID_MIXTURE_LIST *last_mixture;
 
 /* OLC */
+/*
 DECLARE_DO_FUN( do_setliquid );
 DECLARE_DO_FUN( do_setmixture );
 DECLARE_DO_FUN( do_liquids );
+*/
 
 /* funcs */
-DECLARE_DO_FUN( do_mix );
+// DECLARE_DO_FUN( do_mix );
 
 /* saving/loading */
+/*
 void load_liquids( void );
 void save_liquids( void );
 void load_mixtures( void );
 void save_mixtures( void );
+*/
 
 /* lookup functions */
 LIQUID_DATA *get_liq_name( char *argument );

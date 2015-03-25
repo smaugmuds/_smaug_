@@ -46,19 +46,8 @@
 
 #include "mud.h"
 
-#ifdef USE_IMC
-#include "imc.h"
-#endif
-
-/*
-#ifdef USE_IMC
-#include "imc-mercbase.h"
-#endif
-*/
-
 HINT_DATA *           first_hint;
 HINT_DATA *           last_hint;
-
 
 HINT_DATA *read_hint args( ( char *filename, FILE *fp));
 void do_hintedit args ((CHAR_DATA *ch, char *argument));

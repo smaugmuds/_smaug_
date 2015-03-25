@@ -58,18 +58,18 @@ Version **1.8.2** is HERE! With many bugfixes as well as important and useful ne
 
 	- src:              Source files.
 	- doc:              Documentation.
-	- bin:							Init Scripts.
-	- etc:  						--{smaug}-- Script Config Files.
-	- etc/init.d: 			--{smaug}-- & HTTPD Server SysV Scripts.
-	- man:							Man Pages.
-	- data/area:       	Realm Area files.
+	- bin:	            Init Scripts.
+	- etc:  	    smaugd Script Config Files.
+	- etc/init.d: 	    smaugd SysV Scripts.
+	- man:		    Man Pages.
+	- data/area:        Realm Area files.
 	- data/player:      Player files (initially empty).
 	- data/backup:      Backup Player files (initially empty).
 	- data/deleted:     Deleted Player files (initially empty).
-	- data/vault:	   		Guilds Vaults
-	- data/races:	   		Races files.
-	- data/gods:      	God players.
-	- data/deity:	    	Realm Deities.
+	- data/vault:	    Guilds Vaults
+	- data/races:	    Races files.
+	- data/gods:        God players.
+	- data/deity:	    Realm Deities.
 	- data/councils:    Councils files.
 	- data/classes:     Classes files.
 	- data/clans:       Clans files.
@@ -80,7 +80,7 @@ Version **1.8.2** is HERE! With many bugfixes as well as important and useful ne
 	- data/system:      MUD Game System files.
 	- data/building:    Building System files.
 	- data/classes:     Player Class files.
-	- data/color:	    	MUD Color files.
+	- data/color:	    MUD Color files.
 
 #### Features
 
@@ -130,15 +130,9 @@ Here are just some of the extra features --{smaug}-- has:
 	- Extended bit vectors for when 32 are just not enough
 	- SHA256 player passwords encryption
 	- MUD Mapper and Planes
-	- MCCP and MSSP
-	- New Weather System and Calendar
-	- HotBoot!
 	- Dump Objects and Mobs to files
-	- Quest bits added.
-	- Quest Master.
-	- Banker: Set the banker flag on a mob of your choice.
-	- Clans Shopkeepers
 	- Mounts and much much more
+	- Liquids & Mixtures System
 
 Changes made to areas:
 
@@ -153,13 +147,12 @@ Realm Areas:
 	- limbo.are  midennir.are newdark.are  pixie.are    redferne.are  srefuge.are
 	- Build.are  daycare.are  export.are   gods.are     grove.are     help.are
 	- manor.are  newacad.are  newgate.are  plains.are   sewer.are     unholy.are
-	- ice-help.are imc-help.are
 
 #### ChangeLog
 
 	* --{smaug}-- 1.8b -> --{smaug}-- 1.8.2
 
-
+		- Removed all InterMud code: IMC2 & ICE(D)
 		- Conversion to GNU Autotools
 		- Configure checks for cc, gcc, g++, (g)awk, -ldl, -lz, -lcrypt, basic #C libraries, headers and functions
 		- Indented code with GNU style.

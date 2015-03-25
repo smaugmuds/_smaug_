@@ -59,8 +59,6 @@
 #define NEWS_VIEW               15
 #define NEWS_MAX_TYPES          10
 
-DECLARE_DO_FUN( do_editnews );
-
 typedef struct news_data NEWS;
 struct news_data
 {

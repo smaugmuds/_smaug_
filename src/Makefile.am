@@ -43,17 +43,6 @@ USE_SMAUG = -DSMAUG -DSMAUG18
 
 USE_PLANES = -DPLANES
 
-### MUD Interconector (IMC) ###
-
-# USE_IMC = -DUSE_IMC
-
-#IMC_SOURCE_FILES = ice.c icec.c icec-mercbase.c iced.c imc.c \
-#imc-config.c imc-events.c  imc-interp.c imc-mail.c imc-mercbase.c \
-#imc-util.c imc-version.c
-
-#IMC_HEADER_FILES = icec.h icec-mercbase.h iced.h ice.h imc-config.h \
-#imc.h imc-mercbase.h imc-mercdefs.h
-
 ### DEVELOPER CFLAGS (All Warnings Enabled) ###
 
 # Uncomment to enable profiling
@@ -89,17 +78,17 @@ DEBUG_FLAGS = -DREQUESTS
 
 # Uncomment the line below if you dont want warnings while building.
 
-#AM_CFLAGS = \
-#-Wall -Wshadow -Wformat-security -Wpointer-arith -Wcast-align \
-#-Wredundant-decls -Wuninitialized $(DEBUG_FLAGS)
+AM_CFLAGS = \
+-Wall -Wshadow -Wformat-security -Wpointer-arith -Wcast-align \
+-Wredundant-decls -Wuninitialized $(DEBUG_FLAGS)
 
 # Uncomment the line below if you dont want warnings while building.
 # (and comment upper AM_CFLAGS)
 
-AM_CFLAGS = \
--Wno-all -Wno-cast-align -Wno-unused-result -Wno-write-strings \
--Wno-unused-but-set-variable -Wno-pointer-to-int-cast \
--Wno-address -Wno-int-to-pointer-cast -Wno-uninitialized
+#AM_CFLAGS = \
+#-Wno-all -Wno-cast-align -Wno-unused-result -Wno-write-strings \
+#-Wno-unused-but-set-variable -Wno-pointer-to-int-cast \
+#-Wno-address -Wno-int-to-pointer-cast -Wno-uninitialized
 
 # Uncomment the line below if you want a performance increase though beware
 # your core files may not be as much of a benefit if you do.
@@ -107,8 +96,8 @@ AM_CFLAGS = \
 AM_PFLAGS = -finline-functions -funroll-loops -fdefer-pop -fstrength-reduce
 
 AM_CFLAGS += \
--O -g3 -export-dinamic $(PROFILING) $(USE_SMAUG) $(USE_PLANES) \
-$(NOCRYPT) $(TIME) $(REG) $(USE_IMC) $(SOLARIS_FLAG)
+-O -g3 $(PROFILING) $(USE_SMAUG) $(USE_PLANES) \
+$(NOCRYPT) $(TIME) $(REG) $(SOLARIS_FLAG)
 
 AM_LDFLAGS = $(AM_PFLAGS) $(PROFILING) $(SOLARIS_LINK) $(NEED_CRYPT)
 
@@ -132,15 +121,10 @@ mpxset.c mud_comm.c mud_prog.c news.c planes.c player.c polymorph.c \
 renumber.c requests.c reset.c save.c services.c sha256.c shops.c skills.c \
 special.c stances.c starmap.c stat_obj.c tables.c track.c update.c variables.c 
 
-smaug_SOURCES += $(IMC_SOURCE_FILES)
-
 include_HEADERS = \
-mud.h smaug.h  bet.h hint.h news.h \
-sha256.h house.h liquids.h       
+mud.h smaug.h bet.h hint.h news.h sha256.h house.h liquids.h       
 
-include_HEADERS += $(IMC_HEADER_FILES)
-
-.c.o:
+.c.o-local:
 	@echo -n "  $(CC) -> Building Object: $@ ..."; \
 	$(CC) -c $(AM_CFLAGS) $(AM_LDFLAGS) $< -o $@; \
 	echo " done";

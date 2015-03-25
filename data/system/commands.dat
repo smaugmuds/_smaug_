@@ -1597,6 +1597,14 @@ Log         0
 End
 
 #COMMAND
+Name        liquids~
+Code        do_liquids
+Position    106
+Level       0
+Log         0
+End
+
+#COMMAND
 Name        list~
 Code        do_list
 Position    106
@@ -1684,6 +1692,14 @@ Code        do_lead
 Position    100
 Level       51
 Log         0
+End
+
+#COMMAND
+Name        mix~
+Code        do_mix
+Position    100
+Level       6
+Log         1
 End
 
 #COMMAND
@@ -3704,6 +3720,22 @@ End
 #COMMAND
 Name        setcouncil~
 Code        do_setcouncil
+Position    100
+Level       61
+Log         1
+End
+
+#COMMAND
+Name        setliquid~
+Code        do_setliquid
+Position    100
+Level       61
+Log         1
+End
+
+#COMMAND
+Name        setmixture~
+Code        do_setmixture
 Position    100
 Level       61
 Log         1

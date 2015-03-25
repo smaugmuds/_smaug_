@@ -2697,13 +2697,13 @@ struct	pc_data
     char **		tell_history;	/* for immortal only command lasttell */
     sh_int		lt_index;	/* last_tell index */
     char *		see_me;		/* who can see me (imm only) */
-    
-    long	imc_deaf;    /* IMC channel def flags */
-    long	imc_allow;   /* IMC channel allow flags */
-    long	imc_deny;    /* IMC channel deny flags */
-    char *	rreply;      /* IMC reply-to */
-    char *	rreply_name; /* IMC reply-to shown to char */
-    char *	ice_listen;  /* ICE channels */
+   
+    // long	imc_deaf;    /* IMC channel def flags */
+    // long	imc_allow;   /* IMC channel allow flags */
+    // long	imc_deny;    /* IMC channel deny flags */
+    // char *	rreply;      /* IMC reply-to */
+    // char *	rreply_name; /* IMC reply-to shown to char */
+    // char *	ice_listen;  /* ICE channels */
     char *  recent_site;        /* site a player started their most recent session from */
     char *  prev_site;      /* site a player last quit from */
     sh_int	colorize	[AT_MAXCOLOR];
@@ -2982,8 +2982,8 @@ struct	system_data
     sh_int	read_mail_free;		/* Read mail for free (was 51) */
     sh_int	write_mail_free;	/* Write mail for free(was 51) */
     sh_int	take_others_mail;	/* Take others mail (was 54)   */
-    int		imc_mail_vnum;		/* Board vnum for IMC mail     */
-    sh_int	imc_mail_level;		/* Min level to send IMC mail  */
+//    int		imc_mail_vnum;		/* Board vnum for IMC mail     */
+ //   sh_int	imc_mail_level;		/* Min level to send IMC mail  */
     sh_int	muse_level;		/* Level of muse channel */
     sh_int	think_level;		/* Level of think channel LEVEL_HIGOD*/
     sh_int	build_level;		/* Level of build channel LEVEL_BUILD*/
@@ -3892,7 +3892,7 @@ extern MPSLEEP_DATA * current_mpwait; /* - */
 extern char *   bigregex;
 extern char *   preg;
 
-extern char *	target_name;
+//extern char *	target_name;
 extern char *	ranged_target_name;
 extern	int	numobjsloaded;
 extern	int	nummobsloaded;
@@ -4241,6 +4241,7 @@ DECLARE_DO_FUN(	do_level	);
 DECLARE_DO_FUN(	do_light	);
 DECLARE_DO_FUN(	do_list		);
 DECLARE_DO_FUN(	do_litterbug	);
+DECLARE_DO_FUN(	do_liquids	);
 DECLARE_DO_FUN( do_loadarea	);
 DECLARE_DO_FUN( do_loadup	);
 DECLARE_DO_FUN(	do_lock		);
@@ -4275,6 +4276,7 @@ DECLARE_DO_FUN( do_mdelete	);
 DECLARE_DO_FUN(	do_mfind	);
 DECLARE_DO_FUN(	do_minvoke	);
 DECLARE_DO_FUN( do_mistwalk     );
+DECLARE_DO_FUN( do_mix		);
 DECLARE_DO_FUN( do_mlist	);
 DECLARE_DO_FUN( do_mobinvade	);
 DECLARE_DO_FUN( do_morphcreate  );
@@ -4434,6 +4436,8 @@ DECLARE_DO_FUN( do_setclan	);
 DECLARE_DO_FUN( do_setclass	);
 DECLARE_DO_FUN( do_setcouncil   );
 DECLARE_DO_FUN( do_setdeity	);
+DECLARE_DO_FUN( do_setliquid	);
+DECLARE_DO_FUN( do_setmixture	);
 DECLARE_DO_FUN( do_setrace	);
 DECLARE_DO_FUN( do_setvault	);
 DECLARE_DO_FUN( do_setweather	);
@@ -4580,10 +4584,8 @@ DECLARE_DO_FUN( do_opstat       );
 DECLARE_DO_FUN( do_rpstat       );
 DECLARE_DO_FUN( do_mptag	);
 DECLARE_DO_FUN( do_mprmtag	);
-DECLARE_DO_FUN( do_mptag    );
-DECLARE_DO_FUN( do_mprmtag  );
-DECLARE_DO_FUN( do_mpflag   );
-DECLARE_DO_FUN( do_mprmflag );
+DECLARE_DO_FUN( do_mpflag   	);
+DECLARE_DO_FUN( do_mprmflag 	);
 DECLARE_DO_FUN( do_mptransfer   );
 DECLARE_DO_FUN( do_mpmorph	);
 DECLARE_DO_FUN( do_mpunmorph	);
@@ -4602,43 +4604,6 @@ DECLARE_DO_FUN( do_mpsoundat	);
 DECLARE_DO_FUN( do_mpmusic	);
 DECLARE_DO_FUN( do_mpmusicaround);
 DECLARE_DO_FUN( do_mpmusicat	);
-
-#ifdef USE_IMC
-DECLARE_DO_FUN(do_rinfo);
-
-DECLARE_DO_FUN(do_rtell);
-DECLARE_DO_FUN(do_rreply);
-DECLARE_DO_FUN(do_rwho);
-DECLARE_DO_FUN(do_rwhois);
-DECLARE_DO_FUN(do_rquery);
-DECLARE_DO_FUN(do_rbeep);
-DECLARE_DO_FUN(do_rfinger);
-
-DECLARE_DO_FUN(do_imclist);
-DECLARE_DO_FUN(do_rsockets);
-DECLARE_DO_FUN(do_imc);
-DECLARE_DO_FUN(do_imcpoll);
-DECLARE_DO_FUN(do_rignore);
-DECLARE_DO_FUN(do_rconnect);
-DECLARE_DO_FUN(do_rdisconnect);
-
-DECLARE_DO_FUN(do_mailqueue);
-DECLARE_DO_FUN(do_istats);
-
-DECLARE_DO_FUN(do_rchannels);
-DECLARE_DO_FUN(do_rchanset);
-
-DECLARE_DO_FUN(do_rping);
-
-DECLARE_DO_FUN(do_ichannels);
-DECLARE_DO_FUN(do_icommand);
-DECLARE_DO_FUN(do_ilist);
-DECLARE_DO_FUN(do_isetup);
-DECLARE_DO_FUN(do_icommand);
-DECLARE_DO_FUN(do_isetup);
-DECLARE_DO_FUN(do_ichannels);
-DECLARE_DO_FUN(do_ilist);
-#endif
 
 /*
  * Spell functions.
@@ -4855,7 +4820,6 @@ char *	sha256_crypt		args( ( const char *key, const char *salt ) );
 #define WATCH_DIR					RUNDIR			"watch/"		/* Imm watch files --Gorog      */
 #define VAULT_DIR					RUNDIR			"vault/" 		/* storage vaults */
 #define HOUSE_DIR         RUNDIR 			"houses/" 	/* Location of housing directory */
-#define IMC_DIR        		RUNDIR			"imc/" 			/* IMC files */
 
 /*
  * The watch directory contains a maximum of one file for each immortal
@@ -4983,8 +4947,8 @@ int	get_door	args( ( char *arg ) );
 char *  num_punct	args( ( int foo ) );
 char *	format_obj_to_char	args( ( OBJ_DATA *obj, CHAR_DATA *ch,
 				    bool fShort ) );
-void	show_list_to_char	args( ( OBJ_DATA *list, CHAR_DATA *ch,
-				    bool fShort, bool fShowNothing ) );
+// void	show_list_to_char	args( ( OBJ_DATA *list, CHAR_DATA *ch,
+//				    bool fShort, bool fShowNothing ) );
 bool	is_ignoring	args( (CHAR_DATA *ch, CHAR_DATA *ign_ch) );
 void	show_race_line	args( ( CHAR_DATA *ch, CHAR_DATA *victim ) );
 void    look_sky	args( ( CHAR_DATA *ch ) );
@@ -5073,7 +5037,6 @@ void	pager_printf_color	args( ( CHAR_DATA *ch, char *fmt, ... ) );
 void	act		args( ( sh_int AType, const char *format, CHAR_DATA *ch,
 			    const void *arg1, const void *arg2, int type ) );
 char *	myobj		args( ( OBJ_DATA *obj ) );
-char *	obj_short	args( ( OBJ_DATA *obj ) );
 
 /* reset.c */
 RD  *	make_reset	args( ( char letter, int extra, int arg1, int arg2, int arg3 ) );
@@ -5303,10 +5266,12 @@ void	mpsleep_update		args( ( ) );
 
 
 /* planes.c */
+#ifdef PLANES
 PLANE_DATA *	plane_lookup	args( ( const char *name ) );
 void		load_planes	args( ( void ) );
 void		save_planes	args( ( void ) );
 void		check_planes	args( ( PLANE_DATA *p ) );
+#endif
 
 /* player.c */
 void	set_title	args( ( CHAR_DATA *ch, char *title ) );
@@ -5318,7 +5283,6 @@ void fread_morph_data args ( ( CHAR_DATA *ch, FILE *fp ) );
 void clear_char_morph args ( ( CHAR_MORPH *morph ) );
 CHAR_MORPH * make_char_morph args ( ( MORPH_DATA *morph ) );
 void free_char_morph args ( ( CHAR_MORPH *morph ) );
-CHAR_MORPH * make_char_morph args ( ( MORPH_DATA *morph ) );
 char *race_string  args ( ( int bitvector ) );
 char *class_string  args ( ( int bitvector ) );
 void setup_morph_vnum args ( ( void ) );
@@ -5360,7 +5324,7 @@ CD *	scan_for_victim		args( ( CHAR_DATA *ch, EXIT_DATA *pexit,
 int add_ban args( ( CHAR_DATA *ch, char *arg1, char *arg2,int time,int type ) );
 void show_bans args ( ( CHAR_DATA *ch, int type ) );
 void save_banlist args ( ( void ) );
-void load_banlist args ( ( void ) );
+// void load_banlist args ( ( void ) );
 bool check_total_bans args ( ( DESCRIPTOR_DATA *d ) );
 bool check_bans args ( ( CHAR_DATA *ch, int type ) );
 
@@ -5369,7 +5333,7 @@ bool check_immortal_domain args ( ( CHAR_DATA *ch, char *host ) );
 int  load_imm_host args ( ( void ) );
 int  fread_imm_host args ( ( FILE *fp, IMMORTAL_HOST *data ) );
 void do_write_imm_host args (( void ));
-void do_add_imm_host args (( CHAR_DATA *ch, char *argument ));
+// void do_add_imm_host args (( CHAR_DATA *ch, char *argument ));
 
 /* hint.c */
 void load_hint args ( ( void ) );
@@ -5515,6 +5479,12 @@ void	send_timer	args( ( struct timerset *vtime, CHAR_DATA *ch ) );
 void	update_userec	args( ( struct timeval *time_used,
 				struct timerset *userec ) );
 
+/* liquids.c */
+void	load_liquids	( void );
+void	save_liquids	( void );
+void	load_mixtures	( void );
+void	save_mixtures	( void );
+
 /* magic.c */
 bool	process_spell_components args( ( CHAR_DATA *ch, int sn ) );
 int	ch_slookup	args( ( CHAR_DATA *ch, const char *name ) );
@@ -5602,11 +5572,13 @@ void	found_prey	args( ( CHAR_DATA *ch, CHAR_DATA *victim ) );
 void	hunt_victim	args( ( CHAR_DATA *ch) );
 
 /* update.c */
+extern  bool	mud_down;
 void	advance_level	args( ( CHAR_DATA *ch ) );
 void	gain_exp	args( ( CHAR_DATA *ch, int gain ) );
 void	gain_condition	args( ( CHAR_DATA *ch, int iCond, int value ) );
 void    check_alignment args( ( CHAR_DATA *ch ) );
 void	update_handler	args( ( void ) );
+void	weather_update	args( ( void ) );
 void	reboot_check	args( ( time_t reset ) );
 #if 0
 void    reboot_check    args( ( char *arg ) );
@@ -5618,11 +5590,6 @@ void    casino_update args( (void) );
 #endif
 
 void	remove_portal	args( ( OBJ_DATA *portal ) );
-void	weather_update	args( ( void ) );
-
-/* variables.c */
-VD *	get_tag		args( ( CHAR_DATA *ch, char *tag, int vnum ) );
-
 
 /* hashstr.c */
 char *	str_alloc	args( ( char *str ) );
@@ -5833,11 +5800,8 @@ void            init_maps();
 extern	CHAR_DATA *supermob;
 
 bool oprog_command_trigger( CHAR_DATA *ch, char *argument );
-void oprog_speech_trigger( char *txt, CHAR_DATA *ch );
-void oprog_random_trigger( OBJ_DATA *obj );
 void oprog_wear_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
-// This void *vo isnt used either.. *boggle*
-// -- Alty
+
 bool oprog_use_trigger( CHAR_DATA *ch, OBJ_DATA *obj, 
                         CHAR_DATA *vict, OBJ_DATA *targ, void *vo );
 void oprog_remove_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
@@ -5848,22 +5812,11 @@ void oprog_drop_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
 void oprog_zap_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
 char *oprog_type_to_name( int type );
 
-/*
- * MUD_PROGS START HERE
- * (object stuff)
- */
 void oprog_greet_trigger( CHAR_DATA *ch );
 void oprog_speech_trigger( char *txt, CHAR_DATA *ch );
 void oprog_random_trigger( OBJ_DATA *obj );
-void oprog_random_trigger( OBJ_DATA *obj );
-void oprog_remove_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
-void oprog_sac_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
 void oprog_get_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
-void oprog_damage_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
-void oprog_repair_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
-void oprog_drop_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
 void oprog_examine_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
-void oprog_zap_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
 void oprog_pull_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
 void oprog_push_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
 

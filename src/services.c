@@ -55,7 +55,7 @@ void bailout(void);
 void Win32_Exit (int exit_code);
 void kill_timer (void);
 
-extern bool		    mud_down;
+// extern bool		    mud_down;
 extern bool         service_shut_down;
 
 SERVICE_STATUS          ssStatus;       // current status of the service

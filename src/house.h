@@ -153,5 +153,5 @@ CHAR_DATA *load_player( char *name );
 void logoff( CHAR_DATA *ch );
 
 /*Function declarations from reset.c used for house mobs resets and removal of resets in general.*/
-void delete_reset   ( AREA_DATA *pArea, RESET_DATA *pReset );   
-bool is_room_reset  ( RESET_DATA *pReset, ROOM_INDEX_DATA *aRoom, AREA_DATA *pArea );    
+// void delete_reset   ( AREA_DATA *pArea, RESET_DATA *pReset );   
+// bool is_room_reset  ( RESET_DATA *pReset, ROOM_INDEX_DATA *aRoom, AREA_DATA *pArea );    
