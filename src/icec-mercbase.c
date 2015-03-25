@@ -1,3 +1,34 @@
+/*#################################################################
+  #                                              |                #
+  #  ******* **    **  ******  **    **  ******  |                #
+  # ******** ***  *** ******** **    ** ******** |    \\._.//     #
+  # **       ******** **    ** **    ** **       |    (0...0)     #
+  # *******  ******** ******** **    ** **  **** |     ).:.(      #
+  #  ******* ** ** ** ******** **    ** **  **** |     {o o}      #
+  #       ** **    ** **    ** **    ** **    ** |    / ' ' \     #
+  # ******** **    ** **    ** ******** ******** | -^^.VxvxV.^^-  #
+  # *******  **    ** **    **  ******   ******  |                #
+  #                                              |                #
+  # ------------------------------------------------------------- #
+  # [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame         #
+  # ------------------------------------------------------------- #
+  # SMAUG 1.4 © 1994, 1995, 1996, 1998  by Derek Snider           #
+  # ------------------------------------------------------------- #
+  # SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,         #
+  # Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,         #
+  # Tricops, Fireblade, Edmond, Conran                            #
+  # ------------------------------------------------------------- #
+  # Merc 2.1 Diku Mud improvments copyright © 1992, 1993 by       #
+  # Michael Chastain, Michael Quan, and Mitchell Tse.             #
+  # Original Diku Mud copyright © 1990, 1991 by Sebastian Hammer, #
+  # Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja #
+  # Nyboe. Win32 port by Nick Gammon                              #
+  # ------------------------------------------------------------- #
+  # --{smaug}-- 1.8.x © 2014-2015 by Antonio Cao @(burzumishi)    #
+  # ------------------------------------------------------------- #
+  #    IMC-channel-extensions (ICE) Merc-specific client code     #
+  #################################################################*/
+
 /*
  * IMC2 - an inter-mud communications protocol
  *
@@ -36,20 +67,18 @@
 #include <string.h>
 #include <ctype.h>
 
-#define IN_IMC
-
 #include "imc.h"
 #include "imc-mercbase.h"
 #include "icec.h"
 #include "icec-mercbase.h"
 
 #ifdef SMAUG
-#ifdef SMAUG14
+#if defined(SMAUG18) || defined(SMAUG14)
 extern char *act_string(const char *format, CHAR_DATA *to, CHAR_DATA *ch,
 			const void *arg1, const void *arg2, int flags);
 #else
 extern char *act_string(const char *foramt, CHAR_DATA *to, CHAR_DATA *ch,
-			cosnt void *arg1, const void *arg2);
+			const void *arg1, const void *arg2);
 #endif
 #endif
 
@@ -648,7 +677,7 @@ bool icec_command_hook(CHAR_DATA *ch, const char *command, char *argument)
         victim->in_room=ch->in_room;
 	if ( arg[0] == '\0' && social->others_no_arg) 
 	{
-#ifdef SMAUG14
+#if defined(SMAUG18) || defined(SMAUG18)
 		strcpy(buf2,(char *) act_string(social->others_no_arg, NULL, ch, NULL, victim,0));
 #else
 		strcpy(buf2,(char *) act_string(social->others_no_arg, NULL, ch, NULL, victim));
@@ -668,7 +697,7 @@ bool icec_command_hook(CHAR_DATA *ch, const char *command, char *argument)
 */
 	else if(victim==ch && social->others_auto)
 	{
-#ifdef SMAUG14
+#if defined(SMAUG18) || defined(SMAUG18)
 		strcpy(buf2,(char *) act_string(social->others_no_arg, NULL, ch, NULL, victim,0));
 #else
 		strcpy(buf2,(char *) act_string(social->others_auto, victim, ch, NULL, victim));
@@ -678,7 +707,7 @@ bool icec_command_hook(CHAR_DATA *ch, const char *command, char *argument)
 	}
 	else if(social->others_found)
 	{
-#ifdef SMAUG14
+#if defined(SMAUG18) || defined(SMAUG18)
 		strcpy(buf2,(char *) act_string(social->others_no_arg, NULL, ch, NULL, victim,0));
 #else
 		strcpy(buf2,(char *) act_string(social->others_found, victim, ch, NULL, victim));

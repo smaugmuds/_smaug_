@@ -1,0 +1,263 @@
+#HELPS
+
+-1 ICE~
+ICE - the IMC Channel Extensions protocol
+
+ICE is a response to the cesspool-like attributes that rchat, rimm, and
+even rcode have acquired over the last few months. It is IRC-ish in some
+ways, but hopefully it will be used more constructively than IRC.
+
+For a quick introduction and setup guide for ICE, see ICE-INTRO
+
+The basic ICE structure is (greatly simplified):
+
+. Some nodes on IMC - normally hubs - run channel daemon code that
+  manages channels
+. Each of these nodes maintains a list of the channels they manage, and
+  the various attributes of them - who owns them, and so on
+. The daemons regularly tell all muds on IMC what channels they have, and
+  what their attributes are
+. Based on this information, the muds on IMC decide which of their local
+  users can use which ICE channels. If one mud is modified to ignore these
+  restrictions, then the other muds will recognize this (since they, too,
+  know the restrictions) and ignore messages from that mud.
+
+Every channel on ICE is of the form nodename:channelname, for example a
+channel called hub2:IAdmin is the channel IAdmin maintained by the node hub2.
+Each mud picks which channels it is interested in (see ILIST and
+ISETUP) and creates a local channel name which can be used to talk on
+that channel.
+
+Generally, any admin on a mud can create a channel on any node - although
+nodes can be configured to restrict who can create channels. Whoever
+creates a channel owns it, and can control who can use that channel (in
+whatever way they wish). The trick, of course, is to persuade the admins
+of other muds that your channel has value. Creating and modifying a
+channel is done via the ICOMMAND command.
+
+Channels can be tuned into and out of on a player-by-player basis by
+using the ICHAN command.
+
+There are a variety of ways of controlling who can hear and use a channel
+- see ICE-POLICY for more information.
+
+See also: IMC ILIST ISETUP ICOMMAND ICHAN ICE-POLICY ICE-INTRO
+~
+
+-1 ICE-INTRO~
+A Quick Introduction to ICE
+
+This assumes that the code for IMC and ICE is installed and running, and
+that you have an active connection to an IMC network.
+
+1. ILIST. This will give you a list of possible channels to choose from.
+   Pick one that you want to add, that has a policy of 'open'. Note its
+   name (of the form node:channel).
+
+2. Decide what command you want to use to speak on this channel on your
+   mud. This is the channel's localname.
+
+3. Type: ISETUP ADD <node:channel> <localname>
+
+4. You should now be able to use the channel. Others can listen to and
+   speak on the channel by using ICHAN <localname>.
+
+5. You may wish to reconfigure the default local channel settings.
+   ILIST <localname> will display them; ISETUP will change them.
+
+6. Repeat for whatever other channels you wish to have.
+
+See also: IMC ICE ISETUP ICOMMAND ICHAN ILIST
+~
+
+0 ICHAN~
+Syntax:  ichan               - display current ICE channel status
+         ichan <localname>   - toggle an ICE channel
+
+IChan lets you show and toggle which ICE channels you are listening
+to. Without arguments, it will show you the channels you belog to; with
+an argument, it will turn on or off that channel.
+
+Any channels you listen to must be locally configured first - see
+ISETUP. ILIST can be used to see available channels.
+
+See also: IMC ICE ILIST ISETUP
+~
+
+0 ICOMMAND~
+Syntax:          icommand <command> <channel> [<data..>]
+Common commands:  create <channel>           - create a channel
+                  refresh <channel>          - refresh channel data
+                  list [<channel>]           - list available commands
+                  destroy <channel>          - destroy a channel
+                  policy <channel> <policy>  - change channel policy
+                  addop <channel> <name>     - add a channel operator
+                  removeop <channel> <name>  - remove an operator
+                  invite <channel> <name>    - add an invited name
+                  uninvite <channel> <name>  - remove an invited name
+                  exclude <channel> <name>   - exclude a name
+                  unexclude <channel> <name> - remove an exclusion
+
+ICommand is used to send commands to a channel daemon elsewhere on IMC.
+It directly affects the channel itself - any changes made here will
+affect all muds using the channel.
+
+Since the actual commands are interpreted by the channel daemon, not your
+mud, what is available may vary. To get a list of available commands, use
+icommand list <nodename> for public commands, or icommand list
+<node:channel> to see what commands you have for that channel.
+
+icommand refresh asks the daemon to refresh your mud's information for a
+channel, if it ever gets out of synx. Asking for a refresh of nodename:*
+will refresh all channels on that daemon.
+
+icommand create creates a new channel, with you as the owner
+icommand destroy destroys a channel. You must own the channel.
+
+icommand policy changes the basic policy of the channel (see ICE-POLICY).
+You must be the owner.
+
+icommand addop/removeop add and remove operators from a channel. You must
+be the owner, and specify the operator's full user@mud name.
+
+icommand invite/uninvite/exclude/unexcluded modify the invite and exclude
+lists for a channel. You must be the owner or an operator on the channel.
+Either a full user@mud or a simple 'mud' name (no @) can be specified.
+See ICE-POLICY for more details.
+
+See also: IMC ICE ICE-POLICY
+~
+
+0 ISETUP~
+Syntax: isetup add <ice-channel> <localname>   - add a channel
+        isetup delete <localname>              - delete a channel
+        isetup rename <oldname> <newname>      - rename a channel
+        isetup format1 <localname> <format>    - change format1 on a channel
+        isetup format2 <localname> <format>    - change format2 on a channel
+        isetup level <localname> <level>       - set channel level
+
+ISetup allows you to change the local configuration of an ICE
+channel. None of these commands have a lasting effect on the channel's
+configuration on other muds.
+
+ISetup add begins the configuration of a channel. It connects the
+specified ice-channel (of the form nodename:channelname) to a local name.
+For example: isetup add hub2:IAdmin IAdmin. The local name is also the
+command used to speak on the channel.
+
+When the channel is added, various default values are filled in for
+format1, format2, and level.
+
+ISetup delete removes this link. It does not affect the channel itself;
+it just deletes the local configuration link for the channel.
+
+ISetup rename changes the local name of a channel. It does not affect the
+channel name itself for other muds - just the command used locally to
+access it.
+
+ISetup format1 and format2 change how a channel is displayed locally.
+Each format string must have exactly two %s's within it (this is checked
+for) - the first will be replaced by the speaker's name, the second by
+whatever they say. Format1 is used for normal speech, format2 for emotes.
+See ILIST for more information.
+
+ISetup level sets the minimum level necessary on your mud to hear or use
+the channel.
+
+See also: IMC ICE ILIST
+~
+
+0 ILIST~
+Syntax:  ilist               - list all known ICE channels
+         ilist <channel>     - list details on one ICE channel
+
+IList displays information on channels active on ICE.
+Without arguments, it will produce a display similar to:
+
+Name            Local name      Owner           Policy
+hub2:IAdmin     IAdmin          Nemon@AR        open
+hub2:ICode      ICode                                    (inactive)
+hub2:test       (not local)     Nemon@ARtest    private
+
+This shows the canonical name (eg. hub2:IAdmin), the local name (eg IAdmin
+- which can be used as an abbreviation in ISETUP, and which is also
+the command to speak on that channel), the owner of the channel (eg.
+Nemon@AR), and the channel's policy (see ICE-POLICY).
+
+If a channel is not configured locally, it will have (not local) for its
+local name.
+
+If a channel is configured locally, but is not actually active on IMC, it
+will have an (inactive) flag on it.
+
+IList with a channel name will provide detailed information on that
+channel. For example:
+
+Channel hub2:IAdmin:
+  Local name: IAdmin
+  Format 1:   (IAdmin) %s: %s
+  Format 2:   (IAdmin) %s %s
+  Level:      102
+
+  Policy:     open
+  Owner:      Nemon@AR
+  Operators:  Drylock@AR
+  Invited:    NiceGuy@SomeMud
+  Excluded:   SomeMud
+
+This displays the channel name, local name, policy, and owner, as above. It
+also displays:
+
+- the minimum level needed on your mud to see the channel
+
+- the format for displaying messages from the channel. These can contain
+  any color codes etc. that your mud uses.
+
+  Format1 is the string displayed when someone speaks normally on the
+  channel - the first %s is replaced by their name, the second %s by what
+  they say.
+
+  Format2 is a similar string for emotes. Again the first %s is their name,
+  the second %s the text of their emote.
+
+- any operators for the channel. This can only be changed by the owner of
+  the channel. Operators can modify the 'invited' and 'excluded' fields
+  via the ISETUP command.
+
+- the invited and excluded people on the channel. See ICE-POLICY for
+  more details.
+
+See also: IMC ICE ISETUP ICOMMAND ICE-POLICY
+~
+
+-1 ICE-POLICY~
+ICE Channel Policies
+
+Channels can have one of three policies - open, closed, and private. They
+also have one owner, and zero or more operators (assigned by the owner).
+They also have an include and exclude list (which can specify both
+individual players ['user@mud'] and entire muds ['mud']), which can be
+modified by the owner and the operators.
+
+- Open. The channel can be accessed by all muds on the network (it is a
+  broadcast channel). People on the exclude list cannot use the channel,
+  with the exception of people also on the invite list. This means, for
+  example, if an entire mud is excluded and one player is invited, that
+  player can use the channel, but the rest of the mud can't.
+
+- Closed. The channel can be accessed by all muds on the network (it is a
+  broadcast channel), but by default they will not hear or be able to use
+  it. People on the invite list can use the channel, with the exception of
+  people also on the exclude list.
+
+- Private. Identical to closed, except that the channel is actually only
+  physically sent to those muds that are on the invite list. This is good
+  for channels specific to a small group of muds, and not of interest to
+  the majority of the network.
+
+See also: IMC ICE ICOMMAND
+~
+
+0 $~
+
+#$

@@ -1,27 +1,36 @@
- ############################################################################
- #                                                                          #
- #   X      X  ******* **    **  ******  **    **  ******                   #
- #    X    X  ******** ***  *** ******** **    ** ********       \\._.//    #
- #     X  X   **       ******** **    ** **    ** **             (0...0)    #
- #      XX    *******  ******** ******** **    ** **  ****        ).:.(     #
- #      XX     ******* ** ** ** ******** **    ** **  ****        {o o}     #
- #     X  X         ** **    ** **    ** **    ** **    **       / ' ' \    #
- #    X    X  ******** **    ** **    ** ******** ********    -^^.VxvxV.^^- #
- #   X      X *******  **    ** **    **  ******   ******                   #
- #                                                                          #
- # ------------------------------------------------------------------------ #
- # Ne[X]t Generation [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame  #
- # ------------------------------------------------------------------------ #
- # SMAUG © 2014-2015 Antonio Cao (@burzumishi)                             #
- # ------------------------------------------------------------------------ #
- #                                  SMAUG                                  #
- #                               configure.ac                               #
- ############################################################################
- #                                                                          #
- #                             -*- Autoconf -*-                             #
- #      Process this file with autoconf to produce a configure script.      #
- #                                                                          #
- ############################################################################
+  #################################################################
+  #                                              |                #
+  #  ******* **    **  ******  **    **  ******  |                #
+  # ******** ***  *** ******** **    ** ******** |    \\._.//     #
+  # **       ******** **    ** **    ** **       |    (0...0)     #
+  # *******  ******** ******** **    ** **  **** |     ).:.(      #
+  #  ******* ** ** ** ******** **    ** **  **** |     {o o}      #
+  #       ** **    ** **    ** **    ** **    ** |    / ' ' \     #
+  # ******** **    ** **    ** ******** ******** | -^^.VxvxV.^^-  #
+  # *******  **    ** **    **  ******   ******  |                #
+  #                                              |                #
+  # ------------------------------------------------------------- #
+  # [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame         #
+  # ------------------------------------------------------------- #
+  # SMAUG 1.4 © 1994, 1995, 1996, 1998  by Derek Snider           #
+  # ------------------------------------------------------------- #
+  # SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,         #
+  # Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,         #
+  # Tricops, Fireblade, Edmond, Conran                            #
+  # ------------------------------------------------------------- #
+  # Merc 2.1 Diku Mud improvments copyright © 1992, 1993 by       #
+  # Michael Chastain, Michael Quan, and Mitchell Tse.             #
+  # Original Diku Mud copyright © 1990, 1991 by Sebastian Hammer, #
+  # Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja #
+  # Nyboe. Win32 port by Nick Gammon                              #
+  # ------------------------------------------------------------- #
+  # --{smaug}-- 1.8.x © 2014-2015 by Antonio Cao @(burzumishi)    #
+  # ------------------------------------------------------------- #
+  #                           configure.ac                        #
+  # ------------------------------------------------------------- #
+  #                         -*- Autoconf -*-                      #
+  # Process this file with autoconf to produce a configure script #
+  #################################################################
 
 AC_PREREQ([2.69])
 LT_PREREQ([2.4])  # require libtool
@@ -60,7 +69,7 @@ AC_DEFINE_UNQUOTED([LOGDIR], ["${prefix}/var/log/smaug/"], [Define to log direct
 AC_DEFINE_UNQUOTED([BINDIR], ["${prefix}/bin/"], [Define HotBoot Executable Directory.])
 AC_DEFINE_UNQUOTED([LOCKDIR], ["${prefix}/var/lock/smaug/"], [Define lock file directory.])
 
-AC_SUBST([DESCRIPTION], ["SMAUG MUD Server"])
+AC_SUBST([DESCRIPTION], ["--{smaug}-- MUD Server"])
 
 AC_LANG([C])
 AC_LANG_PUSH([C])
@@ -68,7 +77,6 @@ AC_LANG_PUSH([C])
 AC_PROG_CC([cc])
 AC_PROG_CXX([g++])
 AC_PROG_LIBTOOL
-# AC_PROG_RANLIB
 AC_PROG_LEX
 AC_PROG_AWK
 AC_PROG_GREP
@@ -142,9 +150,9 @@ AC_ARG_ENABLE(profiling,
                              [enable profiling support @<:@default=no@:>@]),
               [], [enable_profiling=no])
 if test "$enable_profiling" = "yes"; then
-    CFLAGS="$CFLAGS -pg -g3"
+    PROFILING_CFLAGS="$CFLAGS -pg -g3"
 else
-    DFB_CFLAGS_OMIT_FRAME_POINTER="-fomit-frame-pointer"
+    PROFILING_CFLAGS="-fomit-frame-pointer"
 fi
 
 AC_CONFIG_FILES([Makefile

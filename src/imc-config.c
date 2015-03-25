@@ -1,3 +1,34 @@
+/*#################################################################
+  #                                              |                #
+  #  ******* **    **  ******  **    **  ******  |                #
+  # ******** ***  *** ******** **    ** ******** |    \\._.//     #
+  # **       ******** **    ** **    ** **       |    (0...0)     #
+  # *******  ******** ******** **    ** **  **** |     ).:.(      #
+  #  ******* ** ** ** ******** **    ** **  **** |     {o o}      #
+  #       ** **    ** **    ** **    ** **    ** |    / ' ' \     #
+  # ******** **    ** **    ** ******** ******** | -^^.VxvxV.^^-  #
+  # *******  **    ** **    **  ******   ******  |                #
+  #                                              |                #
+  # ------------------------------------------------------------- #
+  # [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame         #
+  # ------------------------------------------------------------- #
+  # SMAUG 1.4 © 1994, 1995, 1996, 1998  by Derek Snider           #
+  # ------------------------------------------------------------- #
+  # SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,         #
+  # Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,         #
+  # Tricops, Fireblade, Edmond, Conran                            #
+  # ------------------------------------------------------------- #
+  # Merc 2.1 Diku Mud improvments copyright © 1992, 1993 by       #
+  # Michael Chastain, Michael Quan, and Mitchell Tse.             #
+  # Original Diku Mud copyright © 1990, 1991 by Sebastian Hammer, #
+  # Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja #
+  # Nyboe. Win32 port by Nick Gammon                              #
+  # ------------------------------------------------------------- #
+  # --{smaug}-- 1.8.x © 2014-2015 by Antonio Cao @(burzumishi)    #
+  # ------------------------------------------------------------- #
+  #                IMC configuration manipulation                 #
+  #################################################################*/
+
 /*
  * IMC2 - an inter-mud communications protocol
  *
@@ -101,8 +132,8 @@ char iname[200], ihost[200], iemail[200], iimail[200], iwww[200],
   localport= -1;
   localname[0]=iname[0]=ihost[0]=iemail[0]=iimail[0]=iwww[0]=idetails[0]=
     iflags[0]=mguest[0]=logon[0]=hubswitch[0]=word[0]=0;
-  localip=INADDR_ANY;
-  
+  localip=INADDR_ANY;  
+
   imc_sncpy(configfile, imc_prefix, 193);
   strcat(configfile, "config");
 

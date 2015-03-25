@@ -1,19 +1,45 @@
-/****************************************************************************
- * [S]imulated [M]edieval [A]dventure multi[U]ser [G]ame      |   \\._.//   *
- * -----------------------------------------------------------|   (0...0)   *
- * SMAUG 1.4 (C) 1994, 1995, 1996, 1998  by Derek Snider      |    ).:.(    *
- * -----------------------------------------------------------|    {o o}    *
- * SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,      |   / ' ' \   *
- * Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,      |~'~.VxvxV.~'~*
- * Tricops, Fireblade, Edmond, Conran                         |             *
- * ------------------------------------------------------------------------ *
- * v. 0.9: 6/19/95:  Converts an ascii map to rooms.                        *
- * v. 1.0: 7/05/95:  Read/write maps to .are files.  Efficient storage.     *
- *	             Room qualities based on map code. Can add & remove rms *
- *	                from a map. (Somewhat) intelligent exit decisions.  *
- * v. 1.1: 7/11/95:  Various display options.  See comments over draw_map   *
- *	                                                                    *
- ****************************************************************************/
+/*#################################################################
+  #                                              |                #
+  #  ******* **    **  ******  **    **  ******  |                #
+  # ******** ***  *** ******** **    ** ******** |    \\._.//     #
+  # **       ******** **    ** **    ** **       |    (0...0)     #
+  # *******  ******** ******** **    ** **  **** |     ).:.(      #
+  #  ******* ** ** ** ******** **    ** **  **** |     {o o}      #
+  #       ** **    ** **    ** **    ** **    ** |    / ' ' \     #
+  # ******** **    ** **    ** ******** ******** | -^^.VxvxV.^^-  #
+  # *******  **    ** **    **  ******   ******  |                #
+  #                                              |                #
+  # ------------------------------------------------------------- #
+  # [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame         #
+  # ------------------------------------------------------------- #
+  # SMAUG 1.4 © 1994, 1995, 1996, 1998  by Derek Snider           #
+  # ------------------------------------------------------------- #
+  # SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,         #
+  # Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,         #
+  # Tricops, Fireblade, Edmond, Conran                            #
+  # ------------------------------------------------------------- #
+  # Merc 2.1 Diku Mud improvments copyright © 1992, 1993 by       #
+  # Michael Chastain, Michael Quan, and Mitchell Tse.             #
+  # Original Diku Mud copyright © 1990, 1991 by Sebastian Hammer, #
+  # Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja #
+  # Nyboe. Win32 port by Nick Gammon                              #
+  # ------------------------------------------------------------- #
+  # --{smaug}-- 1.8.x © 2014-2015 by Antonio Cao @(burzumishi)    #
+  # ------------------------------------------------------------- #
+  #                        Export MAP module                      #
+  #################################################################*/
+
+/******************************************************************
+ * v.0.9: 6/19/95:  Converts an ascii map to rooms.               *
+ * v.1.0: 7/05/95:  Read/write maps to .are files.                *
+ *                  Efficient storage.                            *
+ *	                Room qualities based on map code.             *
+ *                  Can add & remove rms from a map.              *
+ *                  (Somewhat) intelligent exit decisions.        *
+ * v.1.1: 7/11/95:  Various display options.                      *
+ *                  See comments over draw_map                    *
+ *	                                                              *
+ ******************************************************************/
 
 #include <sys/types.h>
 #include <stdio.h>

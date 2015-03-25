@@ -1,22 +1,38 @@
-/****************************************************************************
- * [S]imulated [M]edieval [A]dventure multi[U]ser [G]ame      |   \\._.//   *
- * -----------------------------------------------------------|   (0...0)   *
- * SMAUG 1.4 (C) 1994, 1995, 1996, 1998  by Derek Snider      |    ).:.(    *
- * -----------------------------------------------------------|    {o o}    *
- * SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,      |   / ' ' \   *
- * Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,      |~'~.VxvxV.~'~*
- * Tricops, Fireblade, Edmond, Conran                         |             *
- * ------------------------------------------------------------------------ *
- * Merc 2.1 Diku Mud improvments copyright (C) 1992, 1993 by Michael        *
- * Chastain, Michael Quan, and Mitchell Tse.                                *
- * Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,          *
- * Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.     *
- * ------------------------------------------------------------------------ *
- *                     Housing Module Header File                           *
- ****************************************************************************
- * Author : Senir                                                           *
- * E-Mail : oldgaijin@yahoo.com                                             *
- ****************************************************************************/
+/*#################################################################
+  #                                              |                #
+  #  ******* **    **  ******  **    **  ******  |                #
+  # ******** ***  *** ******** **    ** ******** |    \\._.//     #
+  # **       ******** **    ** **    ** **       |    (0...0)     #
+  # *******  ******** ******** **    ** **  **** |     ).:.(      #
+  #  ******* ** ** ** ******** **    ** **  **** |     {o o}      #
+  #       ** **    ** **    ** **    ** **    ** |    / ' ' \     #
+  # ******** **    ** **    ** ******** ******** | -^^.VxvxV.^^-  #
+  # *******  **    ** **    **  ******   ******  |                #
+  #                                              |                #
+  # ------------------------------------------------------------- #
+  # [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame         #
+  # ------------------------------------------------------------- #
+  # SMAUG 1.4 © 1994, 1995, 1996, 1998  by Derek Snider           #
+  # ------------------------------------------------------------- #
+  # SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,         #
+  # Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,         #
+  # Tricops, Fireblade, Edmond, Conran                            #
+  # ------------------------------------------------------------- #
+  # Merc 2.1 Diku Mud improvments copyright © 1992, 1993 by       #
+  # Michael Chastain, Michael Quan, and Mitchell Tse.             #
+  # Original Diku Mud copyright © 1990, 1991 by Sebastian Hammer, #
+  # Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja #
+  # Nyboe. Win32 port by Nick Gammon                              #
+  # ------------------------------------------------------------- #
+  # --{smaug}-- 1.8.x © 2014-2015 by Antonio Cao @(burzumishi)    #
+  # ------------------------------------------------------------- #
+  #                Housing Module Header File                     #
+  #################################################################*/
+
+/*
+ * Author : Senir
+ * E-Mail : oldgaijin@yahoo.com
+ */
 
 /* So other snippets know this is installed */
 #define HOUSING_CODE
@@ -29,21 +45,6 @@
 
 /* Uncomment the line below if you've changed your room flags into extended bitvectors*/
 //#define EXTENDED_ROOMS
-
-/* Uncomment the line below and change the area if you want to search another area for free
- * rooms to turn into additional housing rooms, instead of having it search the area where
- * the original house room is.
- */
-#define ADDED_ROOM_HOUSING_AREA "houses.are"
-
-/* Location of housing directory */
-#define HOUSE_DIR             RUNDIR "houses/"
-/* Location of housing list for loadup of houses */
-#define HOUSE_LIST            "house.lst" 
-/* Location of automated housing auction file */
-#define HOMEBUY_FILE          HOUSE_DIR "homebuy.dat"
-/* Location of house accessories file */
-#define ACCESSORIES_FILE      HOUSE_DIR "homeaccessories.dat"
 
 /* Minimum amount a house may go up on auction for */
 #define MIN_HOUSE_BID 5000000

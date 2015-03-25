@@ -1,3 +1,34 @@
+/*#################################################################
+  #                                              |                #
+  #  ******* **    **  ******  **    **  ******  |                #
+  # ******** ***  *** ******** **    ** ******** |    \\._.//     #
+  # **       ******** **    ** **    ** **       |    (0...0)     #
+  # *******  ******** ******** **    ** **  **** |     ).:.(      #
+  #  ******* ** ** ** ******** **    ** **  **** |     {o o}      #
+  #       ** **    ** **    ** **    ** **    ** |    / ' ' \     #
+  # ******** **    ** **    ** ******** ******** | -^^.VxvxV.^^-  #
+  # *******  **    ** **    **  ******   ******  |                #
+  #                                              |                #
+  # ------------------------------------------------------------- #
+  # [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame         #
+  # ------------------------------------------------------------- #
+  # SMAUG 1.4 © 1994, 1995, 1996, 1998  by Derek Snider           #
+  # ------------------------------------------------------------- #
+  # SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,         #
+  # Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,         #
+  # Tricops, Fireblade, Edmond, Conran                            #
+  # ------------------------------------------------------------- #
+  # Merc 2.1 Diku Mud improvments copyright © 1992, 1993 by       #
+  # Michael Chastain, Michael Quan, and Mitchell Tse.             #
+  # Original Diku Mud copyright © 1990, 1991 by Sebastian Hammer, #
+  # Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja #
+  # Nyboe. Win32 port by Nick Gammon                              #
+  # ------------------------------------------------------------- #
+  # --{smaug}-- 1.8.x © 2014-2015 by Antonio Cao @(burzumishi)    #
+  # ------------------------------------------------------------- #
+  #                    IMC Core protocol code                     #
+  #################################################################*/
+
 /*
  * IMC2 - an inter-mud communications protocol
  *
@@ -43,6 +74,8 @@
 #define F_ULOCK LOCK_UN
 #define lockf(a,b,c) flock(a,b)
 #endif
+
+#include "mud.h"
 
 #include "imc.h"
 #include "icec.h"
@@ -352,7 +385,7 @@ void imc_close_notify(const char *host)
 }
 
 /* close given connection */
-static void do_close(imc_connect *c)
+static void imc_close(imc_connect *c)
 {
   const char *name;
   imc_reminfo *r;
@@ -421,7 +454,7 @@ void ev_login_timeout(void *data)
 
   if (!c->info || !(c->info->flags & IMC_QUIET))
     imc_logstring("%s: login timeout", imc_getconnectname(c));
-  do_close(c);
+  imc_close(c);
 }
 
 /* read waiting data from descriptor.
@@ -449,7 +482,7 @@ static void do_read(imc_connect *c)
         imc_logerror("%s: read: EOF", imc_getconnectname(c));
       }
     }
-    do_close(c);
+    imc_close(c);
     return;
   }
   
@@ -469,7 +502,7 @@ static void do_read(imc_connect *c)
     {
         imc_logerror("%s: input buffer overflow", imc_getconnectname(c));
         imc_logerror("%d: was allocated", c->insize);
-//      do_close(c);
+//      imc_close(c);
 //      imc_free(c->inbuf,c->insize);
 //      c->insize=IMC_MINBUF;
 //      c->inbuf= imc_malloc(c->insize);
@@ -541,7 +574,7 @@ static void do_write(imc_connect *c)
         imc_logerror("%s: write: EOF", imc_getconnectname(c));
       }
     }
-    do_close(c);
+    imc_close(c);
     return;
   }
 
@@ -583,7 +616,7 @@ static void do_send(imc_connect *c, const char *line)
       imc_logerror("%s: output buffer overflow", imc_getconnectname(c));
       imc_logerror("%d: was allocated", c->outsize);
 //      imc_logerror("current buf: %s", c->outbuf);
-//    do_close(c);
+//    imc_close(c);
 //      imc_free(c->outbuf,c->outsize);
 //      c->outsize=IMC_MINBUF;
 //      c->outbuf= imc_malloc(c->outsize);
@@ -954,7 +987,7 @@ static void clientpassword(imc_connect *c, const char *argument)
   if (strcasecmp(arg1, "PW"))
   {
     imc_logstring("%s: non-PW password packet", imc_getconnectname(c));
-    do_close(c);
+    imc_close(c);
     return;
   }
 
@@ -964,7 +997,7 @@ static void clientpassword(imc_connect *c, const char *argument)
   {
     if (!i || !(i->flags & IMC_QUIET))
     imc_logstring("%s: password failure for %s", imc_getconnectname(c), name);
-    do_close(c);
+    imc_close(c);
     return;
   }
 
@@ -975,12 +1008,12 @@ static void clientpassword(imc_connect *c, const char *argument)
   {
     if (!(i->flags & IMC_QUIET))
       imc_logstring("%s: denying connection", name);
-    do_close(c);
+    imc_close(c);
     return;
   }
 
   if (i->connection)	                      /* kill old connections */
-    do_close(i->connection);
+    imc_close(i->connection);
 
   /* register them */
   i->connection     = c;
@@ -1001,7 +1034,7 @@ static void clientpassword(imc_connect *c, const char *argument)
     if (!(i->flags & IMC_QUIET))
     imc_logstring("%s: unsupported version %d",
 		  imc_getconnectname(c), c->version);
-    do_close(c);
+    imc_close(c);
     return;
   }
 
@@ -1035,7 +1068,7 @@ static void serverpassword(imc_connect *c, const char *argument)
   if (strcasecmp(arg1, "PW"))
   {
     imc_logstring("%s: non-PW password packet", imc_getconnectname(c));
-    do_close(c);
+    imc_close(c);
     return;
   }
 
@@ -1045,12 +1078,12 @@ static void serverpassword(imc_connect *c, const char *argument)
   {
     if ((!i || !(i->flags & IMC_QUIET)) && !(c->info->flags & IMC_QUIET))
     imc_logstring("%s: password failure for %s", imc_getconnectname(c), name);
-    do_close(c);
+    imc_close(c);
     return;
   }
 
   if (i->connection)	/* kill old connections */
-    do_close(i->connection);
+    imc_close(i->connection);
 
   i->connection         = c;
 
@@ -1069,7 +1102,7 @@ static void serverpassword(imc_connect *c, const char *argument)
     if (!(i->flags & IMC_QUIET))
       imc_logstring("%s: unsupported version %d",
 		    imc_getconnectname(c), c->version);
-    do_close(c);
+    imc_close(c);
     return;
   }
 
@@ -1346,7 +1379,9 @@ void imc_startup(const char *prefix)
   imc_logstring("found TIOCOUTQ=%d", outqsize);
 #endif
 
-  imc_prefix=imc_strdup(prefix);
+  // imc_prefix=imc_strdup(IMC_DIR);
+
+	sprintf(imc_prefix, "%s", IMC_DIR);
 
   imc_sequencenumber=imc_now;
   strcpy(imc_lasterror, "no error");
@@ -1403,7 +1438,7 @@ void imc_shutdown_network(void)
   for (c=imc_connect_list; c; c=c_next)
   {
     c_next=c->next;
-    do_close(c);
+    imc_close(c);
     imc_extract_connect(c);
   }
   imc_connect_list=NULL; 
@@ -1633,7 +1668,7 @@ void imc_idle_select(fd_set *read, fd_set *write, fd_set *exc, time_t now)
     c_next=c->next;
 
     if (c->state!=IMC_CLOSED && FD_ISSET(c->desc, exc))
-      do_close(c);
+      imc_close(c);
 
     if (c->state!=IMC_CLOSED && FD_ISSET(c->desc, read))
       do_read(c);
@@ -1856,7 +1891,7 @@ int imc_disconnect(const char *mud)
       if (c->desc==d)
       {
         imc_logstring("disconnect descriptor %s", imc_getconnectname(c));
-	do_close(c);
+	imc_close(c);
 	return 1;
       }
 
@@ -1878,7 +1913,7 @@ int imc_disconnect(const char *mud)
 
   for (c=imc_connect_list; c; c=c->next)
     if (c->info==i)
-      do_close(c);
+      imc_close(c);
 
   return 1;
 }
@@ -1972,7 +2007,7 @@ void imc_delete_info(imc_info *i)
 
   for (c=imc_connect_list; c; c=c->next)
     if (c->info==i)
-      do_close(c);
+      imc_close(c);
 
   if (i==imc_info_list)
     imc_info_list=i->next;

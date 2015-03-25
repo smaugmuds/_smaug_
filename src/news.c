@@ -1,16 +1,35 @@
+/*#################################################################
+  #                                              |                #
+  #  ******* **    **  ******  **    **  ******  |                #
+  # ******** ***  *** ******** **    ** ******** |    \\._.//     #
+  # **       ******** **    ** **    ** **       |    (0...0)     #
+  # *******  ******** ******** **    ** **  **** |     ).:.(      #
+  #  ******* ** ** ** ******** **    ** **  **** |     {o o}      #
+  #       ** **    ** **    ** **    ** **    ** |    / ' ' \     #
+  # ******** **    ** **    ** ******** ******** | -^^.VxvxV.^^-  #
+  # *******  **    ** **    **  ******   ******  |                #
+  #                                              |                #
+  # ------------------------------------------------------------- #
+  # [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame         #
+  # ------------------------------------------------------------- #
+  # SMAUG 1.4 © 1994, 1995, 1996, 1998  by Derek Snider           #
+  # ------------------------------------------------------------- #
+  # SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,         #
+  # Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,         #
+  # Tricops, Fireblade, Edmond, Conran                            #
+  # ------------------------------------------------------------- #
+  # Merc 2.1 Diku Mud improvments copyright © 1992, 1993 by       #
+  # Michael Chastain, Michael Quan, and Mitchell Tse.             #
+  # Original Diku Mud copyright © 1990, 1991 by Sebastian Hammer, #
+  # Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja #
+  # Nyboe. Win32 port by Nick Gammon                              #
+  # ------------------------------------------------------------- #
+  # --{smaug}-- 1.8.x © 2014-2015 by Antonio Cao @(burzumishi)    #
+  # ------------------------------------------------------------- #
+  #                     Extended News module                      #
+  #################################################################*/
+
 /*****************************************************
-**     _________       __                           **
-**     \_   ___ \_____|__| _____  ________  ___     **
-**      /    \  \/_  __ \ |/     \/  ___/_ \/   \   **
-**      \     \___|  | \/ |  | |  \___ \  / ) |  \  **
-**       \______  /__| |__|__|_|  /____ \__/__|  /  **
-**         ____\/____ _        \/ ___ \/      \/    **
-**         \______   \ |_____  __| _/___            **
-**          |    |  _/ |\__  \/ __ | __ \           **
-**          |    |   \ |_/ __ \  / | ___/_          **
-**          |_____  /__/____  /_  /___  /           **
-**               \/Antipode\/  \/    \/             **
-******************************************************
 **         Crimson Blade Codebase (CbC)             **
 **     (c) 2000-2002 John Bellone (Noplex)          **
 **           Coders: Noplex, Krowe                  **
@@ -32,11 +51,13 @@
  * HTML output for news to be automatically generated and included
  * via a PHP; SSL; or a TXT include.
  */
+
 #include <string.h>
 #include <ctype.h>
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "mud.h"
 
 #ifdef KEY

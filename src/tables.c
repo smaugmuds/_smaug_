@@ -1,29 +1,51 @@
-/****************************************************************************
- * [S]imulated [M]edieval [A]dventure multi[U]ser [G]ame      |   \\._.//   *
- * -----------------------------------------------------------|   (0...0)   *
- * SMAUG 1.4 (C) 1994, 1995, 1996, 1998  by Derek Snider      |    ).:.(    *
- * -----------------------------------------------------------|    {o o}    *
- * SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,      |   / ' ' \   *
- * Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,      |~'~.VxvxV.~'~*
- * Tricops, Fireblade, Edmond, Conran                         |             *
- * ------------------------------------------------------------------------ *
- * Merc 2.1 Diku Mud improvments copyright (C) 1992, 1993 by Michael        *
- * Chastain, Michael Quan, and Mitchell Tse.                                *
- * Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,          *
- * Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.     *
- * ------------------------------------------------------------------------ *
- * 			Table load/save Module				    *
- ****************************************************************************/
+/*#################################################################
+  #                                              |                #
+  #  ******* **    **  ******  **    **  ******  |                #
+  # ******** ***  *** ******** **    ** ******** |    \\._.//     #
+  # **       ******** **    ** **    ** **       |    (0...0)     #
+  # *******  ******** ******** **    ** **  **** |     ).:.(      #
+  #  ******* ** ** ** ******** **    ** **  **** |     {o o}      #
+  #       ** **    ** **    ** **    ** **    ** |    / ' ' \     #
+  # ******** **    ** **    ** ******** ******** | -^^.VxvxV.^^-  #
+  # *******  **    ** **    **  ******   ******  |                #
+  #                                              |                #
+  # ------------------------------------------------------------- #
+  # [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame         #
+  # ------------------------------------------------------------- #
+  # SMAUG 1.4 © 1994, 1995, 1996, 1998  by Derek Snider           #
+  # ------------------------------------------------------------- #
+  # SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,         #
+  # Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,         #
+  # Tricops, Fireblade, Edmond, Conran                            #
+  # ------------------------------------------------------------- #
+  # Merc 2.1 Diku Mud improvments copyright © 1992, 1993 by       #
+  # Michael Chastain, Michael Quan, and Mitchell Tse.             #
+  # Original Diku Mud copyright © 1990, 1991 by Sebastian Hammer, #
+  # Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja #
+  # Nyboe. Win32 port by Nick Gammon                              #
+  # ------------------------------------------------------------- #
+  # --{smaug}-- 1.8.x © 2014-2015 by Antonio Cao @(burzumishi)    #
+  # ------------------------------------------------------------- #
+  #                    Table load/save Module                     #
+  #################################################################*/
 
 #include <time.h>
 #include <stdio.h>
 #include <string.h>
+
 #include "mud.h"
+
+#ifdef USE_IMC
+#include "imc.h"
+#include "icec.h"
+#endif
+
+/*
 #ifdef USE_IMC
 #include "imc-mercbase.h"
 #include "icec-mercbase.h"
 #endif
-
+*/
 
 #if defined(KEY)
 #undef KEY
@@ -218,8 +240,8 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_bestow" ))		return do_bestow;
 	if ( !str_cmp( name, "do_bestowarea" ))		return do_bestowarea;
 	if ( !str_cmp( name, "do_bio" ))		return do_bio;
-        if ( !str_cmp( name, "do_bite" ))               return do_bite;
-        if ( !str_cmp( name, "do_bloodlet" ))           return do_bloodlet;
+  if ( !str_cmp( name, "do_bite" ))               return do_bite;
+  if ( !str_cmp( name, "do_bloodlet" ))           return do_bloodlet;
 	if ( !str_cmp( name, "do_boards" ))		return do_boards;
 	if ( !str_cmp( name, "do_bodybag" ))		return do_bodybag;
 	if ( !str_cmp( name, "do_bolt" ))		return do_bolt;
@@ -967,11 +989,11 @@ char *skill_name( DO_FUN *skill )
     if ( skill == do_add_news )		return "do_add_news";
     if ( skill == do_adminlist )	return "do_adminlist";
     if ( skill == do_advance )		return "do_advance";
-	if ( skill == do_aecho )		return "do_aecho";
+		if ( skill == do_aecho )		return "do_aecho";
     if ( skill == do_affected )		return "do_affected";
     if ( skill == do_afk )		return "do_afk";
     if ( skill == do_aid )		return "do_aid";
-	if ( skill == do_alinks )	return "do_alinks";
+		if ( skill == do_alinks )	return "do_alinks";
     if ( skill == do_allow )		return "do_allow";
     if ( skill == do_ansi )		return "do_ansi";
     if ( skill == do_answer )		return "do_answer";
@@ -1095,7 +1117,7 @@ char *skill_name( DO_FUN *skill )
     if ( skill == do_favor )         	return "do_favor";
     if ( skill == do_feed )		return "do_feed";
     if ( skill == do_fill )		return "do_fill";
-	if ( skill == do_findexit )		return "do_findexit";
+		if ( skill == do_findexit )		return "do_findexit";
     if ( skill == do_findnote )		return "do_findnote";
     if ( skill == do_fire )		return "do_fire";
     if ( skill == do_fixchar )		return "do_fixchar";
@@ -1208,10 +1230,10 @@ char *skill_name( DO_FUN *skill )
     if ( skill == do_massign )		return "do_massign";
     if ( skill == do_mcreate )		return "do_mcreate";
     if ( skill == do_mdelete )		return "do_mdelete";
-  if ( skill == do_meditate )		return "do_meditate";
+  	if ( skill == do_meditate )		return "do_meditate";
     if ( skill == do_memberlist )	return "do_memberlist";
     if ( skill == do_memory )		return "do_memory";
-	if ( skill == do_message )		return "do_message";
+		if ( skill == do_message )		return "do_message";
     if ( skill == do_mfind )		return "do_mfind";
     if ( skill == do_minvoke )		return "do_minvoke";
     if ( skill == do_mistwalk )		return "do_mistwalk";
@@ -1251,10 +1273,10 @@ char *skill_name( DO_FUN *skill )
     if ( skill == do_mpechozone )	return "do_mpechozone";
     if ( skill == do_mpedit )		return "do_mpedit";
     if ( skill == do_mpfavor )		return "do_mpfavor";
-	if ( skill == do_mpflag )		return "do_mpflag";
-	if ( skill == do_mptag )		return "do_mptag";
-	if ( skill == do_mprmflag )		return "do_mprmflag";
-	if ( skill == do_mprmtag )		return "do_mprmtag";
+		if ( skill == do_mpflag )		return "do_mpflag";
+		if ( skill == do_mptag )		return "do_mptag";
+		if ( skill == do_mprmflag )		return "do_mprmflag";
+		if ( skill == do_mprmtag )		return "do_mprmtag";
     if ( skill == do_mpforce )		return "do_mpforce";
     if ( skill == do_mpgoto )		return "do_mpgoto";
     if ( skill == do_mpinvis )		return "do_mpinvis";
@@ -1411,13 +1433,13 @@ char *skill_name( DO_FUN *skill )
     if ( skill == do_reply )		return "do_reply";
     if ( skill == do_report )		return "do_report";
     if ( skill == do_rescue )		return "do_rescue";
-    if ( skill == do_reserve )		return "do_reserve";
+    if ( skill == do_reserve )	return "do_reserve";
     if ( skill == do_reset )		return "do_reset";
     if ( skill == do_residence )	return "do_residence";
-    if ( skill == do_rest )		return "do_rest";
-    if ( skill == do_restore )		return "do_restore";
+    if ( skill == do_rest )			return "do_rest";
+    if ( skill == do_restore )	return "do_restore";
     if ( skill == do_restoretime )	return "do_restoretime";
-    if ( skill == do_restrict )		return "do_restrict";
+    if ( skill == do_restrict )	return "do_restrict";
     if ( skill == do_retell )		return "do_retell";
     if ( skill == do_retire )		return "do_retire";
     if ( skill == do_retiredlist )	return "do_retiredlist";
@@ -1425,19 +1447,19 @@ char *skill_name( DO_FUN *skill )
     if ( skill == do_retran )		return "do_retran";
     if ( skill == do_return )		return "do_return";
 #ifdef USE_IMC
-    if ( skill == do_rfinger )		return "do_rfinger";
+    if ( skill == do_rfinger )	return "do_rfinger";
 #endif
     if ( skill == do_rgrid )		return "do_rgrid";
     if ( skill == do_rgrub )		return "do_rgrub";
 #ifdef USE_IMC
-    if ( skill == do_rignore )		return "do_rignore";
+    if ( skill == do_rignore )	return "do_rignore";
     if ( skill == do_rinfo )		return "do_rinfo";
 #endif
-    if ( skill == do_rip )		return "do_rip";
+    if ( skill == do_rip )			return "do_rip";
     if ( skill == do_rlist )		return "do_rlist";
-	if ( skill == do_rloop )		return "do_rloop";
+		if ( skill == do_rloop )		return "do_rloop";
     if ( skill == do_rmenu )		return "do_rmenu";
-    if ( skill == do_rolldie )		return "do_rolldie";
+    if ( skill == do_rolldie )	return "do_rolldie";
     if ( skill == do_roster )		return "do_roster";
     if ( skill == do_rpcopy )		return "do_rpcopy";
     if ( skill == do_rpedit )		return "do_rpedit";
@@ -1448,23 +1470,23 @@ char *skill_name( DO_FUN *skill )
     if ( skill == do_rreply )		return "do_rreply";
 #endif
     if ( skill == do_rreset )		return "do_rreset";
-    if ( skill == do_rset )		return "do_rset";
+    if ( skill == do_rset )			return "do_rset";
 #ifdef USE_IMC
-    if ( skill == do_rsockets )		return "do_rsockets";
+    if ( skill == do_rsockets )	return "do_rsockets";
 #endif
     if ( skill == do_rstat )		return "do_rstat";
 #ifdef USE_IMC
     if ( skill == do_rtell )		return "do_rtell";
-    if ( skill == do_rwho )		return "do_rwho";
+    if ( skill == do_rwho )			return "do_rwho";
     if ( skill == do_rwhois )		return "do_rwhois";
 #endif
     if ( skill == do_sacrifice )	return "do_sacrifice";
-    if ( skill == do_save )		return "do_save";
+    if ( skill == do_save )			return "do_save";
     if ( skill == do_savearea )		return "do_savearea";
-    if ( skill == do_say )		return "do_say";
+    if ( skill == do_say )			return "do_say";
     if ( skill == do_say_to )		return "do_say_to";
-    if ( skill == do_scan )		return "do_scan";
-    if ( skill == do_scatter )          return "do_scatter";
+    if ( skill == do_scan )			return "do_scan";
+    if ( skill == do_scatter )  return "do_scatter";
     if ( skill == do_score )		return "do_score";
     if ( skill == do_scribe )		return "do_scribe";
     if ( skill == do_search )		return "do_search";

@@ -1,0 +1,16 @@
+# Version <config_file_version>
+# LocalName <local_imc_name>
+# LocalPort <local_imc_port>
+# Connection Name:Host:Port:ClientPW:ServerPW:RcvStamp:NoForward:Flags
+Version 1
+LocalName DrgnBn
+LocalPort 4005
+InfoName Shogar
+InfoHost moodyg.erols.com
+InfoEmail moodyg@erols.com
+InfoImail shogar@drgnbane
+InfoDetails hub 1.00
+InfoDetails anything you like
+# Required for hubs
+# MaxGuests 5
+LogOn yes

@@ -1,3 +1,34 @@
+/*#################################################################
+  #                                              |                #
+  #  ******* **    **  ******  **    **  ******  |                #
+  # ******** ***  *** ******** **    ** ******** |    \\._.//     #
+  # **       ******** **    ** **    ** **       |    (0...0)     #
+  # *******  ******** ******** **    ** **  **** |     ).:.(      #
+  #  ******* ** ** ** ******** **    ** **  **** |     {o o}      #
+  #       ** **    ** **    ** **    ** **    ** |    / ' ' \     #
+  # ******** **    ** **    ** ******** ******** | -^^.VxvxV.^^-  #
+  # *******  **    ** **    **  ******   ******  |                #
+  #                                              |                #
+  # ------------------------------------------------------------- #
+  # [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame         #
+  # ------------------------------------------------------------- #
+  # SMAUG 1.4 © 1994, 1995, 1996, 1998  by Derek Snider           #
+  # ------------------------------------------------------------- #
+  # SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,         #
+  # Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,         #
+  # Tricops, Fireblade, Edmond, Conran                            #
+  # ------------------------------------------------------------- #
+  # Merc 2.1 Diku Mud improvments copyright © 1992, 1993 by       #
+  # Michael Chastain, Michael Quan, and Mitchell Tse.             #
+  # Original Diku Mud copyright © 1990, 1991 by Sebastian Hammer, #
+  # Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja #
+  # Nyboe. Win32 port by Nick Gammon                              #
+  # ------------------------------------------------------------- #
+  # --{smaug}-- 1.8.x © 2014-2015 by Antonio Cao @(burzumishi)    #
+  # ------------------------------------------------------------- #
+  #    IMC integrated interface defs for Merc-derived codebases   #
+  #################################################################*/
+
 /*
  * IMC2 - an inter-mud communications protocol
  *
@@ -121,31 +152,6 @@
 #define WIZ_IMCDEBUG  (Z)
 #endif
 
-DECLARE_DO_FUN(do_rinfo);
-
-DECLARE_DO_FUN(do_rtell);
-DECLARE_DO_FUN(do_rreply);
-DECLARE_DO_FUN(do_rwho);
-DECLARE_DO_FUN(do_rwhois);
-DECLARE_DO_FUN(do_rquery);
-DECLARE_DO_FUN(do_rbeep);
-DECLARE_DO_FUN(do_rfinger);
-
-DECLARE_DO_FUN(do_imclist);
-DECLARE_DO_FUN(do_rsockets);
-DECLARE_DO_FUN(do_imc);
-DECLARE_DO_FUN(do_imcpoll);
-DECLARE_DO_FUN(do_rignore);
-DECLARE_DO_FUN(do_rconnect);
-DECLARE_DO_FUN(do_rdisconnect);
-
-DECLARE_DO_FUN(do_mailqueue);
-DECLARE_DO_FUN(do_istats);
-
-DECLARE_DO_FUN(do_rchannels);
-DECLARE_DO_FUN(do_rchanset);
-
-DECLARE_DO_FUN(do_rping);
 
 /* for memory marking (leak checking in conjunction with SAM) */
 void imc_markmemory(void (*markfn)(void *));

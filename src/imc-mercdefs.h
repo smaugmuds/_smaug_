@@ -47,16 +47,21 @@ in this function. Like putting the log channels on a different channel.
 //#define ROT
 //#define MERC
 //#define SMAUG /* 102 users */
-#define SMAUG14
+//#define SMAUG14
 //#define ENVY  
 //#define ACK   
 //#define CIRCLE
 
-#ifdef SMAUG14
-#ifndef SMAUG
+#ifndef SMAUG18
+#define SMAUG18 /* SMAUG14 compatible */
+#endif
+
+#if defined(SMAUG18) || defined(SMAUG14)
+#if !defined(SMAUG)
 #define SMAUG
 #endif
 #endif
+
 #ifdef ROT
 #ifndef ROM
 #define ROM 
@@ -67,7 +72,7 @@ in this function. Like putting the log channels on a different channel.
 #error You must #define one of ROM, ROT, MERC, SMAUG, ENVY, ACK or CIRCLE
 #endif
 
-#ifdef IN_IMC
+#ifdef USE_IMC
 #ifdef SMAUG
 #include "mud.h"
 #elif defined(CIRCLE)
@@ -111,7 +116,7 @@ void append_note(NOTE_DATA *pnote);
 
 
 #ifdef SMAUG
-#ifdef SMAUG14
+#if defined(SMAUG18) || defined(SMAUG14)
 #define IS_NOCHAN(ch) (xIS_SET((ch)->act, PLR_SILENCE))
 #define IS_SILENT(ch) ((!IS_NPC(ch) && xIS_SET(ch->act,PLR_SILENCE)) || \
 		       xIS_SET(ch->in_room->room_flags, ROOM_SILENCE))
@@ -127,7 +132,6 @@ void append_note(NOTE_DATA *pnote);
 #define imc_to_char send_to_char_color
 #define descriptor_list first_descriptor
 #endif /* SMAUG */
-
 
 #ifdef ENVY
 /* There are 2 versions of the IS_SILENT macro: one that checks the race_table
@@ -211,7 +215,6 @@ extern struct room_data *world;
 #endif
 #define GET_SEX(ch) (ch)->sex
 #define GET_TITLE(ch) (ch)->pcdata->title
-
 #endif
 
 #define IS_RINVIS(ch) (!IS_NPC(ch) && \

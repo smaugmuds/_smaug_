@@ -1,0 +1,119 @@
+body {
+	background: #000 url(../img/xsmaug.jpg) no-repeat center;
+	font-family: courier, monospace;
+	font-size: 14px;
+	color: #eee;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	padding: 0;
+	margin: 0;
+	position: relative;
+	cursor: default;
+}
+
+header {
+	display: block;
+	padding: 10px;
+	margin-left: 20px;
+}
+
+#console {
+	/* background-color: #000; */
+	display: block;
+	float: right !important;
+	position: relative; 
+	color: #eee;
+	width: 80%;
+	height: 475px;
+	max-height: 500px;
+	margin-right: 20px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background-color: rgba(0, 0, 0, 0.5);
+	padding: 10px;
+	font-size: 12px;
+}
+
+a {
+	color: #0bc;
+	text-decoration: none;
+}
+
+#a {
+	color: #0f0;
+}
+
+#c {
+	color: #0bc;
+}
+
+#b {
+	color: #ff0096;
+}
+	
+#wrapper{
+	width:90%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:0;
+	margin-bottom:0;
+	height: 625px;
+	max-height: 650px;
+	background-color: rgba(0, 0, 0, 0.5);
+	-webkit-border-bottom-right-radius: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	-moz-border-radius-bottomright: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+#navbar {
+	display: block;
+	margin-left: 20px;
+	float: left !important;
+	position: absolute; 
+}
+
+.side-nav {
+  display: block;
+  margin: 0;
+  padding: 0.875rem 0;
+  list-style-type: none;
+  list-style-position: inside;
+  .side-nav li {
+    margin: 0 0 0.4375rem 0;
+    font-size: 0.875rem; }
+    .side-nav li a:not(.button) {
+      display: block;
+      color: #008cba; }
+      .side-nav li a:not(.button):hover, .side-nav li a:not(.button):focus {
+        color: #1ccaff; }
+    .side-nav li.active > a:first-child:not(.button) {
+      color: #1ccaff;
+      font-weight: normal;
+    .side-nav li.divider {
+      border-top: 1px solid;
+      height: 0;
+      padding: 0;
+      list-style: none;
+      border-top-color: white;
+}
+
+#footer {
+	float: right;
+	padding: 5px;
+}
+
+a:hover{cursor:pointer;}
+img{max-width:100%;height:auto;}
+img{-ms-interpolation-mode:bicubic;}
+.clearfix{clear:both;}
+.hide{display:none;}
+.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+textarea{height:auto;min-height:50px;}
+select{width:100%;}
+
