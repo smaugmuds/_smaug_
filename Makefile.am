@@ -80,7 +80,7 @@ CLEANDEVELFILES = compile configure depcomp aclocal.m4 src/smaug.h \
 	config.status ltmain.sh depcomp m4 README COPYING NEWS src/smaug \
 	AUTHORS ChangeLog LICENSE INSTALL config.lt libtool src/.deps src/*.o
 
-CLEANBUILDFILES = config.log \
+CLEANBUILDFILES = config.log etc/smaug.conf etc/init.d/smaugd bin/smaug-monitor \
 	`find $(srcdir) -iname "stamp-h1"` \
 	`find $(srcdir) -iname "Makefile.in"` \
 	`find $(srcdir) -iname "Makefile"`
@@ -98,7 +98,7 @@ distclean-local: clean-local
 	@echo "=== distclean-local done ==="
 
 devdistclean-local: distclean-local
-	@rm -rfv $(CLEANDEVELFILES); \
+	@rm -rfv $(CLEANDEVELFILES) $(CLEANBUILDFILES); \
 	echo "=== distclean-local done ==="
 
 install-data-hook:

@@ -45,7 +45,14 @@ USE_PLANES = -DPLANES
 
 ### MUD Interconector (IMC) ###
 
-USE_IMC = -DUSE_IMC
+# USE_IMC = -DUSE_IMC
+
+#IMC_SOURCE_FILES = ice.c icec.c icec-mercbase.c iced.c imc.c \
+#imc-config.c imc-events.c  imc-interp.c imc-mail.c imc-mercbase.c \
+#imc-util.c imc-version.c
+
+#IMC_HEADER_FILES = icec.h icec-mercbase.h iced.h ice.h imc-config.h \
+#imc.h imc-mercbase.h imc-mercdefs.h
 
 ### DEVELOPER CFLAGS (All Warnings Enabled) ###
 
@@ -117,25 +124,23 @@ bin_PROGRAMS = smaug$(EXEEXT)
 CLEANFILES = *~ *.o smaug.h smaug$(EXEEXT) stamp-h1
 
 smaug_SOURCES = \
-act_comm.c   comm.c      ibuild.c         imc-mercbase.c  mud_comm.c   sha256.c   \
-act_info.c   comments.c  ice.c            imc-util.c      mud_prog.c   shops.c    \
-act_move.c   const.c     icec.c           imc-version.c   news.c       skills.c   \
-act_obj.c    db.c        icec-mercbase.c  imm_host.c      planes.c     special.c  \
-act_wiz.c    deity.c     iced.c           interp.c        player.c     stances.c  \
-adminlist.c  fight.c     ident.c          liquids.c       polymorph.c  starmap.c  \
-ban.c        grub.c      imc.c            magic.c         renumber.c   stat_obj.c \
-boards.c     handler.c   imc-config.c     makeobjs.c      requests.c   tables.c   \
-build.c      hashstr.c   imc-events.c     mapout.c        reset.c      track.c    \
-clans.c      hint.c      imc-interp.c     misc.c          save.c       update.c   \
-colorize.c   house.c     imc-mail.c       mpxset.c        services.c   variables.c
+act_comm.c act_info.c act_move.c act_obj.c act_wiz.c adminlist.c \
+ban.c boards.c build.c clans.c colorize.c comm.c comments.c const.c \
+db.c deity.c fight.c grub.c handler.c hashstr.c hint.c house.c ibuild.c \
+ident.c imm_host.c interp.c liquids.c magic.c makeobjs.c mapout.c misc.c \
+mpxset.c mud_comm.c mud_prog.c news.c planes.c player.c polymorph.c \
+renumber.c requests.c reset.c save.c services.c sha256.c shops.c skills.c \
+special.c stances.c starmap.c stat_obj.c tables.c track.c update.c variables.c 
 
-include_HEADERS =  mud.h smaug.h  \
-bet.h    icec.h          ice.h    imc-mercbase.h  icec-mercbase.h \
-hint.h   imc-config.h    news.h   imc-mercdefs.h  sha256.h \
-house.h  iced.h          imc.h    liquids.h       
+smaug_SOURCES += $(IMC_SOURCE_FILES)
 
-smaug_%.o: %.c
+include_HEADERS = \
+mud.h smaug.h  bet.h hint.h news.h \
+sha256.h house.h liquids.h       
+
+include_HEADERS += $(IMC_HEADER_FILES)
+
+.c.o:
 	@echo -n "  $(CC) -> Building Object: $@ ..."; \
 	$(CC) -c $(AM_CFLAGS) $(AM_LDFLAGS) $< -o $@; \
 	echo " done";
-
