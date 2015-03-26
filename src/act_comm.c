@@ -1877,12 +1877,15 @@ void do_tell( CHAR_DATA *ch, char *argument )
 			      knows_language(ch, ch->speaking, victim));
 
 	if ( speakswell < 85 )
-	    act( AT_TELL, "$n tells you '$t'", ch, translate(speakswell, argument, lang_names[speaking]), victim, TO_VICT );
+	    act( AT_TELL, MXPTAG ("player $n") "$n" MXPTAG ("/player") 
+          " tells you '$t'", ch, translate(speakswell, argument, lang_names[speaking]), victim, TO_VICT );
 	else
-	    act( AT_TELL, "$n tells you '$t'", ch, argument, victim, TO_VICT );
+	    act( AT_TELL, MXPTAG ("player $n") "$n" MXPTAG ("/player")
+          " tells you '$t'", ch, argument, victim, TO_VICT );
     }
     else
-	act( AT_TELL, "$n tells you '$t'", ch, argument, victim, TO_VICT );
+	act( AT_TELL, MXPTAG ("player $n") "$n" MXPTAG ("/player")
+          " tells you '$t'", ch, argument, victim, TO_VICT );
 
     MOBtrigger = TRUE;
     victim->position	= position;
@@ -4314,7 +4317,7 @@ void add_profane_word( char * word)
 
 int is_profane (char *what)
 {
-#ifndef WIN32
+#if 0
   int ret;
 
   ret = re_exec(what);

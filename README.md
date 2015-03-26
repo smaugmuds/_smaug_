@@ -3,39 +3,41 @@
 ###Introduction
 
 ```
-  #################################################################
-  #                                              |                #
-  #  ******* **    **  ******  **    **  ******  |                #
-  # ******** ***  *** ******** **    ** ******** |    \\._.//     #
-  # **       ******** **    ** **    ** **       |    (0...0)     #
-  # *******  ******** ******** **    ** **  **** |     ).:.(      #
-  #  ******* ** ** ** ******** **    ** **  **** |     {o o}      #
-  #       ** **    ** **    ** **    ** **    ** |    / ' ' \     #
-  # ******** **    ** **    ** ******** ******** | -^^.VxvxV.^^-  #
-  # *******  **    ** **    **  ******   ******  |                #
-  #                                              |                #
-  # ------------------------------------------------------------- #
-  # [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame         #
-  # ------------------------------------------------------------- #
-  # SMAUG 1.4 © 1994, 1995, 1996, 1998  by Derek Snider           #
-  # ------------------------------------------------------------- #
-  # SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,         #
-  # Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,         #
-  # Tricops, Fireblade, Edmond, Conran                            #
-  # ------------------------------------------------------------- #
-  # Merc 2.1 Diku Mud improvments copyright © 1992, 1993 by       #
-  # Michael Chastain, Michael Quan, and Mitchell Tse.             #
-  # Original Diku Mud copyright © 1990, 1991 by Sebastian Hammer, #
-  # Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja #
-  # Nyboe. Win32 port by Nick Gammon                              #
-  # ------------------------------------------------------------- #
-  # --{smaug}-- 1.8.x © 2014-2015 by Antonio Cao @(burzumishi)    #
-  # ------------------------------------------------------------- #
-  #                           Makefile                            #
-  #################################################################
+                    R E A L M S    O F    D A R K N E S S !
+  _________________________________________________________________________
+ /            /                                                            \
+|-------------\   ********   *        *   ********   *        *   *******   |
+|   \\._.//   /  **********  **      **  **********  **      **  *********  |
+|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |
+|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |
+|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |
+|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |
+|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |
+|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |
+|-------------\  **********  **      **  **      **  **********  *********  |
+|   -{2.0}-   /  *********   *        *  *        *   ********    *******   |
+ \____________\____________________________________________________________/
+   |                                                                     |
+   |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
+   |_____________________________________________________________________|
+   |                                                                     |
+   |                              README                                 |
+   |_____________________________________________________________________|
+  //                                                                     \\
+ [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
+ [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
+ [|                                                                       |]
+ [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
+ [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
+ [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
+ [|  Nyboe. Win32 port Nick Gammon.                                       |]
+ [|                                                                       |]
+ [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+  \\_____________________________________________________________________//
+
 ```
 
-**--{[S]imulated [M]edieval [A]dventure Multi-[U]ser [G]ame}--**
+**--{ [S]imulated [M]edieval [A]dventure Multi-[U]ser [G]ame }--**
 
 **--{smaug}--** is a multiplayer text-based role-playing game, which is a type of MUD. It can be used and modified to create your own game server.
 
@@ -59,17 +61,17 @@ Version **1.8.2** is HERE! With many bugfixes as well as important and useful ne
 	- src:              Source files.
 	- doc:              Documentation.
 	- bin:	            Init Scripts.
-	- etc:  	    smaugd Script Config Files.
+	- etc:  	    			smaugd Script Config Files.
 	- etc/init.d: 	    smaugd SysV Scripts.
-	- man:		    Man Pages.
+	- man:		    			Man Pages.
 	- data/area:        Realm Area files.
 	- data/player:      Player files (initially empty).
 	- data/backup:      Backup Player files (initially empty).
 	- data/deleted:     Deleted Player files (initially empty).
-	- data/vault:	    Guilds Vaults
-	- data/races:	    Races files.
+	- data/vault:	    	Guilds Vaults
+	- data/races:	    	Races files.
 	- data/gods:        God players.
-	- data/deity:	    Realm Deities.
+	- data/deity:	    	Realm Deities.
 	- data/councils:    Councils files.
 	- data/classes:     Classes files.
 	- data/clans:       Clans files.
@@ -80,7 +82,7 @@ Version **1.8.2** is HERE! With many bugfixes as well as important and useful ne
 	- data/system:      MUD Game System files.
 	- data/building:    Building System files.
 	- data/classes:     Player Class files.
-	- data/color:	    MUD Color files.
+	- data/color:	    	MUD Color files.
 
 #### Features
 
@@ -133,6 +135,7 @@ Here are just some of the extra features --{smaug}-- has:
 	- Dump Objects and Mobs to files
 	- Mounts and much much more
 	- Liquids & Mixtures System
+  - MXP Support (MUD Extension Protocol)
 
 Changes made to areas:
 

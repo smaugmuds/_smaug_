@@ -34,10 +34,13 @@
 #include <stdlib.h>
 #include <limits.h>
 
+/* These definitions are set in Makefile.am */
+
 /* force the who command to require an argument (should use cset) */
-#define REQWHOARG
-/* uncomment below to add honour to the mix
-#define HONOUR_CODE */
+// #define REQWHOARG
+
+/* uncomment below to add honour to the mix */
+// #define HONOUR_CODE
 
 #ifdef WIN32
   #include <winsock.h>
@@ -57,6 +60,8 @@
 #endif
 
 #include "smaug.h"
+
+// #define NOCRYPT
 
 typedef	int				ch_ret;
 typedef	int				obj_ret;
@@ -113,81 +118,81 @@ typedef unsigned char			bool;
 /*
  * Structure types.
  */
-typedef struct	affect_data		AFFECT_DATA;
-typedef struct	area_data		AREA_DATA;
-typedef struct  auction_data            AUCTION_DATA;	/* auction data */
-typedef struct	watch_data		WATCH_DATA;
-typedef struct	ban_data		BAN_DATA;
+typedef struct	affect_data					AFFECT_DATA;
+typedef struct	area_data						AREA_DATA;
+typedef struct  auction_data  			AUCTION_DATA;	/* auction data */
+typedef struct	watch_data					WATCH_DATA;
+typedef struct	ban_data						BAN_DATA;
 typedef struct	extracted_char_data	EXTRACT_CHAR_DATA;
-typedef struct	char_data		CHAR_DATA;
-typedef struct	hunt_hate_fear		HHF_DATA;
-typedef struct	fighting_data		FIGHT_DATA;
-typedef struct	descriptor_data		DESCRIPTOR_DATA;
-typedef struct	exit_data		EXIT_DATA;
-typedef struct	extra_descr_data	EXTRA_DESCR_DATA;
-typedef struct	help_data		HELP_DATA;
-typedef struct	menu_data		MENU_DATA;
-typedef struct	mob_index_data		MOB_INDEX_DATA;
-typedef struct 	char_morph 		CHAR_MORPH;
-typedef struct  morph_data 	        MORPH_DATA;
-typedef struct  nuisance_data		NUISANCE_DATA;
-typedef struct	note_data		NOTE_DATA;
-typedef struct	comment_data		COMMENT_DATA;
-typedef struct	board_data		BOARD_DATA;
-typedef struct	game_board_data		GAME_BOARD_DATA;
-typedef struct	obj_data		OBJ_DATA;
-typedef struct	obj_index_data		OBJ_INDEX_DATA;
-typedef struct	pc_data			PC_DATA;
-typedef	struct	plane_data		PLANE_DATA;
-typedef struct	reset_data		RESET_DATA;
-typedef struct	map_index_data		MAP_INDEX_DATA;		/* maps */
-typedef struct	map_data		MAP_DATA;		/* maps */
-typedef struct	room_index_data		ROOM_INDEX_DATA;
-typedef struct	shop_data		SHOP_DATA;
+typedef struct	char_data						CHAR_DATA;
+typedef struct	hunt_hate_fear			HHF_DATA;
+typedef struct	fighting_data				FIGHT_DATA;
+typedef struct	descriptor_data			DESCRIPTOR_DATA;
+typedef struct	exit_data						EXIT_DATA;
+typedef struct	extra_descr_data		EXTRA_DESCR_DATA;
+typedef struct	help_data						HELP_DATA;
+typedef struct	menu_data						MENU_DATA;
+typedef struct	mob_index_data			MOB_INDEX_DATA;
+typedef struct 	char_morph 					CHAR_MORPH;
+typedef struct  morph_data 	  			MORPH_DATA;
+typedef struct  nuisance_data				NUISANCE_DATA;
+typedef struct	note_data						NOTE_DATA;
+typedef struct	comment_data				COMMENT_DATA;
+typedef struct	board_data					BOARD_DATA;
+typedef struct	game_board_data			GAME_BOARD_DATA;
+typedef struct	obj_data						OBJ_DATA;
+typedef struct	obj_index_data			OBJ_INDEX_DATA;
+typedef struct	pc_data							PC_DATA;
+typedef	struct	plane_data					PLANE_DATA;
+typedef struct	reset_data					RESET_DATA;
+typedef struct	map_index_data			MAP_INDEX_DATA;		/* maps */
+typedef struct	map_data						MAP_DATA;		/* maps */
+typedef struct	room_index_data			ROOM_INDEX_DATA;
+typedef struct	shop_data						SHOP_DATA;
 
 #ifdef MYSTARIC
-typedef struct  casino_data             CASINO_DATA;
-typedef struct  gambler_data            GAMBLER_DATA;
+typedef struct  casino_data   			CASINO_DATA;
+typedef struct  gambler_data  			GAMBLER_DATA;
 #endif
 
-typedef struct	race_type		RACE_TYPE;
-typedef struct	repairshop_data		REPAIR_DATA;
-typedef struct	reserve_data		RESERVE_DATA;
-typedef struct	noauction_data		NOAUCTION_DATA;
-typedef struct	time_info_data		TIME_INFO_DATA;
-typedef struct	hour_min_sec		HOUR_MIN_SEC;
-typedef struct	weather_data		WEATHER_DATA;
-typedef struct	neighbor_data		NEIGHBOR_DATA; /* FB */
-typedef	struct	clan_data		CLAN_DATA;
-typedef struct  council_data 		COUNCIL_DATA;
-typedef struct  tourney_data            TOURNEY_DATA;
-typedef struct	mob_prog_data		MPROG_DATA;
-typedef struct	mob_prog_act_list	MPROG_ACT_LIST;
-typedef struct  mpsleep_data		MPSLEEP_DATA; 
-typedef	struct	editor_data		EDITOR_DATA;
-typedef struct	teleport_data		TELEPORT_DATA;
-typedef struct	timer_data		TIMER;
-typedef struct  godlist_data		GOD_DATA;
-typedef struct	system_data		SYSTEM_DATA;
-typedef	struct	smaug_affect		SMAUG_AFF;
-typedef struct  who_data                WHO_DATA;
-typedef	struct	skill_type		SKILLTYPE;
-typedef	struct	social_type		SOCIALTYPE;
-typedef	struct	cmd_type		CMDTYPE;
-typedef	struct	killed_data		KILLED_DATA;
-typedef struct  deity_data		DEITY_DATA;
-typedef struct	wizent			WIZENT;
-typedef struct  ignore_data		IGNORE_DATA;
-typedef struct  immortal_host           IMMORTAL_HOST;
-typedef struct	project_data		PROJECT_DATA;
+typedef struct	race_type						RACE_TYPE;
+typedef struct	repairshop_data			REPAIR_DATA;
+typedef struct	reserve_data				RESERVE_DATA;
+typedef struct	noauction_data			NOAUCTION_DATA;
+typedef struct	time_info_data			TIME_INFO_DATA;
+typedef struct	hour_min_sec				HOUR_MIN_SEC;
+typedef struct	weather_data				WEATHER_DATA;
+typedef struct	neighbor_data				NEIGHBOR_DATA; /* FB */
+typedef	struct	clan_data						CLAN_DATA;
+typedef struct  council_data 				COUNCIL_DATA;
+typedef struct  tourney_data        TOURNEY_DATA;
+typedef struct	mob_prog_data				MPROG_DATA;
+typedef struct	mob_prog_act_list		MPROG_ACT_LIST;
+typedef struct  mpsleep_data				MPSLEEP_DATA; 
+typedef	struct	editor_data					EDITOR_DATA;
+typedef struct	teleport_data				TELEPORT_DATA;
+typedef struct	timer_data					TIMER;
+typedef struct  godlist_data				GOD_DATA;
+typedef struct	system_data					SYSTEM_DATA;
+typedef	struct	smaug_affect				SMAUG_AFF;
+typedef struct  who_data            WHO_DATA;
+typedef	struct	skill_type					SKILLTYPE;
+typedef	struct	social_type					SOCIALTYPE;
+typedef	struct	cmd_type						CMDTYPE;
+typedef	struct	killed_data					KILLED_DATA;
+typedef struct  deity_data					DEITY_DATA;
+typedef struct	wizent							WIZENT;
+typedef struct  ignore_data					IGNORE_DATA;
+typedef struct  immortal_host       IMMORTAL_HOST;
+typedef struct	project_data				PROJECT_DATA;
 typedef struct	extended_bitvector	EXT_BV;
-typedef	struct	lcnv_data		LCNV_DATA;
-typedef	struct	lang_data		LANG_DATA;
-typedef struct  vault_data              VAULT_DATA;    
-typedef struct	member_data		MEMBER_DATA;
-typedef struct	member_list		MEMBER_LIST;
-typedef	struct	variable_data		VARIABLE_DATA;
-typedef struct  lmsg_data		LMSG_DATA;
+typedef	struct	lcnv_data						LCNV_DATA;
+typedef	struct	lang_data						LANG_DATA;
+typedef struct  vault_data          VAULT_DATA;    
+typedef struct	member_data					MEMBER_DATA;
+typedef struct	member_list					MEMBER_LIST;
+typedef	struct	variable_data				VARIABLE_DATA;
+typedef struct  lmsg_data						LMSG_DATA;
 
 /*
  * Function types.
@@ -420,11 +425,6 @@ struct extended_bitvector
 {
     unsigned int		bits[XBI];
 };
-
-
-
-
-
 
 /*
  * Structure for a morph -- Shaddai
@@ -846,6 +846,7 @@ struct	descriptor_data
     sh_int		idle;
     sh_int		lines;
     sh_int		scrlen;
+    bool	  mxp;
     bool		fcommand;
     char		inbuf		[MAX_INBUF_SIZE];
     char		incomm		[MAX_INPUT_LENGTH];
@@ -2267,7 +2268,7 @@ typedef enum
   PLR_AUTOGOLD, PLR_AUTOMAP, PLR_AFK, PLR_INVISPROMPT, PLR_ROOMVIS,
   PLR_NOFOLLOW, PLR_LANDED, PLR_BLOCKING, PLR_IS_CLONE, PLR_IS_DREAMFORM,
   PLR_IS_SPIRITFORM, PLR_IS_PROJECTION, PLR_CLOAK, PLR_COMPASS,
-  PLR_NOHOMEPAGE
+  PLR_NOHOMEPAGE, PLR_MXP
 } player_flags;
 
 /* Bits for pc_data->flags. */
@@ -4947,11 +4948,17 @@ int	get_door	args( ( char *arg ) );
 char *  num_punct	args( ( int foo ) );
 char *	format_obj_to_char	args( ( OBJ_DATA *obj, CHAR_DATA *ch,
 				    bool fShort ) );
+
 // void	show_list_to_char	args( ( OBJ_DATA *list, CHAR_DATA *ch,
-//				    bool fShort, bool fShowNothing ) );
+				    // bool fShort, bool fShowNothing ) );
+
+void    show_list_to_char  args( ( OBJ_DATA *list, CHAR_DATA *ch,
+						bool fShort, bool fShowNothing, const int iDefaultAction  ) );
+
 bool	is_ignoring	args( (CHAR_DATA *ch, CHAR_DATA *ign_ch) );
 void	show_race_line	args( ( CHAR_DATA *ch, CHAR_DATA *victim ) );
 void    look_sky	args( ( CHAR_DATA *ch ) );
+
 /* act_move.c */
 void	clear_vrooms	args( ( void ) );
 ED *	find_door	args( ( CHAR_DATA *ch, char *arg, bool quiet ) );
@@ -5945,6 +5952,52 @@ do									\
 
 #define GET_BETTED_ON( ch )  ( ( ch->betted_on )
 #define GET_BET_AMT( ch )  ( ( ch->bet_amt )	
+
+/* MXP stuff - added by Nick Gammon - 18 June 2001 */
+ 
+/*
+ To simply using MXP we'll use special tags where we want to use MXP tags
+ and then change them to <, > and & at the last moment.
+ 
+  eg. MXP_BEG "send" MXP_END    becomes: <send>
+      MXP_AMP "version;"        becomes: &version;
+ 
+*/
+ 
+/* strings */
+#define MXP_BEG "\x03"    /* becomes < */
+#define MXP_END "\x04"    /* becomes > */
+#define MXP_AMP "\x05"    /* becomes & */
+
+/* characters */
+#define MXP_BEGc '\x03'    /* becomes < */
+#define MXP_ENDc '\x04'    /* becomes > */
+#define MXP_AMPc '\x05'    /* becomes & */
+ 
+// constructs an MXP tag with < and > around it
+#define MXPTAG(arg) MXP_BEG arg MXP_END
+
+#define ESC "\x1B"  /* esc character */
+
+#define MXPMODE(arg) ESC "[" #arg "z"
+
+/* flags for show_list_to_char */
+ 
+enum {
+  eItemNothing,   /* item is not readily accessible */
+  eItemGet,     /* item on ground */
+  eItemDrop,    /* item in inventory */
+  eItemBid     /* auction item */
+};
+ 
+#define MXP_open 0   /* only MXP commands in the "open" category are allowed.  */
+#define MXP_secure 1 /* all tags and commands in MXP are allowed within the line.  */
+#define MXP_locked 2 /* no MXP or HTML commands are allowed in the line.  The line is not parsed for any tags at all.   */
+#define MXP_reset 3  /* close all open tags */
+#define MXP_secure_once 4  /* next tag is secure only */
+#define MXP_perm_open 5   /* open mode until mode change  */
+#define MXP_perm_secure 6 /* secure mode until mode change */
+#define MXP_perm_locked 7 /* locked mode until mode change */
 
 
 #ifdef WIN32

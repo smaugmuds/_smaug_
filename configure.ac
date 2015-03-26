@@ -24,7 +24,7 @@
   # Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja #
   # Nyboe. Win32 port by Nick Gammon                              #
   # ------------------------------------------------------------- #
-  # --{smaug}-- 1.8.x © 2014-2015 by Antonio Cao @(burzumishi)    #
+  # --{smaug}-- 2.0   © 2014-2015 by Antonio Cao @(burzumishi)    #
   # ------------------------------------------------------------- #
   #                           configure.ac                        #
   # ------------------------------------------------------------- #
@@ -37,13 +37,13 @@ LT_PREREQ([2.4])  # require libtool
 
 AC_SUBST([PACKAGE], ["smaug"])
 
-AC_SUBST([SMAUG_MAJOR_VERSION], [1])
-AC_SUBST([SMAUG_MINOR_VERSION], [8])
-AC_SUBST([SMAUG_UPDATE_VERSION], [2])
+AC_SUBST([SMAUG_MAJOR_VERSION], [2])
+AC_SUBST([SMAUG_MINOR_VERSION], [0])
+AC_SUBST([SMAUG_UPDATE_VERSION], [0])
 
 AC_SUBST([VERSION], ["${SMAUG_MAJOR_VERSION}.${SMAUG_MINOR_VERSION}.${SMAUG_UPDATE_VERSION}"])
 
-AC_INIT([smaug], [1.8.2],
+AC_INIT([smaug], [2.0.0],
 	[<@burzumishi>],
 	[smaug])
 
@@ -52,7 +52,6 @@ AC_COPYRIGHT(["2014-2015 (c) Antonio Cao (@burzumishi)"])
 LT_INIT
 LT_LANG([C])
 
-# AM_INIT_AUTOMAKE([-Wno-all -Wno-address -Wno-pointer-to-int-cast -Wno-unused-but-set-variable -Wno-cast-align -Wno-unused-result -Wno-write-strings])
 AM_PROG_LIBTOOL
 AM_SANITY_CHECK
 AM_INIT_AUTOMAKE

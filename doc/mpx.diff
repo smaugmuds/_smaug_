@@ -1,0 +1,1107 @@
+diff -c -x *.o -x *.exe -x Makefile ../../smaug/dist/src/act_comm.c src/act_comm.c
+*** ../../smaug/dist/src/act_comm.c	Fri May 28 15:18:59 1999
+--- src/act_comm.c	Thu Jul  5 08:35:10 2001
+***************
+*** 1309,1320 ****
+  			      knows_language(ch, ch->speaking, victim));
+  
+  	if ( speakswell < 85 )
+! 	    act( AT_TELL, "$n tells you '$t'", ch, translate(speakswell, argument, lang_names[speaking]), victim, TO_VICT );
+  	else
+! 	    act( AT_TELL, "$n tells you '$t'", ch, argument, victim, TO_VICT );
+      }
+      else
+! 	act( AT_TELL, "$n tells you '$t'", ch, argument, victim, TO_VICT );
+  
+      victim->position	= position;
+      victim->reply	= ch;
+--- 1309,1323 ----
+  			      knows_language(ch, ch->speaking, victim));
+  
+  	if ( speakswell < 85 )
+! 	    act( AT_TELL, MXPTAG ("player $n") "$n" MXPTAG ("/player") 
+!           " tells you '$t'", ch, translate(speakswell, argument, lang_names[speaking]), victim, TO_VICT );
+  	else
+! 	    act( AT_TELL, MXPTAG ("player $n") "$n" MXPTAG ("/player")
+!           " tells you '$t'", ch, argument, victim, TO_VICT );
+      }
+      else
+! 	act( AT_TELL, MXPTAG ("player $n") "$n" MXPTAG ("/player")
+!           " tells you '$t'", ch, argument, victim, TO_VICT );
+  
+      victim->position	= position;
+      victim->reply	= ch;
+***************
+*** 3341,3347 ****
+  
+  int is_profane (char *what)
+  {
+! #ifndef WIN32
+    int ret;
+  
+    ret = re_exec(what);
+--- 3344,3350 ----
+  
+  int is_profane (char *what)
+  {
+! #if 0
+    int ret;
+  
+    ret = re_exec(what);
+diff -c -x *.o -x *.exe -x Makefile ../../smaug/dist/src/act_info.c src/act_info.c
+*** ../../smaug/dist/src/act_info.c	Fri May 28 15:18:59 1999
+--- src/act_info.c	Thu Jul  5 08:35:10 2001
+***************
+*** 233,249 ****
+   * Show a list to a character.
+   * Can coalesce duplicated items.
+   */
+! void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNothing )
+  {
+      char **prgpstrShow;
+      int *prgnShow;
+      int *pitShow;
+      char *pstrShow;
+      OBJ_DATA *obj;
+      int nShow;
+      int iShow;
+      int count, offcount, tmp, ms, cnt;
+      bool fCombine;
+  
+      if ( !ch->desc )
+  	return;
+--- 233,254 ----
+   * Show a list to a character.
+   * Can coalesce duplicated items.
+   */
+! void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNothing, const int iDefaultAction )
+  {
+      char **prgpstrShow;
++     char **prgpstrName;        /* for MXP */
++     char **prgpstrShortName;   /* for MXP */
+      int *prgnShow;
+      int *pitShow;
+      char *pstrShow;
++     char *pstrName;            /* for MXP */
++     char *pstrShortName;       /* for MXP */
+      OBJ_DATA *obj;
+      int nShow;
+      int iShow;
+      int count, offcount, tmp, ms, cnt;
+      bool fCombine;
++     char * pAction = NULL;
+  
+      if ( !ch->desc )
+  	return;
+***************
+*** 262,267 ****
+--- 267,283 ----
+  	}
+  	return;
+      }
++ 
++     /* work out which MXP tag to use */
++ 
++     switch (iDefaultAction)
++       {
++       case eItemGet:  pAction = "Get"; break;   /* item on ground */
++       case eItemDrop: pAction = "Drop"; break;   /* item in inventory */
++       case eItemBid:  pAction = "Bid"; break;   /* auction item */
++ 
++       } /* end of switch on action */
++ 
+      /*
+       * Alloc space for output lines.
+       */
+***************
+*** 300,305 ****
+--- 316,323 ----
+      }
+  
+      CREATE( prgpstrShow,	char*,	count + ((offcount > 0) ? offcount : 0) );
++     CREATE( prgpstrName,	char*,	count + ((offcount > 0) ? offcount : 0) );
++     CREATE( prgpstrShortName,	char*,	count + ((offcount > 0) ? offcount : 0) );
+      CREATE( prgnShow,		int,	count + ((offcount > 0) ? offcount : 0) );
+      CREATE( pitShow,		int,	count + ((offcount > 0) ? offcount : 0) );
+      nShow	= 0;
+***************
+*** 316,321 ****
+--- 334,341 ----
+  	if ( tmp > 0 && number_bits(1) == 0 )
+  	{
+  	    prgpstrShow [nShow] = str_dup( hallucinated_object(ms, fShort) );
++ 	    prgpstrName [nShow] = str_dup( hallucinated_object(ms, TRUE) );
++ 	    prgpstrShortName [nShow] = str_dup( hallucinated_object(ms, TRUE) );
+  	    prgnShow	[nShow] = 1;
+  	    pitShow	[nShow] = number_range( ITEM_LIGHT, ITEM_BOOK );
+  	    nShow++;
+***************
+*** 326,331 ****
+--- 346,353 ----
+  	&& (obj->item_type != ITEM_TRAP || IS_AFFECTED(ch, AFF_DETECTTRAPS) ) )
+  	{
+  	    pstrShow = format_obj_to_char( obj, ch, fShort );
++       pstrName = obj->name;
++       pstrShortName = obj->short_descr;
+  	    fCombine = FALSE;
+  
+  	    if ( IS_NPC(ch) || xIS_SET(ch->act, PLR_COMBINE) )
+***************
+*** 352,357 ****
+--- 374,381 ----
+  	    if ( !fCombine )
+  	    {
+  		prgpstrShow [nShow] = str_dup( pstrShow );
++ 		prgpstrName [nShow] = str_dup( pstrName );
++ 		prgpstrShortName [nShow] = str_dup( pstrShortName );
+  		prgnShow    [nShow] = obj->count;
+  		nShow++;
+  	    }
+***************
+*** 363,368 ****
+--- 387,394 ----
+  	for ( x = 0; x < tmp; x++ )
+  	{
+  	    prgpstrShow [nShow] = str_dup( hallucinated_object(ms, fShort) );
++ 	    prgpstrName [nShow] = str_dup( hallucinated_object(ms, TRUE) );
++ 	    prgpstrShortName [nShow] = str_dup( hallucinated_object(ms, TRUE) );
+  	    prgnShow	[nShow] = 1;
+  	    pitShow	[nShow] = number_range( ITEM_LIGHT, ITEM_BOOK );
+  	    nShow++;
+***************
+*** 404,410 ****
+--- 430,440 ----
+  	}
+  	if ( fShowNothing )
+  	    send_to_char( "     ", ch );
++   if (pAction)
++     ch_printf (ch, MXPTAG ("%s '%s' '%s'"), pAction, prgpstrName[iShow], prgpstrShortName[iShow]);
+  	send_to_char( prgpstrShow[iShow], ch );
++   if (pAction)
++     ch_printf (ch, MXPTAG ("/%s"), pAction);
+  /*	if ( IS_NPC(ch) || xIS_SET(ch->act, PLR_COMBINE) ) */
+  	{
+  	    if ( prgnShow[iShow] != 1 )
+***************
+*** 413,418 ****
+--- 443,450 ----
+  
+  	send_to_char( "\n\r", ch );
+  	DISPOSE( prgpstrShow[iShow] );
++ 	DISPOSE( prgpstrName[iShow] );
++ 	DISPOSE( prgpstrShortName[iShow] );
+      }
+  
+      if ( fShowNothing && nShow == 0 )
+***************
+*** 427,432 ****
+--- 459,466 ----
+       * Clean up.
+       */
+      DISPOSE( prgpstrShow );
++     DISPOSE( prgpstrName );
++     DISPOSE( prgpstrShortName );
+      DISPOSE( prgnShow	 );
+      DISPOSE( pitShow	 );
+      return;
+***************
+*** 817,823 ****
+      {
+  	ch_printf( ch, "\n\rYou peek at %s inventory:\n\r",
+  	  victim->sex == 1 ? "his" : victim->sex == 2 ? "her" : "its" );
+! 	show_list_to_char( victim->first_carrying, ch, TRUE, TRUE );
+  	learn_from_success( ch, gsn_peek );
+      }
+      else
+--- 851,857 ----
+      {
+  	ch_printf( ch, "\n\rYou peek at %s inventory:\n\r",
+  	  victim->sex == 1 ? "his" : victim->sex == 2 ? "her" : "its" );
+! 	show_list_to_char( victim->first_carrying, ch, TRUE, TRUE, eItemNothing );
+  	learn_from_success( ch, gsn_peek );
+      }
+      else
+***************
+*** 962,968 ****
+--- 996,1006 ----
+  
+  	if ( arg1[0] == '\0'
+  	|| ( !IS_NPC(ch) && !xIS_SET(ch->act, PLR_BRIEF) ) )
++     {
++       send_to_char( MXPTAG ("rdesc"), ch);
+  	    send_to_char( ch->in_room->description, ch );
++       send_to_char( MXPTAG ("/rdesc"), ch);
++     }
+  
+  	if ( !IS_NPC(ch) && xIS_SET(ch->act, PLR_AUTOMAP) )   /* maps */
+  	{
+***************
+*** 976,982 ****
+  	    do_exits( ch, "auto" );
+  
+  
+! 	show_list_to_char( ch->in_room->first_content, ch, FALSE, FALSE );
+  	show_char_to_char( ch->in_room->first_person,  ch );
+  	return;
+      }
+--- 1014,1020 ----
+  	    do_exits( ch, "auto" );
+  
+  
+! 	show_list_to_char( ch->in_room->first_content, ch, FALSE, FALSE, eItemGet );
+  	show_char_to_char( ch->in_room->first_person,  ch );
+  	return;
+      }
+***************
+*** 1013,1019 ****
+  	act( AT_PLAIN, "$n lifts $p and looks beneath it:", ch, obj, NULL, TO_ROOM );
+  	obj->count = count;
+  	if ( IS_OBJ_STAT( obj, ITEM_COVERING ) )
+! 	   show_list_to_char( obj->first_content, ch, TRUE, TRUE );
+  	else
+  	   send_to_char( "Nothing.\n\r", ch );
+  	if ( doexaprog ) oprog_examine_trigger( ch, obj );
+--- 1051,1057 ----
+  	act( AT_PLAIN, "$n lifts $p and looks beneath it:", ch, obj, NULL, TO_ROOM );
+  	obj->count = count;
+  	if ( IS_OBJ_STAT( obj, ITEM_COVERING ) )
+! 	   show_list_to_char( obj->first_content, ch, TRUE, TRUE, eItemNothing );
+  	else
+  	   send_to_char( "Nothing.\n\r", ch );
+  	if ( doexaprog ) oprog_examine_trigger( ch, obj );
+***************
+*** 1104,1110 ****
+  	    else
+  		act( AT_PLAIN, "$p holds:", ch, obj, NULL, TO_CHAR );
+  	    obj->count = count;
+! 	    show_list_to_char( obj->first_content, ch, TRUE, TRUE );
+  	    if ( doexaprog ) oprog_examine_trigger( ch, obj );
+  	    break;
+  	}
+--- 1142,1148 ----
+  	    else
+  		act( AT_PLAIN, "$p holds:", ch, obj, NULL, TO_CHAR );
+  	    obj->count = count;
+! 	    show_list_to_char( obj->first_content, ch, TRUE, TRUE, eItemNothing );
+  	    if ( doexaprog ) oprog_examine_trigger( ch, obj );
+  	    break;
+  	}
+***************
+*** 1656,1661 ****
+--- 1694,1700 ----
+      EXIT_DATA *pexit;
+      bool found;
+      bool fAuto;
++     int  spaces;
+  
+      set_char_color( AT_EXITS, ch );
+      buf[0] = '\0';
+***************
+*** 1679,1690 ****
+  	    if ( fAuto )
+  	    {
+  		strcat( buf, " " );
+  		strcat( buf, dir_name[pexit->vdir] );
+  	    }
+  	    else
+  	    {
+! 		sprintf( buf + strlen(buf), "%-5s - %s\n\r",
+  		    capitalize( dir_name[pexit->vdir] ),
+  		    room_is_dark( pexit->to_room )
+  			?  "Too dark to tell"
+  			: pexit->to_room->name
+--- 1718,1739 ----
+  	    if ( fAuto )
+  	    {
+  		strcat( buf, " " );
++     strcat (buf, MXPTAG ("Ex"));
+  		strcat( buf, dir_name[pexit->vdir] );
++     strcat (buf, MXPTAG ("/Ex"));
+  	    }
+  	    else
+  	    {
+!       /* I don't want to underline spaces, so I'll calculate the number we need */
+!       spaces = 5 - strlen (dir_name[pexit->vdir]);
+!       if (spaces < 0)
+!         spaces = 0;
+!   		sprintf( buf + strlen(buf), "%s%s%s%*s - %s\n\r",
+!         MXPTAG ("Ex"),
+  		    capitalize( dir_name[pexit->vdir] ),
++         MXPTAG ("/Ex"),
++         spaces,  /* number of spaces */
++         "",      
+  		    room_is_dark( pexit->to_room )
+  			?  "Too dark to tell"
+  			: pexit->to_room->name
+***************
+*** 2713,2719 ****
+  	  sprintf( invis_str, "(%d) ", wch->pcdata->wizinvis );
+  	else
+  	  invis_str[0] = '\0';
+! 	sprintf( buf, "%*s%-15s %s%s%s%s%s%s%s%s.%s%s%s\n\r",
+  	  (fGroup ? whogr->indent : 0), "",
+  	  class,
+  	  invis_str,
+--- 2762,2770 ----
+  	  sprintf( invis_str, "(%d) ", wch->pcdata->wizinvis );
+  	else
+  	  invis_str[0] = '\0';
+! 	sprintf( buf, "%*s%-15s %s%s%s%s%s%s"
+!           MXPTAG ("player '%s'") "%s"  MXPTAG ("/player")
+!           "%s.%s%s%s\n\r",
+  	  (fGroup ? whogr->indent : 0), "",
+  	  class,
+  	  invis_str,
+***************
+*** 2722,2727 ****
+--- 2773,2779 ----
+  	  xIS_SET(wch->act, PLR_ATTACKER) ? "(ATTACKER) " : "",
+  	  xIS_SET(wch->act, PLR_KILLER) ? "(KILLER) " : "",
+  	  xIS_SET(wch->act, PLR_THIEF)  ? "(THIEF) "  : "",
++     wch->name,
+  	  char_name,
+  	  wch->pcdata->title,
+            extra_title,
+diff -c -x *.o -x *.exe -x Makefile ../../smaug/dist/src/act_obj.c src/act_obj.c
+*** ../../smaug/dist/src/act_obj.c	Fri May 28 15:18:59 1999
+--- src/act_obj.c	Thu Jul  5 08:35:10 2001
+***************
+*** 30,36 ****
+   */
+  
+  void    show_list_to_char  args( ( OBJ_DATA *list, CHAR_DATA *ch,
+! 				bool fShort, bool fShowNothing ) );
+  void    write_corpses   args( ( CHAR_DATA *ch, char *name, OBJ_DATA *objrem ) );
+  
+  /*
+--- 30,36 ----
+   */
+  
+  void    show_list_to_char  args( ( OBJ_DATA *list, CHAR_DATA *ch,
+! 				bool fShort, bool fShowNothing, const int iDefaultAction  ) );
+  void    write_corpses   args( ( CHAR_DATA *ch, char *name, OBJ_DATA *objrem ) );
+  
+  /*
+***************
+*** 2626,2632 ****
+  	    {
+  		set_char_color( AT_OBJECT, ch );
+  		send_to_char( "Contents:\n\r", ch );
+! 		show_list_to_char( obj->first_content, ch, TRUE, FALSE );
+  	    }
+  
+  	    if (IS_IMMORTAL(ch))
+--- 2626,2632 ----
+  	    {
+  		set_char_color( AT_OBJECT, ch );
+  		send_to_char( "Contents:\n\r", ch );
+! 		show_list_to_char( obj->first_content, ch, TRUE, FALSE, eItemBid );
+  	    }
+  
+  	    if (IS_IMMORTAL(ch))
+diff -c -x *.o -x *.exe -x Makefile ../../smaug/dist/src/comm.c src/comm.c
+*** ../../smaug/dist/src/comm.c	Fri May 28 15:19:00 1999
+--- src/comm.c	Thu Jul  5 08:35:10 2001
+***************
+*** 32,37 ****
+--- 32,38 ----
+  #endif
+  
+  
++ 
+  /*
+   * Socket and TCP/IP stuff.
+   */
+***************
+*** 46,51 ****
+--- 47,53 ----
+  
+    #define  TELOPT_ECHO        '\x01'
+    #define  GA                 '\xF9'
++   #define  SE                 '\xF0'
+    #define  SB                 '\xFA'
+    #define  WILL               '\xFB'
+    #define  WONT               '\xFC'
+***************
+*** 65,77 ****
+    #define closesocket close
+  #endif
+  
+  #ifdef sun
+  int gethostname ( char *name, int namelen );
+  #endif
+  
+! const	char	echo_off_str	[] = { IAC, WILL, TELOPT_ECHO, '\0' };
+! const	char	echo_on_str	[] = { IAC, WONT, TELOPT_ECHO, '\0' };
+! const	char 	go_ahead_str	[] = { IAC, GA, '\0' };
+  
+  void	auth_maxdesc	args( ( int *md, fd_set *ins, fd_set *outs,
+  				fd_set *excs ) );
+--- 67,86 ----
+    #define closesocket close
+  #endif
+  
++ #define  TELOPT_MXP        '\x5B'
++ 
+  #ifdef sun
+  int gethostname ( char *name, int namelen );
+  #endif
+  
+! const	unsigned char	echo_off_str	[] = { IAC, WILL, TELOPT_ECHO, '\0' };
+! const	unsigned char	echo_on_str	  [] = { IAC, WONT, TELOPT_ECHO, '\0' };
+! const	unsigned char go_ahead_str	[] = { IAC, GA, '\0' };
+! const unsigned char will_mxp_str  [] = { IAC, WILL, TELOPT_MXP, '\0' };
+! const unsigned char start_mxp_str [] = { IAC, SB, TELOPT_MXP, IAC, SE, '\0' };
+! const unsigned char do_mxp_str    [] = { IAC, DO, TELOPT_MXP, '\0' };
+! const unsigned char dont_mxp_str  [] = { IAC, DONT, TELOPT_MXP, '\0' };
+! 
+  
+  void	auth_maxdesc	args( ( int *md, fd_set *ins, fd_set *outs,
+  				fd_set *excs ) );
+***************
+*** 343,348 ****
+--- 352,420 ----
+      return 0;
+  }
+  
++ /* set up MXP */
++ void turn_on_mxp (DESCRIPTOR_DATA *d)
++   {
++   d->mxp = TRUE;  /* turn it on now */
++  	write_to_buffer( d, start_mxp_str, 0 );
++ 	write_to_buffer( d, MXPMODE (6), 0 );   /* permanent secure mode */
++   write_to_buffer( d, MXPTAG ("!-- Set up MXP elements --"), 0);
++   /* Exit tag */
++   write_to_buffer( d, MXPTAG ("!ELEMENT Ex '<send>' FLAG=RoomExit"), 0);
++   /* Room description tag */
++   write_to_buffer( d, MXPTAG ("!ELEMENT rdesc '<p>' FLAG=RoomDesc"), 0);
++   /* Get an item tag (for things on the ground) */
++   write_to_buffer( d, MXPTAG 
++       ("!ELEMENT Get \"<send href='"
++            "get &#39;&name;&#39;|"
++            "examine &#39;&name;&#39;|"
++            "drink &#39;&name;&#39;"
++        "' "
++        "hint='RH mouse click to use this object|"
++            "Get &desc;|"
++            "Examine &desc;|"
++            "Drink from &desc;"
++        "'>\" ATT='name desc'"), 
++       0);
++   /* Drop an item tag (for things in the inventory) */
++   write_to_buffer( d, MXPTAG 
++       ("!ELEMENT Drop \"<send href='"
++            "drop &#39;&name;&#39;|"
++            "examine &#39;&name;&#39;|"
++            "look in &#39;&name;&#39;|"
++            "wear &#39;&name;&#39;|"
++            "eat &#39;&name;&#39;|"
++            "drink &#39;&name;&#39;"
++        "' "
++        "hint='RH mouse click to use this object|"
++            "Drop &desc;|"
++            "Examine &desc;|"
++            "Look inside &desc;|"
++            "Wear &desc;|"
++            "Eat &desc;|"
++            "Drink &desc;"
++        "'>\" ATT='name desc'"), 
++       0);
++   /* Bid an item tag (for things in the auction) */
++   write_to_buffer( d, MXPTAG 
++       ("!ELEMENT Bid \"<send href='bid &#39;&name;&#39;' "
++        "hint='Bid for &desc;'>\" "
++        "ATT='name desc'"), 
++       0);
++   /* List an item tag (for things in a shop) */
++   write_to_buffer( d, MXPTAG 
++       ("!ELEMENT List \"<send href='buy &#39;&name;&#39;' "
++        "hint='Buy &desc;'>\" "
++        "ATT='name desc'"), 
++       0);
++   /* Player tag (for who lists, tells etc.) */
++   write_to_buffer( d, MXPTAG 
++       ("!ELEMENT Player \"<send href='tell &#39;&name;&#39; ' "
++        "hint='Send a message to &name;' prompt>\" "
++        "ATT='name'"), 
++       0);
++   } /* end of turn_on_mxp */
++ 
+  
+  int init_socket( int port )
+  {
+***************
+*** 550,555 ****
+--- 622,628 ----
+      struct timeval	  last_time;
+      char cmdline[MAX_INPUT_LENGTH];
+      DESCRIPTOR_DATA *d;
++ 
+  /*  time_t	last_check = 0;  */
+  
+  #ifndef WIN32
+***************
+*** 637,642 ****
+--- 710,716 ----
+  		}
+  
+  		read_from_buffer( d );
++ 
+  		if ( d->incomm[0] != '\0' )
+  		{
+  			d->fcommand	= TRUE;
+***************
+*** 851,856 ****
+--- 925,931 ----
+      dnew->user 		= STRALLOC("(unknown)");
+      dnew->newstate	= 0;
+      dnew->prevcolor	= 0x07;
++     dnew->mxp = FALSE;   /* NJG - initially MXP is off */
+  
+      CREATE( dnew->outbuf, char, dnew->outsize );
+  
+***************
+*** 1129,1134 ****
+--- 1204,1210 ----
+  void read_from_buffer( DESCRIPTOR_DATA *d )
+  {
+      int i, j, k;
++     unsigned char * p;
+  
+      /*
+       * Hold horses if pending command already.
+***************
+*** 1136,1141 ****
+--- 1212,1242 ----
+      if ( d->incomm[0] != '\0' )
+  	return;
+  
++ /* 
++ 
++   Look for incoming telnet negotiation
++ */
++ 
++ 
++   for (p = d->inbuf; *p; p++)
++     if (*p == IAC)
++       {
++       if (memcmp (p, do_mxp_str, strlen (do_mxp_str)) == 0)
++         {
++         turn_on_mxp (d);
++         /* remove string from input buffer */
++         memmove (p, &p [strlen (do_mxp_str)], strlen (&p [strlen (do_mxp_str)]) + 1);
++         p--; /* adjust to allow for discarded bytes */
++         } /* end of turning on MXP */
++       else  if (memcmp (p, dont_mxp_str, strlen (dont_mxp_str)) == 0)
++         {
++         d->mxp = FALSE;
++         /* remove string from input buffer */
++         memmove (p, &p [strlen (dont_mxp_str)], strlen (&p [strlen (dont_mxp_str)]) + 1);
++         p--; /* adjust to allow for discarded bytes */
++         } /* end of turning off MXP */
++       } /* end of finding an IAC */
++ 
+      /*
+       * Look for at least one new line.
+       */
+***************
+*** 1323,1335 ****
+--- 1424,1608 ----
+      }
+  }
+  
++ /*
++ * Count number of mxp tags need converting
++ *    ie. < becomes &lt;
++ *        > becomes &gt;
++ *        & becomes &amp;
++ */
++ 
++ int count_mxp_tags (const int bMXP, const char *txt, int length)
++   {
++   char c;
++   const char * p;
++   int count;
++   int bInTag = FALSE;
++   int bInEntity = FALSE;
+  
++   for (p = txt, count = 0; 
++        length > 0; 
++        p++, length--)
++     {
++     c = *p;
++ 
++     if (bInTag)  /* in a tag, eg. <send> */
++       {
++       if (!bMXP)
++         count--;     /* not output if not MXP */   
++       if (c == MXP_ENDc)
++         bInTag = FALSE;
++       } /* end of being inside a tag */
++     else if (bInEntity)  /* in a tag, eg. <send> */
++       {
++       if (!bMXP)
++         count--;     /* not output if not MXP */   
++       if (c == ';')
++         bInEntity = FALSE;
++       } /* end of being inside a tag */
++     else switch (c)
++       {
++ 
++       case MXP_BEGc:
++         bInTag = TRUE;
++         if (!bMXP)
++           count--;     /* not output if not MXP */   
++         break;
++ 
++       case MXP_ENDc:   /* shouldn't get this case */
++         if (!bMXP)
++           count--;     /* not output if not MXP */   
++         break;
++ 
++       case MXP_AMPc:
++         bInEntity = TRUE;
++         if (!bMXP)
++           count--;     /* not output if not MXP */   
++         break;
++ 
++       default:
++         if (bMXP)
++           {
++           switch (c)
++             {
++             case '<':       /* < becomes &lt; */
++             case '>':       /* > becomes &gt; */
++               count += 3;    
++               break;
++ 
++             case '&':
++               count += 4;    /* & becomes &amp; */
++               break;
++ 
++             case '"':        /* " becomes &quot; */
++               count += 5;    
++               break;
++ 
++             } /* end of inner switch */
++           }   /* end of MXP enabled */
++       } /* end of switch on character */
++ 
++      }   /* end of counting special characters */
++ 
++   return count;
++   } /* end of count_mxp_tags */
++ 
++ void convert_mxp_tags (const int bMXP, char * dest, const char *src, int length)
++   {
++ char c;
++ const char * ps;
++ char * pd;
++ int bInTag = FALSE;
++ int bInEntity = FALSE;
++ 
++   for (ps = src, pd = dest; 
++        length > 0; 
++        ps++, length--)
++     {
++     c = *ps;
++     if (bInTag)  /* in a tag, eg. <send> */
++       {
++       if (c == MXP_ENDc)
++         {
++         bInTag = FALSE;
++         if (bMXP)
++           *pd++ = '>';
++         }
++       else if (bMXP)
++         *pd++ = c;  /* copy tag only in MXP mode */
++       } /* end of being inside a tag */
++     else if (bInEntity)  /* in a tag, eg. <send> */
++       {
++       if (bMXP)
++         *pd++ = c;  /* copy tag only in MXP mode */
++       if (c == ';')
++         bInEntity = FALSE;
++       } /* end of being inside a tag */
++     else switch (c)
++       {
++       case MXP_BEGc:
++         bInTag = TRUE;
++         if (bMXP)
++           *pd++ = '<';
++         break;
++ 
++       case MXP_ENDc:    /* shouldn't get this case */
++         if (bMXP)
++           *pd++ = '>';
++         break;
++ 
++       case MXP_AMPc:
++         bInEntity = TRUE;
++         if (bMXP)
++           *pd++ = '&';
++         break;
++ 
++       default:
++         if (bMXP)
++           {
++           switch (c)
++             {
++             case '<':
++               memcpy (pd, "&lt;", 4);
++               pd += 4;    
++               break;
++ 
++             case '>':
++               memcpy (pd, "&gt;", 4);
++               pd += 4;    
++               break;
++ 
++             case '&':
++               memcpy (pd, "&amp;", 5);
++               pd += 5;    
++               break;
++ 
++             case '"':
++               memcpy (pd, "&quot;", 6);
++               pd += 6;    
++               break;
++ 
++             default:
++               *pd++ = c;
++               break;  /* end of default */
++ 
++             } /* end of inner switch */
++           }
++         else
++           *pd++ = c;  /* not MXP - just copy character */
++         break;  
++ 
++       } /* end of switch on character */
++ 
++     }   /* end of converting special characters */
++   } /* end of convert_mxp_tags */
+  
+  /*
+   * Append onto an output buffer.
+   */
+  void write_to_buffer( DESCRIPTOR_DATA *d, const char *txt, int length )
+  {
++ int origlength;
++ 
+      if ( !d )
+      {
+  	bug( "Write_to_buffer: NULL descriptor" );
+***************
+*** 1355,1360 ****
+--- 1628,1637 ----
+  	length = strlen(txt);
+      }
+  */
++   origlength = length;
++ 
++   /* work out how much we need to expand/contract it */
++   length += count_mxp_tags (d->mxp, txt, length);
+  
+      /*
+       * Initial \n\r if needed.
+***************
+*** 1386,1392 ****
+      /*
+       * Copy.
+       */
+!     strncpy( d->outbuf + d->outtop, txt, length );
+      d->outtop += length;
+      d->outbuf[d->outtop] = '\0';
+      return;
+--- 1663,1669 ----
+      /*
+       * Copy.
+       */
+!     convert_mxp_tags (d->mxp, d->outbuf + d->outtop, txt, origlength );
+      d->outtop += length;
+      d->outbuf[d->outtop] = '\0';
+      return;
+***************
+*** 1443,1448 ****
+--- 1720,1726 ----
+      d->connected = CON_PRESS_ENTER;
+  }
+  
++ 
+  /*
+   * Deal with sockets that haven't logged in yet.
+   */
+***************
+*** 1594,1600 ****
+--- 1872,1881 ----
+          return;
+          }
+  
++   /* telnet negotiation to see if they support MXP */
+  
++  	write_to_buffer( d, will_mxp_str, 0 );
++   
+  	chk = check_reconnect( d, argument, FALSE );
+  	if ( chk == BERR )
+  	  return;
+***************
+*** 2485,2495 ****
+--- 2766,2784 ----
+  void write_to_pager( DESCRIPTOR_DATA *d, const char *txt, int length )
+  {
+    int pageroffset;	/* Pager fix by thoric */
++   int origlength;   /* for MXP */
+  
+    if ( length <= 0 )
+      length = strlen(txt);
+    if ( length == 0 )
+      return;
++ 
++   origlength = length;
++ 
++   /* work out how much we need to expand/contract it */
++   length += count_mxp_tags (d->mxp, txt, length);
++ 
++ 
+    if ( !d->pagebuf )
+    {
+      d->pagesize = MAX_STRING_LENGTH;
+***************
+*** 2523,2529 ****
+      RECREATE(d->pagebuf, char, d->pagesize);
+    }
+    d->pagepoint = d->pagebuf + pageroffset;	/* pager fix (goofup fixed 08/21/97) */
+!   strncpy(d->pagebuf+d->pagetop, txt, length);
+    d->pagetop += length;
+    d->pagebuf[d->pagetop] = '\0';
+    return;
+--- 2812,2818 ----
+      RECREATE(d->pagebuf, char, d->pagesize);
+    }
+    d->pagepoint = d->pagebuf + pageroffset;	/* pager fix (goofup fixed 08/21/97) */
+!   convert_mxp_tags (d->mxp, d->pagebuf+d->pagetop, txt, origlength );
+    d->pagetop += length;
+    d->pagebuf[d->pagetop] = '\0';
+    return;
+***************
+*** 3152,3157 ****
+--- 3441,3454 ----
+    }
+    else
+      prompt = ch->pcdata->prompt;
++ 
++   /* reset MXP to default operation */
++   if (d->mxp)
++     {
++     strcpy (pbuf, ESC "[3z");
++     pbuf += 4;
++     }
++ 
+    if ( ansi )
+    {
+      strcpy(pbuf, "\033[m");
+diff -c -x *.o -x *.exe -x Makefile ../../smaug/dist/src/fight.c src/fight.c
+*** ../../smaug/dist/src/fight.c	Fri May 28 15:19:00 1999
+--- src/fight.c	Thu Jul  5 08:38:54 2001
+***************
+*** 4252,4254 ****
+--- 4252,4255 ----
+      raw_kill( ch, victim );
+      return;
+  }
++ 
+diff -c -x *.o -x *.exe -x Makefile ../../smaug/dist/src/interp.c src/interp.c
+*** ../../smaug/dist/src/interp.c	Fri May 28 15:19:00 1999
+--- src/interp.c	Thu Jul  5 08:35:12 2001
+***************
+*** 19,24 ****
+--- 19,25 ----
+  #include <ctype.h>
+  #include <stdio.h>
+  #include <string.h>
++ #define __retms__
+  #include <time.h>
+  #include "mud.h"
+  #ifdef USE_IMC
+diff -c -x *.o -x *.exe -x Makefile ../../smaug/dist/src/mud.h src/mud.h
+*** ../../smaug/dist/src/mud.h	Fri May 28 15:19:00 1999
+--- src/mud.h	Thu Jul  5 08:35:14 2001
+***************
+*** 41,46 ****
+--- 41,47 ----
+    #include <sys/time.h>
+  #endif
+  
++ #define NOCRYPT
+  typedef	int				ch_ret;
+  typedef	int				obj_ret;
+  
+***************
+*** 721,726 ****
+--- 722,728 ----
+      sh_int		idle;
+      sh_int		lines;
+      sh_int		scrlen;
++     sh_int  mxp;
+      bool		fcommand;
+      char		inbuf		[MAX_INBUF_SIZE];
+      char		incomm		[MAX_INPUT_LENGTH];
+***************
+*** 4486,4492 ****
+  char *	format_obj_to_char	args( ( OBJ_DATA *obj, CHAR_DATA *ch,
+  				    bool fShort ) );
+  void	show_list_to_char	args( ( OBJ_DATA *list, CHAR_DATA *ch,
+! 				    bool fShort, bool fShowNothing ) );
+  bool	is_ignoring	args( (CHAR_DATA *ch, CHAR_DATA *ign_ch) );
+  void	show_race_line	args( ( CHAR_DATA *ch, CHAR_DATA *victim ) );
+  
+--- 4488,4494 ----
+  char *	format_obj_to_char	args( ( OBJ_DATA *obj, CHAR_DATA *ch,
+  				    bool fShort ) );
+  void	show_list_to_char	args( ( OBJ_DATA *list, CHAR_DATA *ch,
+! 				    bool fShort, bool fShowNothing, const int iDefaultAction  ) );
+  bool	is_ignoring	args( (CHAR_DATA *ch, CHAR_DATA *ign_ch) );
+  void	show_race_line	args( ( CHAR_DATA *ch, CHAR_DATA *victim ) );
+  
+***************
+*** 5375,5380 ****
+--- 5377,5430 ----
+  	
+  #define LV_TOGGLE_BIT(vector, index)					\
+  	(*(vector + index/CHAR_SIZE) ^= (1 << index%CHAR_SIZE))
++ 
++ 
++ /* mxp stuff - added by Nick Gammon - 18 June 2001 */
++ 
++ /*
++ To simply using MXP we'll use special tags where we want to use MXP tags
++ and then change them to <, > and & at the last moment.
++ 
++   eg. MXP_BEG "send" MXP_END    becomes: <send>
++       MXP_AMP "version;"        becomes: &version;
++ 
++ */
++ 
++ /* strings */
++ #define MXP_BEG "\x03"    /* becomes < */
++ #define MXP_END "\x04"    /* becomes > */
++ #define MXP_AMP "\x05"    /* becomes & */
++ 
++ /* characters */
++ #define MXP_BEGc '\x03'    /* becomes < */
++ #define MXP_ENDc '\x04'    /* becomes > */
++ #define MXP_AMPc '\x05'    /* becomes & */
++ 
++ // constructs an MXP tag with < and > around it
++ #define MXPTAG(arg) MXP_BEG arg MXP_END
++ 
++ #define ESC "\x1B"  /* esc character */
++ 
++ #define MXPMODE(arg) ESC "[" #arg "z"
++ 
++ /* flags for show_list_to_char */
++ 
++ enum {
++   eItemNothing,   /* item is not readily accessible */
++   eItemGet,     /* item on ground */
++   eItemDrop,    /* item in inventory */
++   eItemBid     /* auction item */
++   };
++ 
++ #define MXP_open 0   /* only MXP commands in the "open" category are allowed.  */
++ #define MXP_secure 1 /* all tags and commands in MXP are allowed within the line.  */
++ #define MXP_locked 2 /* no MXP or HTML commands are allowed in the line.  The line is not parsed for any tags at all.   */
++ #define MXP_reset 3  /* close all open tags */
++ #define MXP_secure_once 4  /* next tag is secure only */
++ #define MXP_perm_open 5   /* open mode until mode change  */
++ #define MXP_perm_secure 6 /* secure mode until mode change */
++ #define MXP_perm_locked 7 /* locked mode until mode change */
++ 
+  	
+  #ifdef WIN32
+  void gettimeofday(struct timeval *tv, struct timezone *tz);
+diff -c -x *.o -x *.exe -x Makefile ../../smaug/dist/src/player.c src/player.c
+*** ../../smaug/dist/src/player.c	Fri May 28 15:19:00 1999
+--- src/player.c	Thu Jul  5 08:35:12 2001
+***************
+*** 1395,1401 ****
+  {
+      set_char_color( AT_RED, ch );
+      send_to_char( "You are carrying:\n\r", ch );
+!     show_list_to_char( ch->first_carrying, ch, TRUE, TRUE );
+      return;
+  }
+  
+--- 1395,1401 ----
+  {
+      set_char_color( AT_RED, ch );
+      send_to_char( "You are carrying:\n\r", ch );
+!     show_list_to_char( ch->first_carrying, ch, TRUE, TRUE, eItemDrop );
+      return;
+  }
+  
+diff -c -x *.o -x *.exe -x Makefile ../../smaug/dist/src/shops.c src/shops.c
+*** ../../smaug/dist/src/shops.c	Fri May 28 15:19:00 1999
+--- src/shops.c	Thu Jul  5 08:35:13 2001
+***************
+*** 807,814 ****
+                          lower = -1;
+                  }
+                  
+!                 pager_printf( ch, "[%2d %5d] %s.\n\r",
+!                     obj->level, cost, capitalize( obj->short_descr ) );
+              }
+          }
+          
+--- 807,819 ----
+                          lower = -1;
+                  }
+                  
+!                 pager_printf( ch, "[%2d %5d] " 
+!                               MXPTAG ("list '%s' '%s'") 
+!                               "%s"
+!                               MXPTAG ("/list") ".\n\r",
+!                     obj->level, cost, obj->name, 
+!                     obj->short_descr,
+!                     capitalize( obj->short_descr ) );
+              }
+          }
+          
+diff -c -x *.o -x *.exe -x Makefile ../../smaug/dist/src/skills.c src/skills.c
+*** ../../smaug/dist/src/skills.c	Fri May 28 15:19:01 1999
+--- src/skills.c	Thu Jul  5 08:35:13 2001
+***************
+*** 59,65 ****
+  
+  void show_char_to_char( CHAR_DATA *list, CHAR_DATA *ch );
+  void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, 
+! 	bool fShowN );
+  
+  int ris_save( CHAR_DATA *ch, int chance, int ris );
+  bool check_illegal_psteal( CHAR_DATA *ch, CHAR_DATA *victim );
+--- 59,65 ----
+  
+  void show_char_to_char( CHAR_DATA *list, CHAR_DATA *ch );
+  void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, 
+! 	bool fShowN,  const int iDefaultAction );
+  
+  int ris_save( CHAR_DATA *ch, int chance, int ris );
+  bool check_illegal_psteal( CHAR_DATA *ch, CHAR_DATA *victim );
+***************
+*** 4523,4529 ****
+  	set_char_color( AT_RMNAME, ch );
+  	send_to_char( ch->in_room->name, ch );
+  	send_to_char( "\n\r", ch );
+! 	show_list_to_char( ch->in_room->first_content, ch, FALSE, FALSE );
+  	show_char_to_char( ch->in_room->first_person, ch );
+  
+  	switch( ch->in_room->sector_type )
+--- 4523,4529 ----
+  	set_char_color( AT_RMNAME, ch );
+  	send_to_char( ch->in_room->name, ch );
+  	send_to_char( "\n\r", ch );
+! 	show_list_to_char( ch->in_room->first_content, ch, FALSE, FALSE, eItemNothing );
+  	show_char_to_char( ch->in_room->first_person, ch );
+  
+  	switch( ch->in_room->sector_type )

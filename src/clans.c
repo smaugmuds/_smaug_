@@ -62,7 +62,6 @@ void	show_members		args( ( CHAR_DATA *ch, char *argument ) );
 void	remove_member		args( ( char *clanname, char *membername ) );
 
 void	add_member		args( ( CHAR_DATA *ch, char* clanname ) );
-void	save_member_lists	args( ( void ) );
 void	fread_member_list	args( ( FILE *fp ) );
 
 

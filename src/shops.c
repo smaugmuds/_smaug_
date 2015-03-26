@@ -830,8 +830,13 @@ void do_list( CHAR_DATA *ch, char *argument )
                         lower = -1;
                 }
                 
-                pager_printf( ch, "[%2d %5d] %s.\n\r",
-                    obj->level, cost, capitalize( obj->short_descr ) );
+                pager_printf( ch, "[%2d %5d] " 
+                              MXPTAG ("list '%s' '%s'") 
+                              "%s"
+                              MXPTAG ("/list") ".\n\r",
+                    obj->level, cost, obj->name, 
+                    obj->short_descr,
+                    capitalize( obj->short_descr ) );
             }
         }
         

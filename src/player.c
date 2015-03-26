@@ -2035,9 +2035,10 @@ void do_inventory( CHAR_DATA *ch, char *argument )
     ch_printf_color( ch, "&R%s %s carrying:\n\r",
 	invtarget ? capitalize( victim->name) : "You",
 	invtarget ? "is" : "are" );
-    show_list_to_char( victim->first_carrying, ch, TRUE, TRUE );
-
+		// show_list_to_char( victim->first_carrying, ch, TRUE, TRUE );
+		show_list_to_char( victim->first_carrying, ch, TRUE, TRUE, eItemDrop );
 }
+
 void do_condition( CHAR_DATA *ch, char *argument )
 {
     CHAR_DATA *victim = ch;

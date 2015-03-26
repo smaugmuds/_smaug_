@@ -6954,7 +6954,7 @@ void do_destroy( CHAR_DATA *ch, char *argument )
   return;
 }
 
-extern ROOM_INDEX_DATA *       room_index_hash         [MAX_KEY_HASH]; /* db.c */
+//extern ROOM_INDEX_DATA *       room_index_hash[MAX_KEY_HASH]; /* db.c */
 
 /* Super-AT command:
 FOR ALL <action>

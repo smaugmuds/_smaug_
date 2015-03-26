@@ -276,7 +276,8 @@ work together to effect an estimable attack.
 ~
 
 1 'ACID BLAST' 'BURNING HANDS' 'COLOUR SPRAY' FIREBALL 'LIGHTNING BOLT'
-  'MAGIC MISSILE' 'SHOCKING GRASP'~
+
+  'MAGIC MISSILE' 'SHOCKING GRASP'~
 These are all attack spells and should not be used against another player
 unless both you and the other player are listed under 'who deadly' and are
 within the legal pkill level range.
@@ -8532,23 +8533,25 @@ thick, ancient trees.
 .                        Alas ... you have entered the
                     R E A L M S    O F    D A R K N E S S !
   _________________________________________________________________________
- /            \                                                            \
-|             /                                                             |
-|-------------\    *******   *        *   ********   *        *    ******   |
-|   \\._.//   /   *********  **      **  **********  **      **   ********  |
-|   (0...0)   \  **          ***    ***  **      **  **      **  **         |
-|    ).:.(    /  **          ****  ****  **      **  **      **  **         |
-|    {o o}    \   ********   ** **** **  **********  **      **  **  ***    |
-|   / ' ' \   /    ********  **  **  **  **********  **      **  **   ***   |
-|-'- /   \ -`-\          **  **      **  **      **  **      **  **     **  |
-|   .VxvxV.   /          **  **      **  **      **  **      **  **     **  |
-|-------------\   ********   **      **  **      **  **********   *******   |
-| Build 1.8.2 /  ********    *        *  *        *   ********     *****    |
- \___________/_____________________________________________________________/
+ /            /                                                            \
+|-------------\   ********   *        *   ********   *        *   *******   |
+|   \\._.//   /  **********  **      **  **********  **      **  *********  |
+|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |
+|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |
+|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |
+|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |
+|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |
+|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |
+|-------------\  **********  **      **  **      **  **********  *********  |
+|   -{2.0}-   /  *********   *        *  *        *   ********    *******   |
+ \____________\____________________________________________________________/
+   |                                                                     |
+   |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
+   |_____________________________________________________________________|
   //                                                                     \\
- [| SMAUG by Thoric (Derek Snider) with Altrag/Blodkai/Haus/Narn/Scryn    |]
- [| Swordbearer/Tricops/Gorog/Rennard/Grishnakh/Fireblade/Nivek           |]
- [| --{SMAUG}-- (v1.8.2) by Antonio Cao (@burzumishi)                     |]
+ [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
+ [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
+ [|  SMAUG 2.0 © 2014-2015 (@burzumishi)                                  |]
   \\_____________________________________________________________________//
 By what name are you known (or "new" to create a new character): ~
 

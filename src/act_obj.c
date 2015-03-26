@@ -44,8 +44,9 @@
  * External functions
  */
 
-void    show_list_to_char  args( ( OBJ_DATA *list, CHAR_DATA *ch,
-				bool fShort, bool fShowNothing ) );
+// void    show_list_to_char  args( ( OBJ_DATA *list, CHAR_DATA *ch,
+//				bool fShort, bool fShowNothing, const int iDefaultAction  ) );
+
 void    write_corpses   args( ( CHAR_DATA *ch, char *name, OBJ_DATA *objrem ) );
 
 /*
@@ -2957,7 +2958,7 @@ void do_auction (CHAR_DATA *ch, char *argument)
 	    {
 		set_char_color( AT_OBJECT, ch );
 		send_to_char( "Contents:\n\r", ch );
-		show_list_to_char( obj->first_content, ch, TRUE, FALSE );
+		show_list_to_char( obj->first_content, ch, TRUE, FALSE, eItemBid );
 	    }
 
 	    if (IS_IMMORTAL(ch))

@@ -46,7 +46,7 @@ OBJ_DATA *used_weapon;   /* Used to figure out which weapon later */
  */
 void	new_dam_message	args( ( CHAR_DATA *ch, CHAR_DATA *victim, int dam,
 			    int dt, OBJ_DATA *obj ) );
-void	death_cry	args( ( CHAR_DATA *ch ) );
+// void	death_cry	args( ( CHAR_DATA *ch ) );
 void	group_gain	args( ( CHAR_DATA *ch, CHAR_DATA *victim ) );
 int	xp_compute	args( ( CHAR_DATA *gch, CHAR_DATA *victim ) );
 int	align_compute	args( ( CHAR_DATA *gch, CHAR_DATA *victim ) );
@@ -4532,3 +4532,4 @@ void do_slay( CHAR_DATA *ch, char *argument )
     raw_kill( ch, victim );
     return;
 }
+

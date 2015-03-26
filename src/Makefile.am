@@ -37,11 +37,17 @@ CXX = g++
 
 ARCH = `uname -m`
 
-##### --{smaug}-- BUILD OPTIONS #####
+##### --{smaug}-- SERVER OPTIONS #####
 
 USE_SMAUG = -DSMAUG -DSMAUG18
 
 USE_PLANES = -DPLANES
+
+USE_WHOARG = -DREQWHOARG
+
+USE_HONOUR_CODE = -DHONOUR_CODE
+
+##### --{smaug}-- BUILD OPTIONS #####
 
 ### DEVELOPER CFLAGS (All Warnings Enabled) ###
 
@@ -72,7 +78,7 @@ NEED_REG = -lgnuregex
 
 NEED_CRYPT = -lcrypt 
 
-NOCRYPT =
+NOCRYPT = -DNOCRYPT
 
 DEBUG_FLAGS = -DREQUESTS
 
@@ -96,7 +102,7 @@ AM_CFLAGS = \
 AM_PFLAGS = -finline-functions -funroll-loops -fdefer-pop -fstrength-reduce
 
 AM_CFLAGS += \
--O -g3 $(PROFILING) $(USE_SMAUG) $(USE_PLANES) \
+-O -g3 $(PROFILING) $(USE_SMAUG) $(USE_PLANES) $(USE_WHOARG) $(USE_HONOUR_CODE) \
 $(NOCRYPT) $(TIME) $(REG) $(SOLARIS_FLAG)
 
 AM_LDFLAGS = $(AM_PFLAGS) $(PROFILING) $(SOLARIS_LINK) $(NEED_CRYPT)
