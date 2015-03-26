@@ -1,35 +1,36 @@
 #!@ENV@ make -f
 
-  #################################################################
-  #                                              |                #
-  #  ******* **    **  ******  **    **  ******  |                #
-  # ******** ***  *** ******** **    ** ******** |    \\._.//     #
-  # **       ******** **    ** **    ** **       |    (0...0)     #
-  # *******  ******** ******** **    ** **  **** |     ).:.(      #
-  #  ******* ** ** ** ******** **    ** **  **** |     {o o}      #
-  #       ** **    ** **    ** **    ** **    ** |    / ' ' \     #
-  # ******** **    ** **    ** ******** ******** | -^^.VxvxV.^^-  #
-  # *******  **    ** **    **  ******   ******  |                #
-  #                                              |                #
-  # ------------------------------------------------------------- #
-  # [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame         #
-  # ------------------------------------------------------------- #
-  # SMAUG 1.4 © 1994, 1995, 1996, 1998  by Derek Snider           #
-  # ------------------------------------------------------------- #
-  # SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,         #
-  # Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,         #
-  # Tricops, Fireblade, Edmond, Conran                            #
-  # ------------------------------------------------------------- #
-  # Merc 2.1 Diku Mud improvments copyright © 1992, 1993 by       #
-  # Michael Chastain, Michael Quan, and Mitchell Tse.             #
-  # Original Diku Mud copyright © 1990, 1991 by Sebastian Hammer, #
-  # Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja #
-  # Nyboe. Win32 port by Nick Gammon                              #
-  # ------------------------------------------------------------- #
-  # --{smaug}-- 1.8.x © 2014-2015 by Antonio Cao @(burzumishi)    #
-  # ------------------------------------------------------------- #
-  #                           Makefile                            #
-  #################################################################
+#                     R E A L M S    O F    D E S P A I R  !
+#   ___________________________________________________________________________
+#  //            /                                                            \\
+# [|_____________\   ********   *        *   ********   *        *   *******   |]
+# [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
+# [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
+# [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
+# [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
+# [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
+# [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
+# [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
+# [|_____________\  **********  **      **  **      **  **********  *********  |]
+# [|             /  *********   *        *  *        *   ********    *******   |]
+#  \\____________\____________________________________________________________//
+#     |                                                                     |
+#     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
+#     |_____________________________________________________________________|
+#     |                                                                     |
+#     |                         -*- Makefile -*-                            |
+#     |_____________________________________________________________________|
+#    //                                                                     \\
+#   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
+#   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
+#   [|                                                                       |]
+#   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
+#   [|  Quan, and Mitchell Tse. Original Diku Mud Â 1990-1991 by Sebastian   |]
+#   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
+#   [|  Nyboe. Win32 port Nick Gammon.                                       |]
+#   [|                                                                       |]
+#   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+#    \\_____________________________________________________________________//
 
 CC = gcc
 CPP = cpp
@@ -39,11 +40,11 @@ ARCH = `uname -m`
 
 ##### --{smaug}-- SERVER OPTIONS #####
 
-USE_SMAUG = -DSMAUG -DSMAUG18
+# USE_SMAUG = -DSMAUG -DSMAUG2 ### NOT USED MAYBE IN SOME EXTRA SNIPPETS ###
 
 USE_PLANES = -DPLANES
 
-USE_WHOARG = -DREQWHOARG
+# USE_WHOARG = -DREQWHOARG
 
 USE_HONOUR_CODE = -DHONOUR_CODE
 
@@ -78,23 +79,29 @@ NEED_REG = -lgnuregex
 
 NEED_CRYPT = -lcrypt 
 
-NOCRYPT = -DNOCRYPT
+# Uncomment to disable password encryption
+
+#NO_CRYPT = -DNOCRYPT
 
 DEBUG_FLAGS = -DREQUESTS
 
-# Uncomment the line below if you dont want warnings while building.
-
-AM_CFLAGS = \
--Wall -Wshadow -Wformat-security -Wpointer-arith -Wcast-align \
--Wredundant-decls -Wuninitialized $(DEBUG_FLAGS)
+### DEVELOPER CFLAGS (All Warnings Enabled) ###
 
 # Uncomment the line below if you dont want warnings while building.
 # (and comment upper AM_CFLAGS)
 
 #AM_CFLAGS = \
-#-Wno-all -Wno-cast-align -Wno-unused-result -Wno-write-strings \
-#-Wno-unused-but-set-variable -Wno-pointer-to-int-cast \
-#-Wno-address -Wno-int-to-pointer-cast -Wno-uninitialized
+#-Wall -Wshadow -Wformat-security -Wpointer-arith -Wcast-align \
+#-Wredundant-decls -Wuninitialized $(DEBUG_FLAGS)
+
+### PACKAGER CFLAGS (No Warnings Enabled) ###
+
+# Uncomment the line below if you dont want warnings while building.
+
+AM_CFLAGS = \
+-Wno-all -Wno-cast-align -Wno-unused-result -Wno-write-strings \
+-Wno-unused-but-set-variable -Wno-pointer-to-int-cast \
+-Wno-address -Wno-int-to-pointer-cast -Wno-uninitialized
 
 # Uncomment the line below if you want a performance increase though beware
 # your core files may not be as much of a benefit if you do.
@@ -102,8 +109,8 @@ AM_CFLAGS = \
 AM_PFLAGS = -finline-functions -funroll-loops -fdefer-pop -fstrength-reduce
 
 AM_CFLAGS += \
--O -g3 $(PROFILING) $(USE_SMAUG) $(USE_PLANES) $(USE_WHOARG) $(USE_HONOUR_CODE) \
-$(NOCRYPT) $(TIME) $(REG) $(SOLARIS_FLAG)
+$(PROFILING) $(USE_SMAUG) $(USE_PLANES) $(USE_WHOARG) $(USE_HONOUR_CODE) \
+$(NO_CRYPT) $(TIME) $(REG) $(SOLARIS_FLAG)
 
 AM_LDFLAGS = $(AM_PFLAGS) $(PROFILING) $(SOLARIS_LINK) $(NEED_CRYPT)
 
@@ -130,7 +137,7 @@ special.c stances.c starmap.c stat_obj.c tables.c track.c update.c variables.c
 include_HEADERS = \
 mud.h smaug.h bet.h hint.h news.h sha256.h house.h liquids.h       
 
-.c.o-local:
+.c.o:
 	@echo -n "  $(CC) -> Building Object: $@ ..."; \
 	$(CC) -c $(AM_CFLAGS) $(AM_LDFLAGS) $< -o $@; \
 	echo " done";

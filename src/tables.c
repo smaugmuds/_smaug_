@@ -1900,10 +1900,10 @@ void write_race_file( int ra )
     fprintf( fpout, "Mana_Regen  %d\n",		race->mana_regen	);
     fprintf( fpout, "HP_Regen    %d\n",		race->hp_regen		);
     fprintf( fpout, "Race_Recall %d\n",		race->race_recall	);
-    for ( i = 0; i <= MAX_WHERE_NAME; i++ )
-	fprintf( fpout, "WhereName  %s~\n",
-		race->where_name[i] );
-
+    //for ( i = 0; i <= MAX_WHERE_NAME; i++ )
+    for ( i = 0; i < MAX_WHERE_NAME; i++ )
+	fprintf( fpout, "WhereName  %s~\n", race->where_name[i] );
+    
     for ( x = 0; x < top_sn; x++ )
     {
 	if ( !skill_table[x]->name || skill_table[x]->name[0] == '\0' )

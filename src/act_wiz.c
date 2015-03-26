@@ -1,34 +1,36 @@
-/*#################################################################
-  #                                              |                #
-  #  ******* **    **  ******  **    **  ******  |                #
-  # ******** ***  *** ******** **    ** ******** |    \\._.//     #
-  # **       ******** **    ** **    ** **       |    (0...0)     #
-  # *******  ******** ******** **    ** **  **** |     ).:.(      #
-  #  ******* ** ** ** ******** **    ** **  **** |     {o o}      #
-  #       ** **    ** **    ** **    ** **    ** |    / ' ' \     #
-  # ******** **    ** **    ** ******** ******** | -^^.VxvxV.^^-  #
-  # *******  **    ** **    **  ******   ******  |                #
-  #                                              |                #
-  # ------------------------------------------------------------- #
-  # [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame         #
-  # ------------------------------------------------------------- #
-  # SMAUG 1.4 © 1994, 1995, 1996, 1998  by Derek Snider           #
-  # ------------------------------------------------------------- #
-  # SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,         #
-  # Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,         #
-  # Tricops, Fireblade, Edmond, Conran                            #
-  # ------------------------------------------------------------- #
-  # Merc 2.1 Diku Mud improvments copyright © 1992, 1993 by       #
-  # Michael Chastain, Michael Quan, and Mitchell Tse.             #
-  # Original Diku Mud copyright © 1990, 1991 by Sebastian Hammer, #
-  # Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja #
-  # Nyboe. Win32 port by Nick Gammon                              #
-  # ------------------------------------------------------------- #
-  # --{smaug}-- 1.8.x © 2014-2015 by Antonio Cao @(burzumishi)    #
-  # ------------------------------------------------------------- #
-  #                  Wizard/god command module                    #
-  #################################################################*/
-
+/*
+                     R E A L M S    O F    D E S P A I R  !
+   ___________________________________________________________________________
+  //            /                                                            \\
+ [|_____________\   ********   *        *   ********   *        *   *******   |]
+ [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
+ [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
+ [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
+ [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
+ [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
+ [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
+ [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
+ [|_____________\  **********  **      **  **      **  **********  *********  |]
+ [|             /  *********   *        *  *        *   ********    *******   |]
+  \\____________\____________________________________________________________//
+     |                                                                     |
+     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
+     |_____________________________________________________________________|
+     |                                                                     |
+     |                  -*- Wizard/God Command Module -*-                  |
+     |_____________________________________________________________________|
+    //                                                                     \\
+   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
+   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
+   [|                                                                       |]
+   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
+   [|  Quan, and Mitchell Tse. Original Diku Mud Â 1990-1991 by Sebastian   |]
+   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
+   [|  Nyboe. Win32 port Nick Gammon.                                       |]
+   [|                                                                       |]
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+    \\_____________________________________________________________________//
+*/
 
 #include <stdio.h>
 #include <string.h>
@@ -9229,7 +9231,8 @@ bool create_new_race( int index, char *argument )
   int i = 0;
   if ( index >= MAX_RACE || race_table[index] == NULL )
   	return FALSE;
-  for ( i = 0; i <= MAX_WHERE_NAME; i++ )
+  //for ( i = 0; i <= MAX_WHERE_NAME; i++ )
+  for ( i = 0; i < MAX_WHERE_NAME; i++ )
  	race_table[index]->where_name[i] = where_name[i]; 
   if ( argument[0] != '\0' )
   	argument[0]=UPPER(argument[0]);

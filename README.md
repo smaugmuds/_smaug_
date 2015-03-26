@@ -1,47 +1,47 @@
-##[_{smaug}_] (http://smaugmuds.github.io/--{smaug}--)
+##[_{SMAUG}_] (http://smaugmuds.github.io/_smaug_)
 
 ###Introduction
 
 ```
-                    R E A L M S    O F    D A R K N E S S !
-  _________________________________________________________________________
- /            /                                                            \
-|-------------\   ********   *        *   ********   *        *   *******   |
-|   \\._.//   /  **********  **      **  **********  **      **  *********  |
-|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |
-|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |
-|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |
-|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |
-|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |
-|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |
-|-------------\  **********  **      **  **      **  **********  *********  |
-|   -{2.0}-   /  *********   *        *  *        *   ********    *******   |
- \____________\____________________________________________________________/
-   |                                                                     |
-   |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
-   |_____________________________________________________________________|
-   |                                                                     |
-   |                              README                                 |
-   |_____________________________________________________________________|
-  //                                                                     \\
- [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
- [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
- [|                                                                       |]
- [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
- [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
- [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
- [|  Nyboe. Win32 port Nick Gammon.                                       |]
- [|                                                                       |]
- [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
-  \\_____________________________________________________________________//
+                    R E A L M S    O F    D E S P A I R  !
+  ___________________________________________________________________________
+ //            /                                                            \\
+[|_____________\   ********   *        *   ********   *        *   *******   |]
+[|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
+[|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
+[|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
+[|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
+[|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
+[|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
+[|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
+[|_____________\  **********  **      **  **      **  **********  *********  |]
+[|             /  *********   *        *  *        *   ********    *******   |]
+ \\____________\____________________________________________________________//
+    |                                                                     |
+    |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
+    |_____________________________________________________________________|
+    |                                                                     |
+    |                              README                                 |
+    |_____________________________________________________________________|
+   //                                                                     \\
+  [|  SMAUG 1.4 � 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
+  [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
+  [|                                                                       |]
+  [|  Merc 2.1 Diku Mud improvments � 1992-1993 Michael Chastain, Michael  |]
+  [|  Quan, and Mitchell Tse. Original Diku Mud � 1990-1991 by Sebastian   |]
+  [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
+  [|  Nyboe. Win32 port Nick Gammon.                                       |]
+  [|                                                                       |]
+  [|  SMAUG 2.0 � 2014-2015 Antonio Cao (@burzumishi)                      |]
+   \\_____________________________________________________________________//
 
 ```
 
 **--{ [S]imulated [M]edieval [A]dventure Multi-[U]ser [G]ame }--**
 
-**--{smaug}--** is a multiplayer text-based role-playing game, which is a type of MUD. It can be used and modified to create your own game server.
+**--{SMAUG}--** is a multiplayer text-based role-playing game, which is a type of MUD. It can be used and modified to create your own game server.
 
-**--{smaug}--** is an enhancenment of **AFKMud 2.1.5**, the goal is to develop a new structure to build and run in modern distributed system environments. **AFKMud**, is an fixed **SMAUG 1.4a** which is a heavily modified derivative of the **Merc 2.1** distribution. Stock area zones from **SMAUG 1.4a** have been restored into **--{smaug}--**.
+**--{SMAUG}--** is an enhancenment of **AFKMud 2.1.5**, the goal is to develop a new structure to build and run in modern distributed system environments. **AFKMud**, is an fixed **SMAUG 1.4a** which is a heavily modified derivative of the **Merc 2.1** distribution. Stock area zones from **SMAUG 1.4a** have been restored into **--{smaug}--**.
 
 **SMAUG 1.4a** is close to six times the size of **Merc 2.1**, and has major changes to the inner workings of the code, hence making porting of code from other Diku-derivatives non-trivial to the non-coder. Due to the ability to edit most everything online, you will most likely find the online help pages more informative. **SMAUG** is the base code that runs the popular **Realms of Despair** MUD. Through the years it has been tweaked, modified, and enhanced to become one of the most feature packed branches of the **MERC** family of codebases. 
 
@@ -50,28 +50,28 @@
 **AberMUD** was the first popular open source MUD. It was named after the town _Aberystwyth_, in which it was written. The first version was written in **B** by **Alan Cox**, **Richard Acott**, **Jim Finnis**,and **Leon Thrane** based at **University of Wales**, _Aberystwyth_ for an old **Honeywell** mainframe and opened in 1987.
 
 
-### --{smaug}-- Releases
+### --{SMAUG}-- Releases
 
-Version **1.8.2** is HERE! With many bugfixes as well as important and useful new code features.
+Version **2.0** is HERE! With many bugfixes as well as important and useful new code features.
 
- * **[--{smaug}-- Release 1.8.2] (https://github.com/smaugmuds/_smaug_/releases/tag/2.0)** **¡Launch!**
+ * **[--{smaug}-- Release 2.0] (https://github.com/smaugmuds/_smaug_/releases/tag/2.0)** **¡Launch!**
 
 #### Contents of the Release
 
 	- src:              Source files.
 	- doc:              Documentation.
 	- bin:	            Init Scripts.
-	- etc:  	    			smaugd Script Config Files.
-	- etc/init.d: 	    smaugd SysV Scripts.
-	- man:		    			Man Pages.
+	- etc:              smaugd Script Config Files.
+	- etc/init.d:       smaugd SysV Scripts.
+	- man:              Man Pages.
 	- data/area:        Realm Area files.
 	- data/player:      Player files (initially empty).
 	- data/backup:      Backup Player files (initially empty).
 	- data/deleted:     Deleted Player files (initially empty).
-	- data/vault:	    	Guilds Vaults
-	- data/races:	    	Races files.
+	- data/vault:	    Guilds Vaults
+	- data/races:	    Races files.
 	- data/gods:        God players.
-	- data/deity:	    	Realm Deities.
+	- data/deity:	    Realm Deities.
 	- data/councils:    Councils files.
 	- data/classes:     Classes files.
 	- data/clans:       Clans files.
@@ -82,11 +82,11 @@ Version **1.8.2** is HERE! With many bugfixes as well as important and useful ne
 	- data/system:      MUD Game System files.
 	- data/building:    Building System files.
 	- data/classes:     Player Class files.
-	- data/color:	    	MUD Color files.
+	- data/color:       MUD Color files.
 
 #### Features
 
-Here are just some of the extra features --{smaug}-- has:
+Here are just some of the extra features --{SMAUG}-- has:
 
 	- Full featured, bug-free command-line online building
 	- (including shops, resets, repairshops, etc)
@@ -135,7 +135,7 @@ Here are just some of the extra features --{smaug}-- has:
 	- Dump Objects and Mobs to files
 	- Mounts and much much more
 	- Liquids & Mixtures System
-  - MXP Support (MUD Extension Protocol)
+	- MXP Support (MUD Extension Protocol)
 
 Changes made to areas:
 
@@ -151,9 +151,9 @@ Realm Areas:
 	- Build.are  daycare.are  export.are   gods.are     grove.are     help.are
 	- manor.are  newacad.are  newgate.are  plains.are   sewer.are     unholy.are
 
-#### ChangeLog
+#### --{SMAUG}-- ChangeLog
 
-	* --{smaug}-- 1.8b -> --{smaug}-- 1.8.2
+	* --{SMAUG}-- 1.8b -> --{SMAUG}-- 2.0
 
 		- Removed all InterMud code: IMC2 & ICE(D)
 		- Conversion to GNU Autotools
@@ -164,7 +164,7 @@ Realm Areas:
 		- Init Script Daemons, Monitor and configuration files: smaugd.conf & smaugd & smaugd-monitor
 		- Updated: Documentation
 		- Fixed some bugs.
-	
+
 
 #### Supported Operating Systems
 
@@ -177,19 +177,19 @@ Realm Areas:
  
 ### Authors and Contributors
 
-**--{smaug}--** by **Antonio Cao** ([@burzumishi] (https://github.com/burzumishi))
+**--{SMAUG}-- 2.0** by **Antonio Cao** ([@burzumishi] (https://github.com/burzumishi))
 Wed Jun 11 14:49:27 CEST 2014
 
-Feel free to contribute with **--{smaug}-- in GitHub**.
+Feel free to contribute with **--{SMAUG}-- in GitHub**.
 
 
 ### Support or Contact
 
-Having trouble with **--{smaug}--**?
+Having trouble with **--{SMAUG}--**?
 
-First, check out the documentation at **[--{smaug}-- Wiki] (https://github.com/smaugmuds/xmerc/wiki)** or send an Issue and we’ll help you sort it out.
+First, check out the documentation at **[--{SMAUG}-- Wiki] (https://github.com/smaugmuds/xmerc/wiki)** or send an Issue and we’ll help you sort it out.
 
-We rewrote all of the documentation files for the **--{smaug}-- 1.8.2 Release**, and have been keeping them up-to-date since.
+We rewrote all of the documentation files for the **--{SMAUG}-- 2.0 Release**, and have been keeping them up-to-date since.
 
 Also check the **'wizhelp'**, **'help'**, **'hlist'** commands and read the **'help'** descriptions for the individual immortal commands.
 
@@ -213,10 +213,10 @@ The license terms boil down to this: the people who wrote this mud want due cred
 
 **SMAUG** is a derivative of the version **2.1** distribution of **Merc Diku Mud**. **SMAUG** contains substantial enhancements to **Merc Diku Mud**, including some features of the original **Diku Mud** that were removed by the Merc team.
 
-**--{smaug}--** is a derivative of the original **SMAUG** and is subject to their copyright and license agreement. **--{smaug}--** contains substantial enhancements to **SMAUG**.  These enhancements are copyright 2014-2015 by **Antonio Cao** ([@burzumishi] (https://github.com/burzumishi)) under the **'GNU GPL v2 LICENSE'**.
+**--{SMAUG}--** is a derivative of the original **SMAUG** and is subject to their copyright and license agreement. **--{SMAUG}--** contains substantial enhancements to **SMAUG**.  These enhancements are copyright 2014-2015 by **Antonio Cao** ([@burzumishi] (https://github.com/burzumishi)) under the **'GNU GPL v2 LICENSE'**.
 
 **Thanks to the SMAUG Code Team!**
 
 ==============
 
-_**--{smaug}--** (c) 2014-2015_
+_**--{SMAUG}--** (c) 2014-2015_

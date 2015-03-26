@@ -50,7 +50,7 @@ HINT_DATA *           first_hint;
 HINT_DATA *           last_hint;
 
 HINT_DATA *read_hint args( ( char *filename, FILE *fp));
-void do_hintedit args ((CHAR_DATA *ch, char *argument));
+// void do_hintedit args ((CHAR_DATA *ch, char *argument));
 
 void SwapHint args (( HINT_DATA *pHint1, HINT_DATA *pHint2));
 
