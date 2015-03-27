@@ -24,7 +24,7 @@
    [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
    [|                                                                       |]
    [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-   [|  Quan, and Mitchell Tse. Original Diku Mud Â 1990-1991 by Sebastian   |]
+   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
    [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
    [|  Nyboe. Win32 port Nick Gammon.                                       |]
    [|                                                                       |]
@@ -110,7 +110,7 @@ void get_obj( CHAR_DATA *ch, OBJ_DATA *obj, OBJ_DATA *container )
     if ( !CAN_WEAR(obj, ITEM_TAKE)
        && (ch->level < sysdata.level_getobjnotake )  )
     {
-	send_to_char( "You can't take that.\n\r", ch );
+	mxp_to_char( "You can't take that.\n\r", ch, MPX_ALL );
 	return;
     }
 
@@ -141,7 +141,7 @@ void get_obj( CHAR_DATA *ch, OBJ_DATA *obj, OBJ_DATA *container )
     if ( IS_OBJ_STAT( obj, ITEM_PROTOTYPE )
     &&  !can_take_proto( ch ) )
     {
-	send_to_char( "A godly force prevents you from getting close to it.\n\r", ch );
+	mxp_to_char( "A godly force prevents you from getting close to it.\n\r", ch, MPX_ALL );
 	return;
     }
 
@@ -292,14 +292,14 @@ void do_connect( CHAR_DATA *ch, char *argument )
 
   if ( arg1[0] == '\0' || arg2[0] == '\0' )
   {
-    send_to_char( "Connect what to what?\n\r", ch );
+    mxp_to_char( "Connect what to what?\n\r", ch, MPX_ALL );
     return;
   }
 
   if ( ( first_ob =  get_obj_carry( ch, arg1 ) )  == NULL )
   {
     sprintf( buf, "You aren't holding the necessary objects.\n\r" );
-    send_to_char( buf, ch );
+    mxp_to_char( buf, ch, MPX_ALL );
     return;
   }
 
@@ -308,7 +308,7 @@ void do_connect( CHAR_DATA *ch, char *argument )
   if ( ( second_ob =  get_obj_carry( ch, arg2 ) )  == NULL )
   {
     sprintf( buf, "You aren't holding the necessary objects.\n\r" );
-    send_to_char( buf, ch );
+    mxp_to_char( buf, ch, MPX_ALL );
     return;
   }
 
@@ -317,7 +317,7 @@ void do_connect( CHAR_DATA *ch, char *argument )
 
   if ( first_ob->item_type != ITEM_PIECE || second_ob->item_type !=ITEM_PIECE )
   {
-    send_to_char( "You stare at them for a moment, but these items clearly don't go together.\n\r", ch );
+    mxp_to_char( "You stare at them for a moment, but these items clearly don't go together.\n\r", ch, MPX_ALL );
     return;
   }
 
@@ -379,7 +379,7 @@ void do_get( CHAR_DATA *ch, char *argument )
 
     if ( ch->carry_number < 0 || ch->carry_weight < 0 )
     {
-	send_to_char( "Uh oh ... better contact an immortal about your number or weight of items carried.\n\r", ch );
+	mxp_to_char( "Uh oh ... better contact an immortal about your number or weight of items carried.\n\r", ch, MPX_ALL );
 	sprintf( buf, "%s has negative carry_number or carry_weight!", ch->name );
 	log_string( buf );
 	return;
@@ -390,12 +390,12 @@ void do_get( CHAR_DATA *ch, char *argument )
 	number = atoi(arg1);
 	if ( number < 1 )
 	{
-	    send_to_char( "That was easy...\n\r", ch );
+	    mxp_to_char( "That was easy...\n\r", ch, MPX_ALL );
 	    return;
 	}
 	if ( (ch->carry_number + number) > can_carry_n(ch) )
 	{
-	    send_to_char( "You can't carry that many.\n\r", ch );
+	    mxp_to_char( "You can't carry that many.\n\r", ch, MPX_ALL );
 	    return;
 	}
 	argument = one_argument( argument, arg1 );
@@ -410,7 +410,7 @@ void do_get( CHAR_DATA *ch, char *argument )
     /* Get type. */
     if ( arg1[0] == '\0' )
     {
-	send_to_char( "Get what?\n\r", ch );
+	mxp_to_char( "Get what?\n\r", ch, MPX_ALL );
 	return;
     }
 
@@ -443,7 +443,7 @@ void do_get( CHAR_DATA *ch, char *argument )
 
 	    if ( xIS_SET( ch->in_room->room_flags, ROOM_DONATION ) )
 	    {
-		send_to_char( "The gods frown upon such a display of greed!\n\r", ch );
+		mxp_to_char( "The gods frown upon such a display of greed!\n\r", ch, MPX_ALL );
 		return;
 	    }
 	    if ( !str_cmp(arg1, "all") )
@@ -483,7 +483,7 @@ void do_get( CHAR_DATA *ch, char *argument )
 	    if ( !found )
 	    {
 		if ( fAll )
-		  send_to_char( "I see nothing here.\n\r", ch );
+		  mxp_to_char( "I see nothing here.\n\r", ch, MPX_ALL );
 		else
 		  act( AT_PLAIN, "I see no $T here.", ch, NULL, chk, TO_CHAR );
 	    }
@@ -497,7 +497,7 @@ void do_get( CHAR_DATA *ch, char *argument )
 	/* 'get ... container' */
 	if ( !str_cmp( arg2, "all" ) || !str_prefix( "all.", arg2 ) )
 	{
-	    send_to_char( "You can't do that.\n\r", ch );
+	    mxp_to_char( "You can't do that.\n\r", ch, MPX_ALL );
 	    return;
 	}
 
@@ -512,12 +512,12 @@ void do_get( CHAR_DATA *ch, char *argument )
 	default:
 	    if ( !IS_OBJ_STAT( container, ITEM_COVERING ) )
 	    {
-		send_to_char( "That's not a container.\n\r", ch );
+		mxp_to_char( "That's not a container.\n\r", ch, MPX_ALL );
 		return;
 	    }
 	    if ( ch->carry_weight + container->weight > can_carry_w( ch ) )
 	    {
-		send_to_char( "It's too heavy for you to lift.\n\r", ch );
+		mxp_to_char( "It's too heavy for you to lift.\n\r", ch, MPX_ALL );
 		return;
 	    }
 	    break;
@@ -536,7 +536,7 @@ void do_get( CHAR_DATA *ch, char *argument )
 
 		if ( IS_NPC(ch) )
 		{
-		    send_to_char( "You can't do that.\n\r", ch );
+		    mxp_to_char( "You can't do that.\n\r", ch, MPX_ALL );
 		    return;
 		}
 
@@ -550,7 +550,7 @@ void do_get( CHAR_DATA *ch, char *argument )
 		&&  !IS_NPC(ch) && (get_timer( ch, TIMER_PKILLED ) > 0 )
 		&&   str_cmp( name, ch->name ) )
 		{
-		     send_to_char( "You cannot loot from that corpse...yet.\n\r", ch );
+		     mxp_to_char( "You cannot loot from that corpse...yet.\n\r", ch, MPX_ALL );
 		     return;
 		}
 
@@ -564,7 +564,7 @@ void do_get( CHAR_DATA *ch, char *argument )
 		&&   str_cmp( name, ch->name )
 		&&   str_cmp( container->action_desc, ch->name ) )
 		{
-		    send_to_char( "You did not inflict the death blow upon this corpse.\n\r", ch );
+		    mxp_to_char( "You did not inflict the death blow upon this corpse.\n\r", ch, MPX_ALL );
 		    return;
 		}
 
@@ -572,7 +572,7 @@ void do_get( CHAR_DATA *ch, char *argument )
 		&&  !IS_NPC(ch) && !IS_IMMORTAL( ch ) && str_cmp( name, ch->name )
 		&&   container->value[5] >= 3 )
 		{
-		     send_to_char( "Frequent looting has left this corpse protected by the gods.\n\r", ch);
+		     mxp_to_char( "Frequent looting has left this corpse protected by the gods.\n\r", ch, MPX_ALL );
 		     return;
 		}
 
@@ -602,7 +602,7 @@ void do_get( CHAR_DATA *ch, char *argument )
 
 		    if ( !fGroup )
 		    {
-			send_to_char( "That's someone else's corpse.\n\r", ch );
+			mxp_to_char( "That's someone else's corpse.\n\r", ch, MPX_ALL );
 			return;
 		    }
 		}
@@ -650,7 +650,7 @@ void do_get( CHAR_DATA *ch, char *argument )
 	    /* 'get all container' or 'get all.obj container' */
 	    if ( IS_OBJ_STAT( container, ITEM_DONATION ) )
 	    {
-		send_to_char( "The gods frown upon such an act of greed!\n\r", ch );
+		mxp_to_char( "The gods frown upon such an act of greed!\n\r", ch, MPX_ALL );
 		return;
 	    }
 
@@ -659,7 +659,7 @@ void do_get( CHAR_DATA *ch, char *argument )
             &&  !IS_NPC(ch)
             &&  str_cmp( ch->name, container->name+7 ) )
             {
-                send_to_char( "The gods frown upon such wanton greed!\n\r", ch );
+                mxp_to_char( "The gods frown upon such wanton greed!\n\r", ch, MPX_ALL );
                 return;
             }
 
@@ -753,7 +753,7 @@ void do_put( CHAR_DATA *ch, char *argument )
 	number = atoi(arg1);
 	if ( number < 1 )
 	{
-	    send_to_char( "That was easy...\n\r", ch );
+	    mxp_to_char( "That was easy...\n\r", ch, MPX_ALL );
 	    return;
 	}
 	argument = one_argument( argument, arg1 );
@@ -770,7 +770,7 @@ void do_put( CHAR_DATA *ch, char *argument )
 
     if ( arg1[0] == '\0' || arg2[0] == '\0' )
     {
-	send_to_char( "Put what in what?\n\r", ch );
+	mxp_to_char( "Put what in what?\n\r", ch, MPX_ALL );
 	return;
     }
 
@@ -779,7 +779,7 @@ void do_put( CHAR_DATA *ch, char *argument )
 
     if ( !str_cmp(arg2, "all") || !str_prefix("all.", arg2) )
     {
-	send_to_char( "You can't do that.\n\r", ch );
+	mxp_to_char( "You can't do that.\n\r", ch, MPX_ALL );
 	return;
     }
 
@@ -796,7 +796,7 @@ void do_put( CHAR_DATA *ch, char *argument )
     {
 	if ( ch->carry_weight + container->weight > can_carry_w(ch) )
 	{
-	    send_to_char( "It's too heavy for you to lift.\n\r", ch );
+	    mxp_to_char( "It's too heavy for you to lift.\n\r", ch, MPX_ALL );
 	    return;
 	}
     }
@@ -806,7 +806,7 @@ void do_put( CHAR_DATA *ch, char *argument )
 	&&   container->item_type != ITEM_KEYRING
 	&&   container->item_type != ITEM_QUIVER )
 	{
-	    send_to_char( "That's not a container.\n\r", ch );
+	    mxp_to_char( "That's not a container.\n\r", ch, MPX_ALL );
 	    return;
 	}
 
@@ -822,31 +822,31 @@ void do_put( CHAR_DATA *ch, char *argument )
 	/* 'put obj container' */
 	if ( (obj=get_obj_carry(ch, arg1)) == NULL )
 	{
-	    send_to_char( "You do not have that item.\n\r", ch );
+	    mxp_to_char( "You do not have that item.\n\r", ch, MPX_ALL );
 	    return;
 	}
 
 	if ( obj == container )
 	{
-	    send_to_char( "You can't fold it into itself.\n\r", ch );
+	    mxp_to_char( "You can't fold it into itself.\n\r", ch, MPX_ALL );
 	    return;
 	}
 
 	if ( !can_drop_obj(ch, obj) )
 	{
-	    send_to_char( "You can't let go of it.\n\r", ch );
+	    mxp_to_char( "You can't let go of it.\n\r", ch, MPX_ALL );
 	    return;
 	}
 
 	if ( container->item_type == ITEM_KEYRING && obj->item_type != ITEM_KEY )
 	{
-	    send_to_char( "That's not a key.\n\r", ch );
+	    mxp_to_char( "That's not a key.\n\r", ch, MPX_ALL );
 	    return;
 	}
 
 	if ( container->item_type == ITEM_QUIVER && obj->item_type != ITEM_PROJECTILE )
 	{
-	    send_to_char( "That's not a projectile.\n\r", ch );
+	    mxp_to_char( "That's not a projectile.\n\r", ch, MPX_ALL );
 	    return;
 	}
 
@@ -855,7 +855,7 @@ void do_put( CHAR_DATA *ch, char *argument )
 	  > ((get_obj_weight(container) / container->count)
 	  -   container->weight)) )
 	{
-	    send_to_char( "It won't fit under there.\n\r", ch );
+	    mxp_to_char( "It won't fit under there.\n\r", ch, MPX_ALL );
 	    return;
 	}
 
@@ -863,7 +863,7 @@ void do_put( CHAR_DATA *ch, char *argument )
 	   + (get_real_obj_weight(container) / container->count)
 	   >  container->value[0] )
 	{
-	    send_to_char( "It won't fit.\n\r", ch );
+	    mxp_to_char( "It won't fit.\n\r", ch, MPX_ALL );
 	    return;
 	}
 */
@@ -878,13 +878,13 @@ void do_put( CHAR_DATA *ch, char *argument )
                ? tweight > container->value[0]
                : tweight - container->weight > container->weight ) 
                {
-             send_to_char( "It won't fit under there.\n\r", ch );
+             mxp_to_char( "It won't fit under there.\n\r", ch, MPX_ALL );
              return;
              }
        }
        else if ( tweight - container->weight > container->value[0] )  
        {
-             send_to_char( "It won't fit.\n\r", ch );
+             mxp_to_char( "It won't fit.\n\r", ch, MPX_ALL );
              return;
        }
        }
@@ -893,7 +893,7 @@ void do_put( CHAR_DATA *ch, char *argument )
    if ( container->in_room && container->in_room->max_weight
        && container->in_room->max_weight < get_real_obj_weight( obj )/obj->count+container->in_room->weight )
    {
-       send_to_char( "It won't fit.\n\r", ch );
+       mxp_to_char( "It won't fit.\n\r", ch, MPX_ALL );
        return;
    }
 
@@ -1073,7 +1073,7 @@ void do_drop( CHAR_DATA *ch, char *argument )
 	number = atoi(arg);
 	if ( number < 1 )
 	{
-	    send_to_char( "That was easy...\n\r", ch );
+	    mxp_to_char( "That was easy...\n\r", ch, MPX_ALL );
 	    return;
 	}
 	argument = one_argument( argument, arg );
@@ -1083,7 +1083,7 @@ void do_drop( CHAR_DATA *ch, char *argument )
 
     if ( arg[0] == '\0' )
     {
-	send_to_char( "Drop what?\n\r", ch );
+	mxp_to_char( "Drop what?\n\r", ch, MPX_ALL );
 	return;
     }
 
@@ -1093,7 +1093,7 @@ void do_drop( CHAR_DATA *ch, char *argument )
     if ( !IS_NPC(ch) && xIS_SET( ch->act, PLR_LITTERBUG ) )
     {
        set_char_color( AT_YELLOW, ch );
-       send_to_char( "A godly force prevents you from dropping anything...\n\r", ch );
+       mxp_to_char( "A godly force prevents you from dropping anything...\n\r", ch, MPX_ALL );
        return;
     }
 
@@ -1101,9 +1101,9 @@ void do_drop( CHAR_DATA *ch, char *argument )
     &&   ch != supermob )
     {
        set_char_color( AT_MAGIC, ch );
-       send_to_char( "A magical force stops you!\n\r", ch );
+       mxp_to_char( "A magical force stops you!\n\r", ch, MPX_ALL );
        set_char_color( AT_TELL, ch );
-       send_to_char( "Someone tells you, 'No littering here!'\n\r", ch );
+       mxp_to_char( "Someone tells you, 'No littering here!'\n\r", ch, MPX_ALL );
        return;
     }
 
@@ -1115,13 +1115,13 @@ void do_drop( CHAR_DATA *ch, char *argument )
 	{
 	    if ( ch->gold < number )
 	    {
-		send_to_char( "You haven't got that many coins.\n\r", ch );
+		mxp_to_char( "You haven't got that many coins.\n\r", ch, MPX_ALL );
 		return;
 	    }
 
 	    if ( ch->level < 3 && ch->gold <= 50000 )
 	    {
-		send_to_char( "You should gain more experience before throwing away gold.\n\r", ch );
+		mxp_to_char( "You should gain more experience before throwing away gold.\n\r", ch, MPX_ALL );
 		return;
 	    }
 
@@ -1147,7 +1147,7 @@ void do_drop( CHAR_DATA *ch, char *argument )
 
 	    act( AT_ACTION, "$n drops some gold.", ch, NULL, NULL, TO_ROOM );
 	    obj_to_room( create_money( number ), ch->in_room );
-	    send_to_char( "You let the gold slip from your hand.\n\r", ch );
+	    mxp_to_char( "You let the gold slip from your hand.\n\r", ch, MPX_ALL );
 	    /* Band-aid alert :) lets save all the time players normally
 	       don't drop money until I setup a save on dropgold flag
 	       -Shaddai
@@ -1163,19 +1163,19 @@ void do_drop( CHAR_DATA *ch, char *argument )
 	/* 'drop obj' */
 	if ( ( obj = get_obj_carry( ch, arg ) ) == NULL )
 	{
-	    send_to_char( "You do not have that item.\n\r", ch );
+	    mxp_to_char( "You do not have that item.\n\r", ch, MPX_ALL );
 	    return;
 	}
 
 	if ( !can_drop_obj( ch, obj ) )
 	{
-	    send_to_char( "You can't let go of it.\n\r", ch );
+	    mxp_to_char( "You can't let go of it.\n\r", ch, MPX_ALL );
 	    return;
 	}
    if (   ch->in_room->max_weight > 0
    &&   ch->in_room->max_weight < get_real_obj_weight( obj )/obj->count+ch->in_room->weight )
    {
-       send_to_char( "There is not enough room on the ground for that.\n\r", ch );
+       mxp_to_char( "There is not enough room on the ground for that.\n\r", ch, MPX_ALL );
        return;
    }
 
@@ -1224,7 +1224,7 @@ void do_drop( CHAR_DATA *ch, char *argument )
 	if ( xIS_SET( ch->in_room->room_flags, ROOM_NODROPALL ) 
         ||   xIS_SET( ch->in_room->room_flags, ROOM_CLANSTOREROOM ) )
 	{
-	    send_to_char( "You can't seem to do that here...\n\r", ch );
+	    mxp_to_char( "You can't seem to do that here...\n\r", ch, MPX_ALL );
 	    return;
 	}
 	found = FALSE;
@@ -1303,7 +1303,7 @@ void do_give( CHAR_DATA *ch, char *argument )
 
     if ( arg1[0] == '\0' || arg2[0] == '\0' )
     {
-	send_to_char( "Give what to whom?\n\r", ch );
+	mxp_to_char( "Give what to whom?\n\r", ch, MPX_ALL );
 	return;
     }
 
@@ -1321,7 +1321,7 @@ void do_give( CHAR_DATA *ch, char *argument )
 	if ( amount <= 0
 	|| ( str_cmp( arg2, "coins" ) && str_cmp( arg2, "coin" ) ) )
 	{
-	    send_to_char( "Sorry, you can't do that.\n\r", ch );
+	    mxp_to_char( "Sorry, you can't do that.\n\r", ch, MPX_ALL );
 	    return;
 	}
 
@@ -1330,25 +1330,25 @@ void do_give( CHAR_DATA *ch, char *argument )
 	    argument = one_argument( argument, arg2 );
 	if ( arg2[0] == '\0' )
 	{
-	    send_to_char( "Give what to whom?\n\r", ch );
+	    mxp_to_char( "Give what to whom?\n\r", ch, MPX_ALL );
 	    return;
 	}
 
 	if ( ( victim = get_char_room( ch, arg2 ) ) == NULL )
 	{
-	    send_to_char( "They aren't here.\n\r", ch );
+	    mxp_to_char( "They aren't here.\n\r", ch, MPX_ALL );
 	    return;
 	}
 
 	if ( ch->gold < amount )
 	{
-	    send_to_char( "Very generous of you, but you haven't got that much gold.\n\r", ch );
+	    mxp_to_char( "Very generous of you, but you haven't got that much gold.\n\r", ch, MPX_ALL );
 	    return;
 	}
 
 	if ( victim->level == 50 && ch->level < 3 && ch->gold <= 50000 )
 	{
-	    send_to_char( "You should gain experience before giving money to more powerful characters.\n\r", ch );
+	    mxp_to_char( "You should gain experience before giving money to more powerful characters.\n\r", ch, MPX_ALL );
 	    return;
 	}	
 
@@ -1376,7 +1376,7 @@ void do_give( CHAR_DATA *ch, char *argument )
 
     if ( ( obj = get_obj_carry( ch, arg1 ) ) == NULL )
     {
-	send_to_char( "You do not have that item.\n\r", ch );
+	mxp_to_char( "You do not have that item.\n\r", ch, MPX_ALL );
 	return;
     }
 
@@ -1386,19 +1386,19 @@ void do_give( CHAR_DATA *ch, char *argument )
 
     if ( obj->wear_loc != WEAR_NONE )
     {
-	send_to_char( "You must remove it first.\n\r", ch );
+	mxp_to_char( "You must remove it first.\n\r", ch, MPX_ALL );
 	return;
     }
 
     if ( ( victim = get_char_room( ch, arg2 ) ) == NULL )
     {
-	send_to_char( "They aren't here.\n\r", ch );
+	mxp_to_char( "They aren't here.\n\r", ch, MPX_ALL );
 	return;
     }
 
     if ( !can_drop_obj( ch, obj ) )
     {
-	send_to_char( "You can't let go of it.\n\r", ch );
+	mxp_to_char( "You can't let go of it.\n\r", ch, MPX_ALL );
 	return;
     }
 
@@ -1628,17 +1628,17 @@ bool can_dual( CHAR_DATA *ch )
 
     if ( get_eq_char( ch, WEAR_DUAL_WIELD ) )
     {
-	send_to_char( "You are already wielding two weapons!\n\r", ch );
+	mxp_to_char( "You are already wielding two weapons!\n\r", ch, MPX_ALL );
 	return FALSE;
     }
     if ( get_eq_char( ch, WEAR_SHIELD ) )
     {
-	send_to_char( "You cannot dual wield while holding a shield!\n\r", ch );
+	mxp_to_char( "You cannot dual wield while holding a shield!\n\r", ch, MPX_ALL );
 	return FALSE;
     }
     if ( get_eq_char( ch, WEAR_HOLD ) )
     {
-	send_to_char( "You cannot dual wield while holding something!\n\r", ch );
+	mxp_to_char( "You cannot dual wield while holding something!\n\r", ch, MPX_ALL );
 	return FALSE;
     }
     return TRUE;
@@ -1689,7 +1689,7 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace, sh_int wear_bit )
     {
 	sprintf( buf, "You must be level %d to use this object.\n\r",
 	    obj->level );
-	send_to_char( buf, ch );
+	mxp_to_char( buf, ch, MPX_ALL );
 	act( AT_ACTION, "$n tries to use $p, but is too inexperienced.",
 	    ch, obj, NULL, TO_ROOM );
 	return;
@@ -1751,16 +1751,16 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace, sh_int wear_bit )
 		switch( 1 << bit )
 		{
 		    case ITEM_HOLD:
-			send_to_char( "You cannot hold that.\n\r", ch );
+			mxp_to_char( "You cannot hold that.\n\r", ch, MPX_ALL );
 			break;
 		    case ITEM_WIELD:
 		    case ITEM_MISSILE_WIELD:
-			send_to_char( "You cannot wield that.\n\r", ch );
+			mxp_to_char( "You cannot wield that.\n\r", ch, MPX_ALL );
 			break;
 		    default:
 			sprintf( buf, "You cannot wear that on your %s.\n\r",
 				w_flags[bit] );
-			send_to_char( buf, ch );
+			mxp_to_char( buf, ch, MPX_ALL );
 		}
 	    }
 	    return;
@@ -1796,7 +1796,7 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace, sh_int wear_bit )
     if ( bit == -1 )
     {
 	if ( fReplace )
-	    send_to_char( "You can't wear, wield, or hold that.\n\r", ch );
+	    mxp_to_char( "You can't wear, wield, or hold that.\n\r", ch, MPX_ALL );
 	return;
     }
 
@@ -1805,7 +1805,7 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace, sh_int wear_bit )
 	default:
 	    bug( "wear_obj: uknown/unused item_wear bit %d", bit );
 	    if ( fReplace )
-		send_to_char( "You can't wear, wield, or hold that.\n\r", ch );
+		mxp_to_char( "You can't wear, wield, or hold that.\n\r", ch, MPX_ALL );
 	    return;
 
 	case ITEM_WEAR_FINGER:
@@ -1840,7 +1840,7 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace, sh_int wear_bit )
 	    }
 
 	    bug( "Wear_obj: no free finger.", 0 );
-	    send_to_char( "You already wear something on both fingers.\n\r", ch );
+	    mxp_to_char( "You already wear something on both fingers.\n\r", ch, MPX_ALL );
 	    return;
 
 	case ITEM_WEAR_NECK:
@@ -1875,7 +1875,7 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace, sh_int wear_bit )
 	    }
 
 	    bug( "Wear_obj: no free neck.", 0 );
-	    send_to_char( "You already wear two neck items.\n\r", ch );
+	    mxp_to_char( "You already wear two neck items.\n\r", ch, MPX_ALL );
 	    return;
 
 	case ITEM_WEAR_BODY:
@@ -1885,7 +1885,7 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace, sh_int wear_bit )
 	*/
 	    if ( !can_layer( ch, obj, WEAR_BODY ) )
 	    {
-		send_to_char( "It won't fit overtop of what you're already wearing.\n\r", ch );
+		mxp_to_char( "It won't fit overtop of what you're already wearing.\n\r", ch, MPX_ALL );
 		return;
 	    }
             if ( !oprog_use_trigger( ch, obj, NULL, NULL, NULL ) )
@@ -1952,7 +1952,7 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace, sh_int wear_bit )
 */
 	    if ( !can_layer( ch, obj, WEAR_LEGS ) )
 	    {
-		send_to_char( "It won't fit overtop of what you're already wearing.\n\r", ch );
+		mxp_to_char( "It won't fit overtop of what you're already wearing.\n\r", ch, MPX_ALL );
 		return;
 	    }
             if ( !oprog_use_trigger( ch, obj, NULL, NULL, NULL ) )
@@ -1971,7 +1971,7 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace, sh_int wear_bit )
 */
 	    if ( !can_layer( ch, obj, WEAR_FEET ) )
 	    {
-		send_to_char( "It won't fit overtop of what you're already wearing.\n\r", ch );
+		mxp_to_char( "It won't fit overtop of what you're already wearing.\n\r", ch, MPX_ALL );
 		return;
 	    }
             if ( !oprog_use_trigger( ch, obj, NULL, NULL, NULL ) )
@@ -1990,7 +1990,7 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace, sh_int wear_bit )
 */
 	    if ( !can_layer( ch, obj, WEAR_HANDS ) )
 	    {
-		send_to_char( "It won't fit overtop of what you're already wearing.\n\r", ch );
+		mxp_to_char( "It won't fit overtop of what you're already wearing.\n\r", ch, MPX_ALL );
 		return;
 	    }
             if ( !oprog_use_trigger( ch, obj, NULL, NULL, NULL ) )
@@ -2009,7 +2009,7 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace, sh_int wear_bit )
 */
 	    if ( !can_layer( ch, obj, WEAR_ARMS ) )
 	    {
-		send_to_char( "It won't fit overtop of what you're already wearing.\n\r", ch );
+		mxp_to_char( "It won't fit overtop of what you're already wearing.\n\r", ch, MPX_ALL );
 		return;
 	    }
 	    if ( !oprog_use_trigger( ch, obj, NULL, NULL, NULL ) )
@@ -2028,7 +2028,7 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace, sh_int wear_bit )
 	*/
 	    if ( !can_layer( ch, obj, WEAR_ABOUT ) )
 	    {
-		send_to_char( "It won't fit overtop of what you're already wearing.\n\r", ch );
+		mxp_to_char( "It won't fit overtop of what you're already wearing.\n\r", ch, MPX_ALL );
 		return;
 	    }
             if ( !oprog_use_trigger( ch, obj, NULL, NULL, NULL ) )
@@ -2059,7 +2059,7 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace, sh_int wear_bit )
 */
 	    if ( !can_layer( ch, obj, WEAR_WAIST ) )
 	    {
-		send_to_char( "It won't fit overtop of what you're already wearing.\n\r", ch );
+		mxp_to_char( "It won't fit overtop of what you're already wearing.\n\r", ch, MPX_ALL );
 		return;
 	    }
             if ( !oprog_use_trigger( ch, obj, NULL, NULL, NULL ) )
@@ -2107,7 +2107,7 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace, sh_int wear_bit )
 	    }
 
 	    bug( "Wear_obj: no free wrist.", 0 );
-	    send_to_char( "You already wear two wrist items.\n\r", ch );
+	    mxp_to_char( "You already wear two wrist items.\n\r", ch, MPX_ALL );
 	    return;
 
 	case ITEM_WEAR_ANKLE:
@@ -2146,14 +2146,14 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace, sh_int wear_bit )
 	    }
 
 	    bug( "Wear_obj: no free ankle.", 0 );
-	    send_to_char( "You already wear two ankle items.\n\r", ch );
+	    mxp_to_char( "You already wear two ankle items.\n\r", ch, MPX_ALL );
 	    return;
 
 	case ITEM_WEAR_SHIELD:
 	    if ( get_eq_char(ch, WEAR_DUAL_WIELD)
 	    ||  (get_eq_char(ch, WEAR_WIELD) && get_eq_char(ch, WEAR_MISSILE_WIELD)) )
 	    {
-		send_to_char( "You can't use a shield AND two weapons!\n\r", ch );
+		mxp_to_char( "You can't use a shield AND two weapons!\n\r", ch, MPX_ALL );
 		return;
 	    }
 	    if ( !remove_obj( ch, WEAR_SHIELD, fReplace ) )
@@ -2186,13 +2186,13 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace, sh_int wear_bit )
 		dw = get_eq_char(ch, WEAR_DUAL_WIELD);
 		if ( tmpobj && (mw || dw) )
 		{
-		    send_to_char( "You're already wielding two weapons.\n\r", ch );
+		    mxp_to_char( "You're already wielding two weapons.\n\r", ch, MPX_ALL );
 		    return;
 		}
 		hd = get_eq_char(ch, WEAR_HOLD);
 		if ( (mw && hd) || (tmpobj && hd) )
 		{
-		    send_to_char( "You're already wielding a weapon AND holding something.\n\r", ch );
+		    mxp_to_char( "You're already wielding a weapon AND holding something.\n\r", ch, MPX_ALL );
 		    return;
 		}
 	    }
@@ -2203,7 +2203,7 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace, sh_int wear_bit )
 		{
 		    if ( get_obj_weight(obj) + get_obj_weight(tmpobj) > str_app[get_curr_str(ch)].wield )
 		    {
-			send_to_char( "It is too heavy for you to wield.\n\r", ch );
+			mxp_to_char( "It is too heavy for you to wield.\n\r", ch, MPX_ALL );
 			return;
 	      	    }
                     if ( !oprog_use_trigger( ch, obj, NULL, NULL, NULL ) )
@@ -2222,7 +2222,7 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace, sh_int wear_bit )
 
 	    if ( get_obj_weight(obj) > str_app[get_curr_str(ch)].wield )
 	    {
-		send_to_char( "It is too heavy for you to wield.\n\r", ch );
+		mxp_to_char( "It is too heavy for you to wield.\n\r", ch, MPX_ALL );
 		return;
 	    }
 
@@ -2242,7 +2242,7 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace, sh_int wear_bit )
 	    if ( get_eq_char(ch, WEAR_DUAL_WIELD)
 	    ||  (get_eq_char(ch, WEAR_WIELD) && get_eq_char(ch, WEAR_MISSILE_WIELD)) )
 	    {
-		send_to_char( "You cannot hold something AND two weapons!\n\r", ch );
+		mxp_to_char( "You cannot hold something AND two weapons!\n\r", ch, MPX_ALL );
 		return;
 	    }
 	    if ( !remove_obj( ch, WEAR_HOLD, fReplace ) )
@@ -2286,7 +2286,7 @@ void do_wear( CHAR_DATA *ch, char *argument )
 
     if ( arg1[0] == '\0' )
     {
-	send_to_char( "Wear, wield, or hold what?\n\r", ch );
+	mxp_to_char( "Wear, wield, or hold what?\n\r", ch, MPX_ALL );
 	return;
     }
 
@@ -2313,7 +2313,7 @@ void do_wear( CHAR_DATA *ch, char *argument )
     {
 	if ( ( obj = get_obj_carry( ch, arg1 ) ) == NULL )
 	{
-	    send_to_char( "You do not have that item.\n\r", ch );
+	    mxp_to_char( "You do not have that item.\n\r", ch, MPX_ALL );
 	    return;
 	}
 	if ( arg2[0] != '\0' )
@@ -2338,7 +2338,7 @@ void do_remove( CHAR_DATA *ch, char *argument )
 
     if ( arg[0] == '\0' )
     {
-	send_to_char( "Remove what?\n\r", ch );
+	mxp_to_char( "Remove what?\n\r", ch, MPX_ALL );
 	return;
     }
 
@@ -2358,7 +2358,7 @@ void do_remove( CHAR_DATA *ch, char *argument )
 
     if ( ( obj = get_obj_wear( ch, arg ) ) == NULL )
     {
-	send_to_char( "You are not using that item.\n\r", ch );
+	mxp_to_char( "You are not using that item.\n\r", ch, MPX_ALL );
 	return;
     }
     if ( (obj_next=get_eq_char(ch, obj->wear_loc)) != obj )
@@ -2383,7 +2383,7 @@ void do_bury( CHAR_DATA *ch, char *argument )
 
     if ( arg[0] == '\0' )
     {    
-        send_to_char( "What do you wish to bury?\n\r", ch );
+        mxp_to_char( "What do you wish to bury?\n\r", ch, MPX_ALL );
         return;
     }
     
@@ -2401,7 +2401,7 @@ void do_bury( CHAR_DATA *ch, char *argument )
     obj = get_obj_list_rev( ch, arg, ch->in_room->last_content );
     if ( !obj )
     {
-        send_to_char( "You can't find it.\n\r", ch );
+        mxp_to_char( "You can't find it.\n\r", ch, MPX_ALL );
         return;
     }
 
@@ -2428,22 +2428,22 @@ void do_bury( CHAR_DATA *ch, char *argument )
     {
 	case SECT_CITY:
 	case SECT_INSIDE:
-	    send_to_char( "The floor is too hard to dig through.\n\r", ch );
+	    mxp_to_char( "The floor is too hard to dig through.\n\r", ch, MPX_ALL );
 	    return;
 	case SECT_WATER_SWIM:
 	case SECT_WATER_NOSWIM:
 	case SECT_UNDERWATER:
-	    send_to_char( "You cannot bury something here.\n\r", ch );
+	    mxp_to_char( "You cannot bury something here.\n\r", ch, MPX_ALL );
 	    return;
 	case SECT_AIR:
-	    send_to_char( "What?  In the air?!\n\r", ch );
+	    mxp_to_char( "What?  In the air?!\n\r", ch, MPX_ALL );
 	    return;
     }
 
     if ( obj->weight > (UMAX(5, (can_carry_w(ch) / 10)))
     &&  !shovel )
     {
-	send_to_char( "You'd need a shovel to bury something that big.\n\r", ch );
+	mxp_to_char( "You'd need a shovel to bury something that big.\n\r", ch, MPX_ALL );
 	return;
     }
     
@@ -2451,7 +2451,7 @@ void do_bury( CHAR_DATA *ch, char *argument )
     move = URANGE( 2, move, 1000 );
     if ( move > ch->move )
     {
-	send_to_char( "You don't have the energy to bury something of that size.\n\r", ch );
+	mxp_to_char( "You don't have the energy to bury something of that size.\n\r", ch, MPX_ALL );
 	return;
     }
     ch->move -= move;
@@ -2479,7 +2479,7 @@ void do_sacrifice( CHAR_DATA *ch, char *argument )
     {
 	act( AT_ACTION, "$n offers $mself to $s deity, who graciously declines.",
 	    ch, NULL, NULL, TO_ROOM );
-	send_to_char( "Your deity appreciates your offer and may accept it later.\n\r", ch );
+	mxp_to_char( "Your deity appreciates your offer and may accept it later.\n\r", ch, MPX_ALL );
 	return;
     }
 
@@ -2489,7 +2489,7 @@ void do_sacrifice( CHAR_DATA *ch, char *argument )
     obj = get_obj_list_rev( ch, arg, ch->in_room->last_content );
     if ( !obj )
     {
-	send_to_char( "You can't find it.\n\r", ch );
+	mxp_to_char( "You can't find it.\n\r", ch, MPX_ALL );
 	return;
     }
 
@@ -2501,7 +2501,7 @@ void do_sacrifice( CHAR_DATA *ch, char *argument )
     }
     if ( xIS_SET(ch->in_room->room_flags, ROOM_CLANSTOREROOM) )
 	{
-		send_to_char( "The gods would not accept such a foolish sacrifice.\n\r", ch );
+		mxp_to_char( "The gods would not accept such a foolish sacrifice.\n\r", ch, MPX_ALL );
 		return;
 	}
     if ( IS_SET( obj->magic_flags, ITEM_PKDISARMED )
@@ -2543,7 +2543,7 @@ void do_sacrifice( CHAR_DATA *ch, char *argument )
        adjust_favor( ch, 5, 1 );
 
     sprintf( buf, "%s gives you one gold coin for your sacrifice.\n\r", name );
-    send_to_char( buf, ch );
+    mxp_to_char( buf, ch, MPX_ALL );
     if ( obj->item_type == ITEM_PAPER )
     {
         sprintf( log_buf, "%s sacrificed note: %s",
@@ -2588,13 +2588,13 @@ void do_brandish( CHAR_DATA *ch, char *argument )
 
     if ( ( staff = get_eq_char( ch, WEAR_HOLD ) ) == NULL )
     {
-	send_to_char( "You hold nothing in your hand.\n\r", ch );
+	mxp_to_char( "You hold nothing in your hand.\n\r", ch, MPX_ALL );
 	return;
     }
 
     if ( staff->item_type != ITEM_STAFF )
     {
-	send_to_char( "You can brandish only with a staff.\n\r", ch );
+	mxp_to_char( "You can brandish only with a staff.\n\r", ch, MPX_ALL );
 	return;
     }
 
@@ -2683,19 +2683,19 @@ void do_zap( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' && !ch->fighting )
     {
-	send_to_char( "Zap whom or what?\n\r", ch );
+	mxp_to_char( "Zap whom or what?\n\r", ch, MPX_ALL );
 	return;
     }
 
     if ( ( wand = get_eq_char( ch, WEAR_HOLD ) ) == NULL )
     {
-	send_to_char( "You hold nothing in your hand.\n\r", ch );
+	mxp_to_char( "You hold nothing in your hand.\n\r", ch, MPX_ALL );
 	return;
     }
 
     if ( wand->item_type != ITEM_WAND )
     {
-	send_to_char( "You can zap only with a wand.\n\r", ch );
+	mxp_to_char( "You can zap only with a wand.\n\r", ch, MPX_ALL );
 	return;
     }
 
@@ -2708,7 +2708,7 @@ void do_zap( CHAR_DATA *ch, char *argument )
 	}
 	else
 	{
-	    send_to_char( "Zap whom or what?\n\r", ch );
+	    mxp_to_char( "Zap whom or what?\n\r", ch, MPX_ALL );
 	    return;
 	}
     }
@@ -2717,7 +2717,7 @@ void do_zap( CHAR_DATA *ch, char *argument )
 	if ( ( victim = get_char_room ( ch, arg ) ) == NULL
 	&&   ( obj    = get_obj_here  ( ch, arg ) ) == NULL )
 	{
-	    send_to_char( "You can't find it.\n\r", ch );
+	    mxp_to_char( "You can't find it.\n\r", ch, MPX_ALL );
 	    return;
 	}
     }
@@ -2829,7 +2829,7 @@ void do_auction (CHAR_DATA *ch, char *argument)
 
     if ( ch->level < 3 )
     {
-	send_to_char( "You must be at least level three to use the auction...\n\r", ch );
+	mxp_to_char( "You must be at least level three to use the auction...\n\r", ch, MPX_ALL );
 	return;
     }
 
@@ -2837,7 +2837,7 @@ void do_auction (CHAR_DATA *ch, char *argument)
     && auction->item == NULL
     && !IS_IMMORTAL( ch ) )
     {
-	send_to_char ("\n\rThe auctioneer works between the hours of 9 AM and 6 PM\n\r", ch );
+	mxp_to_char("\n\rThe auctioneer works between the hours of 9 AM and 6 PM\n\r", ch, MPX_ALL );
         return;
     }
 
@@ -2867,7 +2867,7 @@ void do_auction (CHAR_DATA *ch, char *argument)
 		obj->cost,   
 		obj->level );
 	    set_char_color( AT_LBLUE, ch );
-	    send_to_char( buf, ch );
+	    mxp_to_char( buf, ch, MPX_ALL );
 	    if ( obj->item_type != ITEM_LIGHT && obj->wear_flags-1 > 0 )
 	      ch_printf( ch, "Item's wear location: %s\n\r",
 		flag_string(obj->wear_flags -1, w_flags ) );
@@ -2892,46 +2892,46 @@ void do_auction (CHAR_DATA *ch, char *argument)
 		case ITEM_SCROLL:
 		case ITEM_POTION:
 		  sprintf( buf, "Level %d spells of:", obj->value[0] );
-		  send_to_char( buf, ch );
+		  mxp_to_char( buf, ch, MPX_ALL );
         
 		  if ( obj->value[1] >= 0 && obj->value[1] < top_sn )
 		  {
-		     send_to_char( " '", ch );
-		     send_to_char( skill_table[obj->value[1]]->name, ch );
-		     send_to_char( "'", ch );
+		     mxp_to_char( " '", ch, MPX_ALL );
+		     mxp_to_char( skill_table[obj->value[1]]->name, ch, MPX_ALL );
+		     mxp_to_char( "'", ch, MPX_ALL );
 		  }
     
 		  if ( obj->value[2] >= 0 && obj->value[2] < top_sn )
 		  {
-		     send_to_char( " '", ch );
-		     send_to_char( skill_table[obj->value[2]]->name, ch );
-		     send_to_char( "'", ch );
+		     mxp_to_char( " '", ch, MPX_ALL );
+		     mxp_to_char( skill_table[obj->value[2]]->name, ch, MPX_ALL );
+		     mxp_to_char( "'", ch, MPX_ALL );
 		  }
     
 		  if ( obj->value[3] >= 0 && obj->value[3] < top_sn )
 		  {
-		     send_to_char( " '", ch );
-		     send_to_char( skill_table[obj->value[3]]->name, ch );
-		     send_to_char( "'", ch );
+		     mxp_to_char( " '", ch, MPX_ALL );
+		     mxp_to_char( skill_table[obj->value[3]]->name, ch, MPX_ALL );
+		     mxp_to_char( "'", ch, MPX_ALL );
 		  }
 
-		  send_to_char( ".\n\r", ch );
+		  mxp_to_char( ".\n\r", ch, MPX_ALL );
 		  break;
     
 		case ITEM_WAND:
 		case ITEM_STAFF:
 		  sprintf( buf, "Has %d(%d) charges of level %d",
 			obj->value[1], obj->value[2], obj->value[0] );
-		  send_to_char( buf, ch );
+		  mxp_to_char( buf, ch, MPX_ALL );
          
 		  if ( obj->value[3] >= 0 && obj->value[3] < top_sn )
 		  {
-		     send_to_char( " '", ch );
-		     send_to_char( skill_table[obj->value[3]]->name, ch );
-		     send_to_char( "'", ch );
+		     mxp_to_char( " '", ch, MPX_ALL );
+		     mxp_to_char( skill_table[obj->value[3]]->name, ch, MPX_ALL );
+		     mxp_to_char( "'", ch, MPX_ALL );
 		  }
 
-		  send_to_char( ".\n\r", ch );
+		  mxp_to_char( ".\n\r", ch, MPX_ALL );
 		  break;
         
 		case ITEM_MISSILE_WEAPON:
@@ -2941,12 +2941,12 @@ void do_auction (CHAR_DATA *ch, char *argument)
 			( obj->value[1] + obj->value[2] ) / 2,
 			IS_OBJ_STAT( obj, ITEM_POISONED) ?
 			"\n\rThis weapon is poisoned." : "" );
-		  send_to_char( buf, ch );
+		  mxp_to_char( buf, ch, MPX_ALL );
 		  break;
 
 		case ITEM_ARMOR:
 		  sprintf( buf, "Armor class is %d.\n\r", obj->value[0] );
-		  send_to_char( buf, ch );
+		  mxp_to_char( buf, ch, MPX_ALL );
 		  break;
 	    }
          
@@ -2959,7 +2959,7 @@ void do_auction (CHAR_DATA *ch, char *argument)
 	    ||     obj->item_type == ITEM_QUIVER)   && obj->first_content )
 	    {
 		set_char_color( AT_OBJECT, ch );
-		send_to_char( "Contents:\n\r", ch );
+		mxp_to_char( "Contents:\n\r", ch, MPX_ALL );
 		show_list_to_char( obj->first_content, ch, TRUE, FALSE, eItemBid );
 	    }
 
@@ -2968,9 +2968,9 @@ void do_auction (CHAR_DATA *ch, char *argument)
 		sprintf(buf, "Seller: %s.  Bidder: %s.  Round: %d.\n\r",
                         auction->seller->name, auction->buyer->name,
                         (auction->going + 1));
-		send_to_char(buf, ch);
+		mxp_to_char(buf, ch, MPX_ALL );
 		sprintf(buf, "Time left in round: %d.\n\r", auction->pulse);
-		send_to_char(buf, ch);
+		mxp_to_char(buf, ch, MPX_ALL );
 	    }
             return;
 	}
@@ -3015,13 +3015,13 @@ void do_auction (CHAR_DATA *ch, char *argument)
 
 	    if ( ch->level < auction->item->level )
 	    {
-		send_to_char("This object's level is too high for your use.\n\r", ch );
+		mxp_to_char("This object's level is too high for your use.\n\r", ch, MPX_ALL );
 		return;
 	    }
 
 	    if ( ch == auction->seller)
 	    {
-		send_to_char("You can't bid on your own item!\n\r", ch);
+		mxp_to_char("You can't bid on your own item!\n\r", ch, MPX_ALL );
 		return;
 	    }
 
@@ -3037,7 +3037,7 @@ void do_auction (CHAR_DATA *ch, char *argument)
 
 	    if (newbet < auction->starting)
 	    {
-		send_to_char("You must place a bid that is higher than the starting bet.\n\r", ch);
+		mxp_to_char("You must place a bid that is higher than the starting bet.\n\r", ch, MPX_ALL );
 		return;
 	    }
 
@@ -3059,7 +3059,7 @@ void do_auction (CHAR_DATA *ch, char *argument)
 
 	    if (newbet > 2000000000)
 	    {
-		send_to_char("You can't bid over 2 billion coins.\n\r", ch);
+		mxp_to_char("You can't bid over 2 billion coins.\n\r", ch, MPX_ALL );
 		return;
 	    }
 
@@ -3067,7 +3067,7 @@ void do_auction (CHAR_DATA *ch, char *argument)
 	    if ( arg3[0] != '\0' &&
 	 	 !nifty_is_name( arg3, auction->item->name ) )
 	    {
-	     send_to_char("That item is not being auctioned right now.\n\r",ch);
+	     mxp_to_char("That item is not being auctioned right now.\n\r",ch, MPX_ALL );
 	     return;
 	    }
             /* the actual bet is OK! */
@@ -3111,14 +3111,14 @@ void do_auction (CHAR_DATA *ch, char *argument)
     {
 	if (obj->pIndexData->vnum == noauc->vnum && !IS_IMMORTAL( ch ) )
 	{
-		send_to_char("That item cannot be auctioned.\n\r", ch);
+		mxp_to_char("That item cannot be auctioned.\n\r", ch, MPX_ALL );
 		return;
 	}
     }
 
     if ( obj->item_type != obj->pIndexData->item_type )
     {
-	send_to_char( "This object is too modified to auction.  Please contact an immortal.\n\r", ch );
+	mxp_to_char( "This object is too modified to auction.  Please contact an immortal.\n\r", ch, MPX_ALL );
 	return;
     }
 
@@ -3129,12 +3129,12 @@ void do_auction (CHAR_DATA *ch, char *argument)
     }
 
     if ( xIS_SET( obj->extra_flags, ITEM_CLANOBJECT ) ) {
-    	    send_to_char("You can't auction clan items.\n\r", ch );
+    	    mxp_to_char("You can't auction clan items.\n\r", ch, MPX_ALL );
 	    return;
     }
 
     if ( IS_OBJ_STAT( obj, ITEM_PERMANENT ) ) {
-	    send_to_char("This item cannot leave your possession.\n\r", ch );
+	    mxp_to_char("This item cannot leave your possession.\n\r", ch );
 	    return;
     }
 	    
@@ -3143,8 +3143,8 @@ void do_auction (CHAR_DATA *ch, char *argument)
     {
     	if(auction->history[i] == obj->pIndexData)
     	{
-	    send_to_char("Such an item has been auctioned "
-	    	"recently, try again later.\n\r", ch);
+	    mxp_to_char("Such an item has been auctioned "
+	    	"recently, try again later.\n\r", ch, MPX_ALL );
 	    return;
     	}
     }
@@ -3158,13 +3158,13 @@ void do_auction (CHAR_DATA *ch, char *argument)
 
     if ( !is_number(arg2) )
     {
-	send_to_char("You must input a number at which to start the auction.\n\r", ch);
+	mxp_to_char("You must input a number at which to start the auction.\n\r", ch, MPX_ALL );
 	return;
     }
 
     if ( atoi(arg2) < 0 )
     {
-	send_to_char("You can't auction something for less than 0 gold!\n\r", ch);
+	mxp_to_char("You can't auction something for less than 0 gold!\n\r", ch, MPX_ALL );
  	return;
     }
 
@@ -3387,13 +3387,13 @@ void do_findnote( CHAR_DATA *ch, char *argument )
 
   if ( IS_NPC(ch) )  
   {
-    send_to_char( "Huh?\n\r", ch );
+    mxp_to_char( "Huh?\n\r", ch, MPX_ALL );
     return;
   }
 
   if( argument[0] == '\0' )
   {
-    send_to_char( "You must specify at least one keyword.\n\r", ch);
+    mxp_to_char( "You must specify at least one keyword.\n\r", ch, MPX_ALL );
     return;
   }
 
@@ -3409,7 +3409,7 @@ void do_findnote( CHAR_DATA *ch, char *argument )
     wear_obj(ch, obj, TRUE, -1);
   }
   else
-    send_to_char("Note not found.\n\r", ch);
+    mxp_to_char("Note not found.\n\r", ch, MPX_ALL );
   return;
 }
 

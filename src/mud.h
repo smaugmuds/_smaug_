@@ -24,7 +24,7 @@
    [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
    [|                                                                       |]
    [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-   [|  Quan, and Mitchell Tse. Original Diku Mud Â 1990-1991 by Sebastian   |]
+   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
    [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
    [|  Nyboe. Win32 port Nick Gammon.                                       |]
    [|                                                                       |]
@@ -317,6 +317,9 @@ extern int MAX_PC_CLASS;
 #define LEVEL_LOG		    LEVEL_LESSER
 #define LEVEL_HIGOD		    LEVEL_GOD
 
+#include "mxp.h"
+#include "mssp.h"
+#include "protocol.h"
 #include "news.h" /* Extended News - 12/15/01 - Nopey */
 #include "house.h"
 #include "hint.h"
@@ -867,6 +870,7 @@ struct	descriptor_data
     char *		user;
     int			newstate;
     unsigned char	prevcolor;
+    protocol_t *        pProtocol;
 };
 
 

@@ -25,7 +25,7 @@
 #   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
 #   [|                                                                       |]
 #   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-#   [|  Quan, and Mitchell Tse. Original Diku Mud Â 1990-1991 by Sebastian   |]
+#   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
 #   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
 #   [|  Nyboe. Win32 port Nick Gammon.                                       |]
 #   [|                                                                       |]
@@ -47,6 +47,20 @@ USE_PLANES = -DPLANES
 # USE_WHOARG = -DREQWHOARG
 
 USE_HONOUR_CODE = -DHONOUR_CODE
+
+##### --{smaug}-- PROTOCOL OPTIONS #####
+
+# Uncomment this if players can also use RGB colour codes such as "^[F135]"
+
+USE_EXTCOLOR = -DEXTENDED_COLOUR
+
+# Uncomment this if invalid colours are displayed rather than being eaten.
+
+# USE_INVALID_COLOR_CODE = -DDISPLAY_INVALID_COLOUR_CODES
+
+# If your mud supports MCCP (compression), uncomment the next line.
+
+USE_MCCP = -DUSING_MCCP
 
 ##### --{smaug}-- BUILD OPTIONS #####
 
@@ -110,6 +124,7 @@ AM_PFLAGS = -finline-functions -funroll-loops -fdefer-pop -fstrength-reduce
 
 AM_CFLAGS += \
 $(PROFILING) $(USE_SMAUG) $(USE_PLANES) $(USE_WHOARG) $(USE_HONOUR_CODE) \
+$(USE_EXTCOLOR) $(USE_INVALID_COLOR_CODE) $(USE_MCCP)
 $(NO_CRYPT) $(TIME) $(REG) $(SOLARIS_FLAG)
 
 AM_LDFLAGS = $(AM_PFLAGS) $(PROFILING) $(SOLARIS_LINK) $(NEED_CRYPT)
@@ -126,8 +141,8 @@ bin_PROGRAMS = smaug$(EXEEXT)
 CLEANFILES = *~ *.o smaug.h smaug$(EXEEXT) stamp-h1
 
 smaug_SOURCES = \
-act_comm.c act_info.c act_move.c act_obj.c act_wiz.c adminlist.c \
-ban.c boards.c build.c clans.c colorize.c comm.c comments.c const.c \
+act_comm.c act_info.c act_move.c act_obj.c act_wiz.c adminlist.c mssp.c mccp.c \
+ban.c boards.c build.c clans.c colorize.c comm.c comments.c const.c mxp.c \
 db.c deity.c fight.c grub.c handler.c hashstr.c hint.c house.c ibuild.c \
 ident.c imm_host.c interp.c liquids.c magic.c makeobjs.c mapout.c misc.c \
 mpxset.c mud_comm.c mud_prog.c news.c planes.c player.c polymorph.c \
@@ -135,9 +150,5 @@ renumber.c requests.c reset.c save.c services.c sha256.c shops.c skills.c \
 special.c stances.c starmap.c stat_obj.c tables.c track.c update.c variables.c 
 
 include_HEADERS = \
-mud.h smaug.h bet.h hint.h news.h sha256.h house.h liquids.h       
+mud.h smaug.h bet.h hint.h news.h sha256.h house.h liquids.h mssp.h mxp.h
 
-.c.o:
-	@echo -n "  $(CC) -> Building Object: $@ ..."; \
-	$(CC) -c $(AM_CFLAGS) $(AM_LDFLAGS) $< -o $@; \
-	echo " done";

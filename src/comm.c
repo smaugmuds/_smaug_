@@ -24,7 +24,7 @@
    [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
    [|                                                                       |]
    [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-   [|  Quan, and Mitchell Tse. Original Diku Mud Â 1990-1991 by Sebastian   |]
+   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
    [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
    [|  Nyboe. Win32 port Nick Gammon.                                       |]
    [|                                                                       |]
@@ -709,6 +709,10 @@ void game_loop( )
 		if ( d->incomm[0] != '\0' )
 		{
 			d->fcommand	= TRUE;
+
+      if ( d->pProtocol != NULL )
+           d->pProtocol->WriteOOB = 0;
+
 			stop_idling( d->character );
 
 			strcpy( cmdline, d->incomm );
@@ -915,7 +919,8 @@ void new_descriptor( int new_desc )
     dnew->user 		= STRALLOC("(unknown)");
     dnew->newstate	= 0;
     dnew->prevcolor	= 0x07;
-    dnew->mxp = FALSE;   /* NJG - initially MXP is off */
+    dnew->mxp = FALSE;
+    dnew->pProtocol = ProtocolCreate();   /* NJG - initially MXP is off */
 
     CREATE( dnew->outbuf, char, dnew->outsize );
 
@@ -956,6 +961,8 @@ void new_descriptor( int new_desc )
     }
 
     LINK( dnew, first_descriptor, last_descriptor, next, prev );
+
+    ProtocolNegotiate(dnew);
 
     /*
      * Send the greeting.
@@ -1154,6 +1161,8 @@ void close_socket( DESCRIPTOR_DATA *dclose, bool force )
     if ( dclose->descriptor == maxdesc )
       --maxdesc;
 
+    ProtocolDestroy( dclose->pProtocol );
+
     free_desc( dclose );
     --num_descriptors;
     return;
@@ -1163,6 +1172,9 @@ void close_socket( DESCRIPTOR_DATA *dclose, bool force )
 bool read_from_descriptor( DESCRIPTOR_DATA *d )
 {
     int iStart, iErr;
+
+    static char read_buf[MAX_PROTOCOL_BUFFER];
+    read_buf[0] = '\0';
 
     /* Hold horses if pending command already. */
     if ( d->incomm[0] != '\0' )
@@ -1183,8 +1195,8 @@ bool read_from_descriptor( DESCRIPTOR_DATA *d )
     {
 	int nRead;
 
-	nRead = recv( d->descriptor, d->inbuf + iStart,
-	    sizeof(d->inbuf) - 10 - iStart, 0 );
+	nRead = recv( d->descriptor, read_buf + iStart,
+	    sizeof(read_buf) - 10 - iStart, 0 );
 #ifdef WIN32
 	iErr = WSAGetLastError ();
 #else
@@ -1193,7 +1205,7 @@ bool read_from_descriptor( DESCRIPTOR_DATA *d )
 	if ( nRead > 0 )
 	{
 	    iStart += nRead;
-	    if ( d->inbuf[iStart-1] == '\n' || d->inbuf[iStart-1] == '\r' )
+	    if ( read_buf[iStart-1] == '\n' || read_buf[iStart-1] == '\r' )
 		break;
 	}
 	else if ( nRead == 0 )
@@ -1210,7 +1222,9 @@ bool read_from_descriptor( DESCRIPTOR_DATA *d )
 	}
     }
 
-    d->inbuf[iStart] = '\0';
+    // d->inbuf[iStart] = '\0';
+    read_buf[iStart] = '\0';
+    ProtocolInput( d, read_buf, iStart, d->inbuf );
     return TRUE;
 }
 
@@ -1385,7 +1399,8 @@ bool flush_buffer( DESCRIPTOR_DATA *d, bool fPrompt )
     /*
      * Bust a prompt.
      */
-    if ( fPrompt && !mud_down && d->connected == CON_PLAYING )
+    if ( !d->pProtocol->WriteOOB && fPrompt && !mud_down && d->connected == CON_PLAYING )
+		//if ( fPrompt && !mud_down && d->connected == CON_PLAYING )
     {
 	CHAR_DATA *ch;
 
@@ -1641,6 +1656,10 @@ int origlength;
     if ( !d->outbuf )
     	return;
 
+    txt = ProtocolOutput( d, txt, &length );
+    if ( d->pProtocol->WriteOOB > 0 )
+        --d->pProtocol->WriteOOB;
+
     /*
      * Find length in case caller didn't.
      */
@@ -1662,7 +1681,8 @@ int origlength;
     /*
      * Initial \n\r if needed.
      */
-    if ( d->outtop == 0 && !d->fcommand )
+    // if ( d->outtop == 0 && !d->fcommand )
+    if ( d->outtop == 0 && !d->fcommand && !d->pProtocol->WriteOOB )
     {
 	d->outbuf[0]	= '\n';
 	d->outbuf[1]	= '\r';
@@ -1764,7 +1784,7 @@ void show_classes_to_nanny( DESCRIPTOR_DATA *d )
 	ch_printf_color( ch, "&W %-15.15s ", class_table[iClass]->who_name );
 	if ( cnt == 3 )
 	{
-	    send_to_char( "\n\r", ch );
+	    mxp_to_char( "\n\r", ch, MPX_ALL );
 	    cnt = 0;
 	}
     }
@@ -1795,7 +1815,7 @@ void show_races_to_nanny( DESCRIPTOR_DATA *d )
 	    }
 	    if ( cnt == 3 )
 	    {
-		send_to_char( "\n\r", ch );
+		mxp_to_char( "\n\r", ch, MPX_ALL );
 		cnt = 0;
 	    }
 	}
@@ -1993,7 +2013,8 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 	    }
 	    /* Old player */
 	    write_to_buffer( d, "Password: ", 0 );
-	    write_to_buffer( d, echo_off_str, 0 );
+	    //write_to_buffer( d, echo_off_str, 0 );
+	    ProtocolNoEcho( d, true );
 	    d->connected = CON_GET_OLD_PASSWORD;
 	    return;
 	}
@@ -2035,7 +2056,8 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 	    return;
 	}
 
-	write_to_buffer( d, echo_on_str, 0 );
+	//write_to_buffer( d, echo_on_str, 0 );
+    ProtocolNoEcho( d, false );
 
 	if ( check_playing( d, ch->pcdata->filename, TRUE ) )
 	    return;
@@ -2097,9 +2119,11 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 	switch ( *argument )
 	{
 	case 'y': case 'Y':
+      ProtocolNoEcho( d, true );
 	    sprintf( buf, "\n\rMake sure to use a password that won't be easily guessed by someone else."
 	    		  "\n\rPick a good password for %s: %s",
-		ch->name, echo_off_str );
+        ch->name );
+		//ch->name, echo_off_str );
 	    write_to_buffer( d, buf, 0 );
 	    d->connected = CON_GET_NEW_PASSWORD;
 	    break;
@@ -2165,7 +2189,8 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 
 
     case CON_GET_WANT_RIPANSI:
-	write_to_buffer( d, echo_on_str, 0 );
+	// write_to_buffer( d, echo_on_str, 0 );
+	ProtocolNoEcho( d, false );
 	switch ( argument[0] )
 	{
 	case 'r': case 'R':
@@ -2554,6 +2579,8 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
     else
        act( AT_ACTION, "$n has entered the game.",  ch, NULL, NULL, TO_CANSEE );
 
+    MXPSendTag( d, "<VERSION>" ); 
+
     if ( ch->pcdata->pet )
     {
            act( AT_ACTION, "$n returns to $s master from the Void.",
@@ -2730,7 +2757,7 @@ bool check_reconnect( DESCRIPTOR_DATA *d, char *name, bool fConn )
                 if ( class_table[ch->class]->reconnect )
                         ch_printf(ch, "%s\n\r", class_table[ch->class]->reconnect );
                 else
-                        send_to_char( "Reconnecting.\n\r", ch );
+                        mxp_to_char( "Reconnecting.\n\r", ch, MPX_ALL );
                 rprog_login_trigger(ch);
                 mprog_login_trigger(ch);
 		do_look( ch, "auto" );
@@ -2750,6 +2777,9 @@ bool check_reconnect( DESCRIPTOR_DATA *d, char *name, bool fConn )
 		  to_channel( log_buf, CHANNEL_MONITOR, "Monitor", ch->level );
 */
 		d->connected = CON_PLAYING;
+
+    MXPSendTag( d, "<VERSION>" );
+
 	    }
 	    return TRUE;
 	}
@@ -2805,7 +2835,7 @@ bool check_playing( DESCRIPTOR_DATA *d, char *name, bool kick )
 	    if ( ch->switched )
 	      do_return( ch->switched, "" );
 	    ch->switched = NULL;
-	    send_to_char( "Reconnecting.\n\r", ch );
+	    mxp_to_char( "Reconnecting.\n\r", ch, MPX_ALL );
 	    do_look( ch, "auto" );
 	    check_loginmsg( ch );
 	    act( AT_ACTION, "$n has reconnected, kicking off old link.",
@@ -2874,7 +2904,7 @@ void stop_idling( CHAR_DATA *ch )
 /*
  * Write to one char.
  */
-void send_to_char( const char *txt, CHAR_DATA *ch )
+void mxp_to_char( const char *txt, CHAR_DATA *ch )
 {
     if ( !ch )
     {
@@ -2997,8 +3027,8 @@ void send_to_pager( const char *txt, CHAR_DATA *ch )
     ch = d->original ? d->original : d->character;
     if ( IS_NPC(ch) || !IS_SET(ch->pcdata->flags, PCFLAG_PAGERON) )
     {
-	send_to_char(txt, d->character);
-	return;
+			mxp_to_char(txt, d->character, MXP_ALL);
+			return;
     }
     write_to_pager(d, txt, 0);
   }
@@ -3133,7 +3163,7 @@ void ch_printf(CHAR_DATA *ch, char *fmt, ...)
     vsprintf(buf, fmt, args);
     va_end(args);
 	
-    send_to_char(buf, ch);
+    mxp_to_char(buf, ch, MPX_ALL );
 }
 
 void pager_printf(CHAR_DATA *ch, char *fmt, ...)
@@ -3606,7 +3636,7 @@ void do_name( CHAR_DATA *ch, char *argument )
 
   if ( !NOT_AUTHED(ch) || ch->pcdata->auth_state != 2)
   {
-    send_to_char("Huh?\n\r", ch);
+    mxp_to_char("Huh?\n\r", ch, MPX_ALL );
     return;
   }
 
@@ -3614,7 +3644,7 @@ void do_name( CHAR_DATA *ch, char *argument )
 
   if (!check_parse_name(argument, TRUE))
   {
-    send_to_char("That name is reserved, please try another.\n\r", ch);
+    mxp_to_char("That name is reserved, please try another.\n\r", ch, MPX_ALL );
     return;
   }
 
@@ -3623,7 +3653,7 @@ void do_name( CHAR_DATA *ch, char *argument )
 
   if (!str_cmp(ch->name, argument))
   {
-    send_to_char("That's already your name!\n\r", ch);
+    mxp_to_char("That's already your name!\n\r", ch, MPX_ALL );
     return;
   }
 
@@ -3635,7 +3665,7 @@ void do_name( CHAR_DATA *ch, char *argument )
 
   if ( tmp )
   {
-    send_to_char("That name is already taken.  Please choose another.\n\r", ch);
+    mxp_to_char("That name is already taken.  Please choose another.\n\r", ch, MPX_ALL );
     return;
   }
 
@@ -3643,7 +3673,7 @@ void do_name( CHAR_DATA *ch, char *argument )
                         capitalize( argument ) );
   if ( stat( fname, &fst ) != -1 )
   {
-    send_to_char("That name is already taken.  Please choose another.\n\r", ch);
+    mxp_to_char("That name is already taken.  Please choose another.\n\r", ch, MPX_ALL );
     return;
   }
 
@@ -3651,7 +3681,7 @@ void do_name( CHAR_DATA *ch, char *argument )
   ch->name = STRALLOC( argument );
   STRFREE( ch->pcdata->filename );
   ch->pcdata->filename = STRALLOC( argument ); 
-  send_to_char("Your name has been changed.  Please apply again.\n\r", ch);
+  mxp_to_char("Your name has been changed.  Please apply again.\n\r", ch, MPX_ALL );
   ch->pcdata->auth_state = 0;
   return;
 }

@@ -19,34 +19,34 @@
      |                                                                     |
      |               -*- Advanced String Hashing Module -*-                |
      |_____________________________________________________________________|
+     |                                                                     |
+     | Advanced string hashing functions (c)1996 D.S.D. Software, written  |
+     | by Derek Snider (Thoric) for use in SMAUG.                          |
+     |                                                                     |
+     | These functions keep track of how many "links" are pointing to the	 |    
+     | memory allocated, and will free the memory if all the links are     |
+     | removed. Make absolutely sure you do not mix use of strdup and free |   
+     | with these functions, or nasty stuff will happen!				           |
+     | Most occurances of strdup/str_dup should be replaced with str_alloc,| 
+     | and any free/DISPOSE used on the same pointer should be replaced 	 |  
+     | with str_free.  If a function uses strdup for temporary use... it   |
+     | is best if it is left as is.  Just don't get usage mixed up between |
+     | conventions. The hashstr_data size is 8 bytes of overhead.  Don't   | 
+     | be concerned about this as you still save lots of space on          |
+     | duplicate strings.	-Thoric	                                         |
+     |_____________________________________________________________________|
     //                                                                     \\
    [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
    [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
    [|                                                                       |]
    [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-   [|  Quan, and Mitchell Tse. Original Diku Mud Â 1990-1991 by Sebastian   |]
+   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
    [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
    [|  Nyboe. Win32 port Nick Gammon.                                       |]
    [|                                                                       |]
    [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
     \\_____________________________________________________________________//
 */
-
-/****************************************************************************
- * Advanced string hashing functions (c)1996 D.S.D. Software, written by    *
- * Derek Snider for use in SMAUG.					    *
- *									    *
- * These functions keep track of how many "links" are pointing to the	    *
- * memory allocated, and will free the memory if all the links are removed. *
- * Make absolutely sure you do not mix use of strdup and free with these    *
- * functions, or nasty stuff will happen!				    *
- * Most occurances of strdup/str_dup should be replaced with str_alloc, and *
- * any free/DISPOSE used on the same pointer should be replaced with	    *
- * str_free.  If a function uses strdup for temporary use... it is best if  *
- * it is left as is.  Just don't get usage mixed up between conventions.    *
- * The hashstr_data size is 8 bytes of overhead.  Don't be concerned about  *
- * this as you still save lots of space on duplicate strings.	-Thoric	    *
- ****************************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>

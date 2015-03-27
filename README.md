@@ -24,11 +24,11 @@
     |                              README                                 |
     |_____________________________________________________________________|
    //                                                                     \\
-  [|  SMAUG 1.4 Â 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
+  [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
   [|                                                                       |]
-  [|  Merc 2.1 Diku Mud improvments Â 1992-1993 Michael Chastain, Michael  |]
-  [|  Quan, and Mitchell Tse. Original Diku Mud Â 1990-1991 by Sebastian   |]
+  [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
+  [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
   [|  Nyboe. Win32 port Nick Gammon.                                       |]
   [|                                                                       |]
@@ -45,7 +45,7 @@
 
 **SMAUG 1.4a** is close to six times the size of **Merc 2.1**, and has major changes to the inner workings of the code, hence making porting of code from other Diku-derivatives non-trivial to the non-coder. Due to the ability to edit most everything online, you will most likely find the online help pages more informative. **SMAUG** is the base code that runs the popular **Realms of Despair** MUD. Through the years it has been tweaked, modified, and enhanced to become one of the most feature packed branches of the **MERC** family of codebases. 
 
-**SMAUG** is a derivative of **Merc Diku Mud** is a **Diku Mud** with many enhancements and contributions. It was written in 1990 and 1991 by **Sebastian Hammer**, **Tom Madsen**, **Katja Nyboe**, **Michael Seifert**, and **Hans Henrik StÃ¦rfeldt** at **DIKU** _(Datalogisk Institut KÃ¸benhavns Universitet)â€”the department of computer science at the University of Copenhagen in Copenhagen, Denmark_. Commonly referred to as simply **"Diku"**, the game was greatly inspired by **AberMUD**, though **Diku** became one of the first multi-usergames to become popular as a freely-available program for its gameplay and similarity to **Dungeons & Dragons**.
+**SMAUG** is a derivative of **Merc Diku Mud** is a **Diku Mud** with many enhancements and contributions. It was written in 1990 and 1991 by **Sebastian Hammer**, **Tom Madsen**, **Katja Nyboe**, **Michael Seifert**, and **Hans Henrik StÃ¦rfeldt** at **DIKU** _(Datalogisk Institut KÃ¸benhavns Universitet) at the department of computer science at the University of Copenhagen in Copenhagen, Denmark_. Commonly referred to as simply **"Diku"**, the game was greatly inspired by **AberMUD**, though **Diku** became one of the first multi-usergames to become popular as a freely-available program for its gameplay and similarity to **Dungeons & Dragons**.
 
 **AberMUD** was the first popular open source MUD. It was named after the town _Aberystwyth_, in which it was written. The first version was written in **B** by **Alan Cox**, **Richard Acott**, **Jim Finnis**,and **Leon Thrane** based at **University of Wales**, _Aberystwyth_ for an old **Honeywell** mainframe and opened in 1987.
 
@@ -136,6 +136,7 @@ Here are just some of the extra features --{SMAUG}-- has:
 	- Mounts and much much more
 	- Liquids & Mixtures System
 	- MXP Support (MUD Extension Protocol)
+	- Alias Support
 
 Changes made to areas:
 
@@ -153,7 +154,7 @@ Realm Areas:
 
 #### --{SMAUG}-- ChangeLog
 
-	* --{SMAUG}-- 1.8b -> --{SMAUG}-- 2.0
+	* SMAUG 1.8b -> --{SMAUG}-- 2.0
 
 		- Removed all InterMud code: IMC2 & ICE(D)
 		- Conversion to GNU Autotools
@@ -187,7 +188,7 @@ Feel free to contribute with **--{SMAUG}-- in GitHub**.
 
 Having trouble with **--{SMAUG}--**?
 
-First, check out the documentation at **[--{SMAUG}-- Wiki] (https://github.com/smaugmuds/xmerc/wiki)** or send an Issue and weâ€™ll help you sort it out.
+First, check out the documentation at **[--{SMAUG}-- Wiki] (https://github.com/smaugmuds/xmerc/wiki)** or send an Issue and we'll help you sort it out.
 
 We rewrote all of the documentation files for the **--{SMAUG}-- 2.0 Release**, and have been keeping them up-to-date since.
 
