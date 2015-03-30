@@ -48,20 +48,6 @@ USE_PLANES = -DPLANES
 
 USE_HONOUR_CODE = -DHONOUR_CODE
 
-##### --{smaug}-- PROTOCOL OPTIONS #####
-
-# Uncomment this if players can also use RGB colour codes such as "^[F135]"
-
-USE_EXTCOLOR = -DEXTENDED_COLOUR
-
-# Uncomment this if invalid colours are displayed rather than being eaten.
-
-# USE_INVALID_COLOR_CODE = -DDISPLAY_INVALID_COLOUR_CODES
-
-# If your mud supports MCCP (compression), uncomment the next line.
-
-USE_MCCP = -DUSING_MCCP
-
 ##### --{smaug}-- BUILD OPTIONS #####
 
 ### DEVELOPER CFLAGS (All Warnings Enabled) ###
@@ -124,7 +110,6 @@ AM_PFLAGS = -finline-functions -funroll-loops -fdefer-pop -fstrength-reduce
 
 AM_CFLAGS += \
 $(PROFILING) $(USE_SMAUG) $(USE_PLANES) $(USE_WHOARG) $(USE_HONOUR_CODE) \
-$(USE_EXTCOLOR) $(USE_INVALID_COLOR_CODE) $(USE_MCCP) \
 $(NO_CRYPT) $(TIME) $(REG) $(SOLARIS_FLAG)
 
 AM_LDFLAGS = $(AM_PFLAGS) \
