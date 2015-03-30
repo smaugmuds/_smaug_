@@ -55,6 +55,9 @@
  * generated and included via a PHP; SSL; or a TXT include.
  */
 
+#ifndef _NEWS_H_
+#define _NEWS_H_
+
 #define NEWS_TOP "\n\r"
 #define NEWS_HEADER "\n\r"
 #define NEWS_HEADER_ALL "&g( &W#&g)                          (&WSubject&g)\n\r"
@@ -107,3 +110,5 @@ void display_news_type args((CHAR_DATA *ch, NEWS_TYPE *type, char *argument));
 void fread_news_type args(( NEWS_TYPE *type, FILE *fp ));
 bool news_cmd_hook args((CHAR_DATA *ch, char *cmd, char *argument));
 void link_news_to_type args((NEWS *news));
+
+#endif

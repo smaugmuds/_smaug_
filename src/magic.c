@@ -43,6 +43,7 @@
 
 #include "mud.h"
 
+#include "mxp.h"
 
 /*
  * Local functions.

@@ -17,7 +17,7 @@
      |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
      |_____________________________________________________________________|
      |                                                                     |
-     |            -*- Liquid Table Replacement Definitions -*-             |
+     |               -*- MCCP Module Common definitions -*-                |
      |_____________________________________________________________________|
     //                                                                     \\
    [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
@@ -32,88 +32,18 @@
     \\_____________________________________________________________________//
 */
 
-/*
-**************************************************
-**	   Crimson Blade Codebase (CbC) 	          **
-**     (c) 2000-2002 John Bellone (Noplex)	    **
-**	     Coders: Noplex, Krowe		              **
-**       by Noplex (noplex@crimsonblade.org)    **
-**	  http://www.crimsonblade.org		            **
-**************************************************
-**/
+#ifndef _MCCP_H_
+#define _MCCP_H_
 
-#ifndef _LIQUID_H_
-#define _LIQUID_H_
+#define TELOPT_COMPRESS       85
+#define COMPRESS_BUF_SIZE   8192
 
-#define LIQUIDSYSTEM
+const   char    mccp_will      [] = { IAC, WILL, TELOPT_COMPRESS, '\0' };   
+const   char    mccp_do        [] = { IAC, DO, TELOPT_COMPRESS, '\0' };   
+const   char    mccp_dont      [] = { IAC, DONT, TELOPT_COMPRESS, '\0' };   
 
-#define TOP_MOD_NUM 4
-#define MAX_COND_VAL 100
-
-typedef enum
-{
-   LIQ_NORMAL, LIQ_ALCOHOL, LIQ_POISON, LIQ_UNUSED, LIQ_TOP
-} liquids;
-
-extern char *const liquid_types[];
-
-typedef struct		liquid_data		LIQUID_DATA;
-typedef struct		liquid_mixture_list	LIQUID_MIXTURE_LIST;
-
-/*
- * Structures for liquids and mixtures
- */
-struct liquid_mixture_list
-{
-	LIQUID_MIXTURE_LIST	*next;
-	LIQUID_MIXTURE_LIST	*prev;
-	char		*name;
-	int		with1; /* obj vnum if there is a obj, liq vnum if liquid */
-	int		with2;
-	int		into;
-	bool		object; /* false = no obj, true = obj */
-};
-
-struct liquid_data 
-{
-	LIQUID_DATA	*next;
-	LIQUID_DATA	*prev;
-/*	EXT_BV		affected_by; */
-	char		*name;
-	char		*shortdesc;
-	char		*color;
-	int		vnum;
-	int		type;
-	sh_int		mod[4];
-};
-
-LIQUID_DATA *first_liquid;
-LIQUID_DATA *last_liquid;
-LIQUID_MIXTURE_LIST *first_mixture;
-LIQUID_MIXTURE_LIST *last_mixture;
-
-/* OLC */
-/*
-DECLARE_DO_FUN( do_setliquid );
-DECLARE_DO_FUN( do_setmixture );
-DECLARE_DO_FUN( do_liquids );
-*/
-
-/* funcs */
-// DECLARE_DO_FUN( do_mix );
-
-/* saving/loading */
-/*
-void load_liquids( void );
-void save_liquids( void );
-void load_mixtures( void );
-void save_mixtures( void );
-*/
-
-/* lookup functions */
-LIQUID_DATA *get_liq_name( char *argument );
-LIQUID_DATA *check_liquid( char *argument );
-LIQUID_DATA *get_liq_index( int vnum );
-LIQUID_MIXTURE_LIST *get_mix_name( char *argument );
+const unsigned char will_mccp_str  [] = { IAC, WILL, TELOPT_MXP, '\0' };
+const unsigned char do_mccp_str    [] = { IAC, DO, TELOPT_MXP, '\0' };
+const unsigned char dont_mccp_str  [] = { IAC, DONT, TELOPT_MXP, '\0' };
 
 #endif

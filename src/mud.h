@@ -32,11 +32,17 @@
     \\_____________________________________________________________________//
 */
 
+#ifndef _MUD_H_
+#define _MUD_H_
+
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
 #include <zlib.h>
+#include <arpa/telnet.h>
+
+#include "mxp.h"
 
 /* These definitions are set in Makefile.am */
 
@@ -63,7 +69,9 @@
   #include <sys/time.h>
 #endif
 
+#ifdef HAVE_CONFIG_H
 #include "smaug.h"
+#endif
 
 // #define NOCRYPT
 
@@ -318,8 +326,6 @@ extern int MAX_PC_CLASS;
 #define LEVEL_LOG		    LEVEL_LESSER
 #define LEVEL_HIGOD		    LEVEL_GOD
 
-#include "mxp.h"
-#include "mssp.h"
 #include "protocol.h"
 #include "news.h" /* Extended News - 12/15/01 - Nopey */
 #include "house.h"
@@ -337,13 +343,6 @@ bool DONT_UPPER;
 #define PULSE_AREA				(60 * PULSE_PER_SECOND)
 #define PULSE_AUCTION				 (9 * PULSE_PER_SECOND)
 #define PULSE_CASINO                             (8 * PULSE_PER_SECOND)
-
-#define TELOPT_COMPRESS       85
-#define COMPRESS_BUF_SIZE   8192
-
-bool  write_to_descriptor    args (( DESCRIPTOR_DATA *d, char *txt, int length ));
-bool  write_to_descriptor_2  args (( int desc, char *txt, int length ));
-bool  writeCompressed    args (( DESCRIPTOR_DATA * desc, char *txt, int length ));
 
 /* 
  * Stuff for area versions --Shaddai
@@ -4525,66 +4524,66 @@ DECLARE_DO_FUN(	do_style	);
 DECLARE_DO_FUN( do_supplicate	);
 DECLARE_DO_FUN(	do_switch	);
 DECLARE_DO_FUN(	do_showlayers	);
-DECLARE_DO_FUN(	do_tail		);
-DECLARE_DO_FUN(	do_tamp		);
-DECLARE_DO_FUN(	do_tell		);
-DECLARE_DO_FUN(	do_think	);
-DECLARE_DO_FUN(	do_time		);
+DECLARE_DO_FUN(	do_tail			);
+DECLARE_DO_FUN(	do_tamp			);
+DECLARE_DO_FUN(	do_tell			);
+DECLARE_DO_FUN(	do_think		);
+DECLARE_DO_FUN(	do_time			);
 DECLARE_DO_FUN(	do_timecmd	);
-DECLARE_DO_FUN(	do_title	);
-DECLARE_DO_FUN( do_track	);
-DECLARE_DO_FUN( do_trance	);
+DECLARE_DO_FUN(	do_title		);
+DECLARE_DO_FUN( do_track		);
+DECLARE_DO_FUN( do_trance		);
 DECLARE_DO_FUN( do_traffic	);
 DECLARE_DO_FUN(	do_transfer	);
-DECLARE_DO_FUN(	do_trust	);
-DECLARE_DO_FUN( do_typ		);
-DECLARE_DO_FUN(	do_typo		);
-DECLARE_DO_FUN( do_unbolt	);
+DECLARE_DO_FUN(	do_trust		);
+DECLARE_DO_FUN( do_typ			);
+DECLARE_DO_FUN(	do_typo			);
+DECLARE_DO_FUN( do_unbolt		);
 DECLARE_DO_FUN(	do_unfoldarea	);
-DECLARE_DO_FUN( do_unhell	);
-DECLARE_DO_FUN(	do_unlock	);
+DECLARE_DO_FUN( do_unhell		);
+DECLARE_DO_FUN(	do_unlock		);
 DECLARE_DO_FUN( do_unnuisance   );
 DECLARE_DO_FUN( do_unsilence    );
-DECLARE_DO_FUN(	do_up		);
-DECLARE_DO_FUN(	do_users	);
-DECLARE_DO_FUN(	do_value	);
+DECLARE_DO_FUN(	do_up				);
+DECLARE_DO_FUN(	do_users		);
+DECLARE_DO_FUN(	do_value		);
 DECLARE_DO_FUN( do_vassign	);
 DECLARE_DO_FUN( do_version	);
 DECLARE_DO_FUN( do_victories	);
 DECLARE_DO_FUN(	do_visible	);
-DECLARE_DO_FUN( do_vnums	);
+DECLARE_DO_FUN( do_vnums		);
 DECLARE_DO_FUN( do_vsearch	);
-DECLARE_DO_FUN( do_vstat	);
-DECLARE_DO_FUN(	do_wake		);
-DECLARE_DO_FUN( do_warn         );
-DECLARE_DO_FUN( do_wartalk      );
-DECLARE_DO_FUN(	do_wear		);
+DECLARE_DO_FUN( do_vstat		);
+DECLARE_DO_FUN(	do_wake			);
+DECLARE_DO_FUN( do_warn     );
+DECLARE_DO_FUN( do_wartalk  );
+DECLARE_DO_FUN(	do_wear			);
 DECLARE_DO_FUN(	do_weather	);
-DECLARE_DO_FUN(	do_west		);
-DECLARE_DO_FUN(	do_where	);
+DECLARE_DO_FUN(	do_west			);
+DECLARE_DO_FUN(	do_where		);
 DECLARE_DO_FUN( do_whisper	);
-DECLARE_DO_FUN(	do_who		);
-DECLARE_DO_FUN(	do_whois	);
-DECLARE_DO_FUN(	do_wimpy	);
+DECLARE_DO_FUN(	do_who			);
+DECLARE_DO_FUN(	do_whois		);
+DECLARE_DO_FUN(	do_wimpy		);
 DECLARE_DO_FUN(	do_wizhelp	);
 DECLARE_DO_FUN( do_wizlist	);
 DECLARE_DO_FUN(	do_wizlock	);
-DECLARE_DO_FUN( do_worth        ); 
-DECLARE_DO_FUN(	do_yell		);
-DECLARE_DO_FUN(	do_zap		);
-DECLARE_DO_FUN( do_zones	);
+DECLARE_DO_FUN( do_worth    ); 
+DECLARE_DO_FUN(	do_yell			);
+DECLARE_DO_FUN(	do_zap			);
+DECLARE_DO_FUN( do_zones		);
 
 /* mob prog stuff */
 DECLARE_DO_FUN( do_mp_close_passage );
-DECLARE_DO_FUN( do_mp_damage	);
-DECLARE_DO_FUN( do_mp_log	);
-DECLARE_DO_FUN( do_mp_restore	);
+DECLARE_DO_FUN( do_mp_damage		);
+DECLARE_DO_FUN( do_mp_log				);
+DECLARE_DO_FUN( do_mp_restore		);
 DECLARE_DO_FUN( do_mp_open_passage );
 DECLARE_DO_FUN( do_mp_practice	);
-DECLARE_DO_FUN( do_mp_slay	);
+DECLARE_DO_FUN( do_mp_slay			);
 DECLARE_DO_FUN( do_mpadvance    );
 DECLARE_DO_FUN( do_mpasound     );
-DECLARE_DO_FUN( do_mpasupress	);
+DECLARE_DO_FUN( do_mpasupress		);
 DECLARE_DO_FUN( do_mpat         );
 DECLARE_DO_FUN( do_mpcopy	);
 DECLARE_DO_FUN( do_mpdream	);
@@ -4668,8 +4667,8 @@ DECLARE_SPELL_FUN(	spell_curse		);
 DECLARE_SPELL_FUN(	spell_detect_poison	);
 DECLARE_SPELL_FUN(	spell_dispel_evil	);
 DECLARE_SPELL_FUN(	spell_dispel_magic	);
-DECLARE_SPELL_FUN(      spell_disenchant_weapon );
-DECLARE_SPELL_FUN(      spell_dream             );
+DECLARE_SPELL_FUN(  spell_disenchant_weapon );
+DECLARE_SPELL_FUN(  spell_dream             );
 DECLARE_SPELL_FUN(	spell_earthquake	);
 DECLARE_SPELL_FUN(	spell_enchant_weapon	);
 DECLARE_SPELL_FUN(	spell_energy_drain	);
@@ -4682,7 +4681,7 @@ DECLARE_SPELL_FUN(	spell_gate		);
 #ifdef MYSTARIC
 DECLARE_SPELL_FUN(	spell_group_teleport    );
 #endif
-DECLARE_SPELL_FUN(      spell_knock             );
+DECLARE_SPELL_FUN(  spell_knock             );
 DECLARE_SPELL_FUN(	spell_harm		);
 DECLARE_SPELL_FUN(	spell_identify		);
 DECLARE_SPELL_FUN(	spell_invis		);
@@ -4717,29 +4716,27 @@ DECLARE_SPELL_FUN(	spell_lightning_breath	);
 DECLARE_SPELL_FUN(	spell_spiral_blast	);
 DECLARE_SPELL_FUN(	spell_scorching_surge	);
 DECLARE_SPELL_FUN(	spell_helical_flow	);
-DECLARE_SPELL_FUN(      spell_transport      	);
-DECLARE_SPELL_FUN(      spell_portal            );
-
-DECLARE_SPELL_FUN(      spell_ethereal_fist     );
-DECLARE_SPELL_FUN(      spell_spectral_furor    );
-DECLARE_SPELL_FUN(      spell_hand_of_chaos     );
-DECLARE_SPELL_FUN(      spell_disruption        );
-DECLARE_SPELL_FUN(      spell_sonic_resonance   );
-DECLARE_SPELL_FUN(      spell_mind_wrack        );
-DECLARE_SPELL_FUN(      spell_mind_wrench       );
-DECLARE_SPELL_FUN(      spell_revive            );
-DECLARE_SPELL_FUN(      spell_sulfurous_spray   );
-DECLARE_SPELL_FUN(      spell_caustic_fount     );
-DECLARE_SPELL_FUN(      spell_acetum_primus     );
-DECLARE_SPELL_FUN(      spell_galvanic_whip     );
-DECLARE_SPELL_FUN(      spell_magnetic_thrust   );
-DECLARE_SPELL_FUN(      spell_quantum_spike     );
-DECLARE_SPELL_FUN(      spell_black_hand        );
-DECLARE_SPELL_FUN(      spell_black_fist        );
-DECLARE_SPELL_FUN(      spell_black_lightning   );
-DECLARE_SPELL_FUN(      spell_midas_touch       );
-
-DECLARE_SPELL_FUN(      spell_bethsaidean_touch	);
+DECLARE_SPELL_FUN(  spell_transport      	);
+DECLARE_SPELL_FUN(  spell_portal            );
+DECLARE_SPELL_FUN(  spell_ethereal_fist     );
+DECLARE_SPELL_FUN(  spell_spectral_furor    );
+DECLARE_SPELL_FUN(  spell_hand_of_chaos     );
+DECLARE_SPELL_FUN(  spell_disruption        );
+DECLARE_SPELL_FUN(  spell_sonic_resonance   );
+DECLARE_SPELL_FUN(  spell_mind_wrack        );
+DECLARE_SPELL_FUN(  spell_mind_wrench       );
+DECLARE_SPELL_FUN(  spell_revive            );
+DECLARE_SPELL_FUN(  spell_sulfurous_spray   );
+DECLARE_SPELL_FUN(  spell_caustic_fount     );
+DECLARE_SPELL_FUN(  spell_acetum_primus     );
+DECLARE_SPELL_FUN(  spell_galvanic_whip     );
+DECLARE_SPELL_FUN(  spell_magnetic_thrust   );
+DECLARE_SPELL_FUN(  spell_quantum_spike     );
+DECLARE_SPELL_FUN(  spell_black_hand        );
+DECLARE_SPELL_FUN(  spell_black_fist        );
+DECLARE_SPELL_FUN(  spell_black_lightning   );
+DECLARE_SPELL_FUN(  spell_midas_touch       );
+DECLARE_SPELL_FUN(  spell_bethsaidean_touch	);
 DECLARE_SPELL_FUN(	spell_expurgation	);
 DECLARE_SPELL_FUN(	spell_sacral_divinity	);
 
@@ -5075,33 +5072,8 @@ void	ch_printf_color	args( ( CHAR_DATA *ch, char *fmt, ... ) );
 void	pager_printf	args( (CHAR_DATA *ch, char *fmt, ...) );
 void	pager_printf_color	args( ( CHAR_DATA *ch, char *fmt, ... ) );
 void	act		args( ( sh_int AType, const char *format, CHAR_DATA *ch,
-			    const void *arg1, const void *arg2, int type ) );
+	 		const void *arg1, const void *arg2, int type ) );
 char *	myobj		args( ( OBJ_DATA *obj ) );
-
-const   char    mccp_will      [] = { IAC, WILL, TELOPT_COMPRESS, '\0' };   
-const   char    mccp_do        [] = { IAC, DO, TELOPT_COMPRESS, '\0' };   
-const   char    mccp_dont      [] = { IAC, DONT, TELOPT_COMPRESS, '\0' };   
-
-const   char    mxp_will      [] = { IAC, WILL, TELOPT_MXP, '\0' };   
-const   char    mxp_do        [] = { IAC, DO, TELOPT_MXP, '\0' };   
-const   char    mxp_dont      [] = { IAC, DONT, TELOPT_MXP, '\0' };   
-
-const unsigned char echo_off_str [] = { IAC, WILL, TELOPT_ECHO, '\0' };
-const unsigned char echo_on_str  [] = { IAC, WONT, TELOPT_ECHO, '\0' };
-const unsigned char go_ahead_str [] = { IAC, GA, '\0' };
-
-const unsigned char will_mccp_str  [] = { IAC, WILL, TELOPT_MXP, '\0' };
-const unsigned char do_mccp_str    [] = { IAC, DO, TELOPT_MXP, '\0' };
-const unsigned char dont_mccp_str  [] = { IAC, DONT, TELOPT_MXP, '\0' };
-const unsigned char will_mxp_str   [] = { IAC, WILL, TELOPT_MXP, '\0' };
-
-const unsigned char start_mxp_str [] = { IAC, SB, TELOPT_MXP, IAC, SE, '\0' };
-const unsigned char do_mxp_str    [] = { IAC, DO, TELOPT_MXP, '\0' };
-const unsigned char dont_mxp_str  [] = { IAC, DONT, TELOPT_MXP, '\0' };
-
-bool compressStart   args( ( DESCRIPTOR_DATA *d ) );
-bool compressEnd     args( ( DESCRIPTOR_DATA *d ) );
-
 
 /* reset.c */
 RD  *	make_reset	args( ( char letter, int extra, int arg1, int arg2, int arg3 ) );
@@ -5671,13 +5643,36 @@ char *  get_class 	args( (CHAR_DATA *ch) );
 char *  get_race 	args( (CHAR_DATA *ch) );
 
 /* mxp.c */
-void  mxp_to_char               ( char *txt, CHAR_DATA *ch, int mxp_style );
-void  shutdown_mxp              ( DESCRIPTOR_DATA *d );
-void  init_mxp                  ( DESCRIPTOR_DATA *d );
 
 /* mxp macro */
 // #define USE_MXP(ch)             (IS_SET(ch->act, PLR_MXP) && ch->desc->mxp)
 #define USE_MXP(ch)             (xIS_SET(ch->act, PLR_MXP) && ch->desc->mxp)
+
+/* mxp.c */
+void  mxp_to_char               ( char *txt, CHAR_DATA *ch, int mxp_style );
+void  shutdown_mxp              ( DESCRIPTOR_DATA *d );
+void  init_mxp                  ( DESCRIPTOR_DATA *d );
+
+const   char    mxp_will[] = { IAC, WILL, TELOPT_MXP, '\0' };   
+const   char    mxp_do[]   = { IAC, DO, TELOPT_MXP, '\0' };   
+const   char    mxp_dont[] = { IAC, DONT, TELOPT_MXP, '\0' };   
+
+const unsigned char echo_off_str[] = { IAC, WILL, TELOPT_ECHO, '\0' };
+const unsigned char echo_on_str[]  = { IAC, WONT, TELOPT_ECHO, '\0' };
+const unsigned char go_ahead_str[] = { IAC, GA, '\0' };
+
+const unsigned char will_mxp_str[]  = { IAC, WILL, TELOPT_MXP, '\0' };
+const unsigned char start_mxp_str[] = { IAC, SB, TELOPT_MXP, IAC, SE, '\0' };
+const unsigned char do_mxp_str[]    = { IAC, DO, TELOPT_MXP, '\0' };
+const unsigned char dont_mxp_str[]  = { IAC, DONT, TELOPT_MXP, '\0' };
+
+bool  write_to_descriptor    args (( DESCRIPTOR_DATA *d, char *txt, int length ));
+bool  write_to_descriptor_2  args (( int desc, char *txt, int length ));
+bool  writeCompressed    args (( DESCRIPTOR_DATA * desc, char *txt, int length ));
+
+bool compressStart   args( ( DESCRIPTOR_DATA *d ) );
+bool compressEnd     args( ( DESCRIPTOR_DATA *d ) );
+
 
 #undef	VD
 #undef	SK
@@ -6103,5 +6098,7 @@ void closedir(DIR * dp);
 
 #define exit(arg) Win32_Exit(arg)
 void Win32_Exit(int exit_code);
+
+#endif
 
 #endif

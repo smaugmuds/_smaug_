@@ -38,7 +38,6 @@
 #include <time.h>
 
 #include "mud.h"
-
 /*
  * Local functions.
  */

@@ -38,8 +38,8 @@
 #include <string.h>
 #include <time.h>
 #include <sys/stat.h>
-#include "mud.h"
 
+#include "mud.h"
 
 /* Had to add unknowns because someone added new positions and didn't
  * update them.  Just a band-aid till I have time to fix it right.

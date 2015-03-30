@@ -31,11 +31,15 @@
   Thats All....
  */
 
+#include <sys/types.h>
 #include <stdio.h>
-#include <stdarg.h>
+#include <stdlib.h>
 #include <string.h>
+#include <time.h>
+#include <arpa/telnet.h>
 
 #include "mud.h"
+#include "mssp.h"
 
 #if defined(KEY)
 #undef KEY

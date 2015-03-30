@@ -39,8 +39,6 @@
 #include <time.h>
 
 #include "mud.h"
-
-
 /*
  *  Locals
  */

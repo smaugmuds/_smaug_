@@ -39,15 +39,15 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <errno.h>
+
 #include "mud.h"
+
 #ifdef WIN32
    #include <io.h>
    #define F_OK 0
 #endif
 
-
 #define RESTORE_INTERVAL 21600
-
 
 char * const save_flag[] =
 { "death", "kill", "passwd", "drop", "put", "give", "auto", "zap",

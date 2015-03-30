@@ -39,10 +39,12 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include <arpa/telnet.h>
 #include <zlib.h>
 #include <malloc.h>
 
 #include "mud.h"
+#include "mccp.h"
   
 char    compress_start  [] = { IAC, SB, TELOPT_COMPRESS, WILL, SE, '\0' };
 

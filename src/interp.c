@@ -51,8 +51,6 @@ bool	check_social	args( ( CHAR_DATA *ch, char *command,
 			    char *argument ) );
 char *check_cmd_flags args( ( CHAR_DATA *ch, CMDTYPE *cmd ) );
 
-
-
 /*
  * Log-all switch.
  */

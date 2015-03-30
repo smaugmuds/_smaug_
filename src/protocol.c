@@ -32,6 +32,8 @@
 
 #include "mud.h"
 
+#include "protocol.h"
+
 static void Write( descriptor_t *apDescriptor, const char *apData )
 {
    if ( apDescriptor != NULL && !apDescriptor->fcommand )

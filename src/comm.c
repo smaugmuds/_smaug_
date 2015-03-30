@@ -45,6 +45,10 @@
 
 #include "mud.h"
 
+#include "mxp.h"
+#include "mccp.h"
+#include "mssp.h"
+#include "protocol.h"
 
 /*
  * Socket and TCP/IP stuff.
@@ -59,6 +63,7 @@
   #define MAXHOSTNAMELEN 32
 
   #define  TELOPT_ECHO        '\x01'
+	#define  TELOPT_MXP        	'\x5B'
   #define  GA                 '\xF9'
   #define  SE                 '\xF0'
   #define  SB                 '\xFA'
@@ -80,7 +85,7 @@
   #define closesocket close
 #endif
 
-// #define  TELOPT_MXP        '\x5B'
+
 
 #ifdef sun
 int gethostname ( char *name, int namelen );
