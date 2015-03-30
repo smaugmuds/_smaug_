@@ -37,7 +37,7 @@ char *	const	npc_race	[MAX_NPC_RACE] =
 
 "human", "elf", "dwarf", "halfling", "pixie", "vampire", "half-ogre",
 "half-orc", "half-troll", "half-elf", "gith", "drow", "sea-elf",
-"lizardman", "gnome", "r5", "r6", "r7", "r8", "troll",
+"lizardman", "gnome", "demon", "angel", "r7", "r8", "troll",
 "ant", "ape", "baboon", "bat", "bear", "bee",
 "beetle", "boar", "bugbear", "cat", "dog", "dragon", "ferret", "fly",
 "gargoyle", "gelatin", "ghoul", "gnoll", "gnome", "goblin", "golem",
