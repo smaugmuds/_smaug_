@@ -13,7 +13,8 @@
 #define TELOPT_MXP                     91
 
 /* global strings */
+/*
 extern const char mxp_do[];
 extern const char mxp_dont[];
 extern const char mxp_will[];
-
+*/

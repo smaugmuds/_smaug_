@@ -80,19 +80,12 @@
   #define closesocket close
 #endif
 
-#define  TELOPT_MXP        '\x5B'
+// #define  TELOPT_MXP        '\x5B'
 
 #ifdef sun
 int gethostname ( char *name, int namelen );
 #endif
 
-const	unsigned char	echo_off_str	[] = { IAC, WILL, TELOPT_ECHO, '\0' };
-const	unsigned char	echo_on_str	  [] = { IAC, WONT, TELOPT_ECHO, '\0' };
-const	unsigned char go_ahead_str	[] = { IAC, GA, '\0' };
-const unsigned char will_mxp_str  [] = { IAC, WILL, TELOPT_MXP, '\0' };
-const unsigned char start_mxp_str [] = { IAC, SB, TELOPT_MXP, IAC, SE, '\0' };
-const unsigned char do_mxp_str    [] = { IAC, DO, TELOPT_MXP, '\0' };
-const unsigned char dont_mxp_str  [] = { IAC, DONT, TELOPT_MXP, '\0' };
 
 
 
@@ -146,7 +139,7 @@ void	game_loop		args( ( ) );
 int	init_socket		args( ( int port ) );
 void	new_descriptor		args( ( int new_desc ) );
 bool	read_from_descriptor	args( ( DESCRIPTOR_DATA *d ) );
-bool	write_to_descriptor	args( ( int desc, char *txt, int length ) );
+// bool	write_to_descriptor	args( ( int desc, char *txt, int length ) );
 
 
 /*
@@ -670,7 +663,7 @@ void game_loop( )
             ||   ( d->connected != CON_PLAYING && d->idle > 1200) /* 5 mins */
 	    ||     d->idle > 28800 )				  /* 2 hrs  */
 	    {
-		write_to_descriptor( d->descriptor,
+		write_to_descriptor( d,
 		 "Idle timeout... disconnecting.\n\r", 0 );
 		d->outtop	= 0;
 		close_socket( d, TRUE );
@@ -939,7 +932,8 @@ void new_descriptor( int new_desc )
 
     if ( check_total_bans( dnew ) )
     {
-          write_to_descriptor (desc,
+          // write_to_descriptor (desc,
+          write_to_descriptor_2 (desc,
                          "Your site has been banned from this Mud.\n\r", 0);
           free_desc (dnew);
           set_alarm (0);
@@ -961,6 +955,9 @@ void new_descriptor( int new_desc )
     }
 
     LINK( dnew, first_descriptor, last_descriptor, next, prev );
+
+    write_to_buffer(dnew, mxp_will, 0);
+    write_to_buffer(dnew, mccp_will, 0);
 
     ProtocolNegotiate(dnew);
 
@@ -1161,7 +1158,9 @@ void close_socket( DESCRIPTOR_DATA *dclose, bool force )
     if ( dclose->descriptor == maxdesc )
       --maxdesc;
 
-    ProtocolDestroy( dclose->pProtocol );
+	compressEnd( dclose );
+    
+	ProtocolDestroy( dclose->pProtocol );
 
     free_desc( dclose );
     --num_descriptors;
@@ -1186,7 +1185,8 @@ bool read_from_descriptor( DESCRIPTOR_DATA *d )
     {
 	sprintf( log_buf, "%s input overflow!", d->host );
 	log_string( log_buf );
-	write_to_descriptor( d->descriptor,
+	// write_to_descriptor( d->descriptor,
+	write_to_descriptor( d,
 	    "\n\r*** PUT A LID ON IT!!! ***\n\rYou cannot enter the same command more than 20 consecutive times!\n\r", 0 );
 	return FALSE;
     }
@@ -1286,7 +1286,8 @@ void read_from_buffer( DESCRIPTOR_DATA *d )
     {
 	if ( k >= 254 )
 	{
-	    write_to_descriptor( d->descriptor, "Line too long.\n\r", 0 );
+	    //write_to_descriptor( d->descriptor, "Line too long.\n\r", 0 );
+	    write_to_descriptor( d, "Line too long.\n\r", 0 );
 
 	    /* skip the rest of the line */
 	    /*
@@ -1301,10 +1302,35 @@ void read_from_buffer( DESCRIPTOR_DATA *d )
 	    break;
 	}
 
-	if ( d->inbuf[i] == '\b' && k > 0 )
+/*	if ( d->inbuf[i] == '\b' && k > 0 )
 	    --k;
 	else if ( isascii(d->inbuf[i]) && isprint(d->inbuf[i]) )
-	    d->incomm[k++] = d->inbuf[i];
+	    d->incomm[k++] = d->inbuf[i]; */
+        if ( d->inbuf[i] == (signed char)IAC )
+	{
+	    if (!memcmp(&d->inbuf[i], mxp_do, strlen(mxp_do)))
+	    {
+                i += strlen(mxp_do) - 1;
+                init_mxp(d);
+	    } else if (!memcmp(&d->inbuf[i], mxp_dont, strlen(mxp_dont)))
+	    {
+                i += strlen(mxp_do) - 1;
+                shutdown_mxp(d);
+	    } else if (!memcmp(&d->inbuf[i], mccp_do, strlen(mccp_do)))
+	    {
+                i += strlen(mxp_do) - 1;
+                compressStart(d);
+	    }
+	    else if (!memcmp(&d->inbuf[i], mccp_dont, strlen(mccp_dont)))
+	    {
+                i += strlen(mxp_do) - 1;
+                compressEnd(d);
+	    }
+        }
+        else if ( d->inbuf[i] == '\b' && k > 0 )
+            --k;
+        else if ( isascii(d->inbuf[i]) && isprint(d->inbuf[i]) )
+            d->incomm[k++] = d->inbuf[i];
     }
 
     /*
@@ -1327,9 +1353,10 @@ void read_from_buffer( DESCRIPTOR_DATA *d )
 	{
 	    if ( ++d->repeat >= 20 )
 	    {
-/*		sprintf( log_buf, "%s input spamming!", d->host ); */
-/*		log_string( log_buf ); */
-		write_to_descriptor( d->descriptor,
+		sprintf( log_buf, "%s input spamming!", d->host );
+		log_string( log_buf );
+		//write_to_descriptor( d->descriptor,
+		write_to_descriptor( d,
 		    "\n\r*** PUT A LID ON IT!!! ***\n\rYou cannot enter the same command more than 20 consecutive times!\n\r", 0 );
 		strcpy( d->incomm, "quit" );
 	    }
@@ -1387,7 +1414,8 @@ bool flush_buffer( DESCRIPTOR_DATA *d, bool fPrompt )
 	    write_to_buffer( d->snoop_by, "% ", 2 );
 	    write_to_buffer( d->snoop_by, buf, 0 );
 	}
-        if ( !write_to_descriptor( d->descriptor, buf, 512 ) )
+        //if ( !write_to_descriptor( d->descriptor, buf, 512 ) )
+        if ( !write_to_descriptor( d, buf, 512 ) )
         {
 	    d->outtop = 0;
 	    return FALSE;
@@ -1450,7 +1478,8 @@ bool flush_buffer( DESCRIPTOR_DATA *d, bool fPrompt )
     /*
      * OS-dependent output.
      */
-    if ( !write_to_descriptor( d->descriptor, d->outbuf, d->outtop ) )
+    // if ( !write_to_descriptor( d->descriptor, d->outbuf, d->outtop ) )
+    if ( !write_to_descriptor( d, d->outbuf, d->outtop ) )
     {
 	d->outtop = 0;
 	return FALSE;
@@ -1722,7 +1751,8 @@ int origlength;
  * If this gives errors on very long blocks (like 'ofind all'),
  *   try lowering the max block size.
  */
-bool write_to_descriptor( int desc, char *txt, int length )
+//bool write_to_descriptor( int desc, char *txt, int length )
+bool write_to_descriptor_2( int desc, char *txt, int length )
 {
     int iStart;
     int nWrite;
@@ -1739,6 +1769,15 @@ bool write_to_descriptor( int desc, char *txt, int length )
     }
 
     return TRUE;
+}
+
+/* mccp: write_to_descriptor wrapper */
+bool write_to_descriptor(DESCRIPTOR_DATA *d, char *txt, int length)
+{
+    if (d->out_compress)
+        return writeCompressed(d, txt, length);
+    else
+        return write_to_descriptor_2(d->descriptor, txt, length);
 }
 
 void show_title( DESCRIPTOR_DATA *d )
@@ -1784,7 +1823,7 @@ void show_classes_to_nanny( DESCRIPTOR_DATA *d )
 	ch_printf_color( ch, "&W %-15.15s ", class_table[iClass]->who_name );
 	if ( cnt == 3 )
 	{
-	    mxp_to_char( "\n\r", ch, MPX_ALL );
+	    mxp_to_char( "\n\r", ch, MXP_ALL );
 	    cnt = 0;
 	}
     }
@@ -1815,7 +1854,7 @@ void show_races_to_nanny( DESCRIPTOR_DATA *d )
 	    }
 	    if ( cnt == 3 )
 	    {
-		mxp_to_char( "\n\r", ch, MPX_ALL );
+		mxp_to_char( "\n\r", ch, MXP_ALL );
 		cnt = 0;
 	    }
 	}
@@ -2757,7 +2796,7 @@ bool check_reconnect( DESCRIPTOR_DATA *d, char *name, bool fConn )
                 if ( class_table[ch->class]->reconnect )
                         ch_printf(ch, "%s\n\r", class_table[ch->class]->reconnect );
                 else
-                        mxp_to_char( "Reconnecting.\n\r", ch, MPX_ALL );
+                        mxp_to_char( "Reconnecting.\n\r", ch, MXP_ALL );
                 rprog_login_trigger(ch);
                 mprog_login_trigger(ch);
 		do_look( ch, "auto" );
@@ -2835,7 +2874,7 @@ bool check_playing( DESCRIPTOR_DATA *d, char *name, bool kick )
 	    if ( ch->switched )
 	      do_return( ch->switched, "" );
 	    ch->switched = NULL;
-	    mxp_to_char( "Reconnecting.\n\r", ch, MPX_ALL );
+	    mxp_to_char( "Reconnecting.\n\r", ch, MXP_ALL );
 	    do_look( ch, "auto" );
 	    check_loginmsg( ch );
 	    act( AT_ACTION, "$n has reconnected, kicking off old link.",
@@ -2904,7 +2943,7 @@ void stop_idling( CHAR_DATA *ch )
 /*
  * Write to one char.
  */
-void mxp_to_char( const char *txt, CHAR_DATA *ch )
+void send_to_char( const char *txt, CHAR_DATA *ch )
 {
     if ( !ch )
     {
@@ -3027,8 +3066,8 @@ void send_to_pager( const char *txt, CHAR_DATA *ch )
     ch = d->original ? d->original : d->character;
     if ( IS_NPC(ch) || !IS_SET(ch->pcdata->flags, PCFLAG_PAGERON) )
     {
-			mxp_to_char(txt, d->character, MXP_ALL);
-			return;
+	send_to_char(txt, d->character);
+	return;
     }
     write_to_pager(d, txt, 0);
   }
@@ -3163,7 +3202,7 @@ void ch_printf(CHAR_DATA *ch, char *fmt, ...)
     vsprintf(buf, fmt, args);
     va_end(args);
 	
-    mxp_to_char(buf, ch, MPX_ALL );
+    mxp_to_char(buf, ch, MXP_ALL );
 }
 
 void pager_printf(CHAR_DATA *ch, char *fmt, ...)
@@ -3636,7 +3675,7 @@ void do_name( CHAR_DATA *ch, char *argument )
 
   if ( !NOT_AUTHED(ch) || ch->pcdata->auth_state != 2)
   {
-    mxp_to_char("Huh?\n\r", ch, MPX_ALL );
+    mxp_to_char("Huh?\n\r", ch, MXP_ALL );
     return;
   }
 
@@ -3644,7 +3683,7 @@ void do_name( CHAR_DATA *ch, char *argument )
 
   if (!check_parse_name(argument, TRUE))
   {
-    mxp_to_char("That name is reserved, please try another.\n\r", ch, MPX_ALL );
+    mxp_to_char("That name is reserved, please try another.\n\r", ch, MXP_ALL );
     return;
   }
 
@@ -3653,7 +3692,7 @@ void do_name( CHAR_DATA *ch, char *argument )
 
   if (!str_cmp(ch->name, argument))
   {
-    mxp_to_char("That's already your name!\n\r", ch, MPX_ALL );
+    mxp_to_char("That's already your name!\n\r", ch, MXP_ALL );
     return;
   }
 
@@ -3665,7 +3704,7 @@ void do_name( CHAR_DATA *ch, char *argument )
 
   if ( tmp )
   {
-    mxp_to_char("That name is already taken.  Please choose another.\n\r", ch, MPX_ALL );
+    mxp_to_char("That name is already taken.  Please choose another.\n\r", ch, MXP_ALL );
     return;
   }
 
@@ -3673,7 +3712,7 @@ void do_name( CHAR_DATA *ch, char *argument )
                         capitalize( argument ) );
   if ( stat( fname, &fst ) != -1 )
   {
-    mxp_to_char("That name is already taken.  Please choose another.\n\r", ch, MPX_ALL );
+    mxp_to_char("That name is already taken.  Please choose another.\n\r", ch, MXP_ALL );
     return;
   }
 
@@ -3681,7 +3720,7 @@ void do_name( CHAR_DATA *ch, char *argument )
   ch->name = STRALLOC( argument );
   STRFREE( ch->pcdata->filename );
   ch->pcdata->filename = STRALLOC( argument ); 
-  mxp_to_char("Your name has been changed.  Please apply again.\n\r", ch, MPX_ALL );
+  mxp_to_char("Your name has been changed.  Please apply again.\n\r", ch, MXP_ALL );
   ch->pcdata->auth_state = 0;
   return;
 }
@@ -4344,7 +4383,7 @@ bool pager_output( DESCRIPTOR_DATA *d )
   /* If there's anything to show, show it */
   if ( last != d->pagepoint )
   {
-    if ( !write_to_descriptor(d->descriptor, d->pagepoint,
+    if ( !write_to_descriptor(d, d->pagepoint,
           (last-d->pagepoint)) )
       return FALSE;
     d->pagepoint = last;
@@ -4364,9 +4403,9 @@ bool pager_output( DESCRIPTOR_DATA *d )
   /* Display the pager prompt */
   d->pagecmd = -1;
   if ( xIS_SET( ch->act, PLR_ANSI ) )
-      if ( write_to_descriptor(d->descriptor, "\033[1;36m", 7) == FALSE )
+      if ( write_to_descriptor(d, "\033[1;36m", 7) == FALSE )
 	return FALSE;
-  if ( (ret=write_to_descriptor(d->descriptor,
+  if ( (ret=write_to_descriptor(d,
 	"(C)ontinue, (N)on-stop, (R)efresh, (B)ack, (Q)uit: [C] ", 0)) == FALSE )
 	return FALSE;
   /* Restore previous color */
@@ -4381,8 +4420,7 @@ bool pager_output( DESCRIPTOR_DATA *d )
            d->prevcolor & 8 ? "1;" : "",
            d->prevcolor > 15 ? "5;" : "",
            d->prevcolor & 7 );
-      ret = write_to_descriptor( d->descriptor, buf, 0 );
-  }
+      ret = write_to_descriptor( d, buf, 0 ); }
   return ret;
 }
 

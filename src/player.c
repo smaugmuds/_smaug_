@@ -1670,17 +1670,12 @@ void do_oldscore( CHAR_DATA *ch, char *argument )
 	get_age(ch),
 	(get_age(ch) - 17) * 2 );
 
-    mxp_to_char( buf, ch, MXP_ALL );
-
-    sprintf( buf, "You are %susing MCCP!\n\r",
+    pager_printf( ch, "You are %susing MCCP!\n\r",
 		ch->desc->out_compress ? "" : "not " );
-    mxp_to_char( buf, ch, MXP_ALL );
 
     if ( get_trust( ch ) != ch->level )
 			pager_printf( ch, "You are trusted at level %d.\n\r",
 	    get_trust( ch ) );
-
-			mxp_to_char( buf, ch, MXP_ALL );
 
     if (  IS_NPC(ch) && xIS_SET(ch->act, ACT_MOBINVIS) )
       pager_printf( ch, "You are mobinvis at level %d.\n\r",
@@ -1970,7 +1965,7 @@ void do_affected ( CHAR_DATA *ch, char *argument )
         if ( ch->level >= 20 )
         {
             
-            mxp_to_char( "\n\r", ch );
+            mxp_to_char( "\n\r", ch, MXP_ALL );
             if ( ch->resistant > 0 || ch->stance_resistant>0)
 	    {
                 send_to_char_color( "&BResistances:  ", ch );

@@ -2353,7 +2353,7 @@ void do_emote( CHAR_DATA *ch, char *argument )
 
     if ( !IS_NPC(ch) && xIS_SET(ch->act, PLR_NO_EMOTE) )
     {
-	mxp_to_char( "You can't show your emotions.\n\r", ch MXP_ALL);
+	mxp_to_char( "You can't show your emotions.\n\r", ch, MXP_ALL);
 	return;
     }
 
@@ -2504,7 +2504,7 @@ void do_idea( CHAR_DATA *ch, char *argument )
     {
       p = one_argument(p, arg);
       if ( str_cmp(arg, "now") )
-        mxp_to_char("Must specify 'clear now' to clear idea file.\n\r", c, MXP_ALLh);
+        mxp_to_char("Must specify 'clear now' to clear idea file.\n\r", ch, MXP_ALL );
       else
       {
         FILE *fp = fopen( IDEA_FILE, "w" );
@@ -3060,7 +3060,7 @@ void do_ansi( CHAR_DATA *ch, char *argument )
     if ( ( strcmp( arg, "off" ) == 0 ) || ( strcmp( arg, "OFF" ) == 0 ) )
     {
 	xREMOVE_BIT( ch->act, PLR_ANSI );
-	mxp_to_char( "ANSI color is now OFF.\n\r", ch );
+	mxp_to_char( "ANSI color is now OFF.\n\r", ch, MXP_ALL );
 	return;
     }
 }

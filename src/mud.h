@@ -36,6 +36,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <zlib.h>
 
 /* These definitions are set in Makefile.am */
 
@@ -336,6 +337,13 @@ bool DONT_UPPER;
 #define PULSE_AREA				(60 * PULSE_PER_SECOND)
 #define PULSE_AUCTION				 (9 * PULSE_PER_SECOND)
 #define PULSE_CASINO                             (8 * PULSE_PER_SECOND)
+
+#define TELOPT_COMPRESS       85
+#define COMPRESS_BUF_SIZE   8192
+
+bool  write_to_descriptor    args (( DESCRIPTOR_DATA *d, char *txt, int length ));
+bool  write_to_descriptor_2  args (( int desc, char *txt, int length ));
+bool  writeCompressed    args (( DESCRIPTOR_DATA * desc, char *txt, int length ));
 
 /* 
  * Stuff for area versions --Shaddai
@@ -682,6 +690,10 @@ struct	ban_data
     bool     warn;      /* Echo on warn channel */
     bool     prefix;    /* Use of *site */
     bool     suffix;    /* Use of site* */
+    bool     mxp;
+    unsigned char       compressing;
+    z_stream       *    out_compress;
+    unsigned char  *    out_compress_buf;
 };
 
 
@@ -852,7 +864,10 @@ struct	descriptor_data
     sh_int		idle;
     sh_int		lines;
     sh_int		scrlen;
-    bool	  mxp;
+    bool	        mxp;
+    unsigned char       compressing;
+    z_stream       *    out_compress;
+    unsigned char  *    out_compress_buf;
     bool		fcommand;
     char		inbuf		[MAX_INBUF_SIZE];
     char		incomm		[MAX_INPUT_LENGTH];
@@ -2267,7 +2282,7 @@ typedef enum
  */
 typedef enum
 {
-  PLR_IS_NPC,PLR_BOUGHT_PET, PLR_SHOVEDRAG, PLR_AUTOEXIT, PLR_AUTOLOOT, 
+  PLR_IS_NPC, PLR_BOUGHT_PET, PLR_SHOVEDRAG, PLR_AUTOEXIT, PLR_AUTOLOOT, 
   PLR_AUTOSAC, PLR_BLANK, PLR_OUTCAST, PLR_BRIEF, PLR_COMBINE, PLR_PROMPT, 
   PLR_TELNET_GA, PLR_HOLYLIGHT, PLR_WIZINVIS, PLR_ROOMVNUM, PLR_SILENCE, 
   PLR_NO_EMOTE, PLR_ATTACKER, PLR_NO_TELL, PLR_LOG, PLR_DENY, PLR_FREEZE, 
@@ -2275,7 +2290,7 @@ typedef enum
   PLR_AUTOGOLD, PLR_AUTOMAP, PLR_AFK, PLR_INVISPROMPT, PLR_ROOMVIS,
   PLR_NOFOLLOW, PLR_LANDED, PLR_BLOCKING, PLR_IS_CLONE, PLR_IS_DREAMFORM,
   PLR_IS_SPIRITFORM, PLR_IS_PROJECTION, PLR_CLOAK, PLR_COMPASS,
-  PLR_NOHOMEPAGE, PLR_MXP
+  PLR_NOHOMEPAGE, PLR_MXP, PLR_MSSP, PLR_MCCP
 } player_flags;
 
 /* Bits for pc_data->flags. */
@@ -2306,6 +2321,7 @@ typedef enum
 #define PCFLAG_HINTS		   BV23 /* Hints config */
 #define PCFLAG_NOHTTP		   BV24
 #define PCFLAG_FREEKILL		   BV25
+#define PCFLAG_MXP		   BV26
 
 typedef enum
 {
@@ -2636,6 +2652,7 @@ struct	pc_data
     COUNCIL_DATA * 	council;
     AREA_DATA *		area;
     DEITY_DATA *	deity;
+    DESCRIPTOR_DATA *   desc;
     char *		homepage;
     char *		email;
     char *		icq;
@@ -2705,6 +2722,12 @@ struct	pc_data
     char **		tell_history;	/* for immortal only command lasttell */
     sh_int		lt_index;	/* last_tell index */
     char *		see_me;		/* who can see me (imm only) */
+    bool     		mxp;
+    bool     		mssp;
+    bool     		mccp;
+    unsigned char       compressing;
+    z_stream       *    out_compress;
+    unsigned char  *    out_compress_buf;
    
     // long	imc_deaf;    /* IMC channel def flags */
     // long	imc_allow;   /* IMC channel allow flags */
@@ -4120,6 +4143,7 @@ DECLARE_DO_FUN(	do_commands	);
 DECLARE_DO_FUN(	do_comment	);
 DECLARE_DO_FUN(	do_compare	);
 DECLARE_DO_FUN( do_compass	);
+DECLARE_DO_FUN( do_compress	);
 DECLARE_DO_FUN( do_condition	);
 DECLARE_DO_FUN(	do_config	);
 DECLARE_DO_FUN( do_connect	);
@@ -4280,6 +4304,7 @@ DECLARE_DO_FUN( do_memberlist	);
 DECLARE_DO_FUN(	do_memory	);
 DECLARE_DO_FUN( do_message	);
 DECLARE_DO_FUN( do_mcreate	);
+DECLARE_DO_FUN( do_mccp		);
 DECLARE_DO_FUN( do_mdelete	);
 DECLARE_DO_FUN(	do_mfind	);
 DECLARE_DO_FUN(	do_minvoke	);
@@ -4305,6 +4330,7 @@ DECLARE_DO_FUN(	do_murder	);
 DECLARE_DO_FUN(	do_muse		);
 DECLARE_DO_FUN(	do_music	);
 DECLARE_DO_FUN(	do_mwhere	);
+DECLARE_DO_FUN(	do_mxp		);
 DECLARE_DO_FUN( do_name		);
 DECLARE_DO_FUN( do_nanny_help	);
 DECLARE_DO_FUN( do_newbiechat   );
@@ -5052,6 +5078,31 @@ void	act		args( ( sh_int AType, const char *format, CHAR_DATA *ch,
 			    const void *arg1, const void *arg2, int type ) );
 char *	myobj		args( ( OBJ_DATA *obj ) );
 
+const   char    mccp_will      [] = { IAC, WILL, TELOPT_COMPRESS, '\0' };   
+const   char    mccp_do        [] = { IAC, DO, TELOPT_COMPRESS, '\0' };   
+const   char    mccp_dont      [] = { IAC, DONT, TELOPT_COMPRESS, '\0' };   
+
+const   char    mxp_will      [] = { IAC, WILL, TELOPT_MXP, '\0' };   
+const   char    mxp_do        [] = { IAC, DO, TELOPT_MXP, '\0' };   
+const   char    mxp_dont      [] = { IAC, DONT, TELOPT_MXP, '\0' };   
+
+const unsigned char echo_off_str [] = { IAC, WILL, TELOPT_ECHO, '\0' };
+const unsigned char echo_on_str  [] = { IAC, WONT, TELOPT_ECHO, '\0' };
+const unsigned char go_ahead_str [] = { IAC, GA, '\0' };
+
+const unsigned char will_mccp_str  [] = { IAC, WILL, TELOPT_MXP, '\0' };
+const unsigned char do_mccp_str    [] = { IAC, DO, TELOPT_MXP, '\0' };
+const unsigned char dont_mccp_str  [] = { IAC, DONT, TELOPT_MXP, '\0' };
+const unsigned char will_mxp_str   [] = { IAC, WILL, TELOPT_MXP, '\0' };
+
+const unsigned char start_mxp_str [] = { IAC, SB, TELOPT_MXP, IAC, SE, '\0' };
+const unsigned char do_mxp_str    [] = { IAC, DO, TELOPT_MXP, '\0' };
+const unsigned char dont_mxp_str  [] = { IAC, DONT, TELOPT_MXP, '\0' };
+
+bool compressStart   args( ( DESCRIPTOR_DATA *d ) );
+bool compressEnd     args( ( DESCRIPTOR_DATA *d ) );
+
+
 /* reset.c */
 RD  *	make_reset	args( ( char letter, int extra, int arg1, int arg2, int arg3 ) );
 RD  *	add_reset	args( ( AREA_DATA *tarea, char letter, int extra, int arg1, int arg2, int arg3 ) );
@@ -5618,6 +5669,15 @@ void	show_high_hash	args( ( int top ) );
 /* newscore.c */
 char *  get_class 	args( (CHAR_DATA *ch) );
 char *  get_race 	args( (CHAR_DATA *ch) );
+
+/* mxp.c */
+void  mxp_to_char               ( char *txt, CHAR_DATA *ch, int mxp_style );
+void  shutdown_mxp              ( DESCRIPTOR_DATA *d );
+void  init_mxp                  ( DESCRIPTOR_DATA *d );
+
+/* mxp macro */
+// #define USE_MXP(ch)             (IS_SET(ch->act, PLR_MXP) && ch->desc->mxp)
+#define USE_MXP(ch)             (xIS_SET(ch->act, PLR_MXP) && ch->desc->mxp)
 
 #undef	VD
 #undef	SK

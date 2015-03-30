@@ -77,7 +77,7 @@ doc_DATA = README AUTHORS INSTALL NEWS LICENSE ChangeLog \
 man_MANS = man/smaug.1 man/smaugd.1
 
 CLEANDEVELFILES = compile configure depcomp aclocal.m4 src/smaug.h \
-	autom4te.cache config.guess config.sub install-sh missing \
+	autom4te.cache config.guess config.sub install-sh missing src/.libs \
 	config.status ltmain.sh depcomp m4 README COPYING NEWS src/smaug \
 	AUTHORS ChangeLog LICENSE INSTALL config.lt libtool src/.deps src/*.o
 

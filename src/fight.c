@@ -157,8 +157,8 @@ void strip_grapple( CHAR_DATA *ch )
     {
         affect_strip( ch, gsn_grapple );
         set_char_color( AT_WEAROFF, ch );
-        send_to_char( skill_table[gsn_grapple]->msg_off, ch );
-        send_to_char( "\n\r", ch );
+        mxp_to_char( skill_table[gsn_grapple]->msg_off, ch, MXP_ALL );
+        mxp_to_char( "\n\r", ch, MXP_ALL );
 	if ( get_timer( ch, TIMER_PKILLED ) > 0 )
 	  remove_timer( ch, TIMER_ASUPRESSED );
     }
@@ -169,8 +169,8 @@ void strip_grapple( CHAR_DATA *ch )
 	{
 	  affect_strip( who_fighting( ch ), gsn_grapple );
           set_char_color( AT_WEAROFF, who_fighting( ch ) );
-          send_to_char( skill_table[gsn_grapple]->msg_off, who_fighting( ch ) );
-          send_to_char( "\n\r", who_fighting( ch ) );
+          mxp_to_char( skill_table[gsn_grapple]->msg_off, who_fighting( ch ), MXP_ALL );
+          mxp_to_char( "\n\r", who_fighting( ch ), MXP_ALL );
           if ( get_timer( who_fighting( ch ), TIMER_PKILLED ) > 0 )
 	   remove_timer( who_fighting( ch ), TIMER_ASUPRESSED );
 	}
@@ -431,8 +431,8 @@ void violence_update( void )
 		    if ( paf->type > 0 && skill && skill->msg_off )
 		    {
 			set_char_color( AT_WEAROFF, ch );
-			send_to_char( skill->msg_off, ch );
-			send_to_char( "\n\r", ch );
+			mxp_to_char( skill->msg_off, ch, MXP_ALL );
+			mxp_to_char( "\n\r", ch, MXP_ALL );
 		    }
 		}
 		if (paf->type == gsn_possess)
@@ -2422,7 +2422,7 @@ ch_ret damage( CHAR_DATA *ch, CHAR_DATA *victim, int dam, int dt )
 		-URANGE(3, victim->level / 10, 8) );
 	victim->hit += URANGE( 4, (victim->max_hit / 30), 15);
 	set_char_color(AT_BLOOD, victim);
-	send_to_char("You howl with rage as the beast within stirs!\n\r", victim);
+	mxp_to_char("You howl with rage as the beast within stirs!\n\r", victim, MXP_ALL);
       }
     }
 
@@ -2724,7 +2724,7 @@ bool is_safe( CHAR_DATA *ch, CHAR_DATA *victim, bool show_messg )
     {
         if ( show_messg ) {
 	set_char_color( AT_MAGIC, ch );
-	send_to_char( "A magical force prevents you from attacking.\n\r", ch );
+	mxp_to_char( "A magical force prevents you from attacking.\n\r", ch, MXP_ALL );
 	}
 	return TRUE;
     }
@@ -2745,7 +2745,7 @@ bool is_safe( CHAR_DATA *ch, CHAR_DATA *victim, bool show_messg )
         sprintf(buf, "%s is a pacifist and will not fight.\n\r",
                 capitalize(victim->short_descr));
         set_char_color( AT_MAGIC, ch );
-        send_to_char( buf, ch);
+        mxp_to_char( buf, ch, MXP_ALL);
 	}
         return TRUE;
     }
@@ -2759,7 +2759,7 @@ bool is_safe( CHAR_DATA *ch, CHAR_DATA *victim, bool show_messg )
     {
         if ( show_messg ) {
         set_char_color( AT_IMMORT, ch );
-        send_to_char( "The gods have forbidden player killing in this area.\n\r", ch );
+        mxp_to_char( "The gods have forbidden player killing in this area.\n\r", ch, MXP_ALL );
 	}
         return TRUE;
     }
@@ -2771,7 +2771,7 @@ bool is_safe( CHAR_DATA *ch, CHAR_DATA *victim, bool show_messg )
     {
         if ( show_messg ) {
 	set_char_color( AT_WHITE, ch );	
-	send_to_char( "You are not yet ready, needing age or experience, if not both. \n\r", ch );
+	mxp_to_char( "You are not yet ready, needing age or experience, if not both. \n\r", ch, MXP_ALL );
 	}
 	return TRUE;
     }
@@ -2780,7 +2780,7 @@ bool is_safe( CHAR_DATA *ch, CHAR_DATA *victim, bool show_messg )
     {
         if ( show_messg ) {
 	set_char_color( AT_WHITE, ch );
-	send_to_char( "They are yet too young to die.\n\r", ch );
+	mxp_to_char( "They are yet too young to die.\n\r", ch, MXP_ALL );
 	}
 	return TRUE;
     }
@@ -2790,7 +2790,7 @@ bool is_safe( CHAR_DATA *ch, CHAR_DATA *victim, bool show_messg )
     {
         if ( show_messg ) {
 	set_char_color( AT_IMMORT, ch );
-	send_to_char( "The gods do not allow murder when there is such a difference in level.\n\r", ch );
+	mxp_to_char( "The gods do not allow murder when there is such a difference in level.\n\r", ch, MXP_ALL );
 	}
 	return TRUE;
     }
@@ -2799,7 +2799,7 @@ bool is_safe( CHAR_DATA *ch, CHAR_DATA *victim, bool show_messg )
     {
         if ( show_messg ) {
 	set_char_color( AT_GREEN, ch );
-        send_to_char( "That character has died within the last 5 minutes.\n\r", ch);
+        mxp_to_char( "That character has died within the last 5 minutes.\n\r", ch, MXP_ALL);
 	}
         return TRUE;
     }
@@ -2808,7 +2808,7 @@ bool is_safe( CHAR_DATA *ch, CHAR_DATA *victim, bool show_messg )
     {
         if ( show_messg ) {
 	set_char_color( AT_GREEN, ch );
-        send_to_char( "You have been killed within the last 5 minutes.\n\r", ch );
+        mxp_to_char( "You have been killed within the last 5 minutes.\n\r", ch, MXP_ALL );
 	}
         return TRUE;
     }
@@ -2889,13 +2889,13 @@ void check_killer( CHAR_DATA *ch, CHAR_DATA *victim )
 		set_char_color( AT_IMMORT, ch );
 		/* If loser/victim has no honour don't award or take any away. */
 		if ( victim->pcdata->honour == 0 )
-		  send_to_char( "You gain no honour for this kill. \n\r", ch );
+		  mxp_to_char( "You gain no honour for this kill. \n\r", ch, MXP_ALL );
 		else
 		{
 	        /* Take care of the winner/ch, award honour, award pkill */
-		  send_to_char( "You gain 1 honour for triumph in combat. \n\r", ch );
+		  mxp_to_char( "You gain 1 honour for triumph in combat. \n\r", ch, MXP_ALL );
 		  ch->pcdata->honour++;
-		  send_to_char( "You lose 1 honour for defeat in combat. \n\r", victim );
+		  mxp_to_char( "You lose 1 honour for defeat in combat. \n\r", victim, MXP_ALL );
 		  victim->pcdata->honour--;
 		}
 		/* Now check to see if the winner has gained a new rank */
@@ -2905,7 +2905,7 @@ void check_killer( CHAR_DATA *ch, CHAR_DATA *victim )
           || ch->pcdata->honour == 40
           || ch->pcdata->honour == 65
           || ch->pcdata->honour == 100 )
-	      send_to_char( "Congratulations. You have obtained a new rank of honour. \n\r", ch );
+	      mxp_to_char( "Congratulations. You have obtained a new rank of honour. \n\r", ch, MXP_ALL );
     }
 
     /*
@@ -3081,11 +3081,11 @@ void check_killer( CHAR_DATA *ch, CHAR_DATA *victim )
       return;
 
     set_char_color( AT_WHITE, ch );
-    send_to_char( "A strange feeling grows deep inside you, and a tingle goes up your spine...\n\r", ch );
+    mxp_to_char( "A strange feeling grows deep inside you, and a tingle goes up your spine...\n\r", ch, MXP_ALL );
     set_char_color( AT_IMMORT, ch );
-    send_to_char( "A deep voice booms inside your head, 'Thou shall now be known as a deadly murderer!!!'\n\r", ch );
+    mxp_to_char( "A deep voice booms inside your head, 'Thou shall now be known as a deadly murderer!!!'\n\r", ch, MXP_ALL );
     set_char_color( AT_WHITE, ch );
-    send_to_char( "You feel as if your soul has been revealed for all to see.\n\r", ch );
+    mxp_to_char( "You feel as if your soul has been revealed for all to see.\n\r", ch, MXP_ALL );
     xSET_BIT(ch->act, PLR_KILLER);
     if ( xIS_SET( ch->act, PLR_ATTACKER) )
       xREMOVE_BIT(ch->act, PLR_ATTACKER);
@@ -3259,7 +3259,7 @@ void set_fighting( CHAR_DATA *ch, CHAR_DATA *victim )
     /* Limit attackers -Thoric */
     if ( victim->num_fighting > max_fight(victim) )
     {
-	send_to_char( "There are too many people fighting for you to join in.\n\r", ch );
+	mxp_to_char( "There are too many people fighting for you to join in.\n\r", ch, MXP_ALL );
 	return;
     }
 
@@ -3344,16 +3344,16 @@ void free_fight( CHAR_DATA *ch )
    {
      affect_strip(ch, gsn_berserk);
      set_char_color(AT_WEAROFF, ch);
-     send_to_char(skill_table[gsn_berserk]->msg_off, ch);
-     send_to_char("\n\r", ch);
+     mxp_to_char(skill_table[gsn_berserk]->msg_off, ch, MXP_ALL);
+     mxp_to_char("\n\r", ch, MXP_ALL);
    }
 /* 
    if ( IS_AFFECTED( ch, AFF_GRAPPLE ) )
    {
      affect_strip( ch, gsn_grapple );
      set_char_color( AT_WEAROFF, ch );
-     send_to_char( skill_table[gsn_grapple]->msg_off, ch );
-     send_to_char( "\n\r", ch );
+     mxp_to_char( skill_table[gsn_grapple]->msg_off, ch, MXP_ALL );
+     mxp_to_char( "\n\r", ch, MXP_ALL );
    }
 */
    return;
@@ -3691,12 +3691,12 @@ neutral when they die given the difficulting of changing align */
     if ( xIS_SET( victim->act, PLR_KILLER) )
     {
       xREMOVE_BIT( victim->act, PLR_KILLER);
-      send_to_char("The gods have pardoned you for your murderous acts.\n\r",victim);
+      mxp_to_char("The gods have pardoned you for your murderous acts.\n\r",victim, MXP_ALL);
     }
     if ( xIS_SET( victim->act, PLR_THIEF) )
     {
       xREMOVE_BIT( victim->act, PLR_THIEF);
-      send_to_char("The gods have pardoned you for your thievery.\n\r",victim);
+      mxp_to_char("The gods have pardoned you for your thievery.\n\r",victim, MXP_ALL);
     }
     victim->pcdata->condition[COND_FULL]   = 12;
     victim->pcdata->condition[COND_THIRST] = 12;
@@ -3750,13 +3750,13 @@ void group_gain( CHAR_DATA *ch, CHAR_DATA *victim )
 
 	if ( gch->level - lch->level >  8 )
 	{
-	    send_to_char( "You are too high for this group.\n\r", gch );
+	    mxp_to_char( "You are too high for this group.\n\r", gch, MXP_ALL );
 	    continue;
 	}
 
 	if ( gch->level - lch->level < -8 )
 	{
-	    send_to_char( "You are too low for this group.\n\r", gch );
+	    mxp_to_char( "You are too low for this group.\n\r", gch, MXP_ALL );
 	    continue;
 	}
 
@@ -3765,7 +3765,7 @@ void group_gain( CHAR_DATA *ch, CHAR_DATA *victim )
 	  xp /= 2;
 	gch->alignment = align_compute( gch, victim );
 	sprintf( buf, "You receive %d experience points.\n\r", xp );
-	send_to_char( buf, gch );
+	mxp_to_char( buf, gch, MXP_ALL );
 	gain_exp( gch, xp );
 
 	for ( obj = ch->first_carrying; obj; obj = obj_next )
@@ -4108,19 +4108,19 @@ void do_kill( CHAR_DATA *ch, char *argument )
 
     if ( arg[0] == '\0' )
     {
-	send_to_char( "Kill whom?\n\r", ch );
+	mxp_to_char( "Kill whom?\n\r", ch, MXP_ALL );
 	return;
     }
 
     if ( ( victim = get_char_room( ch, arg ) ) == NULL )
     {
-	send_to_char( "They aren't here.\n\r", ch );
+	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
 	return;
     }
 
     if ( IS_NPC(victim) && victim->morph)
     {
-	send_to_char("This creature appears strange to you.  Look upon it more closely before attempting to kill it.", ch);
+	mxp_to_char("This creature appears strange to you.  Look upon it more closely before attempting to kill it.", ch, MXP_ALL);
 	return;
     }
 
@@ -4129,7 +4129,7 @@ void do_kill( CHAR_DATA *ch, char *argument )
 	if ( !xIS_SET(victim->act, PLR_KILLER)
 	&&   !xIS_SET(victim->act, PLR_THIEF) )
 	{
-	    send_to_char( "You must MURDER a player.\n\r", ch );
+	    mxp_to_char( "You must MURDER a player.\n\r", ch, MXP_ALL );
 	    return;
 	}
     }
@@ -4140,7 +4140,7 @@ void do_kill( CHAR_DATA *ch, char *argument )
     {
 	if ( IS_AFFECTED(victim, AFF_CHARM) && victim->master != NULL )
 	{
-	    send_to_char( "You must MURDER a charmed creature.\n\r", ch );
+	    mxp_to_char( "You must MURDER a charmed creature.\n\r", ch, MXP_ALL );
 	    return;
 	}
     }
@@ -4149,7 +4149,7 @@ void do_kill( CHAR_DATA *ch, char *argument )
 
     if ( victim == ch )
     {
-	send_to_char( "You hit yourself.  Ouch!\n\r", ch );
+	mxp_to_char( "You hit yourself.  Ouch!\n\r", ch, MXP_ALL );
 	multi_hit( ch, ch, TYPE_UNDEFINED );
 	return;
     }
@@ -4170,7 +4170,7 @@ void do_kill( CHAR_DATA *ch, char *argument )
        || ch->position ==  POS_BERSERK
        )
     {
-	send_to_char( "You do the best you can!\n\r", ch );
+	mxp_to_char( "You do the best you can!\n\r", ch, MXP_ALL );
 	return;
     }
 
@@ -4184,7 +4184,7 @@ void do_kill( CHAR_DATA *ch, char *argument )
 
 void do_murde( CHAR_DATA *ch, char *argument )
 {
-    send_to_char( "If you want to MURDER, spell it out.\n\r", ch );
+    mxp_to_char( "If you want to MURDER, spell it out.\n\r", ch, MXP_ALL );
     return;
 }
 
@@ -4200,19 +4200,19 @@ void do_murder( CHAR_DATA *ch, char *argument )
 
     if ( arg[0] == '\0' )
     {
-	send_to_char( "Murder whom?\n\r", ch );
+	mxp_to_char( "Murder whom?\n\r", ch, MXP_ALL );
 	return;
     }
 
     if ( ( victim = get_char_room( ch, arg ) ) == NULL )
     {
-	send_to_char( "They aren't here.\n\r", ch );
+	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
 	return;
     }
 
     if ( victim == ch )
     {
-	send_to_char( "Suicide is a mortal sin.\n\r", ch );
+	mxp_to_char( "Suicide is a mortal sin.\n\r", ch, MXP_ALL );
 	return;
     }
 
@@ -4240,13 +4240,13 @@ void do_murder( CHAR_DATA *ch, char *argument )
        || ch->position ==  POS_BERSERK
        )
     {
-	send_to_char( "You do the best you can!\n\r", ch );
+	mxp_to_char( "You do the best you can!\n\r", ch, MXP_ALL );
 	return;
     }
 
     if ( !IS_NPC( victim ) && xIS_SET(ch->act, PLR_NICE ) )
     {
-      send_to_char( "You feel too nice to do that!\n\r", ch );
+      mxp_to_char( "You feel too nice to do that!\n\r", ch, MXP_ALL );
       return;
     }
 /*
@@ -4345,25 +4345,25 @@ void do_flee( CHAR_DATA *ch, char *argument )
 	  else
 	    ch->position = POS_STANDING;
 	}
-	send_to_char( "You aren't fighting anyone.\n\r", ch );
+	mxp_to_char( "You aren't fighting anyone.\n\r", ch, MXP_ALL );
 	return;
     }
     if ( IS_AFFECTED( ch, AFF_BERSERK ) ) {
-        send_to_char( "Flee while berserking?  You aren't thinking very clearly...\n\r", ch);
+        mxp_to_char( "Flee while berserking?  You aren't thinking very clearly...\n\r", ch, MXP_ALL);
         return;
     }
     if ( IS_AFFECTED( ch, AFF_GRAPPLE ) )
     {
-	send_to_char( "You're too wrapped up to flee!\n\r", ch );
+	mxp_to_char( "You're too wrapped up to flee!\n\r", ch, MXP_ALL );
 	return;
     }
     if ( ch->move <= 0 ) {
-	send_to_char( "You're too exhausted to flee from combat!\n\r", ch );
+	mxp_to_char( "You're too exhausted to flee from combat!\n\r", ch, MXP_ALL );
 	return;
     }
     /* No fleeing while more aggressive than standard or hurt. - Haus */
     if ( !IS_NPC( ch ) && ch->position < POS_FIGHTING ) {
-	send_to_char( "You can't flee in an aggressive stance...\n\r", ch );
+	mxp_to_char( "You can't flee in an aggressive stance...\n\r", ch, MXP_ALL );
 	return; 
     }
     if ( IS_NPC( ch ) && ch->position <= POS_SLEEPING )
@@ -4443,7 +4443,7 @@ void do_flee( CHAR_DATA *ch, char *argument )
 
 void do_sla( CHAR_DATA *ch, char *argument )
 {
-    send_to_char( "If you want to SLAY, spell it out.\n\r", ch );
+    mxp_to_char( "If you want to SLAY, spell it out.\n\r", ch, MXP_ALL );
     return;
 }
 
@@ -4457,25 +4457,25 @@ void do_slay( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg2 );
     if ( arg[0] == '\0' )
     {
-	send_to_char( "Slay whom?\n\r", ch );
+	mxp_to_char( "Slay whom?\n\r", ch, MXP_ALL );
 	return;
     }
 
     if ( ( victim = get_char_room( ch, arg ) ) == NULL )
     {
-	send_to_char( "They aren't here.\n\r", ch );
+	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
 	return;
     }
 
     if ( ch == victim )
     {
-	send_to_char( "Suicide is a mortal sin.\n\r", ch );
+	mxp_to_char( "Suicide is a mortal sin.\n\r", ch, MXP_ALL );
 	return;
     }
 
     if ( !IS_NPC(victim) && get_trust( victim ) >= get_trust( ch ) )
     {
-	send_to_char( "You failed.\n\r", ch );
+	mxp_to_char( "You failed.\n\r", ch, MXP_ALL );
 	return;
     }
 

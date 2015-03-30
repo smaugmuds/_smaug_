@@ -144,8 +144,8 @@ void advance_level( CHAR_DATA *ch )
 	   if ( d->connected == CON_PLAYING && d->character != ch )
 	   {
 		set_char_color( AT_IMMORT, d->character );
-		send_to_char( buf,	d->character );
-		send_to_char( "\n\r",	d->character );
+		mxp_to_char( buf,	d->character, MXP_ALL );
+		mxp_to_char( "\n\r",	d->character, MXP_ALL );
 	   }
 	set_char_color( AT_WHITE, ch );
     ch->pcdata->honour = 10;
@@ -170,7 +170,7 @@ void advance_level( CHAR_DATA *ch )
 	  add_prac,	ch->practice
 	  );
       set_char_color( AT_WHITE, ch );
-      send_to_char( buf, ch );
+      mxp_to_char( buf, ch, MXP_ALL );
       if ( !IS_NPC( ch ) )
       {
 	sprintf( buf2, "%d/%d, %d:%d, %s, %d, %d, %d, %s %s",
@@ -223,7 +223,7 @@ void gain_exp( CHAR_DATA *ch, int gain )
           sprintf(buf,"The Patronage of Gravoc reinforces your learning.\n\r");
           modgain*=1.25;
        }
-	send_to_char(buf, ch);
+	mxp_to_char(buf, ch, MXP_ALL);
     }  */
 
     if(modgain>0 && IS_PKILL(ch)){
@@ -243,7 +243,7 @@ void gain_exp( CHAR_DATA *ch, int gain )
           sprintf(buf,"The Patronage of Gravoc reinforces your learning.\n\r");
           modgain*=2.0;
        }
-	send_to_char(buf, ch);
+	mxp_to_char(buf, ch, MXP_ALL);
     }
 
 
@@ -276,7 +276,7 @@ void gain_exp( CHAR_DATA *ch, int gain )
 
     if (NOT_AUTHED(ch) && ch->exp >= exp_level(ch, ch->level+1))
     {
-	send_to_char("You can not ascend to a higher level until you are authorized.\n\r", ch);
+	mxp_to_char("You can not ascend to a higher level until you are authorized.\n\r", ch, MXP_ALL);
 	ch->exp = (exp_level(ch, (ch->level+1)) - 1);
 	return;
     }
@@ -472,7 +472,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE )
           {
             set_char_color( AT_HUNGRY, ch );
-	    send_to_char( "You are STARVING!\n\r",  ch );
+	    mxp_to_char( "You are STARVING!\n\r",  ch, MXP_ALL );
             act( AT_HUNGRY, "$n is starved half to death!", ch, NULL, NULL, TO_ROOM);
 	    if ( !IS_PKILL(ch) || number_bits(1) == 0 )
 		worsen_mental_state( ch, 1 );
@@ -484,7 +484,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE )
           {
             set_char_color( AT_THIRSTY, ch );
-	    send_to_char( "You are DYING of THIRST!\n\r", ch );
+	    mxp_to_char( "You are DYING of THIRST!\n\r", ch, MXP_ALL );
             act( AT_THIRSTY, "$n is dying of thirst!", ch, NULL, NULL, TO_ROOM);
 	    worsen_mental_state( ch, IS_PKILL(ch) ? 1: 2 );
 	    retcode = damage(ch, ch, 2, TYPE_UNDEFINED);
@@ -495,7 +495,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR )
           {
             set_char_color( AT_BLOOD, ch );
-            send_to_char( "You are starved to feast on blood!\n\r", ch );
+            mxp_to_char( "You are starved to feast on blood!\n\r", ch, MXP_ALL );
             act( AT_BLOOD, "$n is suffering from lack of blood!", ch,
                  NULL, NULL, TO_ROOM);
 	    worsen_mental_state( ch, 2 );
@@ -505,7 +505,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
 	case COND_DRUNK:
 	    if ( condition != 0 ) {
                 set_char_color( AT_SOBER, ch );
-		send_to_char( "You are sober.\n\r", ch );
+		mxp_to_char( "You are sober.\n\r", ch, MXP_ALL );
 	    }
 	    retcode = rNONE;
 	    break;
@@ -527,7 +527,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE )
           {
             set_char_color( AT_HUNGRY, ch );
-	    send_to_char( "You are really hungry.\n\r",  ch );
+	    mxp_to_char( "You are really hungry.\n\r",  ch, MXP_ALL );
             act( AT_HUNGRY, "You can hear $n's stomach growling.", ch, NULL, NULL, TO_ROOM);
 	    if ( number_bits(1) == 0 )
 		worsen_mental_state( ch, 1 );
@@ -538,7 +538,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE )
           {
             set_char_color( AT_THIRSTY, ch );
-	    send_to_char( "You are really thirsty.\n\r", ch );
+	    mxp_to_char( "You are really thirsty.\n\r", ch, MXP_ALL );
 	    worsen_mental_state( ch, 1 );
 	    act( AT_THIRSTY, "$n looks a little parched.", ch, NULL, NULL, TO_ROOM);
           } 
@@ -548,7 +548,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR )
           {
             set_char_color( AT_BLOOD, ch );
-            send_to_char( "You have a growing need to feast on blood!\n\r", ch );
+            mxp_to_char( "You have a growing need to feast on blood!\n\r", ch, MXP_ALL );
             act( AT_BLOOD, "$n gets a strange look in $s eyes...", ch,
                  NULL, NULL, TO_ROOM);
 	    worsen_mental_state( ch, 1 );
@@ -557,7 +557,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
 	case COND_DRUNK:
 	    if ( condition != 0 ) {
                 set_char_color( AT_SOBER, ch );
-		send_to_char( "You are feeling a little less light headed.\n\r", ch );
+		mxp_to_char( "You are feeling a little less light headed.\n\r", ch, MXP_ALL );
             }
 	    break;
 	}
@@ -572,7 +572,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE )
           {
             set_char_color( AT_HUNGRY, ch );
-	    send_to_char( "You are hungry.\n\r",  ch );
+	    mxp_to_char( "You are hungry.\n\r",  ch, MXP_ALL );
           } 
 	  break;
 
@@ -580,7 +580,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE )
           {
             set_char_color( AT_THIRSTY, ch );
-	    send_to_char( "You are thirsty.\n\r", ch );
+	    mxp_to_char( "You are thirsty.\n\r", ch, MXP_ALL );
           } 
 	  break;
 
@@ -588,7 +588,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR )
           {
             set_char_color( AT_BLOOD, ch );
-            send_to_char( "You feel an urgent need for blood.\n\r", ch );
+            mxp_to_char( "You feel an urgent need for blood.\n\r", ch, MXP_ALL );
           }  
           break;
 	}
@@ -602,7 +602,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE )
           {
             set_char_color( AT_HUNGRY, ch );
-	    send_to_char( "You are a mite peckish.\n\r",  ch );
+	    mxp_to_char( "You are a mite peckish.\n\r",  ch, MXP_ALL );
           } 
 	  break;
 
@@ -610,7 +610,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE )
           {
             set_char_color( AT_THIRSTY, ch );
-	    send_to_char( "You could use a sip of something refreshing.\n\r", ch );
+	    mxp_to_char( "You could use a sip of something refreshing.\n\r", ch, MXP_ALL );
           } 
 	  break;
 
@@ -618,7 +618,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR )
           {
             set_char_color( AT_BLOOD, ch );
-            send_to_char( "You feel an aching in your fangs.\n\r", ch );
+            mxp_to_char( "You feel an aching in your fangs.\n\r", ch, MXP_ALL );
           }
           break;
 	}
@@ -642,20 +642,20 @@ void check_alignment( CHAR_DATA *ch )
      if(ch->alignment<race_table[ch->race]->minalign)
      {
 	set_char_color( AT_BLOOD, ch );
-        send_to_char( "Your actions have been incompatible with the ideals of your race.  This troubles you.\n\r", ch);
+        mxp_to_char( "Your actions have been incompatible with the ideals of your race.  This troubles you.\n\r", ch, MXP_ALL);
      }
 
      if(ch->alignment>race_table[ch->race]->maxalign)
      {
 	set_char_color( AT_BLOOD, ch );
-        send_to_char( "Your actions have been incompatible with the ideals of your race.  This troubles you.\n\r", ch);
+        mxp_to_char( "Your actions have been incompatible with the ideals of your race.  This troubles you.\n\r", ch, MXP_ALL);
      }
 
      /* Nephandi alignment restrictions -h  */
       if(ch->class == CLASS_NEPHANDI){
           if(ch->alignment>-250){
             set_char_color( AT_BLOOD, ch );
-            send_to_char( "Damn you heathen! Go forth and do evil or suffer the consequences!\n\r", ch );
+            mxp_to_char( "Damn you heathen! Go forth and do evil or suffer the consequences!\n\r", ch, MXP_ALL );
             worsen_mental_state( ch, 35 );
             return;
         } 
@@ -666,7 +666,7 @@ void check_alignment( CHAR_DATA *ch )
       if(ch->class == CLASS_PALADIN){
         if(ch->alignment<250){
             set_char_color( AT_BLOOD, ch );
-            send_to_char( "You are wracked with guilt and remorse for your craven actions!\n\r", ch );
+            mxp_to_char( "You are wracked with guilt and remorse for your craven actions!\n\r", ch, MXP_ALL );
             act( AT_BLOOD, "$n prostrates $mself, seeking forgiveness from $s Lord.", ch, 
                  NULL, NULL, TO_ROOM); 
             worsen_mental_state( ch, 15 );
@@ -674,7 +674,7 @@ void check_alignment( CHAR_DATA *ch )
         } 
         if(ch->alignment<500){
             set_char_color( AT_BLOOD, ch );
-            send_to_char( "As you betray your faith, your mind begins to betray you.\n\r", ch );
+            mxp_to_char( "As you betray your faith, your mind begins to betray you.\n\r", ch, MXP_ALL );
             act( AT_BLOOD, "$n shudders, judging $s actions unworthy of a Paladin.", ch, 
                  NULL, NULL, TO_ROOM); 
             worsen_mental_state( ch, 6 );
@@ -1087,7 +1087,7 @@ void char_update( void )
 			stop_fighting( ch, TRUE );
 		    act( AT_ACTION, "$n disappears into the void.",
 			ch, NULL, NULL, TO_ROOM );
-		    send_to_char( "You disappear into the void.\n\r", ch );
+		    mxp_to_char( "You disappear into the void.\n\r", ch, MXP_ALL );
 		    if ( IS_SET( sysdata.save_flags, SV_IDLE ) )
 			save_char_obj( ch );
 		    SET_BIT(ch->pcdata->flags, PCFLAG_IDLE);
@@ -1188,7 +1188,7 @@ void char_update( void )
          MOBtrigger = FALSE;
          char_from_room(ch);
          char_to_room( ch, location );
-         send_to_char( "The gods have released you from hell as your sentance is up!\n\r", ch );
+         mxp_to_char( "The gods have released you from hell as your sentance is up!\n\r", ch, MXP_ALL );
          do_look(ch, "auto");
          STRFREE( ch->pcdata->helled_by );
 	 ch->pcdata->helled_by = NULL;
@@ -1258,35 +1258,35 @@ void char_update( void )
 		switch( (ch->mental_state+5) / 10 )
 		{
 		    case  3:
-		    	send_to_char( "You feel feverish.\n\r", ch );
+		    	mxp_to_char( "You feel feverish.\n\r", ch, MXP_ALL );
 			act( AT_ACTION, "$n looks kind of out of it.", ch, NULL, NULL, TO_ROOM );
 		    	break;
 		    case  4:
-		    	send_to_char( "You do not feel well at all.\n\r", ch );
+		    	mxp_to_char( "You do not feel well at all.\n\r", ch, MXP_ALL );
 			act( AT_ACTION, "$n doesn't look too good.", ch, NULL, NULL, TO_ROOM );
 		    	break;
 		    case  5:
-		    	send_to_char( "You need help!\n\r", ch );
+		    	mxp_to_char( "You need help!\n\r", ch, MXP_ALL );
 			act( AT_ACTION, "$n looks like $e could use your help.", ch, NULL, NULL, TO_ROOM );
 		    	break;
 		    case  6:
-		    	send_to_char( "Seekest thou a cleric.\n\r", ch );
+		    	mxp_to_char( "Seekest thou a cleric.\n\r", ch, MXP_ALL );
 			act( AT_ACTION, "Someone should fetch a healer for $n.", ch, NULL, NULL, TO_ROOM );
 		    	break;
 		    case  7:
-		    	send_to_char( "You feel reality slipping away...\n\r", ch );
+		    	mxp_to_char( "You feel reality slipping away...\n\r", ch, MXP_ALL );
 			act( AT_ACTION, "$n doesn't appear to be aware of what's going on.", ch, NULL, NULL, TO_ROOM );
 		    	break;
 		    case  8:
-		    	send_to_char( "You begin to understand... everything.\n\r", ch );
+		    	mxp_to_char( "You begin to understand... everything.\n\r", ch, MXP_ALL );
 			act( AT_ACTION, "$n starts ranting like a madman!", ch, NULL, NULL, TO_ROOM );
 		    	break;
 		    case  9:
-		    	send_to_char( "You are ONE with the universe.\n\r", ch );
+		    	mxp_to_char( "You are ONE with the universe.\n\r", ch, MXP_ALL );
 			act( AT_ACTION, "$n is ranting on about 'the answer', 'ONE' and other mumbo-jumbo...", ch, NULL, NULL, TO_ROOM );
 		    	break;
 		    case 10:
-		    	send_to_char( "You feel the end is near.\n\r", ch );
+		    	mxp_to_char( "You feel the end is near.\n\r", ch, MXP_ALL );
 			act( AT_ACTION, "$n is muttering and ranting in tongues...", ch, NULL, NULL, TO_ROOM );
 		    	break;
 		}
@@ -1301,7 +1301,7 @@ void char_update( void )
 			   &&    number_percent()+10 < abs(ch->mental_state) )
 				do_sleep( ch, "" );
 			   else
-				send_to_char( "You're barely conscious.\n\r", ch );
+				mxp_to_char( "You're barely conscious.\n\r", ch, MXP_ALL );
 			}
 			break;
 		    case   9:
@@ -1312,7 +1312,7 @@ void char_update( void )
 			   &&   (number_percent()+20) < abs(ch->mental_state) )
 				do_sleep( ch, "" );
 			   else
-				send_to_char( "You can barely keep your eyes open.\n\r", ch );
+				mxp_to_char( "You can barely keep your eyes open.\n\r", ch, MXP_ALL );
 			}
 			break;
 		    case   8:
@@ -1322,28 +1322,28 @@ void char_update( void )
 			   &&  (number_percent()+30) < abs(ch->mental_state) )
 				do_sleep( ch, "" );
 			   else
-				send_to_char( "You're extremely drowsy.\n\r", ch );
+				mxp_to_char( "You're extremely drowsy.\n\r", ch, MXP_ALL );
 			}
 			break;
 		    case   7:
 			if ( ch->position > POS_RESTING )
-			   send_to_char( "You feel very unmotivated.\n\r", ch );
+			   mxp_to_char( "You feel very unmotivated.\n\r", ch, MXP_ALL );
 			break;
 		    case   6:
 			if ( ch->position > POS_RESTING )
-			   send_to_char( "You feel sedated.\n\r", ch );
+			   mxp_to_char( "You feel sedated.\n\r", ch, MXP_ALL );
 			break;
 		    case   5:
 			if ( ch->position > POS_RESTING )
-			   send_to_char( "You feel sleepy.\n\r", ch );
+			   mxp_to_char( "You feel sleepy.\n\r", ch, MXP_ALL );
 			break;
 		    case   4:
 			if ( ch->position > POS_RESTING )
-			   send_to_char( "You feel tired.\n\r", ch );
+			   mxp_to_char( "You feel tired.\n\r", ch, MXP_ALL );
 			break;
 		    case   3:
 			if ( ch->position > POS_RESTING )
-			   send_to_char( "You could use a rest.\n\r", ch );
+			   mxp_to_char( "You could use a rest.\n\r", ch, MXP_ALL );
 			break;
 		}
 	    if ( ch->timer > 24 )
@@ -1670,7 +1670,7 @@ void char_check( void )
 		xREMOVE_BIT( ch->mount->act, ACT_MOUNTED );
 		ch->mount = NULL;
 		ch->position = POS_STANDING;
-		send_to_char( "No longer upon your mount, you fall to the ground...\n\rOUCH!\n\r", ch );
+		mxp_to_char( "No longer upon your mount, you fall to the ground...\n\rOUCH!\n\r", ch, MXP_ALL );
 	    }
 
 	    if ( ( ch->in_room && ch->in_room->sector_type == SECT_UNDERWATER )
@@ -1686,7 +1686,7 @@ void char_check( void )
 			dam = number_range( ch->max_hit / 100, ch->max_hit / 50 );
 			dam = UMAX( 1, dam );
 			if ( number_bits(3) == 0 )
-			  send_to_char( "You cough and choke as you try to breathe water!\n\r", ch );
+			  mxp_to_char( "You cough and choke as you try to breathe water!\n\r", ch, MXP_ALL );
 			damage( ch, ch, dam, TYPE_UNDEFINED );
 		    }
 		}
@@ -1730,7 +1730,7 @@ void char_check( void )
 				dam = UMAX( 1, dam );
 
 				if ( number_bits(3) == 0 )
-				   send_to_char( "Struggling with exhaustion, you choke on a mouthful of water.\n\r", ch );
+				   mxp_to_char( "Struggling with exhaustion, you choke on a mouthful of water.\n\r", ch, MXP_ALL );
 				damage( ch, ch, dam, TYPE_UNDEFINED );
 			    }
 			}
@@ -2060,7 +2060,7 @@ void hallucinations( CHAR_DATA *ch )
 	    case 20: t = "You feel immortal!\n\r";					break;
 	    case 21: t = "Ahh... the power of a Supreme Entity... what to do...\n\r";	break;
 	}
-	send_to_char( t, ch );
+	mxp_to_char( t, ch, MXP_ALL );
     }
     return;
 }
@@ -2173,7 +2173,7 @@ void update_handler( void )
     if ( timechar )
     {
       set_char_color(AT_PLAIN, timechar);
-      send_to_char( "Starting update timer.\n\r", timechar );
+      mxp_to_char( "Starting update timer.\n\r", timechar, MXP_ALL );
       gettimeofday(&stime, NULL);
     }
 
@@ -2249,7 +2249,7 @@ void update_handler( void )
     {
       gettimeofday(&etime, NULL);
       set_char_color(AT_PLAIN, timechar);
-      send_to_char( "Update timing complete.\n\r", timechar );
+      mxp_to_char( "Update timing complete.\n\r", timechar, MXP_ALL );
       subtract_times(&etime, &stime);
       ch_printf( timechar, "Timing took %d.%06d seconds.\n\r",
           etime.tv_sec, etime.tv_usec );
@@ -2365,7 +2365,7 @@ void reboot_check( time_t reset )
       if ( auction->buyer && auction->buyer != auction->seller )
       {
         auction->buyer->gold += auction->bet;
-        send_to_char("Your money has been returned.\n\r", auction->buyer);
+        mxp_to_char("Your money has been returned.\n\r", auction->buyer, MXP_ALL);
       }
     }
     echo_to_all(AT_YELLOW, "You are forced from these realms by a strong "
@@ -2467,7 +2467,7 @@ void auction_update (void)
 		ch_printf(auction->seller, "The auctioneer pays you %s gold, charging an auction fee of ",
 		  num_punct(pay));
 		ch_printf(auction->seller, "%s.\n\r", num_punct(tax) );
-		send_to_char(buf, auction->seller);
+		mxp_to_char(buf, auction->seller, MXP_ALL);
                 auction->item = NULL; /* reset item */
 		if ( IS_SET( sysdata.save_flags, SV_AUCTION ) )
 		{
@@ -2500,7 +2500,7 @@ void auction_update (void)
 		tax = (int)auction->item->cost * 0.05;
 		boost_economy( auction->seller->in_room->area, tax );
 		sprintf(buf, "The auctioneer charges you an auction fee of %s.\n\r", num_punct(tax) );
-		send_to_char(buf, auction->seller);
+		mxp_to_char(buf, auction->seller, MXP_ALL);
 		if ((auction->seller->gold - tax) < 0)
 		  auction->seller->gold = 0;
 		else

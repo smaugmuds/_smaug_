@@ -39,8 +39,10 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include <zlib.h>
+#include <malloc.h>
 
-#include "merc.h"
+#include "mud.h"
   
 char    compress_start  [] = { IAC, SB, TELOPT_COMPRESS, WILL, SE, '\0' };
 
@@ -83,8 +85,8 @@ bool compressStart(DESCRIPTOR_DATA *desc)
         return TRUE;
 
     /* allocate and init stream, buffer */
-    s = (z_stream *)alloc_mem(sizeof(*s));
-    desc->out_compress_buf = (unsigned char *)alloc_mem(COMPRESS_BUF_SIZE);
+    s = (z_stream *)malloc(sizeof(*s));
+    desc->out_compress_buf = (unsigned char *)malloc(COMPRESS_BUF_SIZE);
 
     s->next_in = NULL;
     s->avail_in = 0;
@@ -98,8 +100,8 @@ bool compressStart(DESCRIPTOR_DATA *desc)
 
     if (deflateInit(s, 9) != Z_OK) {
         /* problems with zlib, try to clean up */
-        free_mem(desc->out_compress_buf, COMPRESS_BUF_SIZE);
-        free_mem(s, sizeof(z_stream));
+        free(desc->out_compress_buf);
+        free(s);
         return FALSE;
     }
     
@@ -130,8 +132,8 @@ bool compressEnd(DESCRIPTOR_DATA *desc)
         return FALSE;
 
     deflateEnd(desc->out_compress); 
-    free_mem(desc->out_compress_buf, COMPRESS_BUF_SIZE);
-    free_mem(desc->out_compress, sizeof(z_stream));
+    free(desc->out_compress_buf);
+    free(desc->out_compress);
     desc->out_compress = NULL;
     desc->out_compress_buf = NULL;
 
@@ -281,7 +283,7 @@ void do_showcompress( CHAR_DATA *ch, char *argument )
 
   if (IS_NPC(ch)) return;
 
-  for (d = descriptor_list; d != NULL; d = d->next)
+  for (d = gch->desc; d != NULL; d = d->next)
   {
     if (d->connected != CON_PLAYING) continue;
     if (d->character != NULL) gch = d->character;

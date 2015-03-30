@@ -34,13 +34,24 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
-#include "mud.h"
-#include "mssp.h"
 
+#include "mud.h"
+
+#if defined(KEY)
+#undef KEY
+#endif
+
+#define KEY( literal, field, value )					\
+				if ( !str_cmp( word, literal ) )	\
+				{					\
+				    field  = value;			\
+				    fMatch = TRUE;			\
+				    break;				\
+				}
 
 struct mssp_info *mssp_info;
 void fread_mssp_info( FILE * fp );
-bool write_to_descriptor( DESCRIPTOR_DATA * d, const char *txt, int length );
+// bool write_to_descriptor( DESCRIPTOR_DATA * d, const char *txt, int length );
 void write_to_descriptor_printf( DESCRIPTOR_DATA * desc, const char *fmt, ... ) GNUC_FORMAT( 2, 3 ); 
 
 void free_mssp_info( void )
@@ -368,9 +379,9 @@ void show_mssp( CHAR_DATA * ch )
 }
 
 
-void do_setmssp( CHAR_DATA *ch, const char* argument )
+void do_setmssp( CHAR_DATA *ch, char *argument )
 {
-   char arg1[MIL];
+   char arg1[MAX_INPUT_LENGTH];
    char **strptr = NULL;
    bool *ynptr = NULL;
 
@@ -649,7 +660,7 @@ void mssp_reply( DESCRIPTOR_DATA * d, const char *var, const char *fmt, ... )
    write_to_descriptor_printf( d, "%s\t%s\r\n", var, buf );
 }
 
-extern time_t mud_start_time;
+// extern time_t mud_start_time;
 extern int top_area;
 extern int top_help;
 extern int top_room;
@@ -657,7 +668,7 @@ extern int top_reset;
 extern int top_prog;
 extern int top_mob_index;
 extern int top_obj_index;
-extern short num_skills;
+// extern short num_skills;
 extern int top_prog;
 #define codebase "SW:FotE v2.1.5"
 
@@ -686,7 +697,7 @@ void send_mssp_data( DESCRIPTOR_DATA * d )
 
    mssp_reply( d, "HOSTNAME", "%s", mssp_info->hostname );
    mssp_reply( d, "PORT", "%d", port );
-   mssp_reply( d, "UPTIME", "%d", (int)mud_start_time );
+//   mssp_reply( d, "UPTIME", "%d", (int)mud_start_time );
    mssp_reply( d, "PLAYERS", "%d", player_count( ) );
    mssp_reply( d, "CODEBASE", "%s", codebase );
    mssp_reply( d, "CONTACT", "%s", mssp_info->contact );
@@ -714,7 +725,7 @@ void send_mssp_data( DESCRIPTOR_DATA * d )
    mssp_reply( d, "CLASSES", "%d", MAX_CLASS );
    mssp_reply( d, "LEVELS", "%d", MAX_LEVEL );
    mssp_reply( d, "RACES", "%d", MAX_RACE );
-   mssp_reply( d, "SKILLS", "%d", num_skills );
+//   mssp_reply( d, "SKILLS", "%d", num_skills );
    mssp_reply( d, "WORLDS", "%d", mssp_info->worlds );
    mssp_reply( d, "ANSI", "%d", mssp_info->ansi );
    mssp_reply( d, "MCCP", "%d", mssp_info->mccp );

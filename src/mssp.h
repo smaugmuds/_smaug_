@@ -46,11 +46,8 @@ struct mssp_info
 };    
 
 #define MSSP_FILE SYSTEM_DIR "mssp.dat"
+
 #define FOPEN( fp, rwx )    fopen( (fp), (rwx) )
-#ifdef FCLOSE
-#undef FCLOSE
-#endif
-#define FCLOSE( fp )        fclose( (fp) ); (fp) = NULL;
 
 #define MSSP_MINAGE  0
 #define MSSP_MAXAGE  21

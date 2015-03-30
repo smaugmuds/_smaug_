@@ -102,7 +102,10 @@ AC_CHECK_LIB([z], [zlibVersion])
 AM_CONDITIONAL([HAVE_Z], [test -n "${z}"])
 
 AC_CHECK_LIB([m], [isnan])
-AM_CONDITIONAL([HAVE_Z], [test -n "${z}"])
+AM_CONDITIONAL([HAVE_M], [test -n "${m}"])
+
+# AC_CHECK_LIB([socket], [shutdown])
+# AM_CONDITIONAL([HAVE_SOCKET], [test -n "${socket}"])
 
 AC_CHECK_LIB([ssl], [main])
 AM_CONDITIONAL([HAVE_SSL], [test -n "${ssl}"])
@@ -111,7 +114,7 @@ AC_CHECK_LIB([pthread], [main])
 AM_CONDITIONAL([HAVE_PTHREAD], [test -n "${pthread}"])
 
 # Checks for header files.
-AC_CHECK_HEADERS([arpa/inet.h fcntl.h malloc.h math.h etdb.h netinet/in.h sys/param.h sys/socket.h sys/time.h unistd.h pthread.h openssl/ssl.h limits.h stddef.h])
+AC_CHECK_HEADERS([arpa/inet.h fcntl.h malloc.h math.h etdb.h netinet/in.h sys/param.h sys/socket.h sys/time.h unistd.h pthread.h openssl/ssl.h limits.h stddef.h zlib.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_HEADER_STDBOOL

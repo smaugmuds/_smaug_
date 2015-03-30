@@ -481,7 +481,7 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
 	  break;
 	}
 	if ( fShowNothing )
-	    mxp_to_char( "     ", ch; MXP_ALL );
+	    mxp_to_char( "     ", ch, MXP_ALL );
   if (pAction)
     ch_printf (ch, MXPTAG ("%s '%s' '%s'"), pAction, prgpstrName[iShow], prgpstrShortName[iShow]);
 	mxp_to_char( prgpstrShow[iShow], ch, MXP_ALL );
@@ -936,14 +936,14 @@ void show_char_to_char_1( CHAR_DATA *victim, CHAR_DATA *ch )
     if ( victim->description[0] != '\0' )
     {
       if ( victim->morph != NULL && victim->morph->morph != NULL)
-        send_to_char ( victim->morph->morph->description , ch );
+        mxp_to_char( victim->morph->morph->description , ch, MXP_ALL  );
       else
-        send_to_char (victim->description, ch);
+        mxp_to_char(victim->description, ch, MXP_ALL );
     }
     else
     {
         if ( victim->morph != NULL && victim->morph->morph != NULL)
-           send_to_char ( victim->morph->morph->description , ch );
+           mxp_to_char( victim->morph->morph->description , ch, MXP_ALL );
 	else if ( IS_NPC( victim ) )
 	  act( AT_PLAIN, "You see nothing special about $M.", ch, NULL, victim, TO_CHAR );
 	else if ( ch != victim )
@@ -1151,8 +1151,8 @@ void do_look( CHAR_DATA *ch, char *argument )
     &&   room_is_dark( ch->in_room ) )
     {
 	set_char_color( AT_DGREY, ch );
-	mxp_to_char( "It is pitch black ... \n\r", ch );
-	show_char_to_char( ch->in_room->first_person, ch, MXP_ALL );
+	mxp_to_char( "It is pitch black ... \n\r", ch, MXP_ALL );
+	show_char_to_char( ch->in_room->first_person, ch );
 	return;
     }
 
@@ -5129,8 +5129,8 @@ void do_config( CHAR_DATA *ch, char *argument )
                                                     	: "[-] ansi",
         xIS_SET(ch->act, PLR_RIP )                  	? "[+] RIP"
                                                     	: "[-] rip",
-	  xIS_SET(ch->act, PLR_COMPASS )			? "[+] COMPASS"
-									: "[-] compass" );
+	xIS_SET(ch->act, PLR_COMPASS )			? "[+] COMPASS"
+							: "[-] compass" );
       set_char_color( AT_DGREEN, ch );
       mxp_to_char( "\n\r\n\rAuto:      ", ch, MXP_ALL );
       set_char_color( AT_GREY, ch );
@@ -5170,6 +5170,12 @@ void do_config( CHAR_DATA *ch, char *argument )
       ch_printf( ch, "%-12s   %-12s   %-12s   %-12s",
 	   xIS_SET(ch->act, PLR_TELNET_GA )		? "[+] TELNETGA"
                                                         : "[-] telnetga",
+	   xIS_SET(ch->act, PLR_MXP )			? "[+] MXP"
+                                                        : "[-] mxp",
+	   xIS_SET(ch->act, PLR_MSSP )			? "[+] MSSP"
+                                                        : "[-] mssp",
+	   xIS_SET(ch->act, PLR_MCCP )			? "[+] MCCP"
+                                                        : "[-] mccp",
            IS_SET( ch->pcdata->flags, PCFLAG_GROUPWHO ) ? "[+] GROUPWHO"
                                                         : "[-] groupwho",
            IS_SET( ch->pcdata->flags, PCFLAG_NOINTRO )  ? "[+] NOINTRO"
@@ -5242,6 +5248,9 @@ void do_config( CHAR_DATA *ch, char *argument )
 	else if ( !str_prefix( arg+1, "combine"  ) ) bit = PLR_COMBINE;
 	else if ( !str_prefix( arg+1, "prompt"   ) ) bit = PLR_PROMPT;
 	else if ( !str_prefix( arg+1, "telnetga" ) ) bit = PLR_TELNET_GA;
+	else if ( !str_prefix( arg+1, "mxp" 	 ) ) bit = PLR_MXP;
+	else if ( !str_prefix( arg+1, "mssp" 	 ) ) bit = PLR_MSSP;
+	else if ( !str_prefix( arg+1, "mccp" 	 ) ) bit = PLR_MCCP;
 	else if ( !str_prefix( arg+1, "ansi"     ) ) bit = PLR_ANSI;
 	else if ( !str_prefix( arg+1, "compass"  ) ) bit = PLR_COMPASS;
 	else if ( !str_prefix( arg+1, "rip"      ) ) bit = PLR_RIP;

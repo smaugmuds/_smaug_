@@ -76,60 +76,60 @@ bool check_pos( CHAR_DATA *ch, sh_int position )
 	switch( ch->position )
 	{
 	case POS_DEAD:
-	    send_to_char( "A little difficult to do when you are DEAD...\n\r", ch );
+	    mxp_to_char( "A little difficult to do when you are DEAD...\n\r", ch, MXP_ALL );
 	    break;
 
 	case POS_MORTAL:
 	case POS_INCAP:
-	    send_to_char( "You are hurt far too bad for that.\n\r", ch );
+	    mxp_to_char( "You are hurt far too bad for that.\n\r", ch, MXP_ALL );
 	    break;
 
 	case POS_STUNNED:
-	    send_to_char( "You are too stunned to do that.\n\r", ch );
+	    mxp_to_char( "You are too stunned to do that.\n\r", ch, MXP_ALL );
 	    break;
 
 	case POS_SLEEPING:
-	    send_to_char( "In your dreams, or what?\n\r", ch );
+	    mxp_to_char( "In your dreams, or what?\n\r", ch, MXP_ALL );
 	    break;
 
 	case POS_RESTING:
-	    send_to_char( "Nah... You feel too relaxed...\n\r", ch);
+	    mxp_to_char( "Nah... You feel too relaxed...\n\r", ch, MXP_ALL);
 	    break;
 
 	case POS_SITTING:
-	    send_to_char( "You can't do that sitting down.\n\r", ch);
+	    mxp_to_char( "You can't do that sitting down.\n\r", ch, MXP_ALL);
 	    break;
 
 	case POS_FIGHTING:
             if(position<=POS_EVASIVE){
-	      send_to_char( "This fighting style is too demanding for that!\n\r", ch);
+	      mxp_to_char( "This fighting style is too demanding for that!\n\r", ch, MXP_ALL);
             } else {
-	      send_to_char( "No way!  You are still fighting!\n\r", ch);
+	      mxp_to_char( "No way!  You are still fighting!\n\r", ch, MXP_ALL);
              }
 	    break;
     	case POS_DEFENSIVE:
             if(position<=POS_EVASIVE){
-	      send_to_char( "This fighting style is too demanding for that!\n\r", ch);
+	      mxp_to_char( "This fighting style is too demanding for that!\n\r", ch, MXP_ALL);
             } else {
-	    send_to_char( "No way!  You are still fighting!\n\r", ch);
+	    mxp_to_char( "No way!  You are still fighting!\n\r", ch, MXP_ALL);
             }
 	    break;
     	case POS_AGGRESSIVE:
             if(position<=POS_EVASIVE){
-	      send_to_char( "This fighting style is too demanding for that!\n\r", ch);
+	      mxp_to_char( "This fighting style is too demanding for that!\n\r", ch, MXP_ALL);
             } else {
-	    send_to_char( "No way!  You are still fighting!\n\r", ch);
+	    mxp_to_char( "No way!  You are still fighting!\n\r", ch, MXP_ALL);
             }
 	    break;
     	case POS_BERSERK:
             if(position<=POS_EVASIVE){
-	      send_to_char( "This fighting style is too demanding for that!\n\r", ch);
+	      mxp_to_char( "This fighting style is too demanding for that!\n\r", ch, MXP_ALL);
             } else {
-	       send_to_char( "No way!  You are still fighting!\n\r", ch);
+	       mxp_to_char( "No way!  You are still fighting!\n\r", ch, MXP_ALL);
             }
 	    break;
     	case POS_EVASIVE:
-	    send_to_char( "No way!  You are still fighting!\n\r", ch);
+	    mxp_to_char( "No way!  You are still fighting!\n\r", ch, MXP_ALL);
 	    break;
 
 	}
@@ -340,7 +340,7 @@ void interpret( CHAR_DATA *ch, char *argument )
 	 */
 	if ( !IS_NPC(ch) && xIS_SET(ch->act, PLR_FREEZE) )
 	{
-	    send_to_char( "You're totally frozen!\n\r", ch );
+	    mxp_to_char( "You're totally frozen!\n\r", ch, MXP_ALL );
 	    return;
 	}
 
@@ -522,8 +522,8 @@ first place.  Whaddya gonna do? */
 	            default:
 		       sprintf(newcommand,m_data[i].cmdString);
 	          }
-		  send_to_char( newcommand, ch );
-		  send_to_char( "\n\r", ch );
+		  mxp_to_char( newcommand, ch, MXP_ALL );
+		  mxp_to_char( "\n\r", ch, MXP_ALL );
 	          /* ... interpret NEW_COMMAND */
 	          interpret( ch, newcommand );
 		  refresh_page( ch );
@@ -534,8 +534,8 @@ first place.  Whaddya gonna do? */
           if(!strcmp("+",command) && get_obj_world(ch, argument))
           {
              sprintf(newcommand,"omenu %s %c",argument,ch->inter_page);
-		  send_to_char( newcommand, ch );
-		  send_to_char( "\n\r", ch );
+		  mxp_to_char( newcommand, ch, MXP_ALL );
+		  mxp_to_char( "\n\r", ch, MXP_ALL );
 	     interpret( ch, newcommand );
 	     refresh_page( ch );
 	     return;
@@ -586,8 +586,8 @@ first place.  Whaddya gonna do? */
 	            default:
 		       sprintf(newcommand,m_data[i].cmdString);
 	          }
-		  send_to_char( newcommand, ch );
-		  send_to_char( "\n\r", ch );
+		  mxp_to_char( newcommand, ch, MXP_ALL );
+		  mxp_to_char( "\n\r", ch, MXP_ALL );
 	          /* ... interpret NEW_COMMAND */
 	          interpret( ch, newcommand );
 		  refresh_page( ch );
@@ -598,8 +598,8 @@ first place.  Whaddya gonna do? */
           if(!strcmp("+",command) && get_char_world(ch, argument))
           {
              sprintf(newcommand,"mmenu %s %c",argument,ch->inter_page);
-		  send_to_char( newcommand, ch );
-		  send_to_char( "\n\r", ch );
+		  mxp_to_char( newcommand, ch, MXP_ALL );
+		  mxp_to_char( "\n\r", ch, MXP_ALL );
 	     interpret( ch, newcommand );
 	     refresh_page( ch );
 	     return;
@@ -649,8 +649,8 @@ first place.  Whaddya gonna do? */
 	            default:
 		       sprintf(newcommand,m_data[i].cmdString);
 	          }
-		  send_to_char( newcommand, ch );
-		  send_to_char( "\n\r", ch );
+		  mxp_to_char( newcommand, ch, MXP_ALL );
+		  mxp_to_char( "\n\r", ch, MXP_ALL );
 	          /* ... interpret NEW_COMMAND */
 	          interpret( ch, newcommand );
 		  refresh_page( ch );
@@ -710,13 +710,13 @@ first place.  Whaddya gonna do? */
 		  if ( !IS_SET( pexit->exit_info, EX_SECRET ) )
 		    act( AT_PLAIN, "The $d is closed.", ch, NULL, pexit->keyword, TO_CHAR );
 		  else
-		    send_to_char( "You cannot do that here.\n\r", ch );
+		    mxp_to_char( "You cannot do that here.\n\r", ch, MXP_ALL );
 		  return;
 		}
 		move_char( ch, pexit, 0 );
 		return;
 	    }
-	    send_to_char( "Huh?\n\r", ch );
+	    mxp_to_char( "Huh?\n\r", ch, MXP_ALL );
 	}
 	return;
     }
@@ -733,7 +733,7 @@ first place.  Whaddya gonna do? */
     if ( !str_cmp(cmd->name, "flee") &&
           IS_AFFECTED(ch, AFF_BERSERK) )
     {
-	send_to_char( "You aren't thinking very clearly..\n\r", ch);
+	mxp_to_char( "You aren't thinking very clearly..\n\r", ch, MXP_ALL);
 	return;
     } */
 
@@ -759,7 +759,7 @@ first place.  Whaddya gonna do? */
          && number_percent() < ((ch->pcdata->nuisance->flags-9)*10
          *ch->pcdata->nuisance->power))
     {
-	send_to_char("You can't seem to do that just now.\n\r", ch );
+	mxp_to_char("You can't seem to do that just now.\n\r", ch, MXP_ALL );
 	return;	
     }
     	
@@ -841,23 +841,23 @@ bool check_social( CHAR_DATA *ch, char *command, char *argument )
 
     if ( !IS_NPC(ch) && xIS_SET(ch->act, PLR_NO_EMOTE) )
     {
-	send_to_char( "You are anti-social!\n\r", ch );
+	mxp_to_char( "You are anti-social!\n\r", ch, MXP_ALL );
 	return TRUE;
     }
    
     switch ( ch->position )
     {
     case POS_DEAD:
-	send_to_char( "Lie still; you are DEAD.\n\r", ch );
+	mxp_to_char( "Lie still; you are DEAD.\n\r", ch, MXP_ALL );
 	return TRUE;
 
     case POS_INCAP:
     case POS_MORTAL:
-	send_to_char( "You are hurt far too bad for that.\n\r", ch );
+	mxp_to_char( "You are hurt far too bad for that.\n\r", ch, MXP_ALL );
 	return TRUE;
 
     case POS_STUNNED:
-	send_to_char( "You are too stunned to do that.\n\r", ch );
+	mxp_to_char( "You are too stunned to do that.\n\r", ch, MXP_ALL );
 	return TRUE;
 
     case POS_SLEEPING:
@@ -867,7 +867,7 @@ bool check_social( CHAR_DATA *ch, char *command, char *argument )
 	 */
 	if ( !str_cmp( social->name, "snore" ) )
 	    break;
-	send_to_char( "In your dreams, or what?\n\r", ch );
+	mxp_to_char( "In your dreams, or what?\n\r", ch, MXP_ALL );
 	return TRUE;
 
     }
@@ -924,7 +924,7 @@ bool check_social( CHAR_DATA *ch, char *command, char *argument )
     	}
     	
     	if(!victim)
-		send_to_char( "They aren't here.\n\r", ch );
+		mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
     }
     else if ( victim == ch )
     {
@@ -1180,35 +1180,35 @@ void do_timecmd( CHAR_DATA *ch, char *argument )
   extern CHAR_DATA *timechar;
   char arg[MAX_INPUT_LENGTH];
   
-  send_to_char("Timing\n\r",ch);
+  mxp_to_char("Timing\n\r",ch, MXP_ALL);
   if ( timing )
     return;
   one_argument(argument, arg);
   if ( !*arg )
   {
-    send_to_char( "No command to time.\n\r", ch );
+    mxp_to_char( "No command to time.\n\r", ch, MXP_ALL );
     return;
   }
   if ( !str_cmp(arg, "update") )
   {
     if ( timechar )
-      send_to_char( "Another person is already timing updates.\n\r", ch );
+      mxp_to_char( "Another person is already timing updates.\n\r", ch, MXP_ALL );
     else
     {
       timechar = ch;
-      send_to_char( "Setting up to record next update loop.\n\r", ch );
+      mxp_to_char( "Setting up to record next update loop.\n\r", ch, MXP_ALL );
     }
     return;
   }
   set_char_color(AT_PLAIN, ch);
-  send_to_char( "Starting timer.\n\r", ch );
+  mxp_to_char( "Starting timer.\n\r", ch, MXP_ALL );
   timing = TRUE;
   gettimeofday(&stime, NULL);
   interpret(ch, argument);
   gettimeofday(&etime, NULL);
   timing = FALSE;
   set_char_color(AT_PLAIN, ch);
-  send_to_char( "Timing complete.\n\r", ch );
+  mxp_to_char( "Timing complete.\n\r", ch, MXP_ALL );
   subtract_times(&etime, &stime);
   ch_printf( ch, "Timing took %d.%06d seconds.\n\r",
       etime.tv_sec, etime.tv_usec );

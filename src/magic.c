@@ -986,7 +986,7 @@ bool process_spell_components( CHAR_DATA *ch, int sn )
 		   {
 			if ( fail )
 			{
-			  send_to_char( "Something disrupts the casting of this spell...\n\r", ch );
+			  mxp_to_char( "Something disrupts the casting of this spell...\n\r", ch, MXP_ALL );
 			  return FALSE;
 			}
 			found = TRUE;
@@ -999,7 +999,7 @@ bool process_spell_components( CHAR_DATA *ch, int sn )
 		   {
 			if ( fail )
 			{
-			  send_to_char( "Something disrupts the casting of this spell...\n\r", ch );
+			  mxp_to_char( "Something disrupts the casting of this spell...\n\r", ch, MXP_ALL );
 			  return FALSE;
 			}
 			found = TRUE;
@@ -1012,7 +1012,7 @@ bool process_spell_components( CHAR_DATA *ch, int sn )
 		   {
 			if ( fail )
 			{
-			  send_to_char( "Something disrupts the casting of this spell...\n\r", ch );
+			  mxp_to_char( "Something disrupts the casting of this spell...\n\r", ch, MXP_ALL );
 			  return FALSE;
 			}
 			found = TRUE;
@@ -1024,7 +1024,7 @@ bool process_spell_components( CHAR_DATA *ch, int sn )
 			{
 		  if ( fail )
 		  {
-		    send_to_char( "Something disrupts the casting of this spell...\n\r", ch );
+		    mxp_to_char( "Something disrupts the casting of this spell...\n\r", ch, MXP_ALL );
 		    return FALSE;
 		  }
 		  else
@@ -1032,7 +1032,7 @@ bool process_spell_components( CHAR_DATA *ch, int sn )
 		    if ( consume )
 		    {
 			set_char_color( AT_GOLD, ch );
-			send_to_char( "You feel a little lighter...\n\r", ch );
+			mxp_to_char( "You feel a little lighter...\n\r", ch, MXP_ALL );
 		 	ch->gold -= value;
 		    }
 		    continue;
@@ -1044,7 +1044,7 @@ bool process_spell_components( CHAR_DATA *ch, int sn )
 		{
 		  if ( fail )
 		  {
-		    send_to_char( "Something disrupts the casting of this spell...\n\r", ch );
+		    mxp_to_char( "Something disrupts the casting of this spell...\n\r", ch, MXP_ALL );
 		    return FALSE;
 		  }
 		  else
@@ -1052,7 +1052,7 @@ bool process_spell_components( CHAR_DATA *ch, int sn )
 		    if ( consume )
 		    {
 			set_char_color( AT_BLOOD, ch );
-			send_to_char( "You feel a little weaker...\n\r", ch );
+			mxp_to_char( "You feel a little weaker...\n\r", ch, MXP_ALL );
 			ch->hit -= value;
 			update_pos( ch );
 		    }
@@ -1067,7 +1067,7 @@ bool process_spell_components( CHAR_DATA *ch, int sn )
 	    continue;
 	if ( !found )
 	{
-	    send_to_char( "Something is missing...\n\r", ch );
+	    mxp_to_char( "Something is missing...\n\r", ch, MXP_ALL );
 	    return FALSE;
 	}
 	if ( obj )
@@ -1151,7 +1151,7 @@ void *locate_targets( CHAR_DATA *ch, char *arg, int sn,
 		if ( ( *victim = who_fighting( ch ) ) == NULL )
 		{
 		    if (!silence_locate_targets)
-			send_to_char( "Cast the spell on whom?\n\r", ch );
+			mxp_to_char( "Cast the spell on whom?\n\r", ch, MXP_ALL );
 		    return &pAbort;
 		}
 	    }
@@ -1160,7 +1160,7 @@ void *locate_targets( CHAR_DATA *ch, char *arg, int sn,
 		if ( ( *victim = get_char_room( ch, arg ) ) == NULL )
 		{
 		    if (!silence_locate_targets)
-			send_to_char( "They aren't here.\n\r", ch );
+			mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
 		    return &pAbort;
 		}
 	    }
@@ -1186,13 +1186,13 @@ void *locate_targets( CHAR_DATA *ch, char *arg, int sn,
 	        if ( SPELL_FLAG(get_skilltype(sn), SF_NOSELF))
 	        {
 		  if (!silence_locate_targets)
-		    send_to_char( "You can't cast this on yourself!\n\r", ch);
+		    mxp_to_char( "You can't cast this on yourself!\n\r", ch, MXP_ALL);
 		  return &pAbort;
 		}
 		if (!silence_locate_targets)
-		  send_to_char( "Cast this on yourself?  Okay...\n\r", ch );
+		  mxp_to_char( "Cast this on yourself?  Okay...\n\r", ch, MXP_ALL );
 		/*
-		send_to_char( "You can't do that to yourself.\n\r", ch );
+		mxp_to_char( "You can't do that to yourself.\n\r", ch, MXP_ALL );
 		return &pAbort;
 		*/
 	  }
@@ -1204,26 +1204,26 @@ void *locate_targets( CHAR_DATA *ch, char *arg, int sn,
 		    if ( get_timer( ch, TIMER_PKILLED ) > 0 )
 		    {
 			if (!silence_locate_targets)
-			    send_to_char( "You have been killed in the last 5 minutes.\n\r", ch);
+			    mxp_to_char( "You have been killed in the last 5 minutes.\n\r", ch, MXP_ALL);
 			return &pAbort;
 		    }
 
 		    if ( get_timer( *victim, TIMER_PKILLED ) > 0 )
 		    {
 			if (!silence_locate_targets)
-			    send_to_char( "This player has been killed in the last 5 minutes.\n\r", ch );
+			    mxp_to_char( "This player has been killed in the last 5 minutes.\n\r", ch, MXP_ALL );
 			return &pAbort;
 		    }	
 		    if ( xIS_SET(ch->act, PLR_NICE) && ch != *victim )
 		    {
 			if (!silence_locate_targets)
-			    send_to_char("You are too nice to attack another player.\n\r", ch );
+			    mxp_to_char("You are too nice to attack another player.\n\r", ch, MXP_ALL );
 			return &pAbort;
 		    } 
 		    if ( *victim != ch)
 		    {
 			if (!silence_locate_targets)
-		            send_to_char( "You really shouldn't do this to another player...\n\r", ch );
+		            mxp_to_char( "You really shouldn't do this to another player...\n\r", ch, MXP_ALL );
 		        else if (who_fighting(*victim) != ch)
 		        {
 		            /* Only auto-attack those that are hitting you. */
@@ -1235,7 +1235,7 @@ void *locate_targets( CHAR_DATA *ch, char *arg, int sn,
 		if ( IS_AFFECTED(ch, AFF_CHARM) && ch->master == *victim )
 		{
 		    if (!silence_locate_targets)
-			send_to_char( "You can't do that on your own follower.\n\r", ch );
+			mxp_to_char( "You can't do that on your own follower.\n\r", ch, MXP_ALL );
 		    return &pAbort;
 		}
 	  }
@@ -1253,7 +1253,7 @@ void *locate_targets( CHAR_DATA *ch, char *arg, int sn,
 		if ( ( *victim = get_char_room( ch, arg ) ) == NULL )
 		{
 		    if (!silence_locate_targets)
-			send_to_char( "They aren't here.\n\r", ch );
+			mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
 		    return &pAbort;
 		}
 	    }
@@ -1262,7 +1262,7 @@ void *locate_targets( CHAR_DATA *ch, char *arg, int sn,
 	  if ( SPELL_FLAG( skill, SF_NOMOB )
 	  &&   IS_NPC( *victim ) )
 	  {
-		send_to_char( "Your magic fails to take hold.\n\r", ch );
+		mxp_to_char( "Your magic fails to take hold.\n\r", ch, MXP_ALL );
 		return &pAbort;
 	  }
 
@@ -1281,7 +1281,7 @@ void *locate_targets( CHAR_DATA *ch, char *arg, int sn,
 			SPELL_FLAG(get_skilltype(sn), SF_NOSELF))
 	  {
 	    if (!silence_locate_targets)
-	      send_to_char( "You can't cast this on yourself!\n\r", ch);
+	      mxp_to_char( "You can't cast this on yourself!\n\r", ch, MXP_ALL);
 	    return &pAbort;
 	  }
 
@@ -1292,7 +1292,7 @@ void *locate_targets( CHAR_DATA *ch, char *arg, int sn,
 	  if ( arg[0] != '\0' && !nifty_is_name( arg, ch->name ) )
 	  {
 		if (!silence_locate_targets)
-		    send_to_char( "You cannot cast this spell on another.\n\r", ch );
+		    mxp_to_char( "You cannot cast this spell on another.\n\r", ch, MXP_ALL );
 		return &pAbort;
 	  }
 
@@ -1304,14 +1304,14 @@ void *locate_targets( CHAR_DATA *ch, char *arg, int sn,
 	    if ( arg[0] == '\0' )
 	    {
 		if (!silence_locate_targets)
-		    send_to_char( "What should the spell be cast upon?\n\r", ch );
+		    mxp_to_char( "What should the spell be cast upon?\n\r", ch, MXP_ALL );
 		return &pAbort;
 	    }
 
 	    if ( ( *obj = get_obj_carry( ch, arg ) ) == NULL )
 	    {
 		if (!silence_locate_targets)
-		    send_to_char( "You are not carrying that.\n\r", ch );
+		    mxp_to_char( "You are not carrying that.\n\r", ch, MXP_ALL );
 		return &pAbort;
 	    }
 	  }
@@ -1364,14 +1364,14 @@ void do_cast( CHAR_DATA *ch, char *argument )
 	if ( IS_NPC(ch) 
 	&& ( IS_AFFECTED( ch, AFF_CHARM ) || IS_AFFECTED( ch, AFF_POSSESS ) ) )
 	{
-	    send_to_char( "You can't seem to do that right now...\n\r", ch );
+	    mxp_to_char( "You can't seem to do that right now...\n\r", ch, MXP_ALL );
 	    return;
 	}
 
 	if ( xIS_SET( ch->in_room->room_flags, ROOM_NO_MAGIC ) || IS_SET( ch->in_room->area->flags, AFLAG_NOMAGIC ) )
 	{
 	    set_char_color( AT_MAGIC, ch );
-	    send_to_char( "You failed.\n\r", ch );
+	    mxp_to_char( "You failed.\n\r", ch, MXP_ALL );
 	    return;
 	}
 
@@ -1383,7 +1383,7 @@ void do_cast( CHAR_DATA *ch, char *argument )
 
 	if ( arg1[0] == '\0' )
 	{
-	    send_to_char( "Cast which what where?\n\r", ch );
+	    mxp_to_char( "Cast which what where?\n\r", ch, MXP_ALL );
 	    return;
 	}
 
@@ -1393,12 +1393,12 @@ void do_cast( CHAR_DATA *ch, char *argument )
 	    if ( ( sn = find_spell( ch, arg1, TRUE ) ) < 0
 	    || ( !IS_NPC(ch) && ch->level < skill_table[sn]->skill_level[ch->class] ) )
 	    {
-		send_to_char( "You can't do that.\n\r", ch );
+		mxp_to_char( "You can't do that.\n\r", ch, MXP_ALL );
 		return;
 	    }
 	    if ( (skill=get_skilltype(sn)) == NULL )
 	    {
-		send_to_char( "You can't do that right now...\n\r", ch );
+		mxp_to_char( "You can't do that right now...\n\r", ch, MXP_ALL );
 		return;
 	    }
 	}
@@ -1409,27 +1409,27 @@ void do_cast( CHAR_DATA *ch, char *argument )
 	{
 	    if ( (sn=skill_lookup(arg1)) < 0 )
 	    {
-		send_to_char( "We didn't create that yet...\n\r", ch );
+		mxp_to_char( "We didn't create that yet...\n\r", ch, MXP_ALL );
 		return;
 	    }
 	    if ( sn >= MAX_SKILL )
 	    {
-		send_to_char( "Hmm... that might hurt.\n\r", ch );
+		mxp_to_char( "Hmm... that might hurt.\n\r", ch, MXP_ALL );
 		return;
 	    }
 	    if ( (skill=get_skilltype(sn)) == NULL )
 	    {
-		send_to_char( "Something is severely wrong with that one...\n\r", ch );
+		mxp_to_char( "Something is severely wrong with that one...\n\r", ch, MXP_ALL );
 		return;
 	    }
 	    if ( skill->type != SKILL_SPELL )
 	    {
-		send_to_char( "That isn't a spell.\n\r", ch );
+		mxp_to_char( "That isn't a spell.\n\r", ch, MXP_ALL );
 		return;
 	    }
 	    if ( !skill->spell_fun )
 	    {
-		send_to_char( "We didn't finish that one yet...\n\r", ch );
+		mxp_to_char( "We didn't finish that one yet...\n\r", ch, MXP_ALL );
 		return;
 	    }
 	}
@@ -1443,47 +1443,47 @@ void do_cast( CHAR_DATA *ch, char *argument )
 	    switch( ch->position )
 	    {
 	      default:
-		send_to_char( "You can't concentrate enough.\n\r", ch );
+		mxp_to_char( "You can't concentrate enough.\n\r", ch, MXP_ALL );
 		break;
 	      case POS_SITTING:
-		send_to_char( "You can't summon enough energy sitting down.\n\r", ch );
+		mxp_to_char( "You can't summon enough energy sitting down.\n\r", ch, MXP_ALL );
 		break;
 	      case POS_RESTING:
-		send_to_char( "You're too relaxed to cast that spell.\n\r", ch );
+		mxp_to_char( "You're too relaxed to cast that spell.\n\r", ch, MXP_ALL );
 		break;
 	      case POS_FIGHTING:
 		if(skill->minimum_position<=POS_EVASIVE){
-		  send_to_char( "This fighting style is too demanding for that!\n\r", ch);
+		  mxp_to_char( "This fighting style is too demanding for that!\n\r", ch, MXP_ALL);
 		} else {
-		  send_to_char( "No way!  You are still fighting!\n\r", ch);
+		  mxp_to_char( "No way!  You are still fighting!\n\r", ch, MXP_ALL);
 		}
                 break;
 	      case POS_DEFENSIVE:
 		if(skill->minimum_position<=POS_EVASIVE){
-		  send_to_char( "This fighting style is too demanding for that!\n\r", ch);
+		  mxp_to_char( "This fighting style is too demanding for that!\n\r", ch, MXP_ALL);
 		} else {
-		  send_to_char( "No way!  You are still fighting!\n\r", ch);
+		  mxp_to_char( "No way!  You are still fighting!\n\r", ch, MXP_ALL);
 		}
                 break;
 	      case POS_AGGRESSIVE:
 		if(skill->minimum_position<=POS_EVASIVE){
-		  send_to_char( "This fighting style is too demanding for that!\n\r", ch);
+		  mxp_to_char( "This fighting style is too demanding for that!\n\r", ch, MXP_ALL);
 		} else {
-		  send_to_char( "No way!  You are still fighting!\n\r", ch);
+		  mxp_to_char( "No way!  You are still fighting!\n\r", ch, MXP_ALL);
 		}
                 break;
 	      case POS_BERSERK:
 		if(skill->minimum_position<=POS_EVASIVE){
-		  send_to_char( "This fighting style is too demanding for that!\n\r", ch);
+		  mxp_to_char( "This fighting style is too demanding for that!\n\r", ch, MXP_ALL);
 		} else {
-		  send_to_char( "No way!  You are still fighting!\n\r", ch);
+		  mxp_to_char( "No way!  You are still fighting!\n\r", ch, MXP_ALL);
 		}
                 break;
 	      case POS_EVASIVE:
-		send_to_char( "No way!  You are still fighting!\n\r", ch);
+		mxp_to_char( "No way!  You are still fighting!\n\r", ch, MXP_ALL);
 		break;
 	      case POS_SLEEPING:
-		send_to_char( "You dream about great feats of magic.\n\r", ch );
+		mxp_to_char( "You dream about great feats of magic.\n\r", ch, MXP_ALL );
 		break;
 	    }
 	    return;
@@ -1491,13 +1491,13 @@ void do_cast( CHAR_DATA *ch, char *argument )
 
 	if ( skill->spell_fun == spell_null )
 	{
-	    send_to_char( "That's not a spell!\n\r", ch );
+	    mxp_to_char( "That's not a spell!\n\r", ch, MXP_ALL );
 	    return;
 	}
 
 	if ( !skill->spell_fun )
 	{
-	    send_to_char( "You cannot cast that... yet.\n\r", ch );
+	    mxp_to_char( "You cannot cast that... yet.\n\r", ch, MXP_ALL );
 	    return;
 	}
 
@@ -1507,7 +1507,7 @@ void do_cast( CHAR_DATA *ch, char *argument )
 	&&  (!ch->pcdata->clan
 	|| skill->guild != ch->pcdata->clan->class) )
 	{
-	    send_to_char( "That is only available to members of a certain guild.\n\r", ch);
+	    mxp_to_char( "That is only available to members of a certain guild.\n\r", ch, MXP_ALL);
 	    return;
 	}
 
@@ -1515,7 +1515,7 @@ void do_cast( CHAR_DATA *ch, char *argument )
 	if ( !ch->in_room || ( skill->spell_sector && 
 	     !IS_SET( skill->spell_sector, (1<<ch->in_room->sector_type))))
    	{
-     	  send_to_char("You can not cast that here.\n\r", ch );
+     	  mxp_to_char("You can not cast that here.\n\r", ch, MXP_ALL );
      	  return;
    	}
 
@@ -1538,7 +1538,7 @@ void do_cast( CHAR_DATA *ch, char *argument )
 	&&   !in_arena( ch ) && !in_arena( victim ) )
 	{
 	    set_char_color( AT_MAGIC, ch );
-	    send_to_char( "The gods will not permit you to cast spells on that character.\n\r", ch );
+	    mxp_to_char( "The gods will not permit you to cast spells on that character.\n\r", ch, MXP_ALL );
 	    return;
 	}
 
@@ -1551,14 +1551,14 @@ void do_cast( CHAR_DATA *ch, char *argument )
 	{
 	    if (ch->pcdata->condition[COND_BLOODTHIRST] < blood)
 	    {
-		send_to_char( "You don't have enough blood power.\n\r", ch );
+		mxp_to_char( "You don't have enough blood power.\n\r", ch, MXP_ALL );
 		return;
 	    }
 	}
 	else
 	if ( !IS_NPC(ch) && ch->mana < mana )
 	{
-	    send_to_char( "You don't have enough mana.\n\r", ch );
+	    mxp_to_char( "You don't have enough mana.\n\r", ch, MXP_ALL );
 	    return;
 	}
 
@@ -1580,7 +1580,7 @@ void do_cast( CHAR_DATA *ch, char *argument )
 	{
 	    if ( (skill=get_skilltype(sn)) == NULL )
 	    {
-		send_to_char( "Something went wrong...\n\r", ch );
+		mxp_to_char( "Something went wrong...\n\r", ch, MXP_ALL );
 		bug( "do_cast: SUB_TIMER_DO_ABORT: bad sn %d", sn );
 		return;
 	    }
@@ -1594,20 +1594,20 @@ void do_cast( CHAR_DATA *ch, char *argument )
 	      ch->mana -= mana / 3;
 	}
 	set_char_color( AT_MAGIC, ch );
-	send_to_char( "You stop chanting...\n\r", ch );
+	mxp_to_char( "You stop chanting...\n\r", ch, MXP_ALL );
 	/* should add chance of backfire here */
         return;
       case 1:
 	sn = ch->tempnum;
 	if ( (skill=get_skilltype(sn)) == NULL )
 	{
-	    send_to_char( "Something went wrong...\n\r", ch );
+	    mxp_to_char( "Something went wrong...\n\r", ch, MXP_ALL );
 	    bug( "do_cast: substate 1: bad sn %d", sn );
 	    return;
 	}
 	if ( !ch->alloc_ptr || !IS_VALID_SN(sn) || skill->type != SKILL_SPELL )
 	{
-	    send_to_char( "Something cancels out the spell!\n\r", ch );
+	    mxp_to_char( "Something cancels out the spell!\n\r", ch, MXP_ALL );
 	    bug( "do_cast: ch->alloc_ptr NULL or bad sn (%d)", sn );
 	    return;
 	}
@@ -1654,7 +1654,7 @@ void do_cast( CHAR_DATA *ch, char *argument )
 		    DISPOSE( tmp->alloc_ptr );
 		}
 		dont_wait = TRUE;
-		send_to_char( "You concentrate all the energy into a burst of mystical words!\n\r", ch );
+		mxp_to_char( "You concentrate all the energy into a burst of mystical words!\n\r", ch, MXP_ALL );
 		vo = locate_targets( ch, arg2, sn, &victim, &obj );
 		if ( vo == &pAbort )
 		  return;
@@ -1662,7 +1662,7 @@ void do_cast( CHAR_DATA *ch, char *argument )
 	    else
 	    {
 		set_char_color( AT_MAGIC, ch );
-		send_to_char( "There was not enough power for the spell to succeed...\n\r", ch );
+		mxp_to_char( "There was not enough power for the spell to succeed...\n\r", ch, MXP_ALL );
 		if ( IS_VAMPIRE(ch) )
 		  gain_condition( ch, COND_BLOODTHIRST, - UMAX(1, blood / 2) );
 		else
@@ -1703,32 +1703,32 @@ void do_cast( CHAR_DATA *ch, char *argument )
 	{
 	    case 0:	/* too busy */
 		if ( ch->fighting )
-		  send_to_char( "This round of battle is too hectic to concentrate properly.\n\r", ch );
+		  mxp_to_char( "This round of battle is too hectic to concentrate properly.\n\r", ch, MXP_ALL );
 		else
-		  send_to_char( "You lost your concentration.\n\r", ch );
+		  mxp_to_char( "You lost your concentration.\n\r", ch, MXP_ALL );
 		break;
 	    case 1:	/* irritation */
 		if ( number_bits(2) == 0 )
 		{
 		  switch( number_bits(2) )
 		  {
-		     case 0: send_to_char( "A tickle in your nose prevents you from keeping your concentration.\n\r", ch ); break;
-		     case 1: send_to_char( "An itch on your leg keeps you from properly casting your spell.\n\r", ch ); break;
-		     case 2: send_to_char( "Something in your throat prevents you from uttering the proper phrase.\n\r", ch ); break;
-		     case 3: send_to_char( "A twitch in your eye disrupts your concentration for a moment.\n\r", ch ); break;
+		     case 0: mxp_to_char( "A tickle in your nose prevents you from keeping your concentration.\n\r", ch, MXP_ALL ); break;
+		     case 1: mxp_to_char( "An itch on your leg keeps you from properly casting your spell.\n\r", ch, MXP_ALL ); break;
+		     case 2: mxp_to_char( "Something in your throat prevents you from uttering the proper phrase.\n\r", ch, MXP_ALL ); break;
+		     case 3: mxp_to_char( "A twitch in your eye disrupts your concentration for a moment.\n\r", ch, MXP_ALL ); break;
 		  }
 		}
 		else
-		  send_to_char( "Something distracts you, and you lose your concentration.\n\r", ch );
+		  mxp_to_char( "Something distracts you, and you lose your concentration.\n\r", ch, MXP_ALL );
 		break;
 	    case 2:	/* not enough time */
 		if ( ch->fighting )
-		  send_to_char( "There wasn't enough time this round to complete the casting.\n\r", ch );
+		  mxp_to_char( "There wasn't enough time this round to complete the casting.\n\r", ch, MXP_ALL );
 		else
-		  send_to_char( "You lost your concentration.\n\r", ch );
+		  mxp_to_char( "You lost your concentration.\n\r", ch, MXP_ALL );
 		break;
 	    case 3:
-		send_to_char( "You get a mental block mid-way through the casting.\n\r", ch );
+		mxp_to_char( "You get a mental block mid-way through the casting.\n\r", ch, MXP_ALL );
 		break;
 	}
 	if ( IS_VAMPIRE(ch) )
@@ -1843,7 +1843,7 @@ ch_ret obj_cast_spell( int sn, int level, CHAR_DATA *ch, CHAR_DATA *victim, OBJ_
     if ( !ch->in_room || xIS_SET( ch->in_room->room_flags, ROOM_NO_MAGIC ) )
     {
 	set_char_color( AT_MAGIC, ch );
-	send_to_char( "Nothing seems to happen...\n\r", ch );
+	mxp_to_char( "Nothing seems to happen...\n\r", ch, MXP_ALL );
 	return rNONE;
     }
 
@@ -1851,7 +1851,7 @@ ch_ret obj_cast_spell( int sn, int level, CHAR_DATA *ch, CHAR_DATA *victim, OBJ_
 	 skill->target == TAR_CHAR_OFFENSIVE)
     {
 	set_char_color( AT_MAGIC, ch );
-	send_to_char( "Nothing seems to happen...\n\r", ch );
+	mxp_to_char( "Nothing seems to happen...\n\r", ch, MXP_ALL );
 	return rNONE;
     }
 
@@ -1908,7 +1908,7 @@ ch_ret obj_cast_spell( int sn, int level, CHAR_DATA *ch, CHAR_DATA *victim, OBJ_
 	      victim = who_fighting( ch );
 	  if ( !victim || (!IS_NPC(victim) && !in_arena(victim)) )
 	  {
-	      send_to_char( "You can't do that.\n\r", ch );
+	      mxp_to_char( "You can't do that.\n\r", ch, MXP_ALL );
 	      return rNONE;
 	  }
 	}
@@ -1924,7 +1924,7 @@ ch_ret obj_cast_spell( int sn, int level, CHAR_DATA *ch, CHAR_DATA *victim, OBJ_
         if ( SPELL_FLAG( skill, SF_NOMOB )
         &&   IS_NPC( victim ) )
         {
-              send_to_char( "Your magic fails to take hold.\n\r", ch );
+              mxp_to_char( "Your magic fails to take hold.\n\r", ch, MXP_ALL );
               return rNONE;
         }
 	if ( skill->type != SKILL_HERB
@@ -1948,7 +1948,7 @@ ch_ret obj_cast_spell( int sn, int level, CHAR_DATA *ch, CHAR_DATA *victim, OBJ_
     case TAR_OBJ_INV:
 	if ( obj == NULL )
 	{
-	    send_to_char( "You can't do that.\n\r", ch );
+	    mxp_to_char( "You can't do that.\n\r", ch, MXP_ALL );
 	    return rNONE;
 	}
 	vo = (void *) obj;
@@ -2041,7 +2041,7 @@ ch_ret spell_blindness( int sn, int level, CHAR_DATA *ch, void *vo )
     af.bitvector = meb(AFF_BLIND);
     affect_to_char( victim, &af );
     set_char_color( AT_MAGIC, victim );
-    send_to_char( "You are blinded!\n\r", victim );
+    mxp_to_char( "You are blinded!\n\r", victim, MXP_ALL );
     if ( ch != victim )
     {
 	act( AT_MAGIC, "You weave a spell of blindness around $N.", ch, NULL, victim, TO_CHAR );
@@ -2087,20 +2087,20 @@ ch_ret spell_call_lightning( int sn, int level, CHAR_DATA *ch, void *vo )
 
     if ( !IS_OUTSIDE(ch) )
     {
-	send_to_char( "You must be out of doors.\n\r", ch );
+	mxp_to_char( "You must be out of doors.\n\r", ch, MXP_ALL );
 	return rSPELL_FAILED;
     }
 
     if ( ch->in_room->area->weather->precip <= 0 )
     {
-	send_to_char( "You need bad weather.\n\r", ch );
+	mxp_to_char( "You need bad weather.\n\r", ch, MXP_ALL );
 	return rSPELL_FAILED;
     }
 
     dam = dice(level/2, 8);
 
     set_char_color( AT_MAGIC, ch );
-    send_to_char( "God's lightning strikes your foes!\n\r", ch );
+    mxp_to_char( "God's lightning strikes your foes!\n\r", ch, MXP_ALL );
     act( AT_MAGIC, "$n calls God's lightning to strike $s foes!",
 	ch, NULL, NULL, TO_ROOM );
 
@@ -2189,9 +2189,9 @@ ch_ret spell_change_sex( int sn, int level, CHAR_DATA *ch, void *vo )
     xCLEAR_BITS(af.bitvector);
     affect_to_char( victim, &af );
 /*    set_char_color( AT_MAGIC, victim );
-    send_to_char( "You feel different.\n\r", victim );
+    mxp_to_char( "You feel different.\n\r", victim, MXP_ALL );
     if ( ch != victim )
-	send_to_char( "Ok.\n\r", ch );*/
+	mxp_to_char( "Ok.\n\r", ch, MXP_ALL );*/
     successful_casting( skill, ch, victim, NULL );
     return rNONE;
 }
@@ -2215,13 +2215,13 @@ ch_ret spell_charm_person( int sn, int level, CHAR_DATA *ch, void *vo )
 
     if ( victim == ch )
     {
-	send_to_char( "You like yourself even better!\n\r", ch );
+	mxp_to_char( "You like yourself even better!\n\r", ch, MXP_ALL );
 	return rSPELL_FAILED;
     }
 
     if ( get_timer( ch, TIMER_PKILLED) > 0 )
     {
-        send_to_char( "You have been killed in the past five minutes.\n\r", ch );
+        mxp_to_char( "You have been killed in the past five minutes.\n\r", ch, MXP_ALL );
         return rSPELL_FAILED;
     }
 
@@ -2234,8 +2234,8 @@ ch_ret spell_charm_person( int sn, int level, CHAR_DATA *ch, void *vo )
 
     if ( !IS_NPC( victim ) && !IS_NPC( ch ) )
     {
-	send_to_char( "I don't think so...\n\r", ch );
-	send_to_char( "You feel charmed...\n\r", victim );
+	mxp_to_char( "I don't think so...\n\r", ch, MXP_ALL );
+	mxp_to_char( "You feel charmed...\n\r", victim, MXP_ALL );
 	return rSPELL_FAILED;
     }
 
@@ -2256,7 +2256,7 @@ ch_ret spell_charm_person( int sn, int level, CHAR_DATA *ch, void *vo )
 /* cannot charm mobs while having just been killed/killer */
 if (get_timer(ch, TIMER_PKILLED) > 0)
 {
-   send_to_char( "You are still too weak..\n\r", ch );
+   mxp_to_char( "You are still too weak..\n\r", ch, MXP_ALL );
    return rSPELL_FAILED;
 }
 
@@ -2272,7 +2272,7 @@ if (get_timer(ch, TIMER_PKILLED) > 0)
 /*    act( AT_MAGIC, "Isn't $n just so nice?", ch, NULL, victim, TO_VICT );
     act( AT_MAGIC, "$N's eyes glaze over...", ch, NULL, victim, TO_ROOM );
     if ( ch != victim )
-	send_to_char( "Ok.\n\r", ch );*/
+	mxp_to_char( "Ok.\n\r", ch, MXP_ALL );*/
     successful_casting( skill, ch, victim, NULL );
 
     sprintf( buf, "%s has charmed %s.", ch->name, victim->name);
@@ -2418,13 +2418,13 @@ ch_ret spell_create_water( int sn, int level, CHAR_DATA *ch, void *vo )
 
     if ( obj->item_type != ITEM_DRINK_CON )
     {
-	send_to_char( "It is unable to hold water.\n\r", ch );
+	mxp_to_char( "It is unable to hold water.\n\r", ch, MXP_ALL );
 	return rSPELL_FAILED;
     }
 
     if ( obj->value[2] != LIQ_WATER && obj->value[1] != 0 )
     {
-	send_to_char( "It contains some other liquid.\n\r", ch );
+	mxp_to_char( "It contains some other liquid.\n\r", ch, MXP_ALL );
 	return rSPELL_FAILED;
     }
     
@@ -2469,16 +2469,16 @@ ch_ret spell_cure_blindness( int sn, int level, CHAR_DATA *ch, void *vo )
     if ( !is_affected( victim, gsn_blindness ) )
     {
 	if ( ch != victim )
-	  send_to_char( "You work your cure, but it has no apparent effect.\n\r", ch );
+	  mxp_to_char( "You work your cure, but it has no apparent effect.\n\r", ch, MXP_ALL );
 	else
-	  send_to_char( "You don't seem to be blind.\n\r", ch );
+	  mxp_to_char( "You don't seem to be blind.\n\r", ch, MXP_ALL );
 	return rSPELL_FAILED;
     }
     affect_strip( victim, gsn_blindness );
     set_char_color( AT_MAGIC, victim);
-    send_to_char( "Your vision returns!\n\r", victim );
+    mxp_to_char( "Your vision returns!\n\r", victim, MXP_ALL );
     if ( ch != victim )
-	send_to_char( "You work your cure, restoring vision.\n\r", ch );
+	mxp_to_char( "You work your cure, restoring vision.\n\r", ch, MXP_ALL );
     return rNONE;
 }
 
@@ -2540,7 +2540,7 @@ ch_ret spell_bethsaidean_touch( int sn, int level, CHAR_DATA *ch, void *vo )
         return rSPELL_FAILED;
     affect_strip( victim, gsn_blindness );
     set_char_color( AT_MAGIC, victim );
-    send_to_char( "Your sight is restored!\n\r", victim );
+    mxp_to_char( "Your sight is restored!\n\r", victim, MXP_ALL );
     if ( ch != victim ) {
       act( AT_MAGIC, "$n lays $s hands over your eyes and concentrates...", ch, NULL, victim, TO_VICT );
       act( AT_MAGIC, "$n lays $s hands over $N's eyes and concentrates...", ch, NULL, victim, TO_NOTVICT );
@@ -2567,7 +2567,7 @@ ch_ret spell_cure_poison( int sn, int level, CHAR_DATA *ch, void *vo )
 
 	affect_strip( victim, gsn_poison );
 	set_char_color( AT_MAGIC, victim);
-	send_to_char( "A warm feeling runs through your body.\n\r", victim );
+	mxp_to_char( "A warm feeling runs through your body.\n\r", victim, MXP_ALL );
 	x = victim->mental_state < 0 ? -x : x;
 	victim->mental_state = URANGE( -25, victim->mental_state, 25 );
 	if ( ch != victim )
@@ -2581,9 +2581,9 @@ ch_ret spell_cure_poison( int sn, int level, CHAR_DATA *ch, void *vo )
     {
 	set_char_color( AT_MAGIC, ch );
 	if ( ch != victim )
-	  send_to_char( "You work your cure, but it has no apparent effect.\n\r", ch );
+	  mxp_to_char( "You work your cure, but it has no apparent effect.\n\r", ch, MXP_ALL );
 	else
-	  send_to_char( "You don't seem to be poisoned.\n\r", ch );
+	  mxp_to_char( "You don't seem to be poisoned.\n\r", ch, MXP_ALL );
 	return rSPELL_FAILED;
     }
 }
@@ -2617,7 +2617,7 @@ ch_ret spell_curse( int sn, int level, CHAR_DATA *ch, void *vo )
     affect_to_char( victim, &af );
 
     set_char_color( AT_MAGIC, victim);
-    send_to_char( "You feel unclean.\n\r", victim );
+    mxp_to_char( "You feel unclean.\n\r", victim, MXP_ALL );
     if ( ch != victim )
     {
       act( AT_MAGIC, "You utter a curse upon $N.", ch, NULL, victim, TO_CHAR );
@@ -2636,15 +2636,15 @@ ch_ret spell_detect_poison( int sn, int level, CHAR_DATA *ch, void *vo )
 	 || obj->item_type == ITEM_COOK)
     {
 	if ( obj->item_type == ITEM_COOK && obj->value[2] == 0 )
-	    send_to_char( "It looks undercooked.\n\r", ch );
+	    mxp_to_char( "It looks undercooked.\n\r", ch, MXP_ALL );
 	else if ( obj->value[3] != 0 )
-	    send_to_char( "You smell poisonous fumes.\n\r", ch );
+	    mxp_to_char( "You smell poisonous fumes.\n\r", ch, MXP_ALL );
 	else
-	    send_to_char( "It looks very delicious.\n\r", ch );
+	    mxp_to_char( "It looks very delicious.\n\r", ch, MXP_ALL );
     }
     else
     {
-	send_to_char( "It doesn't look poisoned.\n\r", ch );
+	mxp_to_char( "It doesn't look poisoned.\n\r", ch, MXP_ALL );
     }
 
     return rNONE;
@@ -2896,7 +2896,7 @@ ch_ret spell_polymorph ( int sn, int level, CHAR_DATA *ch, void *vo )
   morph = find_morph( ch, target_name, TRUE );
   if ( !morph )
   {
-    send_to_char("You can't morph into anything like that!\n\r", ch );
+    mxp_to_char("You can't morph into anything like that!\n\r", ch, MXP_ALL );
     return rSPELL_FAILED;
   }
   if ( !do_morph_char(ch, morph) )
@@ -3028,26 +3028,26 @@ ch_ret spell_disenchant_weapon( int sn, int level, CHAR_DATA *ch, void *vo )
 
     if ( obj->item_type != ITEM_WEAPON )
     {
-        send_to_char("You can only disenchant weapons.",ch);
+        mxp_to_char("You can only disenchant weapons.",ch, MXP_ALL);
 	return rSPELL_FAILED;
     }
 
     if ( !IS_OBJ_STAT(obj, ITEM_MAGIC) || !obj->first_affect )
     {
-        send_to_char("This weapon appears to have no enchantments on it.",ch);
+        mxp_to_char("This weapon appears to have no enchantments on it.",ch, MXP_ALL);
 	return rSPELL_FAILED;
     }
 
     if ( xIS_SET(obj->pIndexData->extra_flags, ITEM_MAGIC) )
     {
-        send_to_char("You can't disenchant a weapon that's inherently magical.",ch);
+        mxp_to_char("You can't disenchant a weapon that's inherently magical.",ch, MXP_ALL);
 	return rSPELL_FAILED;
     }
 
     if ( xIS_SET(obj->pIndexData->extra_flags, ITEM_ANTI_GOOD) 
     ||   xIS_SET(obj->pIndexData->extra_flags, ITEM_ANTI_EVIL) )
     {
-        send_to_char("You can't disenchant a weapon that's inherently good or evil.",ch);
+        mxp_to_char("You can't disenchant a weapon that's inherently good or evil.",ch, MXP_ALL);
 	return rSPELL_FAILED;
     }
 
@@ -3072,7 +3072,7 @@ ch_ret spell_disenchant_weapon( int sn, int level, CHAR_DATA *ch, void *vo )
 	act( AT_RED, "$p momentarily absorbs all red light around it.", ch, obj, NULL, TO_CHAR );
     }
 
-/*    send_to_char( "Ok.\n\r", ch );*/
+/*    mxp_to_char( "Ok.\n\r", ch, MXP_ALL );*/
     successful_casting( get_skilltype(sn), ch, NULL, obj );
     return rNONE;
 }
@@ -3270,7 +3270,7 @@ ch_ret spell_identify( int sn, int level, CHAR_DATA *ch, void *vo )
 
     if ( target_name[0] == '\0' )
     {
-      send_to_char( "What should the spell be cast upon?\n\r", ch );
+      mxp_to_char( "What should the spell be cast upon?\n\r", ch, MXP_ALL );
       return rSPELL_FAILED;
     }
 
@@ -3286,7 +3286,7 @@ ch_ret spell_identify( int sn, int level, CHAR_DATA *ch, void *vo )
   	  ch_printf( ch, ", with wear location:  %s\n\r",
 		flag_string(obj->wear_flags-1, w_flags) );
 	else
-	  send_to_char( ".\n\r", ch );
+	  mxp_to_char( ".\n\r", ch, MXP_ALL );
 	ch_printf( ch,
 	"Special properties:  %s\n\rIts weight is %d, value is %d, and level is %d.\n\r",
 		extra_bit_name( &obj->extra_flags ),
@@ -3317,26 +3317,26 @@ ch_ret spell_identify( int sn, int level, CHAR_DATA *ch, void *vo )
 
 	if ( obj->value[1] >= 0 && (sktmp=get_skilltype(obj->value[1])) != NULL )
 	{
-	    send_to_char( " '", ch );
-	    send_to_char( sktmp->name, ch );
-	    send_to_char( "'", ch );
+	    mxp_to_char( " '", ch, MXP_ALL );
+	    mxp_to_char( sktmp->name, ch, MXP_ALL );
+	    mxp_to_char( "'", ch, MXP_ALL );
 	}
 
 	if ( obj->value[2] >= 0 && (sktmp=get_skilltype(obj->value[2])) != NULL )
 	{
-	    send_to_char( " '", ch );
-	    send_to_char( sktmp->name, ch );
-	    send_to_char( "'", ch );
+	    mxp_to_char( " '", ch, MXP_ALL );
+	    mxp_to_char( sktmp->name, ch, MXP_ALL );
+	    mxp_to_char( "'", ch, MXP_ALL );
 	}
 
 	if ( obj->value[3] >= 0 && (sktmp=get_skilltype(obj->value[3])) != NULL )
 	{
-	    send_to_char( " '", ch );
-	    send_to_char( sktmp->name, ch );
-	    send_to_char( "'", ch );
+	    mxp_to_char( " '", ch, MXP_ALL );
+	    mxp_to_char( sktmp->name, ch, MXP_ALL );
+	    mxp_to_char( "'", ch, MXP_ALL );
 	}
 
-	send_to_char( ".\n\r", ch );
+	mxp_to_char( ".\n\r", ch, MXP_ALL );
 	break;
 
     case ITEM_SALVE:
@@ -3344,17 +3344,17 @@ ch_ret spell_identify( int sn, int level, CHAR_DATA *ch, void *vo )
 	  obj->value[1], obj->value[2], obj->value[0] );
 	if ( obj->value[4] >= 0 && (sktmp=get_skilltype(obj->value[4])) != NULL )
         {
-            send_to_char( " '", ch );
-            send_to_char( sktmp->name, ch );
-            send_to_char( "'", ch );
+            mxp_to_char( " '", ch, MXP_ALL );
+            mxp_to_char( sktmp->name, ch, MXP_ALL );
+            mxp_to_char( "'", ch, MXP_ALL );
         }
 	if ( obj->value[5] >= 0 && (sktmp=get_skilltype(obj->value[5])) != NULL )
         {
-            send_to_char( " '", ch );
-            send_to_char( sktmp->name, ch );
-            send_to_char( "'", ch );
+            mxp_to_char( " '", ch, MXP_ALL );
+            mxp_to_char( sktmp->name, ch, MXP_ALL );
+            mxp_to_char( "'", ch, MXP_ALL );
         }
-	send_to_char( ".\n\r", ch );
+	mxp_to_char( ".\n\r", ch, MXP_ALL );
 	break;
                       
     case ITEM_WAND:
@@ -3364,12 +3364,12 @@ ch_ret spell_identify( int sn, int level, CHAR_DATA *ch, void *vo )
 
 	if ( obj->value[3] >= 0 && (sktmp=get_skilltype(obj->value[3])) != NULL )
 	{
-	    send_to_char( " '", ch );
-	    send_to_char( sktmp->name, ch );
-	    send_to_char( "'", ch );
+	    mxp_to_char( " '", ch, MXP_ALL );
+	    mxp_to_char( sktmp->name, ch, MXP_ALL );
+	    mxp_to_char( "'", ch, MXP_ALL );
 	}
 
-	send_to_char( ".\n\r", ch );
+	mxp_to_char( ".\n\r", ch, MXP_ALL );
 	break;
 
     case ITEM_WEAPON:
@@ -3435,7 +3435,7 @@ ch_ret spell_identify( int sn, int level, CHAR_DATA *ch, void *vo )
 
     if (!victim->first_affect)
     {
-      send_to_char( "nothing.\n\r", ch );
+      mxp_to_char( "nothing.\n\r", ch, MXP_ALL );
       return rNONE;
     }
 
@@ -3457,7 +3457,7 @@ ch_ret spell_identify( int sn, int level, CHAR_DATA *ch, void *vo )
 	  if ( (sktmp=get_skilltype(paf->type)) != NULL )
 	    ch_printf( ch, "%s.\n\r", sktmp->name );
 	  else
-	    send_to_char( "\n\r", ch );
+	    mxp_to_char( "\n\r", ch, MXP_ALL );
 	  return rNONE;
 	}
       }
@@ -3652,12 +3652,12 @@ ch_ret spell_locate_object( int sn, int level, CHAR_DATA *ch, void *vo )
 
 	buf[0] = UPPER(buf[0]);
         set_char_color( AT_MAGIC, ch );
-        send_to_char( buf, ch );
+        mxp_to_char( buf, ch, MXP_ALL );
     }
 
     if ( !found )
     {
-	send_to_char( "Nothing like that exists.\n\r", ch );
+	mxp_to_char( "Nothing like that exists.\n\r", ch, MXP_ALL );
 	return rSPELL_FAILED;
     }
     return rNONE;
@@ -3854,7 +3854,7 @@ ch_ret spell_locate_object( int sn, int level, CHAR_DATA *ch, void *vo ) {
       if ( pairs_vec )
          free( pairs_vec );
       set_char_color( AT_MAGIC, ch );
-      send_to_char( "You failed.\n\r", ch );
+      mxp_to_char( "You failed.\n\r", ch, MXP_ALL );
       sprintf( msg, "Locate object low on memory for %s.", ch->name );
       log_string( msg );
       return rSPELL_FAILED;
@@ -3884,7 +3884,7 @@ ch_ret spell_locate_object( int sn, int level, CHAR_DATA *ch, void *vo ) {
    if ( !print_vec ) {
       free( pairs_vec );
       set_char_color( AT_MAGIC, ch );
-      send_to_char( "You failed.\n\r", ch );
+      mxp_to_char( "You failed.\n\r", ch, MXP_ALL );
       sprintf( msg, "Locate object low on memory for %s.", ch->name );
       log_string( msg );
       return rSPELL_FAILED;
@@ -3910,18 +3910,18 @@ ch_ret spell_locate_object( int sn, int level, CHAR_DATA *ch, void *vo ) {
          }
    objnum = hitnum = 0;
    set_char_color( AT_MAGIC, ch );
-   send_to_char( "For a brief moment, your awareness expands to encompass the whole world...\n\r", ch );
+   mxp_to_char( "For a brief moment, your awareness expands to encompass the whole world...\n\r", ch, MXP_ALL );
    for ( x = 0 ; x < 512 ; x++ )
       for ( objprn = print_hash[x] ; objprn ; objprn = objprn->next ) {
          bool multi;
 
          if ( !objnum )
-            send_to_char( "...and you find to be in existence:\n\r\n\r", ch );
-         send_to_char( objprn->obj->desc, ch );
+            mxp_to_char( "...and you find to be in existence:\n\r\n\r", ch, MXP_ALL );
+         mxp_to_char( objprn->obj->desc, ch, MXP_ALL );
          multi = FALSE;
          for ( locprn = objprn->obj ; locprn ; locprn = locprn->next ) {
             if ( locprn == objprn->obj && locprn->next ) {
-               send_to_char( ":\n\r", ch );
+               mxp_to_char( ":\n\r", ch, MXP_ALL );
                multi = TRUE;
                }
             ch_printf( ch,
@@ -3937,7 +3937,7 @@ ch_ret spell_locate_object( int sn, int level, CHAR_DATA *ch, void *vo ) {
    free( print_vec );
    free( pairs_vec );
    if ( !objnum ) {
-      send_to_char( "...but nothing like that exists.\n\r", ch );
+      mxp_to_char( "...but nothing like that exists.\n\r", ch, MXP_ALL );
       return rSPELL_FAILED;
       }
    /* Locate is eating too much cpu time. */
@@ -3949,12 +3949,12 @@ ch_ret spell_locate_object( int sn, int level, CHAR_DATA *ch, void *vo ) {
          if ( x < 3 )
             ;
          else if ( x < 10 )
-            send_to_char( "\n\r... your mind is unable to cope with this much information...\n\r", ch );
+            mxp_to_char( "\n\r... your mind is unable to cope with this much information...\n\r", ch, MXP_ALL );
          else if ( x < 20 )
-            send_to_char( "\n\r...your mind is SHATTERED by the flood of information!\n\r", ch );
+            mxp_to_char( "\n\r...your mind is SHATTERED by the flood of information!\n\r", ch, MXP_ALL );
          else {
-            send_to_char( "\n\r...ENOUGH!  Your mortal mind was not meant for omniscience.\n\r", ch );
-            send_to_char( "What is left of it may need time to recover from this ordeal...\n\r", ch );
+            mxp_to_char( "\n\r...ENOUGH!  Your mortal mind was not meant for omniscience.\n\r", ch, MXP_ALL );
+            mxp_to_char( "What is left of it may need time to recover from this ordeal...\n\r", ch, MXP_ALL );
             }
 	x = ch->mental_state < 0 ? -x : x;
         ch->mental_state = URANGE( -ch->level, ch->mental_state + x/5, ch->level );
@@ -4037,7 +4037,7 @@ ch_ret spell_poison( int sn, int level, CHAR_DATA *ch, void *vo )
     if ( chance == 1000 || saves_poison_death( chance, victim ) )
     {
 	set_char_color( AT_MAGIC, ch );
-	send_to_char( "Your magic fails to take hold.\n\r", ch );
+	mxp_to_char( "Your magic fails to take hold.\n\r", ch, MXP_ALL );
 	return rSPELL_FAILED;
     }
     if ( IS_AFFECTED( victim, AFF_POISON ) )
@@ -4050,7 +4050,7 @@ ch_ret spell_poison( int sn, int level, CHAR_DATA *ch, void *vo )
     af.bitvector = meb(AFF_POISON);
     affect_join( victim, &af );
     set_char_color( AT_GREEN, victim );
-    send_to_char( "You feel very sick.\n\r", victim );
+    mxp_to_char( "You feel very sick.\n\r", victim, MXP_ALL );
     if ( IS_PKILL( victim) )
       victim->mental_state = URANGE( 10, victim->mental_state
 			   + (first ? 5 : 0), 100 );
@@ -4082,7 +4082,7 @@ ch_ret spell_remove_curse( int sn, int level, CHAR_DATA *ch, void *vo )
     {
 	affect_strip( victim, gsn_curse );
 	set_char_color( AT_MAGIC, victim );
-	send_to_char( "The weight of your curse is lifted.\n\r", victim );
+	mxp_to_char( "The weight of your curse is lifted.\n\r", victim, MXP_ALL );
 	if ( ch != victim )
 	{
 	    act( AT_MAGIC, "You dispel the curses afflicting $N.", ch, NULL, victim, TO_CHAR );
@@ -4102,7 +4102,7 @@ ch_ret spell_remove_curse( int sn, int level, CHAR_DATA *ch, void *vo )
 	      if ( IS_OBJ_STAT( obj, ITEM_NODROP ) )
 		xREMOVE_BIT( obj->extra_flags, ITEM_NODROP );
 	      set_char_color( AT_MAGIC, victim );
-	      send_to_char( "You feel a burden released.\n\r", victim );
+	      mxp_to_char( "You feel a burden released.\n\r", victim, MXP_ALL );
 	      if ( ch != victim )
 	      {
 		act( AT_MAGIC, "You dispel the curses afflicting $N.", ch, NULL, victim, TO_CHAR );
@@ -4124,7 +4124,7 @@ ch_ret spell_remove_trap( int sn, int level, CHAR_DATA *ch, void *vo )
 
     if ( !target_name || target_name[0] == '\0' )
     {
-       send_to_char( "Remove trap on what?\n\r", ch );
+       mxp_to_char( "Remove trap on what?\n\r", ch, MXP_ALL );
        return rSPELL_FAILED;
     }
 
@@ -4132,7 +4132,7 @@ ch_ret spell_remove_trap( int sn, int level, CHAR_DATA *ch, void *vo )
 
     if ( !ch->in_room->first_content )
     {
-       send_to_char( "You can't find that here.\n\r", ch );
+       mxp_to_char( "You can't find that here.\n\r", ch, MXP_ALL );
        return rNONE;
     }
 
@@ -4145,7 +4145,7 @@ ch_ret spell_remove_trap( int sn, int level, CHAR_DATA *ch, void *vo )
 
     if ( !found )
     {
-       send_to_char( "You can't find that here.\n\r", ch );
+       mxp_to_char( "You can't find that here.\n\r", ch, MXP_ALL );
        return rSPELL_FAILED;
     }
 
@@ -4158,7 +4158,7 @@ ch_ret spell_remove_trap( int sn, int level, CHAR_DATA *ch, void *vo )
 
     if ( !chance(ch, 70 + get_curr_wis(ch)) )
     {
-       send_to_char( "Ooops!\n\r", ch );
+       mxp_to_char( "Ooops!\n\r", ch, MXP_ALL );
        retcode = spring_trap(ch, trap);
        if ( retcode == rNONE )
          retcode = rSPELL_FAILED;
@@ -4209,13 +4209,13 @@ ch_ret spell_sleep( int sn, int level, CHAR_DATA *ch, void *vo )
 
     if ( ( victim = get_char_room( ch, target_name ) ) == NULL )
     {
-	send_to_char( "They aren't here.\n\r", ch );
+	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
 	return rSPELL_FAILED;
     }
 
     if ( !IS_NPC(victim) && victim->fighting )
     {
-	send_to_char( "You cannot sleep a fighting player.\n\r", ch );
+	mxp_to_char( "You cannot sleep a fighting player.\n\r", ch, MXP_ALL );
 	return rSPELL_FAILED;
     }
 
@@ -4317,7 +4317,7 @@ ch_ret spell_summon( int sn, int level, CHAR_DATA *ch, void *vo )
 	{
 	    failed_casting( skill, ch, victim, NULL );
 	    set_char_color( AT_MAGIC, victim );
-	    send_to_char( "You feel a strange pulling sensation...\n\r", victim );
+	    mxp_to_char( "You feel a strange pulling sensation...\n\r", victim, MXP_ALL );
 	    return rSPELL_FAILED;
 	}
     }
@@ -4543,7 +4543,7 @@ ch_ret spell_group_teleport( int sn, int level, CHAR_DATA *ch, void *vo )
   mana = number_in_group( victim ) * 100;
   if ( !IS_NPC(ch) && ch->mana < mana )
   {
-    send_to_char( "You don't have enough mana.\n\r", ch );
+    mxp_to_char( "You don't have enough mana.\n\r", ch, MXP_ALL );
     return rSPELL_FAILED;
   }
   
@@ -4609,7 +4609,7 @@ ch_ret spell_ventriloquate( int sn, int level, CHAR_DATA *ch, void *vo )
     {
 	if ( !is_name( speaker, vch->name ) ) {
 	    set_char_color( AT_SAY, vch );
-	    send_to_char( saves_spell_staff( level, vch ) ? buf2 : buf1, vch );
+	    mxp_to_char( saves_spell_staff( level, vch ) ? buf2 : buf1, vch, MXP_ALL );
 	}
     }
 
@@ -4628,7 +4628,7 @@ ch_ret spell_ventriloquate( int sn, int level, CHAR_DATA *ch, void *vo )
     target_name = one_argument( target_name, speaker );
     if ( speaker[0] == '\0' )
     {
-	send_to_char( "Your voice sputters as you try to cast it in random directions.\n\r", ch );
+	mxp_to_char( "Your voice sputters as you try to cast it in random directions.\n\r", ch, MXP_ALL );
     	return rSPELL_FAILED;
     }
 
@@ -4642,9 +4642,9 @@ ch_ret spell_ventriloquate( int sn, int level, CHAR_DATA *ch, void *vo )
 	if ( !is_name( speaker, vch->name ) ) {
 	    set_char_color( AT_SAY, vch );
 	    if (get_trust(vch) >= LEVEL_IMMORTAL)
-		send_to_char(buf3, vch);
+		mxp_to_char(buf3, vch, MXP_ALL);
             else
-	    	send_to_char( saves_spell_staff( level, vch ) ? buf2 : buf1, vch );
+	    	mxp_to_char( saves_spell_staff( level, vch ) ? buf2 : buf1, vch, MXP_ALL );
 	}
     }
 
@@ -4666,7 +4666,7 @@ ch_ret spell_weaken( int sn, int level, CHAR_DATA *ch, void *vo )
     }
     if ( is_affected( victim, sn ) || saves_wands( level, victim ) )
     {
-	send_to_char( "Your magic fails to take hold.\n\r", ch );
+	mxp_to_char( "Your magic fails to take hold.\n\r", ch, MXP_ALL );
 	return rSPELL_FAILED;
     }
     af.type      = sn;
@@ -4676,7 +4676,7 @@ ch_ret spell_weaken( int sn, int level, CHAR_DATA *ch, void *vo )
     xCLEAR_BITS(af.bitvector);
     affect_to_char( victim, &af );
     set_char_color( AT_MAGIC, victim );
-    send_to_char( "Your muscles seem to atrophy!\n\r", victim );
+    mxp_to_char( "Your muscles seem to atrophy!\n\r", victim, MXP_ALL );
     if ( ch != victim )
     {
       if ( ( ( ( !IS_NPC(victim) && class_table[victim->class]->attr_prime == APPLY_STR )
@@ -4889,7 +4889,7 @@ ch_ret spell_gas_breath( int sn, int level, CHAR_DATA *ch, void *vo )
     if ( xIS_SET( ch->in_room->room_flags, ROOM_SAFE ) )
     {
 	set_char_color( AT_MAGIC, ch );
-	send_to_char( "You fail to breathe.\n\r", ch );
+	mxp_to_char( "You fail to breathe.\n\r", ch, MXP_ALL );
 	return rNONE;
     }
 
@@ -4936,14 +4936,14 @@ ch_ret spell_lightning_breath( int sn, int level, CHAR_DATA *ch, void *vo )
 
 ch_ret spell_null( int sn, int level, CHAR_DATA *ch, void *vo )
 {
-    send_to_char( "That's not a spell!\n\r", ch );
+    mxp_to_char( "That's not a spell!\n\r", ch, MXP_ALL );
     return rNONE;
 }
 
 /* don't remove, may look redundant, but is important */
 ch_ret spell_notfound( int sn, int level, CHAR_DATA *ch, void *vo )
 {
-    send_to_char( "That's not a spell!\n\r", ch );
+    mxp_to_char( "That's not a spell!\n\r", ch, MXP_ALL );
     return rNONE;
 }
 
@@ -4991,7 +4991,7 @@ ch_ret spell_transport( int sn, int level, CHAR_DATA *ch, void *vo )
 
     if (victim->in_room == ch->in_room)
     {
-	send_to_char("They are right beside you!", ch);
+	mxp_to_char("They are right beside you!", ch, MXP_ALL);
 	return rSPELL_FAILED;
     }
 
@@ -5007,14 +5007,14 @@ ch_ret spell_transport( int sn, int level, CHAR_DATA *ch, void *vo )
 
     if ( IS_OBJ_STAT(obj, ITEM_NODROP) || IS_OBJ_STAT(obj, ITEM_PERMANENT) )
     {
-	send_to_char( "You can't seem to let go of it.\n\r", ch );
+	mxp_to_char( "You can't seem to let go of it.\n\r", ch, MXP_ALL );
 	return rSPELL_FAILED;   /* nice catch, caine */
     }
 
     if ( IS_OBJ_STAT( obj, ITEM_PROTOTYPE )
     &&   get_trust( victim ) < LEVEL_IMMORTAL )
     {
-	send_to_char( "That item is not for mortal hands to touch!\n\r", ch );
+	mxp_to_char( "That item is not for mortal hands to touch!\n\r", ch, MXP_ALL );
 	return rSPELL_FAILED;   /* Thoric */
     }
 
@@ -5089,7 +5089,7 @@ ch_ret spell_portal( int sn, int level, CHAR_DATA *ch, void *vo )
 
     if (victim->in_room == ch->in_room)
     {
-	send_to_char("They are right beside you!", ch);
+	mxp_to_char("They are right beside you!", ch, MXP_ALL);
 	return rSPELL_FAILED;
     }
 
@@ -5103,13 +5103,13 @@ ch_ret spell_portal( int sn, int level, CHAR_DATA *ch, void *vo )
     {
 	if ( IS_SET( pexit->exit_info, EX_PORTAL ) ) 
 	{
-	    send_to_char("There is already a portal in this room.\n\r",ch);
+	    mxp_to_char("There is already a portal in this room.\n\r",ch, MXP_ALL);
 	    return rSPELL_FAILED;
 	}
  
 	if ( pexit->vdir == DIR_PORTAL )
 	{
-	    send_to_char("You may not create a portal in this room.\n\r",ch);
+	    mxp_to_char("You may not create a portal in this room.\n\r",ch, MXP_ALL);
 	    return rSPELL_FAILED;
 	}
     }
@@ -5138,7 +5138,7 @@ ch_ret spell_portal( int sn, int level, CHAR_DATA *ch, void *vo )
     if ( !skill->hit_char || skill->hit_char[0] == '\0' )
     {
 	set_char_color( AT_MAGIC, ch );
-	send_to_char("You utter an incantation, and a portal forms in front of you!\n\r", ch);
+	mxp_to_char("You utter an incantation, and a portal forms in front of you!\n\r", ch, MXP_ALL);
     }
     else
 	act( AT_COLORIZE, skill->hit_char, ch, NULL, victim, TO_CHAR );
@@ -5239,7 +5239,7 @@ ch_ret spell_farsight( int sn, int level, CHAR_DATA *ch, void *vo )
 
     if ( chance_attrib( victim, 20, get_curr_wis( victim ) )
     &&  !IS_PKILL( ch ) )
-        send_to_char( "You get an uneasy feeling that you are being watched.\n\r", victim );
+        mxp_to_char( "You get an uneasy feeling that you are being watched.\n\r", victim, MXP_ALL );
     return rNONE;
 }
 
@@ -5292,7 +5292,7 @@ ch_ret spell_recharge( int sn, int level, CHAR_DATA *ch, void *vo )
 	else
 	if ( chance(ch, 50 - (ch->level/2) ) )
 	{
-	    send_to_char("Nothing happens.\n\r", ch);
+	    mxp_to_char("Nothing happens.\n\r", ch, MXP_ALL);
 	    return rSPELL_FAILED;
 	}
 	else
@@ -5305,7 +5305,7 @@ ch_ret spell_recharge( int sn, int level, CHAR_DATA *ch, void *vo )
     }
     else
     {
-	send_to_char( "You can't recharge that!\n\r", ch);
+	mxp_to_char( "You can't recharge that!\n\r", ch, MXP_ALL);
 	return rSPELL_FAILED;
     }    
 }
@@ -5393,7 +5393,7 @@ ch_ret spell_mist_walk( int sn, int level, CHAR_DATA *ch, void *vo )
     ||   victim == ch )
     {
 	failed_casting( skill, ch, victim, NULL );
-	send_to_char( "You cannot sense your victim...", ch );
+	mxp_to_char( "You cannot sense your victim...", ch, MXP_ALL );
 	return rSPELL_FAILED;
     }
 
@@ -5421,7 +5421,7 @@ ch_ret spell_mist_walk( int sn, int level, CHAR_DATA *ch, void *vo )
     ||  (IS_SET(victim->in_room->area->flags, AFLAG_NOPKILL) && IS_PKILL(ch)))
     {
 	failed_casting( skill, ch, victim, NULL );
-	send_to_char( "You cannot sense your victim...", ch);
+	mxp_to_char( "You cannot sense your victim...", ch, MXP_ALL);
 	return rSPELL_FAILED;
     }
     
@@ -5530,7 +5530,7 @@ ch_ret spell_remove_invis( int sn, int level, CHAR_DATA *ch, void *vo )
 
     if ( target_name[0] == '\0' )
     {
-	send_to_char( "What should the spell be cast upon?\n\r", ch );
+	mxp_to_char( "What should the spell be cast upon?\n\r", ch, MXP_ALL );
 	return rSPELL_FAILED;
     }
 
@@ -5543,14 +5543,14 @@ ch_ret spell_remove_invis( int sn, int level, CHAR_DATA *ch, void *vo )
 
 	if ( !IS_OBJ_STAT(obj, ITEM_INVIS) )
 	{
-	    send_to_char( "Its not invisible!\n\r", ch );
+	    mxp_to_char( "Its not invisible!\n\r", ch, MXP_ALL );
 	    return rSPELL_FAILED;
 	}
 
 	xREMOVE_BIT(obj->extra_flags, ITEM_INVIS);
 	act( AT_MAGIC, "$p becomes visible again.", ch, obj, NULL, TO_CHAR );
     
-	send_to_char( "Ok.\n\r", ch );
+	mxp_to_char( "Ok.\n\r", ch, MXP_ALL );
 	return rNONE;
     }
     else
@@ -5569,7 +5569,7 @@ ch_ret spell_remove_invis( int sn, int level, CHAR_DATA *ch, void *vo )
 	
 	    if( !IS_AFFECTED(victim, AFF_INVISIBLE) )
 	    {
-		send_to_char("They are not invisible!\n\r", ch);
+		mxp_to_char("They are not invisible!\n\r", ch, MXP_ALL);
 		return rSPELL_FAILED;
 	    }
 
@@ -5606,7 +5606,7 @@ ch_ret spell_remove_invis( int sn, int level, CHAR_DATA *ch, void *vo )
 	    affect_strip ( victim, gsn_invis                        );
 	    affect_strip ( victim, gsn_mass_invis                   );
 	    xREMOVE_BIT  ( victim->affected_by, AFF_INVISIBLE       );
-/*	    send_to_char( "Ok.\n\r", ch );*/
+/*	    mxp_to_char( "Ok.\n\r", ch, MXP_ALL );*/
 	    successful_casting( skill, ch, victim, NULL );
 	    return rNONE;
 	}
@@ -5648,7 +5648,7 @@ ch_ret spell_animate_dead( int sn, int level, CHAR_DATA *ch, void *vo )
   
     if ( !found )
     {
-	send_to_char("You cannot find a suitable corpse here.\n\r", ch);
+	mxp_to_char("You cannot find a suitable corpse here.\n\r", ch, MXP_ALL);
 	return rSPELL_FAILED;
     }
 
@@ -5667,7 +5667,7 @@ ch_ret spell_animate_dead( int sn, int level, CHAR_DATA *ch, void *vo )
 
     if ( pMobIndex == get_mob_index( MOB_VNUM_DEITY ) )
     {
-    	send_to_char("You can't animate the corpse of a Deity's Avatar.\n\r", ch );
+    	mxp_to_char("You can't animate the corpse of a Deity's Avatar.\n\r", ch, MXP_ALL );
 	return rSPELL_FAILED;
     }
     
@@ -5678,16 +5678,16 @@ ch_ret spell_animate_dead( int sn, int level, CHAR_DATA *ch, void *vo )
         if ( !IS_IMMORTAL(ch) && ch->pcdata->condition[COND_BLOODTHIRST] -
             (pMobIndex->level/3) < 0 )
         {
-          send_to_char("You do not have enough blood power to reanimate this"
-                      " corpse.\n\r", ch );
+          mxp_to_char("You do not have enough blood power to reanimate this"
+                      " corpse.\n\r", ch, MXP_ALL );
           return rSPELL_FAILED;
         }
         gain_condition(ch, COND_BLOODTHIRST, pMobIndex->level/3);
       }
       else if ( ch->mana - (pMobIndex->level*4) < 0 )
       {
-  	send_to_char("You do not have enough mana to reanimate this "
-  	            "corpse.\n\r", ch);
+  	mxp_to_char("You do not have enough mana to reanimate this "
+  	            "corpse.\n\r", ch, MXP_ALL );
 	return rSPELL_FAILED;
       }
       else
@@ -5776,25 +5776,25 @@ ch_ret spell_possess( int sn, int level, CHAR_DATA *ch, void *vo )
 
     if (!ch->desc || ch->desc->original)
     {
-	send_to_char("You are not in your original state.\n\r", ch);
+	mxp_to_char("You are not in your original state.\n\r", ch, MXP_ALL);
 	return rSPELL_FAILED;
     }
 
     if ( (victim = get_char_room( ch, target_name ) ) == NULL)
     {
-	send_to_char("They aren't here!\n\r", ch);
+	mxp_to_char("They aren't here!\n\r", ch, MXP_ALL );
 	return rSPELL_FAILED;
     }
 
     if (victim == ch)
     {
-	send_to_char("You can't possess yourself!\n\r", ch);
+	mxp_to_char("You can't possess yourself!\n\r", ch, MXP_ALL );
 	return rSPELL_FAILED;
     }
 
     if (!IS_NPC(victim))
     {
-	send_to_char("You can't possess another player!\n\r", ch);
+	mxp_to_char("You can't possess another player!\n\r", ch, MXP_ALL );
 	return rSPELL_FAILED;
     }
 
@@ -5844,7 +5844,7 @@ ch_ret spell_possess( int sn, int level, CHAR_DATA *ch, void *vo )
     victim->desc        = ch->desc;
     ch->desc            = NULL;
     ch->switched        = victim;
-    send_to_char( buf, victim );
+    mxp_to_char( buf, victim, MXP_ALL  );
 
     return rNONE;
 }
@@ -5869,7 +5869,7 @@ ch_ret spell_knock( int sn, int level, CHAR_DATA *ch, void *vo )
 	return rSPELL_FAILED;
   }
   REMOVE_BIT(pexit->exit_info, EX_LOCKED);
-  send_to_char( "*Click*\n\r", ch );
+  mxp_to_char( "*Click*\n\r", ch, MXP_ALL  );
   if ( pexit->rexit && pexit->rexit->to_room == ch->in_room )
     REMOVE_BIT( pexit->rexit->exit_info, EX_LOCKED );
   check_room_for_traps( ch, TRAP_UNLOCK | trap_door[pexit->vdir] );
@@ -5887,17 +5887,17 @@ ch_ret spell_dream( int sn, int level, CHAR_DATA *ch, void *vo )
   if ( !(victim = get_char_world(ch, arg)) ||
       victim->in_room->area != ch->in_room->area )
   {
-    send_to_char("They aren't here.\n\r", ch);
+    mxp_to_char("They aren't here.\n\r", ch, MXP_ALL );
     return rSPELL_FAILED;
   }
   if ( victim->position != POS_SLEEPING )
   {
-    send_to_char("They aren't asleep.\n\r", ch);
+    mxp_to_char("They aren't asleep.\n\r", ch, MXP_ALL );
     return rSPELL_FAILED;
   }
   if ( !target_name )
   {
-    send_to_char("What do you want them to dream about?\n\r", ch );
+    mxp_to_char("What do you want them to dream about?\n\r", ch, MXP_ALL  );
     return rSPELL_FAILED;
   }
 
@@ -5905,7 +5905,7 @@ ch_ret spell_dream( int sn, int level, CHAR_DATA *ch, void *vo )
   ch_printf(victim, "You have dreams about %s telling you '%s'.\n\r",
 	 PERS(ch, victim), target_name);
   successful_casting( get_skilltype(sn), ch, victim, NULL );
-/*  send_to_char("Ok.\n\r", ch);*/
+/*  mxp_to_char("Ok.\n\r", ch, MXP_ALL );*/
   return rNONE;
 }
 
@@ -5926,7 +5926,7 @@ ch_ret spell_spiral_blast( int sn, int level, CHAR_DATA *ch, void *vo )
     if ( xIS_SET( ch->in_room->room_flags, ROOM_SAFE ) )   
     {
         set_char_color( AT_MAGIC, ch );
-        send_to_char( "You fail to breathe.\n\r", ch );
+        mxp_to_char( "You fail to breathe.\n\r", ch, MXP_ALL  );
         return rNONE;
     }
  
@@ -6562,13 +6562,13 @@ ch_ret spell_obj_inv( int sn, int level, CHAR_DATA *ch, void *vo )
 
 	    if ( obj->item_type != ITEM_DRINK_CON )
 	    {
-		send_to_char( "It is unable to hold water.\n\r", ch );
+		mxp_to_char( "It is unable to hold water.\n\r", ch, MXP_ALL  );
 		return rSPELL_FAILED;
 	    }
 
 	    if ( obj->value[2] != LIQ_WATER && obj->value[1] != 0 )
 	    {
-		send_to_char( "It contains some other liquid.\n\r", ch );
+		mxp_to_char( "It contains some other liquid.\n\r", ch, MXP_ALL  );
 		return rSPELL_FAILED;
 	    }
 
@@ -6695,14 +6695,14 @@ ch_ret spell_obj_inv( int sn, int level, CHAR_DATA *ch, void *vo )
 	     ||   obj->item_type == ITEM_COOK )
 	     {
 		if ( obj->item_type == ITEM_COOK && obj->value[2] == 0)
-		    send_to_char("It looks undercooked.\n\r", ch );
+		    mxp_to_char("It looks undercooked.\n\r", ch, MXP_ALL  );
 		else if ( obj->value[3] != 0 )
-		    send_to_char( "You smell poisonous fumes.\n\r", ch );
+		    mxp_to_char( "You smell poisonous fumes.\n\r", ch, MXP_ALL  );
 		else
-		    send_to_char( "It looks very delicious.\n\r", ch );
+		    mxp_to_char( "It looks very delicious.\n\r", ch, MXP_ALL  );
 	     }
 	     else
-		send_to_char( "It doesn't look poisoned.\n\r", ch );
+		mxp_to_char( "It doesn't look poisoned.\n\r", ch, MXP_ALL  );
 	     return rNONE;
 	  }
 	  return rNONE;
@@ -6907,7 +6907,7 @@ ch_ret spell_smaug( int sn, int level, CHAR_DATA *ch, void *vo )
                || ch->position ==  POS_AGGRESSIVE
                || ch->position ==  POS_BERSERK ) )
           {
-              send_to_char( "You can't concentrate enough for that!\n\r", ch );
+              mxp_to_char( "You can't concentrate enough for that!\n\r", ch, MXP_ALL  );
               return rNONE;
           }
 
@@ -7224,14 +7224,14 @@ ch_ret spell_midas_touch( int sn, int level, CHAR_DATA *ch, void *vo )
 
     if ( IS_OBJ_STAT(obj, ITEM_NODROP) || IS_OBJ_STAT(obj, ITEM_PERMANENT) )
     {
-	send_to_char( "You can't seem to let go of it.\n\r", ch );
+	mxp_to_char( "You can't seem to let go of it.\n\r", ch, MXP_ALL  );
 	return rSPELL_FAILED;  
     }
 
     if ( IS_OBJ_STAT( obj, ITEM_PROTOTYPE )
     &&   get_trust( ch ) < LEVEL_IMMORTAL ) /* was victim instead of ch!  Thanks Nick Gammon */
     {
-	send_to_char( "That item is not for mortal hands to touch!\n\r", ch );
+	mxp_to_char( "That item is not for mortal hands to touch!\n\r", ch, MXP_ALL  );
 	return rSPELL_FAILED;   /* Thoric */
     }
 
@@ -7241,7 +7241,7 @@ ch_ret spell_midas_touch( int sn, int level, CHAR_DATA *ch, void *vo )
        || ( obj->item_type == ITEM_KEY )
        )
     {
-       send_to_char( "You cannot seem to turn this item to gold!\n\r", ch);
+       mxp_to_char( "You cannot seem to turn this item to gold!\n\r", ch, MXP_ALL );
        return rNONE;
     }
 
@@ -7383,7 +7383,7 @@ ch_ret spell_midas_touch( int sn, int level, CHAR_DATA *ch, void *vo )
         if ( cur_obj == obj->serial )
           global_objcode = rOBJ_SACCED;
         extract_obj( obj );
-           send_to_char( "You transmogrify the item to gold!\n\r", ch);
+           mxp_to_char( "You transmogrify the item to gold!\n\r", ch, MXP_ALL );
            return rNONE;
     }
 
@@ -7398,7 +7398,7 @@ ch_ret spell_midas_touch( int sn, int level, CHAR_DATA *ch, void *vo )
         if ( cur_obj == obj->serial )
           global_objcode = rOBJ_SACCED;
         extract_obj( obj );
-           send_to_char( "You transmogrify the item to gold!\n\r", ch);
+           mxp_to_char( "You transmogrify the item to gold!\n\r", ch, MXP_ALL );
            return rNONE;
     }
 
@@ -7406,6 +7406,6 @@ ch_ret spell_midas_touch( int sn, int level, CHAR_DATA *ch, void *vo )
     obj_from_char( obj );
     obj_to_char( obj, victim );
 
-    send_to_char( "You transmogrify the item to gold!\n\r", ch );
+    mxp_to_char( "You transmogrify the item to gold!\n\r", ch, MXP_ALL );
     return rNONE;
 }

@@ -10,13 +10,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "merc.h"
-#include "mxp.h"
 
-/* telnet negotiating */
-const char mxp_will [] = { IAC, WILL, TELOPT_MXP, '\0' };
-const char mxp_do   [] = { IAC, DO,   TELOPT_MXP, '\0' };
-const char mxp_dont [] = { IAC, DONT, TELOPT_MXP, '\0' };
+#include "mud.h"
 
 /*
  * mxp_to_char()
@@ -428,21 +423,21 @@ void do_mxp(CHAR_DATA *ch, char *argument)
   if (!ch->desc->mxp)
   {
     send_to_char("Sorry, your client does not support MXP.\n\r", ch);
-  if (IS_SET(ch->act, PLR_MXP))
+  if (xIS_SET(ch->act, PLR_MXP))
   {
-    REMOVE_BIT(ch->act, PLR_MXP);
+    xREMOVE_BIT(ch->act, PLR_MXP);
     send_to_char("MXP has been disabled.\n\r", ch);
   }
     return;
   }
-  if (IS_SET(ch->act, PLR_MXP))
+  if (xIS_SET(ch->act, PLR_MXP))
   {
-    REMOVE_BIT(ch->act, PLR_MXP);
+    xREMOVE_BIT(ch->act, PLR_MXP);
     send_to_char("MXP has been disabled.\n\r", ch);
   }
   else
   {
-    SET_BIT(ch->act, PLR_MXP);
+    xSET_BIT(ch->act, PLR_MXP);
     send_to_char("MXP has been enabled.\n\r", ch);
   }
 }
