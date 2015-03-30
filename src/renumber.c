@@ -1,51 +1,17 @@
 /*
-                     R E A L M S    O F    D E S P A I R  !
-   ___________________________________________________________________________
-  //            /                                                            \\
- [|_____________\   ********   *        *   ********   *        *   *******   |]
- [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
- [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
- [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
- [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
- [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
- [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
- [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
- [|_____________\  **********  **      **  **      **  **********  *********  |]
- [|             /  *********   *        *  *        *   ********    *******   |]
-  \\____________\____________________________________________________________//
-     |                                                                     |
-     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
-     |_____________________________________________________________________|
-     |                                                                     |
-     |                 -*-  Renumber Imm Command  Module -*-               |
-     |_____________________________________________________________________|
-     |                                                                     |
-     | Permission to use and distribute this code is granted provided this |
-     | header is retained and unaltered, and the distribution package      |
-     | contains all the original files unmodified.                         |
-     | If you modify this code and use/distribute modified versions you    |
-     | must give credit to the original author(s).                         |
-     |_____________________________________________________________________|
-     |                                                                     |
-     |  Author: Cronel (cronel_kal@hotmail.com) of FrozenMUD               |
-     |_____________________________________________________________________|
-    //                                                                     \\
-   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
-   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
-   [|                                                                       |]
-   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
-   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
-   [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
-    \\_____________________________________________________________________//
-*/
-
+ *  Renumber Imm command
+ *  Author: Cronel (cronel_kal@hotmail.com)
+ *  of FrozenMUD (empire.digiunix.net 4000)
+ *
+ *  Permission to use and distribute this code is granted provided
+ *  this header is retained and unaltered, and the distribution
+ *  package contains all the original files unmodified.
+ *  If you modify this code and use/distribute modified versions
+ *  you must give credit to the original author(s).
+ */
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-
 #include "mud.h"
 
 #define NOT_FOUND (-1)

@@ -1,36 +1,20 @@
-/*
-                     R E A L M S    O F    D E S P A I R  !
-   ___________________________________________________________________________
-  //            /                                                            \\
- [|_____________\   ********   *        *   ********   *        *   *******   |]
- [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
- [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
- [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
- [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
- [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
- [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
- [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
- [|_____________\  **********  **      **  **      **  **********  *********  |]
- [|             /  *********   *        *  *        *   ********    *******   |]
-  \\____________\____________________________________________________________//
-     |                                                                     |
-     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
-     |_____________________________________________________________________|
-     |                                                                     |
-     |                 -*- Player Informational Module -*-                 |
-     |_____________________________________________________________________|
-    //                                                                     \\
-   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
-   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
-   [|                                                                       |]
-   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
-   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
-   [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
-    \\_____________________________________________________________________//
-*/
+/****************************************************************************
+ * [S]imulated [M]edieval [A]dventure multi[U]ser [G]ame      |   \\._.//   *
+ * -----------------------------------------------------------|   (0...0)   *
+ * SMAUG 1.4 (C) 1994, 1995, 1996, 1998  by Derek Snider      |    ).:.(    *
+ * -----------------------------------------------------------|    {o o}    *
+ * SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,      |   / ' ' \   *
+ * Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,      |~'~.VxvxV.~'~*
+ * Tricops, Fireblade, Edmond, Conran                         |             *
+ * ------------------------------------------------------------------------ *
+ * Merc 2.1 Diku Mud improvments copyright (C) 1992, 1993 by Michael        *
+ * Chastain, Michael Quan, and Mitchell Tse.                                *
+ * Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,          *
+ * Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.     *
+ * ------------------------------------------------------------------------ *
+ *			     Informational module			    *
+ ****************************************************************************/
+
 
 #include <sys/types.h>
 #include <ctype.h>
@@ -38,8 +22,8 @@
 #include <string.h>
 #include <time.h>
 #include <sys/stat.h>
-
 #include "mud.h"
+
 
 /* Had to add unknowns because someone added new positions and didn't
  * update them.  Just a band-aid till I have time to fix it right.
@@ -94,9 +78,9 @@ char *	const	where_name	[] =
     "<worn over face>     ",
     "<worn around ankle>  ",
     "<worn around ankle>  ",
-    "<BUG Inform Devels>  ",
-    "<BUG Inform Devels>  ",
-    "<BUG Inform Devels>  "
+    "<BUG Inform Nivek>  ",
+    "<BUG Inform Nivek>  ",
+    "<BUG Inform Nivek>  "
 };
 
 
@@ -109,10 +93,14 @@ void	show_char_to_char	args( ( CHAR_DATA *list, CHAR_DATA *ch ) );
 bool	check_blind		args( ( CHAR_DATA *ch ) );
 void    show_condition          args( ( CHAR_DATA *ch, CHAR_DATA *victim ) );
 
-//Similar Helpfile Snippet Declarations
-sh_int str_similarity( const char *astr, const char *bstr );
-sh_int str_prefix_level( const char *astr, const char *bstr );
-void similar_help_files(CHAR_DATA *ch, char *argument);
+	//Similar Helpfile Snippet Declarations
+        sh_int str_similarity( const char *astr, const char *bstr );
+        sh_int str_prefix_level( const char *astr, const char *bstr );
+        void similar_help_files(CHAR_DATA *ch, char *argument);
+
+extern 	bool	in_same_house	args( ( CHAR_DATA *ch, CHAR_DATA *vch ) );
+
+
 
 char *format_obj_to_char( OBJ_DATA *obj, CHAR_DATA *ch, bool fShort )
 {
@@ -274,25 +262,17 @@ char *num_punct(int foo)
  * Show a list to a character.
  * Can coalesce duplicated items.
  */
-void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNothing, const int iDefaultAction )
+void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNothing )
 {
     char **prgpstrShow;
-    char **prgpstrName;        /* for MXP */
-    char **prgpstrShortName;   /* for MXP */
     int *prgnShow;
     int *pitShow;
     char *pstrShow;
-    char *pstrName;            /* for MXP */
-    char *pstrShortName;       /* for MXP */
     OBJ_DATA *obj;
     int nShow;
     int iShow;
     int count, offcount, tmp, ms, cnt;
     bool fCombine;
-    char * pAction = NULL;
-		bool inv;
-
-		inv = FALSE;
 
     if ( !ch->desc )
 	return;
@@ -305,23 +285,12 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
     	if ( fShowNothing )
     	{
 	   if ( IS_NPC(ch) || xIS_SET(ch->act, PLR_COMBINE) )
-	      mxp_to_char( "     ", ch, MXP_ALL );
+	      send_to_char( "     ", ch );
 	   set_char_color( AT_OBJECT, ch );
-	   mxp_to_char( "Nothing.\n\r", ch, MXP_ALL );
+	   send_to_char( "Nothing.\n\r", ch );
 	}
 	return;
     }
-
-    /* work out which MXP tag to use */
-
-    switch (iDefaultAction)
-      {
-      case eItemGet:  pAction = "Get"; break;   /* item on ground */
-      case eItemDrop: pAction = "Drop"; break;   /* item in inventory */
-      case eItemBid:  pAction = "Bid"; break;   /* auction item */
-
-      } /* end of switch on action */
-
     /*
      * Alloc space for output lines.
      */
@@ -352,16 +321,14 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
     	if ( fShowNothing )
     	{
 	   if ( IS_NPC(ch) || xIS_SET(ch->act, PLR_COMBINE) )
-	      mxp_to_char( "     ", ch, MXP_ALL );
+	      send_to_char( "     ", ch );
 	   set_char_color( AT_OBJECT, ch );
-	   mxp_to_char( "Nothing.\n\r", ch, MXP_ALL );
+	   send_to_char( "Nothing.\n\r", ch );
 	}
 	return;
     }
 
     CREATE( prgpstrShow,	char*,	count + ((offcount > 0) ? offcount : 0) );
-    CREATE( prgpstrName,	char*,	count + ((offcount > 0) ? offcount : 0) );
-    CREATE( prgpstrShortName,	char*,	count + ((offcount > 0) ? offcount : 0) );
     CREATE( prgnShow,		int,	count + ((offcount > 0) ? offcount : 0) );
     CREATE( pitShow,		int,	count + ((offcount > 0) ? offcount : 0) );
     nShow	= 0;
@@ -378,8 +345,6 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
 	if ( tmp > 0 && number_bits(1) == 0 )
 	{
 	    prgpstrShow [nShow] = str_dup( hallucinated_object(ms, fShort) );
-	    prgpstrName [nShow] = str_dup( hallucinated_object(ms, TRUE) );
-	    prgpstrShortName [nShow] = str_dup( hallucinated_object(ms, TRUE) );
 	    prgnShow	[nShow] = 1;
 	    pitShow	[nShow] = number_range( ITEM_LIGHT, ITEM_BOOK );
 	    nShow++;
@@ -390,11 +355,6 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
 	&& (obj->item_type != ITEM_TRAP || IS_AFFECTED(ch, AFF_DETECTTRAPS) ) )
 	{
 	    pstrShow = format_obj_to_char( obj, ch, fShort );
-	    pstrName = ( obj->name );
-      pstrShortName = obj->short_descr;
-	    if ( obj->carried_by != NULL )
-			inv = TRUE;
-
 	    fCombine = FALSE;
 
 	    if ( IS_NPC(ch) || xIS_SET(ch->act, PLR_COMBINE) )
@@ -421,8 +381,6 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
 	    if ( !fCombine )
 	    {
 		prgpstrShow [nShow] = str_dup( pstrShow );
-		prgpstrName [nShow] = str_dup( pstrName );
-		prgpstrShortName [nShow] = str_dup( pstrShortName );
 		prgnShow    [nShow] = obj->count;
 		nShow++;
 	    }
@@ -434,8 +392,6 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
 	for ( x = 0; x < tmp; x++ )
 	{
 	    prgpstrShow [nShow] = str_dup( hallucinated_object(ms, fShort) );
-	    prgpstrName [nShow] = str_dup( hallucinated_object(ms, TRUE) );
-	    prgpstrShortName [nShow] = str_dup( hallucinated_object(ms, TRUE) );
 	    prgnShow	[nShow] = 1;
 	    pitShow	[nShow] = number_range( ITEM_LIGHT, ITEM_BOOK );
 	    nShow++;
@@ -481,38 +437,30 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
 	  break;
 	}
 	if ( fShowNothing )
-	    mxp_to_char( "     ", ch, MXP_ALL );
-  if (pAction)
-    ch_printf (ch, MXPTAG ("%s '%s' '%s'"), pAction, prgpstrName[iShow], prgpstrShortName[iShow]);
-	mxp_to_char( prgpstrShow[iShow], ch, MXP_ALL );
-  if (pAction)
-    ch_printf (ch, MXPTAG ("/%s"), pAction);
+	    send_to_char( "     ", ch );
+	send_to_char( prgpstrShow[iShow], ch );
 /*	if ( IS_NPC(ch) || xIS_SET(ch->act, PLR_COMBINE) ) */
 	{
 	    if ( prgnShow[iShow] != 1 )
 		ch_printf( ch, " (%d)", prgnShow[iShow] );
 	}
 
-	mxp_to_char( "\n\r", ch, MXP_ALL );
+	send_to_char( "\n\r", ch );
 	DISPOSE( prgpstrShow[iShow] );
-	DISPOSE( prgpstrName[iShow] );
-	DISPOSE( prgpstrShortName[iShow] );
     }
 
     if ( fShowNothing && nShow == 0 )
     {
 	if ( IS_NPC(ch) || xIS_SET(ch->act, PLR_COMBINE) )
-	    mxp_to_char( "     ", ch, MXP_ALL );
+	    send_to_char( "     ", ch );
 	set_char_color( AT_OBJECT, ch );
-	mxp_to_char( "Nothing.\n\r", ch, MXP_ALL );
+	send_to_char( "Nothing.\n\r", ch );
     }
 
     /*
      * Clean up.
      */
     DISPOSE( prgpstrShow );
-    DISPOSE( prgpstrName );
-    DISPOSE( prgpstrShortName );
     DISPOSE( prgnShow	 );
     DISPOSE( pitShow	 );
     return;
@@ -936,14 +884,14 @@ void show_char_to_char_1( CHAR_DATA *victim, CHAR_DATA *ch )
     if ( victim->description[0] != '\0' )
     {
       if ( victim->morph != NULL && victim->morph->morph != NULL)
-        mxp_to_char( victim->morph->morph->description , ch, MXP_ALL  );
+        send_to_char ( victim->morph->morph->description , ch );
       else
-        mxp_to_char(victim->description, ch, MXP_ALL );
+        send_to_char (victim->description, ch);
     }
     else
     {
         if ( victim->morph != NULL && victim->morph->morph != NULL)
-           mxp_to_char( victim->morph->morph->description , ch, MXP_ALL );
+           send_to_char ( victim->morph->morph->description , ch );
 	else if ( IS_NPC( victim ) )
 	  act( AT_PLAIN, "You see nothing special about $M.", ch, NULL, victim, TO_CHAR );
 	else if ( ch != victim )
@@ -971,7 +919,7 @@ void show_char_to_char_1( CHAR_DATA *victim, CHAR_DATA *ch )
 	{
 	    if ( !found )
 	    {
-		mxp_to_char( "\n\r", ch, MXP_ALL );
+		send_to_char( "\n\r", ch );
 		if ( victim != ch )
 		  act( AT_PLAIN, "$N is using:", ch, NULL, victim, TO_CHAR );
 		else
@@ -979,11 +927,11 @@ void show_char_to_char_1( CHAR_DATA *victim, CHAR_DATA *ch )
 		found = TRUE;
 	    }
             if( (!IS_NPC(victim)) && (victim->race>0) && (victim->race<MAX_PC_RACE))
-		mxp_to_char(race_table[victim->race]->where_name[iWear], ch, MXP_ALL );
+		send_to_char(race_table[victim->race]->where_name[iWear], ch);
 	    else
-	        mxp_to_char( where_name[iWear], ch, MXP_ALL );
-	    mxp_to_char( format_obj_to_char( obj, ch, TRUE ), ch, MXP_ALL );
-	    mxp_to_char( "\n\r", ch, MXP_ALL );
+	        send_to_char( where_name[iWear], ch );
+	    send_to_char( format_obj_to_char( obj, ch, TRUE ), ch );
+	    send_to_char( "\n\r", ch );
 	}
     }
 
@@ -1023,7 +971,7 @@ void show_char_to_char_1( CHAR_DATA *victim, CHAR_DATA *ch )
     {
 	ch_printf( ch, "\n\rYou peek at %s inventory:\n\r",
 	  victim->sex == 1 ? "his" : victim->sex == 2 ? "her" : "its" );
-	show_list_to_char( victim->first_carrying, ch, TRUE, TRUE, eItemNothing );
+	show_list_to_char( victim->first_carrying, ch, TRUE, TRUE );
 	learn_from_success( ch, gsn_peek );
     }
     else
@@ -1052,7 +1000,7 @@ void show_char_to_char( CHAR_DATA *list, CHAR_DATA *ch )
         && !(!IS_NPC(rch) && IS_IMMORTAL(rch)) )
 	{
 	    set_char_color( AT_BLOOD, ch );
-	    mxp_to_char( "The red form of a living creature is here.\n\r", ch, MXP_ALL );
+	    send_to_char( "The red form of a living creature is here.\n\r", ch );
 	}
     }
 
@@ -1071,7 +1019,7 @@ bool check_blind( CHAR_DATA *ch )
 
     if ( IS_AFFECTED(ch, AFF_BLIND) )
     {
-	mxp_to_char( "You can't see a thing!\n\r", ch, MXP_ALL );
+	send_to_char( "You can't see a thing!\n\r", ch );
 	return FALSE;
     }
 
@@ -1132,13 +1080,13 @@ void do_look( CHAR_DATA *ch, char *argument )
 
     if ( ch->position < POS_SLEEPING )
     {
-	mxp_to_char( "You can't see anything but stars!\n\r", ch, MXP_ALL );
+	send_to_char( "You can't see anything but stars!\n\r", ch );
 	return;
     }
 
     if ( ch->position == POS_SLEEPING )
     {
-	mxp_to_char( "You can't see anything, you're sleeping!\n\r", ch, MXP_ALL );
+	send_to_char( "You can't see anything, you're sleeping!\n\r", ch );
 	return;
     }
 
@@ -1151,7 +1099,7 @@ void do_look( CHAR_DATA *ch, char *argument )
     &&   room_is_dark( ch->in_room ) )
     {
 	set_char_color( AT_DGREY, ch );
-	mxp_to_char( "It is pitch black ... \n\r", ch, MXP_ALL );
+	send_to_char( "It is pitch black ... \n\r", ch );
 	show_char_to_char( ch->in_room->first_person, ch );
 	return;
     }
@@ -1229,7 +1177,7 @@ void do_look( CHAR_DATA *ch, char *argument )
 			}
 		}
 
-		mxp_to_char( "\n\r", ch, MXP_ALL );
+		send_to_char( "\n\r", ch );
 		set_char_color( AT_RMNAME, ch );
 /*		ch_printf( ch, "%-50.50s", ch->in_room->name ); */
 	        if ( xIS_SET( ch->in_room->room_flags, ROOM_COLOR) )
@@ -1253,13 +1201,13 @@ void do_look( CHAR_DATA *ch, char *argument )
 		ch_printf_color( ch, "%s", dir_d );
 		send_to_char_color( "&z ", ch );
 		ch_printf_color( ch, "%s\n\r", dir_e );
-		mxp_to_char( "                                                        ", ch, MXP_ALL );
+		send_to_char( "                                                        ", ch );
 		strcat( dir_sw, "  " );
 		ch_printf_color( ch, "  %s ", dir_sw );
 		strcat( dir_s, "  " );
 		ch_printf_color( ch, "  %s", dir_s );
 		ch_printf_color( ch, "   %s", dir_se );
-		mxp_to_char( "\n\r", ch, MXP_ALL );
+		send_to_char( "\n\r", ch );
 
 	}
 	else
@@ -1268,8 +1216,8 @@ void do_look( CHAR_DATA *ch, char *argument )
 		if ( xIS_SET( ch->in_room->room_flags, ROOM_COLOR ) )
 			send_to_char_color( ch->in_room->name, ch );
 		else
-			mxp_to_char( ch->in_room->name, ch, MXP_ALL );
-		mxp_to_char( "\n\r", ch, MXP_ALL );		
+			send_to_char( ch->in_room->name, ch );
+		send_to_char( "\n\r", ch );		
 	}
 
 	set_char_color( AT_RMDESC, ch );
@@ -1277,14 +1225,9 @@ void do_look( CHAR_DATA *ch, char *argument )
 	|| ( !IS_NPC(ch) && !xIS_SET(ch->act, PLR_BRIEF) ) )
 	{
 	    if ( xIS_SET(ch->in_room->room_flags, ROOM_COLOR) )
-      {
-        mxp_to_char( MXPTAG ("rdesc"), ch, MXP_ALL );
-  	    mxp_to_char( ch->in_room->description, ch, MXP_ALL );
-        mxp_to_char( MXPTAG ("/rdesc"), ch, MXP_ALL);
-      }
-
+		send_to_char_color( ch->in_room->description, ch );
 	    else
-		mxp_to_char( ch->in_room->description, ch, MXP_ALL );
+		send_to_char( ch->in_room->description, ch );
 	}
 
 /*
@@ -1312,7 +1255,7 @@ void do_look( CHAR_DATA *ch, char *argument )
 	    do_exits( ch, "auto" );
 
 
-	show_list_to_char( ch->in_room->first_content, ch, FALSE, FALSE, eItemGet );
+	show_list_to_char( ch->in_room->first_content, ch, FALSE, FALSE );
 	show_char_to_char( ch->in_room->first_person,  ch );
 	return;
     }
@@ -1321,7 +1264,7 @@ void do_look( CHAR_DATA *ch, char *argument )
     {
       if ( !IS_OUTSIDE(ch) )
       {
-        mxp_to_char( "You can't see the sky indoors.\n\r", ch, MXP_ALL );
+        send_to_char( "You can't see the sky indoors.\n\r", ch );
         return;
       }
       else
@@ -1338,23 +1281,23 @@ void do_look( CHAR_DATA *ch, char *argument )
 	/* 'look under' */
 	if ( arg2[0] == '\0' )
 	{
-	    mxp_to_char( "Look beneath what?\n\r", ch, MXP_ALL );
+	    send_to_char( "Look beneath what?\n\r", ch );
 	    return;
 	}
 
 	if ( ( obj = get_obj_here( ch, arg2 ) ) == NULL )
 	{
-	    mxp_to_char( "You do not see that here.\n\r", ch, MXP_ALL );
+	    send_to_char( "You do not see that here.\n\r", ch );
 	    return;
 	}
 	if ( !CAN_WEAR( obj, ITEM_TAKE ) && ch->level < sysdata.level_getobjnotake )
 	{
-	    mxp_to_char( "You can't seem to get a grip on it.\n\r", ch, MXP_ALL );
+	    send_to_char( "You can't seem to get a grip on it.\n\r", ch );
 	    return;
 	}
 	if ( ch->carry_weight + obj->weight > can_carry_w( ch ) )
 	{
-	    mxp_to_char( "It's too heavy for you to look under.\n\r", ch, MXP_ALL );
+	    send_to_char( "It's too heavy for you to look under.\n\r", ch );
 	    return;
 	}
 	count = obj->count;
@@ -1363,9 +1306,9 @@ void do_look( CHAR_DATA *ch, char *argument )
 	act( AT_PLAIN, "$n lifts $p and looks beneath it:", ch, obj, NULL, TO_ROOM );
 	obj->count = count;
 	if ( IS_OBJ_STAT( obj, ITEM_COVERING ) )
-	   show_list_to_char( obj->first_content, ch, TRUE, TRUE, eItemNothing );
+	   show_list_to_char( obj->first_content, ch, TRUE, TRUE );
 	else
-	   mxp_to_char( "Nothing.\n\r", ch, MXP_ALL );
+	   send_to_char( "Nothing.\n\r", ch );
 	if ( doexaprog ) oprog_examine_trigger( ch, obj );
 	return;
     }
@@ -1377,26 +1320,26 @@ void do_look( CHAR_DATA *ch, char *argument )
 	/* 'look in' */
 	if ( arg2[0] == '\0' )
 	{
-	    mxp_to_char( "Look in what?\n\r", ch, MXP_ALL );
+	    send_to_char( "Look in what?\n\r", ch );
 	    return;
 	}
 
 	if ( ( obj = get_obj_here( ch, arg2 ) ) == NULL )
 	{
-	    mxp_to_char( "You do not see that here.\n\r", ch, MXP_ALL );
+	    send_to_char( "You do not see that here.\n\r", ch );
 	    return;
 	}
 
 	switch ( obj->item_type )
 	{
 	default:
-	    mxp_to_char( "That is not a container.\n\r", ch, MXP_ALL );
+	    send_to_char( "That is not a container.\n\r", ch );
 	    break;
 
 	case ITEM_DRINK_CON:
 	    if ( obj->value[1] <= 0 )
 	    {
-		mxp_to_char( "It is empty.\n\r", ch, MXP_ALL );
+		send_to_char( "It is empty.\n\r", ch );
 	        if ( doexaprog ) oprog_examine_trigger( ch, obj );
 		break;
 	    }
@@ -1422,7 +1365,7 @@ void do_look( CHAR_DATA *ch, char *argument )
 		    &&   get_trust(ch) < sysdata.level_override_private )
 		    {
 			set_char_color( AT_WHITE, ch );
-			mxp_to_char( "That room is private buster!\n\r", ch, MXP_ALL );
+			send_to_char( "That room is private buster!\n\r", ch );
 			return;
 		    }
 		    original = ch->in_room;
@@ -1434,7 +1377,7 @@ void do_look( CHAR_DATA *ch, char *argument )
 		    return;
 		}
 	    }
-	    mxp_to_char( "You see swirling chaos...\n\r", ch, MXP_ALL );
+	    send_to_char( "You see swirling chaos...\n\r", ch );
 	    break;
 	case ITEM_CONTAINER:
 	case ITEM_QUIVER:
@@ -1442,7 +1385,7 @@ void do_look( CHAR_DATA *ch, char *argument )
 	case ITEM_CORPSE_PC:
 	    if ( IS_SET(obj->value[1], CONT_CLOSED) )
 	    {
-		mxp_to_char( "It is closed.\n\r", ch, MXP_ALL );
+		send_to_char( "It is closed.\n\r", ch );
 		break;
 	    }
 
@@ -1454,7 +1397,7 @@ void do_look( CHAR_DATA *ch, char *argument )
 	    else
 		act( AT_PLAIN, "$p holds:", ch, obj, NULL, TO_CHAR );
 	    obj->count = count;
-	    show_list_to_char( obj->first_content, ch, TRUE, TRUE, eItemNothing );
+	    show_list_to_char( obj->first_content, ch, TRUE, TRUE );
 	    if ( doexaprog ) oprog_examine_trigger( ch, obj );
 	    break;
 	}
@@ -1475,7 +1418,7 @@ void do_look( CHAR_DATA *ch, char *argument )
 	{
 	    if ( (IS_SET(pexit->exit_info, EX_SECRET)
 	    ||    IS_SET(pexit->exit_info, EX_DIG)) && door != -1 )
-		mxp_to_char( "Nothing special there.\n\r", ch, MXP_ALL );
+		send_to_char( "Nothing special there.\n\r", ch );
 	    else
             {
                 if ( pexit->keyword[strlen( pexit->keyword )-1] == 's'
@@ -1498,9 +1441,9 @@ void do_look( CHAR_DATA *ch, char *argument )
         }                                                                                                                                       
 
 	if ( pexit->description && pexit->description[0] != '\0' )
-	    mxp_to_char( pexit->description, ch, MXP_ALL );
+	    send_to_char( pexit->description, ch );
 	else
-	    mxp_to_char( "Nothing special there.\n\r", ch, MXP_ALL );
+	    send_to_char( "Nothing special there.\n\r", ch );
 
 	/*
 	 * Ability to look into the next room			-Thoric
@@ -1515,7 +1458,7 @@ void do_look( CHAR_DATA *ch, char *argument )
 	    &&    get_trust( ch ) < LEVEL_IMMORTAL )
 	    {
 		set_char_color( AT_MAGIC, ch );
-		mxp_to_char( "You attempt to scry...\n\r", ch, MXP_ALL );
+		send_to_char( "You attempt to scry...\n\r", ch );
 		/*
 		 * Change by Narn, Sept 96 to allow characters who don't have the
 		 * scry spell to benefit from objects that are affected by scry.
@@ -1533,7 +1476,7 @@ void do_look( CHAR_DATA *ch, char *argument )
  
 		    if ( number_percent( ) > percent ) 
 		    {
-			mxp_to_char( "You fail.\n\r", ch, MXP_ALL );
+			send_to_char( "You fail.\n\r", ch );
 			return;
 		    }
 		}
@@ -1542,7 +1485,7 @@ void do_look( CHAR_DATA *ch, char *argument )
 	    &&   get_trust(ch) < sysdata.level_override_private )
 	    {
 		set_char_color( AT_WHITE, ch );
-		mxp_to_char( "That room is private buster!\n\r", ch, MXP_ALL );
+		send_to_char( "That room is private buster!\n\r", ch );
 		return;
 	    }
 	    original = ch->in_room;
@@ -1557,7 +1500,7 @@ void do_look( CHAR_DATA *ch, char *argument )
     else
     if ( door != -1 )
     {
-	mxp_to_char( "Nothing special there.\n\r", ch, MXP_ALL );
+	send_to_char( "Nothing special there.\n\r", ch );
 	return;
     }
 
@@ -1640,7 +1583,7 @@ void do_look( CHAR_DATA *ch, char *argument )
 		if ( !pdesc )
 		  pdesc = get_extra_descr( obj->name, obj->first_extradesc );
 		if ( !pdesc )
-		  mxp_to_char( "You see nothing special.\r\n", ch, MXP_ALL );
+		  send_to_char( "You see nothing special.\r\n", ch );
 		else
 		  send_to_char_color( pdesc, ch );
 		if (obj->item_type == ITEM_PUDDLE)
@@ -1652,7 +1595,7 @@ void do_look( CHAR_DATA *ch, char *argument )
 	}
     }
 
-    mxp_to_char( "You do not see that here.\n\r", ch, MXP_ALL );
+    send_to_char( "You do not see that here.\n\r", ch );
     return;
 }
 
@@ -1667,7 +1610,7 @@ void show_race_line( CHAR_DATA *ch, CHAR_DATA *victim )
 		feet =  victim->height / 12;
 		inches = victim->height % 12;
 		sprintf( buf, "%s is %d'%d\" and weighs %d pounds.\n\r", PERS(victim, ch), feet, inches, victim->weight );
-		mxp_to_char( buf, ch, MXP_ALL );
+		send_to_char( buf, ch);
                 return;
         } 
 	if ( !IS_NPC(victim) && (victim == ch) )
@@ -1675,7 +1618,7 @@ void show_race_line( CHAR_DATA *ch, CHAR_DATA *victim )
 		feet =  victim->height / 12;
 		inches = victim->height % 12;
 		sprintf( buf, "You are %d'%d\" and weigh %d pounds.\n\r",  feet, inches, victim->weight );
-		mxp_to_char( buf, ch, MXP_ALL );
+		send_to_char( buf, ch);
                 return;
         } 
 
@@ -1725,7 +1668,7 @@ void show_condition( CHAR_DATA *ch, CHAR_DATA *victim )
     }
 
     buf[0] = UPPER(buf[0]);
-    mxp_to_char( buf, ch, MXP_ALL );
+    send_to_char( buf, ch );
     return;
 }
 
@@ -1745,13 +1688,13 @@ void do_glance( CHAR_DATA *ch, char *argument )
  
   if ( ch->position < POS_SLEEPING )
   {
-    mxp_to_char( "You can't see anything but stars!\n\r", ch, MXP_ALL );
+    send_to_char( "You can't see anything but stars!\n\r", ch );
     return;
   }
  
   if ( ch->position == POS_SLEEPING )
   {
-    mxp_to_char( "You can't see anything, you're sleeping!\n\r", ch, MXP_ALL );
+    send_to_char( "You can't see anything, you're sleeping!\n\r", ch );
     return;
   }
  
@@ -1776,7 +1719,7 @@ void do_glance( CHAR_DATA *ch, char *argument )
  
   if ( ( victim = get_char_room( ch, arg1 ) ) == NULL )
   {
-    mxp_to_char( "They're not here.\n\r", ch, MXP_ALL );
+    send_to_char( "They're not here.\n\r", ch );
     return;
   }
   else
@@ -1843,7 +1786,7 @@ void do_examine( CHAR_DATA *ch, char *argument )
 
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Examine what?\n\r", ch, MXP_ALL );
+	send_to_char( "Examine what?\n\r", ch );
 	return;
     }
 
@@ -1861,7 +1804,7 @@ void do_examine( CHAR_DATA *ch, char *argument )
 	    if ( board->num_posts )
 		ch_printf( ch, "There are about %d notes posted here.  Type 'note list' to list them.\n\r", board->num_posts );
 	    else
-		mxp_to_char( "There aren't any notes posted here.\n\r", ch, MXP_ALL );
+		send_to_char( "There aren't any notes posted here.\n\r", ch );
 	}
 
 	switch ( obj->item_type )
@@ -1888,7 +1831,7 @@ void do_examine( CHAR_DATA *ch, char *argument )
        else if (dam ==  1) strcat( buf, "practically worthless.");
        else if (dam <=  0) strcat( buf, "broken.");
 	    strcat( buf, "\n\r" );
-	    mxp_to_char( buf, ch, MXP_ALL );
+	    send_to_char( buf, ch );
 	    break;
 
          case ITEM_JOURNAL:
@@ -1926,7 +1869,7 @@ void do_examine( CHAR_DATA *ch, char *argument )
        else if (dam == 11) strcat( buf, "almost broken.");
        else if (dam == 12) strcat( buf, "broken.");
 	    strcat( buf, "\n\r" );
-	    mxp_to_char( buf, ch, MXP_ALL );
+	    send_to_char( buf, ch );
 	    break;
 
 	case ITEM_COOK:
@@ -1938,7 +1881,7 @@ void do_examine( CHAR_DATA *ch, char *argument )
 	else if (dam == 1) strcat( buf, "is perfectly roasted.");
 	else		   strcat( buf, "is raw.");
 	    strcat( buf, "\n\r" );
-	    mxp_to_char( buf, ch, MXP_ALL );
+	    send_to_char( buf, ch );
 	case ITEM_FOOD:
 	    if ( obj->timer > 0 && obj->value[1] > 0 )
 	      dam = (obj->timer * 10) / obj->value[1];
@@ -1960,7 +1903,7 @@ void do_examine( CHAR_DATA *ch, char *argument )
        else if (dam ==  1) strcat( buf, "smells revolting!");
        else if (dam <=  0) strcat( buf, "is crawling with maggots!");
 	    strcat( buf, "\n\r" );
-	    mxp_to_char( buf, ch, MXP_ALL );
+	    send_to_char( buf, ch );
 	    break;
 
 
@@ -1968,15 +1911,15 @@ void do_examine( CHAR_DATA *ch, char *argument )
 	case ITEM_LEVER:
 	case ITEM_PULLCHAIN:
 	    if ( IS_SET( obj->value[0], TRIG_UP ) )
-		mxp_to_char( "You notice that it is in the up position.\n\r", ch, MXP_ALL );
+		send_to_char( "You notice that it is in the up position.\n\r", ch );
 	    else
-		mxp_to_char( "You notice that it is in the down position.\n\r", ch, MXP_ALL );
+		send_to_char( "You notice that it is in the down position.\n\r", ch );
 	    break;
 	case ITEM_BUTTON:
 	    if ( IS_SET( obj->value[0], TRIG_UP ) )
-		mxp_to_char( "You notice that it is depressed.\n\r", ch, MXP_ALL );
+		send_to_char( "You notice that it is depressed.\n\r", ch );
 	    else
-		mxp_to_char( "You notice that it is not depressed.\n\r", ch, MXP_ALL );
+		send_to_char( "You notice that it is not depressed.\n\r", ch );
 	    break;
 
 /* Not needed due to check in do_look already
@@ -1996,20 +1939,20 @@ void do_examine( CHAR_DATA *ch, char *argument )
 		switch (timerfrac)
 		{
 		    default:
-			mxp_to_char( "This corpse has recently been slain.\n\r", ch, MXP_ALL );
+			send_to_char( "This corpse has recently been slain.\n\r", ch );
 			break;
 		    case 4:
-			mxp_to_char( "This corpse was slain a little while ago.\n\r", ch, MXP_ALL );
+			send_to_char( "This corpse was slain a little while ago.\n\r", ch );
 			break;
 		    case 3:
-			mxp_to_char( "A foul smell rises from the corpse, and it is covered in flies.\n\r", ch, MXP_ALL );
+			send_to_char( "A foul smell rises from the corpse, and it is covered in flies.\n\r", ch );
 			break;
 		    case 2:
-			mxp_to_char( "A writhing mass of maggots and decay, you can barely go near this corpse.\n\r", ch, MXP_ALL );
+			send_to_char( "A writhing mass of maggots and decay, you can barely go near this corpse.\n\r", ch );
 			break;
 		    case 1:
 		    case 0:
-			mxp_to_char( "Little more than bones, there isn't much left of this corpse.\n\r", ch, MXP_ALL );
+			send_to_char( "Little more than bones, there isn't much left of this corpse.\n\r", ch );
 			break;
 		}
             }
@@ -2018,7 +1961,7 @@ void do_examine( CHAR_DATA *ch, char *argument )
 		break;
 	case ITEM_DRINK_CON:
 	case ITEM_QUIVER:
-	    mxp_to_char( "When you look inside, you see:\n\r", ch, MXP_ALL );
+	    send_to_char( "When you look inside, you see:\n\r", ch );
 	case ITEM_KEYRING:
 	    sprintf( buf, "in %s noprog", arg );
 	    do_look( ch, buf );
@@ -2044,7 +1987,6 @@ void do_exits( CHAR_DATA *ch, char *argument )
     EXIT_DATA *pexit;
     bool found;
     bool fAuto;
-    int  spaces;
 
     buf[0] = '\0';
     fAuto  = !str_cmp( argument, "auto" );
@@ -2082,30 +2024,17 @@ void do_exits( CHAR_DATA *ch, char *argument )
 		}
 		else
 		{
-//		  strcat( buf, dir_name[pexit->vdir] );
-//		  strcat( buf, " " );
-				strcat( buf, " " );
-		    strcat (buf, MXPTAG ("Ex"));
-				strcat( buf, dir_name[pexit->vdir] );
-		    strcat (buf, MXPTAG ("/Ex"));
+		  strcat( buf, dir_name[pexit->vdir] );
+		  strcat( buf, " " );
 		}
 	    }
 	    else
 	    {
-        /* I don't want to underline spaces, so I'll calculate the number we need */
-        spaces = 5 - strlen (dir_name[pexit->vdir]);
-        if (spaces < 0)
-          spaces = 0;
-    		sprintf( buf + strlen(buf), "%s%s%s%*s - %s\n\r",
-          MXPTAG ("Ex"),
-//	    sprintf( buf + strlen(buf), "%-5s - %s\n\r",
+		sprintf( buf + strlen(buf), "%-5s - %s\n\r",
 		    capitalize( dir_name[pexit->vdir] ),
-          MXPTAG ("/Ex"),
-          spaces,  /* number of spaces */
-          "",     
 		    room_is_dark( pexit->to_room )
-					?  "Too dark to tell"
-					: pexit->to_room->name
+			?  "Too dark to tell"
+			: pexit->to_room->name
 		    );
 	    }
 	}
@@ -2183,7 +2112,7 @@ void do_weather( CHAR_DATA *ch, char *argument )
 
     if ( !IS_OUTSIDE(ch) )
     {
-	mxp_to_char( "You can't see the sky from here.\n\r", ch, MXP_ALL );
+	send_to_char( "You can't see the sky from here.\n\r", ch );
 	return;
     }
 
@@ -2528,7 +2457,7 @@ void do_hedit( CHAR_DATA *ch, char *argument )
 
     if ( !ch->desc )
     {
-	mxp_to_char( "You have no descriptor.\n\r", ch, MXP_ALL );
+	send_to_char( "You have no descriptor.\n\r", ch );
 	return;
     }
 
@@ -2612,10 +2541,10 @@ void do_hset( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg1 );
     if ( arg1[0] == '\0' )
     {
-	mxp_to_char( "Syntax: hset <field> [value] [help page]\n\r",	ch, MXP_ALL );
-	mxp_to_char( "\n\r",						ch, MXP_ALL );
-	mxp_to_char( "Field being one of:\n\r",			ch, MXP_ALL );
-	mxp_to_char( "  level keyword remove save\n\r",		ch, MXP_ALL );
+	send_to_char( "Syntax: hset <field> [value] [help page]\n\r",	ch );
+	send_to_char( "\n\r",						ch );
+	send_to_char( "Field being one of:\n\r",			ch );
+	send_to_char( "  level keyword remove save\n\r",		ch );
 	return;
     }
 
@@ -2643,7 +2572,7 @@ void do_hset( CHAR_DATA *ch, char *argument )
 	fprintf( fpout, "0 $~\n\n\n#$\n" );
 	fclose( fpout );
 	fpReserve = fopen( NULL_FILE, "r" );
-	mxp_to_char( "Saved.\n\r", ch, MXP_ALL );
+	send_to_char( "Saved.\n\r", ch );
 	return;
     }
     if ( str_cmp( arg1, "remove" ) )
@@ -2651,7 +2580,7 @@ void do_hset( CHAR_DATA *ch, char *argument )
 
     if ( (pHelp = get_help(ch, argument)) == NULL )
     {
-	mxp_to_char( "Cannot find help on that subject.\n\r", ch, MXP_ALL );
+	send_to_char( "Cannot find help on that subject.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg1, "remove" ) )
@@ -2660,20 +2589,20 @@ void do_hset( CHAR_DATA *ch, char *argument )
 	STRFREE( pHelp->text );
 	STRFREE( pHelp->keyword );
 	DISPOSE( pHelp );
-	mxp_to_char( "Removed.\n\r", ch, MXP_ALL );
+	send_to_char( "Removed.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg1, "level" ) )
     {
 	pHelp->level = atoi( arg2 );
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg1, "keyword" ) )
     {
 	STRFREE( pHelp->keyword );
 	pHelp->keyword = STRALLOC( strupper(arg2) );
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
 
@@ -2682,7 +2611,7 @@ void do_hset( CHAR_DATA *ch, char *argument )
 
 void do_hl( CHAR_DATA *ch, char *argument )
 {
-    mxp_to_char( "If you want to use HLIST, spell it out.\n\r", ch, MXP_ALL );
+    send_to_char( "If you want to use HLIST, spell it out.\n\r", ch );
     return;
 }
 
@@ -2764,7 +2693,7 @@ void do_hlist( CHAR_DATA *ch, char *argument )
     if ( cnt )
 	pager_printf( ch, "\n\r%d pages found.\n\r", cnt );
     else
-	mxp_to_char( "None found.\n\r", ch, MXP_ALL );
+	send_to_char( "None found.\n\r", ch );
 
     if ( idx )
     	STRFREE(idx);
@@ -3015,7 +2944,7 @@ void do_who( CHAR_DATA *ch, char *argument )
 	    case 1: iLevelLower = atoi( arg ); break;
 	    case 2: iLevelUpper = atoi( arg ); break;
 	    default:
-		mxp_to_char( "Only two level numbers allowed.\n\r", ch, MXP_ALL );
+		send_to_char( "Only two level numbers allowed.\n\r", ch );
 		return;
 	    }
 	}
@@ -3023,7 +2952,7 @@ void do_who( CHAR_DATA *ch, char *argument )
 	{
 	    if ( strlen(arg) < 2 )
 	    {
-		mxp_to_char( "Arguments must be longer than that.\n\r", ch, MXP_ALL );
+		send_to_char( "Arguments must be longer than that.\n\r", ch );
 		return;
 	    }
 
@@ -3097,8 +3026,8 @@ void do_who( CHAR_DATA *ch, char *argument )
          && fCouncilMatch == FALSE
 		 && fDeityMatch == FALSE )
 		{
-		 mxp_to_char( "That\'s not a class, race, order, guild,"
-			" council or deity.\n\r", ch, MXP_ALL );
+		 send_to_char( "That\'s not a class, race, order, guild,"
+			" council or deity.\n\r", ch );
 		    return;
 		}
 	    }
@@ -3322,9 +3251,7 @@ void do_who( CHAR_DATA *ch, char *argument )
 	  sprintf( invis_str, "(%d) ", wch->pcdata->wizinvis );
 	else
 	  invis_str[0] = '\0';
-	sprintf( buf, "%*s%-15s %s%s%s%s%s%s"
-          MXPTAG ("player '%s'") "%s"  MXPTAG ("/player")
-          "%s.%s%s%s\n\r",
+	sprintf( buf, "%*s%-15s %s%s%s%s%s%s%s%s.%s%s%s\n\r",
 	  (fGroup ? whogr->indent : 0), "",
 	  class,
 	  invis_str,
@@ -3333,7 +3260,6 @@ void do_who( CHAR_DATA *ch, char *argument )
 	  xIS_SET(wch->act, PLR_ATTACKER) ? "(ATTACKER) " : "",
 	  xIS_SET(wch->act, PLR_KILLER) ? "(KILLER) " : "",
 	  xIS_SET(wch->act, PLR_THIEF)  ? "(THIEF) "  : "",
-    wch->name,
 	  char_name,
 	  wch->pcdata->title,
           extra_title,
@@ -3598,7 +3524,7 @@ void do_cwho( CHAR_DATA *ch, char *argument )
 	    case 1: iLevelLower = atoi( arg ); break;
 	    case 2: iLevelUpper = atoi( arg ); break;
 	    default:
-		mxp_to_char( "Only two level numbers allowed.\n\r", ch, MXP_ALL );
+		send_to_char( "Only two level numbers allowed.\n\r", ch );
 		return;
 	    }
 	}
@@ -3606,7 +3532,7 @@ void do_cwho( CHAR_DATA *ch, char *argument )
 	{
 	    if ( strlen(arg) < 2 )
 	    {
-		mxp_to_char( "Arguments must be longer than that.\n\r", ch, MXP_ALL );
+		send_to_char( "Arguments must be longer than that.\n\r", ch );
 		return;
 	    }
 /*
@@ -3680,8 +3606,8 @@ void do_cwho( CHAR_DATA *ch, char *argument )
 		 && fCouncilMatch == FALSE
 		 && fDeityMatch == FALSE )
 		{
-		 mxp_to_char( "That's not a class, race, order, guild,"
-			" council or deity.\n\r", ch, MXP_ALL );
+		 send_to_char( "That's not a class, race, order, guild,"
+			" council or deity.\n\r", ch );
 		    return;
 		}
 	    }
@@ -4087,13 +4013,13 @@ void do_compare( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg2 );
     if ( arg1[0] == '\0' )
     {
-	mxp_to_char( "Compare what to what?\n\r", ch, MXP_ALL );
+	send_to_char( "Compare what to what?\n\r", ch );
 	return;
     }
 
     if ( ( obj1 = get_obj_carry( ch, arg1 ) ) == NULL )
     {
-	mxp_to_char( "You do not have that item.\n\r", ch, MXP_ALL );
+	send_to_char( "You do not have that item.\n\r", ch );
 	return;
     }
 
@@ -4110,7 +4036,7 @@ void do_compare( CHAR_DATA *ch, char *argument )
 
 	if ( !obj2 )
 	{
-	    mxp_to_char( "You aren't wearing anything comparable.\n\r", ch, MXP_ALL );
+	    send_to_char( "You aren't wearing anything comparable.\n\r", ch );
 	    return;
 	}
     }
@@ -4118,7 +4044,7 @@ void do_compare( CHAR_DATA *ch, char *argument )
     {
 	if ( ( obj2 = get_obj_carry( ch, arg2 ) ) == NULL )
 	{
-	    mxp_to_char( "You do not have that item.\n\r", ch, MXP_ALL );
+	    send_to_char( "You do not have that item.\n\r", ch );
 	    return;
 	}
     }
@@ -4292,18 +4218,18 @@ void do_consider( CHAR_DATA *ch, char *argument )
 
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Consider killing whom?\n\r", ch, MXP_ALL );
+	send_to_char( "Consider killing whom?\n\r", ch );
 	return;
     }
 
     if ( ( victim = get_char_room( ch, arg ) ) == NULL )
     {
-	mxp_to_char( "They're not here.\n\r", ch, MXP_ALL );
+	send_to_char( "They're not here.\n\r", ch );
 	return;
     }
     if ( victim == ch )
     {
-	mxp_to_char( "You decide you're pretty sure you could take yourself in a fight.\n\r", ch, MXP_ALL );
+	send_to_char( "You decide you're pretty sure you could take yourself in a fight.\n\r", ch );
 	return;
     }
     diff = victim->level - ch->level;
@@ -4354,9 +4280,9 @@ void do_practice( CHAR_DATA *ch, char *argument )
 /*
     if ( ch->level < 2 )
     {
-	mxp_to_char(
+	send_to_char(
 	"You must be second level to practice.  Seek out monsters to kill!\n\r",
-	    ch, MXP_ALL );
+	    ch );
 	return;
     }
 */
@@ -4446,7 +4372,7 @@ void do_practice( CHAR_DATA *ch, char *argument )
 
 	if ( !IS_AWAKE(ch) )
 	{
-	    mxp_to_char( "In your dreams, or what?\n\r", ch, MXP_ALL );
+	    send_to_char( "In your dreams, or what?\n\r", ch );
 	    return;
 	}
 
@@ -4456,7 +4382,7 @@ void do_practice( CHAR_DATA *ch, char *argument )
 
 	if ( !mob )
 	{
-	    mxp_to_char( "You can't do that here.\n\r", ch, MXP_ALL );
+	    send_to_char( "You can't do that here.\n\r", ch );
 	    return;
 	}
 
@@ -4601,17 +4527,17 @@ void do_wimpy( CHAR_DATA *ch, char *argument )
       wimpy = atoi( arg );
 
     if ( wimpy < 0 ) {
-	mxp_to_char( "Your courage exceeds your wisdom.\n\r", ch, MXP_ALL );
+	send_to_char( "Your courage exceeds your wisdom.\n\r", ch );
 	return;
     }
     if ( IS_PKILL( ch ) && wimpy > (int) ch->max_hit / 2.25 )
     {
-	mxp_to_char( "Such cowardice ill becomes you.\n\r", ch, MXP_ALL );
+	send_to_char( "Such cowardice ill becomes you.\n\r", ch );
 	return;
     }
     else if ( wimpy > (int) ch->max_hit / 1.2 )
     {
-	mxp_to_char( "Such cowardice ill becomes you.\n\r", ch, MXP_ALL );
+	send_to_char( "Such cowardice ill becomes you.\n\r", ch );
 	return;
     }
     ch->wimpy	= wimpy;
@@ -4683,8 +4609,8 @@ void do_password( CHAR_DATA *ch, char *argument )
 
     if ( arg1[0] == '\0' || arg2[0] == '\0' )
     {
-	mxp_to_char( "Syntax: password <new> <again>.\n\r", ch, MXP_ALL );
-	mxp_to_char( "Syntax: password <new> <again>.\n\r", ch, MXP_ALL );
+	send_to_char( "Syntax: password <new> <again>.\n\r", ch );
+	send_to_char( "Syntax: password <new> <again>.\n\r", ch );
 	return;
     }
 
@@ -4692,7 +4618,7 @@ void do_password( CHAR_DATA *ch, char *argument )
     if ( strcmp( sha256_crypt( arg1, ch->pcdata->pwd ), ch->pcdata->pwd ) )
     {
 	WAIT_STATE( ch, 40 );
-	mxp_to_char( "Wrong password.  Wait 10 seconds.\n\r", ch, MXP_ALL );
+	send_to_char( "Wrong password.  Wait 10 seconds.\n\r", ch );
 	return;
     }
 */
@@ -4700,13 +4626,13 @@ void do_password( CHAR_DATA *ch, char *argument )
 /* This should stop all the mistyped password problems --Shaddai */
     if ( strcmp( arg1, arg2 ))
     {
-	mxp_to_char("Passwords don't match try again.\n\r", ch, MXP_ALL );
+	send_to_char("Passwords don't match try again.\n\r", ch );
 	return;
     }
     if ( strlen(arg2) < 5 )
     {
-	mxp_to_char(
-	    "New password must be at least five characters long.\n\r", ch, MXP_ALL );
+	send_to_char(
+	    "New password must be at least five characters long.\n\r", ch );
 	return;
     }
 
@@ -4718,8 +4644,8 @@ void do_password( CHAR_DATA *ch, char *argument )
     {
 	if ( *p == '~' )
 	{
-	    mxp_to_char(
-		"New password not acceptable, try again.\n\r", ch, MXP_ALL );
+	    send_to_char(
+		"New password not acceptable, try again.\n\r", ch );
 	    return;
 	}
     }
@@ -4734,7 +4660,7 @@ void do_password( CHAR_DATA *ch, char *argument )
     else
        sprintf(log_buf, "%s changing thier password with no descriptor!", ch->name);
     log_string( log_buf );
-    mxp_to_char( "Ok.\n\r", ch, MXP_ALL );
+    send_to_char( "Ok.\n\r", ch );
     return;
 }
 
@@ -4824,7 +4750,7 @@ void do_channels( CHAR_DATA *ch, char *argument )
         if ( !IS_NPC(ch) && xIS_SET(ch->act, PLR_SILENCE) )
         {
 	    set_char_color( AT_GREEN, ch );
-            mxp_to_char( "You are silenced.\n\r", ch, MXP_ALL );
+            send_to_char( "You are silenced.\n\r", ch );
             return;
         }
     
@@ -4939,7 +4865,7 @@ void do_channels( CHAR_DATA *ch, char *argument )
 	      send_to_char_color( !xIS_SET( ch->deaf, CHANNEL_BUG )	?
 		" &G+BUG"	:	" &g-bug", ch );
         }
-        mxp_to_char( "\n\r", ch, MXP_ALL );   
+        send_to_char( "\n\r", ch );   
     }
     else
     {
@@ -4954,7 +4880,7 @@ void do_channels( CHAR_DATA *ch, char *argument )
 	else if ( arg[0] == '-' ) fClear = FALSE;
 	else
 	{
-	    mxp_to_char( "Channels -channel or +channel?\n\r", ch, MXP_ALL );
+	    send_to_char( "Channels -channel or +channel?\n\r", ch );
 	    return;
 	}
 
@@ -4991,7 +4917,7 @@ void do_channels( CHAR_DATA *ch, char *argument )
 	else if ( !str_cmp( arg+1, "all"      ) ) ClearAll = TRUE;
 	else
 	{
-	    mxp_to_char( "Set or clear which channel?\n\r", ch, MXP_ALL );
+	    send_to_char( "Set or clear which channel?\n\r", ch );
 	    return;
 	}
 
@@ -5063,7 +4989,7 @@ void do_channels( CHAR_DATA *ch, char *argument )
 	    xSET_BIT    (ch->deaf, bit);
          }
 
-	  mxp_to_char( "Ok.\n\r", ch, MXP_ALL );
+	  send_to_char( "Ok.\n\r", ch );
     }
 
     return;
@@ -5106,11 +5032,11 @@ void do_config( CHAR_DATA *ch, char *argument )
     if ( arg[0] == '\0' )
     {
       set_char_color( AT_DGREEN, ch );
-      mxp_to_char( "\n\rConfigurations ", ch, MXP_ALL );
+      send_to_char( "\n\rConfigurations ", ch );
       set_char_color( AT_GREEN, ch );
-      mxp_to_char( "(use 'config +/- <keyword>' to toggle, see 'help config')\n\r\n\r", ch, MXP_ALL );
+      send_to_char( "(use 'config +/- <keyword>' to toggle, see 'help config')\n\r\n\r", ch );
       set_char_color( AT_DGREEN, ch );
-      mxp_to_char( "Display:   ", ch, MXP_ALL );
+      send_to_char( "Display:   ", ch );
       set_char_color( AT_GREY, ch );
       ch_printf( ch, "%-12s   %-12s   %-12s   %-12s\n\r           %-12s   %-12s   %-12s   %-12s\n\r           %-12s",
         IS_SET( ch->pcdata->flags, PCFLAG_PAGERON ) 	? "[+] PAGER"
@@ -5129,10 +5055,10 @@ void do_config( CHAR_DATA *ch, char *argument )
                                                     	: "[-] ansi",
         xIS_SET(ch->act, PLR_RIP )                  	? "[+] RIP"
                                                     	: "[-] rip",
-	xIS_SET(ch->act, PLR_COMPASS )			? "[+] COMPASS"
-							: "[-] compass" );
+	  xIS_SET(ch->act, PLR_COMPASS )			? "[+] COMPASS"
+									: "[-] compass" );
       set_char_color( AT_DGREEN, ch );
-      mxp_to_char( "\n\r\n\rAuto:      ", ch, MXP_ALL );
+      send_to_char( "\n\r\n\rAuto:      ", ch );
       set_char_color( AT_GREY, ch );
       ch_printf( ch, "%-12s   %-12s   %-12s   %-12s",
         xIS_SET(ch->act, PLR_AUTOSAC  )             	? "[+] AUTOSAC"
@@ -5145,7 +5071,7 @@ void do_config( CHAR_DATA *ch, char *argument )
                                                     	: "[-] autoexit" );
  
       set_char_color( AT_DGREEN, ch );
-      mxp_to_char( "\n\r\n\rSafeties:  ", ch, MXP_ALL );
+      send_to_char( "\n\r\n\rSafeties:  ", ch );
       set_char_color( AT_GREY, ch );
       ch_printf( ch, "%-12s   %-12s",
         IS_SET( ch->pcdata->flags, PCFLAG_NORECALL ) 	? "[+] NORECALL"
@@ -5165,17 +5091,11 @@ void do_config( CHAR_DATA *ch, char *argument )
 							: "[-] noexp" );
  
       set_char_color( AT_DGREEN, ch );
-      mxp_to_char( "\n\r\n\rMisc:      ", ch, MXP_ALL );
+      send_to_char( "\n\r\n\rMisc:      ", ch );
       set_char_color( AT_GREY, ch );
       ch_printf( ch, "%-12s   %-12s   %-12s   %-12s",
 	   xIS_SET(ch->act, PLR_TELNET_GA )		? "[+] TELNETGA"
                                                         : "[-] telnetga",
-	   xIS_SET(ch->act, PLR_MXP )			? "[+] MXP"
-                                                        : "[-] mxp",
-	   xIS_SET(ch->act, PLR_MSSP )			? "[+] MSSP"
-                                                        : "[-] mssp",
-	   xIS_SET(ch->act, PLR_MCCP )			? "[+] MCCP"
-                                                        : "[-] mccp",
            IS_SET( ch->pcdata->flags, PCFLAG_GROUPWHO ) ? "[+] GROUPWHO"
                                                         : "[-] groupwho",
            IS_SET( ch->pcdata->flags, PCFLAG_NOINTRO )  ? "[+] NOINTRO"
@@ -5184,7 +5104,7 @@ void do_config( CHAR_DATA *ch, char *argument )
 							: "[-] beckon" );
  
       set_char_color( AT_DGREEN, ch );
-      mxp_to_char( "\n\r\n\rSettings:  ", ch, MXP_ALL );
+      send_to_char( "\n\r\n\rSettings:  ", ch );
       set_char_color( AT_GREY, ch );
       ch_printf_color( ch, "Pager Length (%d)    Wimpy (&W%d&w)   Hints (%s)",
 							ch->pcdata->pagerlen,
@@ -5196,7 +5116,7 @@ void do_config( CHAR_DATA *ch, char *argument )
       if ( IS_IMMORTAL( ch ) )
       {
 	set_char_color( AT_DGREEN, ch );
-        mxp_to_char( "\n\r\n\rImmortal toggles:  ", ch, MXP_ALL );
+        send_to_char( "\n\r\n\rImmortal toggles:  ", ch );
         set_char_color( AT_GREY, ch );
         ch_printf( ch, "Roomvnum [%s]    Automap [%s]",
 	  xIS_SET(ch->act, PLR_ROOMVNUM ) 		? "+"
@@ -5206,7 +5126,7 @@ void do_config( CHAR_DATA *ch, char *argument )
       }
 
       set_char_color( AT_DGREEN, ch );
-      mxp_to_char( "\n\r\n\rSentences imposed on you (if any):", ch, MXP_ALL );
+      send_to_char( "\n\r\n\rSentences imposed on you (if any):", ch );
       set_char_color( AT_YELLOW, ch );
       ch_printf( ch, "\n\r%s%s%s%s%s%s%s%s",
           xIS_SET(ch->act, PLR_SILENCE )  ?
@@ -5235,7 +5155,7 @@ void do_config( CHAR_DATA *ch, char *argument )
 	else if ( arg[0] == '-' ) fSet = FALSE;
 	else
 	{
-	    mxp_to_char( "Config -option or +option?\n\r", ch, MXP_ALL );
+	    send_to_char( "Config -option or +option?\n\r", ch );
 	    return;
 	}
 
@@ -5248,9 +5168,6 @@ void do_config( CHAR_DATA *ch, char *argument )
 	else if ( !str_prefix( arg+1, "combine"  ) ) bit = PLR_COMBINE;
 	else if ( !str_prefix( arg+1, "prompt"   ) ) bit = PLR_PROMPT;
 	else if ( !str_prefix( arg+1, "telnetga" ) ) bit = PLR_TELNET_GA;
-	else if ( !str_prefix( arg+1, "mxp" 	 ) ) bit = PLR_MXP;
-	else if ( !str_prefix( arg+1, "mssp" 	 ) ) bit = PLR_MSSP;
-	else if ( !str_prefix( arg+1, "mccp" 	 ) ) bit = PLR_MCCP;
 	else if ( !str_prefix( arg+1, "ansi"     ) ) bit = PLR_ANSI;
 	else if ( !str_prefix( arg+1, "compass"  ) ) bit = PLR_COMPASS;
 	else if ( !str_prefix( arg+1, "rip"      ) ) bit = PLR_RIP;
@@ -5269,7 +5186,7 @@ void do_config( CHAR_DATA *ch, char *argument )
 		|| bit == PLR_SHOVEDRAG )
 	  &&  IS_SET( ch->pcdata->flags, PCFLAG_DEADLY ) )
           {
-	    mxp_to_char( "Pkill characters can not config that option.\n\r", ch, MXP_ALL );
+	    send_to_char( "Pkill characters can not config that option.\n\r", ch );
 	    return;
           }
           
@@ -5277,7 +5194,7 @@ void do_config( CHAR_DATA *ch, char *argument )
 	    xSET_BIT   (ch->act, bit);
 	  else
 	    xREMOVE_BIT(ch->act, bit);
-	  mxp_to_char( "Ok.\n\r", ch, MXP_ALL );
+	  send_to_char( "Ok.\n\r", ch );
           return;
         }
         else
@@ -5294,7 +5211,7 @@ void do_config( CHAR_DATA *ch, char *argument )
 	  else if ( !str_prefix( arg+1, "@hgflag_" ) ) bit = PCFLAG_HIGHGAG;
           else
 	  {
-	    mxp_to_char( "Config which option?\n\r", ch, MXP_ALL );
+	    send_to_char( "Config which option?\n\r", ch );
 	    return;
    	  }
 	  if (bit)
@@ -5302,7 +5219,7 @@ void do_config( CHAR_DATA *ch, char *argument )
             if ( ( bit == PCFLAG_NOSUMMON )
             &&     IS_SET( ch->pcdata->flags, PCFLAG_DEADLY ) )
             {
-              mxp_to_char( "Pkill characters can not config that option.\n\r", ch, MXP_ALL );
+              send_to_char( "Pkill characters can not config that option.\n\r", ch );
               return;
             }
 
@@ -5311,7 +5228,7 @@ void do_config( CHAR_DATA *ch, char *argument )
   	    else
   	      REMOVE_BIT (ch->pcdata->flags, bit);
 
-	    mxp_to_char( "Ok.\n\r", ch, MXP_ALL );
+	    send_to_char( "Ok.\n\r", ch );
             return;
 	  }
         }
@@ -5441,7 +5358,7 @@ void do_areas( CHAR_DATA *ch, char *argument )
          }
        }
 
-           mxp_to_char("Area may only be followed by numbers, 'old', or an area name.\n\r", ch, MXP_ALL );
+           send_to_char("Area may only be followed by numbers, 'old', or an area name.\n\r", ch);
            return;
       }
                                  
@@ -5454,7 +5371,7 @@ void do_areas( CHAR_DATA *ch, char *argument )
       {
         if(!is_number(arg))
         {
-          mxp_to_char("Area may only be followed by numbers.\n\r", ch, MXP_ALL );
+          send_to_char("Area may only be followed by numbers.\n\r", ch);
           return;
         }
                                 
@@ -5463,7 +5380,7 @@ void do_areas( CHAR_DATA *ch, char *argument )
         argument = one_argument(argument,arg);
         if(arg[0] != '\0')
         {
-          mxp_to_char("Only two level numbers allowed.\n\r",ch, MXP_ALL );
+          send_to_char("Only two level numbers allowed.\n\r",ch);
           return;
         }
       }
@@ -5504,15 +5421,15 @@ void do_afk( CHAR_DATA *ch, char *argument )
      if xIS_SET(ch->act, PLR_AFK)
      {
     	xREMOVE_BIT(ch->act, PLR_AFK);
-			mxp_to_char( "You are no longer afk.\n\r", ch, MXP_ALL );
-			/*	act(AT_GREY,"$n is no longer afk.", ch, NULL, NULL, TO_ROOM);*/
-			act(AT_GREY,"$n is no longer afk.", ch, NULL, NULL, TO_CANSEE);
+	send_to_char( "You are no longer afk.\n\r", ch );
+/*	act(AT_GREY,"$n is no longer afk.", ch, NULL, NULL, TO_ROOM);*/
+	act(AT_GREY,"$n is no longer afk.", ch, NULL, NULL, TO_CANSEE);
      }
      else
      {
-			xSET_BIT(ch->act, PLR_AFK);
-			mxp_to_char( "You are now afk.\n\r", ch, MXP_ALL );
-	/*	act(AT_GREY,"$n is now afk.", ch, NULL, NULL, TO_ROOM);*/
+	xSET_BIT(ch->act, PLR_AFK);
+	send_to_char( "You are now afk.\n\r", ch );
+/*	act(AT_GREY,"$n is now afk.", ch, NULL, NULL, TO_ROOM);*/
 	act(AT_GREY,"$n is now afk.", ch, NULL, NULL, TO_CANSEE);
 	return;
      }
@@ -5932,7 +5849,7 @@ void do_pager( CHAR_DATA *ch, char *argument )
   {
     if ( IS_SET(ch->pcdata->flags, PCFLAG_PAGERON) )
     {
-        mxp_to_char( "Pager disabled.\n\r", ch, MXP_ALL );
+        send_to_char( "Pager disabled.\n\r", ch );
         do_config(ch, "-pager");
     } else {
         ch_printf( ch, "Pager is now enabled at %d lines.\n\r", ch->pcdata->pagerlen );
@@ -5942,7 +5859,7 @@ void do_pager( CHAR_DATA *ch, char *argument )
   }
   if ( !is_number(arg) )
   {
-    mxp_to_char( "Set page pausing to how many lines?\n\r", ch, MXP_ALL );
+    send_to_char( "Set page pausing to how many lines?\n\r", ch );
     return;
   }
   ch->pcdata->pagerlen = atoi(arg);

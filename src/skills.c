@@ -1,44 +1,27 @@
-/*
-                     R E A L M S    O F    D E S P A I R  !
-   ___________________________________________________________________________
-  //            /                                                            \\
- [|_____________\   ********   *        *   ********   *        *   *******   |]
- [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
- [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
- [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
- [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
- [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
- [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
- [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
- [|_____________\  **********  **      **  **      **  **********  *********  |]
- [|             /  *********   *        *  *        *   ********    *******   |]
-  \\____________\____________________________________________________________//
-     |                                                                     |
-     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
-     |_____________________________________________________________________|
-     |                                                                     |
-     |                    -*- Player Skills Module -*-                     |
-     |_____________________________________________________________________|
-    //                                                                     \\
-   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
-   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
-   [|                                                                       |]
-   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
-   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
-   [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
-    \\_____________________________________________________________________//
-*/
-
+/****************************************************************************
+ * [S]imulated [M]edieval [A]dventure multi[U]ser [G]ame      |   \\._.//   *
+ * -----------------------------------------------------------|   (0...0)   *
+ * SMAUG 1.4 (C) 1994, 1995, 1996, 1998  by Derek Snider      |    ).:.(    *
+ * -----------------------------------------------------------|    {o o}    *
+ * SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,      |   / ' ' \   *
+ * Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,      |~'~.VxvxV.~'~*
+ * Tricops, Fireblade, Edmond, Conran                         |             *
+ * ------------------------------------------------------------------------ *
+ * Merc 2.1 Diku Mud improvments copyright (C) 1992, 1993 by Michael        *
+ * Chastain, Michael Quan, and Mitchell Tse.                                *
+ * Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,          *
+ * Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.     *
+ * ------------------------------------------------------------------------ *
+ *			     Player skills module			    *
+ ****************************************************************************/
 
 #include <sys/types.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-
 #include "mud.h"
+
+
 
 extern  char *  const           sec_flags[];
 extern	int			get_secflag( char *flag );
@@ -82,7 +65,7 @@ char * const target_type[] =
 
 void show_char_to_char( CHAR_DATA *list, CHAR_DATA *ch );
 void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, 
-	bool fShowN,  const int iDefaultAction );
+	bool fShowN );
 
 int ris_save( CHAR_DATA *ch, int chance, int ris );
 bool check_illegal_psteal( CHAR_DATA *ch, CHAR_DATA *victim );
@@ -5108,7 +5091,7 @@ void do_scan( CHAR_DATA *ch, char *argument )
 	else
 	  send_to_char( ch->in_room->name, ch );
 	send_to_char( "\n\r", ch );
-	show_list_to_char( ch->in_room->first_content, ch, FALSE, FALSE, eItemNothing );
+	show_list_to_char( ch->in_room->first_content, ch, FALSE, FALSE );
 	show_char_to_char( ch->in_room->first_person, ch );
 
 	switch( ch->in_room->sector_type )

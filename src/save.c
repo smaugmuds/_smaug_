@@ -1,37 +1,19 @@
-/*
-                     R E A L M S    O F    D E S P A I R  !
-   ___________________________________________________________________________
-  //            /                                                            \\
- [|_____________\   ********   *        *   ********   *        *   *******   |]
- [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
- [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
- [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
- [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
- [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
- [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
- [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
- [|_____________\  **********  **      **  **      **  **********  *********  |]
- [|             /  *********   *        *  *        *   ********    *******   |]
-  \\____________\____________________________________________________________//
-     |                                                                     |
-     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
-     |_____________________________________________________________________|
-     |                                                                     |
-     |             -*- Character saving and loading Module -*-             |
-     |_____________________________________________________________________|
-    //                                                                     \\
-   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
-   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
-   [|                                                                       |]
-   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
-   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
-   [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
-    \\_____________________________________________________________________//
-*/
-
+/****************************************************************************
+ * [S]imulated [M]edieval [A]dventure multi[U]ser [G]ame      |   \\._.//   *
+ * -----------------------------------------------------------|   (0...0)   *
+ * SMAUG 1.4 (C) 1994, 1995, 1996, 1998  by Derek Snider      |    ).:.(    *
+ * -----------------------------------------------------------|    {o o}    *
+ * SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,      |   / ' ' \   *
+ * Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,      |~'~.VxvxV.~'~*
+ * Tricops, Fireblade, Edmond, Conran                         |             *
+ * ------------------------------------------------------------------------ *
+ * Merc 2.1 Diku Mud improvments copyright (C) 1992, 1993 by Michael        *
+ * Chastain, Michael Quan, and Mitchell Tse.                                *
+ * Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,          *
+ * Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.     *
+ * ------------------------------------------------------------------------ *
+ *		     Character saving and loading module		    *
+ ****************************************************************************/
 
 #include <sys/types.h>
 #include <ctype.h>
@@ -39,11 +21,9 @@
 #include <string.h>
 #include <time.h>
 #include <sys/stat.h>
-
 #ifndef WIN32
   #include <dirent.h>
 #endif
-
 #include "mud.h"
 
 
@@ -406,13 +386,13 @@ void fwrite_char( CHAR_DATA *ch, FILE *fp )
       fprintf( fp, "Wimpy        %d\n",	ch->wimpy		);
     if ( !xIS_EMPTY( ch->deaf ) )
       fprintf( fp, "Deaf         %s\n",	print_bitvector (&ch->deaf) );
-/*    if ( ch->pcdata->imc_deaf )
+    if ( ch->pcdata->imc_deaf )
       fprintf( fp, "IMC          %ld\n", ch->pcdata->imc_deaf );
     if ( ch->pcdata->imc_allow )
       fprintf( fp, "IMCAllow     %ld\n", ch->pcdata->imc_allow );
     if ( ch->pcdata->imc_deny )
       fprintf( fp, "IMCDeny      %ld\n", ch->pcdata->imc_deny );
-    fprintf(fp, "ICEListen %s~\n", ch->pcdata->ice_listen); */
+    fprintf(fp, "ICEListen %s~\n", ch->pcdata->ice_listen);
     if ( ch->resistant )
       fprintf( fp, "Resistant    %d\n",	ch->resistant		);
     if ( ch->no_resistant )
@@ -888,13 +868,10 @@ bool load_char_obj( DESCRIPTOR_DATA *d, char *name, bool preload )
     ch->pcdata->lt_index		= 0;	/* last tell index */
     ch->morph                           = NULL;
     /* Set up defaults for imc stuff */
-/*
     ch->pcdata->imc_deaf		= 0;
     ch->pcdata->imc_deny		= 0;
     ch->pcdata->imc_allow		= 0;
     ch->pcdata->ice_listen		= NULL;
-*/
-
     for (i = 0; i < AT_MAXCOLOR; ++i)
       ch->pcdata->colorize[i] = -1;
     
@@ -1006,8 +983,8 @@ bool load_char_obj( DESCRIPTOR_DATA *d, char *name, bool preload )
 	strcpy(strArea, "$");
     }
 
-//    if ( ch->pcdata->ice_listen == NULL )
- //       ch->pcdata->ice_listen = str_dup("");
+    if ( ch->pcdata->ice_listen == NULL )
+        ch->pcdata->ice_listen = str_dup("");
 
     if ( !found )
     {
@@ -1520,12 +1497,10 @@ int fread_char( CHAR_DATA *ch, FILE *fp, bool preload )
 	    	break;
 	    }
 	    KEY( "IllegalPK",	ch->pcdata->illegal_pk,	fread_number( fp ) );
-/*
 	    KEY ( "IMC",	ch->pcdata->imc_deaf,	fread_number( fp ) );
 	    KEY ( "IMCAllow",	ch->pcdata->imc_allow,	fread_number( fp ) );
 	    KEY ( "IMCDeny",	ch->pcdata->imc_deny,	fread_number( fp ) );
 	    KEY ( "ICEListen",	ch->pcdata->ice_listen, fread_string_nohash( fp ) );
-*/
 	    KEY( "Immune",	ch->immune,		fread_number( fp ) );
 	    break;
 

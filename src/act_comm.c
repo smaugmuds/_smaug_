@@ -37,11 +37,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-
 #ifdef FREEBSD
 	#include <unistd.h>
 #endif
-
 #include "mud.h"
 
 #ifndef WIN32
@@ -390,31 +388,30 @@ void talk_channel( CHAR_DATA *ch, char *argument, int channel, const char *verb 
 
     if ( IS_NPC( ch ) && channel == CHANNEL_CLAN )
     {
-	// mxp_to_char( "Mobs can't be in clans.\n\r", ch );
-	mxp_to_char( "Mobs can't be in clans.\n\r", ch, MXP_ALL );
+	send_to_char( "Mobs can't be in clans.\n\r", ch );
 	return;
     }
     if ( IS_NPC( ch ) && channel == CHANNEL_ORDER )
     {
-	mxp_to_char( "Mobs can't be in orders.\n\r", ch, MXP_ALL );
+	send_to_char( "Mobs can't be in orders.\n\r", ch );
 	return;
     }
 
     if ( IS_NPC( ch ) && channel == CHANNEL_COUNCIL )
     {
-	mxp_to_char( "Mobs can't be in councils.\n\r", ch, MXP_ALL);
+	send_to_char( "Mobs can't be in councils.\n\r", ch);
 	return;
     }
 
     if ( IS_NPC( ch ) && channel == CHANNEL_GUILD )
     {
-        mxp_to_char( "Mobs can't be in guilds.\n\r", ch, MXP_ALL );
+        send_to_char( "Mobs can't be in guilds.\n\r", ch );
 	return;
     }
 
     if ( !IS_PKILL( ch ) && channel == CHANNEL_WARTALK )
     {
-	mxp_to_char( "Peacefuls have no need to use wartalk.\n\r", ch, MXP_ALL );
+	send_to_char( "Peacefuls have no need to use wartalk.\n\r", ch );
 	return;
     }
 
@@ -424,7 +421,7 @@ void talk_channel( CHAR_DATA *ch, char *argument, int channel, const char *verb 
     &&  !IS_IMMORTAL( ch )
     &&   channel != CHANNEL_NEWBIE )
     {
-	mxp_to_char( "Deadlies cannot use that channel right now.\n\r", ch, MXP_ALL );
+	send_to_char( "Deadlies cannot use that channel right now.\n\r", ch );
 	return;
     }
 */
@@ -438,7 +435,7 @@ void talk_channel( CHAR_DATA *ch, char *argument, int channel, const char *verb 
     &&   channel != CHANNEL_CLAN
     &&   channel != CHANNEL_COUNCIL )
     {
-	mxp_to_char( "Deadlies cannot use that channel right now.\n\r", ch, MXP_ALL );
+	send_to_char( "Deadlies cannot use that channel right now.\n\r", ch );
 	return;
     }
 */
@@ -448,7 +445,7 @@ void talk_channel( CHAR_DATA *ch, char *argument, int channel, const char *verb 
     &&   !IS_IMMORTAL( ch )
     &&   channel == CHANNEL_AVTALK )
     {
-        mxp_to_char( "Deadlies cannot use that channel.\n\r", ch, MXP_ALL );
+        send_to_char( "Deadlies cannot use that channel.\n\r", ch );
         return;
     }
 
@@ -456,21 +453,21 @@ void talk_channel( CHAR_DATA *ch, char *argument, int channel, const char *verb 
     if ( xIS_SET( ch->in_room->room_flags, ROOM_SILENCE )
     ||   IS_SET( ch->in_room->area->flags, AFLAG_SILENCE ) )
     {
-	mxp_to_char( "You can't do that here.\n\r", ch, MXP_ALL );
+	send_to_char( "You can't do that here.\n\r", ch );
 	return;
     }
 
     if ( channel == CHANNEL_YELL
     &&  xIS_SET( ch->in_room->room_flags, ROOM_NOYELL ) )
     {
-        mxp_to_char( "You can't do that here.\n\r", ch, MXP_ALL );
+        send_to_char( "You can't do that here.\n\r", ch );
         return;
     }
     
     if ( IS_NPC( ch ) && IS_AFFECTED( ch, AFF_CHARM ) )
     {
       if ( ch->master )
-	mxp_to_char( "I don't think so...\n\r", ch->master, MXP_ALL );
+	send_to_char( "I don't think so...\n\r", ch->master );
       return;
     }
 
@@ -478,7 +475,7 @@ void talk_channel( CHAR_DATA *ch, char *argument, int channel, const char *verb 
     {
 	sprintf( buf, "%s what?\n\r", verb );
 	buf[0] = UPPER(buf[0]);
-	mxp_to_char( buf, ch, MXP_ALL );	/* where'd this line go? */
+	send_to_char( buf, ch );	/* where'd this line go? */
 	return;
     }
 
@@ -879,7 +876,7 @@ void do_chat( CHAR_DATA *ch, char *argument )
 {
     if (NOT_AUTHED(ch))
     {
-      mxp_to_char("Huh?\n\r", ch, MXP_ALL );
+      send_to_char("Huh?\n\r", ch);
       return;
     }
     talk_channel( ch, argument, CHANNEL_CHAT, "chat" );
@@ -890,7 +887,7 @@ void do_clantalk( CHAR_DATA *ch, char *argument )
 {
     if (NOT_AUTHED(ch))
     {
-      mxp_to_char("Huh?\n\r", ch, MXP_ALL);
+      send_to_char("Huh?\n\r", ch);
       return;
     }
 
@@ -898,7 +895,7 @@ void do_clantalk( CHAR_DATA *ch, char *argument )
     ||   ch->pcdata->clan->clan_type == CLAN_ORDER
     ||   ch->pcdata->clan->clan_type == CLAN_GUILD )
     {
-	mxp_to_char( "Huh?\n\r", ch, MXP_ALL );
+	send_to_char( "Huh?\n\r", ch );
 	return;
     }
     talk_channel( ch, argument, CHANNEL_CLAN, "clantalk" );
@@ -912,7 +909,7 @@ void do_newbiechat( CHAR_DATA *ch, char *argument )
        && !( ch->pcdata->council && 
           !str_cmp( ch->pcdata->council->name, "Newbie Council" ) ) ) )
     {
-        mxp_to_char( "Huh?\n\r", ch, MXP_ALL );
+        send_to_char( "Huh?\n\r", ch );
         return;
     }
     talk_channel( ch, argument, CHANNEL_NEWBIE, "newbiechat" );
@@ -928,14 +925,14 @@ void do_ordertalk( CHAR_DATA *ch, char *argument )
 {
     if (NOT_AUTHED(ch))
     {
-      mxp_to_char("Huh?\n\r", ch, MXP_ALL);
+      send_to_char("Huh?\n\r", ch);
       return;
     }
 
     if ( IS_NPC( ch ) || !ch->pcdata->clan 
          || ch->pcdata->clan->clan_type != CLAN_ORDER )
     {
-	mxp_to_char( "Huh?\n\r", ch, MXP_ALL );
+	send_to_char( "Huh?\n\r", ch );
 	return;
     }
     talk_channel( ch, argument, CHANNEL_ORDER, "ordertalk" );
@@ -946,13 +943,13 @@ void do_counciltalk( CHAR_DATA *ch, char *argument )
 {
     if (NOT_AUTHED(ch))
     {
-      mxp_to_char("Huh?\n\r", ch, MXP_ALL);
+      send_to_char("Huh?\n\r", ch);
       return;
     }
 
     if ( IS_NPC( ch ) || !ch->pcdata->council )
     {
-	mxp_to_char( "Huh?\n\r", ch, MXP_ALL );
+	send_to_char( "Huh?\n\r", ch );
 	return;
     }
     talk_channel( ch, argument, CHANNEL_COUNCIL, "counciltalk" );
@@ -963,13 +960,13 @@ void do_guildtalk( CHAR_DATA *ch, char *argument )
 {
     if (NOT_AUTHED(ch))
     {
-      mxp_to_char("Huh?\n\r", ch, MXP_ALL);
+      send_to_char("Huh?\n\r", ch);
       return;
     }
 
     if ( IS_NPC( ch ) || !ch->pcdata->clan || ch->pcdata->clan->clan_type != CLAN_GUILD )
     {
-	mxp_to_char( "Huh?\n\r", ch, MXP_ALL );
+	send_to_char( "Huh?\n\r", ch );
 	return;
     }
     talk_channel( ch, argument, CHANNEL_GUILD, "guildtalk" );
@@ -980,7 +977,7 @@ void do_music( CHAR_DATA *ch, char *argument )
 {
     if (NOT_AUTHED(ch))
     {
-      mxp_to_char("Huh?\n\r", ch, MXP_ALL);
+      send_to_char("Huh?\n\r", ch);
       return;
     }
     talk_channel( ch, argument, CHANNEL_MUSIC, "music" );
@@ -992,7 +989,7 @@ void do_quest( CHAR_DATA *ch, char *argument )
 {
     if (NOT_AUTHED(ch))
     {
-      mxp_to_char("Huh?\n\r", ch, MXP_ALL);
+      send_to_char("Huh?\n\r", ch);
       return;
     }
     talk_channel( ch, argument, CHANNEL_QUEST, "quest" );
@@ -1003,7 +1000,7 @@ void do_ask( CHAR_DATA *ch, char *argument )
 {
     if (NOT_AUTHED(ch))
     {
-      mxp_to_char("Huh?\n\r", ch, MXP_ALL);
+      send_to_char("Huh?\n\r", ch);
       return;
     }
     talk_channel( ch, argument, CHANNEL_ASK, "ask" );
@@ -1016,7 +1013,7 @@ void do_answer( CHAR_DATA *ch, char *argument )
 {
     if (NOT_AUTHED(ch))
     {
-      mxp_to_char("Huh?\n\r", ch, MXP_ALL);
+      send_to_char("Huh?\n\r", ch);
       return;
     }
     talk_channel( ch, argument, CHANNEL_ASK, "answer" );
@@ -1098,7 +1095,7 @@ void do_say_to( CHAR_DATA *ch, char *argument )
       ch_printf(ch, "That player is AFK, but will recieve your message.\n\r");
     else
     {
-      mxp_to_char("That player is afk.\n\r", ch, MXP_ALL);
+      send_to_char("That player is afk.\n\r", ch);
       return;
     }
   }
@@ -1241,7 +1238,7 @@ void do_shout( CHAR_DATA *ch, char *argument )
 {
     if (NOT_AUTHED(ch))
     {
-      mxp_to_char("Huh?\n\r", ch, MXP_ALL);
+      send_to_char("Huh?\n\r", ch);
       return;
     }
   talk_channel( ch, drunk_speech( argument, ch ), CHANNEL_SHOUT, "shout" );
@@ -1255,7 +1252,7 @@ void do_yell( CHAR_DATA *ch, char *argument )
 {
     if (NOT_AUTHED(ch))
     {
-      mxp_to_char("Huh?\n\r", ch, MXP_ALL);
+      send_to_char("Huh?\n\r", ch);
       return;
     }
   talk_channel( ch, drunk_speech( argument, ch ), CHANNEL_YELL, "yell" );
@@ -1268,7 +1265,7 @@ void do_immtalk( CHAR_DATA *ch, char *argument )
 {
     if (NOT_AUTHED(ch))
     {
-      mxp_to_char("Huh?\n\r", ch, MXP_ALL);
+      send_to_char("Huh?\n\r", ch);
       return;
     }
 
@@ -1281,7 +1278,7 @@ void do_muse( CHAR_DATA *ch, char *argument )
 {
     if (NOT_AUTHED(ch))
     {
-      mxp_to_char("Huh?\n\r", ch, MXP_ALL);
+      send_to_char("Huh?\n\r", ch);
       return;
     }
     talk_channel( ch, argument, CHANNEL_HIGHGOD, "muse" );
@@ -1292,12 +1289,12 @@ void do_retiredtalk( CHAR_DATA *ch, char *argument )
 {
     if (NOT_AUTHED(ch) || IS_NPC(ch) )
     {
-      mxp_to_char("Huh?\n\r", ch, MXP_ALL);
+      send_to_char("Huh?\n\r", ch);
       return;
     }
     if ( !IS_IMMORTAL(ch)  && !IS_SET(ch->pcdata->flags, PCFLAG_RETIRED) )
     {
-      mxp_to_char("Huh?\n\r", ch, MXP_ALL );
+      send_to_char("Huh?\n\r", ch );
       return;
     }
     talk_channel( ch, argument, CHANNEL_RETIRED, "retired" );
@@ -1308,7 +1305,7 @@ void do_think( CHAR_DATA *ch, char *argument )
 {
     if (NOT_AUTHED(ch))
     {
-      mxp_to_char("Huh?\n\r", ch, MXP_ALL);
+      send_to_char("Huh?\n\r", ch);
       return;
     }
     talk_channel( ch, argument, CHANNEL_HIGH, "think" );
@@ -1320,7 +1317,7 @@ void do_avtalk( CHAR_DATA *ch, char *argument )
 {
     if (NOT_AUTHED(ch))
     {
-      mxp_to_char("Huh?\n\r", ch, MXP_ALL);
+      send_to_char("Huh?\n\r", ch);
       return;
     }
 
@@ -1348,7 +1345,7 @@ void do_say( CHAR_DATA *ch, char *argument )
 
     if ( argument[0] == '\0' )
     {
-    mxp_to_char( "Say what?\n\r", ch, MXP_ALL );
+    send_to_char( "Say what?\n\r", ch );
     return;
     }
 
@@ -1362,7 +1359,7 @@ void do_say( CHAR_DATA *ch, char *argument )
     if ( xIS_SET( ch->in_room->room_flags, ROOM_SILENCE )
     ||   IS_SET( ch->in_room->area->flags, AFLAG_SILENCE ) )
     {
-    mxp_to_char( "You can't do that here.\n\r", ch, MXP_ALL );
+    send_to_char( "You can't do that here.\n\r", ch );
     return;
     }
 
@@ -1474,7 +1471,7 @@ void do_whisper( CHAR_DATA *ch, char *argument )
     if ( xIS_SET( ch->in_room->room_flags, ROOM_SILENCE )
     ||   IS_SET( ch->in_room->area->flags, AFLAG_SILENCE ) )
     {
-        mxp_to_char( "You can't do that here.\n\r", ch, MXP_ALL );
+        send_to_char( "You can't do that here.\n\r", ch );
         return;
     }
           
@@ -1482,37 +1479,37 @@ void do_whisper( CHAR_DATA *ch, char *argument )
 
     if ( arg[0] == '\0' || argument[0] == '\0' )
     {
-	mxp_to_char( "Whisper to whom what?\n\r", ch, MXP_ALL );
+	send_to_char( "Whisper to whom what?\n\r", ch );
 	return;
     }
 
 
     if ( (victim = get_char_room( ch, arg ) ) == NULL )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
 
     if ( ch == victim )
     {
-	mxp_to_char( "You have a nice little chat with yourself.\n\r", ch, MXP_ALL );
+	send_to_char( "You have a nice little chat with yourself.\n\r", ch );
 	return;
     }
 
     if ( !IS_NPC( victim ) && ( victim->switched ) 
 	&& !IS_AFFECTED(victim->switched, AFF_POSSESS) )
     {
-      mxp_to_char( "That player is switched.\n\r", ch, MXP_ALL );
+      send_to_char( "That player is switched.\n\r", ch );
       return;
     }
    else if ( !IS_NPC( victim ) && ( !victim->desc ) )
     {
-      mxp_to_char( "That player is link-dead.\n\r", ch, MXP_ALL );
+      send_to_char( "That player is link-dead.\n\r", ch );
       return;
     }
     if ( !IS_NPC(victim) && xIS_SET(victim->act, PLR_AFK) )
       {
-      mxp_to_char( "That player is afk.\n\r", ch, MXP_ALL );
+      send_to_char( "That player is afk.\n\r", ch );
       return;
       }
     if ( xIS_SET( victim->deaf, CHANNEL_WHISPER ) 
@@ -1523,7 +1520,7 @@ void do_whisper( CHAR_DATA *ch, char *argument )
       return;
     }
     if ( !IS_NPC(victim) &&  xIS_SET(victim->act, PLR_SILENCE) )
-	mxp_to_char( "That player is silenced.  They will receive your message but can not respond.\n\r", ch, MXP_ALL );
+	send_to_char( "That player is silenced.  They will receive your message but can not respond.\n\r", ch );
 
     if ( victim->desc		/* make sure desc exists first  -Thoric */
     &&   victim->desc->connected == CON_EDITING 
@@ -1702,7 +1699,7 @@ void do_tell( CHAR_DATA *ch, char *argument )
     if ( xIS_SET( ch->in_room->room_flags, ROOM_SILENCE )
     ||   IS_SET( ch->in_room->area->flags, AFLAG_SILENCE ) )
     {
-	mxp_to_char( "You can't do that here.\n\r", ch, MXP_ALL );
+	send_to_char( "You can't do that here.\n\r", ch );
 	return;
     }
 
@@ -1710,7 +1707,7 @@ void do_tell( CHAR_DATA *ch, char *argument )
     && ( xIS_SET(ch->act, PLR_SILENCE)
     ||   xIS_SET(ch->act, PLR_NO_TELL) ) )
     {
-	mxp_to_char( "You can't do that.\n\r", ch, MXP_ALL );
+	send_to_char( "You can't do that.\n\r", ch );
 	return;
     }
 
@@ -1718,7 +1715,7 @@ void do_tell( CHAR_DATA *ch, char *argument )
 
     if ( arg[0] == '\0' || argument[0] == '\0' )
     {
-	mxp_to_char( "Tell whom what?\n\r", ch, MXP_ALL );
+	send_to_char( "Tell whom what?\n\r", ch );
 	return;
     }
 
@@ -1726,19 +1723,19 @@ void do_tell( CHAR_DATA *ch, char *argument )
        || ( IS_NPC(victim) && victim->in_room != ch->in_room ) 
        || (!NOT_AUTHED(ch) && NOT_AUTHED(victim) && !IS_IMMORTAL(ch) ) )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
 
     if ( ch == victim )
     {
-	mxp_to_char( "You have a nice little chat with yourself.\n\r", ch, MXP_ALL );
+	send_to_char( "You have a nice little chat with yourself.\n\r", ch );
 	return;
     }
 
     if (NOT_AUTHED(ch) && !NOT_AUTHED(victim) && !IS_IMMORTAL(victim) )
     {
-	mxp_to_char( "They can't hear you because you are not authorized.\n\r", ch, MXP_ALL);
+	send_to_char( "They can't hear you because you are not authorized.\n\r", ch);
 	return;
     }
 
@@ -1746,7 +1743,7 @@ void do_tell( CHAR_DATA *ch, char *argument )
 	&& ( get_trust( ch ) > LEVEL_AVATAR ) 
 	&& !IS_AFFECTED(victim->switched, AFF_POSSESS) )
     {
-      mxp_to_char( "That player is switched.\n\r", ch, MXP_ALL );
+      send_to_char( "That player is switched.\n\r", ch );
       return;
     }
 
@@ -1756,17 +1753,17 @@ void do_tell( CHAR_DATA *ch, char *argument )
 
    else if ( !IS_NPC( victim ) && ( !victim->desc ) )
     {
-      mxp_to_char( "That player is link-dead.\n\r", ch, MXP_ALL );
+      send_to_char( "That player is link-dead.\n\r", ch );
       return;
     }
 
     if ( !IS_NPC( victim ) && xIS_SET( victim->act, PLR_AFK ) )
     {
 	if ( IS_IMMORTAL( ch ) )
-	  mxp_to_char( "That player is AFK, but will receive your message.\n\r", ch, MXP_ALL );
+	  send_to_char( "That player is AFK, but will receive your message.\n\r", ch );
         else
 	{
-	  mxp_to_char( "That player is afk.\n\r", ch, MXP_ALL );
+	  send_to_char( "That player is afk.\n\r", ch );
 	  return;
 	}
     }
@@ -1780,7 +1777,7 @@ void do_tell( CHAR_DATA *ch, char *argument )
     }
 
     if ( !IS_NPC(victim) && xIS_SET(victim->act, PLR_SILENCE) )
-	mxp_to_char( "That player is silenced.  They will receive your message but can not respond.\n\r", ch, MXP_ALL );
+	send_to_char( "That player is silenced.  They will receive your message but can not respond.\n\r", ch );
 
     if ( (!IS_IMMORTAL(ch) && !IS_AWAKE(victim) ) )
     {
@@ -1794,7 +1791,7 @@ void do_tell( CHAR_DATA *ch, char *argument )
     ||    IS_SET( victim->in_room->area->flags, AFLAG_SILENCE ) ) )
     {
 	if ( IS_IMMORTAL( ch ) )
-	  mxp_to_char( "That player is in a silent room, but will receive your message.\n\r", ch, MXP_ALL );
+	  send_to_char( "That player is in a silent room, but will receive your message.\n\r", ch );
 	else
 	{
 	  act( AT_PLAIN, "A magical force prevents your message from being heard.",
@@ -1881,15 +1878,12 @@ void do_tell( CHAR_DATA *ch, char *argument )
 			      knows_language(ch, ch->speaking, victim));
 
 	if ( speakswell < 85 )
-	    act( AT_TELL, MXPTAG ("player $n") "$n" MXPTAG ("/player") 
-          " tells you '$t'", ch, translate(speakswell, argument, lang_names[speaking]), victim, TO_VICT );
+	    act( AT_TELL, "$n tells you '$t'", ch, translate(speakswell, argument, lang_names[speaking]), victim, TO_VICT );
 	else
-	    act( AT_TELL, MXPTAG ("player $n") "$n" MXPTAG ("/player")
-          " tells you '$t'", ch, argument, victim, TO_VICT );
+	    act( AT_TELL, "$n tells you '$t'", ch, argument, victim, TO_VICT );
     }
     else
-	act( AT_TELL, MXPTAG ("player $n") "$n" MXPTAG ("/player")
-          " tells you '$t'", ch, argument, victim, TO_VICT );
+	act( AT_TELL, "$n tells you '$t'", ch, argument, victim, TO_VICT );
 
     MOBtrigger = TRUE;
     victim->position	= position;
@@ -1930,37 +1924,37 @@ void do_reply( CHAR_DATA *ch, char *argument )
     if ( xIS_SET( ch->in_room->room_flags, ROOM_SILENCE )
     ||   IS_SET( ch->in_room->area->flags, AFLAG_SILENCE ) )
     {
-	mxp_to_char( "You can't do that here.\n\r", ch, MXP_ALL );
+	send_to_char( "You can't do that here.\n\r", ch );
 	return;
     }
 
     if ( !IS_NPC(ch) && xIS_SET(ch->act, PLR_SILENCE) )
     {
-	mxp_to_char( "Your message didn't get through.\n\r", ch, MXP_ALL );
+	send_to_char( "Your message didn't get through.\n\r", ch );
 	return;
     }
 
     if ( ( victim = ch->reply ) == NULL )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
 
     if ( !IS_NPC( victim ) && ( victim->switched )
 	&& can_see( ch, victim ) && ( get_trust( ch ) > LEVEL_AVATAR ) )
     {
-      mxp_to_char( "That player is switched.\n\r", ch, MXP_ALL );
+      send_to_char( "That player is switched.\n\r", ch );
       return;
     }
    else if ( !IS_NPC( victim ) && ( !victim->desc ) )
     {
-      mxp_to_char( "That player is link-dead.\n\r", ch, MXP_ALL );
+      send_to_char( "That player is link-dead.\n\r", ch );
       return;
     }
 
     if ( !IS_NPC(victim) && xIS_SET(victim->act, PLR_AFK) )
     {
-	mxp_to_char( "That player is afk.\n\r", ch, MXP_ALL );
+	send_to_char( "That player is afk.\n\r", ch );
 	return;
     }
 
@@ -2108,14 +2102,14 @@ void do_retell(CHAR_DATA *ch, char *argument)
 	if ( xIS_SET( ch->in_room->room_flags, ROOM_SILENCE)
         ||   IS_SET( ch->in_room->area->flags, AFLAG_SILENCE ) )
 	{
-		mxp_to_char("You can't do that here.\n\r", ch, MXP_ALL);
+		send_to_char("You can't do that here.\n\r", ch);
 		return;
 	}
 	
 	if ( !IS_NPC(ch) && (xIS_SET(ch->act, PLR_SILENCE)
 	||   xIS_SET(ch->act, PLR_NO_TELL)) )
 	{
-		mxp_to_char("You can't do that.\n\r", ch, MXP_ALL);
+		send_to_char("You can't do that.\n\r", ch);
 		return;
 	}
 	
@@ -2129,7 +2123,7 @@ void do_retell(CHAR_DATA *ch, char *argument)
 	
 	if(!victim)
 	{
-		mxp_to_char("They aren't here.\n\r", ch, MXP_ALL);
+		send_to_char("They aren't here.\n\r", ch);
 		return;
 	}
 	
@@ -2137,7 +2131,7 @@ void do_retell(CHAR_DATA *ch, char *argument)
 		(get_trust(ch) > LEVEL_AVATAR) &&
 		!IS_AFFECTED(victim->switched, AFF_POSSESS))
 	{
-		mxp_to_char("That player is switched.\n\r", ch, MXP_ALL);
+		send_to_char("That player is switched.\n\r", ch);
 		return;
 	}
 	else if(!IS_NPC(victim) && (victim->switched) &&
@@ -2147,13 +2141,13 @@ void do_retell(CHAR_DATA *ch, char *argument)
 	}
 	else if(!IS_NPC(victim) &&(!victim->desc))
 	{
-		mxp_to_char("That player is link-dead.\n\r", ch, MXP_ALL);
+		send_to_char("That player is link-dead.\n\r", ch);
 		return;
 	}
 	
 	if(!IS_NPC(victim) && xIS_SET(victim->act, PLR_AFK) )
 	{
-		mxp_to_char("That player is afk.\n\r", ch, MXP_ALL);
+		send_to_char("That player is afk.\n\r", ch);
 		return;
 	}
 	
@@ -2166,7 +2160,7 @@ void do_retell(CHAR_DATA *ch, char *argument)
 	}
 	
 	if ( !IS_NPC(victim) && xIS_SET(victim->act, PLR_SILENCE) )
-		mxp_to_char("That player is silenced. They will receive your message, but can not respond.\n\r", ch, MXP_ALL);
+		send_to_char("That player is silenced. They will receive your message, but can not respond.\n\r", ch);
 	
 	if ( ( !IS_IMMORTAL(ch)
         &&     !IS_AWAKE(victim) )
@@ -2323,7 +2317,7 @@ void do_repeat(CHAR_DATA *ch, char *argument)
 	{
 		set_char_color(AT_TELL, ch);
 		/* Caught by Robert Haas, Smaug mailing list */
-		mxp_to_char( ch->pcdata->tell_history[index], ch, MXP_ALL );
+		send_to_char( ch->pcdata->tell_history[index], ch );
 	}
 	else
 	{
@@ -2353,13 +2347,13 @@ void do_emote( CHAR_DATA *ch, char *argument )
 
     if ( !IS_NPC(ch) && xIS_SET(ch->act, PLR_NO_EMOTE) )
     {
-	mxp_to_char( "You can't show your emotions.\n\r", ch, MXP_ALL);
+	send_to_char( "You can't show your emotions.\n\r", ch );
 	return;
     }
 
     if ( argument[0] == '\0' )
     {
-	mxp_to_char( "Emote what?\n\r", ch, MXP_ALL );
+	send_to_char( "Emote what?\n\r", ch );
 	return;
     }
 
@@ -2436,7 +2430,7 @@ void do_bug( CHAR_DATA *ch, char *argument )
 
     set_char_color( AT_PLAIN, ch );
     if ( argument[0] == '\0' ) {
-        mxp_to_char( "\n\rUsage:  'bug <message>'  (your location is automatically recorded)\n\r", ch, MXP_ALL );
+        send_to_char( "\n\rUsage:  'bug <message>'  (your location is automatically recorded)\n\r", ch );
         return;
     }
     
@@ -2445,14 +2439,14 @@ void do_bug( CHAR_DATA *ch, char *argument )
     {
       p = one_argument(p, arg);
       if ( str_cmp(arg, "now") )
-        mxp_to_char("Must specify 'clear now' to clear bug file.\n\r", ch, MXP_ALL);
+        send_to_char("Must specify 'clear now' to clear bug file.\n\r", ch);
       else
       {
         FILE *fp = fopen( PBUG_FILE, "w" );
         
         if (fp)
           fclose(fp);
-        mxp_to_char("Bug file cleared.\n\r", ch, MXP_ALL);
+        send_to_char("Bug file cleared.\n\r", ch);
         return;
       }
     }
@@ -2477,15 +2471,15 @@ void do_bug( CHAR_DATA *ch, char *argument )
     
     sprintf(buf, "(%-2.2d/%-2.2d):  %s", t->tm_mon+1, t->tm_mday, argument);
     append_file( ch, PBUG_FILE, buf );
-    mxp_to_char( "Thanks, your bug notice has been recorded.\n\r", ch, MXP_ALL );
+    send_to_char( "Thanks, your bug notice has been recorded.\n\r", ch );
     return;
 }
 
 void do_ide( CHAR_DATA *ch, char *argument )
 {
     set_char_color( AT_PLAIN, ch );
-    mxp_to_char("\n\rIf you want to send an idea, type 'idea <message>'.\n\r", ch, MXP_ALL);
-    mxp_to_char("If you want to identify an object, use the identify spell.\n\r", ch, MXP_ALL);
+    send_to_char("\n\rIf you want to send an idea, type 'idea <message>'.\n\r", ch);
+    send_to_char("If you want to identify an object, use the identify spell.\n\r", ch);
     return;
 }
 
@@ -2496,7 +2490,7 @@ void do_idea( CHAR_DATA *ch, char *argument )
     
     set_char_color( AT_PLAIN, ch );
     if ( argument[0] == '\0' ) {
-        mxp_to_char( "\n\rUsage:  'idea <message>'\n\r", ch, MXP_ALL );
+        send_to_char( "\n\rUsage:  'idea <message>'\n\r", ch );
         return;
     }
     p = one_argument(argument, arg);
@@ -2504,14 +2498,14 @@ void do_idea( CHAR_DATA *ch, char *argument )
     {
       p = one_argument(p, arg);
       if ( str_cmp(arg, "now") )
-        mxp_to_char("Must specify 'clear now' to clear idea file.\n\r", ch, MXP_ALL );
+        send_to_char("Must specify 'clear now' to clear idea file.\n\r", ch);
       else
       {
         FILE *fp = fopen( IDEA_FILE, "w" );
         
         if (fp)
           fclose(fp);
-        mxp_to_char("Idea file cleared.\n\r", ch, MXP_ALL);
+        send_to_char("Idea file cleared.\n\r", ch);
         return;
       }
     }
@@ -2535,7 +2529,7 @@ void do_idea( CHAR_DATA *ch, char *argument )
     }
     
     append_file( ch, IDEA_FILE, argument );
-    mxp_to_char( "Thanks, your idea has been recorded.\n\r", ch, MXP_ALL );
+    send_to_char( "Thanks, your idea has been recorded.\n\r", ch );
     return;
 }
 
@@ -2545,14 +2539,14 @@ void do_hintsubmit( CHAR_DATA *ch, char *argument )
     char *p;
     
     if ( IS_NPC(ch) ) {
-	mxp_to_char("Huh?\n\r", ch, MXP_ALL );
+	send_to_char("Huh?\n\r", ch );
 	return;
     }
     set_char_color( AT_PLAIN, ch );
     if ( argument[0] == '\0' ) {
-        mxp_to_char( "\n\rUsage:  'hintsubmit <message>'\n\r", ch, MXP_ALL );
+        send_to_char( "\n\rUsage:  'hintsubmit <message>'\n\r", ch );
 	if ( get_trust( ch ) >= LEVEL_DEMI )
-	  mxp_to_char( "Usage:  'hintsubmit list' or 'hintsubmit clear now'\n\r", ch, MXP_ALL );
+	  send_to_char( "Usage:  'hintsubmit list' or 'hintsubmit clear now'\n\r", ch );
         return;
     }
     p = one_argument(argument, arg);
@@ -2560,14 +2554,14 @@ void do_hintsubmit( CHAR_DATA *ch, char *argument )
     {
       p = one_argument(p, arg);
       if ( str_cmp(arg, "now") )
-        mxp_to_char("Must specify 'clear now' to clear hint submission file.\n\r", ch, MXP_ALL);
+        send_to_char("Must specify 'clear now' to clear hint submission file.\n\r", ch);
       else
       {
         FILE *fp = fopen( HINTSUB_FILE, "w" );
         
         if (fp)
           fclose(fp);
-        mxp_to_char("Hint submission file cleared.\n\r", ch, MXP_ALL);
+        send_to_char("Hint submission file cleared.\n\r", ch);
         return;
       }
     }
@@ -2591,15 +2585,15 @@ void do_hintsubmit( CHAR_DATA *ch, char *argument )
     }
     
     append_file( ch, HINTSUB_FILE, argument );
-    mxp_to_char( "Thanks, your hint submission has been recorded.\n\r", ch, MXP_ALL );
+    send_to_char( "Thanks, your hint submission has been recorded.\n\r", ch );
     return;
 }
 
 void do_typ( CHAR_DATA *ch, char *argument )
 {
     set_char_color( AT_PLAIN, ch );
-    mxp_to_char("\n\rIf you want to submit a typo, type 'typo <message>'.\n\r", ch, MXP_ALL);
-    mxp_to_char("If you want to change styles, type 'style <style name>'.\n\r", ch, MXP_ALL);
+    send_to_char("\n\rIf you want to submit a typo, type 'typo <message>'.\n\r", ch);
+    send_to_char("If you want to change styles, type 'style <style name>'.\n\r", ch);
     return;
 }
 
@@ -2611,9 +2605,9 @@ void do_typo( CHAR_DATA *ch, char *argument )
 
     set_char_color( AT_PLAIN, ch );
     if ( argument[0] == '\0' ) {
-        mxp_to_char( "\n\rUsage:  'typo <message>'  (your location is automatically recorded)\n\r", ch, MXP_ALL );
+        send_to_char( "\n\rUsage:  'typo <message>'  (your location is automatically recorded)\n\r", ch );
 	if ( get_trust( ch ) >= LEVEL_ASCENDANT )
-	  mxp_to_char( "Usage:  'typo list' or 'typo clear now'\n\r", ch, MXP_ALL );
+	  send_to_char( "Usage:  'typo list' or 'typo clear now'\n\r", ch );
         return;
     }
     p = one_argument(argument, arg);
@@ -2621,14 +2615,14 @@ void do_typo( CHAR_DATA *ch, char *argument )
     {
       p = one_argument(p, arg);
       if ( str_cmp(arg, "now") )
-        mxp_to_char("Must specify 'clear now' to clear the typo file.\n\r", ch, MXP_ALL);
+        send_to_char("Must specify 'clear now' to clear the typo file.\n\r", ch);
       else
       {
         FILE *fp = fopen( TYPO_FILE, "w" );
         
         if (fp)
           fclose(fp);
-        mxp_to_char("Typo file cleared.\n\r", ch, MXP_ALL);
+        send_to_char("Typo file cleared.\n\r", ch);
         return;
       }
     }
@@ -2652,14 +2646,14 @@ void do_typo( CHAR_DATA *ch, char *argument )
     }
     
     append_file( ch, TYPO_FILE, argument );
-    mxp_to_char( "Thanks, your typo notice has been recorded.\n\r", ch, MXP_ALL );
+    send_to_char( "Thanks, your typo notice has been recorded.\n\r", ch );
     return;
 }
 
 void do_rent( CHAR_DATA *ch, char *argument )
 {
     set_char_color( AT_WHITE, ch );
-    mxp_to_char( "There is no rent here.  Just save and quit.\n\r", ch, MXP_ALL );
+    send_to_char( "There is no rent here.  Just save and quit.\n\r", ch );
     return;
 }
 
@@ -2668,7 +2662,7 @@ void do_rent( CHAR_DATA *ch, char *argument )
 void do_qui( CHAR_DATA *ch, char *argument )
 {
     set_char_color( AT_RED, ch );
-    mxp_to_char( "If you want to QUIT, you have to spell it out.\n\r", ch, MXP_ALL );
+    send_to_char( "If you want to QUIT, you have to spell it out.\n\r", ch );
     return;
 }
 
@@ -2689,14 +2683,14 @@ void do_quit( CHAR_DATA *ch, char *argument )
     )
     { 
 	set_char_color( AT_RED, ch );
-	mxp_to_char( "No way! You are fighting.\n\r", ch, MXP_ALL );
+	send_to_char( "No way! You are fighting.\n\r", ch );
 	return;
     }
 
     if ( ch->position  < POS_STUNNED  )
     {
 	set_char_color( AT_BLOOD, ch );
-	mxp_to_char( "You're not DEAD yet.\n\r", ch, MXP_ALL );
+	send_to_char( "You're not DEAD yet.\n\r", ch );
 	return;
     }
 
@@ -2704,13 +2698,13 @@ void do_quit( CHAR_DATA *ch, char *argument )
     &&  !IS_IMMORTAL(ch) )
     {
 	set_char_color( AT_RED, ch );
-	mxp_to_char( "Your adrenaline is pumping too hard to quit now!\n\r", ch, MXP_ALL );
+	send_to_char( "Your adrenaline is pumping too hard to quit now!\n\r", ch );
 	return;
     }
 
     if ( auction->item != NULL && ((ch == auction->buyer) || (ch == auction->seller) ) )
     {
-	mxp_to_char("Wait until you have bought/sold the item on auction.\n\r", ch, MXP_ALL);
+	send_to_char("Wait until you have bought/sold the item on auction.\n\r", ch);
 	return;
 
     }
@@ -2723,7 +2717,7 @@ void do_quit( CHAR_DATA *ch, char *argument )
 
     if ( IS_PKILL( ch ) && ch->wimpy > (int) ch->max_hit / 2.25 )
     {
-        mxp_to_char( "Your wimpy has been adjusted to the maximum level for deadlies.\n\r", ch, MXP_ALL );
+        send_to_char( "Your wimpy has been adjusted to the maximum level for deadlies.\n\r", ch );
         do_wimpy( ch, "max" );
     }
     /* Get 'em dismounted until we finish mount saving -- Blodkai, 4/97 */
@@ -2733,7 +2727,7 @@ void do_quit( CHAR_DATA *ch, char *argument )
     if ( class_table[ch->class]->logout )
         ch_printf( ch, "%s\n\r",class_table[ch->class]->logout);
     else
-        mxp_to_char( "Your surroundings begin to fade as a mystical swirling vortex of colors\n\renvelops your body... When you come to, things are not as they were.\n\r\n\r", ch, MXP_ALL );
+        send_to_char( "Your surroundings begin to fade as a mystical swirling vortex of colors\n\renvelops your body... When you come to, things are not as they were.\n\r\n\r", ch );
     act( AT_SAY, "A strange voice says, 'We await your return, $n...'", ch, NULL, NULL, TO_CHAR );
     if ( class_table[ch->class]->logout_other )
        act( AT_BYE, class_table[ch->class]->logout_other,  ch, NULL, NULL, TO_CANSEE );
@@ -2857,15 +2851,15 @@ void do_omenu( CHAR_DATA *ch, char *argument )
 	 
     if ( arg1[0] == '\0' )
     {
-        mxp_to_char( "Syntax: omenu <object> [page]  \n\r",     ch, MXP_ALL );
-        mxp_to_char( "      Where:    <object> is a prototype object  \n\r",     ch, MXP_ALL );
-        mxp_to_char( "            and  <page>  is an optional letter to select menu-pages\n\r",     ch, MXP_ALL );
+        send_to_char( "Syntax: omenu <object> [page]  \n\r",     ch );
+        send_to_char( "      Where:    <object> is a prototype object  \n\r",     ch );
+        send_to_char( "            and  <page>  is an optional letter to select menu-pages\n\r",     ch );
         return;
     }
 	 
     if ( ( obj = get_obj_world( ch, arg1 ) ) == NULL )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
 
@@ -2930,29 +2924,29 @@ void do_mmenu( CHAR_DATA *ch, char *argument )
 	 
     if ( arg1[0] == '\0' )
     {
-        mxp_to_char( "Syntax: mmenu <victim> [page]  \n\r",     ch, MXP_ALL );
-        mxp_to_char( "      Where:    <victim> is a prototype mob  \n\r",     ch, MXP_ALL );
-        mxp_to_char( "            and  <page>  is an optional letter to select menu-pages\n\r",     ch, MXP_ALL );
+        send_to_char( "Syntax: mmenu <victim> [page]  \n\r",     ch );
+        send_to_char( "      Where:    <victim> is a prototype mob  \n\r",     ch );
+        send_to_char( "            and  <page>  is an optional letter to select menu-pages\n\r",     ch );
         return;
     }
       
 
     if ( ( victim = get_char_world( ch, arg1 ) ) == NULL )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
 
     if ( !IS_NPC(victim) )
     {
-	mxp_to_char( "Not on players.\n\r", ch, MXP_ALL );
+	send_to_char( "Not on players.\n\r", ch );
 	return;
     }
 
     if ( get_trust( ch ) < victim->level )
     {
 	set_char_color( AT_IMMORT, ch );
-	mxp_to_char( "Their godly glow prevents you from getting a good look .\n\r", ch, MXP_ALL );
+	send_to_char( "Their godly glow prevents you from getting a good look .\n\r", ch );
 	return;
     }
     ch->inter_type = MOB_TYPE;
@@ -2972,7 +2966,7 @@ void do_rip( CHAR_DATA *ch, char *argument )
 
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Rip ON or OFF?\n\r", ch, MXP_ALL );
+	send_to_char( "Rip ON or OFF?\n\r", ch );
 	return;
     }
     if ( (strcmp(arg,"on")==0) || (strcmp(arg,"ON") == 0) ) {
@@ -2984,7 +2978,7 @@ void do_rip( CHAR_DATA *ch, char *argument )
 
     if ( (strcmp(arg,"off")==0) || (strcmp(arg,"OFF") == 0) ) {
 	xREMOVE_BIT(ch->act,PLR_RIP);
-	mxp_to_char( "!|*\n\rRIP now off...\n\r", ch, MXP_ALL );
+	send_to_char( "!|*\n\rRIP now off...\n\r", ch );
 	return;
     }
 }
@@ -2994,7 +2988,7 @@ void do_hints( CHAR_DATA *ch, char *argument )
     char arg[MAX_INPUT_LENGTH];
 
     if ( IS_NPC(ch) ){
-	mxp_to_char("Huh?\n\r",ch, MXP_ALL );
+	send_to_char("Huh?\n\r",ch);
 	return;
     }
 
@@ -3018,7 +3012,7 @@ void do_hints( CHAR_DATA *ch, char *argument )
     if ( ( strcmp( arg, "on" ) == 0 ) || ( strcmp( arg, "ON" ) == 0 ) )
     {
         SET_BIT( ch->pcdata->flags, PCFLAG_HINTS );
-        send_to_char_color( "&CHints are now enabled.\n\r", ch );
+        send_to_char_color( "&CHints are now enabled.\n\r", ch);
         return;
     }
 
@@ -3041,7 +3035,7 @@ void do_ansi( CHAR_DATA *ch, char *argument )
 	if ( xIS_SET( ch->act, PLR_ANSI ) )
 	{
 	  xREMOVE_BIT( ch->act, PLR_ANSI );
-	  mxp_to_char( "ANSI color is now OFF.\n\r", ch, MXP_ALL );
+	  send_to_char( "ANSI color is now OFF.\n\r", ch );
 	  return;
 	}
 	else
@@ -3054,13 +3048,13 @@ void do_ansi( CHAR_DATA *ch, char *argument )
     if ( ( strcmp( arg, "on" ) == 0 ) || ( strcmp( arg, "ON" ) == 0 ) )
     {
 	xSET_BIT( ch->act, PLR_ANSI );
-	send_to_char_color( "&GANSI color is now &YON&G!\n\r", ch );
+	send_to_char_color( "&GANSI color is now &YON&G!\n\r", ch);
 	return;
     }
     if ( ( strcmp( arg, "off" ) == 0 ) || ( strcmp( arg, "OFF" ) == 0 ) )
     {
 	xREMOVE_BIT( ch->act, PLR_ANSI );
-	mxp_to_char( "ANSI color is now OFF.\n\r", ch, MXP_ALL );
+	send_to_char( "ANSI color is now OFF.\n\r", ch );
 	return;
     }
 }
@@ -3077,7 +3071,7 @@ void do_save( CHAR_DATA *ch, char *argument )
     update_aris(ch);     /* update char affects and RIS */
     save_char_obj( ch );
     saving_char = NULL;
-    mxp_to_char( "Saved...\n\r", ch, MXP_ALL );
+    send_to_char( "Saved...\n\r", ch );
     return;
 }
 
@@ -3108,13 +3102,13 @@ void do_dismiss( CHAR_DATA *ch, char *argument )
 
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Dismiss whom?\n\r", ch, MXP_ALL );
+	send_to_char( "Dismiss whom?\n\r", ch );
 	return;
     }
 
     if ( ( victim = get_char_room( ch, arg ) ) == NULL )
     {
-        mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+        send_to_char( "They aren't here.\n\r", ch );
         return;
     }
 
@@ -3131,7 +3125,7 @@ void do_dismiss( CHAR_DATA *ch, char *argument )
     }
     else
     {
-	mxp_to_char( "You cannot dismiss them.\n\r", ch, MXP_ALL );
+	send_to_char( "You cannot dismiss them.\n\r", ch );
     }
 
 return;
@@ -3218,13 +3212,13 @@ void do_follow( CHAR_DATA *ch, char *argument )
 
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Follow whom?\n\r", ch, MXP_ALL );
+	send_to_char( "Follow whom?\n\r", ch );
 	return;
     }
 
     if ( ( victim = get_char_room( ch, arg ) ) == NULL )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
 
@@ -3238,7 +3232,7 @@ void do_follow( CHAR_DATA *ch, char *argument )
     {
 	if ( !ch->master )
 	{
-	    mxp_to_char( "You already follow yourself.\n\r", ch, MXP_ALL );
+	    send_to_char( "You already follow yourself.\n\r", ch );
 	    return;
 	}
 	stop_follower( ch );
@@ -3250,13 +3244,13 @@ void do_follow( CHAR_DATA *ch, char *argument )
     && victim->pcdata->council 
     && !str_cmp(victim->pcdata->council->name,"Newbie Council")))
     {
-	mxp_to_char( "You are not of the right caliber to follow.\n\r", ch, MXP_ALL );
+	send_to_char( "You are not of the right caliber to follow.\n\r", ch );
 	return;
     }
 
     if ( circle_follow( ch, victim ) )
     {
-	mxp_to_char( "Following in loops is not allowed... sorry.\n\r", ch, MXP_ALL );
+	send_to_char( "Following in loops is not allowed... sorry.\n\r", ch );
 	return;
     }
 
@@ -3392,19 +3386,19 @@ void do_order( CHAR_DATA *ch, char *argument )
 
     if ( arg[0] == '\0' || argument[0] == '\0' )
     {
-	mxp_to_char( "Order whom to do what?\n\r", ch, MXP_ALL );
+	send_to_char( "Order whom to do what?\n\r", ch );
 	return;
     }
 
     if ( get_timer( ch, TIMER_PKILLED) > 0 )
     {
-        mxp_to_char( "You have been killed in the past five minutes.\n\r", ch, MXP_ALL );
+        send_to_char( "You have been killed in the past five minutes.\n\r", ch );
         return;
     }
 
     if ( IS_AFFECTED( ch, AFF_CHARM ) )
     {
-	mxp_to_char( "You feel like taking, not giving, orders.\n\r", ch, MXP_ALL );
+	send_to_char( "You feel like taking, not giving, orders.\n\r", ch );
 	return;
     }
 
@@ -3418,19 +3412,19 @@ void do_order( CHAR_DATA *ch, char *argument )
 	fAll   = FALSE;
 	if ( ( victim = get_char_room( ch, arg ) ) == NULL )
 	{
-	    mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	    send_to_char( "They aren't here.\n\r", ch );
 	    return;
 	}
 
 	if ( victim == ch )
 	{
-	    mxp_to_char( "Aye aye, right away!\n\r", ch, MXP_ALL );
+	    send_to_char( "Aye aye, right away!\n\r", ch );
 	    return;
 	}
 
 	if ( !IS_AFFECTED(victim, AFF_CHARM) || victim->master != ch )
 	{
-	    mxp_to_char( "Do it yourself!\n\r", ch, MXP_ALL );
+	    send_to_char( "Do it yourself!\n\r", ch );
 	    return;
 	}
     }
@@ -3453,11 +3447,11 @@ void do_order( CHAR_DATA *ch, char *argument )
     {
         sprintf( log_buf, "%s: order %s.", ch->name, argbuf );
         log_string_plus( log_buf, LOG_NORMAL, ch->level );
- 	mxp_to_char( "Ok.\n\r", ch, MXP_ALL );
+ 	send_to_char( "Ok.\n\r", ch );
         WAIT_STATE( ch, 12 );
     }
     else
-	mxp_to_char( "You have no followers here.\n\r", ch, MXP_ALL );
+	send_to_char( "You have no followers here.\n\r", ch );
     return;
 }
 
@@ -3519,14 +3513,14 @@ void do_group( CHAR_DATA *ch, char *argument )
                     else if ( gch->alignment > -750 ) sprintf(buf, "+S");
                     else                              sprintf(buf, " S");
 		    set_char_color( AT_DGREEN, ch );
-		    mxp_to_char( "[", ch, MXP_ALL );
+		    send_to_char( "[", ch );
 		    set_char_color( AT_GREEN, ch );
 		    ch_printf( ch, "%-2d %2.2s %3.3s",
 			gch->level,
 			buf,
 			IS_NPC(gch) ? "Mob" : class_table[gch->class]->who_name );
 		    set_char_color( AT_DGREEN, ch );
-		    mxp_to_char( "]  ", ch, MXP_ALL );
+		    send_to_char( "]  ", ch );
 		    set_char_color( AT_GREEN, ch );
                     ch_printf( ch, "%-12.12s ",
                         capitalize( PERS(gch, ch) ) );
@@ -3547,7 +3541,7 @@ void do_group( CHAR_DATA *ch, char *argument )
 			IS_VAMPIRE(gch) ? gch->pcdata->condition[COND_BLOODTHIRST] : gch->mana,
                         IS_VAMPIRE(gch) ? 10 + gch->level : gch->max_mana );
 		    else
-		      mxp_to_char( "            ", ch, MXP_ALL );
+		      send_to_char( "            ", ch );
 		    if ( gch->mental_state < -25 || gch->mental_state > 25 )
 		      set_char_color( AT_YELLOW, ch );
 		    else
@@ -3583,7 +3577,7 @@ void do_group( CHAR_DATA *ch, char *argument )
 		    if ( gch->level < LEVEL_AVATAR )
 		      ch_printf( ch, "%8d ",
 			exp_level( gch, gch->level+1) - gch->exp );
-		    mxp_to_char( "\n\r", ch, MXP_ALL );
+		    send_to_char( "\n\r", ch);
 	    }
 	}
 	return;
@@ -3596,7 +3590,7 @@ void do_group( CHAR_DATA *ch, char *argument )
 
 	if ( ch->leader || ch->master )
 	{
-	    mxp_to_char( "You cannot disband a group if you're following someone.\n\r", ch, MXP_ALL );
+	    send_to_char( "You cannot disband a group if you're following someone.\n\r", ch );
 	    return;
 	}
 	
@@ -3608,14 +3602,14 @@ void do_group( CHAR_DATA *ch, char *argument )
 		gch->leader = NULL;
 		gch->master = NULL;
 		count++;
-		mxp_to_char( "Your group is disbanded.\n\r", gch, MXP_ALL );
+		send_to_char( "Your group is disbanded.\n\r", gch );
 	    }
 	}
 
 	if ( count == 0 )
-	   mxp_to_char( "You have no group members to disband.\n\r", ch, MXP_ALL );
+	   send_to_char( "You have no group members to disband.\n\r", ch );
 	else
-	   mxp_to_char( "You disband your group.\n\r", ch, MXP_ALL );
+	   send_to_char( "You disband your group.\n\r", ch );
 	
 	return;
     }
@@ -3644,24 +3638,24 @@ void do_group( CHAR_DATA *ch, char *argument )
 	}
 	
 	if ( count == 0 )
-	  mxp_to_char( "You have no eligible group members.\n\r", ch, MXP_ALL );
+	  send_to_char( "You have no eligible group members.\n\r", ch );
 	else
 	{
      	   act( AT_ACTION, "$n groups $s followers.", ch, NULL, NULL, TO_ROOM );
-	   mxp_to_char( "You group your followers.\n\r", ch, MXP_ALL );
+	   send_to_char( "You group your followers.\n\r", ch );
 	}
 	return;
     }
 
     if ( ( victim = get_char_room( ch, arg ) ) == NULL )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
 
-    if ( ch->master || ( ch->leader && ch->leader != ch, MXP_ALL ) )
+    if ( ch->master || ( ch->leader && ch->leader != ch ) )
     {
-	mxp_to_char( "But you are following someone else!\n\r", ch, MXP_ALL );
+	send_to_char( "But you are following someone else!\n\r", ch );
 	return;
     }
 
@@ -3723,7 +3717,7 @@ void do_split( CHAR_DATA *ch, char *argument )
 
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Split how much?\n\r", ch, MXP_ALL );
+	send_to_char( "Split how much?\n\r", ch );
 	return;
     }
 
@@ -3731,19 +3725,19 @@ void do_split( CHAR_DATA *ch, char *argument )
 
     if ( amount < 0 )
     {
-	mxp_to_char( "Your group wouldn't like that.\n\r", ch, MXP_ALL );
+	send_to_char( "Your group wouldn't like that.\n\r", ch );
 	return;
     }
 
     if ( amount == 0 )
     {
-	mxp_to_char( "You hand out zero coins, but no one notices.\n\r", ch, MXP_ALL );
+	send_to_char( "You hand out zero coins, but no one notices.\n\r", ch );
 	return;
     }
 
     if ( ch->gold < amount )
     {
-	mxp_to_char( "You don't have that much gold.\n\r", ch, MXP_ALL );
+	send_to_char( "You don't have that much gold.\n\r", ch );
 	return;
     }
 
@@ -3760,7 +3754,7 @@ void do_split( CHAR_DATA *ch, char *argument )
 
     if ( members < 2 )
     {
-	mxp_to_char( "Just keep it all.\n\r", ch, MXP_ALL );
+	send_to_char( "Just keep it all.\n\r", ch );
 	return;
     }
 
@@ -3769,7 +3763,7 @@ void do_split( CHAR_DATA *ch, char *argument )
 
     if ( share == 0 )
     {
-	mxp_to_char( "Don't even bother, cheapskate.\n\r", ch, MXP_ALL );
+	send_to_char( "Don't even bother, cheapskate.\n\r", ch );
 	return;
     }
 
@@ -3813,18 +3807,18 @@ void do_gtell( CHAR_DATA *ch, char *argument )
 
     if ( argument[0] == '\0' )
     {
-	mxp_to_char( "Tell your group what?\n\r", ch, MXP_ALL );
+	send_to_char( "Tell your group what?\n\r", ch );
 	return;
     }
 
     if ( xIS_SET(ch->act, PLR_NO_TELL) )
     {
-	mxp_to_char( "Your message didn't get through!\n\r", ch, MXP_ALL );
+	send_to_char( "Your message didn't get through!\n\r", ch );
 	return;
     }
 
     /*
-     * Note use of mxp_to_char, so gtell works on sleepers.
+     * Note use of send_to_char, so gtell works on sleepers.
      */
 /*    sprintf( buf, "%s tells the group '%s'\n\r", ch->name, argument );*/
     for ( gch = first_char; gch; gch = gch->next )
@@ -4027,7 +4021,7 @@ void do_speak( CHAR_DATA *ch, char *argument )
 	{
 		set_char_color( AT_SAY, ch );
 		ch->speaking = ~LANG_CLAN;
-		mxp_to_char( "Now speaking all languages.\n\r", ch, MXP_ALL );
+		send_to_char( "Now speaking all languages.\n\r", ch );
 		return;
 	}
 	for ( langs = 0; lang_array[langs] != LANG_UNKNOWN; langs++ )
@@ -4043,7 +4037,7 @@ void do_speak( CHAR_DATA *ch, char *argument )
 				return;
 			}
 	set_char_color( AT_SAY, ch );
-	mxp_to_char( "You do not know that language.\n\r", ch, MXP_ALL );
+	send_to_char( "You do not know that language.\n\r", ch );
 }
 
 void do_languages( CHAR_DATA *ch, char *argument )
@@ -4064,7 +4058,7 @@ void do_languages( CHAR_DATA *ch, char *argument )
 		argument = one_argument( argument, arg2 );
 		if ( arg2[0] == '\0' )
 		{
-			mxp_to_char( "Learn which language?\n\r", ch, MXP_ALL );
+			send_to_char( "Learn which language?\n\r", ch );
 			return;
 		}
 		for ( lang = 0; lang_array[lang] != LANG_UNKNOWN; lang++ )
@@ -4076,17 +4070,17 @@ void do_languages( CHAR_DATA *ch, char *argument )
 		}
 		if ( lang_array[lang] == LANG_UNKNOWN )
 		{
-			mxp_to_char( "That is not a language.\n\r", ch, MXP_ALL );
+			send_to_char( "That is not a language.\n\r", ch );
 			return;
 		}
 		if ( !(VALID_LANGS & lang_array[lang]) )
 		{
-			mxp_to_char( "You may not learn that language.\n\r", ch, MXP_ALL );
+			send_to_char( "You may not learn that language.\n\r", ch );
 			return;
 		}
 		if ( ( sn = skill_lookup( lang_names[lang] ) ) < 0 )
 		{
-			mxp_to_char( "That is not a language.\n\r", ch, MXP_ALL );
+			send_to_char( "That is not a language.\n\r", ch );
 			return;
 		}
 		if ( race_table[ch->race]->language & lang_array[lang] ||
@@ -4105,7 +4099,7 @@ void do_languages( CHAR_DATA *ch, char *argument )
 				break;
 		if ( !sch )
 		{
-			mxp_to_char( "There is no one who can teach that language here.\n\r", ch, MXP_ALL );
+			send_to_char( "There is no one who can teach that language here.\n\r", ch );
 			return;
 		}
 		if ( countlangs(ch->speaks) >= (ch->level / 10) &&
@@ -4154,10 +4148,10 @@ void do_languages( CHAR_DATA *ch, char *argument )
 				set_char_color( AT_SAY, ch );
 			else
 				set_char_color( AT_PLAIN, ch );
-			mxp_to_char( lang_names[lang], ch, MXP_ALL );
-			mxp_to_char( "\n\r", ch, MXP_ALL );
+			send_to_char( lang_names[lang], ch );
+			send_to_char( "\n\r", ch );
 		}
-	mxp_to_char( "\n\r", ch, MXP_ALL );
+	send_to_char( "\n\r", ch );
 	return;
 }
 
@@ -4165,7 +4159,7 @@ void do_traffic( CHAR_DATA *ch, char *argument )
 {
     if (NOT_AUTHED(ch))
     {
-      mxp_to_char("Huh?\n\r", ch, MXP_ALL );
+      send_to_char("Huh?\n\r", ch);
       return;
     }
     talk_channel( ch, argument, CHANNEL_TRAFFIC, "openly traffic" );
@@ -4176,7 +4170,7 @@ void do_wartalk( CHAR_DATA *ch, char *argument )
 {
     if (NOT_AUTHED(ch))
     {
-      mxp_to_char("Huh?\n\r", ch, MXP_ALL );
+      send_to_char("Huh?\n\r", ch);
       return;
     }
     talk_channel( ch, argument, CHANNEL_WARTALK, "war" );
@@ -4187,7 +4181,7 @@ void do_racetalk( CHAR_DATA *ch, char *argument )
 {
   if (NOT_AUTHED(ch))
   {
-    mxp_to_char("Huh?\n\r", ch, MXP_ALL );
+    send_to_char("Huh?\n\r", ch);
     return;
   }
   talk_channel( ch, argument, CHANNEL_RACETALK, "racetalk" );
@@ -4321,7 +4315,7 @@ void add_profane_word( char * word)
 
 int is_profane (char *what)
 {
-#if 0
+#ifndef WIN32
   int ret;
 
   ret = re_exec(what);

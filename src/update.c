@@ -1,43 +1,28 @@
-/*
-                     R E A L M S    O F    D E S P A I R  !
-   ___________________________________________________________________________
-  //            /                                                            \\
- [|_____________\   ********   *        *   ********   *        *   *******   |]
- [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
- [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
- [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
- [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
- [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
- [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
- [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
- [|_____________\  **********  **      **  **      **  **********  *********  |]
- [|             /  *********   *        *  *        *   ********    *******   |]
-  \\____________\____________________________________________________________//
-     |                                                                     |
-     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
-     |_____________________________________________________________________|
-     |                                                                     |
-     |                    -*- Regular Update Module -*-                    |
-     |_____________________________________________________________________|
-    //                                                                     \\
-   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
-   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
-   [|                                                                       |]
-   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
-   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
-   [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
-    \\_____________________________________________________________________//
-*/
+/****************************************************************************
+ * [S]imulated [M]edieval [A]dventure multi[U]ser [G]ame      |   \\._.//   *
+ * -----------------------------------------------------------|   (0...0)   *
+ * SMAUG 1.4 (C) 1994, 1995, 1996, 1998  by Derek Snider      |    ).:.(    *
+ * -----------------------------------------------------------|    {o o}    *
+ * SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,      |   / ' ' \   *
+ * Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,      |~'~.VxvxV.~'~*
+ * Tricops, Fireblade, Edmond, Conran                         |             *
+ * ------------------------------------------------------------------------ *
+ * Merc 2.1 Diku Mud improvments copyright (C) 1992, 1993 by Michael        *
+ * Chastain, Michael Quan, and Mitchell Tse.                                *
+ * Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,          *
+ * Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.     *
+ * ------------------------------------------------------------------------ *
+ *			      Regular update module			    *
+ ****************************************************************************/
 
 #include <sys/types.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-
 #include "mud.h"
+
+
+
 /*
  * Local functions.
  */
@@ -45,7 +30,7 @@ int	hit_gain	args( ( CHAR_DATA *ch ) );
 int	mana_gain	args( ( CHAR_DATA *ch ) );
 int	move_gain	args( ( CHAR_DATA *ch ) );
 void	mobile_update	args( ( void ) );
-// void	weather_update	args( ( void ) );
+void	weather_update	args( ( void ) );
 void	time_update	args( ( void ) );	/* FB */
 void	char_update	args( ( void ) );
 void	hint_update	args( ( void ) );
@@ -63,9 +48,6 @@ void	subtract_times	args( ( struct timeval *etime,
 void	adjust_vectors		args( ( WEATHER_DATA *weather) );
 void	get_weather_echo	args( ( WEATHER_DATA *weather) );
 void	get_time_echo		args( ( WEATHER_DATA *weather) );
-
-/* protocol.c msdp */
-void  msdp_update             args( ( void ) );
 
 /*
  * Global Variables
@@ -143,8 +125,8 @@ void advance_level( CHAR_DATA *ch )
 	   if ( d->connected == CON_PLAYING && d->character != ch )
 	   {
 		set_char_color( AT_IMMORT, d->character );
-		mxp_to_char( buf,	d->character, MXP_ALL );
-		mxp_to_char( "\n\r",	d->character, MXP_ALL );
+		send_to_char( buf,	d->character );
+		send_to_char( "\n\r",	d->character );
 	   }
 	set_char_color( AT_WHITE, ch );
     ch->pcdata->honour = 10;
@@ -169,7 +151,7 @@ void advance_level( CHAR_DATA *ch )
 	  add_prac,	ch->practice
 	  );
       set_char_color( AT_WHITE, ch );
-      mxp_to_char( buf, ch, MXP_ALL );
+      send_to_char( buf, ch );
       if ( !IS_NPC( ch ) )
       {
 	sprintf( buf2, "%d/%d, %d:%d, %s, %d, %d, %d, %s %s",
@@ -222,7 +204,7 @@ void gain_exp( CHAR_DATA *ch, int gain )
           sprintf(buf,"The Patronage of Gravoc reinforces your learning.\n\r");
           modgain*=1.25;
        }
-	mxp_to_char(buf, ch, MXP_ALL);
+	send_to_char(buf, ch);
     }  */
 
     if(modgain>0 && IS_PKILL(ch)){
@@ -242,7 +224,7 @@ void gain_exp( CHAR_DATA *ch, int gain )
           sprintf(buf,"The Patronage of Gravoc reinforces your learning.\n\r");
           modgain*=2.0;
        }
-	mxp_to_char(buf, ch, MXP_ALL);
+	send_to_char(buf, ch);
     }
 
 
@@ -275,7 +257,7 @@ void gain_exp( CHAR_DATA *ch, int gain )
 
     if (NOT_AUTHED(ch) && ch->exp >= exp_level(ch, ch->level+1))
     {
-	mxp_to_char("You can not ascend to a higher level until you are authorized.\n\r", ch, MXP_ALL);
+	send_to_char("You can not ascend to a higher level until you are authorized.\n\r", ch);
 	ch->exp = (exp_level(ch, (ch->level+1)) - 1);
 	return;
     }
@@ -471,7 +453,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE )
           {
             set_char_color( AT_HUNGRY, ch );
-	    mxp_to_char( "You are STARVING!\n\r",  ch, MXP_ALL );
+	    send_to_char( "You are STARVING!\n\r",  ch );
             act( AT_HUNGRY, "$n is starved half to death!", ch, NULL, NULL, TO_ROOM);
 	    if ( !IS_PKILL(ch) || number_bits(1) == 0 )
 		worsen_mental_state( ch, 1 );
@@ -483,7 +465,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE )
           {
             set_char_color( AT_THIRSTY, ch );
-	    mxp_to_char( "You are DYING of THIRST!\n\r", ch, MXP_ALL );
+	    send_to_char( "You are DYING of THIRST!\n\r", ch );
             act( AT_THIRSTY, "$n is dying of thirst!", ch, NULL, NULL, TO_ROOM);
 	    worsen_mental_state( ch, IS_PKILL(ch) ? 1: 2 );
 	    retcode = damage(ch, ch, 2, TYPE_UNDEFINED);
@@ -494,7 +476,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR )
           {
             set_char_color( AT_BLOOD, ch );
-            mxp_to_char( "You are starved to feast on blood!\n\r", ch, MXP_ALL );
+            send_to_char( "You are starved to feast on blood!\n\r", ch );
             act( AT_BLOOD, "$n is suffering from lack of blood!", ch,
                  NULL, NULL, TO_ROOM);
 	    worsen_mental_state( ch, 2 );
@@ -504,7 +486,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
 	case COND_DRUNK:
 	    if ( condition != 0 ) {
                 set_char_color( AT_SOBER, ch );
-		mxp_to_char( "You are sober.\n\r", ch, MXP_ALL );
+		send_to_char( "You are sober.\n\r", ch );
 	    }
 	    retcode = rNONE;
 	    break;
@@ -526,7 +508,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE )
           {
             set_char_color( AT_HUNGRY, ch );
-	    mxp_to_char( "You are really hungry.\n\r",  ch, MXP_ALL );
+	    send_to_char( "You are really hungry.\n\r",  ch );
             act( AT_HUNGRY, "You can hear $n's stomach growling.", ch, NULL, NULL, TO_ROOM);
 	    if ( number_bits(1) == 0 )
 		worsen_mental_state( ch, 1 );
@@ -537,7 +519,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE )
           {
             set_char_color( AT_THIRSTY, ch );
-	    mxp_to_char( "You are really thirsty.\n\r", ch, MXP_ALL );
+	    send_to_char( "You are really thirsty.\n\r", ch );
 	    worsen_mental_state( ch, 1 );
 	    act( AT_THIRSTY, "$n looks a little parched.", ch, NULL, NULL, TO_ROOM);
           } 
@@ -547,7 +529,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR )
           {
             set_char_color( AT_BLOOD, ch );
-            mxp_to_char( "You have a growing need to feast on blood!\n\r", ch, MXP_ALL );
+            send_to_char( "You have a growing need to feast on blood!\n\r", ch );
             act( AT_BLOOD, "$n gets a strange look in $s eyes...", ch,
                  NULL, NULL, TO_ROOM);
 	    worsen_mental_state( ch, 1 );
@@ -556,7 +538,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
 	case COND_DRUNK:
 	    if ( condition != 0 ) {
                 set_char_color( AT_SOBER, ch );
-		mxp_to_char( "You are feeling a little less light headed.\n\r", ch, MXP_ALL );
+		send_to_char( "You are feeling a little less light headed.\n\r", ch );
             }
 	    break;
 	}
@@ -571,7 +553,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE )
           {
             set_char_color( AT_HUNGRY, ch );
-	    mxp_to_char( "You are hungry.\n\r",  ch, MXP_ALL );
+	    send_to_char( "You are hungry.\n\r",  ch );
           } 
 	  break;
 
@@ -579,7 +561,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE )
           {
             set_char_color( AT_THIRSTY, ch );
-	    mxp_to_char( "You are thirsty.\n\r", ch, MXP_ALL );
+	    send_to_char( "You are thirsty.\n\r", ch );
           } 
 	  break;
 
@@ -587,7 +569,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR )
           {
             set_char_color( AT_BLOOD, ch );
-            mxp_to_char( "You feel an urgent need for blood.\n\r", ch, MXP_ALL );
+            send_to_char( "You feel an urgent need for blood.\n\r", ch );
           }  
           break;
 	}
@@ -601,7 +583,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE )
           {
             set_char_color( AT_HUNGRY, ch );
-	    mxp_to_char( "You are a mite peckish.\n\r",  ch, MXP_ALL );
+	    send_to_char( "You are a mite peckish.\n\r",  ch );
           } 
 	  break;
 
@@ -609,7 +591,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE )
           {
             set_char_color( AT_THIRSTY, ch );
-	    mxp_to_char( "You could use a sip of something refreshing.\n\r", ch, MXP_ALL );
+	    send_to_char( "You could use a sip of something refreshing.\n\r", ch );
           } 
 	  break;
 
@@ -617,7 +599,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
           if ( ch->level < LEVEL_AVATAR )
           {
             set_char_color( AT_BLOOD, ch );
-            mxp_to_char( "You feel an aching in your fangs.\n\r", ch, MXP_ALL );
+            send_to_char( "You feel an aching in your fangs.\n\r", ch );
           }
           break;
 	}
@@ -641,20 +623,20 @@ void check_alignment( CHAR_DATA *ch )
      if(ch->alignment<race_table[ch->race]->minalign)
      {
 	set_char_color( AT_BLOOD, ch );
-        mxp_to_char( "Your actions have been incompatible with the ideals of your race.  This troubles you.\n\r", ch, MXP_ALL);
+        send_to_char( "Your actions have been incompatible with the ideals of your race.  This troubles you.\n\r", ch);
      }
 
      if(ch->alignment>race_table[ch->race]->maxalign)
      {
 	set_char_color( AT_BLOOD, ch );
-        mxp_to_char( "Your actions have been incompatible with the ideals of your race.  This troubles you.\n\r", ch, MXP_ALL);
+        send_to_char( "Your actions have been incompatible with the ideals of your race.  This troubles you.\n\r", ch);
      }
 
      /* Nephandi alignment restrictions -h  */
       if(ch->class == CLASS_NEPHANDI){
           if(ch->alignment>-250){
             set_char_color( AT_BLOOD, ch );
-            mxp_to_char( "Damn you heathen! Go forth and do evil or suffer the consequences!\n\r", ch, MXP_ALL );
+            send_to_char( "Damn you heathen! Go forth and do evil or suffer the consequences!\n\r", ch );
             worsen_mental_state( ch, 35 );
             return;
         } 
@@ -665,7 +647,7 @@ void check_alignment( CHAR_DATA *ch )
       if(ch->class == CLASS_PALADIN){
         if(ch->alignment<250){
             set_char_color( AT_BLOOD, ch );
-            mxp_to_char( "You are wracked with guilt and remorse for your craven actions!\n\r", ch, MXP_ALL );
+            send_to_char( "You are wracked with guilt and remorse for your craven actions!\n\r", ch );
             act( AT_BLOOD, "$n prostrates $mself, seeking forgiveness from $s Lord.", ch, 
                  NULL, NULL, TO_ROOM); 
             worsen_mental_state( ch, 15 );
@@ -673,7 +655,7 @@ void check_alignment( CHAR_DATA *ch )
         } 
         if(ch->alignment<500){
             set_char_color( AT_BLOOD, ch );
-            mxp_to_char( "As you betray your faith, your mind begins to betray you.\n\r", ch, MXP_ALL );
+            send_to_char( "As you betray your faith, your mind begins to betray you.\n\r", ch );
             act( AT_BLOOD, "$n shudders, judging $s actions unworthy of a Paladin.", ch, 
                  NULL, NULL, TO_ROOM); 
             worsen_mental_state( ch, 6 );
@@ -1086,7 +1068,7 @@ void char_update( void )
 			stop_fighting( ch, TRUE );
 		    act( AT_ACTION, "$n disappears into the void.",
 			ch, NULL, NULL, TO_ROOM );
-		    mxp_to_char( "You disappear into the void.\n\r", ch, MXP_ALL );
+		    send_to_char( "You disappear into the void.\n\r", ch );
 		    if ( IS_SET( sysdata.save_flags, SV_IDLE ) )
 			save_char_obj( ch );
 		    SET_BIT(ch->pcdata->flags, PCFLAG_IDLE);
@@ -1187,7 +1169,7 @@ void char_update( void )
          MOBtrigger = FALSE;
          char_from_room(ch);
          char_to_room( ch, location );
-         mxp_to_char( "The gods have released you from hell as your sentance is up!\n\r", ch, MXP_ALL );
+         send_to_char( "The gods have released you from hell as your sentance is up!\n\r", ch );
          do_look(ch, "auto");
          STRFREE( ch->pcdata->helled_by );
 	 ch->pcdata->helled_by = NULL;
@@ -1257,35 +1239,35 @@ void char_update( void )
 		switch( (ch->mental_state+5) / 10 )
 		{
 		    case  3:
-		    	mxp_to_char( "You feel feverish.\n\r", ch, MXP_ALL );
+		    	send_to_char( "You feel feverish.\n\r", ch );
 			act( AT_ACTION, "$n looks kind of out of it.", ch, NULL, NULL, TO_ROOM );
 		    	break;
 		    case  4:
-		    	mxp_to_char( "You do not feel well at all.\n\r", ch, MXP_ALL );
+		    	send_to_char( "You do not feel well at all.\n\r", ch );
 			act( AT_ACTION, "$n doesn't look too good.", ch, NULL, NULL, TO_ROOM );
 		    	break;
 		    case  5:
-		    	mxp_to_char( "You need help!\n\r", ch, MXP_ALL );
+		    	send_to_char( "You need help!\n\r", ch );
 			act( AT_ACTION, "$n looks like $e could use your help.", ch, NULL, NULL, TO_ROOM );
 		    	break;
 		    case  6:
-		    	mxp_to_char( "Seekest thou a cleric.\n\r", ch, MXP_ALL );
+		    	send_to_char( "Seekest thou a cleric.\n\r", ch );
 			act( AT_ACTION, "Someone should fetch a healer for $n.", ch, NULL, NULL, TO_ROOM );
 		    	break;
 		    case  7:
-		    	mxp_to_char( "You feel reality slipping away...\n\r", ch, MXP_ALL );
+		    	send_to_char( "You feel reality slipping away...\n\r", ch );
 			act( AT_ACTION, "$n doesn't appear to be aware of what's going on.", ch, NULL, NULL, TO_ROOM );
 		    	break;
 		    case  8:
-		    	mxp_to_char( "You begin to understand... everything.\n\r", ch, MXP_ALL );
+		    	send_to_char( "You begin to understand... everything.\n\r", ch );
 			act( AT_ACTION, "$n starts ranting like a madman!", ch, NULL, NULL, TO_ROOM );
 		    	break;
 		    case  9:
-		    	mxp_to_char( "You are ONE with the universe.\n\r", ch, MXP_ALL );
+		    	send_to_char( "You are ONE with the universe.\n\r", ch );
 			act( AT_ACTION, "$n is ranting on about 'the answer', 'ONE' and other mumbo-jumbo...", ch, NULL, NULL, TO_ROOM );
 		    	break;
 		    case 10:
-		    	mxp_to_char( "You feel the end is near.\n\r", ch, MXP_ALL );
+		    	send_to_char( "You feel the end is near.\n\r", ch );
 			act( AT_ACTION, "$n is muttering and ranting in tongues...", ch, NULL, NULL, TO_ROOM );
 		    	break;
 		}
@@ -1300,7 +1282,7 @@ void char_update( void )
 			   &&    number_percent()+10 < abs(ch->mental_state) )
 				do_sleep( ch, "" );
 			   else
-				mxp_to_char( "You're barely conscious.\n\r", ch, MXP_ALL );
+				send_to_char( "You're barely conscious.\n\r", ch );
 			}
 			break;
 		    case   9:
@@ -1311,7 +1293,7 @@ void char_update( void )
 			   &&   (number_percent()+20) < abs(ch->mental_state) )
 				do_sleep( ch, "" );
 			   else
-				mxp_to_char( "You can barely keep your eyes open.\n\r", ch, MXP_ALL );
+				send_to_char( "You can barely keep your eyes open.\n\r", ch );
 			}
 			break;
 		    case   8:
@@ -1321,28 +1303,28 @@ void char_update( void )
 			   &&  (number_percent()+30) < abs(ch->mental_state) )
 				do_sleep( ch, "" );
 			   else
-				mxp_to_char( "You're extremely drowsy.\n\r", ch, MXP_ALL );
+				send_to_char( "You're extremely drowsy.\n\r", ch );
 			}
 			break;
 		    case   7:
 			if ( ch->position > POS_RESTING )
-			   mxp_to_char( "You feel very unmotivated.\n\r", ch, MXP_ALL );
+			   send_to_char( "You feel very unmotivated.\n\r", ch );
 			break;
 		    case   6:
 			if ( ch->position > POS_RESTING )
-			   mxp_to_char( "You feel sedated.\n\r", ch, MXP_ALL );
+			   send_to_char( "You feel sedated.\n\r", ch );
 			break;
 		    case   5:
 			if ( ch->position > POS_RESTING )
-			   mxp_to_char( "You feel sleepy.\n\r", ch, MXP_ALL );
+			   send_to_char( "You feel sleepy.\n\r", ch );
 			break;
 		    case   4:
 			if ( ch->position > POS_RESTING )
-			   mxp_to_char( "You feel tired.\n\r", ch, MXP_ALL );
+			   send_to_char( "You feel tired.\n\r", ch );
 			break;
 		    case   3:
 			if ( ch->position > POS_RESTING )
-			   mxp_to_char( "You could use a rest.\n\r", ch, MXP_ALL );
+			   send_to_char( "You could use a rest.\n\r", ch );
 			break;
 		}
 	    if ( ch->timer > 24 )
@@ -1669,7 +1651,7 @@ void char_check( void )
 		xREMOVE_BIT( ch->mount->act, ACT_MOUNTED );
 		ch->mount = NULL;
 		ch->position = POS_STANDING;
-		mxp_to_char( "No longer upon your mount, you fall to the ground...\n\rOUCH!\n\r", ch, MXP_ALL );
+		send_to_char( "No longer upon your mount, you fall to the ground...\n\rOUCH!\n\r", ch );
 	    }
 
 	    if ( ( ch->in_room && ch->in_room->sector_type == SECT_UNDERWATER )
@@ -1685,7 +1667,7 @@ void char_check( void )
 			dam = number_range( ch->max_hit / 100, ch->max_hit / 50 );
 			dam = UMAX( 1, dam );
 			if ( number_bits(3) == 0 )
-			  mxp_to_char( "You cough and choke as you try to breathe water!\n\r", ch, MXP_ALL );
+			  send_to_char( "You cough and choke as you try to breathe water!\n\r", ch );
 			damage( ch, ch, dam, TYPE_UNDEFINED );
 		    }
 		}
@@ -1729,7 +1711,7 @@ void char_check( void )
 				dam = UMAX( 1, dam );
 
 				if ( number_bits(3) == 0 )
-				   mxp_to_char( "Struggling with exhaustion, you choke on a mouthful of water.\n\r", ch, MXP_ALL );
+				   send_to_char( "Struggling with exhaustion, you choke on a mouthful of water.\n\r", ch );
 				damage( ch, ch, dam, TYPE_UNDEFINED );
 			    }
 			}
@@ -2059,7 +2041,7 @@ void hallucinations( CHAR_DATA *ch )
 	    case 20: t = "You feel immortal!\n\r";					break;
 	    case 21: t = "Ahh... the power of a Supreme Entity... what to do...\n\r";	break;
 	}
-	mxp_to_char( t, ch, MXP_ALL );
+	send_to_char( t, ch );
     }
     return;
 }
@@ -2172,7 +2154,7 @@ void update_handler( void )
     if ( timechar )
     {
       set_char_color(AT_PLAIN, timechar);
-      mxp_to_char( "Starting update timer.\n\r", timechar, MXP_ALL );
+      send_to_char( "Starting update timer.\n\r", timechar );
       gettimeofday(&stime, NULL);
     }
 
@@ -2218,7 +2200,6 @@ void update_handler( void )
     {
 	pulse_second	= PULSE_PER_SECOND;
 	char_check( );
-  msdp_update(); /* <--- Add this line */
  	reboot_check(0);
     }
 
@@ -2248,7 +2229,7 @@ void update_handler( void )
     {
       gettimeofday(&etime, NULL);
       set_char_color(AT_PLAIN, timechar);
-      mxp_to_char( "Update timing complete.\n\r", timechar, MXP_ALL );
+      send_to_char( "Update timing complete.\n\r", timechar );
       subtract_times(&etime, &stime);
       ch_printf( timechar, "Timing took %d.%06d seconds.\n\r",
           etime.tv_sec, etime.tv_usec );
@@ -2352,7 +2333,7 @@ void reboot_check( time_t reset )
   if ( new_boot_time_t <= current_time )
   {
     CHAR_DATA *vch;
-//    extern bool mud_down;
+    extern bool mud_down;
     
     if ( auction->item )
     {
@@ -2364,7 +2345,7 @@ void reboot_check( time_t reset )
       if ( auction->buyer && auction->buyer != auction->seller )
       {
         auction->buyer->gold += auction->bet;
-        mxp_to_char("Your money has been returned.\n\r", auction->buyer, MXP_ALL);
+        send_to_char("Your money has been returned.\n\r", auction->buyer);
       }
     }
     echo_to_all(AT_YELLOW, "You are forced from these realms by a strong "
@@ -2466,7 +2447,7 @@ void auction_update (void)
 		ch_printf(auction->seller, "The auctioneer pays you %s gold, charging an auction fee of ",
 		  num_punct(pay));
 		ch_printf(auction->seller, "%s.\n\r", num_punct(tax) );
-		mxp_to_char(buf, auction->seller, MXP_ALL);
+		send_to_char(buf, auction->seller);
                 auction->item = NULL; /* reset item */
 		if ( IS_SET( sysdata.save_flags, SV_AUCTION ) )
 		{
@@ -2499,7 +2480,7 @@ void auction_update (void)
 		tax = (int)auction->item->cost * 0.05;
 		boost_economy( auction->seller->in_room->area, tax );
 		sprintf(buf, "The auctioneer charges you an auction fee of %s.\n\r", num_punct(tax) );
-		mxp_to_char(buf, auction->seller, MXP_ALL);
+		send_to_char(buf, auction->seller);
 		if ((auction->seller->gold - tax) < 0)
 		  auction->seller->gold = 0;
 		else
@@ -3161,158 +3142,3 @@ void hint_update()
         }
         return;
 }
-
-void msdp_update( void )
-{
-    DESCRIPTOR_DATA *d;
-    int PlayerCount = 0;
-
-    for( d = first_descriptor; d; d = d->next )
-    {
-        CHAR_DATA *ch = d->character;
-	if ( ch && d->connected == CON_PLAYING && !IS_NPC(ch) )
-        {
-            char buf[MAX_STRING_LENGTH];
-            CHAR_DATA *pOpponent = ch->fighting ? ch->fighting->who : NULL;
-            ROOM_INDEX_DATA *pRoom = ch->in_room;
-            AFFECT_DATA *paf;
-            SKILLTYPE *skill;
-            int this_level = exp_level(ch,ch->level);
-            int next_level = exp_level(ch,ch->level+1);
-            int exp_tnl = (ch->exp - this_level) * 100 / next_level;
-
-            ++PlayerCount;
-
-            MSDPSetString( d, eMSDP_CHARACTER_NAME, ch->name );
-            MSDPSetNumber( d, eMSDP_ALIGNMENT, ch->alignment );
-            MSDPSetNumber( d, eMSDP_EXPERIENCE, ch->exp );
-            MSDPSetNumber( d, eMSDP_EXPERIENCE_MAX, next_level );
-            MSDPSetNumber( d, eMSDP_EXPERIENCE_TNL, exp_tnl );
-            MSDPSetNumber( d, eMSDP_HEALTH, ch->hit );
-            MSDPSetNumber( d, eMSDP_HEALTH_MAX, ch->max_hit );
-            MSDPSetNumber( d, eMSDP_LEVEL, ch->level );
-            MSDPSetString( d, eMSDP_RACE, capitalize(get_race(ch)) );
-            MSDPSetString( d, eMSDP_CLASS, capitalize(get_class(ch)) );
-            MSDPSetNumber( d, eMSDP_MANA, ch->mana );
-            MSDPSetNumber( d, eMSDP_MANA_MAX, ch->max_mana );
-            MSDPSetNumber( d, eMSDP_WIMPY, ch->wimpy );
-            MSDPSetNumber( d, eMSDP_PRACTICE, ch->practice );
-            MSDPSetNumber( d, eMSDP_MONEY, ch->gold );
-            MSDPSetNumber( d, eMSDP_MOVEMENT, ch->move );
-            MSDPSetNumber( d, eMSDP_MOVEMENT_MAX, ch->max_move );
-/* You'll need to add this one yourself - see the README.TXT
-            MSDPSetNumber( d, eMSDP_BLOOD, ch->pcdata->condition[COND_BLOODTHIRST] );
-*/
-            MSDPSetNumber( d, eMSDP_HITROLL, GET_HITROLL(ch) );
-            MSDPSetNumber( d, eMSDP_DAMROLL, GET_DAMROLL(ch) );
-            MSDPSetNumber( d, eMSDP_AC, GET_AC(ch) );
-            MSDPSetNumber( d, eMSDP_STR, get_curr_str(ch) );
-            MSDPSetNumber( d, eMSDP_INT, get_curr_int(ch) );
-            MSDPSetNumber( d, eMSDP_WIS, get_curr_wis(ch) );
-            MSDPSetNumber( d, eMSDP_DEX, get_curr_dex(ch) );
-            MSDPSetNumber( d, eMSDP_CON, get_curr_con(ch) );
-/* You'll need to add these yourself - see the README.TXT
-            MSDPSetNumber( d, eMSDP_CHA, get_curr_cha(ch) );
-            MSDPSetNumber( d, eMSDP_LCK, get_curr_lck(ch) );
-*/
-            MSDPSetNumber( d, eMSDP_STR_PERM, ch->perm_str );
-            MSDPSetNumber( d, eMSDP_INT_PERM, ch->perm_int );
-            MSDPSetNumber( d, eMSDP_WIS_PERM, ch->perm_wis );
-            MSDPSetNumber( d, eMSDP_DEX_PERM, ch->perm_dex );
-            MSDPSetNumber( d, eMSDP_CON_PERM, ch->perm_con );
-/* You'll need to add these yourself - see the README.TXT
-            MSDPSetNumber( d, eMSDP_CHA_PERM, ch->perm_cha );
-            MSDPSetNumber( d, eMSDP_LCK_PERM, ch->perm_lck );
-*/
-            /* This would be better moved elsewhere */
-            if ( pOpponent != NULL )
-            {
-                int hit_points = (pOpponent->hit * 100) / pOpponent->max_hit;
-                MSDPSetNumber( d, eMSDP_OPPONENT_HEALTH, hit_points );
-                MSDPSetNumber( d, eMSDP_OPPONENT_HEALTH_MAX, 100 );
-                MSDPSetNumber( d, eMSDP_OPPONENT_LEVEL, pOpponent->level );
-                MSDPSetString( d, eMSDP_OPPONENT_NAME, pOpponent->name );
-            }
-            else /* Clear the values */
-            {
-                MSDPSetNumber( d, eMSDP_OPPONENT_HEALTH, 0 );
-                MSDPSetNumber( d, eMSDP_OPPONENT_LEVEL, 0 );
-                MSDPSetString( d, eMSDP_OPPONENT_NAME, "" );
-            }
-
-            /* Only update room stuff if they've changed room */
-            if ( pRoom && pRoom->vnum != d->pProtocol->pVariables[eMSDP_ROOM_VNUM]->ValueInt )
-            {
-                EXIT_DATA *pexit;
-                buf[0] = '\0';
-                for ( pexit = ch->in_room->first_exit; pexit; pexit = pexit->next )
-                {
-                    if ( pexit->to_room
-                    && (!IS_SET(pexit->exit_info, EX_WINDOW)
-                    ||   IS_SET(pexit->exit_info, EX_ISDOOR))
-                    &&  !IS_SET(pexit->exit_info, EX_SECRET)
-                    &&  !IS_SET(pexit->exit_info, EX_HIDDEN)
-                    &&  !IS_SET(pexit->exit_info, EX_DIG) )
-                    {
-                        const char MsdpVar[] = { (char)MSDP_VAR, '\0' };
-                        const char MsdpVal[] = { (char)MSDP_VAL, '\0' };
-
-                        if ( IS_SET( pexit->exit_info, EX_CLOSED ) )
-                        {
-                            if ( pexit->keyword
-                            && ( !str_cmp( "door", pexit->keyword )
-                            ||   !str_cmp( "gate", pexit->keyword )
-                            ||    pexit->keyword[0] == '\0' ) )
-                            {
-                                strcat( buf, MsdpVar );
-                                strcat( buf, dir_name[pexit->vdir] );
-                                strcat( buf, MsdpVal );
-                                strcat( buf, "C" );
-                            }
-                        }
-                        else
-                        {
-                            strcat( buf, MsdpVar );
-                            strcat( buf, dir_name[pexit->vdir] );
-                            strcat( buf, MsdpVal );
-                            strcat( buf, "O" );
-                        }
-                    }
-                }
-
-                if ( pRoom->area != NULL )
-                    MSDPSetString( d, eMSDP_AREA_NAME, pRoom->area->name );
-
-                MSDPSetString( d, eMSDP_ROOM_NAME, pRoom->name );
-                MSDPSetTable( d, eMSDP_ROOM_EXITS, buf );
-                MSDPSetNumber( d, eMSDP_ROOM_VNUM, pRoom->vnum );
-            }
-/*
-            MSDPSetNumber( d, eMSDP_WORLD_TIME,  );
-*/
-
-            buf[0] = '\0';
-            for (paf = ch->first_affect; paf; paf = paf->next)
-            {
-                if ( (skill=get_skilltype(paf->type)) != NULL )
-                {
-                    char skill_buf[MAX_STRING_LENGTH];
-                    sprintf( skill_buf, "%c%s%c%d", 
-                       (char)MSDP_VAR, skill->name, 
-                       (char)MSDP_VAL, paf->duration );
-                    strcat( buf, skill_buf );
-                }
-            }
-            MSDPSetTable( d, eMSDP_AFFECTS, buf );
-
-            MSDPUpdate( d );
-        }
-    }
-
-    /* Ideally this should be called once at startup, and again whenever 
-     * someone leaves or joins the mud.  But this works, and it keeps the 
-     * snippet simple.  Optimise as you see fit.
-     */
-    MSSPSetPlayers( PlayerCount );
-}
-

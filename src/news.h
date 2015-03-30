@@ -1,38 +1,16 @@
-/*
-                     R E A L M S    O F    D E S P A I R  !
-   ___________________________________________________________________________
-  //            /                                                            \\
- [|_____________\   ********   *        *   ********   *        *   *******   |]
- [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
- [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
- [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
- [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
- [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
- [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
- [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
- [|_____________\  **********  **      **  **      **  **********  *********  |]
- [|             /  *********   *        *  *        *   ********    *******   |]
-  \\____________\____________________________________________________________//
-     |                                                                     |
-     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
-     |_____________________________________________________________________|
-     |                                                                     |
-     |              -*- Extended News Module Definitions -*-               |
-     |_____________________________________________________________________|
-    //                                                                     \\
-   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
-   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
-   [|                                                                       |]
-   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
-   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
-   [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
-    \\_____________________________________________________________________//
-*/
-
 /*****************************************************
+**     _________       __                           **
+**     \_   ___ \_____|__| _____  ________  ___     **
+**      /    \  \/_  __ \ |/     \/  ___/_ \/   \   **
+**      \     \___|  | \/ |  | |  \___ \  / ) |  \  **
+**       \______  /__| |__|__|_|  /____ \__/__|  /  **
+**         ____\/____ _        \/ ___ \/      \/    **
+**         \______   \ |_____  __| _/___            **
+**          |    |  _/ |\__  \/ __ | __ \           **
+**          |    |   \ |_/ __ \  / | ___/_          **
+**          |_____  /__/____  /_  /___  /           **
+**               \/Antipode\/  \/    \/             **
+******************************************************
 **         Crimson Blade Codebase (CbC)             **
 **     (c) 2000-2002 John Bellone (Noplex)          **
 **           Coders: Noplex, Krowe                  **
@@ -55,15 +33,16 @@
  * generated and included via a PHP; SSL; or a TXT include.
  */
 
-#ifndef _NEWS_H_
-#define _NEWS_H_
-
+#define NEWS_FILE "news.dat"
+#define NEWS_INCLUDE_FILE "news.txt"
 #define NEWS_TOP "\n\r"
 #define NEWS_HEADER "\n\r"
 #define NEWS_HEADER_ALL "&g( &W#&g)                          (&WSubject&g)\n\r"
 #define NEWS_HEADER_READ "&g( &W#&g)                          (&WSubject&g)\n\r"
 #define NEWS_VIEW               15
 #define NEWS_MAX_TYPES          10
+
+DECLARE_DO_FUN( do_editnews );
 
 typedef struct news_data NEWS;
 struct news_data
@@ -110,5 +89,3 @@ void display_news_type args((CHAR_DATA *ch, NEWS_TYPE *type, char *argument));
 void fread_news_type args(( NEWS_TYPE *type, FILE *fp ));
 bool news_cmd_hook args((CHAR_DATA *ch, char *cmd, char *argument));
 void link_news_to_type args((NEWS *news));
-
-#endif

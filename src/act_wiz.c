@@ -1,36 +1,19 @@
-/*
-                     R E A L M S    O F    D E S P A I R  !
-   ___________________________________________________________________________
-  //            /                                                            \\
- [|_____________\   ********   *        *   ********   *        *   *******   |]
- [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
- [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
- [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
- [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
- [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
- [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
- [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
- [|_____________\  **********  **      **  **      **  **********  *********  |]
- [|             /  *********   *        *  *        *   ********    *******   |]
-  \\____________\____________________________________________________________//
-     |                                                                     |
-     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
-     |_____________________________________________________________________|
-     |                                                                     |
-     |                  -*- Wizard/God Command Module -*-                  |
-     |_____________________________________________________________________|
-    //                                                                     \\
-   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
-   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
-   [|                                                                       |]
-   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
-   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
-   [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
-    \\_____________________________________________________________________//
-*/
+/****************************************************************************
+ * [S]imulated [M]edieval [A]dventure multi[U]ser [G]ame      |   \\._.//   *
+ * -----------------------------------------------------------|   (0...0)   *
+ * SMAUG 1.0 (C) 1994, 1995, 1996, 1998  by Derek Snider      |    ).:.(    *
+ * -----------------------------------------------------------|    {o o}    *
+ * SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,      |   / ' ' \   *
+ * Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,      |~'~.VxvxV.~'~*
+ * Tricops, Fireblade, Edmond, Conran                         |             *
+ * ------------------------------------------------------------------------ *
+ * Merc 2.1 Diku Mud improvments copyright (C) 1992, 1993 by Michael        *
+ * Chastain, Michael Quan, and Mitchell Tse.                                *
+ * Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,          *
+ * Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.     *
+ * ------------------------------------------------------------------------ *
+ *			   Wizard/god command module			    *
+ ****************************************************************************/
 
 #include <stdio.h>
 #include <string.h>
@@ -39,15 +22,15 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <errno.h>
-
 #include "mud.h"
-
 #ifdef WIN32
    #include <io.h>
    #define F_OK 0
 #endif
 
+
 #define RESTORE_INTERVAL 21600
+
 
 char * const save_flag[] =
 { "death", "kill", "passwd", "drop", "put", "give", "auto", "zap",
@@ -60,8 +43,8 @@ char * const save_flag[] =
 int generate_itemlevel  args ( ( AREA_DATA *pArea, OBJ_INDEX_DATA *pObjIndex ));
 
 /* from comm.c */
-// bool	write_to_descriptor	args( ( int desc, char *txt, int length ) );
-// bool	check_parse_name        args( ( char *name, bool newchar ) );
+bool	write_to_descriptor	args( ( int desc, char *txt, int length ) );
+bool	check_parse_name        args( ( char *name, bool newchar ) );
 
 /* from boards.c */
 void	note_attach( CHAR_DATA *ch);
@@ -83,7 +66,7 @@ void    remove_member           args( ( char *clanname, char *membername ) );
  */
 ROOM_INDEX_DATA * find_location	  args( ( CHAR_DATA *ch, char *arg ) );
 void              save_watchlist  args( ( void ) );
-//void              save_banlist    args( ( void ) );
+void              save_banlist    args( ( void ) );
 void              close_area      args( ( AREA_DATA *pArea ) );
 
 int               get_color (char *argument); /* function proto */
@@ -102,7 +85,6 @@ NOTE_DATA 	* get_log_by_number  		args( ( PROJECT_DATA *pproject, int pnum ) );
 char reboot_time[50];
 time_t new_boot_time_t;
 extern struct tm new_boot_struct;
-extern ROOM_INDEX_DATA *room_index_hash[MAX_KEY_HASH];
 extern OBJ_INDEX_DATA *obj_index_hash[MAX_KEY_HASH];
 extern MOB_INDEX_DATA *mob_index_hash[MAX_KEY_HASH];
 
@@ -126,15 +108,15 @@ void do_dnd( CHAR_DATA *ch, char *argument )
       if ( IS_SET(ch->pcdata->flags, PCFLAG_DND) )
       {
           REMOVE_BIT(ch->pcdata->flags, PCFLAG_DND);
-          mxp_to_char( "Your 'do not disturb' flag is now off.\n\r", ch, MXP_ALL );
+          send_to_char( "Your 'do not disturb' flag is now off.\n\r", ch );
       }
       else
       {
           SET_BIT(ch->pcdata->flags, PCFLAG_DND);
-          mxp_to_char( "Your 'do not disturb' flag is now on.\n\r", ch, MXP_ALL );
+          send_to_char( "Your 'do not disturb' flag is now on.\n\r", ch );
       }
    else
-   mxp_to_char( "huh?\n\r", ch, MXP_ALL );
+   send_to_char( "huh?\n\r", ch );
 }
 
 /*
@@ -534,7 +516,7 @@ void do_setvault( CHAR_DATA *ch, char *argument )
 		&& get_trust( ch ) > LEVEL_GREATER )
 		{
               save_vault_list( );
-			  mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+			  send_to_char( "Done.\n\r", ch );
 			  return;
 		}
 
@@ -559,16 +541,16 @@ void do_setvault( CHAR_DATA *ch, char *argument )
                                 {
                                 UNLINK(vault, first_vault, last_vault, next, prev);
                                 DISPOSE(vault);
-                                mxp_to_char( "Deleting that vnum...\n\r", ch, MXP_ALL );
+                                send_to_char( "Deleting that vnum...\n\r", ch );
                                 return;
                                 }
                         }
                         else
-                                mxp_to_char( "Not currently a donation vnum.\n\r", ch, MXP_ALL);
+                                send_to_char( "Not currently a donation vnum.\n\r", ch);
                 }
                 else
                 {
-                        mxp_to_char("Invalid vnum argument", ch, MXP_ALL);
+                        send_to_char("Invalid vnum argument", ch);
                         return;
                 }
         }                                                                                                                                       
@@ -657,7 +639,7 @@ void do_restrict( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Restrict which command?\n\r", ch, MXP_ALL );
+	send_to_char( "Restrict which command?\n\r", ch );
 	return;
     }
 
@@ -697,7 +679,7 @@ void do_restrict( CHAR_DATA *ch, char *argument )
 	log_string( buf );
     }
     else
-    	mxp_to_char( "You may not restrict that command.\n\r", ch, MXP_ALL );
+    	send_to_char( "You may not restrict that command.\n\r", ch );
 
     return;
 }
@@ -729,7 +711,7 @@ CHAR_DATA *get_waiting_desc( CHAR_DATA *ch, char *name )
      return ret_char; 
   else 
      { 
-     mxp_to_char( "No one like that waiting for authorization.\n\r", ch, MXP_ALL ); 
+     send_to_char( "No one like that waiting for authorization.\n\r", ch ); 
      return NULL; 
      } 
 } 
@@ -749,10 +731,10 @@ void do_authorize( CHAR_DATA *ch, char *argument )
   argument = one_argument( argument, arg2 );
   if ( arg1[0] == '\0' )
      {
-     mxp_to_char( "Usage:  authorize <player> <yes|name|immsim|mobsim|swear|plain|unpronu|no/deny>\n\r", ch, MXP_ALL );
-     mxp_to_char( "Pending authorizations:\n\r", ch, MXP_ALL );
-     mxp_to_char( " Chosen Character Name\n\r", ch, MXP_ALL );
-     mxp_to_char( "---------------------------------------------\n\r", ch, MXP_ALL );
+     send_to_char( "Usage:  authorize <player> <yes|name|immsim|mobsim|swear|plain|unpronu|no/deny>\n\r", ch );
+     send_to_char( "Pending authorizations:\n\r", ch );
+     send_to_char( " Chosen Character Name\n\r", ch );
+     send_to_char( "---------------------------------------------\n\r", ch );
      for ( d = first_descriptor; d; d = d->next )
          if ( (victim = d->character) != NULL && IS_WAITING_FOR_AUTH(victim) )
             ch_printf( ch, " %s@%s new %s %s (%s)...\n\r",
@@ -893,7 +875,7 @@ void do_authorize( CHAR_DATA *ch, char *argument )
 
      else
      {
-        mxp_to_char("Invalid argument.\n\r", ch, MXP_ALL);
+        send_to_char("Invalid argument.\n\r", ch);
         return;
      }
 }
@@ -931,8 +913,8 @@ void do_rank( CHAR_DATA *ch, char *argument )
     return;
   if ( !argument || argument[0] == '\0' )
   {
-    mxp_to_char( "Usage:  rank <string>.\n\r", ch, MXP_ALL );
-    mxp_to_char( "   or:  rank none.\n\r", ch, MXP_ALL );
+    send_to_char( "Usage:  rank <string>.\n\r", ch );
+    send_to_char( "   or:  rank none.\n\r", ch );
     return;
   }
   smash_tilde( argument );
@@ -941,7 +923,7 @@ void do_rank( CHAR_DATA *ch, char *argument )
     ch->pcdata->rank = str_dup( "" );
   else
     ch->pcdata->rank = str_dup( argument );
-  mxp_to_char( "Ok.\n\r", ch, MXP_ALL );
+  send_to_char( "Ok.\n\r", ch );
   return;
 }
 
@@ -955,27 +937,27 @@ void do_retire( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Retire whom?\n\r", ch, MXP_ALL );
+	send_to_char( "Retire whom?\n\r", ch );
 	return;
     }
     if ( ( victim = get_char_world( ch, arg ) ) == NULL )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
     if ( IS_NPC( victim ) )
     {
-	mxp_to_char( "Not on NPC's.\n\r", ch, MXP_ALL );
+	send_to_char( "Not on NPC's.\n\r", ch );
 	return;
     }
     if ( get_trust( victim ) >= get_trust( ch ) )
     {
-	mxp_to_char( "You failed.\n\r", ch, MXP_ALL );
+	send_to_char( "You failed.\n\r", ch );
 	return;
     }
     if ( !IS_RETIRED(victim) && victim->level < LEVEL_SAVIOR )
     {
-	mxp_to_char( "The minimum level for retirement is savior.\n\r", ch, MXP_ALL );
+	send_to_char( "The minimum level for retirement is savior.\n\r", ch );
 	return;
     }
     if ( IS_RETIRED( victim ) )
@@ -1004,38 +986,38 @@ void do_delay( CHAR_DATA *ch, char *argument )
  
     argument = one_argument( argument, arg );
     if ( !*arg ) {
-      mxp_to_char( "Syntax:  delay <victim> <# of rounds>\n\r", ch, MXP_ALL );
+      send_to_char( "Syntax:  delay <victim> <# of rounds>\n\r", ch );
       return;
     }
     if ( !( victim = get_char_world( ch, arg ) ) ) {
-      mxp_to_char( "No such character online.\n\r", ch, MXP_ALL );
+      send_to_char( "No such character online.\n\r", ch );
       return;
     }
     if ( IS_NPC( victim ) ) {
-      mxp_to_char( "Mobiles are unaffected by lag.\n\r", ch, MXP_ALL );
+      send_to_char( "Mobiles are unaffected by lag.\n\r", ch );
       return;
     }
     if ( !IS_NPC(victim) && get_trust( victim ) >= get_trust( ch ) ) {
-      mxp_to_char( "You haven't the power to succeed against them.\n\r", ch, MXP_ALL );
+      send_to_char( "You haven't the power to succeed against them.\n\r", ch );
       return;
     }
     argument = one_argument(argument, arg);
     if ( !*arg ) {
-      mxp_to_char( "For how long do you wish to delay them?\n\r", ch, MXP_ALL );
+      send_to_char( "For how long do you wish to delay them?\n\r", ch );
       return;
     }
     if ( !str_cmp( arg, "none" ) ) {
-      mxp_to_char( "All character delay removed.\n\r", ch, MXP_ALL );
+      send_to_char( "All character delay removed.\n\r", ch );
       victim->wait = 0;
       return;
     }
     delay = atoi( arg );
     if ( delay < 1 ) {
-      mxp_to_char( "Pointless.  Try a positive number.\n\r", ch, MXP_ALL );
+      send_to_char( "Pointless.  Try a positive number.\n\r", ch );
       return;
     }
     if ( delay > 999 ) {
-      mxp_to_char( "You cruel bastard.  Just kill them.\n\r", ch, MXP_ALL );
+      send_to_char( "You cruel bastard.  Just kill them.\n\r", ch );
       return;
     }
     WAIT_STATE( victim, delay * PULSE_VIOLENCE );
@@ -1053,27 +1035,27 @@ void do_deny( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Deny whom?\n\r", ch, MXP_ALL );
+	send_to_char( "Deny whom?\n\r", ch );
 	return;
     }
     if ( ( victim = get_char_world( ch, arg ) ) == NULL )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
     if ( IS_NPC( victim ) )
     {
-	mxp_to_char( "Not on NPC's.\n\r", ch, MXP_ALL );
+	send_to_char( "Not on NPC's.\n\r", ch );
 	return;
     }
     if ( get_trust( victim ) >= get_trust( ch ) )
     {
-	mxp_to_char( "You failed.\n\r", ch, MXP_ALL );
+	send_to_char( "You failed.\n\r", ch );
 	return;
     }
     xSET_BIT(victim->act, PLR_DENY);
     set_char_color( AT_IMMORT, victim );
-    mxp_to_char( "You are denied access!\n\r", victim, MXP_ALL);
+    send_to_char( "You are denied access!\n\r", victim );
     ch_printf( ch, "You have denied access to %s.\n\r", victim->name );
     if ( victim->fighting )
       stop_fighting( victim, TRUE ); /* Blodkai, 97 */
@@ -1093,12 +1075,12 @@ void do_disconnect( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Disconnect whom?\n\r", ch, MXP_ALL );
+	send_to_char( "Disconnect whom?\n\r", ch );
 	return;
     }
     if ( ( victim = get_char_world( ch, arg ) ) == NULL )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
     if ( victim->desc == NULL )
@@ -1108,7 +1090,7 @@ void do_disconnect( CHAR_DATA *ch, char *argument )
     }
     if ( get_trust(ch) <= get_trust( victim ) )
     {
-	mxp_to_char( "They might not like that...\n\r", ch, MXP_ALL );
+	send_to_char( "They might not like that...\n\r", ch );
 	return;
     }
 
@@ -1117,12 +1099,12 @@ void do_disconnect( CHAR_DATA *ch, char *argument )
 	if ( d == victim->desc )
 	{
 	    close_socket( d, FALSE );
-	    mxp_to_char( "Ok.\n\r", ch, MXP_ALL );
+	    send_to_char( "Ok.\n\r", ch );
 	    return;
 	}
     }
     bug( "Do_disconnect: *** desc not found ***.", 0 );
-    mxp_to_char( "Descriptor not found!\n\r", ch, MXP_ALL );
+    send_to_char( "Descriptor not found!\n\r", ch );
     return;
 }
 
@@ -1140,21 +1122,21 @@ void do_fquit( CHAR_DATA *ch, char *argument )
   argument = one_argument( argument, arg1 ); 
   if ( arg1[0] == '\0' ) 
   { 
-     mxp_to_char( "Force whom to quit?\n\r", ch, MXP_ALL ); 
+     send_to_char( "Force whom to quit?\n\r", ch ); 
      return; 
   } 
   if ( !( victim = get_char_world( ch, arg1 ) ) )
   { 
-     mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL ); 
+     send_to_char( "They aren't here.\n\r", ch ); 
      return; 
   } 
   if ( victim->level != 1 )  
   { 
-     mxp_to_char( "They are not level one!\n\r", ch, MXP_ALL ); 
+     send_to_char( "They are not level one!\n\r", ch ); 
      return; 
   }
   set_char_color( AT_IMMORT, victim );
-  mxp_to_char( "The MUD administrators force you to quit...\n\r", victim, MXP_ALL );
+  send_to_char( "The MUD administrators force you to quit...\n\r", victim );
   if ( victim->fighting )
     stop_fighting( victim, TRUE );
   do_quit (victim, "");
@@ -1173,7 +1155,7 @@ void do_forceclose( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Usage: forceclose <descriptor#>\n\r", ch, MXP_ALL );
+	send_to_char( "Usage: forceclose <descriptor#>\n\r", ch );
 	return;
     }
 
@@ -1184,15 +1166,15 @@ void do_forceclose( CHAR_DATA *ch, char *argument )
 	{
 	    if ( d->character && get_trust(d->character) >= get_trust(ch) )
 	    {
-		mxp_to_char( "They might not like that...\n\r", ch, MXP_ALL );
+		send_to_char( "They might not like that...\n\r", ch );
 		return;
 	    }
 	    close_socket( d, FALSE );
-	    mxp_to_char( "Ok.\n\r", ch, MXP_ALL );
+	    send_to_char( "Ok.\n\r", ch );
 	    return;
 	}
     }
-    mxp_to_char( "Not found!\n\r", ch, MXP_ALL );
+    send_to_char( "Not found!\n\r", ch );
     return;
 }
 
@@ -1208,17 +1190,17 @@ void do_pardon( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg2 );
     if ( arg1[0] == '\0' || arg2[0] == '\0' )
     {
-	mxp_to_char( "Syntax: pardon <character> <killer|thief|attacker>.\n\r", ch, MXP_ALL );
+	send_to_char( "Syntax: pardon <character> <killer|thief|attacker>.\n\r", ch );
 	return;
     }
     if ( ( victim = get_char_world( ch, arg1 ) ) == NULL )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
     if ( IS_NPC( victim ) )
     {
-	mxp_to_char( "Not on NPC's.\n\r", ch, MXP_ALL );
+	send_to_char( "Not on NPC's.\n\r", ch );
 	return;
     }
 
@@ -1229,7 +1211,7 @@ void do_pardon( CHAR_DATA *ch, char *argument )
 	    xREMOVE_BIT( victim->act, PLR_ATTACKER );
 	    ch_printf( ch, "Attacker flag removed from %s.\n\r", victim->name );
 	    set_char_color( AT_IMMORT, victim );
-	    mxp_to_char( "You are no longer an ATTACKER.\n\r", victim, MXP_ALL );
+	    send_to_char( "You are no longer an ATTACKER.\n\r", victim );
 	}
 	return;
     }
@@ -1240,7 +1222,7 @@ void do_pardon( CHAR_DATA *ch, char *argument )
 	    xREMOVE_BIT(victim->act, PLR_KILLER );
 	    ch_printf( ch, "Killer flag removed from %s.\n\r", victim->name );
 	    set_char_color( AT_IMMORT, victim );
-	    mxp_to_char( "You are no longer a KILLER.\n\r", victim, MXP_ALL );
+	    send_to_char( "You are no longer a KILLER.\n\r", victim );
 	}
 	return;
     }
@@ -1251,11 +1233,11 @@ void do_pardon( CHAR_DATA *ch, char *argument )
 	    xREMOVE_BIT(victim->act, PLR_THIEF );
 	    ch_printf( ch, "Thief flag removed from %s.\n\r", victim->name );
 	    set_char_color( AT_IMMORT, victim );
-	    mxp_to_char( "You are no longer a THIEF.\n\r", victim, MXP_ALL );
+	    send_to_char( "You are no longer a THIEF.\n\r", victim );
 	}
 	return;
     }
-    mxp_to_char( "Syntax: pardon <character> <killer|thief>.\n\r", ch, MXP_ALL );
+    send_to_char( "Syntax: pardon <character> <killer|thief>.\n\r", ch );
     return;
 }
 
@@ -1280,8 +1262,8 @@ void echo_to_all( sh_int AT_COLOR, char *argument, sh_int tar )
 	    else if ( tar == ECHOTAR_PK && !IS_PKILL( d->character ) )
 	      continue;
 	    set_char_color( AT_COLOR, d->character );
-	    mxp_to_char( argument, d->character, MXP_ALL );
-	    mxp_to_char( "\n\r",   d->character, MXP_ALL );
+	    send_to_char( argument, d->character );
+	    send_to_char( "\n\r",   d->character );
 	}
     }
     return;
@@ -1303,7 +1285,7 @@ void do_aecho( CHAR_DATA *ch, char *argument )
     if ( ( color = get_color(argument) ) )
         argument = one_argument(argument, arg);
     if ( argument[0] == '\0' ) {
-        mxp_to_char( "Aecho what?\n\r", ch, MXP_ALL );
+        send_to_char( "Aecho what?\n\r", ch );
         return;
     }
     for ( vch = first_char; vch; vch = vch_next )
@@ -1313,12 +1295,12 @@ void do_aecho( CHAR_DATA *ch, char *argument )
         {
         if ( color )
                 set_char_color( color, vch ),
-                mxp_to_char( argument, vch, MXP_ALL ),
-                mxp_to_char( "\n\r",   vch, MXP_ALL );
+                send_to_char( argument, vch ),
+                send_to_char( "\n\r",   vch );
         else
                 set_char_color( AT_IMMORT, vch ),
-                mxp_to_char( argument, vch, MXP_ALL ),
-                mxp_to_char( "\n\r",   vch, MXP_ALL );
+                send_to_char( argument, vch ),
+                send_to_char( "\n\r",   vch );
         }
     }
 }
@@ -1333,11 +1315,11 @@ void do_echo( CHAR_DATA *ch, char *argument )
     set_char_color( AT_IMMORT, ch );
 
     if ( xIS_SET(ch->act, PLR_NO_EMOTE) ) {
-        mxp_to_char( "You can't do that right now.\n\r", ch, MXP_ALL );
+        send_to_char( "You can't do that right now.\n\r", ch );
 	return;
     }
     if ( argument[0] == '\0' ) {
-	mxp_to_char( "Echo what?\n\r", ch, MXP_ALL );
+	send_to_char( "Echo what?\n\r", ch );
 	return;
     }
 
@@ -1377,8 +1359,8 @@ void echo_to_room( sh_int AT_COLOR, ROOM_INDEX_DATA *room, char *argument )
     for ( vic = room->first_person; vic; vic = vic->next_in_room )
     {
 	set_char_color( AT_COLOR, vic );
-	mxp_to_char( argument, vic, MXP_ALL );
-	mxp_to_char( "\n\r",   vic, MXP_ALL );
+	send_to_char( argument, vic );
+	send_to_char( "\n\r",   vic );
     }
 }
 
@@ -1390,11 +1372,11 @@ void do_recho( CHAR_DATA *ch, char *argument )
     set_char_color( AT_IMMORT, ch );
 
     if ( xIS_SET(ch->act, PLR_NO_EMOTE) ) {
-        mxp_to_char( "You can't do that right now.\n\r", ch, MXP_ALL );
+        send_to_char( "You can't do that right now.\n\r", ch );
 	return;
     }
     if ( argument[0] == '\0' ) {
-	mxp_to_char( "Recho what?\n\r", ch, MXP_ALL );
+	send_to_char( "Recho what?\n\r", ch );
 	return;
     }
 
@@ -1449,7 +1431,7 @@ void do_transfer( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg1 );
     argument = one_argument( argument, arg2 );
     if ( arg1[0] == '\0' ) { 
-	mxp_to_char( "Transfer whom (and where)?\n\r", ch, MXP_ALL );
+	send_to_char( "Transfer whom (and where)?\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg1, "all" ) && get_trust(ch) >= LEVEL_GREATER) 
@@ -1482,28 +1464,28 @@ void do_transfer( CHAR_DATA *ch, char *argument )
     {
 	if ( ( location = find_location( ch, arg2 ) ) == NULL )
 	{
-	    mxp_to_char( "No such location.\n\r", ch, MXP_ALL );
+	    send_to_char( "No such location.\n\r", ch );
 	    return;
 	}
 	if ( room_is_private( location ) && get_trust( ch ) < sysdata.level_override_private )
 	{
-	    mxp_to_char( "That room is private right now.\n\r", ch, MXP_ALL );
+	    send_to_char( "That room is private right now.\n\r", ch );
 	    return;
 	}
     }
     if ( ( victim = get_char_world( ch, arg1 ) ) == NULL )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
     if ( NOT_AUTHED( victim ) )
     {
-	mxp_to_char( "They are not authorized yet!\n\r", ch, MXP_ALL);
+	send_to_char( "They are not authorized yet!\n\r", ch);
 	return;
     }
     if ( !victim->in_room )
     {
-	mxp_to_char( "They have no physical location!\n\r", ch, MXP_ALL );
+	send_to_char( "They have no physical location!\n\r", ch );
 	return;
     }
     /* modification to prevent a low level imm from transferring a */
@@ -1548,12 +1530,12 @@ void do_retran( CHAR_DATA *ch, char *argument )
 	argument = one_argument( argument, arg );
 	if ( arg[0] == '\0' )
 	{
-		mxp_to_char("Retransfer whom?\n\r", ch, MXP_ALL );
+		send_to_char("Retransfer whom?\n\r", ch );
 		return;
 	}
 	if ( !(victim = get_char_world(ch, arg)) )
 	{
-		mxp_to_char("They aren't here.\n\r", ch, MXP_ALL );
+		send_to_char("They aren't here.\n\r", ch );
 		return;
 	}
 	sprintf(buf, "'%s' %d", victim->name, victim->retran);
@@ -1585,7 +1567,7 @@ void do_at( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg );
     if ( arg[0] == '\0' || argument[0] == '\0' )
     {
-	mxp_to_char( "At where what?\n\r", ch, MXP_ALL );
+	send_to_char( "At where what?\n\r", ch );
 	return;
     }
     if ( is_number( arg ) )
@@ -1595,7 +1577,7 @@ void do_at( CHAR_DATA *ch, char *argument )
     else if ( ( wch = get_char_world( ch, arg ) ) == NULL 
     	 || wch->in_room == NULL)
     {
-	mxp_to_char( "No such mobile or player in existance.\n\r", ch, MXP_ALL );
+	send_to_char( "No such mobile or player in existance.\n\r", ch );
 	return;
     }
     if ( !location && wch )
@@ -1603,7 +1585,7 @@ void do_at( CHAR_DATA *ch, char *argument )
 
     if ( !location )
     {
-    	mxp_to_char( "No such location exists.\n\r", ch, MXP_ALL );
+    	send_to_char( "No such location exists.\n\r", ch );
 	return;
     }
 
@@ -1627,11 +1609,11 @@ void do_at( CHAR_DATA *ch, char *argument )
     {
       if ( get_trust( ch ) < LEVEL_GREATER )
       {
-	mxp_to_char( "That room is private right now.\n\r", ch, MXP_ALL );
+	send_to_char( "That room is private right now.\n\r", ch );
 	return;
       }
       else
-	mxp_to_char( "Overriding private flag!\n\r", ch, MXP_ALL );
+	send_to_char( "Overriding private flag!\n\r", ch );
     }
 
     if ( (victim=room_is_dnd(ch, location)) )
@@ -1669,14 +1651,14 @@ void do_atobj( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg );
     if ( arg[0] == '\0' || argument[0] == '\0' )
     {
-	mxp_to_char( "At where what?\n\r", ch, MXP_ALL );
+	send_to_char( "At where what?\n\r", ch );
 	return;
     }
 
     if ( ( obj = get_obj_world( ch, arg ) ) == NULL 
     	 || !obj->in_room )
     {
-	mxp_to_char( "No such object in existance.\n\r", ch, MXP_ALL );
+	send_to_char( "No such object in existance.\n\r", ch );
 	return;
     }
     location = obj->in_room;
@@ -1684,11 +1666,11 @@ void do_atobj( CHAR_DATA *ch, char *argument )
     {
       if ( get_trust( ch ) < LEVEL_GREATER )
       {
-	mxp_to_char( "That room is private right now.\n\r", ch, MXP_ALL );
+	send_to_char( "That room is private right now.\n\r", ch );
 	return;
       }
       else
-	mxp_to_char( "Overriding private flag!\n\r", ch, MXP_ALL );
+	send_to_char( "Overriding private flag!\n\r", ch );
     }
 
     if ( (victim=room_is_dnd(ch, location)) )
@@ -1727,19 +1709,19 @@ void do_rat( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg2 );
     if ( arg1[0] == '\0' || arg2[0] == '\0' || argument[0] == '\0' )
     {
-	mxp_to_char( "Syntax: rat <start> <end> <command>\n\r", ch, MXP_ALL );
+	send_to_char( "Syntax: rat <start> <end> <command>\n\r", ch );
 	return;
     }
 
     Start = atoi( arg1 );	End = atoi( arg2 );
     if ( Start < 1 || End < Start || Start > End || Start == End || End > MAX_VNUM )
     {
-	mxp_to_char( "Invalid range.\n\r", ch, MXP_ALL );
+	send_to_char( "Invalid range.\n\r", ch );
 	return;
     }
     if ( !str_cmp( argument, "quit" ) )
     {
-	mxp_to_char( "I don't think so!\n\r", ch, MXP_ALL );
+	send_to_char( "I don't think so!\n\r", ch );
 	return;
     }
 
@@ -1755,7 +1737,7 @@ void do_rat( CHAR_DATA *ch, char *argument )
 
     char_from_room( ch );
     char_to_room( ch, original );
-    mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+    send_to_char( "Done.\n\r", ch );
     return;
 }
 
@@ -1800,7 +1782,7 @@ void do_rstat( CHAR_DATA *ch, char *argument )
     location = ( arg[0] == '\0' ) ? ch->in_room : find_location( ch, arg );
     if ( !location )
     {
-	mxp_to_char( "No such location.\n\r", ch, MXP_ALL );
+	send_to_char( "No such location.\n\r", ch );
 	return;
     }
 
@@ -1808,11 +1790,11 @@ void do_rstat( CHAR_DATA *ch, char *argument )
     {
 	if ( get_trust( ch ) < LEVEL_GREATER )
 	{
-	    mxp_to_char( "That room is private right now.\n\r", ch, MXP_ALL );
+	    send_to_char( "That room is private right now.\n\r", ch );
 	    return;
 	}
 	else
-	    mxp_to_char( "Overriding private flag!\n\r", ch, MXP_ALL );
+	    send_to_char( "Overriding private flag!\n\r", ch );
     }
 
     ch_printf_color( ch, "&cName: &w%s\n\r&cArea: &w%s  &cFilename: &w%s\n\r",
@@ -1846,7 +1828,7 @@ void do_rstat( CHAR_DATA *ch, char *argument )
 	location->light );
     if ( location->tunnel > 0 )
 	ch_printf_color( ch, "   &cTunnel: &W%d", location->tunnel );
-    mxp_to_char( "\n\r", ch, MXP_ALL );
+    send_to_char( "\n\r", ch );
     ch_printf_color( ch, "&cRoom Weight: &W%d   &cRoom Max Weight: &R%d\n\r", location->weight, location->max_weight );
     if ( location->tele_delay > 0 || location->tele_vnum > 0 )
 	ch_printf_color( ch, "&cTeleDelay: &R%d   &cTeleVnum: &R%d\n\r",
@@ -1862,11 +1844,11 @@ void do_rstat( CHAR_DATA *ch, char *argument )
 	send_to_char_color( "&cExtra description keywords: &w'", ch );
 	for ( ed = location->first_extradesc; ed; ed = ed->next )
 	{
-	    mxp_to_char( ed->keyword, ch, MXP_ALL );
+	    send_to_char( ed->keyword, ch );
 	    if ( ed->next )
-		mxp_to_char( ", ", ch, MXP_ALL );
+		send_to_char( ", ", ch );
 	}
-	mxp_to_char( "'\n\r", ch, MXP_ALL );
+	send_to_char( "'\n\r", ch );
     }
     for ( paf = location->first_affect; paf; paf = paf->next )
 	ch_printf_color( ch, "&cAffect: &w%s &cby &w%d.\n\r",
@@ -1877,20 +1859,20 @@ void do_rstat( CHAR_DATA *ch, char *argument )
     {
 	if ( can_see( ch, rch ) )
 	{
-	  mxp_to_char( " ", ch, MXP_ALL );
+	  send_to_char( " ", ch );
 	  one_argument( rch->name, buf );
-	  mxp_to_char( buf, ch, MXP_ALL );
+	  send_to_char( buf, ch );
 	}
     }
 
     send_to_char_color( "\n\r&cObjects:    &w", ch );
     for ( obj = location->first_content; obj; obj = obj->next_content )
     {
-	mxp_to_char( " ", ch, MXP_ALL );
+	send_to_char( " ", ch );
 	one_argument( obj->name, buf );
-	mxp_to_char( buf, ch, MXP_ALL );
+	send_to_char( buf, ch );
     }
-    mxp_to_char( "\n\r", ch, MXP_ALL );
+    send_to_char( "\n\r", ch );
 
     if ( location->first_exit )
 	send_to_char_color(  "&c------------------- &wEXITS &c-------------------\n\r", ch );
@@ -1918,7 +1900,7 @@ void do_ostat( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-        mxp_to_char( "Ostat what?\n\r", ch, MXP_ALL );
+        send_to_char( "Ostat what?\n\r", ch );
         return;
     }
     if ( arg[0] != '\'' && arg[0] != '"' && strlen(argument) > strlen(arg) )
@@ -1926,7 +1908,7 @@ void do_ostat( CHAR_DATA *ch, char *argument )
  
     if ( ( obj = get_obj_world( ch, arg ) ) == NULL )
     {
-        mxp_to_char( "Nothing like that in hell, earth, or heaven.\n\r", ch, MXP_ALL );
+        send_to_char( "Nothing like that in hell, earth, or heaven.\n\r", ch );
         return;
     }
     ch_printf_color( ch, "&cName: &C%s\n\r", obj->name );
@@ -1972,26 +1954,26 @@ void do_ostat( CHAR_DATA *ch, char *argument )
     if ( obj->pIndexData->first_extradesc )
     {
 	EXTRA_DESCR_DATA *ed;
-	mxp_to_char( "Primary description keywords:   '", ch, MXP_ALL );
+	send_to_char( "Primary description keywords:   '", ch );
 	for ( ed = obj->pIndexData->first_extradesc; ed; ed = ed->next )
 	{
-	    mxp_to_char( ed->keyword, ch, MXP_ALL );
+	    send_to_char( ed->keyword, ch );
 	    if ( ed->next )
-		mxp_to_char( ", ", ch, MXP_ALL );
+		send_to_char( ", ", ch );
 	}
-	mxp_to_char( "'\n\r", ch, MXP_ALL );
+	send_to_char( "'\n\r", ch );
     }
     if ( obj->first_extradesc )
     {
 	EXTRA_DESCR_DATA *ed;
-	mxp_to_char( "Secondary description keywords: '", ch, MXP_ALL );
+	send_to_char( "Secondary description keywords: '", ch );
 	for ( ed = obj->first_extradesc; ed; ed = ed->next )
 	{
-	    mxp_to_char( ed->keyword, ch, MXP_ALL );
+	    send_to_char( ed->keyword, ch );
 	    if ( ed->next )
-		mxp_to_char( ", ", ch, MXP_ALL );
+		send_to_char( ", ", ch );
         }
-	mxp_to_char( "'\n\r", ch, MXP_ALL );
+	send_to_char( "'\n\r", ch );
     }
     for ( paf = obj->first_affect; paf; paf = paf->next )
 	ch_printf_color( ch, "&cAffects &w%s &cby &w%d. (extra)\n\r",
@@ -2015,19 +1997,19 @@ void do_vstat( CHAR_DATA *ch, char *argument )
 
     if ( ( victim = get_char_world( ch, argument ) ) == NULL )
     {
-    mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+    send_to_char( "They aren't here.\n\r", ch );
     return;
     }
 
     if ( get_trust( ch ) < get_trust( victim ) )
     {
-    mxp_to_char( "Their godly glow prevents you from getting a good look.\n\r", ch, MXP_ALL );
+    send_to_char( "Their godly glow prevents you from getting a good look.\n\r", ch );
     return;
     }
 
     if ( !victim->variables )
     {
-    mxp_to_char( "They have no variables currently assigned to them.\n\r", ch, MXP_ALL );
+    send_to_char( "They have no variables currently assigned to them.\n\r", ch );
     return;
     }
 
@@ -2486,7 +2468,7 @@ void do_mfind( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Mfind whom?\n\r", ch, MXP_ALL );
+	send_to_char( "Mfind whom?\n\r", ch );
 	return;
     }
 
@@ -2518,7 +2500,7 @@ void do_mfind( CHAR_DATA *ch, char *argument )
     if ( nMatch )
 	pager_printf( ch, "Number of matches: %d\n", nMatch );
     else
-	mxp_to_char( "Nothing like that in hell, earth, or heaven.\n\r", ch, MXP_ALL );
+	send_to_char( "Nothing like that in hell, earth, or heaven.\n\r", ch );
     return;
 }
 
@@ -2535,7 +2517,7 @@ void do_ofind( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Ofind what?\n\r", ch, MXP_ALL );
+	send_to_char( "Ofind what?\n\r", ch );
 	return;
     }
 
@@ -2567,7 +2549,7 @@ void do_ofind( CHAR_DATA *ch, char *argument )
     if ( nMatch )
 	pager_printf( ch, "Number of matches: %d\n", nMatch );
     else
-	mxp_to_char( "Nothing like that in hell, earth, or heaven.\n\r", ch, MXP_ALL );
+	send_to_char( "Nothing like that in hell, earth, or heaven.\n\r", ch );
     return;
 }
 
@@ -2582,7 +2564,7 @@ void do_mwhere( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Mwhere whom?\n\r", ch, MXP_ALL );
+	send_to_char( "Mwhere whom?\n\r", ch );
 	return;
     }
 
@@ -2890,13 +2872,13 @@ void do_owhere( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Owhere what?\n\r", ch, MXP_ALL );
+	send_to_char( "Owhere what?\n\r", ch );
 	return;
     }
 
    if ( IS_SET( ch->pcdata->flags, PCFLAG_PAGERON ) )
    {
-        mxp_to_char( "The 'owhere' command temporarily  not be used in conjunction with the pager.\n\r", ch, MXP_ALL );
+        send_to_char( "The 'owhere' command temporarily  not be used in conjunction with the pager.\n\r", ch );
         return;
    }
 
@@ -2905,7 +2887,7 @@ void do_owhere( CHAR_DATA *ch, char *argument )
     {
       if ( !(obj = get_obj_world(ch, arg)) )
       {
-        mxp_to_char( "Nesthunt for what object?\n\r", ch, MXP_ALL );
+        send_to_char( "Nesthunt for what object?\n\r", ch );
         return;
       }
       for ( ; obj->in_obj; obj = obj->in_obj )
@@ -2964,7 +2946,7 @@ void do_owhere( CHAR_DATA *ch, char *argument )
           bug("do_owhere: object doesnt have location!",0);
           strcat(buf, "nowhere??\n\r");
         }
-        mxp_to_char(buf, ch, MXP_ALL);
+        send_to_char(buf, ch);
     }
 
     if ( !found )
@@ -3003,7 +2985,7 @@ void do_oclaim( CHAR_DATA *ch, char *argument )
 
     if ( arg1[0] == '\0' )
     {
-	mxp_to_char("Syntax: oclaim <object> [from who] [+silent]\r\n", ch, MXP_ALL);
+	send_to_char("Syntax: oclaim <object> [from who] [+silent]\r\n", ch);
 	return;
     }
     if ( arg3[0] == '\0' )
@@ -3056,7 +3038,7 @@ void do_oclaim( CHAR_DATA *ch, char *argument )
     }
     if ( !found && vnum != -1 )
     {
-	mxp_to_char("You can't find that.\r\n", ch, MXP_ALL );
+	send_to_char("You can't find that.\r\n", ch );
 	return;
     }
 
@@ -3075,7 +3057,7 @@ void do_oclaim( CHAR_DATA *ch, char *argument )
 
     if ( !found )
     {
-	mxp_to_char("You can't find that.\r\n", ch, MXP_ALL );
+	send_to_char("You can't find that.\r\n", ch );
 	return;
     }
 
@@ -3136,7 +3118,7 @@ void do_reboot( CHAR_DATA *ch, char *argument )
 {
     char buf[MAX_STRING_LENGTH];
     char buf2[MAX_STRING_LENGTH];
-//    extern bool mud_down;
+    extern bool mud_down;
     CHAR_DATA *vch;
 
     set_char_color( AT_IMMORT, ch );
@@ -3148,7 +3130,7 @@ void do_reboot( CHAR_DATA *ch, char *argument )
     &&   str_cmp( argument, buf2 )
     &&   str_cmp( argument, "and sort skill table" ) )
     {
-	mxp_to_char( "Syntax:  'reboot <port_name> now' or 'reboot <port_name> nosave'\n\r", ch, MXP_ALL );
+	send_to_char( "Syntax:  'reboot <port_name> now' or 'reboot <port_name> nosave'\n\r", ch );
 	return;
     }
 
@@ -3184,7 +3166,7 @@ void do_shutdown( CHAR_DATA *ch, char *argument )
 {
     char buf[MAX_STRING_LENGTH];
     char buf2[MAX_STRING_LENGTH];
-//    extern bool mud_down;
+    extern bool mud_down;
     CHAR_DATA *vch;
 
     set_char_color( AT_IMMORT, ch );
@@ -3194,7 +3176,7 @@ void do_shutdown( CHAR_DATA *ch, char *argument )
 
     if ( str_cmp( argument, buf ) && str_cmp( argument, buf2 ) )
     {
-	mxp_to_char( "Syntax:  'shutdown <port_name> now' or 'shutdown <port_name> nosave'\n\r", ch, MXP_ALL );
+	send_to_char( "Syntax:  'shutdown <port_name> now' or 'shutdown <port_name> nosave'\n\r", ch );
 	return;
     }
 
@@ -3225,22 +3207,22 @@ void do_snoop( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Snoop whom?\n\r", ch, MXP_ALL );
+	send_to_char( "Snoop whom?\n\r", ch );
 	return;
     }
     if ( ( victim = get_char_world( ch, arg ) ) == NULL )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
     if ( !victim->desc )
     {
-	mxp_to_char( "No descriptor to snoop.\n\r", ch, MXP_ALL );
+	send_to_char( "No descriptor to snoop.\n\r", ch );
 	return;
     }
     if ( victim == ch )
     {
-	mxp_to_char( "Cancelling all snoops.\n\r", ch, MXP_ALL );
+	send_to_char( "Cancelling all snoops.\n\r", ch );
 	for ( d = first_descriptor; d; d = d->next )
 	    if ( d->snoop_by == ch->desc )
 		d->snoop_by = NULL;
@@ -3248,7 +3230,7 @@ void do_snoop( CHAR_DATA *ch, char *argument )
     }
     if ( victim->desc->snoop_by )
     {
-	mxp_to_char( "Busy already.\n\r", ch, MXP_ALL );
+	send_to_char( "Busy already.\n\r", ch );
 	return;
     }
 
@@ -3259,7 +3241,7 @@ void do_snoop( CHAR_DATA *ch, char *argument )
     if ( get_trust( victim ) >= get_trust( ch )
     ||  (victim->pcdata && victim->pcdata->min_snoop > get_trust( ch )) )
     {
-	mxp_to_char( "Busy already.\n\r", ch, MXP_ALL );
+	send_to_char( "Busy already.\n\r", ch );
 	return;
     }
 
@@ -3268,7 +3250,7 @@ void do_snoop( CHAR_DATA *ch, char *argument )
 	for ( d = ch->desc->snoop_by; d; d = d->snoop_by )
 	    if ( d->character == victim || d->original == victim )
 	    {
-		mxp_to_char( "No snoop loops.\n\r", ch, MXP_ALL );
+		send_to_char( "No snoop loops.\n\r", ch );
 		return;
 	    }
     }
@@ -3279,7 +3261,7 @@ void do_snoop( CHAR_DATA *ch, char *argument )
       write_to_descriptor( victim->desc->descriptor, "\n\rYou feel like someone is watching your every move...\n\r", 0 );
 #endif
     victim->desc->snoop_by = ch->desc;
-    mxp_to_char( "Ok.\n\r", ch, MXP_ALL );
+    send_to_char( "Ok.\n\r", ch );
     return;
 }
 
@@ -3293,22 +3275,22 @@ void do_statshield( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( IS_NPC ( ch ) || get_trust( ch ) < LEVEL_GREATER )
     {
-	mxp_to_char( "Huh?\n\r", ch, MXP_ALL );
+	send_to_char( "Huh?\n\r", ch );
 	return;
     }
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Statshield which mobile?\n\r", ch, MXP_ALL );
+	send_to_char( "Statshield which mobile?\n\r", ch );
 	return;
     }
     if ( ( victim = get_char_world( ch, arg ) ) == NULL )
     {
-        mxp_to_char( "No such mobile.\n\r", ch, MXP_ALL );
+        send_to_char( "No such mobile.\n\r", ch );
         return;
     }                  
     if ( !IS_NPC( victim ) )
     {
-	mxp_to_char( "You can only statshield mobiles.\n\r", ch, MXP_ALL );
+	send_to_char( "You can only statshield mobiles.\n\r", ch );
 	return;
     }
     if ( xIS_SET( victim->act, ACT_STATSHIELD ) )
@@ -3335,24 +3317,24 @@ void do_switch( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Switch into whom?\n\r", ch, MXP_ALL );
+	send_to_char( "Switch into whom?\n\r", ch );
 	return;
     }
     if ( !ch->desc )
 	return;
     if ( ch->desc->original )
     {
-	mxp_to_char( "You are already switched.\n\r", ch, MXP_ALL );
+	send_to_char( "You are already switched.\n\r", ch );
 	return;
     }
     if ( ( victim = get_char_world( ch, arg ) ) == NULL )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
     if ( victim == ch )
     {
-	mxp_to_char( "Ok.\n\r", ch, MXP_ALL );
+	send_to_char( "Ok.\n\r", ch );
 	return;
     }
     if ( IS_NPC( victim ) && xIS_SET( victim->act, ACT_STATSHIELD )
@@ -3364,22 +3346,22 @@ void do_switch( CHAR_DATA *ch, char *argument )
     }
     if ( victim->desc )
     {
-	mxp_to_char( "Character in use.\n\r", ch, MXP_ALL );
+	send_to_char( "Character in use.\n\r", ch );
 	return;
     }
     if ( !IS_NPC(victim) && ch->level < LEVEL_GREATER )
     {
-	mxp_to_char( "You cannot switch into a player!\n\r", ch, MXP_ALL );
+	send_to_char( "You cannot switch into a player!\n\r", ch );
 	return;
     }
     if ( victim->switched )
     {
-       mxp_to_char( "You can't switch into a player that is switched!\n\r",ch, MXP_ALL);
+       send_to_char( "You can't switch into a player that is switched!\n\r",ch);
        return;
     }
     if ( !IS_NPC(victim) && xIS_SET(victim->act, PLR_FREEZE) )
     {
-       mxp_to_char( "You shouldn't switch into a player that is frozen!\n\r",ch, MXP_ALL);
+       send_to_char( "You shouldn't switch into a player that is frozen!\n\r",ch);
        return;
     }
     ch->desc->character = victim;
@@ -3387,7 +3369,7 @@ void do_switch( CHAR_DATA *ch, char *argument )
     victim->desc        = ch->desc;
     ch->desc            = NULL;
     ch->switched	= victim;
-    mxp_to_char( "Ok.\n\r", victim, MXP_ALL );
+    send_to_char( "Ok.\n\r", victim );
     return;
 }
 
@@ -3396,7 +3378,7 @@ void do_return( CHAR_DATA *ch, char *argument )
 
     if ( !IS_NPC( ch ) && get_trust(ch) < LEVEL_IMMORTAL )
     {
-	mxp_to_char("Huh?\n\r", ch, MXP_ALL );
+	send_to_char("Huh?\n\r", ch );
 	return;
     }
 
@@ -3405,7 +3387,7 @@ void do_return( CHAR_DATA *ch, char *argument )
     if ( !ch->desc->original )
     {
         set_char_color( AT_IMMORT, ch );
-	mxp_to_char( "You aren't switched.\n\r", ch, MXP_ALL );
+	send_to_char( "You aren't switched.\n\r", ch );
 	return;
     }
 
@@ -3422,7 +3404,7 @@ void do_return( CHAR_DATA *ch, char *argument )
     ch->desc->character->switched = NULL;
     ch->desc                  = NULL;
     set_char_color( AT_IMMORT, ch );
-    mxp_to_char( "You return to your original body.\n\r", ch, MXP_ALL );
+    send_to_char( "You return to your original body.\n\r", ch );
     return;
 }
 
@@ -3438,7 +3420,7 @@ void do_minvoke( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Syntax:  minvoke <vnum>\n\r", ch, MXP_ALL );
+	send_to_char( "Syntax:  minvoke <vnum>\n\r", ch );
 	return;
     }
     if ( !is_number( arg ) )
@@ -3460,7 +3442,7 @@ void do_minvoke( CHAR_DATA *ch, char *argument )
 	    }
 	if ( vnum == -1 )
 	{
-	    mxp_to_char( "No such mobile exists.\n\r", ch, MXP_ALL );
+	    send_to_char( "No such mobile exists.\n\r", ch );
 	    return;
 	}
     }
@@ -3473,24 +3455,24 @@ void do_minvoke( CHAR_DATA *ch, char *argument )
 
 	if ( IS_NPC(ch) )
 	{
-	  mxp_to_char( "Huh?\n\r", ch, MXP_ALL );
+	  send_to_char( "Huh?\n\r", ch );
 	  return;
 	}
 	if ( !ch->pcdata || !(pArea=ch->pcdata->area) )
 	{
-	  mxp_to_char( "You must have an assigned area to invoke this mobile.\n\r", ch, MXP_ALL );
+	  send_to_char( "You must have an assigned area to invoke this mobile.\n\r", ch );
 	  return;
 	}
 	if ( vnum < pArea->low_m_vnum
 	&&   vnum > pArea->hi_m_vnum )
 	{
-	  mxp_to_char( "That number is not in your allocated range.\n\r", ch, MXP_ALL );
+	  send_to_char( "That number is not in your allocated range.\n\r", ch );
 	  return;
 	}
     }
     if ( ( pMobIndex = get_mob_index( vnum ) ) == NULL )
     {
-	mxp_to_char( "No mobile has that vnum.\n\r", ch, MXP_ALL );
+	send_to_char( "No mobile has that vnum.\n\r", ch );
 	return;
     }
 
@@ -3523,7 +3505,7 @@ void do_oinvoke( CHAR_DATA *ch, char *argument )
 
     if ( arg1[0] == '\0' )
     {
-	mxp_to_char( "Syntax: oinvoke <vnum> <level> <quantity>.\n\r", ch, MXP_ALL );
+	send_to_char( "Syntax: oinvoke <vnum> <level> <quantity>.\n\r", ch );
 	return;
     }
     if ( arg2[0] == '\0' )
@@ -3534,13 +3516,13 @@ void do_oinvoke( CHAR_DATA *ch, char *argument )
     {
 	if ( !is_number( arg2 ) )
 	{
-	    mxp_to_char( "Syntax:  oinvoke <vnum> <level>\n\r", ch, MXP_ALL );
+	    send_to_char( "Syntax:  oinvoke <vnum> <level>\n\r", ch );
 	    return;
 	}
 	level = atoi( arg2 );
 	if ( level < 0 || level > get_trust( ch ) )
 	{
-	    mxp_to_char( "Limited to your trust level.\n\r", ch, MXP_ALL );
+	    send_to_char( "Limited to your trust level.\n\r", ch );
 	    return;
         }
     }
@@ -3548,7 +3530,7 @@ void do_oinvoke( CHAR_DATA *ch, char *argument )
     {
 	if( !is_number( arg3 ) )
 	{
-	    mxp_to_char( "Syntax:  oinvoke <vnum> <level> <quantity>\n\r", ch, MXP_ALL );
+	    send_to_char( "Syntax:  oinvoke <vnum> <level> <quantity>\n\r", ch );
    	    return;
 	}
 
@@ -3580,7 +3562,7 @@ void do_oinvoke( CHAR_DATA *ch, char *argument )
 	    }
 	if ( vnum == -1 )
 	{
-	    mxp_to_char( "No such object exists.\n\r", ch, MXP_ALL );
+	    send_to_char( "No such object exists.\n\r", ch );
 	    return;
 	}
     }
@@ -3593,24 +3575,24 @@ void do_oinvoke( CHAR_DATA *ch, char *argument )
 
 	if ( IS_NPC(ch) )
 	{
-	  mxp_to_char( "Huh?\n\r", ch, MXP_ALL );
+	  send_to_char( "Huh?\n\r", ch );
 	  return;
 	}
 	if ( !ch->pcdata || !(pArea=ch->pcdata->area) )
 	{
-	  mxp_to_char( "You must have an assigned area to invoke this object.\n\r", ch, MXP_ALL );
+	  send_to_char( "You must have an assigned area to invoke this object.\n\r", ch );
 	  return;
 	}
 	if ( vnum < pArea->low_o_vnum
 	&&   vnum > pArea->hi_o_vnum )
 	{
-	  mxp_to_char( "That number is not in your allocated range.\n\r", ch, MXP_ALL );
+	  send_to_char( "That number is not in your allocated range.\n\r", ch );
 	  return;
 	}
     }
     if ( ( pObjIndex = get_obj_index( vnum ) ) == NULL )
     {
-	mxp_to_char( "No object has that vnum.\n\r", ch, MXP_ALL );
+	send_to_char( "No object has that vnum.\n\r", ch );
 	return;
     }
 
@@ -3630,7 +3612,7 @@ void do_oinvoke( CHAR_DATA *ch, char *argument )
 
     if( quantity > 1 && (!xIS_SET( obj->extra_flags, ITEM_MULTI_INVOKE )))
     {
-      mxp_to_char( "This item can not be invoked in quantities greater than 1.\n\r", ch, MXP_ALL );
+      send_to_char( "This item can not be invoked in quantities greater than 1.\n\r", ch );
       return;
     }
     else
@@ -3718,7 +3700,7 @@ void do_purge( CHAR_DATA *ch, char *argument )
       if ( ( victim = get_char_world( ch, arg ) ) == NULL
       &&   ( obj = get_obj_world( ch, arg ) ) == NULL )  /* no get_obj_room */
       {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
       }
     }
@@ -3750,13 +3732,13 @@ void do_purge( CHAR_DATA *ch, char *argument )
 
     if ( !IS_NPC(victim) )
     {
-	mxp_to_char( "Not on PC's.\n\r", ch, MXP_ALL );
+	send_to_char( "Not on PC's.\n\r", ch );
 	return;
     }
 
     if ( victim == ch )
     {
-    	mxp_to_char( "You cannot purge yourself!\n\r", ch, MXP_ALL );
+    	send_to_char( "You cannot purge yourself!\n\r", ch );
     	return;
     }
 
@@ -3783,23 +3765,23 @@ void do_loop( CHAR_DATA *ch, char *argument )
 
     if ( arg1[0] == '\0' )
     {
-       mxp_to_char( "Syntax: loop <command> <start#> <end#> <params>\n\r", ch, MXP_ALL );
-       mxp_to_char( "  Where <command> is a valid command to execute,\n\r", ch, MXP_ALL );
-       mxp_to_char( "  <start#> and <end#> are numbers/vnums,\n\r", ch, MXP_ALL );
-       mxp_to_char( "  and <params> is a parameter list for <command>.\n\r", ch, MXP_ALL );
-       mxp_to_char( "EXAMPLE: LOOP MSET 22000 22100 FLAGS PROTOTYPE&C&w\n\r", ch, MXP_ALL );
+       send_to_char( "Syntax: loop <command> <start#> <end#> <params>\n\r", ch );
+       send_to_char( "  Where <command> is a valid command to execute,\n\r", ch );
+       send_to_char( "  <start#> and <end#> are numbers/vnums,\n\r", ch );
+       send_to_char( "  and <params> is a parameter list for <command>.\n\r", ch );
+       send_to_char( "EXAMPLE: LOOP MSET 22000 22100 FLAGS PROTOTYPE&C&w\n\r", ch );
        return;
     }
 
     if ( arg2[0] == '\0' )
     {
-       mxp_to_char( "You must specify a start number/vnum.\n\r", ch, MXP_ALL );
+       send_to_char( "You must specify a start number/vnum.\n\r", ch );
        return;
     }
 
     if ( arg3[0] == '\0' )
     {
-       mxp_to_char( "You must specify an end number/vnum.\n\r", ch, MXP_ALL );
+       send_to_char( "You must specify an end number/vnum.\n\r", ch );
        return;
     }
 
@@ -3822,7 +3804,7 @@ void do_loop( CHAR_DATA *ch, char *argument )
     sprintf( buf, "Beginning loop for %s command, vnums %d to %d (%s).\n\r",
          arg1, startvnum, endvnum, argument );
 
-    mxp_to_char( buf, ch, MXP_ALL );
+    send_to_char( buf, ch );
 
     for ( i = startvnum ; i <= endvnum ; i++ )
     {
@@ -3832,7 +3814,7 @@ void do_loop( CHAR_DATA *ch, char *argument )
        interpret( ch, buf );
     }
 
-    mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+    send_to_char( "Done.\n\r", ch );
 
     return;
 }
@@ -3849,7 +3831,7 @@ void do_low_purge( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Purge what?\n\r", ch, MXP_ALL );
+	send_to_char( "Purge what?\n\r", ch );
 	return;
     }
 
@@ -3857,7 +3839,7 @@ void do_low_purge( CHAR_DATA *ch, char *argument )
     if ( ( victim = get_char_room( ch, arg ) ) == NULL
     &&	 ( obj    = get_obj_here ( ch, arg ) ) == NULL )
     {
-	mxp_to_char( "You can't find that here.\n\r", ch, MXP_ALL );
+	send_to_char( "You can't find that here.\n\r", ch );
 	return;
     }
 
@@ -3886,13 +3868,13 @@ void do_low_purge( CHAR_DATA *ch, char *argument )
 
     if ( !IS_NPC(victim) )
     {
-	mxp_to_char( "Not on PC's.\n\r", ch, MXP_ALL );
+	send_to_char( "Not on PC's.\n\r", ch );
 	return;
     }
 
     if ( victim == ch )
     {
-    	mxp_to_char( "You cannot purge yourself!\n\r", ch, MXP_ALL );
+    	send_to_char( "You cannot purge yourself!\n\r", ch );
     	return;
     }
 
@@ -3917,27 +3899,27 @@ void do_balzhur( CHAR_DATA *ch, char *argument )
 
     argument = one_argument( argument, arg );
     if ( arg[0] == '\0' ) {
-	mxp_to_char( "Who is deserving of such a fate?\n\r", ch, MXP_ALL );
+	send_to_char( "Who is deserving of such a fate?\n\r", ch );
 	return;
     }
     if ( ( victim = get_char_world( ch, arg ) ) == NULL ) {
-	mxp_to_char( "They aren't currently playing.\n\r", ch, MXP_ALL);
+	send_to_char( "They aren't currently playing.\n\r", ch);
 	return;
     }
     if ( IS_NPC( victim ) ) {
-	mxp_to_char( "This will do little good on mobiles.\n\r", ch, MXP_ALL );
+	send_to_char( "This will do little good on mobiles.\n\r", ch );
 	return;
     }
     if ( victim->level >= get_trust( ch ) ) {
-	mxp_to_char( "I wouldn't even think of that if I were you...\n\r", ch, MXP_ALL );
+	send_to_char( "I wouldn't even think of that if I were you...\n\r", ch );
 	return;
     }
 
     set_char_color( AT_WHITE, ch );
-    mxp_to_char( "You summon the demon Balzhur to wreak your wrath!\n\r", ch, MXP_ALL );
-    mxp_to_char( "Balzhur sneers at you evilly, then vanishes in a puff of smoke.\n\r", ch, MXP_ALL );
+    send_to_char( "You summon the demon Balzhur to wreak your wrath!\n\r", ch );
+    send_to_char( "Balzhur sneers at you evilly, then vanishes in a puff of smoke.\n\r", ch );
     set_char_color( AT_IMMORT, victim );
-    mxp_to_char( "You hear an ungodly sound in the distance that makes your blood run cold!\n\r", victim, MXP_ALL );
+    send_to_char( "You hear an ungodly sound in the distance that makes your blood run cold!\n\r", victim );
     sprintf( buf, "Balzhur screams, 'You are MINE %s!!!'", victim->name );
     echo_to_all( AT_IMMORT, buf, ECHOTAR_ALL );
 	victim->level    = 2;
@@ -3957,7 +3939,7 @@ void do_balzhur( CHAR_DATA *ch, char *argument )
 
     set_char_color( AT_RED, ch ); 
     if ( !remove( buf ) )
-      mxp_to_char( "Player's immortal data destroyed.\n\r", ch, MXP_ALL );
+      send_to_char( "Player's immortal data destroyed.\n\r", ch );
     else if ( errno != ENOENT )
     {
       ch_printf( ch, "Unknown error #%d - %s (immortal data).  Report to Thoric\n\r",
@@ -3976,7 +3958,7 @@ void do_balzhur( CHAR_DATA *ch, char *argument )
         sprintf( buf2, "%s.bak", buf );
         set_char_color( AT_RED, ch ); /* Log message changes colors */
         if ( !rename( buf, buf2 ) )
-          mxp_to_char( "Player's area data destroyed.  Area saved as backup.\n\r", ch, MXP_ALL);
+          send_to_char( "Player's area data destroyed.  Area saved as backup.\n\r", ch);
         else if ( errno != ENOENT )
         {
           ch_printf( ch, "Unknown error #%d - %s (area data).  Report to  Thoric.\n\r",
@@ -3991,7 +3973,7 @@ void do_balzhur( CHAR_DATA *ch, char *argument )
     advance_level( victim );
     do_help(victim, "M_BALZHUR_" );
     set_char_color( AT_WHITE, victim );
-    mxp_to_char( "You awake after a long period of time...\n\r", victim, MXP_ALL );
+    send_to_char( "You awake after a long period of time...\n\r", victim );
     while ( victim->first_carrying )
 	extract_obj( victim->first_carrying );
     return;
@@ -4010,28 +3992,28 @@ void do_advance( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg1 );
     argument = one_argument( argument, arg2 );
     if ( arg1[0] == '\0' || arg2[0] == '\0' || !is_number( arg2 ) ) {
-        mxp_to_char( "Syntax:  advance <character> <level>\n\r", ch, MXP_ALL );
+        send_to_char( "Syntax:  advance <character> <level>\n\r", ch );
         return;
     }
     if ( ( victim = get_char_room( ch, arg1 ) ) == NULL ) {
-        mxp_to_char( "That character is not in the room.\n\r", ch, MXP_ALL);
+        send_to_char( "That character is not in the room.\n\r", ch);
         return;
     }
     if ( IS_NPC( victim ) ) {
-        mxp_to_char( "You cannot advance a mobile.\n\r", ch, MXP_ALL );
+        send_to_char( "You cannot advance a mobile.\n\r", ch );
         return;
     }
   /*You can demote yourself but not someone else at your own trust.-- Narn*/
     if ( get_trust( ch ) <= get_trust( victim ) && ch != victim ) {
-        mxp_to_char( "You can't do that.\n\r", ch, MXP_ALL );
+        send_to_char( "You can't do that.\n\r", ch );
         return;
     }
     if ( ( level = atoi( arg2 ) ) < 1 || level > MAX_LEVEL ) {
-        mxp_to_char( "Level range is 1 to 65.\n\r", ch, MXP_ALL );
+        send_to_char( "Level range is 1 to 65.\n\r", ch );
         return;
     }
     if ( level > get_trust( ch ) ) {
-        mxp_to_char( "Level limited to your trust level.\n\r", ch, MXP_ALL );
+        send_to_char( "Level limited to your trust level.\n\r", ch );
         return;
     }
     /* Lower level:
@@ -4050,12 +4032,12 @@ void do_advance( CHAR_DATA *ch, char *argument )
         if ( level < victim->level )
 	{
           ch_printf( ch, "Demoting %s from level %d to level %d!\n\r", victim->name, victim->level, level );
-	  mxp_to_char( "Cursed and forsaken!  The gods have lowered your level...\n\r", victim, MXP_ALL );
+	  send_to_char( "Cursed and forsaken!  The gods have lowered your level...\n\r", victim );
 	}
         else
 	{
           ch_printf( ch, "%s is already level %d.  Re-advancing...\n\r", victim->name, level );
-	  mxp_to_char( "Deja vu!  Your mind reels as you re-live your past levels!\n\r", victim, MXP_ALL );
+	  send_to_char( "Deja vu!  Your mind reels as you re-live your past levels!\n\r", victim );
 	}
         victim->level    = 1;
         victim->exp      = exp_level(victim, 1);
@@ -4093,18 +4075,18 @@ void do_advance( CHAR_DATA *ch, char *argument )
           act( AT_IMMORT, "$n makes some arcane gestures with $s hands, then points $s finger at $N!",
                ch, NULL, victim, TO_NOTVICT );
           set_char_color( AT_WHITE, victim );
-          mxp_to_char( "You suddenly feel very strange...\n\r\n\r", victim, MXP_ALL );
+          send_to_char( "You suddenly feel very strange...\n\r\n\r", victim );
           set_char_color( AT_LBLUE, victim );
         }
         switch(level)
         {
         default:
-          mxp_to_char( "The gods feel fit to raise your level!\n\r", victim, MXP_ALL );
+          send_to_char( "The gods feel fit to raise your level!\n\r", victim );
           break;
         case LEVEL_IMMORTAL:
           do_help(victim, "M_GODLVL1_" );
           set_char_color( AT_WHITE, victim );
-          mxp_to_char( "You awake... all your possessions are gone.\n\r", victim, MXP_ALL );
+          send_to_char( "You awake... all your possessions are gone.\n\r", victim );
           while ( victim->first_carrying )
             extract_obj( victim->first_carrying );
           break;
@@ -4154,7 +4136,7 @@ void do_advance( CHAR_DATA *ch, char *argument )
     for ( iLevel = victim->level ; iLevel < level; iLevel++ )
     {
         if (level < LEVEL_IMMORTAL)
-          mxp_to_char( "You raise a level!!\n\r", victim, MXP_ALL );
+          send_to_char( "You raise a level!!\n\r", victim );
         victim->level += 1;
         advance_level( victim );
     }
@@ -4172,23 +4154,23 @@ void do_elevate( CHAR_DATA *ch, char *argument )
 
     argument = one_argument( argument, arg );
     if ( arg[0] == '\0' ) {
-	mxp_to_char( "Syntax: elevate <char>\n\r", ch, MXP_ALL );
+	send_to_char( "Syntax: elevate <char>\n\r", ch );
 	return;
     }
     if ( ( victim = get_char_room( ch, arg ) ) == NULL ) {
-	mxp_to_char( "That player is not here.\n\r", ch, MXP_ALL );
+	send_to_char( "That player is not here.\n\r", ch);
 	return;
     }
     if ( IS_NPC( victim ) ) {
-	mxp_to_char( "Not on NPC's.\n\r", ch, MXP_ALL );
+	send_to_char( "Not on NPC's.\n\r", ch );
 	return;
     }
     if( victim->level == LEVEL_IMMORTAL ) {
-       mxp_to_char( "Elevating a player...\n\r", ch, MXP_ALL );
+       send_to_char( "Elevating a player...\n\r", ch );
        set_char_color( AT_IMMORT, victim );
        act( AT_IMMORT, "$n begins to chant softly... then makes some arcane gestures...", ch, NULL, NULL, TO_ROOM );
        set_char_color( AT_WHITE, victim );
-       mxp_to_char( "You suddenly feel very strange...\n\r\n\r", victim, MXP_ALL );
+       send_to_char( "You suddenly feel very strange...\n\r\n\r", victim );
        set_char_color( AT_LBLUE, victim );
        do_help(victim, "M_GODLVL2_" );
        victim->level = LEVEL_ACOLYTE;
@@ -4199,11 +4181,11 @@ void do_elevate( CHAR_DATA *ch, char *argument )
        return;
     }
     if( victim->level == LEVEL_ACOLYTE ) {
-       mxp_to_char( "Elevating a player...\n\r", ch, MXP_ALL );
+       send_to_char( "Elevating a player...\n\r", ch );
        set_char_color( AT_IMMORT, victim );
        act( AT_IMMORT, "$n begins to chant softly... then makes some arcane gestures...", ch, NULL, NULL, TO_ROOM );
        set_char_color( AT_WHITE, victim );
-       mxp_to_char( "You suddenly feel very strange...\n\r\n\r", victim, MXP_ALL );
+       send_to_char( "You suddenly feel very strange...\n\r\n\r", victim );
        set_char_color( AT_LBLUE, victim );
        do_help(victim, "M_GODLVL3_" ); 
        victim->level = LEVEL_CREATOR;  
@@ -4214,7 +4196,7 @@ void do_elevate( CHAR_DATA *ch, char *argument )
        return;
     }
     else
-       mxp_to_char( "You cannot elevate this character.\n\r", ch, MXP_ALL );
+       send_to_char( "You cannot elevate this character.\n\r", ch );
     return;
 }
 
@@ -4226,7 +4208,7 @@ void do_imm_news( CHAR_DATA *ch, char *argument )
 
     if ( !IS_IMMORTAL( ch ) )
     {
-	mxp_to_char( "Huh?\n\r", ch, MXP_ALL );
+	send_to_char( "Huh?\n\r", ch );
 	return;
     }
 
@@ -4245,32 +4227,32 @@ void do_immortalize( CHAR_DATA *ch, char *argument )
 
     argument = one_argument( argument, arg );
     if ( arg[0] == '\0' ) {
-	mxp_to_char( "Syntax:  immortalize <char>\n\r", ch, MXP_ALL );
+	send_to_char( "Syntax:  immortalize <char>\n\r", ch );
 	return;
     }
     if ( ( victim = get_char_room( ch, arg ) ) == NULL ) {
-	mxp_to_char( "That player is not here.\n\r", ch, MXP_ALL);
+	send_to_char( "That player is not here.\n\r", ch);
 	return;
     }
     if ( IS_NPC( victim ) ) {
-	mxp_to_char( "Not on NPC's.\n\r", ch, MXP_ALL );
+	send_to_char( "Not on NPC's.\n\r", ch );
 	return;
     }
     if ( victim->level != LEVEL_AVATAR ) {
-	mxp_to_char( "This player is not yet worthy of immortality.\n\r", ch, MXP_ALL );
+	send_to_char( "This player is not yet worthy of immortality.\n\r", ch );
 	return;
     }
 
-    mxp_to_char( "Immortalizing a player...\n\r", ch, MXP_ALL );
+    send_to_char( "Immortalizing a player...\n\r", ch );
     set_char_color( AT_IMMORT, victim );
     act( AT_IMMORT, "$n begins to chant softly... then raises $s arms to the sky...",
 	 ch, NULL, NULL, TO_ROOM );
     set_char_color( AT_WHITE, victim );
-    mxp_to_char( "You suddenly feel very strange...\n\r\n\r", victim, MXP_ALL );
+    send_to_char( "You suddenly feel very strange...\n\r\n\r", victim );
     set_char_color( AT_LBLUE, victim );
     do_help(victim, "M_GODLVL1_" );
     set_char_color( AT_WHITE, victim );
-    mxp_to_char( "You awake... all your possessions are gone.\n\r", victim, MXP_ALL );
+    send_to_char( "You awake... all your possessions are gone.\n\r", victim );
     while ( victim->first_carrying )
 	extract_obj( victim->first_carrying );
     victim->level = LEVEL_IMMORTAL;
@@ -4341,7 +4323,7 @@ void do_mobinvade( CHAR_DATA *ch , char *argument )
     set_char_color( AT_GREEN, ch );
     if ( arg1[0] == '\0' || arg2[0] == '\0' )
     {
-	mxp_to_char( "Invade <area> <# of invaders> <mob vnum>\n\r", ch, MXP_ALL );
+	send_to_char( "Invade <area> <# of invaders> <mob vnum>\n\r", ch );
 	return;
     }
     for ( tarea = first_area; tarea; tarea = tarea->next )
@@ -4352,17 +4334,17 @@ void do_mobinvade( CHAR_DATA *ch , char *argument )
 	}
     if ( !found )
     {
-	mxp_to_char( "Area not found.\n\r", ch, MXP_ALL );
+	send_to_char( "Area not found.\n\r", ch );
 	return;
     }
     if ( count > 300)
     {
-	mxp_to_char( "Whoa...Less than 300 please.\n\r", ch, MXP_ALL );
+	send_to_char( "Whoa...Less than 300 please.\n\r", ch );
 	return;
     }
     if ( ( pMobIndex = get_mob_index( atoi(arg3) ) ) == NULL )
     {
-	mxp_to_char( "No mobile has that vnum.\n\r", ch, MXP_ALL );
+	send_to_char( "No mobile has that vnum.\n\r", ch );
 	return;
     }
 
@@ -4382,7 +4364,7 @@ void do_mobinvade( CHAR_DATA *ch , char *argument )
         char_to_room( victim, location );
         act( AT_IMMORT, "$N appears as part of an invasion force!", ch, NULL, victim, TO_ROOM );
     }
-	mxp_to_char( "The invasion was successful!\n\r", ch, MXP_ALL );
+	send_to_char( "The invasion was successful!\n\r", ch );
 
  return;
 }
@@ -4401,28 +4383,28 @@ void do_trust( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg1 );
     argument = one_argument( argument, arg2 );
     if ( arg1[0] == '\0' || arg2[0] == '\0' || !is_number( arg2 ) ) {
-	mxp_to_char( "Syntax:  trust <char> <level>.\n\r", ch, MXP_ALL );
+	send_to_char( "Syntax:  trust <char> <level>.\n\r", ch );
 	return;
     }
     if ( ( victim = get_char_room( ch, arg1 ) ) == NULL ) {
-	mxp_to_char( "That player is not here.\n\r", ch, MXP_ALL);
+	send_to_char( "That player is not here.\n\r", ch);
 	return;
     }
     if ( ( level = atoi( arg2 ) ) < 0 || level > MAX_LEVEL ) {
-	mxp_to_char( "Level must be 0 (reset) or 1 to 65.\n\r", ch, MXP_ALL );
+	send_to_char( "Level must be 0 (reset) or 1 to 65.\n\r", ch );
 	return;
     }
     if ( level > get_trust( ch ) ) {
-	mxp_to_char( "Limited to your own trust.\n\r", ch, MXP_ALL );
+	send_to_char( "Limited to your own trust.\n\r", ch );
 	return;
     }
     if ( get_trust( victim ) >= get_trust( ch ) ) {
-	mxp_to_char( "You can't do that.\n\r", ch, MXP_ALL );
+	send_to_char( "You can't do that.\n\r", ch );
 	return;
     }
 
     victim->trust = level;
-    mxp_to_char( "Ok.\n\r", ch, MXP_ALL );
+    send_to_char( "Ok.\n\r", ch );
     return;
 }
 
@@ -4437,17 +4419,17 @@ void do_scatter( CHAR_DATA *ch, char *argument )
 
     one_argument( argument, arg );
     if ( arg[0] == '\0' ) {
-      mxp_to_char( "Scatter whom?\n\r", ch, MXP_ALL );
+      send_to_char( "Scatter whom?\n\r", ch );
       return; }
     if ( ( victim = get_char_room( ch, arg ) ) == NULL ) {
-      mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+      send_to_char( "They aren't here.\n\r", ch );
       return; }
     if ( victim == ch ) {
-      mxp_to_char( "It's called teleport.  Try it.\n\r", ch, MXP_ALL );
+      send_to_char( "It's called teleport.  Try it.\n\r", ch );
       return;
     }
     if ( !IS_NPC(victim) && get_trust( victim ) >= get_trust( ch ) ) {
-      mxp_to_char( "You haven't the power to succeed against them.\n\r", ch, MXP_ALL );
+      send_to_char( "You haven't the power to succeed against them.\n\r", ch );
       return; }
     for ( ; ; ) {
       pRoomIndex = get_room_index( number_range( 0, MAX_VNUM ) );
@@ -4483,24 +4465,24 @@ void do_strew( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg1 );
     argument = one_argument( argument, arg2 );
     if ( arg1[0] == '\0' || arg2[0] == '\0' ) {
-      mxp_to_char( "Strew who, what?\n\r", ch, MXP_ALL );
+      send_to_char( "Strew who, what?\n\r", ch );
       return;
     }
     if ( ( victim = get_char_room( ch, arg1 ) ) == NULL ) {
-      mxp_to_char( "It would work better if they were here.\n\r", ch, MXP_ALL );
+      send_to_char( "It would work better if they were here.\n\r", ch );
       return;
     }
     if ( victim == ch ) {
-      mxp_to_char( "Try taking it out on someone else first.\n\r", ch, MXP_ALL );
+      send_to_char( "Try taking it out on someone else first.\n\r", ch );
       return;
     }
     if ( !IS_NPC(victim) && get_trust( victim ) >= get_trust( ch ) ) {
-      mxp_to_char( "You haven't the power to succeed against them.\n\r", ch, MXP_ALL );
+      send_to_char( "You haven't the power to succeed against them.\n\r", ch );
       return;
     }
     if ( !str_cmp( arg2, "coins"  ) ) {
       if ( victim->gold < 1) {
-        mxp_to_char( "Drat, this one's got no gold to start with.\n\r", ch, MXP_ALL );
+        send_to_char( "Drat, this one's got no gold to start with.\n\r", ch );
         return;
       }
       victim->gold = 0;
@@ -4530,7 +4512,7 @@ void do_strew( CHAR_DATA *ch, char *argument )
       }
       return;
     }  
-    mxp_to_char( "Strew their coins or inventory?\n\r", ch, MXP_ALL );
+    send_to_char( "Strew their coins or inventory?\n\r", ch );
     return;
 }
 
@@ -4543,19 +4525,19 @@ void do_strip( CHAR_DATA *ch, char *argument )
 
     set_char_color( AT_OBJECT, ch );
     if ( !argument ) {
-      mxp_to_char( "Strip who?\n\r", ch, MXP_ALL );
+      send_to_char( "Strip who?\n\r", ch );
       return;
     }
     if ( ( victim = get_char_room( ch, argument ) ) == NULL ) {
-      mxp_to_char( "They're not here.\n\r", ch, MXP_ALL );
+      send_to_char( "They're not here.\n\r", ch );
       return;
     }
     if ( victim == ch ) {
-      mxp_to_char( "Kinky.\n\r", ch, MXP_ALL );
+      send_to_char( "Kinky.\n\r", ch );
       return;
     }
     if ( !IS_NPC(victim) && get_trust( victim ) >= get_trust( ch ) ) {
-      mxp_to_char( "You haven't the power to succeed against them.\n\r", ch, MXP_ALL );
+      send_to_char( "You haven't the power to succeed against them.\n\r", ch );
       return;
     }
     act( AT_OBJECT, "Searching $N ...", ch, NULL, victim, TO_CHAR );
@@ -4585,7 +4567,7 @@ void do_restore( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Restore whom?\n\r", ch, MXP_ALL );
+	send_to_char( "Restore whom?\n\r", ch );
 	return;
     }
     // Restore-by-deity. -- Alty
@@ -4594,7 +4576,7 @@ void do_restore( CHAR_DATA *ch, char *argument )
       argument = one_argument(argument, arg);
       if (!(deity = get_deity(arg)))
       {
-        mxp_to_char( "No such deity holds weight on this world.\n\r", ch, MXP_ALL );
+        send_to_char( "No such deity holds weight on this world.\n\r", ch );
         return;
       }
     }
@@ -4605,7 +4587,7 @@ void do_restore( CHAR_DATA *ch, char *argument )
 	  supah_boost = TRUE;
 	else
 	  boost = TRUE;
-	mxp_to_char( "Boosting!\n\r", ch, MXP_ALL );
+	send_to_char( "Boosting!\n\r", ch );
     }
     if ( deity || !str_cmp( arg, "all" ) )
     {
@@ -4619,7 +4601,7 @@ void do_restore( CHAR_DATA *ch, char *argument )
         {
           if ( IS_NPC( ch ) )
           {
-  	    mxp_to_char( "You can't do that.\n\r", ch, MXP_ALL );
+  	    send_to_char( "You can't do that.\n\r", ch );
  	    return;
           }
           else
@@ -4627,7 +4609,7 @@ void do_restore( CHAR_DATA *ch, char *argument )
             /* Check if the player did a restore all within the last 18 hours. */
             if ( current_time - last_restore_all_time < RESTORE_INTERVAL ) 
             {
-              mxp_to_char( "Sorry, you can't do a restore all yet.\n\r", ch, MXP_ALL ); 
+              send_to_char( "Sorry, you can't do a restore all yet.\n\r", ch ); 
               do_restoretime( ch, "" );
               return;
             }
@@ -4636,7 +4618,7 @@ void do_restore( CHAR_DATA *ch, char *argument )
         last_restore_all_time    = current_time;
         ch->pcdata->restore_time = current_time;
         save_char_obj( ch );
-        mxp_to_char( "Beginning 'restore all' ...\n\r", ch, MXP_ALL);
+        send_to_char( "Beginning 'restore all' ...\n\r", ch);
 	for ( vch = first_char; vch; vch = vch_next )
 	{
 	    vch_next = vch->next;
@@ -4662,7 +4644,7 @@ void do_restore( CHAR_DATA *ch, char *argument )
 		act( AT_IMMORT, "$n has restored you.", ch, NULL, vch, TO_VICT);
 	    }
 	}
-	mxp_to_char( "Restored.\n\r", ch, MXP_ALL );
+	send_to_char( "Restored.\n\r", ch );
     }
     else
     {    
@@ -4671,7 +4653,7 @@ void do_restore( CHAR_DATA *ch, char *argument )
 
     if ( ( victim = get_char_world( ch, arg ) ) == NULL )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
 
@@ -4679,7 +4661,7 @@ void do_restore( CHAR_DATA *ch, char *argument )
     &&    victim != ch
     && !( IS_NPC( victim ) && xIS_SET(victim->act, ACT_PROTOTYPE ) ) )
     { 
-      mxp_to_char( "You can't do that.\n\r", ch, MXP_ALL );
+      send_to_char( "You can't do that.\n\r", ch );
       return;
     }
 
@@ -4694,7 +4676,7 @@ void do_restore( CHAR_DATA *ch, char *argument )
     update_pos( victim );
     if ( ch != victim )
       act( AT_IMMORT, "$n has restored you.", ch, NULL, victim, TO_VICT );
-    mxp_to_char( "Restored.\n\r", ch, MXP_ALL );
+    send_to_char( "Restored.\n\r", ch );
     return;
     }
 }
@@ -4722,7 +4704,7 @@ void do_restoretime( CHAR_DATA *ch, char *argument )
 
   if ( !ch->pcdata->restore_time )
   {
-    mxp_to_char( "You have never done a restore all.\n\r", ch, MXP_ALL );
+    send_to_char( "You have never done a restore all.\n\r", ch );
     return;
   }
 
@@ -4744,29 +4726,29 @@ void do_nohomepage( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-        mxp_to_char( "Nohomepage whom?\n\r", ch, MXP_ALL );
+        send_to_char( "Nohomepage whom?\n\r", ch );
         return;
     }
     if ( ( victim = get_char_world( ch, arg ) ) == NULL )
     {
-        mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+        send_to_char( "They aren't here.\n\r", ch );
         return;
     }
     if ( IS_NPC( victim ) )
     {
-        mxp_to_char( "Not on NPC's.\n\r", ch, MXP_ALL );
+        send_to_char( "Not on NPC's.\n\r", ch );
         return;
     }
     if ( get_trust( victim ) >= get_trust( ch ) )
     {
-        mxp_to_char( "You failed.\n\r", ch, MXP_ALL );
+        send_to_char( "You failed.\n\r", ch );
         return;
     }
     set_char_color( AT_IMMORT, victim );
     if ( xIS_SET( victim->act, PLR_NOHOMEPAGE ) )
     {
         xREMOVE_BIT( victim->act, PLR_NOHOMEPAGE );
-        mxp_to_char( "You can set your own homepage again.\n\r", victim, MXP_ALL );
+        send_to_char( "You can set your own homepage again.\n\r", victim );
         ch_printf( ch, "NOHOMEPAGE removed from %s.\n\r", victim->name );
     }
     else
@@ -4777,7 +4759,7 @@ void do_nohomepage( CHAR_DATA *ch, char *argument )
 	if ( !victim->desc )
 	add_loginmsg( victim->name, 12, NULL );
 	else
-        mxp_to_char( "You can't set your own homepage!\n\r", victim, MXP_ALL );
+        send_to_char( "You can't set your own homepage!\n\r", victim );
         ch_printf( ch, "NOHOMEPAGE set on %s.\n\r", victim->name );
     }
     return;
@@ -4796,29 +4778,29 @@ void do_nodesc( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-        mxp_to_char( "Nodesc whom?\n\r", ch, MXP_ALL );
+        send_to_char( "Nodesc whom?\n\r", ch );
         return;
     }
     if ( ( victim = get_char_world( ch, arg ) ) == NULL )
     {
-        mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+        send_to_char( "They aren't here.\n\r", ch );
         return;
     }
     if ( IS_NPC( victim ) )
     {
-        mxp_to_char( "Not on NPC's.\n\r", ch, MXP_ALL );
+        send_to_char( "Not on NPC's.\n\r", ch );
         return;
     }
     if ( get_trust( victim ) >= get_trust( ch ) )
     {
-        mxp_to_char( "You failed.\n\r", ch, MXP_ALL );
+        send_to_char( "You failed.\n\r", ch );
         return;
     }
     set_char_color( AT_IMMORT, victim );
     if ( IS_SET(victim->pcdata->flags, PCFLAG_NODESC) )
     {
         REMOVE_BIT(victim->pcdata->flags, PCFLAG_NODESC);
-        mxp_to_char( "You can set your own description again.\n\r", victim, MXP_ALL );
+        send_to_char( "You can set your own description again.\n\r", victim );
 	ch_printf( ch, "NODESC removed from %s.\n\r", victim->name );
     }
     else
@@ -4829,7 +4811,7 @@ void do_nodesc( CHAR_DATA *ch, char *argument )
 	if ( !victim->desc )
 	add_loginmsg( victim->name, 11, NULL );
 	else
-	mxp_to_char( "You can't set your own description!\n\r", victim, MXP_ALL );
+	send_to_char( "You can't set your own description!\n\r", victim );
 	ch_printf( ch, "NODESC set on %s.\n\r", victim->name );
     }
     return;
@@ -4845,29 +4827,29 @@ void do_nohttp( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-        mxp_to_char( "Nohttp whom?\n\r", ch, MXP_ALL );
+        send_to_char( "Nohttp whom?\n\r", ch );
         return;
     }
     if ( ( victim = get_char_world( ch, arg ) ) == NULL )
     {
-        mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+        send_to_char( "They aren't here.\n\r", ch );
         return;
     }
     if ( IS_NPC( victim ) )
     {
-        mxp_to_char( "Not on NPC's.\n\r", ch, MXP_ALL );
+        send_to_char( "Not on NPC's.\n\r", ch );
         return;
     }
     if ( get_trust( victim ) >= get_trust( ch ) )
     {
-        mxp_to_char( "You failed.\n\r", ch, MXP_ALL );
+        send_to_char( "You failed.\n\r", ch );
         return;
     }
     set_char_color( AT_IMMORT, victim );
     if ( IS_SET(victim->pcdata->flags, PCFLAG_NOHTTP) )
     {
         REMOVE_BIT(victim->pcdata->flags, PCFLAG_NOHTTP);
-        mxp_to_char( "You can set your own home page again.\n\r", victim, MXP_ALL );
+        send_to_char( "You can set your own home page again.\n\r", victim );
          ch_printf( ch, "NOHTTP removed from %s.\n\r", victim->name );
     }
     else
@@ -4878,7 +4860,7 @@ void do_nohttp( CHAR_DATA *ch, char *argument )
 	if ( !victim->desc )
 	add_loginmsg( victim->name, 12, NULL );
 	else
-        mxp_to_char( "You can't set your own home page!\n\r", victim, MXP_ALL );
+        send_to_char( "You can't set your own home page!\n\r", victim );
         ch_printf( ch, "NOHTTP set on %s.\n\r", victim->name );
     }
     return;
@@ -4898,29 +4880,29 @@ void do_nobio( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-        mxp_to_char( "Nobio whom?\n\r", ch, MXP_ALL );
+        send_to_char( "Nobio whom?\n\r", ch );
         return;
     }
     if ( ( victim = get_char_world( ch, arg ) ) == NULL )
     {
-        mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+        send_to_char( "They aren't here.\n\r", ch );
         return;
     }
     if ( IS_NPC( victim ) )
     {
-        mxp_to_char( "Not on NPC's.\n\r", ch, MXP_ALL );
+        send_to_char( "Not on NPC's.\n\r", ch );
         return;
     }
     if ( get_trust( victim ) >= get_trust( ch ) )
     {
-        mxp_to_char( "You failed.\n\r", ch, MXP_ALL );
+        send_to_char( "You failed.\n\r", ch );
         return;
     }
     set_char_color( AT_IMMORT, victim );
     if ( IS_SET(victim->pcdata->flags, PCFLAG_NOBIO) )
     {
         REMOVE_BIT(victim->pcdata->flags, PCFLAG_NOBIO);
-        mxp_to_char( "You can set your own bio again.\n\r", victim, MXP_ALL );
+        send_to_char( "You can set your own bio again.\n\r", victim );
 	ch_printf( ch, "NOBIO removed from %s.\n\r", victim->name );
     }
     else
@@ -4931,7 +4913,7 @@ void do_nobio( CHAR_DATA *ch, char *argument )
 	if ( !victim->desc )
 	add_loginmsg( victim->name, 9, NULL );
 	else
-	mxp_to_char( "You can't set your own bio!\n\r", victim, MXP_ALL );
+	send_to_char( "You can't set your own bio!\n\r", victim );
 	ch_printf( ch, "NOBIO set on %s.\n\r", victim->name );
     }
     return;
@@ -4948,32 +4930,32 @@ void do_nobeckon( CHAR_DATA *ch, char *argument )
 
     one_argument( argument, arg );
     if ( arg[0] == '\0' ) {
-	mxp_to_char( "Use nobeckon on who?\n\r", ch, MXP_ALL );
+	send_to_char( "Use nobeckon on who?\n\r", ch );
         return;
     }
     if ( ( victim = get_char_world( ch, arg ) ) == NULL ) {
-        mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+        send_to_char( "They aren't here.\n\r", ch );
         return;
     }
     if ( IS_NPC( victim ) ) {
-        mxp_to_char( "Not on NPC's.\n\r", ch, MXP_ALL );
+        send_to_char( "Not on NPC's.\n\r", ch );
         return;
     }
     set_char_color( AT_IMMORT, victim );
     if ( get_trust( victim ) >= get_trust( ch ) ) {
-        mxp_to_char( "Their godly glow prevents you from getting close enough.\n\r", ch, MXP_ALL );
+        send_to_char( "Their godly glow prevents you from getting close enough.\n\r", ch );
 	return;
     }
     if ( IS_SET( victim->pcdata->flags, PCFLAG_NOBECKON ) ) {
         REMOVE_BIT( victim->pcdata->flags, PCFLAG_NOBECKON );
-        mxp_to_char( "The gods return your ability to beckon.\n\r", victim, MXP_ALL );
+        send_to_char( "The gods return your ability to beckon.\n\r", victim );
         ch_printf( ch, "%s can again beckon.\n\r", victim->name );
     } else {
         SET_BIT( victim->pcdata->flags, PCFLAG_NOBECKON );
 	if ( !victim->desc )
 	add_loginmsg( victim->name, 13, NULL );
 	else
-        mxp_to_char( "The gods have removed your ability to beckon.\n\r", victim, MXP_ALL );
+        send_to_char( "The gods have removed your ability to beckon.\n\r", victim );
         ch_printf( ch, "You have removed beckon from %s.\n\r", victim->name );
     }
     save_char_obj( victim );
@@ -4989,33 +4971,33 @@ void do_freeze( CHAR_DATA *ch, char *argument )
 
     one_argument( argument, arg );
     if ( arg[0] == '\0' ) {
-	mxp_to_char( "Freeze whom?\n\r", ch, MXP_ALL );
+	send_to_char( "Freeze whom?\n\r", ch );
 	return;
     }
     if ( ( victim = get_char_world( ch, arg ) ) == NULL ) {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
     if ( IS_NPC( victim ) ) {
-	mxp_to_char( "Not on NPC's.\n\r", ch, MXP_ALL );
+	send_to_char( "Not on NPC's.\n\r", ch );
 	return;
     }
     set_char_color( AT_LBLUE, victim );
     if ( get_trust( victim ) >= get_trust( ch ) ) {
-	mxp_to_char( "You failed, and they saw...\n\r", ch, MXP_ALL );
+	send_to_char( "You failed, and they saw...\n\r", ch );
         ch_printf( victim, "%s is attempting to freeze you.\n\r", ch->name );
 	return;
     }
     if ( xIS_SET(victim->act, PLR_FREEZE ) ) {
 	xREMOVE_BIT(victim->act, PLR_FREEZE );
-	mxp_to_char( "Your frozen form suddenly thaws.\n\r", victim, MXP_ALL );
+	send_to_char( "Your frozen form suddenly thaws.\n\r", victim );
 	ch_printf( ch, "%s is now unfrozen.\n\r", victim->name );
     } else {
 	xSET_BIT(victim->act, PLR_FREEZE );
 	if ( !victim->desc )
 	add_loginmsg( victim->name, 15, NULL );
 	else
-	mxp_to_char( "A godly force turns your body to ice!\n\r", victim, MXP_ALL );
+	send_to_char( "A godly force turns your body to ice!\n\r", victim );
 	ch_printf( ch, "You have frozen %s.\n\r", victim->name );
     }
     save_char_obj( victim );
@@ -5032,7 +5014,7 @@ void do_log( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Log whom?\n\r", ch, MXP_ALL );
+	send_to_char( "Log whom?\n\r", ch );
 	return;
     }
 
@@ -5041,24 +5023,24 @@ void do_log( CHAR_DATA *ch, char *argument )
 	if ( fLogAll )
 	{
 	    fLogAll = FALSE;
-	    mxp_to_char( "Log ALL off.\n\r", ch, MXP_ALL );
+	    send_to_char( "Log ALL off.\n\r", ch );
 	}
 	else
 	{
 	    fLogAll = TRUE;
-	    mxp_to_char( "Log ALL on.\n\r", ch, MXP_ALL );
+	    send_to_char( "Log ALL on.\n\r", ch );
 	}
 	return;
     }
 
     if ( ( victim = get_char_world( ch, arg ) ) == NULL )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
     if ( IS_NPC( victim ) )
     {
-	mxp_to_char( "Not on NPC's.\n\r", ch, MXP_ALL );
+	send_to_char( "Not on NPC's.\n\r", ch );
 	return;
     }
 
@@ -5089,35 +5071,35 @@ void do_litterbug( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Set litterbug flag on whom?\n\r", ch, MXP_ALL );
+	send_to_char( "Set litterbug flag on whom?\n\r", ch );
 	return;
     }
     if ( ( victim = get_char_world( ch, arg ) ) == NULL )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
     if ( IS_NPC( victim ) )
     {
-	mxp_to_char( "Not on NPC's.\n\r", ch, MXP_ALL );
+	send_to_char( "Not on NPC's.\n\r", ch );
 	return;
     }
     if ( get_trust( victim ) >= get_trust( ch ) )
     {
-	mxp_to_char( "You failed.\n\r", ch, MXP_ALL );
+	send_to_char( "You failed.\n\r", ch );
 	return;
     }
     set_char_color( AT_IMMORT, victim );
     if ( xIS_SET(victim->act, PLR_LITTERBUG) )
     {
 	xREMOVE_BIT(victim->act, PLR_LITTERBUG);
-	mxp_to_char( "You can drop items again.\n\r", victim, MXP_ALL );
+	send_to_char( "You can drop items again.\n\r", victim );
 	ch_printf( ch, "LITTERBUG removed from %s.\n\r", victim->name );
     }
     else
     {
 	xSET_BIT(victim->act, PLR_LITTERBUG);
-	mxp_to_char( "A strange force prevents you from dropping any more items!\n\r", victim, MXP_ALL );
+	send_to_char( "A strange force prevents you from dropping any more items!\n\r", victim );
 	ch_printf( ch, "LITTERBUG set on %s.\n\r", victim->name );
     }
     return;
@@ -5133,29 +5115,29 @@ void do_noemote( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Noemote whom?\n\r", ch, MXP_ALL );
+	send_to_char( "Noemote whom?\n\r", ch );
 	return;
     }
     if ( ( victim = get_char_world( ch, arg ) ) == NULL )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
     if ( IS_NPC( victim ) )
     {
-	mxp_to_char( "Not on NPC's.\n\r", ch, MXP_ALL );
+	send_to_char( "Not on NPC's.\n\r", ch );
 	return;
     }
     if ( get_trust( victim ) >= get_trust( ch ) )
     {
-	mxp_to_char( "You failed.\n\r", ch, MXP_ALL );
+	send_to_char( "You failed.\n\r", ch );
 	return;
     }
     set_char_color( AT_IMMORT, victim );
     if ( xIS_SET(victim->act, PLR_NO_EMOTE) )
     {
 	xREMOVE_BIT(victim->act, PLR_NO_EMOTE);
-	mxp_to_char( "You can emote again.\n\r", victim, MXP_ALL );
+	send_to_char( "You can emote again.\n\r", victim );
 	ch_printf( ch, "NOEMOTE removed from %s.\n\r", victim->name );
     }
     else
@@ -5164,7 +5146,7 @@ void do_noemote( CHAR_DATA *ch, char *argument )
 	if ( !victim->desc )
 	add_loginmsg( victim->name, 16, NULL );
 	else
-	mxp_to_char( "You can't emote!\n\r", victim, MXP_ALL );
+	send_to_char( "You can't emote!\n\r", victim );
 	ch_printf( ch, "NOEMOTE applied to %s.\n\r", victim->name );
     }
     return;
@@ -5180,29 +5162,29 @@ void do_notell( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Notell whom?\n\r", ch, MXP_ALL );
+	send_to_char( "Notell whom?\n\r", ch );
 	return;
     }
     if ( ( victim = get_char_world( ch, arg ) ) == NULL )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
     if ( IS_NPC( victim ) )
     {
-	mxp_to_char( "Not on NPC's.\n\r", ch, MXP_ALL );
+	send_to_char( "Not on NPC's.\n\r", ch );
 	return;
     }
     if ( get_trust( victim ) >= get_trust( ch ) )
     {
-	mxp_to_char( "You failed.\n\r", ch, MXP_ALL );
+	send_to_char( "You failed.\n\r", ch );
 	return;
     }
     set_char_color( AT_IMMORT, victim );
     if ( xIS_SET(victim->act, PLR_NO_TELL) )
     {
 	xREMOVE_BIT(victim->act, PLR_NO_TELL);
-	mxp_to_char( "You can use tells again.\n\r", victim, MXP_ALL );
+	send_to_char( "You can use tells again.\n\r", victim );
 	ch_printf( ch, "NOTELL removed from %s.\n\r", victim->name );
     }
     else
@@ -5211,7 +5193,7 @@ void do_notell( CHAR_DATA *ch, char *argument )
 	if ( !victim->desc )
 	add_loginmsg( victim->name, 14, NULL );
 	else
-	mxp_to_char( "You can't use tells!\n\r", victim, MXP_ALL );
+	send_to_char( "You can't use tells!\n\r", victim );
 	ch_printf( ch, "NOTELL applied to %s.\n\r", victim->name );
     }
     return;
@@ -5228,29 +5210,29 @@ void do_notitle( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-        mxp_to_char( "Notitle whom?\n\r", ch, MXP_ALL );
+        send_to_char( "Notitle whom?\n\r", ch );
         return;
     }
     if ( ( victim = get_char_world( ch, arg ) ) == NULL )
     {
-        mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+        send_to_char( "They aren't here.\n\r", ch );
         return;
     }
     if ( IS_NPC( victim ) )
     {
-        mxp_to_char( "Not on NPC's.\n\r", ch, MXP_ALL );
+        send_to_char( "Not on NPC's.\n\r", ch );
         return;
     }
     if ( get_trust( victim ) >= get_trust( ch ) )
     {
-        mxp_to_char( "You failed.\n\r", ch, MXP_ALL );
+        send_to_char( "You failed.\n\r", ch );
         return;
     }
     set_char_color( AT_IMMORT, victim );
     if ( IS_SET(victim->pcdata->flags, PCFLAG_NOTITLE) )
     {
         REMOVE_BIT(victim->pcdata->flags, PCFLAG_NOTITLE);
-        mxp_to_char( "You can set your own title again.\n\r", victim, MXP_ALL );
+        send_to_char( "You can set your own title again.\n\r", victim );
 	ch_printf( ch, "NOTITLE removed from %s.\n\r", victim->name );
     }
     else
@@ -5263,7 +5245,7 @@ void do_notitle( CHAR_DATA *ch, char *argument )
 	if ( !victim->desc )
 	add_loginmsg( victim->name, 8, NULL );
 	else
-        mxp_to_char( "You can't set your own title!\n\r", victim, MXP_ALL );
+        send_to_char( "You can't set your own title!\n\r", victim );
 	ch_printf( ch, "NOTITLE set on %s.\n\r", victim->name );
     }
     return;
@@ -5279,28 +5261,28 @@ void do_silence( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Silence whom?", ch, MXP_ALL );
+	send_to_char( "Silence whom?", ch );
 	return;
     }
     if ( ( victim = get_char_world( ch, arg ) ) == NULL )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
     if ( IS_NPC( victim ) )
     {
-	mxp_to_char( "Not on NPC's.\n\r", ch, MXP_ALL );
+	send_to_char( "Not on NPC's.\n\r", ch );
 	return;
     }
     if ( get_trust( victim ) >= get_trust( ch ) )
     {
-	mxp_to_char( "You failed.\n\r", ch, MXP_ALL );
+	send_to_char( "You failed.\n\r", ch );
 	return;
     }
     set_char_color( AT_IMMORT, victim );
     if ( xIS_SET(victim->act, PLR_SILENCE) )
     {
-	mxp_to_char( "Player already silenced, use unsilence to remove.\n\r", ch, MXP_ALL );
+	send_to_char( "Player already silenced, use unsilence to remove.\n\r", ch );
     }
     else
     {
@@ -5308,7 +5290,7 @@ void do_silence( CHAR_DATA *ch, char *argument )
 	if ( !victim->desc )
 	add_loginmsg( victim->name, 7, NULL );
 	else
-	mxp_to_char( "You can't use channels!\n\r", victim, MXP_ALL );
+	send_to_char( "You can't use channels!\n\r", victim );
 	ch_printf( ch, "You SILENCE %s.\n\r", victim->name );
     }
     return;
@@ -5325,34 +5307,34 @@ void do_unsilence( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Unsilence whom?\n\r", ch, MXP_ALL );
+	send_to_char( "Unsilence whom?\n\r", ch );
 	return;
     }
     if ( ( victim = get_char_world( ch, arg ) ) == NULL )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
     if ( IS_NPC( victim ) )
     {
-	mxp_to_char( "Not on NPC's.\n\r", ch, MXP_ALL );
+	send_to_char( "Not on NPC's.\n\r", ch );
 	return;
     }
     if ( get_trust( victim ) >= get_trust( ch ) )
     {
-	mxp_to_char( "You failed.\n\r", ch, MXP_ALL );
+	send_to_char( "You failed.\n\r", ch );
 	return;
     }
     set_char_color( AT_IMMORT, victim );
     if ( xIS_SET(victim->act, PLR_SILENCE) )
     {
 	xREMOVE_BIT(victim->act, PLR_SILENCE);
-	mxp_to_char( "You can use channels again.\n\r", victim, MXP_ALL );
+	send_to_char( "You can use channels again.\n\r", victim );
 	ch_printf( ch, "SILENCE removed from %s.\n\r", victim->name );
     }
     else
     {
-	mxp_to_char( "That player is not silenced.\n\r", ch, MXP_ALL );
+	send_to_char( "That player is not silenced.\n\r", ch );
     }
     return;
 }
@@ -5416,9 +5398,9 @@ void do_wizlock( CHAR_DATA *ch, char *argument )
     set_char_color( AT_DANGER, ch );
 
     if ( wizlock )
-	mxp_to_char( "Game wizlocked.\n\r", ch, MXP_ALL );
+	send_to_char( "Game wizlocked.\n\r", ch );
     else
-	mxp_to_char( "Game un-wizlocked.\n\r", ch, MXP_ALL );
+	send_to_char( "Game un-wizlocked.\n\r", ch );
     return;
 }
 
@@ -5522,7 +5504,7 @@ void do_force( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg );
     if ( arg[0] == '\0' || argument[0] == '\0' )
     {
-	mxp_to_char( "Force whom to do what?\n\r", ch, MXP_ALL );
+	send_to_char( "Force whom to do what?\n\r", ch );
 	return;
     }
 
@@ -5535,7 +5517,7 @@ void do_force( CHAR_DATA *ch, char *argument )
 
         if ( mobsonly )
         {
-	  mxp_to_char( "Force whom to do what?\n\r", ch, MXP_ALL );
+	  send_to_char( "Force whom to do what?\n\r", ch );
 	  return;
         } 
 
@@ -5556,34 +5538,34 @@ void do_force( CHAR_DATA *ch, char *argument )
 
 	if ( ( victim = get_char_world( ch, arg ) ) == NULL )
 	{
-	    mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	    send_to_char( "They aren't here.\n\r", ch );
 	    return;
 	}
 
 	if ( victim == ch )
 	{
-	    mxp_to_char( "Aye aye, right away!\n\r", ch, MXP_ALL );
+	    send_to_char( "Aye aye, right away!\n\r", ch );
 	    return;
 	}
 
 	if ( ( get_trust( victim ) >= get_trust( ch ) ) 
           || ( mobsonly && !IS_NPC( victim ) ) )
 	{
-	    mxp_to_char( "Do it yourself!\n\r", ch, MXP_ALL );
+	    send_to_char( "Do it yourself!\n\r", ch );
 	    return;
 	}
 
     if ( get_trust( ch ) < LEVEL_GOD && IS_NPC(victim)
 	 && !str_prefix( "mp", argument ) )
     {
-	mxp_to_char("You can't force a mob to do that!\n\r", ch, MXP_ALL );
+	send_to_char("You can't force a mob to do that!\n\r", ch );
 	return;
     }
     act( AT_IMMORT, "$n forces you to '$t'.", ch, argument, victim, TO_VICT );
     interpret( victim, argument );
     }
 
-    mxp_to_char( "Ok.\n\r", ch, MXP_ALL );
+    send_to_char( "Ok.\n\r", ch );
     return;
 }
 
@@ -5601,13 +5583,13 @@ void do_invis( CHAR_DATA *ch, char *argument )
     {
 	if ( !is_number( arg ) )
 	{
-	   mxp_to_char( "Usage: invis | invis <level>\n\r", ch, MXP_ALL );
+	   send_to_char( "Usage: invis | invis <level>\n\r", ch );
 	   return;
 	}
 	level = atoi( arg );
 	if ( level < 2 || level > get_trust( ch ) )
 	{
-	    mxp_to_char( "Invalid level.\n\r", ch, MXP_ALL );
+	    send_to_char( "Invalid level.\n\r", ch );
 	    return;
 	}
 
@@ -5639,12 +5621,12 @@ void do_invis( CHAR_DATA *ch, char *argument )
     {
 	xREMOVE_BIT(ch->act, PLR_WIZINVIS);
 	act( AT_IMMORT, "$n slowly fades into existence.", ch, NULL, NULL, TO_ROOM );
-	mxp_to_char( "You slowly fade back into existence.\n\r", ch, MXP_ALL );
+	send_to_char( "You slowly fade back into existence.\n\r", ch );
     }
     else
     {
 	act( AT_IMMORT, "$n slowly fades into thin air.", ch, NULL, NULL, TO_ROOM );
-	mxp_to_char( "You slowly vanish into thin air.\n\r", ch, MXP_ALL );
+	send_to_char( "You slowly vanish into thin air.\n\r", ch );
 	xSET_BIT(ch->act, PLR_WIZINVIS);
     }
     return;
@@ -5662,12 +5644,12 @@ void do_holylight( CHAR_DATA *ch, char *argument )
     if ( xIS_SET(ch->act, PLR_HOLYLIGHT) )
     {
 	xREMOVE_BIT(ch->act, PLR_HOLYLIGHT);
-	mxp_to_char( "Holy light mode off.\n\r", ch, MXP_ALL );
+	send_to_char( "Holy light mode off.\n\r", ch );
     }
     else
     {
 	xSET_BIT(ch->act, PLR_HOLYLIGHT);
-	mxp_to_char( "Holy light mode on.\n\r", ch, MXP_ALL );
+	send_to_char( "Holy light mode on.\n\r", ch );
     }
     return;
 }
@@ -5685,12 +5667,12 @@ void do_roomvis( CHAR_DATA *ch, char *argument )
     if ( xIS_SET(ch->act, PLR_ROOMVIS) )
     {
 	xREMOVE_BIT(ch->act, PLR_ROOMVIS);
-	mxp_to_char( "You are no longer visible to people in the same room as you.\n\r", ch, MXP_ALL );
+	send_to_char( "You are no longer visible to people in the same room as you.\n\r", ch );
     }
     else
     {
 	xSET_BIT(ch->act, PLR_ROOMVIS);
-	mxp_to_char( "You are now visible to people who are in the same room as you.\n\r", ch, MXP_ALL );
+	send_to_char( "You are now visible to people who are in the same room as you.\n\r", ch );
     }
     return;
 }
@@ -5712,22 +5694,22 @@ void do_rassign( CHAR_DATA *ch, char *argument )
 
     if ( arg1[0] == '\0' || r_lo < 0 || r_hi < 0 )
     {
-	mxp_to_char( "Syntax: rassign <who> <low> <high>\n\r", ch, MXP_ALL );
+	send_to_char( "Syntax: rassign <who> <low> <high>\n\r", ch );
 	return;
     }
     if ( (victim = get_char_world( ch, arg1 )) == NULL )
     {
-	mxp_to_char( "They don't seem to be around.\n\r", ch, MXP_ALL );
+	send_to_char( "They don't seem to be around.\n\r", ch );
 	return;
     }
     if ( IS_NPC( victim ) || get_trust( victim ) < LEVEL_CREATOR )
     {
-	mxp_to_char( "They wouldn't know what to do with a room range.\n\r", ch, MXP_ALL );
+	send_to_char( "They wouldn't know what to do with a room range.\n\r", ch );
 	return;
     }
     if ( r_lo > r_hi )
     {
-	mxp_to_char( "Unacceptable room range.\n\r", ch, MXP_ALL );
+	send_to_char( "Unacceptable room range.\n\r", ch );
 	return;
     }
     if ( r_lo == 0 )
@@ -5735,7 +5717,7 @@ void do_rassign( CHAR_DATA *ch, char *argument )
     victim->pcdata->r_range_lo = r_lo;
     victim->pcdata->r_range_hi = r_hi;
     assign_area( victim );
-    mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+    send_to_char( "Done.\n\r", ch );
     set_char_color( AT_IMMORT, victim );
     ch_printf( victim, "%s has assigned you the room vnum range %d - %d.\n\r",
 		ch->name, r_lo, r_hi );
@@ -5776,28 +5758,28 @@ void do_oassign( CHAR_DATA *ch, char *argument )
 
     if ( arg1[0] == '\0' || o_lo < 0 || o_hi < 0 )
     {
-	mxp_to_char( "Syntax: oassign <who> <low> <high>\n\r", ch, MXP_ALL );
+	send_to_char( "Syntax: oassign <who> <low> <high>\n\r", ch );
 	return;
     }
     if ( (victim = get_char_world( ch, arg1 )) == NULL )
     {
-	mxp_to_char( "They don't seem to be around.\n\r", ch, MXP_ALL );
+	send_to_char( "They don't seem to be around.\n\r", ch );
 	return;
     }
     if ( IS_NPC( victim ) || get_trust( victim ) < LEVEL_SAVIOR )
     {
-	mxp_to_char( "They wouldn't know what to do with an object range.\n\r", ch, MXP_ALL );
+	send_to_char( "They wouldn't know what to do with an object range.\n\r", ch );
 	return;
     }
     if ( o_lo > o_hi )
     {
-	mxp_to_char( "Unacceptable object range.\n\r", ch, MXP_ALL );
+	send_to_char( "Unacceptable object range.\n\r", ch );
 	return;
     }
     victim->pcdata->o_range_lo = o_lo;
     victim->pcdata->o_range_hi = o_hi;
     assign_area( victim );
-    mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+    send_to_char( "Done.\n\r", ch );
     set_char_color( AT_IMMORT, victim );
     ch_printf( victim, "%s has assigned you the object vnum range %d - %d.\n\r",
 		ch->name, o_lo, o_hi );
@@ -5821,28 +5803,28 @@ void do_massign( CHAR_DATA *ch, char *argument )
 
     if ( arg1[0] == '\0' || m_lo < 0 || m_hi < 0 )
     {
-	mxp_to_char( "Syntax: massign <who> <low> <high>\n\r", ch, MXP_ALL );
+	send_to_char( "Syntax: massign <who> <low> <high>\n\r", ch );
 	return;
     }
     if ( (victim = get_char_world( ch, arg1 )) == NULL )
     {
-	mxp_to_char( "They don't seem to be around.\n\r", ch, MXP_ALL );
+	send_to_char( "They don't seem to be around.\n\r", ch );
 	return;
     }
     if ( IS_NPC( victim ) || get_trust( victim ) < LEVEL_SAVIOR )
     {
-	mxp_to_char( "They wouldn't know what to do with a monster range.\n\r", ch, MXP_ALL );
+	send_to_char( "They wouldn't know what to do with a monster range.\n\r", ch );
 	return;
     }
     if ( m_lo > m_hi )
     {
-	mxp_to_char( "Unacceptable monster range.\n\r", ch, MXP_ALL );
+	send_to_char( "Unacceptable monster range.\n\r", ch );
 	return;
     }
     victim->pcdata->m_range_lo = m_lo;
     victim->pcdata->m_range_hi = m_hi;
     assign_area( victim );
-    mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+    send_to_char( "Done.\n\r", ch );
     set_char_color( AT_IMMORT, victim );
     ch_printf( victim, "%s has assigned you the monster vnum range %d - %d.\n\r",
 		ch->name, m_lo, m_hi );
@@ -5870,7 +5852,7 @@ void do_cmdtable( CHAR_DATA *ch, char *argument )
 		    else
 			pager_printf(ch,"%-6.6s %4d\n\r", cmd->name,cmd->userec.num_uses );
 		}
-	mxp_to_char( "\n\r", ch, MXP_ALL );
+	send_to_char( "\n\r", ch );
     }
     else	/* display commands causing lag */
     {
@@ -5887,7 +5869,7 @@ void do_cmdtable( CHAR_DATA *ch, char *argument )
 		    	else
 				pager_printf(ch,"%-6.6s %4d\n\r", cmd->name,cmd->lag_count);
 		}
-	mxp_to_char("\n\r", ch, MXP_ALL);
+	send_to_char("\n\r", ch);
     }
     	
     return;
@@ -5912,7 +5894,7 @@ void do_mortalize( CHAR_DATA *ch, char *argument )
     one_argument( argument, name );
     if ( name[0] == '\0' )
     {
-        mxp_to_char( "Usage: mortalize <playername>\n\r", ch, MXP_ALL );
+        send_to_char( "Usage: mortalize <playername>\n\r", ch );
         return;
     }
 
@@ -5943,7 +5925,7 @@ void do_mortalize( CHAR_DATA *ch, char *argument )
         if ( get_trust(d->character) >= get_trust( ch ) )
         {
            do_say( d->character, "Do *NOT* disturb me again!" );
-           mxp_to_char( "I think you'd better leave that player alone!\n\r", ch, MXP_ALL );
+           send_to_char( "I think you'd better leave that player alone!\n\r", ch );
            d->character->desc   = NULL;
 	   if ( loaded )
              do_quit( d->character, "" );
@@ -5959,7 +5941,7 @@ void do_mortalize( CHAR_DATA *ch, char *argument )
      if ( test != -1 && victim ) {
         if ( get_trust(victim) >= get_trust( ch ) )
 	{
- 	   mxp_to_char("You failed!\n\r", ch, MXP_ALL );
+ 	   send_to_char("You failed!\n\r", ch );
 	   if ( loaded ) 
 	      do_quit( victim, "" );
 	   return;
@@ -5989,7 +5971,7 @@ void do_mortalize( CHAR_DATA *ch, char *argument )
     sprintf( buf, "%s%s", GOD_DIR, capitalize(victim->name) );
         
     if ( !remove( buf ) )
-      mxp_to_char( "Player's immortal data destroyed.\n\r", ch, MXP_ALL );
+      send_to_char( "Player's immortal data destroyed.\n\r", ch );
     else if ( errno != ENOENT )
     {
       ch_printf( ch, "Unknown error #%d - %s (immortal data).  Report to Thoric\n\r",
@@ -6008,7 +5990,7 @@ void do_mortalize( CHAR_DATA *ch, char *argument )
         sprintf( buf2, "%s.bak", buf );
         set_char_color( AT_RED, ch ); 
         if ( !rename( buf, buf2 ) )
-          mxp_to_char( "Player's area data destroyed.  Area saved as backup.\n\r", ch, MXP_ALL);
+          send_to_char( "Player's area data destroyed.  Area saved as backup.\n\r", ch);
         else if ( errno != ENOENT )
         {
           ch_printf( ch, "Unknown error #%d - %s (area data).  Report to Thoric.\n\r",
@@ -6028,7 +6010,7 @@ void do_mortalize( CHAR_DATA *ch, char *argument )
 	make_retiredlist();
         return;
     }
-    mxp_to_char( "No such player.\n\r", ch, MXP_ALL );
+    send_to_char( "No such player.\n\r", ch );
     return;
 }
 
@@ -6051,7 +6033,7 @@ void do_loadup( CHAR_DATA *ch, char *argument )
     one_argument( argument, name );
     if ( name[0] == '\0' )
     {
-	mxp_to_char( "Usage: loadup <playername>\n\r", ch, MXP_ALL );
+	send_to_char( "Usage: loadup <playername>\n\r", ch );
 	return;
     }
     for ( temp = first_char; temp; temp = temp->next )
@@ -6085,7 +6067,7 @@ void do_loadup( CHAR_DATA *ch, char *argument )
 	if ( get_trust(d->character) >= get_trust( ch ) )
 	{
 	   do_say( d->character, "Do *NOT* disturb me again!" );
-	   mxp_to_char( "I think you'd better leave that player alone!\n\r", ch, MXP_ALL );
+	   send_to_char( "I think you'd better leave that player alone!\n\r", ch );
 	   d->character->desc	= NULL;
 	   if ( loaded )
 	      do_quit( d->character, "" );
@@ -6099,11 +6081,11 @@ void do_loadup( CHAR_DATA *ch, char *argument )
 	ch_printf(ch, "Player %s loaded from room %d.\n\r", capitalize( name ),old_room_vnum );
 	sprintf(buf, "%s appears from nowhere, eyes glazed over.\n\r", capitalize( name ) );
         act( AT_IMMORT, buf, ch, NULL, NULL, TO_ROOM );
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     /* else no player file */
-    mxp_to_char( "No such player.\n\r", ch, MXP_ALL );
+    send_to_char( "No such player.\n\r", ch );
     return;
 }
 
@@ -6117,14 +6099,14 @@ void do_fixchar( CHAR_DATA *ch, char *argument )
     one_argument( argument, name );
     if ( name[0] == '\0' )
     {
-	mxp_to_char( "Usage: fixchar <playername>\n\r", ch, MXP_ALL );
+	send_to_char( "Usage: fixchar <playername>\n\r", ch );
 	return;
     }
 
     victim = get_char_room( ch, name );
     if ( !victim )
     {
-	mxp_to_char( "They're not here.\n\r", ch, MXP_ALL );
+	send_to_char( "They're not here.\n\r", ch );
 	return;
     }
     fix_char( victim );
@@ -6140,7 +6122,7 @@ void do_fixchar( CHAR_DATA *ch, char *argument )
     victim->hitroll	= 0;
     victim->alignment	= URANGE( -1000, victim->alignment, 1000 );
     victim->saving_spell_staff = 0; */
-    mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+    send_to_char( "Done.\n\r", ch );
 }
 
 void do_newbieset( CHAR_DATA *ch, char *argument )
@@ -6156,22 +6138,22 @@ void do_newbieset( CHAR_DATA *ch, char *argument )
     argument = one_argument (argument, arg2);
     if ( arg1[0] == '\0' )
     {
-	mxp_to_char( "Syntax: newbieset <char>.\n\r", ch, MXP_ALL );
+	send_to_char( "Syntax: newbieset <char>.\n\r", ch );
 	return;
     }
     if ( ( victim = get_char_room( ch, arg1 ) ) == NULL )
     {
-	mxp_to_char( "That player is not here.\n\r", ch, MXP_ALL);
+	send_to_char( "That player is not here.\n\r", ch);
 	return;
     }
     if ( IS_NPC( victim ) )
     {
-	mxp_to_char( "Not on NPC's.\n\r", ch, MXP_ALL );
+	send_to_char( "Not on NPC's.\n\r", ch );
 	return;
     }
     if ( ( victim->level < 1 ) || ( victim->level > 5 ) )
     {
-	mxp_to_char( "Level of victim must be between 1 and 5.\n\r", ch, MXP_ALL );
+	send_to_char( "Level of victim must be between 1 and 5.\n\r", ch );
 	return;
     }
 
@@ -6291,27 +6273,27 @@ void do_bestowarea( CHAR_DATA *ch, char *argument )
 
     if ( !*arg )
     {
-        mxp_to_char(
+        send_to_char(
         "Syntax:\n\r"
         "bestowarea <victim> <filename>.are\n\r"
         "bestowarea <victim> none             removes bestowed areas\n\r"
         "bestowarea <victim> list             lists bestowed areas\n\r"
-        "bestowarea <victim>                  lists bestowed areas\n\r", ch, MXP_ALL);
+        "bestowarea <victim>                  lists bestowed areas\n\r", ch);
         return;
     }
     if ( !(victim = get_char_world( ch, arg )) )
     {
-        mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+        send_to_char( "They aren't here.\n\r", ch );
         return;
     }
     if ( IS_NPC( victim ) )
     {
-        mxp_to_char( "You can't give special abilities to a mob!\n\r", ch, MXP_ALL );
+        send_to_char( "You can't give special abilities to a mob!\n\r", ch );
         return;
     }
     if ( get_trust(victim) < LEVEL_IMMORTAL )
     {
-        mxp_to_char( "They aren't an immortal.\n\r", ch, MXP_ALL );
+        send_to_char( "They aren't an immortal.\n\r", ch );
         return;
     }
 
@@ -6329,7 +6311,7 @@ void do_bestowarea( CHAR_DATA *ch, char *argument )
        remove_area_names (victim->pcdata->bestowments, buf);
        DISPOSE( victim->pcdata->bestowments );
        victim->pcdata->bestowments = str_dup( buf );
-       mxp_to_char( "Done.\n\r", ch, MXP_ALL);
+       send_to_char( "Done.\n\r", ch);
        return;
     }
 
@@ -6338,8 +6320,8 @@ void do_bestowarea( CHAR_DATA *ch, char *argument )
     || argument[arg_len-4] != '.' || argument[arg_len-3] != 'a'
     || argument[arg_len-2] != 'r' || argument[arg_len-1] != 'e' )
     {
-        mxp_to_char( "You can only bestow an area name\n\r", ch, MXP_ALL );
-        mxp_to_char( "E.G. bestow joe sam.are\n\r", ch, MXP_ALL );
+        send_to_char( "You can only bestow an area name\n\r", ch );
+        send_to_char( "E.G. bestow joe sam.are\n\r", ch );
         return;
     }
 
@@ -6349,7 +6331,7 @@ void do_bestowarea( CHAR_DATA *ch, char *argument )
     set_char_color( AT_IMMORT, victim );
     ch_printf( victim, "%s has bestowed on you the area: %s\n\r", 
              ch->name, argument );
-    mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+    send_to_char( "Done.\n\r", ch );
 }
 
 void do_bestow( CHAR_DATA *ch, char *argument )
@@ -6363,22 +6345,22 @@ void do_bestow( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg );
     if ( arg[0] == '\0' )
     {
-	mxp_to_char( "Bestow whom with what?\n\r", ch, MXP_ALL );
+	send_to_char( "Bestow whom with what?\n\r", ch );
 	return;
     }
     if ( ( victim = get_char_world( ch, arg ) ) == NULL )
     {
-	mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+	send_to_char( "They aren't here.\n\r", ch );
 	return;
     }
     if ( IS_NPC( victim ) )
     {
-	mxp_to_char( "You can't give special abilities to a mob!\n\r", ch, MXP_ALL );
+	send_to_char( "You can't give special abilities to a mob!\n\r", ch );
 	return;
     }
     if ( get_trust( victim ) > get_trust( ch ) )
     {
-	mxp_to_char( "You aren't powerful enough...\n\r", ch, MXP_ALL );
+	send_to_char( "You aren't powerful enough...\n\r", ch );
 	return;
     }
 
@@ -6406,7 +6388,7 @@ void do_bestow( CHAR_DATA *ch, char *argument )
     set_char_color( AT_IMMORT, victim );
     ch_printf( victim, "%s has bestowed on you the command(s): %s\n\r",
 	ch->name, argument );
-    mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+    send_to_char( "Done.\n\r", ch );
 }
 
 struct tm *update_time ( struct tm *old_time )
@@ -6429,9 +6411,9 @@ void do_set_boot_time( CHAR_DATA *ch, char *argument)
    argument = one_argument(argument, arg);
    if ( arg[0] == '\0' )
    {
-	mxp_to_char( "Syntax: setboot time {hour minute <day> <month> <year>}\n\r", ch, MXP_ALL);
-	mxp_to_char( "        setboot manual {0/1}\n\r", ch, MXP_ALL);
-	mxp_to_char( "        setboot default\n\r", ch, MXP_ALL); 
+	send_to_char( "Syntax: setboot time {hour minute <day> <month> <year>}\n\r", ch);
+	send_to_char( "        setboot manual {0/1}\n\r", ch);
+	send_to_char( "        setboot default\n\r", ch); 
         ch_printf( ch, "Boot time is currently set to %s, manual bit is set to %d\n\r",
 		reboot_time, set_boot_time->manual );
 	return;
@@ -6445,19 +6427,19 @@ void do_set_boot_time( CHAR_DATA *ch, char *argument)
       argument = one_argument(argument, arg1);
       if ( !*arg || !*arg1 || !is_number(arg) || !is_number(arg1) )
       {
-	mxp_to_char("You must input a value for hour and minute.\n\r", ch, MXP_ALL);
+	send_to_char("You must input a value for hour and minute.\n\r", ch);
  	return;
       }
 
       now_time = localtime(&current_time);
       if ( (now_time->tm_hour = atoi(arg)) < 0 || now_time->tm_hour > 23 )
       {
-        mxp_to_char("Valid range for hour is 0 to 23.\n\r", ch, MXP_ALL);
+        send_to_char("Valid range for hour is 0 to 23.\n\r", ch);
         return;
       }
       if ( (now_time->tm_min = atoi(arg1)) < 0 || now_time->tm_min > 59 )
       {
-        mxp_to_char("Valid range for minute is 0 to 59.\n\r", ch, MXP_ALL);
+        send_to_char("Valid range for minute is 0 to 59.\n\r", ch);
         return;
       }
 
@@ -6466,7 +6448,7 @@ void do_set_boot_time( CHAR_DATA *ch, char *argument)
       {
         if ( (now_time->tm_mday = atoi(arg)) < 1 || now_time->tm_mday > 31 )
         {
-	  mxp_to_char("Valid range for day is 1 to 31.\n\r", ch, MXP_ALL);
+	  send_to_char("Valid range for day is 1 to 31.\n\r", ch);
 	  return;
         }
         argument = one_argument(argument, arg);
@@ -6474,7 +6456,7 @@ void do_set_boot_time( CHAR_DATA *ch, char *argument)
         {
           if ( (now_time->tm_mon = atoi(arg)) < 1 || now_time->tm_mon > 12 )
           {
-            mxp_to_char( "Valid range for month is 1 to 12.\n\r", ch, MXP_ALL );
+            send_to_char( "Valid range for month is 1 to 12.\n\r", ch );
             return;
           }
           now_time->tm_mon--;
@@ -6482,7 +6464,7 @@ void do_set_boot_time( CHAR_DATA *ch, char *argument)
           if ( (now_time->tm_year = atoi(arg)-1900) < 0 ||
                 now_time->tm_year > 199 )
           {
-            mxp_to_char( "Valid range for year is 1900 to 2099.\n\r", ch, MXP_ALL );
+            send_to_char( "Valid range for year is 1900 to 2099.\n\r", ch );
             return;
           }
         }
@@ -6491,7 +6473,7 @@ void do_set_boot_time( CHAR_DATA *ch, char *argument)
       now_time->tm_sec = 0;
       if ( mktime(now_time) < current_time )
       {
-        mxp_to_char( "You can't set a time previous to today!\n\r", ch, MXP_ALL );
+        send_to_char( "You can't set a time previous to today!\n\r", ch );
         return;
       }
       if (set_boot_time->manual == 0)
@@ -6510,17 +6492,17 @@ void do_set_boot_time( CHAR_DATA *ch, char *argument)
       argument = one_argument(argument, arg1);
       if (arg1[0] == '\0')
       {
-	mxp_to_char("Please enter a value for manual boot on/off\n\r", ch, MXP_ALL);
+	send_to_char("Please enter a value for manual boot on/off\n\r", ch);
 	return;
       }
       if ( !is_number(arg1))
       {
-	mxp_to_char("Value for manual must be 0 (off) or 1 (on)\n\r", ch, MXP_ALL);
+	send_to_char("Value for manual must be 0 (off) or 1 (on)\n\r", ch);
 	return;
       }
       if (atoi(arg1) < 0 || atoi(arg1) > 1)
       {
-	mxp_to_char("Value for manual must be 0 (off) or 1 (on)\n\r", ch, MXP_ALL);
+	send_to_char("Value for manual must be 0 (off) or 1 (on)\n\r", ch);
 	return;
       }
    
@@ -6546,13 +6528,13 @@ void do_set_boot_time( CHAR_DATA *ch, char *argument)
 
       sysdata.DENY_NEW_PLAYERS = FALSE;
 
-      mxp_to_char("Reboot time set back to normal.\n\r", ch, MXP_ALL);
+      send_to_char("Reboot time set back to normal.\n\r", ch);
       check = TRUE;
     }
 
     if (!check)
     {
-      mxp_to_char("Invalid argument for setboot.\n\r", ch, MXP_ALL);
+      send_to_char("Invalid argument for setboot.\n\r", ch);
       return;
     }
     else
@@ -6585,7 +6567,7 @@ void do_form_password( CHAR_DATA *ch, char *argument)
 void do_destro( CHAR_DATA *ch, char *argument )
 {
   set_char_color( AT_RED, ch );
-  mxp_to_char("If you want to destroy a character, spell it out!\n\r",ch, MXP_ALL);
+  send_to_char("If you want to destroy a character, spell it out!\n\r",ch);
   return;
 }
 
@@ -6594,9 +6576,9 @@ void do_destro( CHAR_DATA *ch, char *argument )
  */
 void close_area( AREA_DATA *pArea )
 {
-/*  extern ROOM_INDEX_DATA *room_index_hash[MAX_KEY_HASH];
+  extern ROOM_INDEX_DATA *room_index_hash[MAX_KEY_HASH];
   extern OBJ_INDEX_DATA   *obj_index_hash[MAX_KEY_HASH];
-  extern MOB_INDEX_DATA   *mob_index_hash[MAX_KEY_HASH]; */
+  extern MOB_INDEX_DATA   *mob_index_hash[MAX_KEY_HASH];
   CHAR_DATA *ech;
   CHAR_DATA *ech_next;
   OBJ_DATA *eobj;
@@ -6853,7 +6835,7 @@ void do_destroy( CHAR_DATA *ch, char *argument )
   one_argument( argument, arg );
   if ( arg[0] == '\0' )
   {
-      mxp_to_char( "Destroy what player file?\n\r", ch, MXP_ALL );
+      send_to_char( "Destroy what player file?\n\r", ch );
       return;
   }
 
@@ -6898,7 +6880,7 @@ void do_destroy( CHAR_DATA *ch, char *argument )
 		name );
     sprintf( buf, "%s%s", HOUSE_DIR, name );
     if ( !remove( buf ) )
-	mxp_to_char( "Player's housing data destroyed.\n\r", ch, MXP_ALL );
+	send_to_char( "Player's housing data destroyed.\n\r", ch );
     else if ( errno != ENOENT )
     {
 	ch_printf( ch, "Unknown error #%d - %s (housing data)."
@@ -6908,7 +6890,7 @@ void do_destroy( CHAR_DATA *ch, char *argument )
     }
     sprintf( buf, "%s%s", GOD_DIR, name );
     if ( !remove( buf ) )
-      mxp_to_char( "Player's immortal data destroyed.\n\r", ch, MXP_ALL );
+      send_to_char( "Player's immortal data destroyed.\n\r", ch );
     else if ( errno != ENOENT )
     {
       ch_printf( ch, "Unknown error #%d - %s (immortal data).  Report to Thoric.\n\r",
@@ -6928,7 +6910,7 @@ void do_destroy( CHAR_DATA *ch, char *argument )
         sprintf( buf2, "%s.bak", buf );
         set_char_color( AT_RED, ch ); /* Log message changes colors */
         if ( !rename( buf, buf2 ) )
-          mxp_to_char( "Player's area data destroyed.  Area saved as backup.\n\r", ch, MXP_ALL );
+          send_to_char( "Player's area data destroyed.  Area saved as backup.\n\r", ch );
         else if ( errno != ENOENT )
         {
           ch_printf( ch, "Unknown error #%d - %s (area data).  Report to Thoric.\n\r",
@@ -6942,7 +6924,7 @@ void do_destroy( CHAR_DATA *ch, char *argument )
   else if ( errno == ENOENT )
   {
     set_char_color( AT_PLAIN, ch );
-    mxp_to_char( "Player does not exist.\n\r", ch, MXP_ALL );
+    send_to_char( "Player does not exist.\n\r", ch );
   }
   else
   {
@@ -6956,7 +6938,7 @@ void do_destroy( CHAR_DATA *ch, char *argument )
   return;
 }
 
-//extern ROOM_INDEX_DATA *       room_index_hash[MAX_KEY_HASH]; /* db.c */
+extern ROOM_INDEX_DATA *       room_index_hash         [MAX_KEY_HASH]; /* db.c */
 
 /* Super-AT command:
 FOR ALL <action>
@@ -7191,8 +7173,8 @@ void do_cset( CHAR_DATA *ch, char *argument )
     pager_printf_color(ch, "\n\r&WPort_name: %s", sysdata.port_name );
     pager_printf_color(ch, "\n\r&WMail:\n\r  &wRead all mail: &W%d  &wRead mail for free: &W%d  &wWrite mail for free: &W%d\n\r",
 	    sysdata.read_all_mail, sysdata.read_mail_free, sysdata.write_mail_free );
-//    pager_printf_color(ch, "  &wTake all mail: &W%d  &wIMC mail board vnum: &W%d\n\r",
-//	    sysdata.take_others_mail, sysdata.imc_mail_vnum);
+    pager_printf_color(ch, "  &wTake all mail: &W%d  &wIMC mail board vnum: &W%d\n\r",
+	    sysdata.take_others_mail, sysdata.imc_mail_vnum);
     pager_printf_color(ch, "&WChannels:\n\r  &wMuse: &W%d   &wThink: &W%d   &wLog: &W%d   &wBuild: &W%d\n\r",
  	    sysdata.muse_level, sysdata.think_level, sysdata.log_level, 
 	    sysdata.build_level);
@@ -7250,14 +7232,14 @@ void do_cset( CHAR_DATA *ch, char *argument )
   if (!str_cmp(arg, "save"))
   {
      save_sysdata(sysdata);
-     mxp_to_char( "Cset functions saved.\n\r", ch, MXP_ALL );
+     send_to_char( "Cset functions saved.\n\r", ch );
      return;
   }
 
   if (!str_cmp(arg, "saveversion"))
   {
      sysdata.save_version = UMAX (MIN_SAVE_VERSION, ((sh_int) atoi(argument)));
-     mxp_to_char("Save version set.\n\r", ch, MXP_ALL);
+     send_to_char("Save version set.\n\r", ch);
      return;
   }
 
@@ -7296,7 +7278,7 @@ void do_cset( CHAR_DATA *ch, char *argument )
 	if (sysdata.mud_name)
 		DISPOSE(sysdata.mud_name);
 	sysdata.mud_name = str_dup( argument );	
-	mxp_to_char("Mud name set.\n\r", ch, MXP_ALL );
+	send_to_char("Mud name set.\n\r", ch );
 	return;
   }
 
@@ -7305,7 +7287,7 @@ void do_cset( CHAR_DATA *ch, char *argument )
         if (sysdata.port_name)
                 DISPOSE(sysdata.port_name);
         sysdata.port_name = str_dup( argument );
-        mxp_to_char("Port name set.\n\r", ch, MXP_ALL );
+        send_to_char("Port name set.\n\r", ch );
         return;
   }
 
@@ -7314,11 +7296,11 @@ void do_cset( CHAR_DATA *ch, char *argument )
 	int x = get_saveflag( argument );
 
 	if ( x == -1 )
-	    mxp_to_char( "Not a save flag.\n\r", ch, MXP_ALL );
+	    send_to_char( "Not a save flag.\n\r", ch );
 	else
 	{
 	    TOGGLE_BIT( sysdata.save_flags, 1 << x );
-	    mxp_to_char( "Ok.\n\r", ch, MXP_ALL );
+	    send_to_char( "Ok.\n\r", ch );
 	}
 	return;
   }
@@ -7327,7 +7309,7 @@ void do_cset( CHAR_DATA *ch, char *argument )
   {
 	sysdata.magichell = !sysdata.magichell;
 	ch_printf_color(ch, "&BMagic hell is %s.\n\r", sysdata.magichell ? "ON" : "OFF" );
-	mxp_to_char("Ok.\n\r", ch, MXP_ALL );
+	send_to_char("Ok.\n\r", ch );
 	return;
   }
 
@@ -7335,14 +7317,14 @@ void do_cset( CHAR_DATA *ch, char *argument )
   {
     STRFREE( sysdata.guild_overseer );
     sysdata.guild_overseer = STRALLOC( argument );
-    mxp_to_char("Ok.\n\r", ch, MXP_ALL);      
+    send_to_char("Ok.\n\r", ch);      
     return;
   }
   if (!str_prefix( arg, "guild_advisor" ) )
   {
     STRFREE( sysdata.guild_advisor );
     sysdata.guild_advisor = STRALLOC( argument );
-    mxp_to_char("Ok.\n\r", ch, MXP_ALL);      
+    send_to_char("Ok.\n\r", ch);      
     return;
   }
 
@@ -7351,7 +7333,7 @@ void do_cset( CHAR_DATA *ch, char *argument )
   if (!str_prefix( arg, "savefrequency" ) )
   {
     sysdata.save_frequency = level;
-    mxp_to_char("Ok.\n\r", ch, MXP_ALL);
+    send_to_char("Ok.\n\r", ch);
     return;
   }
 
@@ -7359,7 +7341,7 @@ void do_cset( CHAR_DATA *ch, char *argument )
     {
       if ( level != 0 && level != 1 )
       {
-        mxp_to_char("Use 1 to turn it on, 0 to turn in off.\n\r", ch, MXP_ALL);
+        send_to_char("Use 1 to turn it on, 0 to turn in off.\n\r", ch);
         return;
       }
       sysdata.check_imm_host = level;
@@ -7370,160 +7352,158 @@ void do_cset( CHAR_DATA *ch, char *argument )
   if (!str_cmp(arg, "bash_pvp"))
   {
     sysdata.bash_plr_vs_plr = level;
-    mxp_to_char("Ok.\n\r", ch, MXP_ALL);
+    send_to_char("Ok.\n\r", ch);
     return;
   }
 
   if (!str_cmp(arg, "bash_nontank"))
   {
     sysdata.bash_nontank = level;
-    mxp_to_char("Ok.\n\r", ch, MXP_ALL);
+    send_to_char("Ok.\n\r", ch);
     return;
   }
 
   if (!str_cmp(arg, "gouge_pvp"))
   {
     sysdata.gouge_plr_vs_plr = level;
-    mxp_to_char("Ok.\n\r", ch, MXP_ALL);
+    send_to_char("Ok.\n\r", ch);
     return;
   }
 
   if (!str_cmp(arg, "gouge_nontank"))
   {
     sysdata.gouge_nontank = level;
-    mxp_to_char("Ok.\n\r", ch, MXP_ALL);
+    send_to_char("Ok.\n\r", ch);
     return;
   }
 
   if (!str_cmp(arg, "dodge_mod"))
   {
     sysdata.dodge_mod = level > 0 ? level : 1;
-    mxp_to_char("Ok.\n\r", ch, MXP_ALL);
+    send_to_char("Ok.\n\r", ch);
     return;
   }
 
   if (!str_cmp(arg, "parry_mod"))
   {
     sysdata.parry_mod = level > 0 ? level : 1;
-    mxp_to_char("Ok.\n\r", ch, MXP_ALL);
+    send_to_char("Ok.\n\r", ch);
     return;
   }
 
   if (!str_cmp(arg, "tumble_mod"))
   {
     sysdata.tumble_mod = level > 0 ? level : 1;
-    mxp_to_char("Ok.\n\r", ch, MXP_ALL);
+    send_to_char("Ok.\n\r", ch);
     return;
   }
 
   if (!str_cmp(arg, "tumble_pk"))
   {
     sysdata.tumble_pk = level > 0 ? level : 1;
-    mxp_to_char("Tumble_pk mod set.\n\r", ch, MXP_ALL);
+    send_to_char("Tumble_pk mod set.\n\r", ch);
     return;
   }
 
   if (!str_cmp(arg, "stun"))
   {
     sysdata.stun_regular = level;
-    mxp_to_char("Ok.\n\r", ch, MXP_ALL);      
+    send_to_char("Ok.\n\r", ch);      
     return;
   }
 
   if (!str_cmp(arg, "stun_pvp"))
   {
     sysdata.stun_plr_vs_plr = level;
-    mxp_to_char("Ok.\n\r", ch, MXP_ALL);      
+    send_to_char("Ok.\n\r", ch);      
     return;
   }
 
   if (!str_cmp(arg, "deadly_exp"))
   {
     sysdata.deadly_exp_mod = level;
-    mxp_to_char("Deadly experience multiplier modified.\n\r", ch, MXP_ALL );
+    send_to_char("Deadly experience multiplier modified.\n\r", ch );
     return;
   }
 
   if (!str_cmp(arg, "peaceful_exp"))
   {
     sysdata.peaceful_exp_mod = level;
-    mxp_to_char("Peaceful experience multiplier modified.\n\r", ch, MXP_ALL );
+    send_to_char("Peaceful experience multiplier modified.\n\r", ch );
     return;
   }
 
   if (!str_cmp(arg, "dam_pvp"))
   {
     sysdata.dam_plr_vs_plr = level;
-    mxp_to_char("Ok.\n\r", ch, MXP_ALL);      
+    send_to_char("Ok.\n\r", ch);      
     return;
   }
 
   if (!str_cmp(arg, "get_notake"))
   {
     sysdata.level_getobjnotake = level;
-    mxp_to_char("Ok.\n\r", ch, MXP_ALL);      
+    send_to_char("Ok.\n\r", ch);      
     return;
   }
 
   if (!str_cmp(arg, "dam_navm"))
   {
     sysdata.dam_nonav_vs_mob = level;
-    mxp_to_char("Non-avatar damage vs mobile set.\n\r", ch, MXP_ALL);
+    send_to_char("Non-avatar damage vs mobile set.\n\r", ch);
     return;
   }
 
   if (!str_cmp(arg, "dam_mvna"))
   {
     sysdata.dam_mob_vs_nonav = level;
-    mxp_to_char("Mobile damage vs non-avatar set.\n\r", ch, MXP_ALL);
+    send_to_char("Mobile damage vs non-avatar set.\n\r", ch);
     return;
   }
 
   if (!str_cmp(arg, "dam_pvm"))
   {
     sysdata.dam_plr_vs_mob = level;
-    mxp_to_char("Ok.\n\r", ch, MXP_ALL);      
+    send_to_char("Ok.\n\r", ch);      
     return;
   }
 
   if (!str_cmp(arg, "dam_mvp"))
   {
     sysdata.dam_mob_vs_plr = level;
-    mxp_to_char("Ok.\n\r", ch, MXP_ALL);      
+    send_to_char("Ok.\n\r", ch);      
     return;
   }
 
   if (!str_cmp(arg, "dam_mvm"))
   {
     sysdata.dam_mob_vs_mob = level;
-    mxp_to_char("Ok.\n\r", ch, MXP_ALL);      
+    send_to_char("Ok.\n\r", ch);      
     return;
   }
- 
-/* 
+  
   if ( !str_cmp(arg, "imc_vnum") || !str_cmp(arg, "imc_mail_vnum") )
   {
     sysdata.imc_mail_vnum = level;
-    mxp_to_char("Ok.\n\r", ch, MXP_ALL);
+    send_to_char("Ok.\n\r", ch);
     return;
   }
- */
- 
+  
   if (!str_cmp(arg, "ident_retries") || !str_cmp(arg, "ident"))
   {
     sysdata.ident_retries = level;
     if (level > 20)
-      mxp_to_char("Caution:  This setting may cause the game to lag.\n\r", ch, MXP_ALL );
+      send_to_char("Caution:  This setting may cause the game to lag.\n\r", ch );
     else if (level <= 0)
-      mxp_to_char("Ident lookups turned off.\n\r", ch, MXP_ALL );
+      send_to_char("Ident lookups turned off.\n\r", ch );
     else
-      mxp_to_char("Ok.\n\r", ch, MXP_ALL);
+      send_to_char("Ok.\n\r", ch);
     return;
   }
 
   if (level < 0 || level > MAX_LEVEL)
   {
-    mxp_to_char("Invalid value for new control.\n\r", ch, MXP_ALL);
+    send_to_char("Invalid value for new control.\n\r", ch);
     return;
   }
 
@@ -7568,12 +7548,12 @@ void do_cset( CHAR_DATA *ch, char *argument )
   {
       if ( level )
       {
-        mxp_to_char( "Pkill silence is enabled.\n\r", ch, MXP_ALL );
+        send_to_char( "Pkill silence is enabled.\n\r", ch );
         sysdata.pk_silence = TRUE;
       }
       else
       {
-        mxp_to_char( "Pkill silence is disabled.  (use cset pk_silence 1 to enable.)\n\r", ch, MXP_ALL );
+        send_to_char( "Pkill silence is disabled.  (use cset pk_silence 1 to enable.)\n\r", ch );
         sysdata.pk_silence = FALSE;
       }
   }
@@ -7581,12 +7561,12 @@ void do_cset( CHAR_DATA *ch, char *argument )
   {
       if ( level )
       {
-	mxp_to_char( "Pkill channels are enabled.\n\r", ch, MXP_ALL );
+	send_to_char( "Pkill channels are enabled.\n\r", ch );
 	sysdata.pk_channels = TRUE;
       }
       else
       {
-	mxp_to_char( "Pkill channels are disabled.  (use cset pk_channels 1 to enable)\n\r", ch, MXP_ALL );
+	send_to_char( "Pkill channels are disabled.  (use cset pk_channels 1 to enable)\n\r", ch );
 	sysdata.pk_channels = FALSE;
       }
   }
@@ -7594,12 +7574,12 @@ void do_cset( CHAR_DATA *ch, char *argument )
   {
       if ( level )
       {
-	mxp_to_char( "Pkill looting is enabled.\n\r", ch, MXP_ALL );
+	send_to_char( "Pkill looting is enabled.\n\r", ch );
 	sysdata.pk_loot = TRUE;
       }
       else
       {
-	mxp_to_char( "Pkill looting is disabled.  (use cset pkloot 1 to enable)\n\r", ch, MXP_ALL );
+	send_to_char( "Pkill looting is disabled.  (use cset pkloot 1 to enable)\n\r", ch );
 	sysdata.pk_loot = FALSE;
       }
   }
@@ -7614,10 +7594,10 @@ void do_cset( CHAR_DATA *ch, char *argument )
     sysdata.level_mset_player = level;
   else
   {
-    mxp_to_char("Invalid argument.\n\r", ch, MXP_ALL);
+    send_to_char("Invalid argument.\n\r", ch);
     return;
   }
-  mxp_to_char("Ok.\n\r", ch, MXP_ALL );
+  send_to_char("Ok.\n\r", ch );
   return;
 }
 
@@ -7651,17 +7631,17 @@ void do_hell( CHAR_DATA *ch, char *argument )
   argument = one_argument(argument, arg);
   if ( !*arg )
   {
-    mxp_to_char( "Hell who, and for how long?\n\r", ch, MXP_ALL );
+    send_to_char( "Hell who, and for how long?\n\r", ch );
     return;
   }
   if ( !(victim = get_char_world(ch, arg)) || IS_NPC(victim) )
   {
-    mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+    send_to_char( "They aren't here.\n\r", ch );
     return;
   }
   if ( IS_IMMORTAL(victim) )
   {
-    mxp_to_char( "There is no point in helling an immortal.\n\r", ch, MXP_ALL );
+    send_to_char( "There is no point in helling an immortal.\n\r", ch );
     return;
   }
   if ( victim->pcdata->release_date != 0 )
@@ -7674,14 +7654,14 @@ void do_hell( CHAR_DATA *ch, char *argument )
   argument = one_argument(argument, arg);
   if ( !*arg || !is_number(arg) )
   {
-    mxp_to_char( "Hell them for how long?\n\r", ch, MXP_ALL );
+    send_to_char( "Hell them for how long?\n\r", ch );
     return;
   }
 
   time = atoi(arg);
   if ( time <= 0 )
   {
-    mxp_to_char( "You cannot hell for zero or negative time.\n\r", ch, MXP_ALL );
+    send_to_char( "You cannot hell for zero or negative time.\n\r", ch );
     return;
   }
 
@@ -7690,12 +7670,12 @@ void do_hell( CHAR_DATA *ch, char *argument )
     h_d = TRUE;
   else if ( str_cmp(arg, "days") )
   {
-    mxp_to_char( "Is that value in hours or days?\n\r", ch, MXP_ALL );
+    send_to_char( "Is that value in hours or days?\n\r", ch );
     return;
   }
   else if ( time > 30 )
   {
-    mxp_to_char( "You may not hell a person for more than 30 days at a time.\n\r", ch, MXP_ALL );
+    send_to_char( "You may not hell a person for more than 30 days at a time.\n\r", ch );
     return;
   }
   tms = localtime(&current_time);
@@ -7734,7 +7714,7 @@ void do_unhell( CHAR_DATA *ch, char *argument )
   argument = one_argument(argument, arg);
   if ( !*arg )
   {
-    mxp_to_char( "Unhell whom..?\n\r", ch, MXP_ALL );
+    send_to_char( "Unhell whom..?\n\r", ch );
     return;
   }
   location = ch->in_room;
@@ -7743,14 +7723,14 @@ void do_unhell( CHAR_DATA *ch, char *argument )
 /*ch->in_room = location;          The case of unhell self, etc.*/
   if ( !victim || IS_NPC(victim) )
   {
-    mxp_to_char( "No such player character present.\n\r", ch, MXP_ALL );
+    send_to_char( "No such player character present.\n\r", ch );
     return;
   }
   if ( victim->in_room->vnum != 8
   &&   victim->in_room->vnum != 1206
   &&   victim->in_room->vnum != 6 )
   {
-    mxp_to_char( "No one like that is in hell.\n\r", ch, MXP_ALL );
+    send_to_char( "No one like that is in hell.\n\r", ch );
     return;
   }
 
@@ -7764,10 +7744,10 @@ void do_unhell( CHAR_DATA *ch, char *argument )
   act( AT_MAGIC, "$n disappears in a cloud of godly light.", victim, NULL, ch, TO_NOTVICT );
   char_from_room(victim);
   char_to_room(victim, location);
-  mxp_to_char( "The gods have smiled on you and released you from hell early!\n\r", victim, MXP_ALL );
+  send_to_char( "The gods have smiled on you and released you from hell early!\n\r", victim );
   do_look(victim, "auto");
   if ( victim != ch )
-    mxp_to_char( "They have been released.\n\r", ch, MXP_ALL );
+    send_to_char( "They have been released.\n\r", ch );
   if ( victim->pcdata->helled_by )
   {
     if( str_cmp(ch->name, victim->pcdata->helled_by) )
@@ -7812,27 +7792,27 @@ void do_vassign( CHAR_DATA *ch, char *argument )
     
     if ( arg1[0] == '\0' || lo < 0 || hi < 0 )
     {
-        mxp_to_char( "Syntax: vassign <who> <low> <high>\n\r", ch, MXP_ALL );
+        send_to_char( "Syntax: vassign <who> <low> <high>\n\r", ch );
         return;
     }
     if ( (victim = get_char_world( ch, arg1 )) == NULL )
     {
-        mxp_to_char( "They don't seem to be around.\n\r", ch, MXP_ALL );
+        send_to_char( "They don't seem to be around.\n\r", ch );
         return;
     }
     if ( IS_NPC( victim ) || get_trust( victim ) < LEVEL_CREATOR )
     {
-        mxp_to_char( "They wouldn't know what to do with a vnum range.\n\r", ch, MXP_ALL );
+        send_to_char( "They wouldn't know what to do with a vnum range.\n\r", ch );
         return;
     }
     if ( victim->pcdata->area && lo != 0 )
     {
-	mxp_to_char( "You cannot assign them a range, they already have one!\n\r", ch, MXP_ALL );
+	send_to_char( "You cannot assign them a range, they already have one!\n\r", ch );
 	return;
     }	 
     if ( lo > hi )
     {
-        mxp_to_char( "Unacceptable vnum range.\n\r", ch, MXP_ALL );
+        send_to_char( "Unacceptable vnum range.\n\r", ch );
         return;
     }
     if ( lo == 0 )
@@ -7844,7 +7824,7 @@ void do_vassign( CHAR_DATA *ch, char *argument )
     victim->pcdata->m_range_lo = lo;
     victim->pcdata->m_range_hi = hi;
     assign_area( victim );
-    mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+    send_to_char( "Done.\n\r", ch );
     ch_printf( victim, "%s has assigned you the vnum range %d - %d.\n\r", ch->name, lo, hi );
     assign_area( victim );	/* Put back by Thoric on 02/07/96 */
 
@@ -7957,14 +7937,14 @@ void do_vsearch( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
     if( arg[0] == '\0' )
     {
-        mxp_to_char( "Syntax:  vsearch <vnum>.\n\r", ch, MXP_ALL );
+        send_to_char( "Syntax:  vsearch <vnum>.\n\r", ch );
         return;
     }
 
     argi=atoi(arg);
     if (argi<0 && argi>20000)
     {
-	mxp_to_char( "Vnum out of range.\n\r", ch, MXP_ALL);
+	send_to_char( "Vnum out of range.\n\r", ch);
 	return;
     }
     for ( obj = first_object; obj != NULL; obj = obj->next )
@@ -7991,7 +7971,7 @@ void do_vsearch( CHAR_DATA *ch, char *argument )
     }
 
     if ( !found )
-      mxp_to_char( "Nothing like that in hell, earth, or heaven.\n\r" , ch, MXP_ALL );
+      send_to_char( "Nothing like that in hell, earth, or heaven.\n\r" , ch );
     return;
 }
 
@@ -8011,20 +7991,20 @@ void do_sober( CHAR_DATA *ch, char *argument )
   argument = one_argument( argument, arg1 );
   if ( ( victim = get_char_room( ch, arg1 ) ) == NULL )
   {
-    mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+    send_to_char( "They aren't here.\n\r", ch );
     return;
   }
   if ( IS_NPC( victim ) )
   {
-    mxp_to_char( "Not on mobs.\n\r", ch, MXP_ALL );
+    send_to_char( "Not on mobs.\n\r", ch );
     return;    
   }
 
   if ( victim->pcdata ) 
     victim->pcdata->condition[COND_DRUNK] = 0;
-  mxp_to_char( "Ok.\n\r", ch, MXP_ALL );
+  send_to_char( "Ok.\n\r", ch );
   set_char_color( AT_IMMORT, victim );
-  mxp_to_char( "You feel sober again.\n\r", victim, MXP_ALL );
+  send_to_char( "You feel sober again.\n\r", victim );
   return;    
 }
 
@@ -8176,21 +8156,21 @@ void do_sedit( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg2 );
     if ( arg1[0] == '\0' )
     {
-	mxp_to_char( "Syntax: sedit <social> [field]\n\r", ch, MXP_ALL );
-	mxp_to_char( "Syntax: sedit <social> create\n\r", ch, MXP_ALL );
+	send_to_char( "Syntax: sedit <social> [field]\n\r", ch );
+	send_to_char( "Syntax: sedit <social> create\n\r", ch );
 	if ( get_trust(ch) > LEVEL_GOD )
-	    mxp_to_char( "Syntax: sedit <social> delete\n\r", ch, MXP_ALL );
+	    send_to_char( "Syntax: sedit <social> delete\n\r", ch );
 	if ( get_trust(ch) > LEVEL_LESSER )
-	    mxp_to_char( "Syntax: sedit <save>\n\r", ch, MXP_ALL );
-	mxp_to_char( "\n\rField being one of:\n\r", ch, MXP_ALL );
-	mxp_to_char( "  cnoarg onoarg cfound ofound vfound cauto oauto\n\r", ch, MXP_ALL );
+	    send_to_char( "Syntax: sedit <save>\n\r", ch );
+	send_to_char( "\n\rField being one of:\n\r", ch );
+	send_to_char( "  cnoarg onoarg cfound ofound vfound cauto oauto\n\r", ch );
 	return;
     }
 
     if ( get_trust(ch) > LEVEL_LESSER && !str_cmp( arg1, "save" ) )
     {
 	save_socials();
-	mxp_to_char( "Saved.\n\r", ch, MXP_ALL );
+	send_to_char( "Saved.\n\r", ch );
 	return;
     }
 
@@ -8199,7 +8179,7 @@ void do_sedit( CHAR_DATA *ch, char *argument )
     {
 	if ( social )
 	{
-	    mxp_to_char( "That social already exists!\n\r", ch, MXP_ALL );
+	    send_to_char( "That social already exists!\n\r", ch );
 	    return;
 	}
 	CREATE( social, SOCIALTYPE, 1 );
@@ -8207,13 +8187,13 @@ void do_sedit( CHAR_DATA *ch, char *argument )
 	sprintf( arg2, "You %s.", arg1 );
 	social->char_no_arg = str_dup( arg2 );
 	add_social( social );
-	mxp_to_char( "Social added.\n\r", ch, MXP_ALL );
+	send_to_char( "Social added.\n\r", ch );
 	return;
     }
 
     if ( !social )
     {
-	mxp_to_char( "Social not found.\n\r", ch, MXP_ALL );
+	send_to_char( "Social not found.\n\r", ch );
 	return;
     }
 
@@ -8235,20 +8215,20 @@ void do_sedit( CHAR_DATA *ch, char *argument )
     {
 	unlink_social( social );
 	free_social( social );
-	mxp_to_char( "Deleted.\n\r", ch, MXP_ALL );
+	send_to_char( "Deleted.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "cnoarg" ) )
     {
 	if ( argument[0] == '\0' || !str_cmp( argument, "clear" ) )
 	{
-	    mxp_to_char( "You cannot clear this field.  It must have a message.\n\r", ch, MXP_ALL );
+	    send_to_char( "You cannot clear this field.  It must have a message.\n\r", ch );
 	    return;
 	}
 	if ( social->char_no_arg )
 	    DISPOSE( social->char_no_arg );
 	social->char_no_arg = str_dup( argument );
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "onoarg" ) )
@@ -8257,7 +8237,7 @@ void do_sedit( CHAR_DATA *ch, char *argument )
 	    DISPOSE( social->others_no_arg );
 	if ( argument[0] != '\0' && str_cmp( argument, "clear" ) )
 	    social->others_no_arg = str_dup( argument );
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "cfound" ) )
@@ -8266,7 +8246,7 @@ void do_sedit( CHAR_DATA *ch, char *argument )
 	    DISPOSE( social->char_found );
 	if ( argument[0] != '\0' && str_cmp( argument, "clear" ) )
 	    social->char_found = str_dup( argument );
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "ofound" ) )
@@ -8275,7 +8255,7 @@ void do_sedit( CHAR_DATA *ch, char *argument )
 	    DISPOSE( social->others_found );
 	if ( argument[0] != '\0' && str_cmp( argument, "clear" ) )
 	    social->others_found = str_dup( argument );
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "vfound" ) )
@@ -8284,7 +8264,7 @@ void do_sedit( CHAR_DATA *ch, char *argument )
 	    DISPOSE( social->vict_found );
 	if ( argument[0] != '\0' && str_cmp( argument, "clear" ) )
 	    social->vict_found = str_dup( argument );
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "cauto" ) )
@@ -8293,7 +8273,7 @@ void do_sedit( CHAR_DATA *ch, char *argument )
 	    DISPOSE( social->char_auto );
 	if ( argument[0] != '\0' && str_cmp( argument, "clear" ) )
 	    social->char_auto = str_dup( argument );
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "oauto" ) )
@@ -8302,7 +8282,7 @@ void do_sedit( CHAR_DATA *ch, char *argument )
 	    DISPOSE( social->others_auto );
 	if ( argument[0] != '\0' && str_cmp( argument, "clear" ) )
 	    social->others_auto = str_dup( argument );
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     if ( get_trust(ch) > LEVEL_GREATER && !str_cmp( arg2, "name" ) )
@@ -8312,7 +8292,7 @@ void do_sedit( CHAR_DATA *ch, char *argument )
 	one_argument( argument, arg1 );
 	if ( arg1[0] == '\0' )
 	{
-	    mxp_to_char( "Cannot clear name field!\n\r", ch, MXP_ALL );
+	    send_to_char( "Cannot clear name field!\n\r", ch );
 	    return;
 	}
 	if ( arg1[0] != social->name[0] )
@@ -8327,7 +8307,7 @@ void do_sedit( CHAR_DATA *ch, char *argument )
 	social->name = str_dup( arg1 );
 	if ( relocate )
 	    add_social( social );
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
 
@@ -8443,37 +8423,37 @@ void do_cedit( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg2 );
     if ( arg1[0] == '\0' )
     {
-	mxp_to_char( "Syntax: cedit save cmdtable\n\r", ch, MXP_ALL );
-	if ( get_trust(ch) > LEVEL_SUB_IMPLEM  || !str_cmp(ch->name, "Burzum"))
+	send_to_char( "Syntax: cedit save cmdtable\n\r", ch );
+	if ( get_trust(ch) > LEVEL_SUB_IMPLEM  || !str_cmp(ch->name, "Nivek"))
 	{
-	    mxp_to_char( "Syntax: cedit <command> create [code]\n\r", ch, MXP_ALL );
-	    mxp_to_char( "Syntax: cedit <command> delete\n\r", ch, MXP_ALL );
-	    mxp_to_char( "Syntax: cedit <command> show\n\r", ch, MXP_ALL );
-	    mxp_to_char( "Syntax: cedit <command> raise\n\r", ch, MXP_ALL );
-	    mxp_to_char( "Syntax: cedit <command> lower\n\r", ch, MXP_ALL );
-	    mxp_to_char( "Syntax: cedit <command> list\n\r", ch, MXP_ALL );
-	    mxp_to_char( "Syntax: cedit <command> [field]\n\r", ch, MXP_ALL );
-	    mxp_to_char( "\n\rField being one of:\n\r", ch , MXP_ALL);
-	    mxp_to_char( "  level position log code flags\n\r", ch, MXP_ALL );
+	    send_to_char( "Syntax: cedit <command> create [code]\n\r", ch );
+	    send_to_char( "Syntax: cedit <command> delete\n\r", ch );
+	    send_to_char( "Syntax: cedit <command> show\n\r", ch );
+	    send_to_char( "Syntax: cedit <command> raise\n\r", ch );
+	    send_to_char( "Syntax: cedit <command> lower\n\r", ch );
+	    send_to_char( "Syntax: cedit <command> list\n\r", ch );
+	    send_to_char( "Syntax: cedit <command> [field]\n\r", ch );
+	    send_to_char( "\n\rField being one of:\n\r", ch );
+	    send_to_char( "  level position log code flags\n\r", ch );
 	}
 	return;
     }
 
-    if ((get_trust(ch) > LEVEL_GREATER || !str_cmp(ch->name, "Burzum"))
+    if ((get_trust(ch) > LEVEL_GREATER || !str_cmp(ch->name, "Edmond"))
 	 && !str_cmp( arg1, "save" ) && !str_cmp( arg2, "cmdtable") )
     {
 	save_commands();
-	mxp_to_char( "Saved.\n\r", ch, MXP_ALL );
+	send_to_char( "Saved.\n\r", ch );
 	return;
     }
 
     command = find_command( arg1 );
-    if ( (!str_cmp(ch->name, "Burzum") || get_trust(ch) > LEVEL_SUB_IMPLEM)
+    if ( (!str_cmp(ch->name, "Nivek") || get_trust(ch) > LEVEL_SUB_IMPLEM)
     &&    !str_cmp( arg2, "create" ) )
     {
 	if ( command && !str_cmp(command->name, arg1) )
 	{
-	    mxp_to_char( "That command already exists!\n\r", ch, MXP_ALL );
+	    send_to_char( "That command already exists!\n\r", ch );
 	    return;
 	}
 	CREATE( command, CMDTYPE, 1 );
@@ -8486,7 +8466,7 @@ void do_cedit( CHAR_DATA *ch, char *argument )
 	    sprintf( arg2, "do_%s", arg1 );
 	command->do_fun = skill_function( arg2 );
 	add_command( command );
-	mxp_to_char( "Command added.\n\r", ch, MXP_ALL );
+	send_to_char( "Command added.\n\r", ch );
 	if ( command->do_fun == skill_notfound )
 	    ch_printf( ch, "Code %s not found.  Set to no code.\n\r", arg2 );
 	return;
@@ -8494,13 +8474,13 @@ void do_cedit( CHAR_DATA *ch, char *argument )
 
     if ( !command )
     {
-	mxp_to_char( "Command not found.\n\r", ch, MXP_ALL );
+	send_to_char( "Command not found.\n\r", ch );
 	return;
     }
     else
-    if ( command->level > get_trust(ch) && str_cmp(ch->name, "Burzum"))
+    if ( command->level > get_trust(ch) && str_cmp(ch->name, "Nivek"))
     {
-	mxp_to_char( "You cannot touch this command.\n\r", ch, MXP_ALL );
+	send_to_char( "You cannot touch this command.\n\r", ch );
 	return;
     }
 
@@ -8514,7 +8494,7 @@ void do_cedit( CHAR_DATA *ch, char *argument )
 	return;
     }
 
-    if ( get_trust(ch) <= LEVEL_SUB_IMPLEM && str_cmp(ch->name, "Burzum"))
+    if ( get_trust(ch) <= LEVEL_SUB_IMPLEM && str_cmp(ch->name, "Nivek"))
     {
 	do_cedit( ch, "" );
 	return;
@@ -8527,7 +8507,7 @@ void do_cedit( CHAR_DATA *ch, char *argument )
 
 	if ( (tmp=command_hash[hash]) == command )
 	{
-	    mxp_to_char( "That command is already at the top.\n\r", ch, MXP_ALL );
+	    send_to_char( "That command is already at the top.\n\r", ch );
 	    return;
 	}
 	if ( tmp->next == command )
@@ -8551,7 +8531,7 @@ void do_cedit( CHAR_DATA *ch, char *argument )
 		return;
 	    }
 	}
-	mxp_to_char( "ERROR -- Not Found!\n\r", ch, MXP_ALL );
+	send_to_char( "ERROR -- Not Found!\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "lower" ) )
@@ -8561,7 +8541,7 @@ void do_cedit( CHAR_DATA *ch, char *argument )
 
 	if ( command->next == NULL )
 	{
-	    mxp_to_char( "That command is already at the bottom.\n\r", ch, MXP_ALL );
+	    send_to_char( "That command is already at the bottom.\n\r", ch );
 	    return;
 	}
 	tmp = command_hash[hash];
@@ -8588,7 +8568,7 @@ void do_cedit( CHAR_DATA *ch, char *argument )
 		return;
 	    }
 	}
-	mxp_to_char( "ERROR -- Not Found!\n\r", ch, MXP_ALL );
+	send_to_char( "ERROR -- Not Found!\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "list" ) )
@@ -8611,7 +8591,7 @@ void do_cedit( CHAR_DATA *ch, char *argument )
     {
 	unlink_command( command );
 	free_command( command );
-	mxp_to_char( "Deleted.\n\r", ch, MXP_ALL );
+	send_to_char( "Deleted.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "code" ) )
@@ -8620,24 +8600,24 @@ void do_cedit( CHAR_DATA *ch, char *argument )
 	
 	if ( fun == skill_notfound )
 	{
-	    mxp_to_char( "Code not found.\n\r", ch, MXP_ALL );
+	    send_to_char( "Code not found.\n\r", ch );
 	    return;
 	}
 	command->do_fun = fun;
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "level" ) )
     {
 	int level = atoi( argument );
 
-	if ( (level < 0 || level > get_trust(ch)) && str_cmp(ch->name,"Burzum"))
+	if ( (level < 0 || level > get_trust(ch)) && str_cmp(ch->name,"Nivek"))
 	{
-	    mxp_to_char( "Level out of range.\n\r", ch, MXP_ALL );
+	    send_to_char( "Level out of range.\n\r", ch );
 	    return;
 	}
 	command->level = level;
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "log" ) )
@@ -8646,11 +8626,11 @@ void do_cedit( CHAR_DATA *ch, char *argument )
 
 	if ( log < 0 || log > LOG_COMM )
 	{
-	    mxp_to_char( "Log out of range.\n\r", ch, MXP_ALL );
+	    send_to_char( "Log out of range.\n\r", ch );
 	    return;
 	}
 	command->log = log;
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "position" ) )
@@ -8659,11 +8639,11 @@ void do_cedit( CHAR_DATA *ch, char *argument )
 
 	if ( position < 0 || position > POS_DRAG )
 	{
-	    mxp_to_char( "Position out of range.\n\r", ch, MXP_ALL );
+	    send_to_char( "Position out of range.\n\r", ch );
 	    return;
 	}
 	command->position = position;
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "flags" ) )
@@ -8683,7 +8663,7 @@ void do_cedit( CHAR_DATA *ch, char *argument )
         }
 
         TOGGLE_BIT( command->flags, 1 << flag );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "name" ) )
@@ -8693,7 +8673,7 @@ void do_cedit( CHAR_DATA *ch, char *argument )
 	one_argument( argument, arg1 );
 	if ( arg1[0] == '\0' )
 	{
-	    mxp_to_char( "Cannot clear name field!\n\r", ch, MXP_ALL );
+	    send_to_char( "Cannot clear name field!\n\r", ch );
 	    return;
 	}
 	if ( arg1[0] != command->name[0] )
@@ -8708,7 +8688,7 @@ void do_cedit( CHAR_DATA *ch, char *argument )
 	command->name = str_dup( arg1 );
 	if ( relocate )
 	    add_command( command );
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
 
@@ -8732,7 +8712,7 @@ void do_showclass( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg2 );
     if ( arg1[0] == '\0' )
     {
-	mxp_to_char( "Syntax: showclass <class> [level range]\n\r", ch, MXP_ALL );
+	send_to_char( "Syntax: showclass <class> [level range]\n\r", ch );
 	return;
     }
     if ( is_number(arg1) && (cl=atoi(arg1)) >= 0 && cl < MAX_CLASS )
@@ -8749,7 +8729,7 @@ void do_showclass( CHAR_DATA *ch, char *argument )
     }
     if ( !class )
     {
-	mxp_to_char( "No such class.\n\r", ch, MXP_ALL );
+	send_to_char( "No such class.\n\r", ch );
 	return;
     }
     pager_printf_color( ch, "&wCLASS: &W%s\n\r&wPrime Attribute: &W%-14s  &wWeapon: &W%-5d      &wGuild: &W%-5d\n\r",
@@ -8872,14 +8852,14 @@ void do_setclass( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg2 );
     if ( arg1[0] == '\0' )
     {
-	mxp_to_char( "Syntax: setclass <class> <field> <value>\n\r",	ch, MXP_ALL );
-	mxp_to_char( "Syntax: setclass <class> create\n\r",		ch, MXP_ALL );
-	mxp_to_char( "\n\rField being one of:\n\r",			ch, MXP_ALL );
-	mxp_to_char( "  name prime weapon guild thac0 thac32\n\r",	ch, MXP_ALL );
-	mxp_to_char( "  hpmin hpmax mana expbase mtitle ftitle\n\r", ch, MXP_ALL );
-	mxp_to_char( "  second, deficient affected resist suscept\n\r", ch, MXP_ALL );
-        mxp_to_char( "  login, loginother, logout, logoutother\n\r", ch, MXP_ALL );
-        mxp_to_char( "  reconnect, reconnectother\n\r", ch, MXP_ALL );
+	send_to_char( "Syntax: setclass <class> <field> <value>\n\r",	ch );
+	send_to_char( "Syntax: setclass <class> create\n\r",		ch );
+	send_to_char( "\n\rField being one of:\n\r",			ch );
+	send_to_char( "  name prime weapon guild thac0 thac32\n\r",	ch );
+	send_to_char( "  hpmin hpmax mana expbase mtitle ftitle\n\r", ch );
+	send_to_char( "  second, deficient affected resist suscept\n\r", ch );
+        send_to_char( "  login, loginother, logout, logoutother\n\r", ch );
+        send_to_char( "  reconnect, reconnectother\n\r", ch );
 	return;
     }
     if ( is_number(arg1) && (cl=atoi(arg1)) >= 0 && cl < MAX_CLASS )
@@ -8899,20 +8879,20 @@ void do_setclass( CHAR_DATA *ch, char *argument )
     }
     if ( !str_cmp( arg2, "create" ) && class )
     {
-    	mxp_to_char( "That class already exists!\n\r", ch, MXP_ALL );
+    	send_to_char( "That class already exists!\n\r", ch );
 	return;
     }
     
     if ( !class && str_cmp(arg2, "create") )
     {
-	mxp_to_char( "No such class.\n\r", ch, MXP_ALL );
+	send_to_char( "No such class.\n\r", ch );
 	return;
     }
 
     if ( !str_cmp( arg2, "save" ) )
     {
 	write_class_file( cl );
-	mxp_to_char( "Saved.\n\r", ch, MXP_ALL );
+	send_to_char( "Saved.\n\r", ch );
 	return;
     }
 
@@ -8921,12 +8901,12 @@ void do_setclass( CHAR_DATA *ch, char *argument )
     {
       if ( MAX_PC_CLASS >= MAX_CLASS )
       {
-        mxp_to_char("You need to up MAX_CLASS in mud and make clean.\n\r",ch, MXP_ALL);
+        send_to_char("You need to up MAX_CLASS in mud and make clean.\n\r",ch);
 	return;
       }
       if ( ( create_new_class( MAX_PC_CLASS, arg1 ) ) == FALSE )
       {
-      	mxp_to_char("Couldn't create a new class.\n\r", ch, MXP_ALL );
+      	send_to_char("Couldn't create a new class.\n\r", ch );
 	return;
       }
       write_class_file( MAX_PC_CLASS );
@@ -8944,13 +8924,13 @@ void do_setclass( CHAR_DATA *ch, char *argument )
      
       fprintf(fpList, "$\n");
       fclose( fpList );
-      mxp_to_char("Done.\n\r", ch, MXP_ALL );
+      send_to_char("Done.\n\r", ch );
       return;
     }
 
     if ( !argument )
     {
-    	mxp_to_char("You must specify an argument.\n\r", ch, MXP_ALL );
+    	send_to_char("You must specify an argument.\n\r", ch );
 	return;
     }
 
@@ -8958,7 +8938,7 @@ void do_setclass( CHAR_DATA *ch, char *argument )
     {
 	STRFREE(class->who_name );
 	class->who_name = STRALLOC( argument );
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "login" ) )
@@ -8969,7 +8949,7 @@ void do_setclass( CHAR_DATA *ch, char *argument )
                 class->login = str_dup ( argument );
         else
                 class->login = NULL;
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "loginother" ) ) {
@@ -8979,7 +8959,7 @@ void do_setclass( CHAR_DATA *ch, char *argument )
                 class->login_other = str_dup ( argument );
         else
                 class->login_other = NULL;
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "logout" ) ) {
@@ -8989,7 +8969,7 @@ void do_setclass( CHAR_DATA *ch, char *argument )
                 class->logout = str_dup ( argument );
         else
                 class->logout = NULL;
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "logoutother" ) ) {
@@ -8999,7 +8979,7 @@ void do_setclass( CHAR_DATA *ch, char *argument )
                 class->logout_other = str_dup ( argument );
         else
                 class->logout_other = NULL;
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "reconnect" ) ) {
@@ -9009,7 +8989,7 @@ void do_setclass( CHAR_DATA *ch, char *argument )
                 class->reconnect = str_dup ( argument );
         else
                 class->reconnect = NULL;
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "reconnectother" ) ) {
@@ -9019,7 +8999,7 @@ void do_setclass( CHAR_DATA *ch, char *argument )
                 class->reconnect_other = str_dup ( argument );
         else
                 class->reconnect_other = NULL;
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
 
@@ -9028,11 +9008,11 @@ void do_setclass( CHAR_DATA *ch, char *argument )
 	int x = get_atype( argument );
 
 	if ( x < APPLY_STR || (x > APPLY_CON && x != APPLY_LCK && x != APPLY_CHA) )
-	    mxp_to_char( "Invalid second attribute!\n\r", ch, MXP_ALL );
+	    send_to_char( "Invalid second attribute!\n\r", ch );
 	else
 	{
 	    class->attr_second = x;
-	    mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	    send_to_char( "Done.\n\r", ch );
 	}
 	return;
     }
@@ -9041,7 +9021,7 @@ void do_setclass( CHAR_DATA *ch, char *argument )
     {
         if ( !argument || argument[0] == '\0' )
         {
-           mxp_to_char( "Usage: setclass <class> affected <flag> [flag]...\n\r", ch, MXP_ALL );
+           send_to_char( "Usage: setclass <class> affected <flag> [flag]...\n\r", ch );
            return;
         }
         while ( argument[0] != '\0' )
@@ -9053,7 +9033,7 @@ void do_setclass( CHAR_DATA *ch, char *argument )
            else
              xTOGGLE_BIT( class->affected, value );
         }
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
 
@@ -9061,7 +9041,7 @@ void do_setclass( CHAR_DATA *ch, char *argument )
     {
         if ( !argument || argument[0] == '\0' )
         {
-           mxp_to_char( "Usage: setclass <class> resist <flag> [flag]...\n\r", ch, MXP_ALL);
+           send_to_char( "Usage: setclass <class> resist <flag> [flag]...\n\r", ch);
            return;
         }
         while ( argument[0] != '\0' )
@@ -9073,7 +9053,7 @@ void do_setclass( CHAR_DATA *ch, char *argument )
            else
                 TOGGLE_BIT( class->resist, 1 << value );
         }
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
 
@@ -9081,7 +9061,7 @@ void do_setclass( CHAR_DATA *ch, char *argument )
     {
         if ( !argument || argument[0] == '\0' )
         {
-           mxp_to_char( "Usage: setclass <class> suscept <flag> [flag]...\n\r", ch, MXP_ALL );
+           send_to_char( "Usage: setclass <class> suscept <flag> [flag]...\n\r", ch );
            return;
         }
         while ( argument[0] != '\0' )
@@ -9093,7 +9073,7 @@ void do_setclass( CHAR_DATA *ch, char *argument )
            else
                 TOGGLE_BIT( class->suscept, 1 << value );
         }
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "deficient" ) )
@@ -9101,11 +9081,11 @@ void do_setclass( CHAR_DATA *ch, char *argument )
 	int x = get_atype( argument );
 
 	if ( x < APPLY_STR || (x > APPLY_CON && x != APPLY_LCK && x != APPLY_CHA) )
-	    mxp_to_char( "Invalid deficient attribute!\n\r", ch, MXP_ALL );
+	    send_to_char( "Invalid deficient attribute!\n\r", ch );
 	else
 	{
 	    class->attr_deficient = x;
-	    mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	    send_to_char( "Done.\n\r", ch );
 	}
 	return;
     }
@@ -9114,48 +9094,48 @@ void do_setclass( CHAR_DATA *ch, char *argument )
 	int x = get_atype( argument );
 
 	if ( x < APPLY_STR || (x > APPLY_CON && x != APPLY_LCK && x != APPLY_CHA) )
-	    mxp_to_char( "Invalid prime attribute!\n\r", ch, MXP_ALL );
+	    send_to_char( "Invalid prime attribute!\n\r", ch );
 	else
 	{
 	    class->attr_prime = x;
-	    mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	    send_to_char( "Done.\n\r", ch );
 	}
 	return;
     }
     if ( !str_cmp( arg2, "weapon" ) )
     {
 	class->weapon = atoi( argument );
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "guild" ) )
     {
 	class->guild = atoi( argument );
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "thac0" ) )
     {
 	class->thac0_00 = atoi( argument );
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "thac32" ) )
     {
 	class->thac0_32 = atoi( argument );
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "hpmin" ) )
     {
 	class->hp_min = atoi( argument );
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "hpmax" ) )
     {
 	class->hp_max = atoi( argument );
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "mana" ) )
@@ -9164,13 +9144,13 @@ void do_setclass( CHAR_DATA *ch, char *argument )
 	  class->fMana = TRUE;
 	else
 	  class->fMana = FALSE;
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "expbase" ) )
     {
 	class->exp_base = atoi( argument );
-	mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+	send_to_char( "Done.\n\r", ch );
 	return;
     }
     if ( !str_cmp( arg2, "mtitle" ) )
@@ -9181,12 +9161,12 @@ void do_setclass( CHAR_DATA *ch, char *argument )
 	argument = one_argument( argument, arg3 );
 	if ( arg3[0] == '\0' || argument[0] == '\0' )
 	{
-	    mxp_to_char( "Syntax: setclass <class> mtitle <level> <title>\n\r", ch, MXP_ALL );
+	    send_to_char( "Syntax: setclass <class> mtitle <level> <title>\n\r", ch );
 	    return;
 	}
 	if ( (x=atoi(arg3)) < 0 || x > MAX_LEVEL )
 	{
-	    mxp_to_char( "Invalid level.\n\r", ch, MXP_ALL );
+	    send_to_char( "Invalid level.\n\r", ch );
 	    return;
 	}
 	DISPOSE( title_table[cl][x][0] );
@@ -9202,12 +9182,12 @@ void do_setclass( CHAR_DATA *ch, char *argument )
 	argument = one_argument( argument, arg4 );
 	if ( arg3[0] == '\0' || argument[0] == '\0' )
 	{
-	    mxp_to_char( "Syntax: setclass <class> ftitle <level> <male/female> <title>\n\r", ch, MXP_ALL );
+	    send_to_char( "Syntax: setclass <class> ftitle <level> <male/female> <title>\n\r", ch );
 	    return;
 	}
 	if ( (x=atoi(arg4)) < 0 || x > MAX_LEVEL )
 	{
-	    mxp_to_char( "Invalid level.\n\r", ch, MXP_ALL );
+	    send_to_char( "Invalid level.\n\r", ch );
 	    return;
 	}
 	if ( !str_cmp( arg4, "Male") )
@@ -9288,19 +9268,19 @@ void do_setrace( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg2 );
     if ( arg1[0] == '\0' || arg2[0] == '\0' )
     {
-        mxp_to_char( "Syntax: setrace <race> <field> <value>\n\r",   ch, MXP_ALL );
-        mxp_to_char( "Syntax: setrace <race> create	     \n\r",  ch, MXP_ALL );
-        mxp_to_char( "\n\rField being one of:\n\r",                  ch, MXP_ALL );
-        mxp_to_char( "  name classes strplus dexplus wisplus\n\r",   ch, MXP_ALL );
-        mxp_to_char( "  intplus conplus chaplus lckplus hit\n\r",    ch, MXP_ALL );
-        mxp_to_char( "  mana affected resist suscept language\n\r",  ch, MXP_ALL );
-        mxp_to_char( "  save attack defense alignment acplus \n\r",  ch, MXP_ALL );
-        mxp_to_char( "  minalign maxalign height weight      \n\r",  ch, MXP_ALL );
-        mxp_to_char( "  hungermod thirstmod expmultiplier    \n\r",  ch, MXP_ALL );
-        mxp_to_char( "  saving_poison_death saving_wand      \n\r",  ch, MXP_ALL );
-        mxp_to_char( "  saving_para_petri saving_breath      \n\r",  ch, MXP_ALL );
-        mxp_to_char( "  saving_spell_staff  race_recall      \n\r",  ch, MXP_ALL );
-        mxp_to_char( "  mana_regen hp_regen                  \n\r",  ch, MXP_ALL );
+        send_to_char( "Syntax: setrace <race> <field> <value>\n\r",   ch );
+        send_to_char( "Syntax: setrace <race> create	     \n\r",   ch );
+        send_to_char( "\n\rField being one of:\n\r",                    ch );
+        send_to_char( "  name classes strplus dexplus wisplus\n\r",     ch );
+        send_to_char( "  intplus conplus chaplus lckplus hit\n\r",     ch );
+        send_to_char( "  mana affected resist suscept language\n\r",     ch );
+        send_to_char( "  save attack defense alignment acplus \n\r",     ch );
+        send_to_char( "  minalign maxalign height weight      \n\r",     ch );
+        send_to_char( "  hungermod thirstmod expmultiplier    \n\r",     ch );
+        send_to_char( "  saving_poison_death saving_wand      \n\r",     ch );
+        send_to_char( "  saving_para_petri saving_breath      \n\r",     ch );
+        send_to_char( "  saving_spell_staff  race_recall      \n\r",     ch );
+        send_to_char( "  mana_regen hp_regen                  \n\r",     ch );
         return;
     }
     if ( is_number(arg1) && (ra=atoi(arg1)) >= 0 && ra < MAX_RACE )
@@ -9320,12 +9300,12 @@ void do_setrace( CHAR_DATA *ch, char *argument )
     }
     if ( !str_cmp( arg2, "create" ) && race )
     {
-    	mxp_to_char( "That race already exists!\n\r", ch, MXP_ALL );
+    	send_to_char( "That race already exists!\n\r", ch );
 	return;
     }
     else if ( !race && str_cmp(arg2, "create") )
     {
-        mxp_to_char( "No such race.\n\r", ch, MXP_ALL );
+        send_to_char( "No such race.\n\r", ch );
         return;
     }
     
@@ -9334,7 +9314,7 @@ void do_setrace( CHAR_DATA *ch, char *argument )
     if ( !str_cmp( arg2, "save" ) )
     {
         write_race_file( ra );
-        mxp_to_char( "Saved.\n\r", ch, MXP_ALL );
+        send_to_char( "Saved.\n\r", ch );
         return;
     }
 
@@ -9342,12 +9322,12 @@ void do_setrace( CHAR_DATA *ch, char *argument )
     {
        if ( MAX_PC_RACE >= MAX_RACE )
        {
-          mxp_to_char("You need to up MAX_RACE in mud.h and make clean.\n\r",ch, MXP_ALL);
+          send_to_char("You need to up MAX_RACE in mud.h and make clean.\n\r",ch);
 	  return;
        }
        if(  (create_new_race( MAX_PC_RACE, arg1 )) == FALSE )
        {
-	  mxp_to_char("Couldn't create a new race.\n\r", ch, MXP_ALL );
+	  send_to_char("Couldn't create a new race.\n\r", ch );
 	  return;
        }
        write_race_file( MAX_PC_RACE );
@@ -9362,83 +9342,83 @@ void do_setrace( CHAR_DATA *ch, char *argument )
 	 fprintf( fpList, "%s%s.race\n", RACE_DIR, race_table[i]->race_name );
        fprintf( fpList, "$\n" );
        fclose( fpList );
-       mxp_to_char("Done.\n\r", ch, MXP_ALL );
+       send_to_char("Done.\n\r", ch );
        return;
     }
 
     if( !argument)
     {
-        mxp_to_char("You must specify an argument.\n\r",ch, MXP_ALL);
+        send_to_char("You must specify an argument.\n\r",ch);
         return;
     }
     if ( !str_cmp( arg2, "name" ) )
     {
         sprintf(race->race_name,"%-.16s",argument);
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
 
     if ( !str_cmp( arg2, "strplus" ) )
     {
         race->str_plus = (sh_int) atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "dexplus" ) )
     {
         race->dex_plus = (sh_int) atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "wisplus" ) )
     {
         sprintf(buf,"attempting to set wisplus to %s\n\r",argument);
-        mxp_to_char(buf,ch, MXP_ALL);
+        send_to_char(buf,ch);
         race->wis_plus = (sh_int) atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "intplus" ) )
     {
         race->int_plus = (sh_int) atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "conplus" ) )
     {
         race->con_plus = (sh_int) atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "chaplus" ) )
     {
         race->cha_plus = (sh_int) atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "lckplus" ) )
     {
         race->lck_plus = (sh_int) atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "hit" ) )
     {
         race->hit = (sh_int) atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "mana" ) )
     {
         race->mana = (sh_int) atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "affected" ) )
     {
         if ( !argument || argument[0] == '\0' )
         {
-           mxp_to_char( "Usage: setrace <race> affected <flag> [flag]...\n\r", ch, MXP_ALL );
+           send_to_char( "Usage: setrace <race> affected <flag> [flag]...\n\r", ch );
            return;
         }
         while ( argument[0] != '\0' )
@@ -9450,7 +9430,7 @@ void do_setrace( CHAR_DATA *ch, char *argument )
            else
 	     xTOGGLE_BIT( race->affected, value );
         }
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
 
@@ -9458,7 +9438,7 @@ void do_setrace( CHAR_DATA *ch, char *argument )
     {
         if ( !argument || argument[0] == '\0' )
         {
-           mxp_to_char( "Usage: setrace <race> resist <flag> [flag]...\n\r", ch, MXP_ALL );
+           send_to_char( "Usage: setrace <race> resist <flag> [flag]...\n\r", ch );
            return;
         }
         while ( argument[0] != '\0' )
@@ -9470,7 +9450,7 @@ void do_setrace( CHAR_DATA *ch, char *argument )
            else
                 TOGGLE_BIT( race->resist, 1 << value );
         }
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
 
@@ -9478,7 +9458,7 @@ void do_setrace( CHAR_DATA *ch, char *argument )
     {
         if ( !argument || argument[0] == '\0' )
         {
-           mxp_to_char( "Usage: setrace <race> suscept <flag> [flag]...\n\r", ch, MXP_ALL );
+           send_to_char( "Usage: setrace <race> suscept <flag> [flag]...\n\r", ch );
            return;
         }
         while ( argument[0] != '\0' )
@@ -9490,13 +9470,13 @@ void do_setrace( CHAR_DATA *ch, char *argument )
            else
                 TOGGLE_BIT( race->suscept, 1 << value );
         }
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "language" ) )
     {
         race->language = atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
 
@@ -9507,11 +9487,11 @@ void do_setrace( CHAR_DATA *ch, char *argument )
            if( !str_cmp(argument,class_table[i]->who_name) )
            {   
               TOGGLE_BIT( race->class_restriction, 1 << i);   /* k, that's boggling */
-              mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+              send_to_char( "Done.\n\r", ch );
               return;
            }   
         }
-        mxp_to_char( "No such class.\n\r", ch, MXP_ALL );
+        send_to_char( "No such class.\n\r", ch );
         return;
     }
 
@@ -9519,14 +9499,14 @@ void do_setrace( CHAR_DATA *ch, char *argument )
     if ( !str_cmp( arg2, "acplus" ) )
     {
         race->ac_plus = atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
 
     if ( !str_cmp( arg2, "alignment" ) )
     {
         race->alignment = atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
 
@@ -9535,7 +9515,7 @@ void do_setrace( CHAR_DATA *ch, char *argument )
     {
         if ( !argument || argument[0] == '\0' )
         {
-            mxp_to_char( "Usage: setrace <race> defense <flag> [flag]...\n\r", ch, MXP_ALL );
+            send_to_char( "Usage: setrace <race> defense <flag> [flag]...\n\r", ch );
             return;
         }
         while ( argument[0] != '\0' )
@@ -9555,7 +9535,7 @@ void do_setrace( CHAR_DATA *ch, char *argument )
     {
         if ( !argument || argument[0] == '\0' )
         {
-            mxp_to_char( "Usage: setrace <race> attack <flag> [flag]...\n\r", ch, MXP_ALL );
+            send_to_char( "Usage: setrace <race> attack <flag> [flag]...\n\r", ch );
             return;
         }
         while ( argument[0] != '\0' )
@@ -9574,98 +9554,98 @@ void do_setrace( CHAR_DATA *ch, char *argument )
     if ( !str_cmp( arg2, "minalign" ) )
     {
         race->minalign = atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "maxalign" ) )
     {
         race->maxalign = atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "height" ) )
     {
         race->height = atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "weight" ) )
     {
         race->weight = atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "thirstmod" ) )
     {
         race->thirst_mod = atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "hungermod" ) )
     {
         race->hunger_mod = atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "maxalign" ) )
     {
         race->maxalign = atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "expmultiplier" ) )
     {
         race->exp_multiplier = atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "saving_poison_death" ) )
     {
         race->saving_poison_death = atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "saving_wand" ) )
     {
         race->saving_wand = atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "saving_para_petri" ) )
     {
         race->saving_para_petri = atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "saving_breath" ) )
     {
         race->saving_breath = atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "saving_spell_staff" ) )
     {
         race->saving_spell_staff = atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     /* unimplemented stuff follows */
     if ( !str_cmp( arg2, "mana_regen" ) )
     {
         race->mana_regen = atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "hp_regen" ) )
     {
         race->hp_regen = atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "race_recall" ) )
     {
         race->race_recall = atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
 
@@ -9673,13 +9653,13 @@ void do_setrace( CHAR_DATA *ch, char *argument )
     if ( !str_cmp( arg2, "carry_weight" ) )
     {
         race->acplus = atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
     if ( !str_cmp( arg2, "carry_number" ) )
     {
         race->acplus = atoi( argument );
-        mxp_to_char( "Done.\n\r", ch, MXP_ALL );
+        send_to_char( "Done.\n\r", ch );
         return;
     }
 #endif
@@ -9700,7 +9680,7 @@ void do_showrace( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg1 );
     if ( arg1[0] == '\0' )
     {
-        mxp_to_char( "Syntax: showrace <race> \n\r", ch, MXP_ALL );
+        send_to_char( "Syntax: showrace <race> \n\r", ch );
 	/* Show the races code addition by Blackmane */
 	ct = 0;
 	for ( i=0;i<MAX_RACE;i++)
@@ -9727,69 +9707,69 @@ void do_showrace( CHAR_DATA *ch, char *argument )
     }
     if ( !race )
     {
-        mxp_to_char( "No such race.\n\r", ch, MXP_ALL );
+        send_to_char( "No such race.\n\r", ch );
         return;
     }
 
     sprintf( buf, "RACE: %s\n\r",race->race_name);
-    mxp_to_char( buf, ch, MXP_ALL);
+    send_to_char( buf, ch);
     ct=0;
     sprintf( buf, "Disallowed Classes: ");
-    mxp_to_char( buf, ch, MXP_ALL);
+    send_to_char( buf, ch);
     for(i=0;i<MAX_CLASS;i++){
       if( IS_SET(race->class_restriction, 1 << i) )
       {
              ct++; 
              sprintf(buf,"%s ", class_table[i]->who_name);
-             mxp_to_char( buf, ch, MXP_ALL);
-	     if( ct%6==0) mxp_to_char("\n\r", ch, MXP_ALL);
+             send_to_char( buf, ch);
+	     if( ct%6==0) send_to_char("\n\r", ch);
       } 
     }
-    if( (ct%6!=0) || (ct==0)) mxp_to_char("\n\r", ch, MXP_ALL);
+    if( (ct%6!=0) || (ct==0)) send_to_char("\n\r", ch);
 
     ct=0;
     sprintf( buf, "Allowed Classes: ");
-    mxp_to_char( buf, ch, MXP_ALL);
+    send_to_char( buf, ch);
     for(i=0;i<MAX_CLASS;i++){
       if( !IS_SET(race->class_restriction, 1 << i) )
       {
              ct++;
              sprintf(buf,"%s ", class_table[i]->who_name);
-             mxp_to_char( buf, ch, MXP_ALL);
-	     if( ct%6==0) mxp_to_char("\n\r", ch, MXP_ALL);
+             send_to_char( buf, ch);
+	     if( ct%6==0) send_to_char("\n\r", ch);
       } 
     }
-    if( (ct%6!=0) || (ct==0)) mxp_to_char("\n\r", ch, MXP_ALL);
+    if( (ct%6!=0) || (ct==0)) send_to_char("\n\r", ch);
 
 
 
     sprintf( buf, "Str Plus: %-3d\tDex Plus: %-3d\tWis Plus: %-3d\tInt Plus: %-3d\t\n\r",
                            race->str_plus, race->dex_plus, race->wis_plus, race->int_plus);
-    mxp_to_char( buf, ch, MXP_ALL);
+    send_to_char( buf, ch);
     sprintf( buf, "Con Plus: %-3d\tCha Plus: %-3d\tLck Plus: %-3d\n\r",
                            race->con_plus, race->cha_plus, race->lck_plus);
-    mxp_to_char( buf, ch, MXP_ALL);
+    send_to_char( buf, ch);
     sprintf( buf, "Hit Pts:  %-3d\tMana: %-3d\tAlign: %-4d\tAC: %-d\n\r",
                            race->hit, race->mana, race->alignment, race->ac_plus);
-    mxp_to_char( buf, ch, MXP_ALL);
+    send_to_char( buf, ch);
     sprintf( buf, "Min Align: %d\tMax Align: %-d\t\tXP Mult: %-d%%\n\r",
                            race->minalign, race->maxalign, race->exp_multiplier);
-    mxp_to_char( buf, ch, MXP_ALL);
+    send_to_char( buf, ch);
     sprintf( buf, "Height: %3d in.\t\tWeight: %4d lbs.\tHungerMod: %d\tThirstMod: %d\n\r",
                            race->height, race->weight, race->hunger_mod, race->thirst_mod);
-    mxp_to_char( buf, ch, MXP_ALL);
+    send_to_char( buf, ch);
 
-    mxp_to_char( "Affected by: ", ch, MXP_ALL);
-    mxp_to_char( affect_bit_name( &race->affected ), ch, MXP_ALL);
-    mxp_to_char( "\n\r", ch, MXP_ALL);
+    send_to_char( "Affected by: ", ch);
+    send_to_char( affect_bit_name( &race->affected ), ch);
+    send_to_char( "\n\r", ch);
 
-    mxp_to_char( "Resistant to: ", ch, MXP_ALL);
-    mxp_to_char( flag_string(race->resist, ris_flags), ch, MXP_ALL);
-    mxp_to_char( "\n\r", ch, MXP_ALL);
+    send_to_char( "Resistant to: ", ch);
+    send_to_char( flag_string(race->resist, ris_flags), ch);
+    send_to_char( "\n\r", ch);
 
-    mxp_to_char( "Susceptible to: ", ch, MXP_ALL);
-    mxp_to_char( flag_string(race->suscept, ris_flags), ch, MXP_ALL);
-    mxp_to_char( "\n\r", ch, MXP_ALL);
+    send_to_char( "Susceptible to: ", ch);
+    send_to_char( flag_string(race->suscept, ris_flags), ch);
+    send_to_char( "\n\r", ch);
 
     sprintf(buf,"Saves: (P/D) %d (W) %d (P/P) %d (B) %d (S/S) %d\n\r",
             race->saving_poison_death,
@@ -9797,15 +9777,15 @@ void do_showrace( CHAR_DATA *ch, char *argument )
             race->saving_para_petri,
             race->saving_breath,
             race->saving_spell_staff);
-    mxp_to_char( buf, ch, MXP_ALL);
+    send_to_char( buf, ch);
 
-    mxp_to_char( "Innate Attacks: ", ch, MXP_ALL);
-    mxp_to_char( ext_flag_string(&race->attacks, attack_flags), ch, MXP_ALL);
-    mxp_to_char( "\n\r", ch, MXP_ALL);
+    send_to_char( "Innate Attacks: ", ch);
+    send_to_char( ext_flag_string(&race->attacks, attack_flags), ch);
+    send_to_char( "\n\r", ch);
 
-    mxp_to_char( "Innate Defenses: ", ch, MXP_ALL);
-    mxp_to_char( ext_flag_string(&race->defenses, defense_flags), ch, MXP_ALL);
-    mxp_to_char( "\n\r", ch, MXP_ALL);
+    send_to_char( "Innate Defenses: ", ch);
+    send_to_char( ext_flag_string(&race->defenses, defense_flags), ch);
+    send_to_char( "\n\r", ch);
 
 }
 
@@ -9843,12 +9823,12 @@ void do_qpset( CHAR_DATA *ch, char *argument )
 
   if ( IS_NPC(ch) )
   {
-    mxp_to_char( "Cannot qpset as an NPC.\n\r", ch, MXP_ALL );
+    send_to_char( "Cannot qpset as an NPC.\n\r", ch );
     return;
   }
   if ( get_trust( ch ) < LEVEL_IMMORTAL ) 
   {
-    mxp_to_char( "Huh?\n\r", ch, MXP_ALL );
+    send_to_char( "Huh?\n\r", ch );
     return;
   }
 
@@ -9858,18 +9838,18 @@ void do_qpset( CHAR_DATA *ch, char *argument )
   amount = atoi( arg3 );
   if ( arg[0] == '\0' || arg2[0] == '\0' || amount <= 0 )
   {
-    mxp_to_char( "Syntax: qpset <character> <give/take> <amount>\n\r", ch, MXP_ALL );
-    mxp_to_char( "Amount must be a positive number greater than 0.\n\r", ch, MXP_ALL );
+    send_to_char( "Syntax: qpset <character> <give/take> <amount>\n\r", ch );
+    send_to_char( "Amount must be a positive number greater than 0.\n\r", ch );
     return;
   }
   if ( ( victim = get_char_world( ch, arg ) ) == NULL )
   {
-    mxp_to_char( "There is no such player currently playing.\n\r", ch, MXP_ALL );
+    send_to_char( "There is no such player currently playing.\n\r", ch );
     return;
   }
   if ( IS_NPC( victim ) )
   {
-    mxp_to_char( "Glory cannot be given to or taken from a mob.\n\r", ch, MXP_ALL );
+    send_to_char( "Glory cannot be given to or taken from a mob.\n\r", ch );
     return;
   }
 
@@ -9880,7 +9860,7 @@ void do_qpset( CHAR_DATA *ch, char *argument )
     if ( str_cmp( ch->pcdata->council_name, "Quest Council" )
     && ( get_trust( ch ) < LEVEL_DEMI ) )
     {
-      mxp_to_char( "You must be a member of the Quest Council to give qp to a character.\n\r", ch, MXP_ALL );
+      send_to_char( "You must be a member of the Quest Council to give qp to a character.\n\r", ch );
       return;
     }
   }
@@ -9935,17 +9915,17 @@ void do_qpstat( CHAR_DATA *ch, char *argument )
   argument = one_argument( argument, arg );
   if ( arg[0] == '\0' )
   {
-    mxp_to_char( "Syntax:  qpstat <character>\n\r", ch, MXP_ALL );
+    send_to_char( "Syntax:  qpstat <character>\n\r", ch );
     return;
   }
   if ( ( victim = get_char_world( ch, arg ) ) == NULL )
   {
-    mxp_to_char( "No one by that name currently in the Realms.\n\r", ch, MXP_ALL );
+    send_to_char( "No one by that name currently in the Realms.\n\r", ch );
     return;
   }
   if ( IS_NPC( victim ) )
   {
-    mxp_to_char( "Mobs don't have glory.\n\r", ch, MXP_ALL );
+    send_to_char( "Mobs don't have glory.\n\r", ch );
     return;
   }
   ch_printf( ch, "%s has %d glory, out of a lifetime total of %d.\n\r",
@@ -9967,7 +9947,7 @@ void do_add_change( CHAR_DATA *ch, char *argument )
 	if ( get_trust( ch ) >= LEVEL_INFINITE )
 	  send_to_char_color( "&G&g or 'addchange clear now'.\n\r", ch );
 	else
-	  mxp_to_char( "\n\r", ch, MXP_ALL );
+	  send_to_char( "\n\r", ch );
 	return;
     }
 
@@ -10000,7 +9980,7 @@ void do_add_imm_news( CHAR_DATA *ch, char *argument )
 	if ( get_trust( ch ) >= LEVEL_ASCENDANT )
 	  send_to_char_color( "&G&c or 'addimmnews clear now'.\n\r", ch );
 	else
-	  mxp_to_char( "\n\r", ch, MXP_ALL );
+	  send_to_char( "\n\r", ch );
 	return;
     }
 
@@ -10033,7 +10013,7 @@ void do_add_news( CHAR_DATA *ch, char *argument )
 	if ( get_trust( ch ) >= LEVEL_INFINITE )
 	  send_to_char_color( "&G&g or 'addnews clear now'.\n\r", ch );
 	else
-	  mxp_to_char( "\n\r", ch, MXP_ALL );
+	  send_to_char( "\n\r", ch );
 	return;
     }
 
@@ -10065,11 +10045,11 @@ void do_fixed( CHAR_DATA *ch, char *argument )
 
     set_char_color( AT_OBJECT, ch );
     if ( argument[0] == '\0' ) {
-	mxp_to_char( "\n\rUsage:  'fixed list' or 'fixed <message>'", ch, MXP_ALL );
+	send_to_char( "\n\rUsage:  'fixed list' or 'fixed <message>'", ch );
 	if ( get_trust( ch ) >= LEVEL_ASCENDANT )
-	  mxp_to_char( " or 'fixed clear now'\n\r", ch, MXP_ALL );
+	  send_to_char( " or 'fixed clear now'\n\r", ch );
 	else
-	  mxp_to_char( "\n\r", ch, MXP_ALL );
+	  send_to_char( "\n\r", ch );
 	return;
     }
     if ( !str_cmp( argument, "clear now" )
@@ -10077,7 +10057,7 @@ void do_fixed( CHAR_DATA *ch, char *argument )
  	FILE *fp = fopen( FIXED_FILE, "w" );
 	if ( fp )
 	  fclose( fp );
-	mxp_to_char( "Fixed file cleared.\n\r", ch, MXP_ALL);
+	send_to_char( "Fixed file cleared.\n\r", ch);
 	return;
     }
     if ( !str_cmp( argument, "list" ) ) {
@@ -10088,7 +10068,7 @@ void do_fixed( CHAR_DATA *ch, char *argument )
           t->tm_mon+1, t->tm_mday, ch->in_room ? ch->in_room->vnum : 0,
           IS_NPC( ch ) ? ch->short_descr : ch->name, argument );
         append_to_file( FIXED_FILE, buf );
-	mxp_to_char( "Thanks, your modification has been logged.\n\r", ch, MXP_ALL );
+	send_to_char( "Thanks, your modification has been logged.\n\r", ch );
     }
     return;
 }
@@ -10102,13 +10082,13 @@ void do_fshow( CHAR_DATA *ch, char *argument )
   one_argument( argument, arg );
   if ( arg[0] == '\0' )    
   {
-    mxp_to_char( "Syntax:  fshow <moblog | oinvoke | plevel | cutlink>\n\r", ch, MXP_ALL );
+    send_to_char( "Syntax:  fshow <moblog | oinvoke | plevel | cutlink>\n\r", ch );
     return;
   }
   if ( !str_cmp( arg, "moblog" ) )
   {
     set_char_color( AT_LOG, ch );
-    mxp_to_char( "\n\r[Date_|_Time]  Current moblog:\n\r", ch, MXP_ALL );
+    send_to_char( "\n\r[Date_|_Time]  Current moblog:\n\r", ch );
     show_file( ch, MOBLOG_FILE );
     return;
   }
@@ -10130,7 +10110,7 @@ void do_fshow( CHAR_DATA *ch, char *argument )
     show_file( ch, CUTLINK_FILE );
     return;
   }
-  mxp_to_char( "No such file.\n\r", ch, MXP_ALL );
+  send_to_char( "No such file.\n\r", ch );
   return;
 }
 
@@ -10189,7 +10169,7 @@ if (++wid % 2 == 0)
   arg1 = atoi( arg );
   if ( get_obj_index(arg1) == NULL )
   {
-  mxp_to_char("That vnum does not exist\n\r", ch, MXP_ALL);
+  send_to_char("That vnum does not exist\n\r", ch);
   return;
   }
   for ( noauc = first_noauc ; noauc ; noauc = noauc->next )
@@ -10198,15 +10178,15 @@ if (noauc->vnum == arg1)
       UNLINK(noauc, first_noauc, last_noauc, next, prev);
       DISPOSE(noauc);
       save_noauctions();
-      mxp_to_char("Vnum no longer prevented from being auctioned:\n\r", ch, MXP_ALL);
-  mxp_to_char("Make sure the item is auctionable.\n\r", ch, MXP_ALL);
+      send_to_char("Vnum no longer prevented from being auctioned:\n\r", ch);
+  send_to_char("Make sure the item is auctionable.\n\r", ch);
       return;
     }
   CREATE(noauc, NOAUCTION_DATA, 1);
   noauc->vnum = arg1;
   sort_noauctions(noauc);
   save_noauctions();
-  mxp_to_char("Vnum can no longer be auctioned.\n\r", ch, MXP_ALL);
+  send_to_char("Vnum can no longer be auctioned.\n\r", ch);
   return;
 }
 
@@ -10246,16 +10226,16 @@ void do_reserve(CHAR_DATA *ch, char *argument)
   {
     int wid = 0;
     
-    mxp_to_char("-- Reserved Names --\n\r", ch, MXP_ALL);
+    send_to_char("-- Reserved Names --\n\r", ch);
     for (res = first_reserved; res; res = res->next)
     {
       ch_printf(ch, "%c%-17s ", (*res->name == '*' ? '*' : ' '),
           (*res->name == '*' ? res->name+1 : res->name));
       if (++wid % 4 == 0)
-        mxp_to_char("\n\r", ch, MXP_ALL);
+        send_to_char("\n\r", ch);
     }
     if (wid % 4 != 0)
-      mxp_to_char("\n\r", ch, MXP_ALL);
+      send_to_char("\n\r", ch);
     return;
   }
   for (res = first_reserved; res; res = res->next)
@@ -10265,14 +10245,14 @@ void do_reserve(CHAR_DATA *ch, char *argument)
       DISPOSE(res->name);
       DISPOSE(res);
       save_reserved();
-      mxp_to_char("Name no longer reserved.\n\r", ch, MXP_ALL);
+      send_to_char("Name no longer reserved.\n\r", ch);
       return;
     }
   CREATE(res, RESERVE_DATA, 1);
   res->name = str_dup(arg);
   sort_reserved(res);
   save_reserved();
-  mxp_to_char("Name reserved.\n\r", ch, MXP_ALL);
+  send_to_char("Name reserved.\n\r", ch);
   return;
 }
 
@@ -10581,7 +10561,7 @@ void do_project( CHAR_DATA *ch, char *argument )
           if ( !ch->pnote )
           {
              bug( "do_project: log got lost?", 0 );
-             mxp_to_char( "Your log was lost!\n\r", ch, MXP_ALL );
+             send_to_char( "Your log was lost!\n\r", ch );
              stop_editing(ch);
              return;
           }
@@ -10783,7 +10763,7 @@ void do_project( CHAR_DATA *ch, char *argument )
 	  str_cmp(ch->name, "Kali") && str_cmp(ch->name, "Moonbeam")
 	  && str_cmp(ch->pcdata->council_name, "Code Council"))
       {
-	mxp_to_char("You are not powerfull enough to add a new project.\n\r",ch, MXP_ALL);
+	send_to_char("You are not powerfull enough to add a new project.\n\r",ch);
 	return;
       }
 
@@ -10841,8 +10821,8 @@ void do_project( CHAR_DATA *ch, char *argument )
           && str_cmp(ch->pcdata->council_name, "Code Council") &&
 	   get_trust(ch) < LEVEL_ASCENDANT)
       {
-	mxp_to_char("You are not high enough level to delete a project.\n\r",
-		ch, MXP_ALL );
+	send_to_char("You are not high enough level to delete a project.\n\r",
+		ch );
         return;
       }
 
@@ -10882,13 +10862,13 @@ void do_project( CHAR_DATA *ch, char *argument )
      if ( ( cou && str_cmp( ch->name, cou->head) )
         || get_trust(ch) < LEVEL_GREATER )
      {
-        mxp_to_char( "Only the Head of the Visionary Consortium may assign projects.\n\r", ch, MXP_ALL );
+        send_to_char( "Only the Head of the Visionary Consortium may assign projects.\n\r", ch );
         return;
      }
 
      if ( !argument || argument[0] == '\0' )
      {
-        mxp_to_char( "Who do you wish to assign it to?\n\r", ch, MXP_ALL );
+        send_to_char( "Who do you wish to assign it to?\n\r", ch );
         return;
      }
 
@@ -10897,14 +10877,14 @@ void do_project( CHAR_DATA *ch, char *argument )
       STRFREE( pproject->owner );
       pproject->taken = FALSE;
       pproject->owner = NULL;
-      mxp_to_char( "Cleared.\n\r", ch, MXP_ALL );
+      send_to_char( "Cleared.\n\r", ch );
       write_projects();
       return;
     }
 
     if ( (vch = get_char_world( ch, argument )) == NULL )
     {
-        mxp_to_char( "They're not logged on!\n\r", ch, MXP_ALL );
+        send_to_char( "They're not logged on!\n\r", ch );
         return;
     }
 
@@ -10913,7 +10893,7 @@ void do_project( CHAR_DATA *ch, char *argument )
         pproject->owner = STRALLOC( vch->name );
         pproject->taken = TRUE;
         write_projects();
-        mxp_to_char( "Ok.\n\r", ch, MXP_ALL );
+        send_to_char( "Ok.\n\r", ch );
         ch_printf( vch, "You have been assigned project %d.\n\r", pnum );
 
     return;
@@ -10928,7 +10908,7 @@ void do_project( CHAR_DATA *ch, char *argument )
 	pproject->taken = FALSE;
 	STRFREE( pproject->owner );
 	pproject->owner = NULL;
-	mxp_to_char("You removed yourself as the owner.\n\r", ch, MXP_ALL );
+	send_to_char("You removed yourself as the owner.\n\r", ch );
         write_projects();
 	return;
       }
@@ -10953,7 +10933,7 @@ void do_project( CHAR_DATA *ch, char *argument )
 	{
 	  DISPOSE( pproject->coder );
 	  pproject->coder = NULL;
-	  mxp_to_char("You removed yourself as the coder.\n\r", ch, MXP_ALL );
+	  send_to_char("You removed yourself as the coder.\n\r", ch );
       	  write_projects();
 	  return;
 	}
@@ -10983,7 +10963,7 @@ void do_project( CHAR_DATA *ch, char *argument )
 	STRFREE(pproject->status);
       pproject->status = STRALLOC(argument);
       write_projects();
-      mxp_to_char("Done.\n\r", ch, MXP_ALL );
+      send_to_char("Done.\n\r", ch );
       return;
    } 
    if( !str_cmp( arg1, "show" ) )
@@ -11145,7 +11125,7 @@ void do_project( CHAR_DATA *ch, char *argument )
 	return;
       }
     }
-   mxp_to_char("Unknown syntax see help 'PROJECT'.\n\r", ch, MXP_ALL );
+   send_to_char("Unknown syntax see help 'PROJECT'.\n\r", ch );
    return;
 }
 
@@ -11224,16 +11204,16 @@ void do_ipcompare ( CHAR_DATA *ch, char *argument )
 
   if ( IS_NPC(ch) )
   {
-        mxp_to_char("Huh?\n\r", ch, MXP_ALL );
+        send_to_char("Huh?\n\r", ch );
         return;
   }
 
   if ( arg[0] == '\0' )
   {
-	mxp_to_char( "ipcompare pkill\n\r", ch, MXP_ALL );
-	mxp_to_char( "ipcompare total\n\r", ch, MXP_ALL );
-	mxp_to_char( "ipcompare <person> [room|area|world] [#]\n\r", ch, MXP_ALL );
-	mxp_to_char( "ipcompare <site>   [room|area|world] [#]\n\r", ch, MXP_ALL );
+	send_to_char( "ipcompare pkill\n\r", ch );
+	send_to_char( "ipcompare total\n\r", ch );
+	send_to_char( "ipcompare <person> [room|area|world] [#]\n\r", ch );
+	send_to_char( "ipcompare <site>   [room|area|world] [#]\n\r", ch );
         return;
   }
      if ( !str_cmp ( arg, "total" ) )
@@ -11391,7 +11371,7 @@ void do_ipcompare ( CHAR_DATA *ch, char *argument )
                 times = atoi( arg2 );
           else
           {
-                mxp_to_char("Please see help ipcompare for more info.\n\r",ch, MXP_ALL);
+                send_to_char("Please see help ipcompare for more info.\n\r",ch);
                 return;
           }
         }
@@ -11492,7 +11472,7 @@ void do_nuisance ( CHAR_DATA *ch, char *argument )
 
   if ( IS_NPC(ch) )
   {
-        mxp_to_char("Huh?\n\r", ch, MXP_ALL );
+        send_to_char("Huh?\n\r", ch );
         return;
   }
 
@@ -11500,36 +11480,36 @@ void do_nuisance ( CHAR_DATA *ch, char *argument )
 
   if ( arg[0] == '\0' )
   {
-	mxp_to_char("Syntax: nuisance <victim> [Options]\n\r", ch, MXP_ALL );
-	mxp_to_char("Options:\n\r", ch, MXP_ALL );
-	mxp_to_char("  power <level 1-10>\n\r", ch, MXP_ALL );
-	mxp_to_char("  time  <days>\n\r", ch, MXP_ALL );
-	mxp_to_char("  maxtime <#> <minutes/hours/days>\n\r", ch, MXP_ALL );
-	mxp_to_char("Defaults: Time -- forever, power -- 1, maxtime 8 days.\n\r", ch, MXP_ALL );
+	send_to_char("Syntax: nuisance <victim> [Options]\n\r", ch );
+	send_to_char("Options:\n\r", ch );
+	send_to_char("  power <level 1-10>\n\r", ch );
+	send_to_char("  time  <days>\n\r", ch );
+	send_to_char("  maxtime <#> <minutes/hours/days>\n\r", ch );
+	send_to_char("Defaults: Time -- forever, power -- 1, maxtime 8 days.\n\r", ch );
 	return;
   }
 
   if ( (victim  = get_char_world( ch, arg ) ) == NULL )
   {
-        mxp_to_char("There is no one on with that name.\n\r", ch, MXP_ALL );
+        send_to_char("There is no one on with that name.\n\r", ch );
         return;
   }
 
   if ( IS_NPC(victim) )
   {
-        mxp_to_char("You can't set a nuisance flag on a mob.\n\r", ch, MXP_ALL );
+        send_to_char("You can't set a nuisance flag on a mob.\n\r", ch );
         return;
   }
 
   if ( get_trust( ch ) <= get_trust(victim) )
   {
-        mxp_to_char("I don't think they would like that.\n\r", ch, MXP_ALL );
+        send_to_char("I don't think they would like that.\n\r", ch );
         return;
   }
 
   if ( victim->pcdata->nuisance )
   {
-        mxp_to_char("That flag has already been set.\n\r", ch, MXP_ALL );
+        send_to_char("That flag has already been set.\n\r", ch );
         return;
   }
 
@@ -11542,12 +11522,12 @@ void do_nuisance ( CHAR_DATA *ch, char *argument )
                 argument = one_argument ( argument, arg1 );
                 if ( arg1[0] == '\0' || !is_number(arg1) )
                 {
-                  mxp_to_char("Power option syntax: power <number>\n\r",ch, MXP_ALL);
+                  send_to_char("Power option syntax: power <number>\n\r",ch);
                   return;
                 }
                 if ( (power = atoi(arg1)) < 1 || power > 10 )
                 {
-                  mxp_to_char("Power must be 1 - 10.\n\r", ch, MXP_ALL );
+                  send_to_char("Power must be 1 - 10.\n\r", ch );
                   return;
                 }
         }
@@ -11556,13 +11536,13 @@ void do_nuisance ( CHAR_DATA *ch, char *argument )
                 argument = one_argument ( argument, arg1 );
                 if ( arg1[0] == '\0' || !is_number(arg1) )
                 {
-                  mxp_to_char("Time option syntax: time <number> (In days)\n\r"
-, ch, MXP_ALL );
+                  send_to_char("Time option syntax: time <number> (In days)\n\r"
+, ch );
                   return;
                 }
                 if ( ( time = atoi(arg1) ) < 1 )
                 {
-                  mxp_to_char("Time must be a positive number.\n\r", ch, MXP_ALL );
+                  send_to_char("Time must be a positive number.\n\r", ch );
                   return;
                 }
         }
@@ -11572,12 +11552,12 @@ void do_nuisance ( CHAR_DATA *ch, char *argument )
                 argument = one_argument ( argument, arg2 );
                 if ( arg1[0] == '\0' || arg2[0] == '\0' || !is_number(arg1) )
                 {
-                  mxp_to_char("Maxtime option syntax: maxtime <number> <minute|day|hour>\n\r", ch, MXP_ALL );
+                  send_to_char("Maxtime option syntax: maxtime <number> <minute|day|hour>\n\r", ch );
                   return;
                 }
                 if ( (max_time = atoi(arg1)) < 1 )
                 {
-                  mxp_to_char("Maxtime must be a positive number.\n\r", ch, MXP_ALL );
+                  send_to_char("Maxtime must be a positive number.\n\r", ch );
                   return;
                 }
                 if ( !str_cmp(arg2, "minutes" ) )
@@ -11597,17 +11577,17 @@ void do_nuisance ( CHAR_DATA *ch, char *argument )
 
   if ( minute && (max_time < 1 || max_time > 59) )
   {
-    mxp_to_char("Minutes must be 1 to 59.\n\r", ch, MXP_ALL );
+    send_to_char("Minutes must be 1 to 59.\n\r", ch );
     return;
   }
   else if ( hour && (max_time < 1 || max_time > 23 ) )
   {
-    mxp_to_char("Hours must be 1 - 23.\n\r", ch, MXP_ALL );
+    send_to_char("Hours must be 1 - 23.\n\r", ch );
     return;
   }
   else if ( day && ( max_time < 1 || max_time > 999 ) )
   {
-    mxp_to_char("Days must be 1 - 999.\n\r", ch, MXP_ALL );
+    send_to_char("Days must be 1 - 999.\n\r", ch );
     return;
   }
   else if ( !max_time )
@@ -11635,7 +11615,7 @@ void do_nuisance ( CHAR_DATA *ch, char *argument )
     ch_printf(ch, "Nuisance flag set for %d days.\n\r", time );
   }
   else
-    mxp_to_char("Nuisance flag set forever\n\r", ch, MXP_ALL );
+    send_to_char("Nuisance flag set forever\n\r", ch );
   return;
 }
 
@@ -11647,29 +11627,29 @@ void do_unnuisance ( CHAR_DATA *ch, char *argument )
 
   if ( IS_NPC(ch) )
   {
-        mxp_to_char("Huh?\n\r", ch, MXP_ALL );
+        send_to_char("Huh?\n\r", ch );
         return;
   }
   one_argument ( argument, arg );
 
   if ( (victim  = get_char_world( ch, arg ) ) == NULL )
   {
-        mxp_to_char("There is no one on with that name.\n\r", ch, MXP_ALL );
+        send_to_char("There is no one on with that name.\n\r", ch );
         return;
   }
   if ( IS_NPC(victim) )
   {
-        mxp_to_char("You can't remove a nuisance flag from a mob.\n\r", ch, MXP_ALL );
+        send_to_char("You can't remove a nuisance flag from a mob.\n\r", ch );
         return;
   }
   if ( get_trust( ch ) <= get_trust(victim) )
   {
-        mxp_to_char("You can't do that.\n\r", ch, MXP_ALL );
+        send_to_char("You can't do that.\n\r", ch );
         return;
   }
   if ( !victim->pcdata->nuisance )
   {
-        mxp_to_char("They do not have that flag set.\n\r", ch, MXP_ALL );
+        send_to_char("They do not have that flag set.\n\r", ch );
         return;
   }
   for (timer = victim->first_timer; timer; timer = timer_next)
@@ -11679,7 +11659,7 @@ void do_unnuisance ( CHAR_DATA *ch, char *argument )
         extract_timer (victim, timer);
   }
   DISPOSE( victim->pcdata->nuisance );
-  mxp_to_char("Nuisance flag removed.\n\r", ch, MXP_ALL );
+  send_to_char("Nuisance flag removed.\n\r", ch );
   return;
 }
 
@@ -11703,13 +11683,13 @@ void do_pcrename( CHAR_DATA *ch, char *argument )
 
     if ( arg1[0] == '\0' || arg2[0] == '\0' )
     {
-	mxp_to_char("Syntax: rename <victim> <new name>\n\r", ch, MXP_ALL );
+	send_to_char("Syntax: rename <victim> <new name>\n\r", ch );
 	return;
     }
 
     if  (!check_parse_name( arg2, 1) )
     {
-	mxp_to_char("Illegal name.\n\r", ch, MXP_ALL );
+	send_to_char("Illegal name.\n\r", ch );
 	return;
     }
     /* Just a security precaution so you don't rename someone you don't mean 
@@ -11717,18 +11697,18 @@ void do_pcrename( CHAR_DATA *ch, char *argument )
      */
     if ( ( victim = get_char_room ( ch, arg1 ) ) == NULL )
     {
-	mxp_to_char("That person is not in the room.\n\r", ch, MXP_ALL );
+	send_to_char("That person is not in the room.\n\r", ch );
 	return;
     }
     if ( IS_NPC(victim ) )
     {
-	mxp_to_char("You can't rename NPC's.\n\r", ch, MXP_ALL );
+	send_to_char("You can't rename NPC's.\n\r", ch );
 	return;
     }
 
     if ( get_trust(ch) < get_trust(victim) )
     {
-	mxp_to_char("I don't think they would like that!\n\r", ch, MXP_ALL );
+	send_to_char("I don't think they would like that!\n\r", ch );
 	return;
     }
     sprintf( newname, "%s%c/%s", PLAYER_DIR, tolower(arg2[0]),
@@ -11739,7 +11719,7 @@ void do_pcrename( CHAR_DATA *ch, char *argument )
                                  capitalize( victim->pcdata->filename ) );
     if ( access( newname, F_OK ) == 0 )
     {
-	mxp_to_char("That name already exists.\n\r", ch, MXP_ALL );
+	send_to_char("That name already exists.\n\r", ch );
 	return;
     }
 
@@ -11773,7 +11753,7 @@ void do_pcrename( CHAR_DATA *ch, char *argument )
     if ( remove( oldname ) )
     {
 	sprintf(buf, "Error: Couldn't delete file %s in do_rename.", oldname);
-	mxp_to_char("Couldn't delete the old file!\n\r", ch, MXP_ALL );
+	send_to_char("Couldn't delete the old file!\n\r", ch );
 	log_string( oldname );
     }	
     /* Time to save to force the affects to take place */
@@ -11782,7 +11762,7 @@ void do_pcrename( CHAR_DATA *ch, char *argument )
     /* Now lets update the wizlist */
     if ( IS_IMMORTAL( victim ) )
 	make_wizlist();
-    mxp_to_char("Character was renamed.\n\r", ch, MXP_ALL );
+    send_to_char("Character was renamed.\n\r", ch );
     return;
 }
 
@@ -11800,7 +11780,7 @@ void do_oowner( CHAR_DATA *ch, char *argument )
 
    if ( IS_NPC(ch) )
    {
-   	mxp_to_char("Huh?\n\r", ch, MXP_ALL );
+   	send_to_char("Huh?\n\r", ch );
 	return;
    }
 
@@ -11809,19 +11789,19 @@ void do_oowner( CHAR_DATA *ch, char *argument )
 
    if ( arg1[0] == '\0' || arg2[0] == '\0' )
    {
-   	mxp_to_char("Syntax: oowner <object> <player|none>\n\r", ch, MXP_ALL );
+   	send_to_char("Syntax: oowner <object> <player|none>\n\r", ch );
 	return;
    }
 
    if ( str_cmp(arg2, "none") && (victim = get_char_room( ch, arg2 ) ) == NULL )
    {
-   	mxp_to_char("No such player is in the room.\n\r", ch, MXP_ALL );
+   	send_to_char("No such player is in the room.\n\r", ch );
 	return;
    }
 
    if ( ( obj = get_obj_here( ch, arg1) ) == NULL )
    {
-   	mxp_to_char("No such object exists.\n\r", ch, MXP_ALL );
+   	send_to_char("No such object exists.\n\r", ch );
 	return;
    }
 
@@ -11831,18 +11811,18 @@ void do_oowner( CHAR_DATA *ch, char *argument )
    {
      STRFREE( obj->owner );
      obj->owner = STRALLOC("");
-     mxp_to_char("Done.\n\r", ch, MXP_ALL );
+     send_to_char("Done.\n\r", ch );
      return;
    }
 
    if ( IS_NPC(victim) )
    {
-   	mxp_to_char("A mob can't be an owner of an item.\n\r", ch, MXP_ALL );
+   	send_to_char("A mob can't be an owner of an item.\n\r", ch );
 	return;
    }
    STRFREE( obj->owner );
    obj->owner = STRALLOC( victim->name );
-   mxp_to_char("Done.\n\r", ch, MXP_ALL );
+   send_to_char("Done.\n\r", ch );
    return;
 }
 
@@ -11857,7 +11837,7 @@ void do_appear( CHAR_DATA *ch, char *argument )
 
     if ( IS_NPC(ch) )
     {
-   	mxp_to_char("Huh?\n\r", ch, MXP_ALL );
+   	send_to_char("Huh?\n\r", ch );
 	return;
     }
 
@@ -11879,7 +11859,7 @@ void do_appear( CHAR_DATA *ch, char *argument )
     	if( vch->retell == ch )
         vch->retell = NULL;
     }
-	mxp_to_char("Cleared.\n\r", ch, MXP_ALL);
+	send_to_char("Cleared.\n\r", ch);
 	return;
     }
     
@@ -11928,7 +11908,7 @@ void do_appear( CHAR_DATA *ch, char *argument )
     if ( ch->pcdata->see_me )
 	DISPOSE(ch->pcdata->see_me);
     ch->pcdata->see_me = str_dup(buf);
-    mxp_to_char("Done.\n\r", ch, MXP_ALL);
+    send_to_char("Done.\n\r", ch);
 }
 
 /*
@@ -11942,7 +11922,7 @@ void do_disappear( CHAR_DATA *ch, char *argument )
 
     if ( IS_NPC(ch) )
     {
-   	mxp_to_char("Huh?\n\r", ch, MXP_ALL );
+   	send_to_char("Huh?\n\r", ch );
 	return;
     }
 
@@ -11956,7 +11936,7 @@ void do_disappear( CHAR_DATA *ch, char *argument )
     if ( ch->pcdata->see_me )
 	DISPOSE(ch->pcdata->see_me);
     ch->pcdata->see_me = str_dup("");
-    mxp_to_char("You disappear...\n\r", ch, MXP_ALL);
+    send_to_char("You disappear...\n\r", ch);
 }
 
 
@@ -11976,7 +11956,7 @@ void do_message( CHAR_DATA *ch, char *argument )
  
 	if ( !argument || argument[0] == '\0' )
 	{
-		mxp_to_char( "Leave a login message for who?\n\r", ch, MXP_ALL );
+		send_to_char( "Leave a login message for who?\n\r", ch );
 		return;
 	}
  
@@ -11995,9 +11975,9 @@ void do_message( CHAR_DATA *ch, char *argument )
 				sprintf( buf, "&CText:\n\r  &c%s\n\r", lmsg->text );
 				send_to_char_color( buf, ch );
 			}
-			mxp_to_char( "\n\r", ch, MXP_ALL );
+			send_to_char( "\n\r", ch );
 		}
-		mxp_to_char( "Ok.\n\r", ch, MXP_ALL );
+		send_to_char( "Ok.\n\r", ch );
 		return;
 	}
  
@@ -12013,7 +11993,7 @@ void do_message( CHAR_DATA *ch, char *argument )
           if (  IS_NPC(temp) ) continue;
           if ( !str_cmp( name, temp->name ) && temp->desc ) 
 		  {
-			  mxp_to_char( "They are online, wouldn't tells be just as easy?\n\r", ch, MXP_ALL );
+			  send_to_char( "They are online, wouldn't tells be just as easy?\n\r", ch );
 			  return;
 		  }
 	    }
@@ -12025,36 +12005,36 @@ void do_message( CHAR_DATA *ch, char *argument )
 				type = atoi( arg2 );
 				if ( type > MAX_MSG )
 				{
-					mxp_to_char( "Invalid login message.\n\r", ch, MXP_ALL );
+					send_to_char( "Invalid login message.\n\r", ch );
 					return;
 				}
 				argument = NULL;
 			}
 			else
 			{
-				mxp_to_char( "Which type?\n\r", ch, MXP_ALL );
+				send_to_char( "Which type?\n\r", ch );
 				return;
 			}
 		}
 		
 		if ( !type && (!argument || argument[0] == '\0' ) )
 		{
-			mxp_to_char( "Send them what message?\n\r", ch, MXP_ALL );
+			send_to_char( "Send them what message?\n\r", ch );
 			return;
 		}
 
 		add_loginmsg( name, type, argument );
 		sprintf( buf, "You have sent %s the following message:\n\r", capitalize(name) );
-		mxp_to_char( buf, ch, MXP_ALL );
+		send_to_char( buf, ch );
 		if ( type == 0 )
 		send_to_char_color( argument, ch );
 		else
 		send_to_char_color( login_msg[type], ch );
-		mxp_to_char( "\n\r", ch, MXP_ALL );
+		send_to_char( "\n\r", ch );
 	}
 	else
 	{
-		mxp_to_char( "That name does not exist.\n\r", ch, MXP_ALL );
+		send_to_char( "That name does not exist.\n\r", ch );
 		return;
 	}
 	

@@ -1,36 +1,19 @@
-/*
-                     R E A L M S    O F    D E S P A I R  !
-   ___________________________________________________________________________
-  //            /                                                            \\
- [|_____________\   ********   *        *   ********   *        *   *******   |]
- [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
- [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
- [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
- [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
- [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
- [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
- [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
- [|_____________\  **********  **      **  **      **  **********  *********  |]
- [|             /  *********   *        *  *        *   ********    *******   |]
-  \\____________\____________________________________________________________//
-     |                                                                     |
-     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
-     |_____________________________________________________________________|
-     |                                                                     |
-     |                 -*- Database Management Module -*-                  |
-     |_____________________________________________________________________|
-    //                                                                     \\
-   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
-   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
-   [|                                                                       |]
-   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
-   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
-   [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
-    \\_____________________________________________________________________//
-*/
+/****************************************************************************
+ * [S]imulated [M]edieval [A]dventure multi[U]ser [G]ame      |   \\._.//   *
+ * -----------------------------------------------------------|   (0...0)   *
+ * SMAUG 1.0 (C) 1994, 1995, 1996, 1998  by Derek Snider      |    ).:.(    *
+ * -----------------------------------------------------------|    {o o}    *
+ * SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,      |   / ' ' \   *
+ * Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,      |~'~.VxvxV.~'~*
+ * Tricops, Fireblade, Edmond, Conran                         |             *
+ * ------------------------------------------------------------------------ *
+ * Merc 2.1 Diku Mud improvments copyright (C) 1992, 1993 by Michael        *
+ * Chastain, Michael Quan, and Mitchell Tse.                                *
+ * Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,          *
+ * Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.     *
+ * ------------------------------------------------------------------------ *
+ * 			Database management module			    *
+ ****************************************************************************/
 
 #include <sys/types.h>
 #include <ctype.h>
@@ -39,14 +22,13 @@
 #include <string.h>
 #include <time.h>
 #include <sys/stat.h>
-
 #ifndef WIN32
   #include <dirent.h>
 #else
   #define strcasecmp strcmp
 #endif
-
 #include "mud.h"
+
 
 extern	int	_filbuf		args( (FILE *) );
 
@@ -316,7 +298,7 @@ void	load_loginmsg	args( ( void ) );
 void	initialize_economy args( ( void ) );
 void	fix_exits	args( ( void ) );
 void    sort_reserved   args( ( RESERVE_DATA *pRes ) );
-// void	init_area_weather args( ( void ) );
+void	init_area_weather args( ( void ) );
 void	load_weatherdata args( ( void ) );
 PROJECT_DATA *read_project args( ( char *filename, FILE *fp ) );
 NOTE_DATA *read_log  args( ( FILE *fp ) );
@@ -385,7 +367,7 @@ void boot_db( void )
     sysdata.read_mail_free 		= LEVEL_IMMORTAL;
     sysdata.write_mail_free 		= LEVEL_IMMORTAL;
     sysdata.take_others_mail		= LEVEL_DEMI;
-//    sysdata.imc_mail_vnum		= 0;
+    sysdata.imc_mail_vnum		= 0;
     sysdata.muse_level			= LEVEL_DEMI;
     sysdata.think_level			= LEVEL_HIGOD;
     sysdata.build_level			= LEVEL_DEMI;
@@ -768,10 +750,6 @@ void boot_db( void )
 	area_update( );
 	log_string( "Loading buildlist" );
 	load_buildlist( );
-	log_string( "Loading liquids" );
-	load_liquids( );
-	log_string( "Loading mixtures" );
-	load_mixtures( );
 	log_string( "Loading boards" );
 	load_boards( );
 	log_string( "Loading vault list" );
@@ -3092,10 +3070,10 @@ void free_char( CHAR_DATA *ch )
 	DISPOSE( ch->pcdata->rank	);
 	STRFREE( ch->pcdata->title	);
 	STRFREE( ch->pcdata->bio	); 
-//        if ( ch->pcdata->rreply )
- //               DISPOSE( ch->pcdata->rreply ); /* no hash */
-//        if ( ch->pcdata->rreply_name )
- //               DISPOSE( ch->pcdata->rreply_name ); /* no hash */
+        if ( ch->pcdata->rreply )
+                DISPOSE( ch->pcdata->rreply ); /* no hash */
+        if ( ch->pcdata->rreply_name )
+                DISPOSE( ch->pcdata->rreply_name ); /* no hash */
 	DISPOSE( ch->pcdata->bestowments ); /* no hash */
 	DISPOSE( ch->pcdata->homepage	);  /* no hash */
 	STRFREE( ch->pcdata->authed_by	);
@@ -3115,7 +3093,7 @@ void free_char( CHAR_DATA *ch )
 		}
 		DISPOSE(ch->pcdata->tell_history);
 	}
-//	DISPOSE(ch->pcdata->ice_listen);
+	DISPOSE(ch->pcdata->ice_listen);
 	DISPOSE(ch->pcdata->see_me);
 	DISPOSE(ch->pcdata);
      }
@@ -6579,7 +6557,7 @@ void save_sysdata( SYSTEM_DATA sys )
 	fprintf( fp, "Readmailfree   %d\n", sys.read_mail_free		);
 	fprintf( fp, "Writemailfree  %d\n", sys.write_mail_free		);
 	fprintf( fp, "Takeothersmail %d\n", sys.take_others_mail	);
-//	fprintf( fp, "IMCMailVnum    %d\n", sys.imc_mail_vnum		);
+	fprintf( fp, "IMCMailVnum    %d\n", sys.imc_mail_vnum		);
 	fprintf( fp, "Muse           %d\n", sys.muse_level		);
 	fprintf( fp, "Think          %d\n", sys.think_level		);
 	fprintf( fp, "Build          %d\n", sys.build_level		);
@@ -6714,7 +6692,7 @@ void fread_sysdata( SYSTEM_DATA *sys, FILE *fp )
 
 	case 'I':
 	    KEY( "IdentTries",	   sys->ident_retries,	  fread_number( fp ) );
-//	    KEY( "IMCMailVnum",	   sys->imc_mail_vnum,	  fread_number( fp ) );
+	    KEY( "IMCMailVnum",	   sys->imc_mail_vnum,	  fread_number( fp ) );
 	    break;
 
 	case 'L':

@@ -1,44 +1,22 @@
-/*
-                     R E A L M S    O F    D E S P A I R  !
-   ___________________________________________________________________________
-  //            /                                                            \\
- [|_____________\   ********   *        *   ********   *        *   *******   |]
- [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
- [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
- [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
- [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
- [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
- [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
- [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
- [|_____________\  **********  **      **  **      **  **********  *********  |]
- [|             /  *********   *        *  *        *   ********    *******   |]
-  \\____________\____________________________________________________________//
-     |                                                                     |
-     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
-     |_____________________________________________________________________|
-     |                                                                     |
-     |             -*- Gorog's Revenge on Unruly Bastards -*-              |
-     |_____________________________________________________________________|
-    //                                                                     \\
-   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
-   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
-   [|                                                                       |]
-   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
-   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
-   [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
-    \\_____________________________________________________________________//
-*/
+/****************************************************************************
+ * [S]imulated [M]edieval [A]dventure multi[U]ser [G]ame      |   \\._.//   *
+ * -----------------------------------------------------------|   (0...0)   *
+ * SMAUG 1.4 (C) 1994, 1995, 1996, 1998  by Derek Snider      |    ).:.(    *
+ * -----------------------------------------------------------|    {o o}    *
+ * SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,      |   / ' ' \   *
+ * Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,      |~'~.VxvxV.~'~*
+ * Tricops, Fireblade, Edmond, Conran                         |             *
+ * ------------------------------------------------------------------------ *
+ * 			Gorog's Revenge on Unruly Bastards		    *
+ ****************************************************************************/
 
 #include <sys/types.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-
 #include "mud.h"
+
 
 extern OBJ_INDEX_DATA *obj_index_hash[MAX_KEY_HASH];
 extern MOB_INDEX_DATA *mob_index_hash[MAX_KEY_HASH];
@@ -492,7 +470,7 @@ void do_rpfind( CHAR_DATA *ch, char *argument )   /* Gorog */
 typedef  struct gr_struct       GR_STRUCT;
 typedef  struct go_struct       GO_STRUCT;
 
-// int get_otype( char *type );    /* fun prototype for fun in build.c */
+int get_otype( char *type );    /* fun prototype for fun in build.c */
 
 struct field_struct         /* field table - info re each field          */
 {
@@ -574,7 +552,7 @@ void do_rgrub (CHAR_DATA *ch, char *argument)
 ROOM_INDEX_DATA *pRoom;
 int x, lo, hi, hit_cou, cou, vnum[RGRUB_MAX_SIZE];
 
-// extern    ROOM_INDEX_DATA *room_index_hash[MAX_KEY_HASH];
+extern    ROOM_INDEX_DATA *room_index_hash[MAX_KEY_HASH];
 char arg1[MAX_STRING_LENGTH];
 char arg2[MAX_STRING_LENGTH];
 char arg3[MAX_STRING_LENGTH];
@@ -1692,7 +1670,7 @@ void do_grub (CHAR_DATA *ch, char *argument)
 
 void do_showlayers( CHAR_DATA *ch, char *argument )
 {
-// extern    OBJ_INDEX_DATA  *obj_index_hash[MAX_KEY_HASH];
+extern    OBJ_INDEX_DATA  *obj_index_hash[MAX_KEY_HASH];
 OBJ_INDEX_DATA *pObj;
 char arg1[MAX_STRING_LENGTH];
 char arg2[MAX_STRING_LENGTH];
@@ -1884,9 +1862,9 @@ if ( ins>=0 )                              /* if vnum occurs more frequently */
 void do_diagnose( CHAR_DATA *ch, char *argument )
 {
 #define   DIAG_MAX_SIZE  1000
-// extern    OBJ_INDEX_DATA  *obj_index_hash[MAX_KEY_HASH];
-// extern    ROOM_INDEX_DATA *room_index_hash[MAX_KEY_HASH];
-// extern    MOB_INDEX_DATA  *mob_index_hash[MAX_KEY_HASH];
+extern    OBJ_INDEX_DATA  *obj_index_hash[MAX_KEY_HASH];
+extern    ROOM_INDEX_DATA *room_index_hash[MAX_KEY_HASH];
+extern    MOB_INDEX_DATA  *mob_index_hash[MAX_KEY_HASH];
 OBJ_INDEX_DATA *pObj;
 OBJ_INDEX_DATA **freq;                        /* dynamic array of pointers */
 char arg1 [MAX_INPUT_LENGTH];

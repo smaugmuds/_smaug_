@@ -39,18 +39,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
-#include <zlib.h>
-#include <arpa/telnet.h>
-
-#include "mxp.h"
-
-/* These definitions are set in Makefile.am */
 
 /* force the who command to require an argument (should use cset) */
-// #define REQWHOARG
-
-/* uncomment below to add honour to the mix */
-// #define HONOUR_CODE
+#define REQWHOARG
+/* uncomment below to add honour to the mix
+#define HONOUR_CODE */
 
 #ifdef WIN32
   #include <winsock.h>
@@ -69,11 +62,7 @@
   #include <sys/time.h>
 #endif
 
-#ifdef HAVE_CONFIG_H
 #include "smaug.h"
-#endif
-
-// #define NOCRYPT
 
 typedef	int				ch_ret;
 typedef	int				obj_ret;
@@ -130,81 +119,81 @@ typedef unsigned char			bool;
 /*
  * Structure types.
  */
-typedef struct	affect_data					AFFECT_DATA;
-typedef struct	area_data						AREA_DATA;
-typedef struct  auction_data  			AUCTION_DATA;	/* auction data */
-typedef struct	watch_data					WATCH_DATA;
-typedef struct	ban_data						BAN_DATA;
+typedef struct	affect_data		AFFECT_DATA;
+typedef struct	area_data		AREA_DATA;
+typedef struct  auction_data            AUCTION_DATA;	/* auction data */
+typedef struct	watch_data		WATCH_DATA;
+typedef struct	ban_data		BAN_DATA;
 typedef struct	extracted_char_data	EXTRACT_CHAR_DATA;
-typedef struct	char_data						CHAR_DATA;
-typedef struct	hunt_hate_fear			HHF_DATA;
-typedef struct	fighting_data				FIGHT_DATA;
-typedef struct	descriptor_data			DESCRIPTOR_DATA;
-typedef struct	exit_data						EXIT_DATA;
-typedef struct	extra_descr_data		EXTRA_DESCR_DATA;
-typedef struct	help_data						HELP_DATA;
-typedef struct	menu_data						MENU_DATA;
-typedef struct	mob_index_data			MOB_INDEX_DATA;
-typedef struct 	char_morph 					CHAR_MORPH;
-typedef struct  morph_data 	  			MORPH_DATA;
-typedef struct  nuisance_data				NUISANCE_DATA;
-typedef struct	note_data						NOTE_DATA;
-typedef struct	comment_data				COMMENT_DATA;
-typedef struct	board_data					BOARD_DATA;
-typedef struct	game_board_data			GAME_BOARD_DATA;
-typedef struct	obj_data						OBJ_DATA;
-typedef struct	obj_index_data			OBJ_INDEX_DATA;
-typedef struct	pc_data							PC_DATA;
-typedef	struct	plane_data					PLANE_DATA;
-typedef struct	reset_data					RESET_DATA;
-typedef struct	map_index_data			MAP_INDEX_DATA;		/* maps */
-typedef struct	map_data						MAP_DATA;		/* maps */
-typedef struct	room_index_data			ROOM_INDEX_DATA;
-typedef struct	shop_data						SHOP_DATA;
+typedef struct	char_data		CHAR_DATA;
+typedef struct	hunt_hate_fear		HHF_DATA;
+typedef struct	fighting_data		FIGHT_DATA;
+typedef struct	descriptor_data		DESCRIPTOR_DATA;
+typedef struct	exit_data		EXIT_DATA;
+typedef struct	extra_descr_data	EXTRA_DESCR_DATA;
+typedef struct	help_data		HELP_DATA;
+typedef struct	menu_data		MENU_DATA;
+typedef struct	mob_index_data		MOB_INDEX_DATA;
+typedef struct 	char_morph 		CHAR_MORPH;
+typedef struct  morph_data 	        MORPH_DATA;
+typedef struct  nuisance_data		NUISANCE_DATA;
+typedef struct	note_data		NOTE_DATA;
+typedef struct	comment_data		COMMENT_DATA;
+typedef struct	board_data		BOARD_DATA;
+typedef struct	game_board_data		GAME_BOARD_DATA;
+typedef struct	obj_data		OBJ_DATA;
+typedef struct	obj_index_data		OBJ_INDEX_DATA;
+typedef struct	pc_data			PC_DATA;
+typedef	struct	plane_data		PLANE_DATA;
+typedef struct	reset_data		RESET_DATA;
+typedef struct	map_index_data		MAP_INDEX_DATA;		/* maps */
+typedef struct	map_data		MAP_DATA;		/* maps */
+typedef struct	room_index_data		ROOM_INDEX_DATA;
+typedef struct	shop_data		SHOP_DATA;
 
 #ifdef MYSTARIC
-typedef struct  casino_data   			CASINO_DATA;
-typedef struct  gambler_data  			GAMBLER_DATA;
+typedef struct  casino_data             CASINO_DATA;
+typedef struct  gambler_data            GAMBLER_DATA;
 #endif
 
-typedef struct	race_type						RACE_TYPE;
-typedef struct	repairshop_data			REPAIR_DATA;
-typedef struct	reserve_data				RESERVE_DATA;
-typedef struct	noauction_data			NOAUCTION_DATA;
-typedef struct	time_info_data			TIME_INFO_DATA;
-typedef struct	hour_min_sec				HOUR_MIN_SEC;
-typedef struct	weather_data				WEATHER_DATA;
-typedef struct	neighbor_data				NEIGHBOR_DATA; /* FB */
-typedef	struct	clan_data						CLAN_DATA;
-typedef struct  council_data 				COUNCIL_DATA;
-typedef struct  tourney_data        TOURNEY_DATA;
-typedef struct	mob_prog_data				MPROG_DATA;
-typedef struct	mob_prog_act_list		MPROG_ACT_LIST;
-typedef struct  mpsleep_data				MPSLEEP_DATA; 
-typedef	struct	editor_data					EDITOR_DATA;
-typedef struct	teleport_data				TELEPORT_DATA;
-typedef struct	timer_data					TIMER;
-typedef struct  godlist_data				GOD_DATA;
-typedef struct	system_data					SYSTEM_DATA;
-typedef	struct	smaug_affect				SMAUG_AFF;
-typedef struct  who_data            WHO_DATA;
-typedef	struct	skill_type					SKILLTYPE;
-typedef	struct	social_type					SOCIALTYPE;
-typedef	struct	cmd_type						CMDTYPE;
-typedef	struct	killed_data					KILLED_DATA;
-typedef struct  deity_data					DEITY_DATA;
-typedef struct	wizent							WIZENT;
-typedef struct  ignore_data					IGNORE_DATA;
-typedef struct  immortal_host       IMMORTAL_HOST;
-typedef struct	project_data				PROJECT_DATA;
+typedef struct	race_type		RACE_TYPE;
+typedef struct	repairshop_data		REPAIR_DATA;
+typedef struct	reserve_data		RESERVE_DATA;
+typedef struct	noauction_data		NOAUCTION_DATA;
+typedef struct	time_info_data		TIME_INFO_DATA;
+typedef struct	hour_min_sec		HOUR_MIN_SEC;
+typedef struct	weather_data		WEATHER_DATA;
+typedef struct	neighbor_data		NEIGHBOR_DATA; /* FB */
+typedef	struct	clan_data		CLAN_DATA;
+typedef struct  council_data 		COUNCIL_DATA;
+typedef struct  tourney_data            TOURNEY_DATA;
+typedef struct	mob_prog_data		MPROG_DATA;
+typedef struct	mob_prog_act_list	MPROG_ACT_LIST;
+typedef struct  mpsleep_data		MPSLEEP_DATA; 
+typedef	struct	editor_data		EDITOR_DATA;
+typedef struct	teleport_data		TELEPORT_DATA;
+typedef struct	timer_data		TIMER;
+typedef struct  godlist_data		GOD_DATA;
+typedef struct	system_data		SYSTEM_DATA;
+typedef	struct	smaug_affect		SMAUG_AFF;
+typedef struct  who_data                WHO_DATA;
+typedef	struct	skill_type		SKILLTYPE;
+typedef	struct	social_type		SOCIALTYPE;
+typedef	struct	cmd_type		CMDTYPE;
+typedef	struct	killed_data		KILLED_DATA;
+typedef struct  deity_data		DEITY_DATA;
+typedef struct	wizent			WIZENT;
+typedef struct  ignore_data		IGNORE_DATA;
+typedef struct  immortal_host           IMMORTAL_HOST;
+typedef struct	project_data		PROJECT_DATA;
 typedef struct	extended_bitvector	EXT_BV;
-typedef	struct	lcnv_data						LCNV_DATA;
-typedef	struct	lang_data						LANG_DATA;
-typedef struct  vault_data          VAULT_DATA;    
-typedef struct	member_data					MEMBER_DATA;
-typedef struct	member_list					MEMBER_LIST;
-typedef	struct	variable_data				VARIABLE_DATA;
-typedef struct  lmsg_data						LMSG_DATA;
+typedef	struct	lcnv_data		LCNV_DATA;
+typedef	struct	lang_data		LANG_DATA;
+typedef struct  vault_data              VAULT_DATA;    
+typedef struct	member_data		MEMBER_DATA;
+typedef struct	member_list		MEMBER_LIST;
+typedef	struct	variable_data		VARIABLE_DATA;
+typedef struct  lmsg_data		LMSG_DATA;
 
 /*
  * Function types.
@@ -326,7 +315,6 @@ extern int MAX_PC_CLASS;
 #define LEVEL_LOG		    LEVEL_LESSER
 #define LEVEL_HIGOD		    LEVEL_GOD
 
-#include "protocol.h"
 #include "news.h" /* Extended News - 12/15/01 - Nopey */
 #include "house.h"
 #include "hint.h"
@@ -438,6 +426,11 @@ struct extended_bitvector
 {
     unsigned int		bits[XBI];
 };
+
+
+
+
+
 
 /*
  * Structure for a morph -- Shaddai
@@ -689,10 +682,6 @@ struct	ban_data
     bool     warn;      /* Echo on warn channel */
     bool     prefix;    /* Use of *site */
     bool     suffix;    /* Use of site* */
-    bool     mxp;
-    unsigned char       compressing;
-    z_stream       *    out_compress;
-    unsigned char  *    out_compress_buf;
 };
 
 
@@ -863,10 +852,6 @@ struct	descriptor_data
     sh_int		idle;
     sh_int		lines;
     sh_int		scrlen;
-    bool	        mxp;
-    unsigned char       compressing;
-    z_stream       *    out_compress;
-    unsigned char  *    out_compress_buf;
     bool		fcommand;
     char		inbuf		[MAX_INBUF_SIZE];
     char		incomm		[MAX_INPUT_LENGTH];
@@ -884,7 +869,6 @@ struct	descriptor_data
     char *		user;
     int			newstate;
     unsigned char	prevcolor;
-    protocol_t *        pProtocol;
 };
 
 
@@ -2281,7 +2265,7 @@ typedef enum
  */
 typedef enum
 {
-  PLR_IS_NPC, PLR_BOUGHT_PET, PLR_SHOVEDRAG, PLR_AUTOEXIT, PLR_AUTOLOOT, 
+  PLR_IS_NPC,PLR_BOUGHT_PET, PLR_SHOVEDRAG, PLR_AUTOEXIT, PLR_AUTOLOOT, 
   PLR_AUTOSAC, PLR_BLANK, PLR_OUTCAST, PLR_BRIEF, PLR_COMBINE, PLR_PROMPT, 
   PLR_TELNET_GA, PLR_HOLYLIGHT, PLR_WIZINVIS, PLR_ROOMVNUM, PLR_SILENCE, 
   PLR_NO_EMOTE, PLR_ATTACKER, PLR_NO_TELL, PLR_LOG, PLR_DENY, PLR_FREEZE, 
@@ -2289,7 +2273,7 @@ typedef enum
   PLR_AUTOGOLD, PLR_AUTOMAP, PLR_AFK, PLR_INVISPROMPT, PLR_ROOMVIS,
   PLR_NOFOLLOW, PLR_LANDED, PLR_BLOCKING, PLR_IS_CLONE, PLR_IS_DREAMFORM,
   PLR_IS_SPIRITFORM, PLR_IS_PROJECTION, PLR_CLOAK, PLR_COMPASS,
-  PLR_NOHOMEPAGE, PLR_MXP, PLR_MSSP, PLR_MCCP
+  PLR_NOHOMEPAGE
 } player_flags;
 
 /* Bits for pc_data->flags. */
@@ -2320,7 +2304,6 @@ typedef enum
 #define PCFLAG_HINTS		   BV23 /* Hints config */
 #define PCFLAG_NOHTTP		   BV24
 #define PCFLAG_FREEKILL		   BV25
-#define PCFLAG_MXP		   BV26
 
 typedef enum
 {
@@ -2651,7 +2634,6 @@ struct	pc_data
     COUNCIL_DATA * 	council;
     AREA_DATA *		area;
     DEITY_DATA *	deity;
-    DESCRIPTOR_DATA *   desc;
     char *		homepage;
     char *		email;
     char *		icq;
@@ -2721,19 +2703,13 @@ struct	pc_data
     char **		tell_history;	/* for immortal only command lasttell */
     sh_int		lt_index;	/* last_tell index */
     char *		see_me;		/* who can see me (imm only) */
-    bool     		mxp;
-    bool     		mssp;
-    bool     		mccp;
-    unsigned char       compressing;
-    z_stream       *    out_compress;
-    unsigned char  *    out_compress_buf;
-   
-    // long	imc_deaf;    /* IMC channel def flags */
-    // long	imc_allow;   /* IMC channel allow flags */
-    // long	imc_deny;    /* IMC channel deny flags */
-    // char *	rreply;      /* IMC reply-to */
-    // char *	rreply_name; /* IMC reply-to shown to char */
-    // char *	ice_listen;  /* ICE channels */
+    
+    long	imc_deaf;    /* IMC channel def flags */
+    long	imc_allow;   /* IMC channel allow flags */
+    long	imc_deny;    /* IMC channel deny flags */
+    char *	rreply;      /* IMC reply-to */
+    char *	rreply_name; /* IMC reply-to shown to char */
+    char *	ice_listen;  /* ICE channels */
     char *  recent_site;        /* site a player started their most recent session from */
     char *  prev_site;      /* site a player last quit from */
     sh_int	colorize	[AT_MAXCOLOR];
@@ -3012,8 +2988,8 @@ struct	system_data
     sh_int	read_mail_free;		/* Read mail for free (was 51) */
     sh_int	write_mail_free;	/* Write mail for free(was 51) */
     sh_int	take_others_mail;	/* Take others mail (was 54)   */
-//    int		imc_mail_vnum;		/* Board vnum for IMC mail     */
- //   sh_int	imc_mail_level;		/* Min level to send IMC mail  */
+    int		imc_mail_vnum;		/* Board vnum for IMC mail     */
+    sh_int	imc_mail_level;		/* Min level to send IMC mail  */
     sh_int	muse_level;		/* Level of muse channel */
     sh_int	think_level;		/* Level of think channel LEVEL_HIGOD*/
     sh_int	build_level;		/* Level of build channel LEVEL_BUILD*/
@@ -3922,7 +3898,7 @@ extern MPSLEEP_DATA * current_mpwait; /* - */
 extern char *   bigregex;
 extern char *   preg;
 
-//extern char *	target_name;
+extern char *	target_name;
 extern char *	ranged_target_name;
 extern	int	numobjsloaded;
 extern	int	nummobsloaded;
@@ -4142,7 +4118,6 @@ DECLARE_DO_FUN(	do_commands	);
 DECLARE_DO_FUN(	do_comment	);
 DECLARE_DO_FUN(	do_compare	);
 DECLARE_DO_FUN( do_compass	);
-DECLARE_DO_FUN( do_compress	);
 DECLARE_DO_FUN( do_condition	);
 DECLARE_DO_FUN(	do_config	);
 DECLARE_DO_FUN( do_connect	);
@@ -4272,7 +4247,6 @@ DECLARE_DO_FUN(	do_level	);
 DECLARE_DO_FUN(	do_light	);
 DECLARE_DO_FUN(	do_list		);
 DECLARE_DO_FUN(	do_litterbug	);
-DECLARE_DO_FUN(	do_liquids	);
 DECLARE_DO_FUN( do_loadarea	);
 DECLARE_DO_FUN( do_loadup	);
 DECLARE_DO_FUN(	do_lock		);
@@ -4303,12 +4277,10 @@ DECLARE_DO_FUN( do_memberlist	);
 DECLARE_DO_FUN(	do_memory	);
 DECLARE_DO_FUN( do_message	);
 DECLARE_DO_FUN( do_mcreate	);
-DECLARE_DO_FUN( do_mccp		);
 DECLARE_DO_FUN( do_mdelete	);
 DECLARE_DO_FUN(	do_mfind	);
 DECLARE_DO_FUN(	do_minvoke	);
 DECLARE_DO_FUN( do_mistwalk     );
-DECLARE_DO_FUN( do_mix		);
 DECLARE_DO_FUN( do_mlist	);
 DECLARE_DO_FUN( do_mobinvade	);
 DECLARE_DO_FUN( do_morphcreate  );
@@ -4329,7 +4301,6 @@ DECLARE_DO_FUN(	do_murder	);
 DECLARE_DO_FUN(	do_muse		);
 DECLARE_DO_FUN(	do_music	);
 DECLARE_DO_FUN(	do_mwhere	);
-DECLARE_DO_FUN(	do_mxp		);
 DECLARE_DO_FUN( do_name		);
 DECLARE_DO_FUN( do_nanny_help	);
 DECLARE_DO_FUN( do_newbiechat   );
@@ -4469,8 +4440,6 @@ DECLARE_DO_FUN( do_setclan	);
 DECLARE_DO_FUN( do_setclass	);
 DECLARE_DO_FUN( do_setcouncil   );
 DECLARE_DO_FUN( do_setdeity	);
-DECLARE_DO_FUN( do_setliquid	);
-DECLARE_DO_FUN( do_setmixture	);
 DECLARE_DO_FUN( do_setrace	);
 DECLARE_DO_FUN( do_setvault	);
 DECLARE_DO_FUN( do_setweather	);
@@ -4524,66 +4493,66 @@ DECLARE_DO_FUN(	do_style	);
 DECLARE_DO_FUN( do_supplicate	);
 DECLARE_DO_FUN(	do_switch	);
 DECLARE_DO_FUN(	do_showlayers	);
-DECLARE_DO_FUN(	do_tail			);
-DECLARE_DO_FUN(	do_tamp			);
-DECLARE_DO_FUN(	do_tell			);
-DECLARE_DO_FUN(	do_think		);
-DECLARE_DO_FUN(	do_time			);
+DECLARE_DO_FUN(	do_tail		);
+DECLARE_DO_FUN(	do_tamp		);
+DECLARE_DO_FUN(	do_tell		);
+DECLARE_DO_FUN(	do_think	);
+DECLARE_DO_FUN(	do_time		);
 DECLARE_DO_FUN(	do_timecmd	);
-DECLARE_DO_FUN(	do_title		);
-DECLARE_DO_FUN( do_track		);
-DECLARE_DO_FUN( do_trance		);
+DECLARE_DO_FUN(	do_title	);
+DECLARE_DO_FUN( do_track	);
+DECLARE_DO_FUN( do_trance	);
 DECLARE_DO_FUN( do_traffic	);
 DECLARE_DO_FUN(	do_transfer	);
-DECLARE_DO_FUN(	do_trust		);
-DECLARE_DO_FUN( do_typ			);
-DECLARE_DO_FUN(	do_typo			);
-DECLARE_DO_FUN( do_unbolt		);
+DECLARE_DO_FUN(	do_trust	);
+DECLARE_DO_FUN( do_typ		);
+DECLARE_DO_FUN(	do_typo		);
+DECLARE_DO_FUN( do_unbolt	);
 DECLARE_DO_FUN(	do_unfoldarea	);
-DECLARE_DO_FUN( do_unhell		);
-DECLARE_DO_FUN(	do_unlock		);
+DECLARE_DO_FUN( do_unhell	);
+DECLARE_DO_FUN(	do_unlock	);
 DECLARE_DO_FUN( do_unnuisance   );
 DECLARE_DO_FUN( do_unsilence    );
-DECLARE_DO_FUN(	do_up				);
-DECLARE_DO_FUN(	do_users		);
-DECLARE_DO_FUN(	do_value		);
+DECLARE_DO_FUN(	do_up		);
+DECLARE_DO_FUN(	do_users	);
+DECLARE_DO_FUN(	do_value	);
 DECLARE_DO_FUN( do_vassign	);
 DECLARE_DO_FUN( do_version	);
 DECLARE_DO_FUN( do_victories	);
 DECLARE_DO_FUN(	do_visible	);
-DECLARE_DO_FUN( do_vnums		);
+DECLARE_DO_FUN( do_vnums	);
 DECLARE_DO_FUN( do_vsearch	);
-DECLARE_DO_FUN( do_vstat		);
-DECLARE_DO_FUN(	do_wake			);
-DECLARE_DO_FUN( do_warn     );
-DECLARE_DO_FUN( do_wartalk  );
-DECLARE_DO_FUN(	do_wear			);
+DECLARE_DO_FUN( do_vstat	);
+DECLARE_DO_FUN(	do_wake		);
+DECLARE_DO_FUN( do_warn         );
+DECLARE_DO_FUN( do_wartalk      );
+DECLARE_DO_FUN(	do_wear		);
 DECLARE_DO_FUN(	do_weather	);
-DECLARE_DO_FUN(	do_west			);
-DECLARE_DO_FUN(	do_where		);
+DECLARE_DO_FUN(	do_west		);
+DECLARE_DO_FUN(	do_where	);
 DECLARE_DO_FUN( do_whisper	);
-DECLARE_DO_FUN(	do_who			);
-DECLARE_DO_FUN(	do_whois		);
-DECLARE_DO_FUN(	do_wimpy		);
+DECLARE_DO_FUN(	do_who		);
+DECLARE_DO_FUN(	do_whois	);
+DECLARE_DO_FUN(	do_wimpy	);
 DECLARE_DO_FUN(	do_wizhelp	);
 DECLARE_DO_FUN( do_wizlist	);
 DECLARE_DO_FUN(	do_wizlock	);
-DECLARE_DO_FUN( do_worth    ); 
-DECLARE_DO_FUN(	do_yell			);
-DECLARE_DO_FUN(	do_zap			);
-DECLARE_DO_FUN( do_zones		);
+DECLARE_DO_FUN( do_worth        ); 
+DECLARE_DO_FUN(	do_yell		);
+DECLARE_DO_FUN(	do_zap		);
+DECLARE_DO_FUN( do_zones	);
 
 /* mob prog stuff */
 DECLARE_DO_FUN( do_mp_close_passage );
-DECLARE_DO_FUN( do_mp_damage		);
-DECLARE_DO_FUN( do_mp_log				);
-DECLARE_DO_FUN( do_mp_restore		);
+DECLARE_DO_FUN( do_mp_damage	);
+DECLARE_DO_FUN( do_mp_log	);
+DECLARE_DO_FUN( do_mp_restore	);
 DECLARE_DO_FUN( do_mp_open_passage );
 DECLARE_DO_FUN( do_mp_practice	);
-DECLARE_DO_FUN( do_mp_slay			);
+DECLARE_DO_FUN( do_mp_slay	);
 DECLARE_DO_FUN( do_mpadvance    );
 DECLARE_DO_FUN( do_mpasound     );
-DECLARE_DO_FUN( do_mpasupress		);
+DECLARE_DO_FUN( do_mpasupress	);
 DECLARE_DO_FUN( do_mpat         );
 DECLARE_DO_FUN( do_mpcopy	);
 DECLARE_DO_FUN( do_mpdream	);
@@ -4617,8 +4586,10 @@ DECLARE_DO_FUN( do_opstat       );
 DECLARE_DO_FUN( do_rpstat       );
 DECLARE_DO_FUN( do_mptag	);
 DECLARE_DO_FUN( do_mprmtag	);
-DECLARE_DO_FUN( do_mpflag   	);
-DECLARE_DO_FUN( do_mprmflag 	);
+DECLARE_DO_FUN( do_mptag    );
+DECLARE_DO_FUN( do_mprmtag  );
+DECLARE_DO_FUN( do_mpflag   );
+DECLARE_DO_FUN( do_mprmflag );
 DECLARE_DO_FUN( do_mptransfer   );
 DECLARE_DO_FUN( do_mpmorph	);
 DECLARE_DO_FUN( do_mpunmorph	);
@@ -4667,8 +4638,8 @@ DECLARE_SPELL_FUN(	spell_curse		);
 DECLARE_SPELL_FUN(	spell_detect_poison	);
 DECLARE_SPELL_FUN(	spell_dispel_evil	);
 DECLARE_SPELL_FUN(	spell_dispel_magic	);
-DECLARE_SPELL_FUN(  spell_disenchant_weapon );
-DECLARE_SPELL_FUN(  spell_dream             );
+DECLARE_SPELL_FUN(      spell_disenchant_weapon );
+DECLARE_SPELL_FUN(      spell_dream             );
 DECLARE_SPELL_FUN(	spell_earthquake	);
 DECLARE_SPELL_FUN(	spell_enchant_weapon	);
 DECLARE_SPELL_FUN(	spell_energy_drain	);
@@ -4681,7 +4652,7 @@ DECLARE_SPELL_FUN(	spell_gate		);
 #ifdef MYSTARIC
 DECLARE_SPELL_FUN(	spell_group_teleport    );
 #endif
-DECLARE_SPELL_FUN(  spell_knock             );
+DECLARE_SPELL_FUN(      spell_knock             );
 DECLARE_SPELL_FUN(	spell_harm		);
 DECLARE_SPELL_FUN(	spell_identify		);
 DECLARE_SPELL_FUN(	spell_invis		);
@@ -4716,27 +4687,29 @@ DECLARE_SPELL_FUN(	spell_lightning_breath	);
 DECLARE_SPELL_FUN(	spell_spiral_blast	);
 DECLARE_SPELL_FUN(	spell_scorching_surge	);
 DECLARE_SPELL_FUN(	spell_helical_flow	);
-DECLARE_SPELL_FUN(  spell_transport      	);
-DECLARE_SPELL_FUN(  spell_portal            );
-DECLARE_SPELL_FUN(  spell_ethereal_fist     );
-DECLARE_SPELL_FUN(  spell_spectral_furor    );
-DECLARE_SPELL_FUN(  spell_hand_of_chaos     );
-DECLARE_SPELL_FUN(  spell_disruption        );
-DECLARE_SPELL_FUN(  spell_sonic_resonance   );
-DECLARE_SPELL_FUN(  spell_mind_wrack        );
-DECLARE_SPELL_FUN(  spell_mind_wrench       );
-DECLARE_SPELL_FUN(  spell_revive            );
-DECLARE_SPELL_FUN(  spell_sulfurous_spray   );
-DECLARE_SPELL_FUN(  spell_caustic_fount     );
-DECLARE_SPELL_FUN(  spell_acetum_primus     );
-DECLARE_SPELL_FUN(  spell_galvanic_whip     );
-DECLARE_SPELL_FUN(  spell_magnetic_thrust   );
-DECLARE_SPELL_FUN(  spell_quantum_spike     );
-DECLARE_SPELL_FUN(  spell_black_hand        );
-DECLARE_SPELL_FUN(  spell_black_fist        );
-DECLARE_SPELL_FUN(  spell_black_lightning   );
-DECLARE_SPELL_FUN(  spell_midas_touch       );
-DECLARE_SPELL_FUN(  spell_bethsaidean_touch	);
+DECLARE_SPELL_FUN(      spell_transport      	);
+DECLARE_SPELL_FUN(      spell_portal            );
+
+DECLARE_SPELL_FUN(      spell_ethereal_fist     );
+DECLARE_SPELL_FUN(      spell_spectral_furor    );
+DECLARE_SPELL_FUN(      spell_hand_of_chaos     );
+DECLARE_SPELL_FUN(      spell_disruption        );
+DECLARE_SPELL_FUN(      spell_sonic_resonance   );
+DECLARE_SPELL_FUN(      spell_mind_wrack        );
+DECLARE_SPELL_FUN(      spell_mind_wrench       );
+DECLARE_SPELL_FUN(      spell_revive            );
+DECLARE_SPELL_FUN(      spell_sulfurous_spray   );
+DECLARE_SPELL_FUN(      spell_caustic_fount     );
+DECLARE_SPELL_FUN(      spell_acetum_primus     );
+DECLARE_SPELL_FUN(      spell_galvanic_whip     );
+DECLARE_SPELL_FUN(      spell_magnetic_thrust   );
+DECLARE_SPELL_FUN(      spell_quantum_spike     );
+DECLARE_SPELL_FUN(      spell_black_hand        );
+DECLARE_SPELL_FUN(      spell_black_fist        );
+DECLARE_SPELL_FUN(      spell_black_lightning   );
+DECLARE_SPELL_FUN(      spell_midas_touch       );
+
+DECLARE_SPELL_FUN(      spell_bethsaidean_touch	);
 DECLARE_SPELL_FUN(	spell_expurgation	);
 DECLARE_SPELL_FUN(	spell_sacral_divinity	);
 
@@ -4827,109 +4800,99 @@ char *	sha256_crypt		args( ( const char *key, const char *salt ) );
  *   so players can go ahead and telnet to all the other descriptors.
  * Then we close it whenever we need to open a file (e.g. a save file).
  */
-
+#define AREA_DIR	RUNDIR	"area/"	/* Player files			*/
+#define PLAYER_DIR	RUNDIR	"player/"	/* Player files			*/
+#define BACKUP_DIR	RUNDIR	"player/backup/" /* Backup Player files	*/
+#define GOD_DIR		RUNDIR	"gods/"	/* God Info Dir			*/
+#define BOARD_DIR	RUNDIR	"boards/"	/* Board data dir		*/
+#define CLAN_DIR	RUNDIR	"clans/"	/* Clan data dir		*/
+#define COUNCIL_DIR  	RUNDIR	"councils/"  /* Council data dir		*/
+#define DEITY_DIR	RUNDIR	"deity/"	/* Deity data dir		*/
+#define BUILD_DIR       RUNDIR	"building/"  /* Online building save dir     */
+#define SYSTEM_DIR	RUNDIR	"system/"	/* Main system files		*/
+#define PROG_DIR	RUNDIR	"mudprogs/"	/* MUDProg files		*/
+#define CORPSE_DIR	RUNDIR	"corpses/"	/* Corpses			*/
 #ifdef WIN32
   #define NULL_FILE	"nul"		/* To reserve one stream        */
 #else
   #define NULL_FILE	"/dev/null"	/* To reserve one stream        */
 #endif
 
-#define AREA_DIR					RUNDIR			"area/"			/* Area files			*/
-#define PLAYER_DIR				RUNDIR			"player/"		/* Player files			*/
-#define BACKUP_DIR				RUNDIR			"player/backup/" /* Backup Player files	*/
-#define GOD_DIR						RUNDIR			"gods/"			/* God Info Dir			*/
-#define BOARD_DIR					RUNDIR			"boards/"		/* Board data dir		*/
-#define CLAN_DIR					RUNDIR			"clans/"		/* Clan data dir		*/
-#define COUNCIL_DIR  			RUNDIR			"councils/" /* Council data dir		*/
-#define DEITY_DIR					RUNDIR			"deity/"		/* Deity data dir		*/
-#define BUILD_DIR     		RUNDIR			"building/" /* Online building save dir     */
-#define SYSTEM_DIR				RUNDIR			"system/"		/* Main system files		*/
-#define PROG_DIR					RUNDIR			"mudprogs/"	/* MUDProg files		*/
-#define CORPSE_DIR				RUNDIR			"corpses/"	/* Corpses			*/
-#define	CLASS_DIR					RUNDIR			"classes/"	/* Classes			*/
-#define	RACE_DIR					RUNDIR			"races/"		/* Races			*/
-#define WATCH_DIR					RUNDIR			"watch/"		/* Imm watch files --Gorog      */
-#define VAULT_DIR					RUNDIR			"vault/" 		/* storage vaults */
-#define HOUSE_DIR         RUNDIR 			"houses/" 	/* Location of housing directory */
-
+#define	CLASS_DIR	RUNDIR	"classes/"	/* Classes			*/
+#define	RACE_DIR	RUNDIR	"races/"	/* Races			*/
+#define WATCH_DIR	RUNDIR	"watch/"	/* Imm watch files --Gorog      */
+#define VAULT_DIR	RUNDIR	"vault/" /* storage vaults */ 
 /*
  * The watch directory contains a maximum of one file for each immortal
  * that contains output from "player watches". The name of each file
  * in this directory is the name of the immortal who requested the watch
  */
 
-#define AREA_LIST					AREA_DIR 		"area.lst"			/* List of areas		*/
-#define WATCH_LIST										"watch.lst"     /* List of watches              */
-#define BAN_LIST					     				"ban.lst"       /* List of bans                 */
-#define RESERVED_LIST									"reserved.lst"	/* List of reserved names	*/
-#define NOAUCTION_LIST								"noauction.lst" /* list of vnums not to allow auction to */
-#define CLAN_LIST											"clan.lst"			/* List of clans		*/
-#define COUNCIL_LIST									"council.lst"		/* List of councils		*/
-#define GUILD_LIST      							"guild.lst"     /* List of guilds               */
-#define GOD_LIST											"gods.lst"			/* List of gods			*/
-#define DEITY_LIST				DEITY_DIR 	"deity.lst"			/* List of deities		*/
-#define	CLASS_LIST										"class.lst"			/* List of classes		*/
-#define	RACE_LIST											"race.lst"			/* List of races		*/
-#define VAULT_LIST      							"vault.lst" 		/* list of storage vaults */
-#define MORPH_FILE      							"morph.dat"     /* For morph data */
-#define BOARD_FILE										"boards.dat"		/* For bulletin boards	 */
-#define IMM_HOST_FILE 		SYSTEM_DIR 	"immortal.host" /* For stoping hackers */
-#define RIPSCREEN_FILE		SYSTEM_DIR 	"mudrip.rip"
-#define RIPTITLE_FILE			SYSTEM_DIR 	"mudtitle.rip"
-#define ANSITITLE_FILE		SYSTEM_DIR 	"mudtitle.ans"
-#define ASCTITLE_FILE			SYSTEM_DIR 	"mudtitle.asc"
-#define IDEA_FILE					SYSTEM_DIR 	"ideas.dat"	  	/* For 'idea'		 */
-#define TYPO_FILE					SYSTEM_DIR 	"typos.dat"	  	/* For 'typo'		 */
-#define FIXED_FILE				SYSTEM_DIR 	"fixed.dat"	  	/* For 'fixed' command */
-#define HINTSUB_FILE			SYSTEM_DIR 	"hintsub.dat"  	/* For hint suggestions */
-#define CHANGE_FILE				SYSTEM_DIR 	"changes.dat"  	/* For add_change      */
-#define IMMNEWS_FILE			SYSTEM_DIR 	"immnews.dat"  	/* For add_imm_news    */
-#define LOG_FILE					LOGDIR 			"talk.log"	  	/* For talking in logged rooms */
-#define NOHELP_FILE				LOGDIR 			"nohelp.log"   	/* For tracking help */
-#define SHUTDOWN_FILE			LOGDIR 			"shutdown.log"	/* For 'shutdown'	 */
-#define BOOTLOG_FILE			LOGDIR 			"boot.log"	  	/* Boot up error file	 */
-#define BUG_FILE					LOGDIR 			"bugs.log"	  	/* For bug( )          */
-#define PBUG_FILE					LOGDIR 			"pbugs.log"	  	/* For 'bug' command   */
 
-					    /* files that don't exist */
-#define MOBLOG_FILE				LOGDIR 			"mob.log"   		/* For mplog messages  */
-#define CHARCOUNT_FILE		LOGDIR 			"ccount.tmp"	  /* Counting, temp */
-#define CUTLINK_FILE			LOGDIR 			"cutlink.log"  	/* Info on cut/dropped links while in combat */
-#define USAGE_FILE				LOGDIR 			"usage.log"    	/* How many people are on every half hour */
-																											/* trying to determine best reboot time */
-#define HINT_FILE       	SYSTEM_DIR 	"hints.dat"   	/* For Hints */
-#define PLEVEL_FILE				SYSTEM_DIR 	"plevel.dat"   	/* Char level info */
-#define OINVOKE_FILE			SYSTEM_DIR 	"oinvoke.dat"  	/* Obvious */
-#define RETIREDLIST_FILE 	SYSTEM_DIR 	"retiredlist.dat" /* Retiredlist	 */
-#define WIZLIST_FILE			SYSTEM_DIR 	"wizlist.dat"	  /* Wizlist		 */
-#define WHO_FILE					SYSTEM_DIR 	"who.dat"	  		/* Who output file	 */
-#define WEBWHO_FILE				SYSTEM_DIR 	"webwho.dat"	  /* WWW Who output file */
-#define REQUEST_PIPE			SYSTEM_DIR 	"requests.dat"	/* Request FIFO	 */
-#define SKILL_FILE				SYSTEM_DIR 	"skills.dat"   	/* Skill table	 */
-#define LOGIN_MSG											"login.msg"			/* List of login msgs		*/
-#define HERB_FILE					SYSTEM_DIR 	"herbs.dat"	  	/* Herb table		 */
-#define TONGUE_FILE				SYSTEM_DIR 	"tongues.dat"  	/* Tongue tables	 */
-#define SOCIAL_FILE				SYSTEM_DIR 	"socials.dat"  	/* Socials		 */
-#define COMMAND_FILE			SYSTEM_DIR 	"commands.dat" 	/* Commands		 */
-#define ECONOMY_FILE			SYSTEM_DIR 	"economy.dat"  	/* Gold looted, value of used potions/pills  */
-#define PROJECTS_FILE			SYSTEM_DIR 	"projects.dat" 	/* For projects	 */
-#define PLANE_FILE				SYSTEM_DIR 	"planes.dat"	  /* For planes		 */
-#define COLOR_FILE				SYSTEM_DIR 	"colors.dat"	  /* User-definable color*/
-#define TEMP_FILE					PLAYER_DIR 	"charsave.tmp" 	/* More char save protect */
-#define MEMBERS_FILE			SYSTEM_DIR 	"members.dat"  	/* Store the members lists */
-#define STANCE_FILE     	SYSTEM_DIR 	"stances.dat"		/* Store stances */
+#define AREA_LIST	AREA_DIR "area.lst"	/* List of areas		*/
+#define WATCH_LIST      "watch.lst"     /* List of watches              */
+#define BAN_LIST        "ban.lst"       /* List of bans                 */
+#define RESERVED_LIST	"reserved.lst"	/* List of reserved names	*/
+#define NOAUCTION_LIST	"noauction.lst" /* list of vnums not to allow auction to */
+#define CLAN_LIST	"clan.lst"	/* List of clans		*/
+#define COUNCIL_LIST	"council.lst"	/* List of councils		*/
+#define GUILD_LIST      "guild.lst"     /* List of guilds               */
+#define GOD_LIST	"gods.lst"	/* List of gods			*/
+#define DEITY_LIST	DEITY_DIR "deity.lst"	/* List of deities		*/
+#define	CLASS_LIST	"class.lst"	/* List of classes		*/
+#define	RACE_LIST	"race.lst"	/* List of races		*/
+#define VAULT_LIST      "vault.lst" /* list of storage vaults */
 
-/* Uncomment the line below and change the area if you want to search another area for free
- * rooms to turn into additional housing rooms, instead of having it search the area where
- * the original house room is.
- */
-#define ADDED_ROOM_HOUSING_AREA 			"houses.are"
-#define HOUSE_LIST        						"house.lst" 					/* Location of housing list for loadup of houses */
-#define HOMEBUY_FILE      HOUSE_DIR 	"homebuy.dat" 				/* Location of automated housing auction file */
-#define ACCESSORIES_FILE  HOUSE_DIR 	"homeaccessories.dat" /* Location of house accessories file */
 
-#define NEWS_FILE 										"news.dat"			/* Store News */
-#define NEWS_INCLUDE_FILE 						"news.inc"			/* News Include file */
+#define MORPH_FILE      "morph.dat"     /* For morph data */
+#define BOARD_FILE	"boards.txt"		/* For bulletin boards	 */
+#define SHUTDOWN_FILE	LOGDIR 		"shutdown.log"		/* For 'shutdown'	 */
+#define IMM_HOST_FILE   SYSTEM_DIR "immortal.host" /* For stoping hackers */
+
+#define RIPSCREEN_FILE	SYSTEM_DIR "mudrip.rip"
+#define RIPTITLE_FILE	SYSTEM_DIR "mudtitle.rip"
+#define ANSITITLE_FILE	SYSTEM_DIR "mudtitle.ans"
+#define ASCTITLE_FILE	SYSTEM_DIR "mudtitle.asc"
+#define BOOTLOG_FILE	LOGDIR "boot.log"	  /* Boot up error file	 */
+#define BUG_FILE	LOGDIR "bugs.log"	  /* For bug( )          */
+#define PBUG_FILE	LOGDIR "pbugs.log"	  /* For 'bug' command   */
+#define IDEA_FILE	SYSTEM_DIR "ideas.dat"	  /* For 'idea'		 */
+#define TYPO_FILE	SYSTEM_DIR "typos.dat"	  /* For 'typo'		 */
+#define FIXED_FILE	SYSTEM_DIR "fixed.dat"	  /* For 'fixed' command */
+#define HINTSUB_FILE	SYSTEM_DIR "hintsub.dat"  /* For hint suggestions */
+#define CHANGE_FILE	SYSTEM_DIR "changes.dat"  /* For add_change      */
+#define IMMNEWS_FILE	SYSTEM_DIR "immnews.dat"  /* For add_imm_news    */
+#define LOG_FILE	LOGDIR "talk.log"	  /* For talking in logged rooms */
+#define NOHELP_FILE	LOGDIR "nohelp.log"   /* For tracking help
+						     files that don't exist */
+#define MOBLOG_FILE	LOGDIR "mob.log"   /* For mplog messages  */
+#define PLEVEL_FILE	SYSTEM_DIR "plevel.dat"   /* Char level info */
+#define CHARCOUNT_FILE	LOGDIR "ccount.tmp"	  /* Counting, temp */
+#define OINVOKE_FILE	SYSTEM_DIR "oinvoke.dat"  /* Obvious */
+#define CUTLINK_FILE	LOGDIR "cutlink.log"  /* Info on cut/dropped links while in combat */
+#define RETIREDLIST_FILE SYSTEM_DIR "RETIREDLIST" /* Retiredlist	 */
+#define WIZLIST_FILE	SYSTEM_DIR "WIZLIST"	  /* Wizlist		 */
+#define WHO_FILE	SYSTEM_DIR "WHO"	  /* Who output file	 */
+#define WEBWHO_FILE	SYSTEM_DIR "WEBWHO"	  /* WWW Who output file */
+#define REQUEST_PIPE	SYSTEM_DIR "REQUESTS"	  /* Request FIFO	 */
+#define SKILL_FILE	SYSTEM_DIR "skills.dat"   /* Skill table	 */
+#define LOGIN_MSG	"login.msg"	/* List of login msgs		*/
+#define HERB_FILE	SYSTEM_DIR "herbs.dat"	  /* Herb table		 */
+#define TONGUE_FILE	SYSTEM_DIR "tongues.dat"  /* Tongue tables	 */
+#define SOCIAL_FILE	SYSTEM_DIR "socials.dat"  /* Socials		 */
+#define COMMAND_FILE	SYSTEM_DIR "commands.dat" /* Commands		 */
+#define USAGE_FILE	LOGDIR "usage.log"    /* How many people are on 
+ 						     every half hour - trying to
+						     determine best reboot time */
+#define ECONOMY_FILE	SYSTEM_DIR "economy.dat"  /* Gold looted, value of
+						     used potions/pills  */
+#define PROJECTS_FILE	SYSTEM_DIR "projects.dat" /* For projects	 */
+#define PLANE_FILE	SYSTEM_DIR "planes.dat"	  /* For planes		 */
+#define COLOR_FILE	SYSTEM_DIR "colors.dat"	  /* User-definable color*/
+#define TEMP_FILE	PLAYER_DIR "charsave.tmp" /* More char save protect */
+#define MEMBERS_FILE	SYSTEM_DIR "members.dat"  /* Store the members lists */
+#define STANCE_FILE     SYSTEM_DIR "stances.dat"
+
 
 /*
  * Our function prototypes.
@@ -4978,17 +4941,11 @@ int	get_door	args( ( char *arg ) );
 char *  num_punct	args( ( int foo ) );
 char *	format_obj_to_char	args( ( OBJ_DATA *obj, CHAR_DATA *ch,
 				    bool fShort ) );
-
-// void	show_list_to_char	args( ( OBJ_DATA *list, CHAR_DATA *ch,
-				    // bool fShort, bool fShowNothing ) );
-
-void    show_list_to_char  args( ( OBJ_DATA *list, CHAR_DATA *ch,
-						bool fShort, bool fShowNothing, const int iDefaultAction  ) );
-
+void	show_list_to_char	args( ( OBJ_DATA *list, CHAR_DATA *ch,
+				    bool fShort, bool fShowNothing ) );
 bool	is_ignoring	args( (CHAR_DATA *ch, CHAR_DATA *ign_ch) );
 void	show_race_line	args( ( CHAR_DATA *ch, CHAR_DATA *victim ) );
 void    look_sky	args( ( CHAR_DATA *ch ) );
-
 /* act_move.c */
 void	clear_vrooms	args( ( void ) );
 ED *	find_door	args( ( CHAR_DATA *ch, char *arg, bool quiet ) );
@@ -5072,8 +5029,9 @@ void	ch_printf_color	args( ( CHAR_DATA *ch, char *fmt, ... ) );
 void	pager_printf	args( (CHAR_DATA *ch, char *fmt, ...) );
 void	pager_printf_color	args( ( CHAR_DATA *ch, char *fmt, ... ) );
 void	act		args( ( sh_int AType, const char *format, CHAR_DATA *ch,
-	 		const void *arg1, const void *arg2, int type ) );
+			    const void *arg1, const void *arg2, int type ) );
 char *	myobj		args( ( OBJ_DATA *obj ) );
+char *	obj_short	args( ( OBJ_DATA *obj ) );
 
 /* reset.c */
 RD  *	make_reset	args( ( char letter, int extra, int arg1, int arg2, int arg3 ) );
@@ -5303,12 +5261,10 @@ void	mpsleep_update		args( ( ) );
 
 
 /* planes.c */
-#ifdef PLANES
 PLANE_DATA *	plane_lookup	args( ( const char *name ) );
 void		load_planes	args( ( void ) );
 void		save_planes	args( ( void ) );
 void		check_planes	args( ( PLANE_DATA *p ) );
-#endif
 
 /* player.c */
 void	set_title	args( ( CHAR_DATA *ch, char *title ) );
@@ -5320,6 +5276,7 @@ void fread_morph_data args ( ( CHAR_DATA *ch, FILE *fp ) );
 void clear_char_morph args ( ( CHAR_MORPH *morph ) );
 CHAR_MORPH * make_char_morph args ( ( MORPH_DATA *morph ) );
 void free_char_morph args ( ( CHAR_MORPH *morph ) );
+CHAR_MORPH * make_char_morph args ( ( MORPH_DATA *morph ) );
 char *race_string  args ( ( int bitvector ) );
 char *class_string  args ( ( int bitvector ) );
 void setup_morph_vnum args ( ( void ) );
@@ -5361,7 +5318,7 @@ CD *	scan_for_victim		args( ( CHAR_DATA *ch, EXIT_DATA *pexit,
 int add_ban args( ( CHAR_DATA *ch, char *arg1, char *arg2,int time,int type ) );
 void show_bans args ( ( CHAR_DATA *ch, int type ) );
 void save_banlist args ( ( void ) );
-// void load_banlist args ( ( void ) );
+void load_banlist args ( ( void ) );
 bool check_total_bans args ( ( DESCRIPTOR_DATA *d ) );
 bool check_bans args ( ( CHAR_DATA *ch, int type ) );
 
@@ -5370,7 +5327,7 @@ bool check_immortal_domain args ( ( CHAR_DATA *ch, char *host ) );
 int  load_imm_host args ( ( void ) );
 int  fread_imm_host args ( ( FILE *fp, IMMORTAL_HOST *data ) );
 void do_write_imm_host args (( void ));
-// void do_add_imm_host args (( CHAR_DATA *ch, char *argument ));
+void do_add_imm_host args (( CHAR_DATA *ch, char *argument ));
 
 /* hint.c */
 void load_hint args ( ( void ) );
@@ -5516,12 +5473,6 @@ void	send_timer	args( ( struct timerset *vtime, CHAR_DATA *ch ) );
 void	update_userec	args( ( struct timeval *time_used,
 				struct timerset *userec ) );
 
-/* liquids.c */
-void	load_liquids	( void );
-void	save_liquids	( void );
-void	load_mixtures	( void );
-void	save_mixtures	( void );
-
 /* magic.c */
 bool	process_spell_components args( ( CHAR_DATA *ch, int sn ) );
 int	ch_slookup	args( ( CHAR_DATA *ch, const char *name ) );
@@ -5609,13 +5560,11 @@ void	found_prey	args( ( CHAR_DATA *ch, CHAR_DATA *victim ) );
 void	hunt_victim	args( ( CHAR_DATA *ch) );
 
 /* update.c */
-extern  bool	mud_down;
 void	advance_level	args( ( CHAR_DATA *ch ) );
 void	gain_exp	args( ( CHAR_DATA *ch, int gain ) );
 void	gain_condition	args( ( CHAR_DATA *ch, int iCond, int value ) );
 void    check_alignment args( ( CHAR_DATA *ch ) );
 void	update_handler	args( ( void ) );
-void	weather_update	args( ( void ) );
 void	reboot_check	args( ( time_t reset ) );
 #if 0
 void    reboot_check    args( ( char *arg ) );
@@ -5627,6 +5576,11 @@ void    casino_update args( (void) );
 #endif
 
 void	remove_portal	args( ( OBJ_DATA *portal ) );
+void	weather_update	args( ( void ) );
+
+/* variables.c */
+VD *	get_tag		args( ( CHAR_DATA *ch, char *tag, int vnum ) );
+
 
 /* hashstr.c */
 char *	str_alloc	args( ( char *str ) );
@@ -5641,38 +5595,6 @@ void	show_high_hash	args( ( int top ) );
 /* newscore.c */
 char *  get_class 	args( (CHAR_DATA *ch) );
 char *  get_race 	args( (CHAR_DATA *ch) );
-
-/* mxp.c */
-
-/* mxp macro */
-// #define USE_MXP(ch)             (IS_SET(ch->act, PLR_MXP) && ch->desc->mxp)
-#define USE_MXP(ch)             (xIS_SET(ch->act, PLR_MXP) && ch->desc->mxp)
-
-/* mxp.c */
-void  mxp_to_char               ( char *txt, CHAR_DATA *ch, int mxp_style );
-void  shutdown_mxp              ( DESCRIPTOR_DATA *d );
-void  init_mxp                  ( DESCRIPTOR_DATA *d );
-
-const   char    mxp_will[] = { IAC, WILL, TELOPT_MXP, '\0' };   
-const   char    mxp_do[]   = { IAC, DO, TELOPT_MXP, '\0' };   
-const   char    mxp_dont[] = { IAC, DONT, TELOPT_MXP, '\0' };   
-
-const unsigned char echo_off_str[] = { IAC, WILL, TELOPT_ECHO, '\0' };
-const unsigned char echo_on_str[]  = { IAC, WONT, TELOPT_ECHO, '\0' };
-const unsigned char go_ahead_str[] = { IAC, GA, '\0' };
-
-const unsigned char will_mxp_str[]  = { IAC, WILL, TELOPT_MXP, '\0' };
-const unsigned char start_mxp_str[] = { IAC, SB, TELOPT_MXP, IAC, SE, '\0' };
-const unsigned char do_mxp_str[]    = { IAC, DO, TELOPT_MXP, '\0' };
-const unsigned char dont_mxp_str[]  = { IAC, DONT, TELOPT_MXP, '\0' };
-
-bool  write_to_descriptor    args (( DESCRIPTOR_DATA *d, char *txt, int length ));
-bool  write_to_descriptor_2  args (( int desc, char *txt, int length ));
-bool  writeCompressed    args (( DESCRIPTOR_DATA * desc, char *txt, int length ));
-
-bool compressStart   args( ( DESCRIPTOR_DATA *d ) );
-bool compressEnd     args( ( DESCRIPTOR_DATA *d ) );
-
 
 #undef	VD
 #undef	SK
@@ -5869,8 +5791,11 @@ void            init_maps();
 extern	CHAR_DATA *supermob;
 
 bool oprog_command_trigger( CHAR_DATA *ch, char *argument );
+void oprog_speech_trigger( char *txt, CHAR_DATA *ch );
+void oprog_random_trigger( OBJ_DATA *obj );
 void oprog_wear_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
-
+// This void *vo isnt used either.. *boggle*
+// -- Alty
 bool oprog_use_trigger( CHAR_DATA *ch, OBJ_DATA *obj, 
                         CHAR_DATA *vict, OBJ_DATA *targ, void *vo );
 void oprog_remove_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
@@ -5881,11 +5806,22 @@ void oprog_drop_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
 void oprog_zap_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
 char *oprog_type_to_name( int type );
 
+/*
+ * MUD_PROGS START HERE
+ * (object stuff)
+ */
 void oprog_greet_trigger( CHAR_DATA *ch );
 void oprog_speech_trigger( char *txt, CHAR_DATA *ch );
 void oprog_random_trigger( OBJ_DATA *obj );
+void oprog_random_trigger( OBJ_DATA *obj );
+void oprog_remove_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
+void oprog_sac_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
 void oprog_get_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
+void oprog_damage_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
+void oprog_repair_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
+void oprog_drop_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
 void oprog_examine_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
+void oprog_zap_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
 void oprog_pull_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
 void oprog_push_trigger( CHAR_DATA *ch, OBJ_DATA *obj );
 
@@ -6014,52 +5950,6 @@ do									\
 
 #define GET_BETTED_ON( ch )  ( ( ch->betted_on )
 #define GET_BET_AMT( ch )  ( ( ch->bet_amt )	
-
-/* MXP stuff - added by Nick Gammon - 18 June 2001 */
- 
-/*
- To simply using MXP we'll use special tags where we want to use MXP tags
- and then change them to <, > and & at the last moment.
- 
-  eg. MXP_BEG "send" MXP_END    becomes: <send>
-      MXP_AMP "version;"        becomes: &version;
- 
-*/
- 
-/* strings */
-#define MXP_BEG "\x03"    /* becomes < */
-#define MXP_END "\x04"    /* becomes > */
-#define MXP_AMP "\x05"    /* becomes & */
-
-/* characters */
-#define MXP_BEGc '\x03'    /* becomes < */
-#define MXP_ENDc '\x04'    /* becomes > */
-#define MXP_AMPc '\x05'    /* becomes & */
- 
-// constructs an MXP tag with < and > around it
-#define MXPTAG(arg) MXP_BEG arg MXP_END
-
-#define ESC "\x1B"  /* esc character */
-
-#define MXPMODE(arg) ESC "[" #arg "z"
-
-/* flags for show_list_to_char */
- 
-enum {
-  eItemNothing,   /* item is not readily accessible */
-  eItemGet,     /* item on ground */
-  eItemDrop,    /* item in inventory */
-  eItemBid     /* auction item */
-};
- 
-#define MXP_open 0   /* only MXP commands in the "open" category are allowed.  */
-#define MXP_secure 1 /* all tags and commands in MXP are allowed within the line.  */
-#define MXP_locked 2 /* no MXP or HTML commands are allowed in the line.  The line is not parsed for any tags at all.   */
-#define MXP_reset 3  /* close all open tags */
-#define MXP_secure_once 4  /* next tag is secure only */
-#define MXP_perm_open 5   /* open mode until mode change  */
-#define MXP_perm_secure 6 /* secure mode until mode change */
-#define MXP_perm_locked 7 /* locked mode until mode change */
 
 
 #ifdef WIN32

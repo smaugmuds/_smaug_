@@ -1,45 +1,30 @@
-/*
-                     R E A L M S    O F    D E S P A I R  !
-   ___________________________________________________________________________
-  //            /                                                            \\
- [|_____________\   ********   *        *   ********   *        *   *******   |]
- [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
- [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
- [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
- [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
- [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
- [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
- [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
- [|_____________\  **********  **      **  **      **  **********  *********  |]
- [|             /  *********   *        *  *        *   ********    *******   |]
-  \\____________\____________________________________________________________//
-     |                                                                     |
-     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
-     |_____________________________________________________________________|
-     |                                                                     |
-     |                -*- Command Interpretation Module -*-                |
-     |_____________________________________________________________________|
-    //                                                                     \\
-   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
-   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
-   [|                                                                       |]
-   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
-   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
-   [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
-    \\_____________________________________________________________________//
-*/
+/****************************************************************************
+ * [S]imulated [M]edieval [A]dventure multi[U]ser [G]ame      |   \\._.//   *
+ * -----------------------------------------------------------|   (0...0)   *
+ * SMAUG 1.4 (C) 1994, 1995, 1996, 1998  by Derek Snider      |    ).:.(    *
+ * -----------------------------------------------------------|    {o o}    *
+ * SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,      |   / ' ' \   *
+ * Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,      |~'~.VxvxV.~'~*
+ * Tricops, Fireblade, Edmond, Conran                         |             *
+ * ------------------------------------------------------------------------ *
+ * Merc 2.1 Diku Mud improvments copyright (C) 1992, 1993 by Michael        *
+ * Chastain, Michael Quan, and Mitchell Tse.                                *
+ * Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,          *
+ * Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.     *
+ * ------------------------------------------------------------------------ *
+ *			 Command interpretation module			    *
+ ****************************************************************************/
 
 #include <sys/types.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
-#define __retms__
 #include <time.h>
-
 #include "mud.h"
+#ifdef USE_IMC
+#include "icec-mercbase.h"
+#endif
+
 
 /*
  * Externals
@@ -50,6 +35,8 @@ void subtract_times( struct timeval *etime, struct timeval *stime );
 bool	check_social	args( ( CHAR_DATA *ch, char *command,
 			    char *argument ) );
 char *check_cmd_flags args( ( CHAR_DATA *ch, CMDTYPE *cmd ) );
+
+
 
 /*
  * Log-all switch.
@@ -74,60 +61,60 @@ bool check_pos( CHAR_DATA *ch, sh_int position )
 	switch( ch->position )
 	{
 	case POS_DEAD:
-	    mxp_to_char( "A little difficult to do when you are DEAD...\n\r", ch, MXP_ALL );
+	    send_to_char( "A little difficult to do when you are DEAD...\n\r", ch );
 	    break;
 
 	case POS_MORTAL:
 	case POS_INCAP:
-	    mxp_to_char( "You are hurt far too bad for that.\n\r", ch, MXP_ALL );
+	    send_to_char( "You are hurt far too bad for that.\n\r", ch );
 	    break;
 
 	case POS_STUNNED:
-	    mxp_to_char( "You are too stunned to do that.\n\r", ch, MXP_ALL );
+	    send_to_char( "You are too stunned to do that.\n\r", ch );
 	    break;
 
 	case POS_SLEEPING:
-	    mxp_to_char( "In your dreams, or what?\n\r", ch, MXP_ALL );
+	    send_to_char( "In your dreams, or what?\n\r", ch );
 	    break;
 
 	case POS_RESTING:
-	    mxp_to_char( "Nah... You feel too relaxed...\n\r", ch, MXP_ALL);
+	    send_to_char( "Nah... You feel too relaxed...\n\r", ch);
 	    break;
 
 	case POS_SITTING:
-	    mxp_to_char( "You can't do that sitting down.\n\r", ch, MXP_ALL);
+	    send_to_char( "You can't do that sitting down.\n\r", ch);
 	    break;
 
 	case POS_FIGHTING:
             if(position<=POS_EVASIVE){
-	      mxp_to_char( "This fighting style is too demanding for that!\n\r", ch, MXP_ALL);
+	      send_to_char( "This fighting style is too demanding for that!\n\r", ch);
             } else {
-	      mxp_to_char( "No way!  You are still fighting!\n\r", ch, MXP_ALL);
+	      send_to_char( "No way!  You are still fighting!\n\r", ch);
              }
 	    break;
     	case POS_DEFENSIVE:
             if(position<=POS_EVASIVE){
-	      mxp_to_char( "This fighting style is too demanding for that!\n\r", ch, MXP_ALL);
+	      send_to_char( "This fighting style is too demanding for that!\n\r", ch);
             } else {
-	    mxp_to_char( "No way!  You are still fighting!\n\r", ch, MXP_ALL);
+	    send_to_char( "No way!  You are still fighting!\n\r", ch);
             }
 	    break;
     	case POS_AGGRESSIVE:
             if(position<=POS_EVASIVE){
-	      mxp_to_char( "This fighting style is too demanding for that!\n\r", ch, MXP_ALL);
+	      send_to_char( "This fighting style is too demanding for that!\n\r", ch);
             } else {
-	    mxp_to_char( "No way!  You are still fighting!\n\r", ch, MXP_ALL);
+	    send_to_char( "No way!  You are still fighting!\n\r", ch);
             }
 	    break;
     	case POS_BERSERK:
             if(position<=POS_EVASIVE){
-	      mxp_to_char( "This fighting style is too demanding for that!\n\r", ch, MXP_ALL);
+	      send_to_char( "This fighting style is too demanding for that!\n\r", ch);
             } else {
-	       mxp_to_char( "No way!  You are still fighting!\n\r", ch, MXP_ALL);
+	       send_to_char( "No way!  You are still fighting!\n\r", ch);
             }
 	    break;
     	case POS_EVASIVE:
-	    mxp_to_char( "No way!  You are still fighting!\n\r", ch, MXP_ALL);
+	    send_to_char( "No way!  You are still fighting!\n\r", ch);
 	    break;
 
 	}
@@ -338,7 +325,7 @@ void interpret( CHAR_DATA *ch, char *argument )
 	 */
 	if ( !IS_NPC(ch) && xIS_SET(ch->act, PLR_FREEZE) )
 	{
-	    mxp_to_char( "You're totally frozen!\n\r", ch, MXP_ALL );
+	    send_to_char( "You're totally frozen!\n\r", ch );
 	    return;
 	}
 
@@ -520,8 +507,8 @@ first place.  Whaddya gonna do? */
 	            default:
 		       sprintf(newcommand,m_data[i].cmdString);
 	          }
-		  mxp_to_char( newcommand, ch, MXP_ALL );
-		  mxp_to_char( "\n\r", ch, MXP_ALL );
+		  send_to_char( newcommand, ch );
+		  send_to_char( "\n\r", ch );
 	          /* ... interpret NEW_COMMAND */
 	          interpret( ch, newcommand );
 		  refresh_page( ch );
@@ -532,8 +519,8 @@ first place.  Whaddya gonna do? */
           if(!strcmp("+",command) && get_obj_world(ch, argument))
           {
              sprintf(newcommand,"omenu %s %c",argument,ch->inter_page);
-		  mxp_to_char( newcommand, ch, MXP_ALL );
-		  mxp_to_char( "\n\r", ch, MXP_ALL );
+		  send_to_char( newcommand, ch );
+		  send_to_char( "\n\r", ch );
 	     interpret( ch, newcommand );
 	     refresh_page( ch );
 	     return;
@@ -584,8 +571,8 @@ first place.  Whaddya gonna do? */
 	            default:
 		       sprintf(newcommand,m_data[i].cmdString);
 	          }
-		  mxp_to_char( newcommand, ch, MXP_ALL );
-		  mxp_to_char( "\n\r", ch, MXP_ALL );
+		  send_to_char( newcommand, ch );
+		  send_to_char( "\n\r", ch );
 	          /* ... interpret NEW_COMMAND */
 	          interpret( ch, newcommand );
 		  refresh_page( ch );
@@ -596,8 +583,8 @@ first place.  Whaddya gonna do? */
           if(!strcmp("+",command) && get_char_world(ch, argument))
           {
              sprintf(newcommand,"mmenu %s %c",argument,ch->inter_page);
-		  mxp_to_char( newcommand, ch, MXP_ALL );
-		  mxp_to_char( "\n\r", ch, MXP_ALL );
+		  send_to_char( newcommand, ch );
+		  send_to_char( "\n\r", ch );
 	     interpret( ch, newcommand );
 	     refresh_page( ch );
 	     return;
@@ -647,8 +634,8 @@ first place.  Whaddya gonna do? */
 	            default:
 		       sprintf(newcommand,m_data[i].cmdString);
 	          }
-		  mxp_to_char( newcommand, ch, MXP_ALL );
-		  mxp_to_char( "\n\r", ch, MXP_ALL );
+		  send_to_char( newcommand, ch );
+		  send_to_char( "\n\r", ch );
 	          /* ... interpret NEW_COMMAND */
 	          interpret( ch, newcommand );
 		  refresh_page( ch );
@@ -693,7 +680,13 @@ first place.  Whaddya gonna do? */
 	&&   !mprog_command_trigger( ch, origarg )
 	&&   !oprog_command_trigger( ch, origarg )
 	&&   !check_social( ch, command, argument )
-        &&   !news_cmd_hook( ch, command, argument ) )
+        &&   !news_cmd_hook(ch, command, argument)
+
+#ifdef USE_IMC
+	&&   !icec_command_hook( ch, command, argument ) )
+#else
+	)
+#endif
 	{
 	    EXIT_DATA *pexit;
 
@@ -708,13 +701,13 @@ first place.  Whaddya gonna do? */
 		  if ( !IS_SET( pexit->exit_info, EX_SECRET ) )
 		    act( AT_PLAIN, "The $d is closed.", ch, NULL, pexit->keyword, TO_CHAR );
 		  else
-		    mxp_to_char( "You cannot do that here.\n\r", ch, MXP_ALL );
+		    send_to_char( "You cannot do that here.\n\r", ch );
 		  return;
 		}
 		move_char( ch, pexit, 0 );
 		return;
 	    }
-	    mxp_to_char( "Huh?\n\r", ch, MXP_ALL );
+	    send_to_char( "Huh?\n\r", ch );
 	}
 	return;
     }
@@ -731,7 +724,7 @@ first place.  Whaddya gonna do? */
     if ( !str_cmp(cmd->name, "flee") &&
           IS_AFFECTED(ch, AFF_BERSERK) )
     {
-	mxp_to_char( "You aren't thinking very clearly..\n\r", ch, MXP_ALL);
+	send_to_char( "You aren't thinking very clearly..\n\r", ch);
 	return;
     } */
 
@@ -757,7 +750,7 @@ first place.  Whaddya gonna do? */
          && number_percent() < ((ch->pcdata->nuisance->flags-9)*10
          *ch->pcdata->nuisance->power))
     {
-	mxp_to_char("You can't seem to do that just now.\n\r", ch, MXP_ALL );
+	send_to_char("You can't seem to do that just now.\n\r", ch );
 	return;	
     }
     	
@@ -839,23 +832,23 @@ bool check_social( CHAR_DATA *ch, char *command, char *argument )
 
     if ( !IS_NPC(ch) && xIS_SET(ch->act, PLR_NO_EMOTE) )
     {
-	mxp_to_char( "You are anti-social!\n\r", ch, MXP_ALL );
+	send_to_char( "You are anti-social!\n\r", ch );
 	return TRUE;
     }
    
     switch ( ch->position )
     {
     case POS_DEAD:
-	mxp_to_char( "Lie still; you are DEAD.\n\r", ch, MXP_ALL );
+	send_to_char( "Lie still; you are DEAD.\n\r", ch );
 	return TRUE;
 
     case POS_INCAP:
     case POS_MORTAL:
-	mxp_to_char( "You are hurt far too bad for that.\n\r", ch, MXP_ALL );
+	send_to_char( "You are hurt far too bad for that.\n\r", ch );
 	return TRUE;
 
     case POS_STUNNED:
-	mxp_to_char( "You are too stunned to do that.\n\r", ch, MXP_ALL );
+	send_to_char( "You are too stunned to do that.\n\r", ch );
 	return TRUE;
 
     case POS_SLEEPING:
@@ -865,7 +858,7 @@ bool check_social( CHAR_DATA *ch, char *command, char *argument )
 	 */
 	if ( !str_cmp( social->name, "snore" ) )
 	    break;
-	mxp_to_char( "In your dreams, or what?\n\r", ch, MXP_ALL );
+	send_to_char( "In your dreams, or what?\n\r", ch );
 	return TRUE;
 
     }
@@ -922,7 +915,7 @@ bool check_social( CHAR_DATA *ch, char *command, char *argument )
     	}
     	
     	if(!victim)
-		mxp_to_char( "They aren't here.\n\r", ch, MXP_ALL );
+		send_to_char( "They aren't here.\n\r", ch );
     }
     else if ( victim == ch )
     {
@@ -1178,35 +1171,35 @@ void do_timecmd( CHAR_DATA *ch, char *argument )
   extern CHAR_DATA *timechar;
   char arg[MAX_INPUT_LENGTH];
   
-  mxp_to_char("Timing\n\r",ch, MXP_ALL);
+  send_to_char("Timing\n\r",ch);
   if ( timing )
     return;
   one_argument(argument, arg);
   if ( !*arg )
   {
-    mxp_to_char( "No command to time.\n\r", ch, MXP_ALL );
+    send_to_char( "No command to time.\n\r", ch );
     return;
   }
   if ( !str_cmp(arg, "update") )
   {
     if ( timechar )
-      mxp_to_char( "Another person is already timing updates.\n\r", ch, MXP_ALL );
+      send_to_char( "Another person is already timing updates.\n\r", ch );
     else
     {
       timechar = ch;
-      mxp_to_char( "Setting up to record next update loop.\n\r", ch, MXP_ALL );
+      send_to_char( "Setting up to record next update loop.\n\r", ch );
     }
     return;
   }
   set_char_color(AT_PLAIN, ch);
-  mxp_to_char( "Starting timer.\n\r", ch, MXP_ALL );
+  send_to_char( "Starting timer.\n\r", ch );
   timing = TRUE;
   gettimeofday(&stime, NULL);
   interpret(ch, argument);
   gettimeofday(&etime, NULL);
   timing = FALSE;
   set_char_color(AT_PLAIN, ch);
-  mxp_to_char( "Timing complete.\n\r", ch, MXP_ALL );
+  send_to_char( "Timing complete.\n\r", ch );
   subtract_times(&etime, &stime);
   ch_printf( ch, "Timing took %d.%06d seconds.\n\r",
       etime.tv_sec, etime.tv_usec );

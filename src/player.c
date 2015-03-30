@@ -1,44 +1,28 @@
-/*
-                     R E A L M S    O F    D E S P A I R  !
-   ___________________________________________________________________________
-  //            /                                                            \\
- [|_____________\   ********   *        *   ********   *        *   *******   |]
- [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
- [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
- [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
- [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
- [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
- [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
- [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
- [|_____________\  **********  **      **  **      **  **********  *********  |]
- [|             /  *********   *        *  *        *   ********    *******   |]
-  \\____________\____________________________________________________________//
-     |                                                                     |
-     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
-     |_____________________________________________________________________|
-     |                                                                     |
-     |   -*- Commands for personal player settings/statictics Module -*-   |
-     |_____________________________________________________________________|
-    //                                                                     \\
-   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
-   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
-   [|                                                                       |]
-   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
-   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
-   [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
-    \\_____________________________________________________________________//
-*/
+/****************************************************************************
+ * [S]imulated [M]edieval [A]dventure multi[U]ser [G]ame      |   \\._.//   *
+ * -----------------------------------------------------------|   (0...0)   *
+ * SMAUG 1.4 (C) 1994, 1995, 1996, 1998  by Derek Snider      |    ).:.(    *
+ * -----------------------------------------------------------|    {o o}    *
+ * SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,      |   / ' ' \   *
+ * Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,      |~'~.VxvxV.~'~*
+ * Tricops, Fireblade, Edmond, Conran                         |             *
+ * ------------------------------------------------------------------------ *
+ * Merc 2.1 Diku Mud improvments copyright (C) 1992, 1993 by Michael        *
+ * Chastain, Michael Quan, and Mitchell Tse.                                *
+ * Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,          *
+ * Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.     *
+ * ------------------------------------------------------------------------ *
+ * 		Commands for personal player settings/statictics	    *
+ ****************************************************************************/
 
 #include <sys/types.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-
 #include "mud.h"
+
+
 /*
  *  Locals
  */
@@ -682,7 +666,7 @@ void do_compass( CHAR_DATA *ch, char *argument )
         if ( xIS_SET( ch->act, PLR_COMPASS ) )
         {
           xREMOVE_BIT( ch->act, PLR_COMPASS );
-          mxp_to_char( "Compass is now off.\n\r", ch, MXP_ALL );
+          send_to_char( "Compass is now off.\n\r", ch );
           return;
         }
         else
@@ -701,7 +685,7 @@ void do_compass( CHAR_DATA *ch, char *argument )
     if ( ( strcmp( arg, "off" ) == 0 ) || ( strcmp( arg, "OFF" ) == 0 ) )
     {
         xREMOVE_BIT( ch->act, PLR_COMPASS );
-        mxp_to_char( "Compass is now off.\n\r", ch, MXP_ALL );
+        send_to_char( "Compass is now off.\n\r", ch );
         return;
     }
 }
@@ -1668,11 +1652,8 @@ void do_oldscore( CHAR_DATA *ch, char *argument )
 	get_age(ch),
 	(get_age(ch) - 17) * 2 );
 
-    pager_printf( ch, "You are %susing MCCP!\n\r",
-		ch->desc->out_compress ? "" : "not " );
-
     if ( get_trust( ch ) != ch->level )
-			pager_printf( ch, "You are trusted at level %d.\n\r",
+	pager_printf( ch, "You are trusted at level %d.\n\r",
 	    get_trust( ch ) );
 
     if (  IS_NPC(ch) && xIS_SET(ch->act, ACT_MOBINVIS) )
@@ -1818,7 +1799,7 @@ void do_oldscore( CHAR_DATA *ch, char *argument )
     else if ( GET_AC(ch) >= -100 ) send_to_pager( "divinely armored.\n\r", 
 ch );
     else                           send_to_pager( "invincible!\n\r",       ch );
- 
+
     if ( ch->level >= 15
     ||   IS_PKILL( ch ) )
 	pager_printf( ch, "Hitroll: %d  Damroll: %d.\n\r",
@@ -1963,7 +1944,7 @@ void do_affected ( CHAR_DATA *ch, char *argument )
         if ( ch->level >= 20 )
         {
             
-            mxp_to_char( "\n\r", ch, MXP_ALL );
+            send_to_char( "\n\r", ch );
             if ( ch->resistant > 0 || ch->stance_resistant>0)
 	    {
                 send_to_char_color( "&BResistances:  ", ch );
@@ -1998,12 +1979,12 @@ void do_affected ( CHAR_DATA *ch, char *argument )
     }
     else
     {
-	mxp_to_char( "\n\r", ch, MXP_ALL );
+	send_to_char( "\n\r", ch );
         for (paf = ch->first_affect; paf; paf = paf->next)
 	    if ( (skill=get_skilltype(paf->type)) != NULL )
         {
 	    set_char_color( AT_BLUE, ch );
-            mxp_to_char( "Affected:  ", ch, MXP_ALL );
+            send_to_char( "Affected:  ", ch );
             set_char_color( AT_SCORE, ch );
             if ( ch->level >= 20
 	    ||   IS_PKILL( ch ) )
@@ -2029,7 +2010,7 @@ void do_inventory( CHAR_DATA *ch, char *argument )
     {
 	if ( ( victim=get_char_world( ch, argument ) ) == NULL )
 	{
-	    mxp_to_char( "They're not here.\n\r", ch, MXP_ALL );
+	    send_to_char( "They're not here.\n\r", ch );
 	    return;
 	}
 	invtarget = TRUE;
@@ -2038,10 +2019,9 @@ void do_inventory( CHAR_DATA *ch, char *argument )
     ch_printf_color( ch, "&R%s %s carrying:\n\r",
 	invtarget ? capitalize( victim->name) : "You",
 	invtarget ? "is" : "are" );
-		// show_list_to_char( victim->first_carrying, ch, TRUE, TRUE );
-		show_list_to_char( victim->first_carrying, ch, TRUE, TRUE, eItemDrop );
-}
+    show_list_to_char( victim->first_carrying, ch, TRUE, TRUE );
 
+}
 void do_condition( CHAR_DATA *ch, char *argument )
 {
     CHAR_DATA *victim = ch;
@@ -2054,7 +2034,7 @@ void do_condition( CHAR_DATA *ch, char *argument )
     {
 	if ( (victim=get_char_world(ch, argument)) == NULL )
 	{
-	    mxp_to_char( "They're not here.\n\r", ch, MXP_ALL );
+	    send_to_char( "They're not here.\n\r", ch );
 	    return;
 	}
 	act( AT_RED, "$n is using:", victim, NULL, ch, TO_VICT );
@@ -2062,7 +2042,7 @@ void do_condition( CHAR_DATA *ch, char *argument )
     else
     {
 	set_char_color( AT_RED, ch );
-	mxp_to_char( "You are using:\n\r", ch, MXP_ALL );
+	send_to_char( "You are using:\n\r", ch );
     }
     found = FALSE;
     set_char_color( AT_OBJECT, ch );
@@ -2072,9 +2052,9 @@ void do_condition( CHAR_DATA *ch, char *argument )
 	   if ( obj->wear_loc == iWear )
 	   {
                 if( (!IS_NPC(ch)) && (ch->race>0) && (ch->race<MAX_PC_RACE))
-                    mxp_to_char(race_table[ch->race]->where_name[iWear], ch, MXP_ALL );
+                    send_to_char(race_table[ch->race]->where_name[iWear], ch);
                 else
-                    mxp_to_char( where_name[iWear], ch, MXP_ALL );
+                    send_to_char( where_name[iWear], ch );
 
 		
 
@@ -2105,21 +2085,21 @@ void do_condition( CHAR_DATA *ch, char *argument )
 			  ch_printf_color( ch, "&w[&R!&w]&G " );
                     }
 		    else
-			mxp_to_char("    ", ch, MXP_ALL );
+			send_to_char("    ", ch );
 /*
                     send_to_char_color("&g>&G  ",ch);
 */
-		    mxp_to_char( format_obj_to_char( obj, ch, TRUE ), ch, MXP_ALL );
-		    mxp_to_char( "\n\r", ch, MXP_ALL );
+		    send_to_char( format_obj_to_char( obj, ch, TRUE ), ch );
+		    send_to_char( "\n\r", ch );
 		}
 		else
-		    mxp_to_char( "something.\n\r", ch, MXP_ALL );
+		    send_to_char( "something.\n\r", ch );
 		found = TRUE;
 	   }
     }
 
     if ( !found )
-	mxp_to_char( "Nothing.\n\r", ch, MXP_ALL );
+	send_to_char( "Nothing.\n\r", ch );
 
     return;
 }
@@ -2136,7 +2116,7 @@ void do_equipment( CHAR_DATA *ch, char *argument )
     {
 	if ( (victim=get_char_world(ch, argument)) == NULL )
 	{
-	    mxp_to_char( "They're not here.\n\r", ch, MXP_ALL );
+	    send_to_char( "They're not here.\n\r", ch );
 	    return;
 	}
 	act( AT_RED, "$n is using:", victim, NULL, ch, TO_VICT );
@@ -2144,7 +2124,7 @@ void do_equipment( CHAR_DATA *ch, char *argument )
     else
     {
 	set_char_color( AT_RED, ch );
-	mxp_to_char( "You are using:\n\r", ch, MXP_ALL );
+	send_to_char( "You are using:\n\r", ch );
     }
     found = FALSE;
     set_char_color( AT_OBJECT, ch );
@@ -2154,23 +2134,23 @@ void do_equipment( CHAR_DATA *ch, char *argument )
 	   if ( obj->wear_loc == iWear )
 	   {
                 if( (!IS_NPC(ch)) && (ch->race>0) && (ch->race<MAX_PC_RACE))
-                    mxp_to_char(race_table[ch->race]->where_name[iWear], ch, MXP_ALL );
+                    send_to_char(race_table[ch->race]->where_name[iWear], ch);
                 else
-                    mxp_to_char( where_name[iWear], ch, MXP_ALL );
+                    send_to_char( where_name[iWear], ch );
 
 		if ( can_see_obj( ch, obj ) )
 		{
-		    mxp_to_char( format_obj_to_char( obj, ch, TRUE ), ch, MXP_ALL );
-		    mxp_to_char( "\n\r", ch, MXP_ALL );
+		    send_to_char( format_obj_to_char( obj, ch, TRUE ), ch );
+		    send_to_char( "\n\r", ch );
 		}
 		else
-		    mxp_to_char( "something.\n\r", ch, MXP_ALL );
+		    send_to_char( "something.\n\r", ch );
 		found = TRUE;
 	   }
     }
 
     if ( !found )
-	mxp_to_char( "Nothing.\n\r", ch, MXP_ALL );
+	send_to_char( "Nothing.\n\r", ch );
 
     send_to_char_color( "&g(type 'garb' for a list of all wear locations)\n\r", ch );
     return;
@@ -2185,7 +2165,7 @@ void do_equipment_full( CHAR_DATA *ch, char *argument )
     bool candual, hasloc;
     candual = FALSE;
     set_char_color( AT_RED, ch );
-    mxp_to_char( "You are using:\n\r", ch, MXP_ALL );
+    send_to_char( "You are using:\n\r", ch );
 
     set_char_color( AT_OBJECT, ch );
     if ( LEARNED(ch, gsn_dual_wield) )
@@ -2204,9 +2184,9 @@ void do_equipment_full( CHAR_DATA *ch, char *argument )
 	   if ( obj->wear_loc == iWear )
 	   {
                 if( (!IS_NPC(ch)) && (ch->race>0) && (ch->race<MAX_PC_RACE))
-                    mxp_to_char(race_table[ch->race]->where_name[iWear], ch, MXP_ALL );
+                    send_to_char(race_table[ch->race]->where_name[iWear], ch);
                 else
-                    mxp_to_char( where_name[iWear], ch, MXP_ALL );
+                    send_to_char( where_name[iWear], ch );
 		if ( iWear == WEAR_SHIELD )
 		   candual = FALSE;
 		if ( iWear == WEAR_ANKLE_L )
@@ -2215,11 +2195,11 @@ void do_equipment_full( CHAR_DATA *ch, char *argument )
 			ankler = TRUE;
 		if ( can_see_obj( ch, obj ) )
 		{
-		    mxp_to_char( format_obj_to_char( obj, ch, TRUE ), ch, MXP_ALL );
-		    mxp_to_char( "\n\r", ch, MXP_ALL );
+		    send_to_char( format_obj_to_char( obj, ch, TRUE ), ch );
+		    send_to_char( "\n\r", ch );
 		}
 		else
-		    mxp_to_char( "something.\n\r", ch, MXP_ALL );
+		    send_to_char( "something.\n\r", ch );
 		hasloc = TRUE;
 	   }
 	}
@@ -2233,17 +2213,17 @@ void do_equipment_full( CHAR_DATA *ch, char *argument )
 		   continue;
 	   	if ((!candual) && (iWear == WEAR_DUAL_WIELD))
 		   continue;
-           	mxp_to_char(where_name[iWear],ch, MXP_ALL );
-	   	mxp_to_char("[nothing] \n\r",ch, MXP_ALL );
+           	send_to_char(where_name[iWear],ch);
+	   	send_to_char("[nothing] \n\r",ch);
 	   }
 	}
     }
 	if ( !anklel ) { 
-	mxp_to_char( where_name[WEAR_ANKLE_L], ch, MXP_ALL ); 
-	mxp_to_char("[nothing] \n\r", ch, MXP_ALL ); }
+	send_to_char( where_name[WEAR_ANKLE_L], ch ); 
+	send_to_char("[nothing] \n\r", ch); }
 	if ( !ankler ) {
-	mxp_to_char( where_name[WEAR_ANKLE_R], ch, MXP_ALL );
-	mxp_to_char("[nothing] \n\r", ch, MXP_ALL );}
+	send_to_char( where_name[WEAR_ANKLE_R], ch );
+	send_to_char("[nothing] \n\r", ch);}
     return;
 }
 
@@ -2283,13 +2263,13 @@ void do_title( CHAR_DATA *ch, char *argument )
     if ( IS_SET( ch->pcdata->flags, PCFLAG_NOTITLE ))
     {
 	set_char_color( AT_IMMORT, ch );
-        mxp_to_char( "The Gods prohibit you from changing your title.\n\r", ch, MXP_ALL );
+        send_to_char( "The Gods prohibit you from changing your title.\n\r", ch );
         return;
     }
  
     if ( argument[0] == '\0' )
     {
-	mxp_to_char( "Change your title to what?\n\r", ch, MXP_ALL );
+	send_to_char( "Change your title to what?\n\r", ch );
 	return;
     }
 
@@ -2299,7 +2279,7 @@ void do_title( CHAR_DATA *ch, char *argument )
     smash_tilde( argument );
     smash_color_token( argument );
     set_title( ch, argument );
-    mxp_to_char( "Your new title has been set.\n\r", ch, MXP_ALL );
+    send_to_char( "Your new title has been set.\n\r", ch );
 }
 
 void do_email( CHAR_DATA *ch, char *argument )
@@ -2311,7 +2291,7 @@ void do_email( CHAR_DATA *ch, char *argument )
 
     if ( ch->level < 5 )
     {
-	mxp_to_char( "Sorry... you must be at least level 5 to do that.\n\r", ch, MXP_ALL );
+	send_to_char( "Sorry... you must be at least level 5 to do that.\n\r", ch );
 	return;
     }
 
@@ -2331,14 +2311,14 @@ void do_email( CHAR_DATA *ch, char *argument )
 	if ( ch->pcdata->email )
 	  DISPOSE(ch->pcdata->email);
 	ch->pcdata->email = str_dup("");
-	mxp_to_char( "Email cleared.\n\r", ch, MXP_ALL );
+	send_to_char( "Email cleared.\n\r", ch );
 	return;
     }
 
     if ( ch->pcdata->email )
       DISPOSE(ch->pcdata->email);
     ch->pcdata->email = str_dup(arg);
-    mxp_to_char( "Email set.\n\r", ch, MXP_ALL );
+    send_to_char( "Email set.\n\r", ch );
 }
 
 void do_icq( CHAR_DATA *ch, char *argument )
@@ -2350,7 +2330,7 @@ void do_icq( CHAR_DATA *ch, char *argument )
 
     if ( ch->level < 5 )
     {
-	mxp_to_char( "Sorry... you must be at least level 5 to do that.\n\r", ch, MXP_ALL );
+	send_to_char( "Sorry... you must be at least level 5 to do that.\n\r", ch );
 	return;
     }
 
@@ -2370,7 +2350,7 @@ void do_icq( CHAR_DATA *ch, char *argument )
 	if ( ch->pcdata->icq )
 	  DISPOSE(ch->pcdata->icq);
 	ch->pcdata->icq = str_dup("");
-	mxp_to_char( "ICQ cleared.\n\r", ch, MXP_ALL );
+	send_to_char( "ICQ cleared.\n\r", ch );
 	return;
     }
 
@@ -2378,7 +2358,7 @@ void do_icq( CHAR_DATA *ch, char *argument )
     if ( ch->pcdata->icq )
       DISPOSE(ch->pcdata->icq);
     ch->pcdata->icq = str_dup(arg );
-    mxp_to_char( "ICQ set.\n\r", ch, MXP_ALL );
+    send_to_char( "ICQ set.\n\r", ch );
 }
 
 void do_homepage( CHAR_DATA *ch, char *argument )
@@ -2390,13 +2370,13 @@ void do_homepage( CHAR_DATA *ch, char *argument )
 
     if ( ch->level < 5 )
     {
-	mxp_to_char( "Sorry... you must be at least level 5 to do that.\n\r", ch, MXP_ALL );
+	send_to_char( "Sorry... you must be at least level 5 to do that.\n\r", ch );
 	return;
     }
 
     if ( xIS_SET( ch->act, PLR_NOHOMEPAGE ) )
     {
-	mxp_to_char( "The Gods prohibit you from changing your homepage.\n\r", ch, MXP_ALL );
+	send_to_char( "The Gods prohibit you from changing your homepage.\n\r", ch );
 	return;
     }
 
@@ -2414,7 +2394,7 @@ void do_homepage( CHAR_DATA *ch, char *argument )
 	if ( ch->pcdata->homepage )
 	  DISPOSE(ch->pcdata->homepage);
 	ch->pcdata->homepage = str_dup("");
-	mxp_to_char( "Homepage cleared.\n\r", ch, MXP_ALL );
+	send_to_char( "Homepage cleared.\n\r", ch );
 	return;
     }
 
@@ -2429,7 +2409,7 @@ void do_homepage( CHAR_DATA *ch, char *argument )
     if ( ch->pcdata->homepage )
       DISPOSE(ch->pcdata->homepage);
     ch->pcdata->homepage = str_dup(buf);
-    mxp_to_char( "Homepage set.\n\r", ch, MXP_ALL );
+    send_to_char( "Homepage set.\n\r", ch );
 }
 
 
@@ -2492,13 +2472,13 @@ void do_description( CHAR_DATA *ch, char *argument )
 {
     if ( IS_NPC( ch ) )
     {
-	mxp_to_char( "Monsters are too dumb to do that!\n\r", ch, MXP_ALL );
+	send_to_char( "Monsters are too dumb to do that!\n\r", ch );
 	return;	  
     }
 
     if ( IS_SET( ch->pcdata->flags, PCFLAG_NODESC ) )
     {
-	mxp_to_char( "You cannot set your description.\n\r", ch, MXP_ALL );
+	send_to_char( "You cannot set your description.\n\r", ch );
 	return;
     }
  
@@ -2515,7 +2495,7 @@ void do_description( CHAR_DATA *ch, char *argument )
 	   return;
 
 	case SUB_RESTRICTED:
-	   mxp_to_char( "You cannot use this command from within another command.\n\r", ch, MXP_ALL );
+	   send_to_char( "You cannot use this command from within another command.\n\r", ch );
 	   return;
 
 	case SUB_NONE:
@@ -2537,20 +2517,20 @@ void do_bio( CHAR_DATA *ch, char *argument )
 {
     if ( IS_NPC( ch ) )
     {
-	mxp_to_char( "Mobs cannot set a bio.\n\r", ch, MXP_ALL );
+	send_to_char( "Mobs cannot set a bio.\n\r", ch );
 	return;	  
     }
     if ( ch->level < 5 )
     {
 	set_char_color( AT_SCORE, ch );
-	mxp_to_char( "You must be at least level five to write your bio...\n\r", ch, MXP_ALL );
+	send_to_char( "You must be at least level five to write your bio...\n\r", ch );
 	return;
     }
 
     if ( IS_SET(ch->pcdata->flags, PCFLAG_NOBIO) )  
     {
         set_char_color( AT_RED, ch );
-        mxp_to_char( "The gods won't allow you to do that!\n\r", ch, MXP_ALL );
+        send_to_char( "The gods won't allow you to do that!\n\r", ch);
         return;
     }
 
@@ -2567,7 +2547,7 @@ void do_bio( CHAR_DATA *ch, char *argument )
 	   return;
 	  	   
 	case SUB_RESTRICTED:
-	   mxp_to_char( "You cannot use this command from within another command.\n\r", ch, MXP_ALL );
+	   send_to_char( "You cannot use this command from within another command.\n\r", ch );
 	   return;
 
 	case SUB_NONE:
@@ -2597,7 +2577,7 @@ void do_statreport( CHAR_DATA *ch, char *argument )
 
     if ( IS_NPC(ch) )
     {
-	mxp_to_char("Huh?\n\r", ch, MXP_ALL);
+	send_to_char("Huh?\n\r", ch );
 	return;
     }
 
@@ -2646,7 +2626,7 @@ void do_stat( CHAR_DATA *ch, char *argument )
 {
     if ( IS_NPC(ch) )
     {
-	mxp_to_char("Huh?\n\r", ch, MXP_ALL );
+	send_to_char("Huh?\n\r", ch );
 	return;
     }
 
@@ -2680,7 +2660,7 @@ void do_report( CHAR_DATA *ch, char *argument )
 
     if ( IS_AFFECTED(ch, AFF_POSSESS) )
     {   
-       mxp_to_char("You can't do that in your current state of mind!\n\r", ch, MXP_ALL );
+       send_to_char("You can't do that in your current state of mind!\n\r", ch);
        return;
     }
 
@@ -2726,22 +2706,22 @@ void do_fprompt( CHAR_DATA *ch, char *argument )
 
   if ( IS_NPC(ch) )
   {
-    mxp_to_char( "NPC's can't change their prompt..\n\r", ch, MXP_ALL );
+    send_to_char( "NPC's can't change their prompt..\n\r", ch );
     return;
   }
   smash_tilde( argument );
   one_argument( argument, arg );
   if ( !*arg || !str_cmp( arg, "display" ) )
   {
-    mxp_to_char( "Your current fighting prompt string:\n\r", ch, MXP_ALL );
+    send_to_char( "Your current fighting prompt string:\n\r", ch );
     set_char_color( AT_WHITE, ch );
     ch_printf( ch, "%s\n\r", !str_cmp( ch->pcdata->fprompt, "" ) ? "(default prompt)"
 				 				: ch->pcdata->fprompt );
     set_char_color( AT_GREY, ch );
-    mxp_to_char( "Type 'help prompt' for information on changing your prompt.\n\r", ch, MXP_ALL );
+    send_to_char( "Type 'help prompt' for information on changing your prompt.\n\r", ch );
     return;
   }
-  mxp_to_char( "Replacing old prompt of:\n\r", ch, MXP_ALL );
+  send_to_char( "Replacing old prompt of:\n\r", ch );
   set_char_color( AT_WHITE, ch );
   ch_printf( ch, "%s\n\r", !str_cmp( ch->pcdata->fprompt, "" ) ? "(default prompt)"
 							      : ch->pcdata->fprompt );
@@ -2769,22 +2749,22 @@ void do_prompt( CHAR_DATA *ch, char *argument )
 
   if ( IS_NPC(ch) )
   {
-    mxp_to_char( "NPC's can't change their prompt..\n\r", ch, MXP_ALL );
+    send_to_char( "NPC's can't change their prompt..\n\r", ch );
     return;
   }
   smash_tilde( argument );
   one_argument( argument, arg );
   if ( !*arg || !str_cmp( arg, "display" ) )
   {
-    mxp_to_char( "Your current prompt string:\n\r", ch, MXP_ALL );
+    send_to_char( "Your current prompt string:\n\r", ch );
     set_char_color( AT_WHITE, ch );
     ch_printf( ch, "%s\n\r", !str_cmp( ch->pcdata->prompt, "" ) ? "(default prompt)"
 				 				: ch->pcdata->prompt );
     set_char_color( AT_GREY, ch );
-    mxp_to_char( "Type 'help prompt' for information on changing your prompt.\n\r", ch, MXP_ALL );
+    send_to_char( "Type 'help prompt' for information on changing your prompt.\n\r", ch );
     return;
   }
-  mxp_to_char( "Replacing old prompt of:\n\r", ch, MXP_ALL );
+  send_to_char( "Replacing old prompt of:\n\r", ch );
   set_char_color( AT_WHITE, ch );
   ch_printf( ch, "%s\n\r", !str_cmp( ch->pcdata->prompt, "" ) ? "(default prompt)"
 							      : ch->pcdata->prompt );
@@ -2835,7 +2815,7 @@ void tax_player( CHAR_DATA *ch )
 
 void do_die ( CHAR_DATA *ch, char *argument ) {
   if ( ch->position > POS_STUNNED ){
-     mxp_to_char("You don't feel like throwing your life away just yet....\n\r", ch, MXP_ALL );
+     send_to_char("You don't feel like throwing your life away just yet....\n\r", ch);
      return;
   }
   ch->hit = -11;
@@ -2854,7 +2834,7 @@ void do_favor(CHAR_DATA * ch, char *argument)
     char            buf[MAX_STRING_LENGTH];
 
     if ( IS_NPC(ch) ) {
-	mxp_to_char("Huh?\n\r", ch, MXP_ALL );
+	send_to_char("Huh?\n\r", ch );
 	return;
     }
     set_char_color( AT_GREEN, ch );

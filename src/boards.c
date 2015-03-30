@@ -1,36 +1,19 @@
-/*
-                     R E A L M S    O F    D E S P A I R  !
-   ___________________________________________________________________________
-  //            /                                                            \\
- [|_____________\   ********   *        *   ********   *        *   *******   |]
- [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
- [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
- [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
- [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
- [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
- [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
- [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
- [|_____________\  **********  **      **  **      **  **********  *********  |]
- [|             /  *********   *        *  *        *   ********    *******   |]
-  \\____________\____________________________________________________________//
-     |                                                                     |
-     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
-     |_____________________________________________________________________|
-     |                                                                     |
-     |                   -*- Special Boards Module -*-                     |
-     |_____________________________________________________________________|
-    //                                                                     \\
-   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
-   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
-   [|                                                                       |]
-   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
-   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
-   [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
-    \\_____________________________________________________________________//
-*/
+/****************************************************************************
+ * [S]imulated [M]edieval [A]dventure multi[U]ser [G]ame      |   \\._.//   *
+ * -----------------------------------------------------------|   (0...0)   *
+ * SMAUG 1.4 (C) 1994, 1995, 1996, 1998  by Derek Snider      |    ).:.(    *
+ * -----------------------------------------------------------|    {o o}    *
+ * SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,      |   / ' ' \   *
+ * Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,      |~'~.VxvxV.~'~*
+ * Tricops, Fireblade, Edmond, Conran                         |             *
+ * ------------------------------------------------------------------------ *
+ * Merc 2.1 Diku Mud improvments copyright (C) 1992, 1993 by Michael        *
+ * Chastain, Michael Quan, and Mitchell Tse.                                *
+ * Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,          *
+ * Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.     *
+ * ------------------------------------------------------------------------ *
+ *			     Special boards module			    *
+ ****************************************************************************/
 
 #include <sys/types.h>
 #include <ctype.h>
@@ -38,8 +21,11 @@
 #include <string.h>
 #include <time.h>
 #include <sys/stat.h>
-
 #include "mud.h"
+#ifdef USE_IMC
+#include "imc-mercbase.h"
+#endif
+
 
 /* Defines for voting on notes. -- Edmond - update for ballot */
 #define VOTE_NONE 0
@@ -1071,6 +1057,9 @@ void do_note( CHAR_DATA *ch, char *arg_passed, bool IS_MAIL )
 	struct stat fst;
 /*	char *pn;*/
 	char fname[1024];
+#ifdef USE_IMC
+	bool imc = FALSE;
+#endif
 	
 	if(get_trust(ch) < sysdata.write_mail_free )
 	{
@@ -1118,10 +1107,27 @@ void do_note( CHAR_DATA *ch, char *arg_passed, bool IS_MAIL )
 
         arg_passed[0] = UPPER(arg_passed[0]);
 
+#ifdef USE_IMC
+	if (strchr(arg_passed, '@')!=NULL)
+	{
+	    if (get_trust(ch) < sysdata.imc_mail_level)
+	    {
+		ch_printf(ch, "You need to be at least level %d to send "
+		    "notes to other muds.\n\r", sysdata.imc_mail_level);
+		return;
+	    }
+	    imc = TRUE;
+	}
+#endif
+	
         sprintf( fname, "%s%c/%s", PLAYER_DIR, tolower(arg_passed[0]),
                  capitalize( arg_passed ) );
  
+#ifdef USE_IMC
+	if ( !IS_MAIL || imc || stat( fname, &fst ) != -1 || !str_cmp(arg_passed, "all") )
+#else
 	if ( !IS_MAIL || stat( fname, &fst ) != -1 || !str_cmp(arg_passed, "all") )
+#endif
 	{                                       
 	    paper->value[2] = 1;
 	    ed = SetOExtra(paper, "_to_");
@@ -1167,6 +1173,9 @@ void do_note( CHAR_DATA *ch, char *arg_passed, bool IS_MAIL )
     if ( !str_cmp( arg, "post" ) )
     {
 	char *strtime, *to, *subj, *text/*, *np = NULL*/;
+#ifdef USE_IMC
+	bool imc = FALSE;
+#endif
 
 	if ( ( paper = get_eq_char(ch, WEAR_HOLD) ) == NULL
 	||     paper->item_type != ITEM_PAPER )
@@ -1201,6 +1210,23 @@ void do_note( CHAR_DATA *ch, char *arg_passed, bool IS_MAIL )
 	subj = get_extra_descr( "_subject_", paper->first_extradesc );
 	text = get_extra_descr( "_text_", paper->first_extradesc );
 	
+#ifdef USE_IMC
+	if (to && strchr(to, '@')!=NULL)
+	{
+	    if ( !subj || !*subj )
+	    {
+		send_to_char( "You must specify a subject for IMC mail.\n\r", ch );
+		return;
+	    }
+	    if ( !text || !*text )
+	    {
+		send_to_char( "You must have text in IMC mail.\n\r", ch );
+		return;
+	    }
+	    
+	    imc = TRUE;
+	}
+#endif
 	board = find_board( ch );
 
 	if ( !board )
@@ -1208,7 +1234,14 @@ void do_note( CHAR_DATA *ch, char *arg_passed, bool IS_MAIL )
 	    send_to_char( "There is no bulletin board here to post your note on.\n\r", ch );
 	    return;
 	}
-	
+#ifdef USE_IMC
+	if ( (imc && board->board_obj != sysdata.imc_mail_vnum) ||
+	    (!imc && board->board_obj == sysdata.imc_mail_vnum) )
+	{
+	    send_to_char( "You can only post IMC mail on the IMC board.\n\r", ch );
+	    return;
+	}
+#endif
 	if ( !can_post( ch, board ) ) 
 	{
 	    send_to_char( "A magical force prevents you from posting your note here...\n\r", ch );
@@ -1238,6 +1271,12 @@ void do_note( CHAR_DATA *ch, char *arg_passed, bool IS_MAIL )
         pnote->novotes     = str_dup( "" );
         pnote->abstentions = str_dup( "" );
         pnote->no_remove   = 0;
+
+#ifdef USE_IMC
+	if ( imc )
+	    imc_post_mail(ch, pnote->sender, pnote->to_list, pnote->date,
+	        pnote->subject, pnote->text);
+#endif
 
 	LINK( pnote, board->first_note, board->last_note, next, prev );
 	board->num_posts++;

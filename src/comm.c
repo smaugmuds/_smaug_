@@ -1,36 +1,19 @@
-/*
-                     R E A L M S    O F    D E S P A I R  !
-   ___________________________________________________________________________
-  //            /                                                            \\
- [|_____________\   ********   *        *   ********   *        *   *******   |]
- [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
- [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
- [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
- [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
- [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
- [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
- [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
- [|_____________\  **********  **      **  **      **  **********  *********  |]
- [|             /  *********   *        *  *        *   ********    *******   |]
-  \\____________\____________________________________________________________//
-     |                                                                     |
-     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
-     |_____________________________________________________________________|
-     |                                                                     |
-     |                -*- Low-Level Communication Module -*-               |
-     |_____________________________________________________________________|
-    //                                                                     \\
-   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
-   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
-   [|                                                                       |]
-   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
-   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
-   [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
-    \\_____________________________________________________________________//
-*/
+/****************************************************************************
+ * [S]imulated [M]edieval [A]dventure multi[U]ser [G]ame      |   \\._.//   *
+ * -----------------------------------------------------------|   (0...0)   *
+ * SMAUG 1.4 (C) 1994, 1995, 1996, 1998  by Derek Snider      |    ).:.(    *
+ * -----------------------------------------------------------|    {o o}    *
+ * SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,      |   / ' ' \   *
+ * Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,      |~'~.VxvxV.~'~*
+ * Tricops, Fireblade, Edmond, Conran                         |             *
+ * ------------------------------------------------------------------------ *
+ * Merc 2.1 Diku Mud improvments copyright (C) 1992, 1993 by Michael        *
+ * Chastain, Michael Quan, and Mitchell Tse.                                *
+ * Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,          *
+ * Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.     *
+ * ------------------------------------------------------------------------ *
+ *			 Low-level communication module			    *
+ ****************************************************************************/
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -42,13 +25,12 @@
 #include <fcntl.h>
 #include <signal.h>
 #include <stdarg.h>
-
 #include "mud.h"
+#ifdef USE_IMC
+#include "imc.h"
+#include "icec.h"
+#endif
 
-#include "mxp.h"
-#include "mccp.h"
-#include "mssp.h"
-#include "protocol.h"
 
 /*
  * Socket and TCP/IP stuff.
@@ -63,9 +45,7 @@
   #define MAXHOSTNAMELEN 32
 
   #define  TELOPT_ECHO        '\x01'
-	#define  TELOPT_MXP        	'\x5B'
   #define  GA                 '\xF9'
-  #define  SE                 '\xF0'
   #define  SB                 '\xFA'
   #define  WILL               '\xFB'
   #define  WONT               '\xFC'
@@ -85,13 +65,13 @@
   #define closesocket close
 #endif
 
-
-
 #ifdef sun
 int gethostname ( char *name, int namelen );
 #endif
 
-
+const	char	echo_off_str	[] = { IAC, WILL, TELOPT_ECHO, '\0' };
+const	char	echo_on_str	[] = { IAC, WONT, TELOPT_ECHO, '\0' };
+const	char 	go_ahead_str	[] = { IAC, GA, '\0' };
 
 
 void	auth_maxdesc	args( ( int *md, fd_set *ins, fd_set *outs,
@@ -144,13 +124,13 @@ void	game_loop		args( ( ) );
 int	init_socket		args( ( int port ) );
 void	new_descriptor		args( ( int new_desc ) );
 bool	read_from_descriptor	args( ( DESCRIPTOR_DATA *d ) );
-// bool	write_to_descriptor	args( ( int desc, char *txt, int length ) );
+bool	write_to_descriptor	args( ( int desc, char *txt, int length ) );
 
 
 /*
  * Other local functions (OS-independent).
  */
-// bool	check_parse_name	args( ( char *name, bool newchar ) );
+bool	check_parse_name	args( ( char *name, bool newchar ) );
 bool	check_reconnect		args( ( DESCRIPTOR_DATA *d, char *name,
 				    bool fConn ) );
 bool	check_playing		args( ( DESCRIPTOR_DATA *d, char *name, bool kick ) );
@@ -298,6 +278,19 @@ int port;
     conclient= init_socket( port+10);
     conjava  = init_socket( port+20);
     
+#ifdef OLD_IMC
+    /* Be sure to change RoD to your mud's name! */
+    if(port == 4000)
+	imc_startup ("RoD", port+5, "imc/");
+    else
+	imc_startup("RoDBLD", port+5, "imc/");
+#else
+#ifdef USE_IMC
+    imc_startup ("imc/");
+    icec_init();
+#endif
+#endif
+
     /* I don't know how well this will work on an unnamed machine as I don't
        have one handy, and the man pages are ever-so-helpful.. -- Alty */
     if (gethostname(hostn, sizeof(hostn)) < 0)
@@ -314,6 +307,10 @@ int port;
     log_string( log_buf );
 
     game_loop( );
+    
+#ifdef USE_IMC
+    imc_shutdown(); /* shut down IMC */
+#endif
     
     closesocket( control  );
     closesocket( control2 );
@@ -347,69 +344,6 @@ int port;
     exit( 0 );
     return 0;
 }
-
-/* set up MXP */
-void turn_on_mxp (DESCRIPTOR_DATA *d)
-  {
-  d->mxp = TRUE;  /* turn it on now */
- 	write_to_buffer( d, start_mxp_str, 0 );
-	write_to_buffer( d, MXPMODE (6), 0 );   /* permanent secure mode */
-  write_to_buffer( d, MXPTAG ("!-- Set up MXP elements --"), 0);
-  /* Exit tag */
-  write_to_buffer( d, MXPTAG ("!ELEMENT Ex '<send>' FLAG=RoomExit"), 0);
-  /* Room description tag */
-  write_to_buffer( d, MXPTAG ("!ELEMENT rdesc '<p>' FLAG=RoomDesc"), 0);
-  /* Get an item tag (for things on the ground) */
-  write_to_buffer( d, MXPTAG 
-      ("!ELEMENT Get \"<send href='"
-           "get &#39;&name;&#39;|"
-           "examine &#39;&name;&#39;|"
-           "drink &#39;&name;&#39;"
-       "' "
-       "hint='RH mouse click to use this object|"
-           "Get &desc;|"
-           "Examine &desc;|"
-           "Drink from &desc;"
-       "'>\" ATT='name desc'"), 
-      0);
-  /* Drop an item tag (for things in the inventory) */
-  write_to_buffer( d, MXPTAG 
-      ("!ELEMENT Drop \"<send href='"
-           "drop &#39;&name;&#39;|"
-           "examine &#39;&name;&#39;|"
-           "look in &#39;&name;&#39;|"
-           "wear &#39;&name;&#39;|"
-           "eat &#39;&name;&#39;|"
-           "drink &#39;&name;&#39;"
-       "' "
-       "hint='RH mouse click to use this object|"
-           "Drop &desc;|"
-           "Examine &desc;|"
-           "Look inside &desc;|"
-           "Wear &desc;|"
-           "Eat &desc;|"
-           "Drink &desc;"
-       "'>\" ATT='name desc'"), 
-      0);
-  /* Bid an item tag (for things in the auction) */
-  write_to_buffer( d, MXPTAG 
-      ("!ELEMENT Bid \"<send href='bid &#39;&name;&#39;' "
-       "hint='Bid for &desc;'>\" "
-       "ATT='name desc'"), 
-      0);
-  /* List an item tag (for things in a shop) */
-  write_to_buffer( d, MXPTAG 
-      ("!ELEMENT List \"<send href='buy &#39;&name;&#39;' "
-       "hint='Buy &desc;'>\" "
-       "ATT='name desc'"), 
-      0);
-  /* Player tag (for who lists, tells etc.) */
-  write_to_buffer( d, MXPTAG 
-      ("!ELEMENT Player \"<send href='tell &#39;&name;&#39; ' "
-       "hint='Send a message to &name;' prompt>\" "
-       "ATT='name'"), 
-      0);
-  } /* end of turn_on_mxp */
 
 
 int init_socket( int port )
@@ -590,6 +524,10 @@ void accept_new( int ctrl )
 	}
 	auth_maxdesc(&maxdesc, &in_set, &out_set, &exc_set);
 	
+#ifdef USE_IMC
+	maxdesc=imc_fill_fdsets(maxdesc, &in_set, &out_set, &exc_set);
+#endif
+
 	if ( select( maxdesc+1, &in_set, &out_set, &exc_set, &null_time ) < 0 )
 	{
 	    perror( "accept_new: select: poll" );
@@ -615,7 +553,6 @@ void game_loop( )
     struct timeval	  last_time;
     char cmdline[MAX_INPUT_LENGTH];
     DESCRIPTOR_DATA *d;
-
 /*  time_t	last_check = 0;  */
 
 #ifndef WIN32
@@ -668,7 +605,7 @@ void game_loop( )
             ||   ( d->connected != CON_PLAYING && d->idle > 1200) /* 5 mins */
 	    ||     d->idle > 28800 )				  /* 2 hrs  */
 	    {
-		write_to_descriptor( d,
+		write_to_descriptor( d->descriptor,
 		 "Idle timeout... disconnecting.\n\r", 0 );
 		d->outtop	= 0;
 		close_socket( d, TRUE );
@@ -703,14 +640,9 @@ void game_loop( )
 		}
 
 		read_from_buffer( d );
-
 		if ( d->incomm[0] != '\0' )
 		{
 			d->fcommand	= TRUE;
-
-      if ( d->pProtocol != NULL )
-           d->pProtocol->WriteOOB = 0;
-
 			stop_idling( d->character );
 
 			strcpy( cmdline, d->incomm );
@@ -740,6 +672,11 @@ void game_loop( )
 	      break;
 	}
 	
+#ifdef USE_IMC
+	/* kick IMC */
+	imc_idle_select(&in_set, &out_set, &exc_set, current_time);
+#endif
+
 	/*
 	 * Autonomous game motion.
 	 */
@@ -917,8 +854,6 @@ void new_descriptor( int new_desc )
     dnew->user 		= STRALLOC("(unknown)");
     dnew->newstate	= 0;
     dnew->prevcolor	= 0x07;
-    dnew->mxp = FALSE;
-    dnew->pProtocol = ProtocolCreate();   /* NJG - initially MXP is off */
 
     CREATE( dnew->outbuf, char, dnew->outsize );
 
@@ -937,8 +872,7 @@ void new_descriptor( int new_desc )
 
     if ( check_total_bans( dnew ) )
     {
-          // write_to_descriptor (desc,
-          write_to_descriptor_2 (desc,
+          write_to_descriptor (desc,
                          "Your site has been banned from this Mud.\n\r", 0);
           free_desc (dnew);
           set_alarm (0);
@@ -960,11 +894,6 @@ void new_descriptor( int new_desc )
     }
 
     LINK( dnew, first_descriptor, last_descriptor, next, prev );
-
-    write_to_buffer(dnew, mxp_will, 0);
-    write_to_buffer(dnew, mccp_will, 0);
-
-    ProtocolNegotiate(dnew);
 
     /*
      * Send the greeting.
@@ -1163,10 +1092,6 @@ void close_socket( DESCRIPTOR_DATA *dclose, bool force )
     if ( dclose->descriptor == maxdesc )
       --maxdesc;
 
-	compressEnd( dclose );
-    
-	ProtocolDestroy( dclose->pProtocol );
-
     free_desc( dclose );
     --num_descriptors;
     return;
@@ -1176,9 +1101,6 @@ void close_socket( DESCRIPTOR_DATA *dclose, bool force )
 bool read_from_descriptor( DESCRIPTOR_DATA *d )
 {
     int iStart, iErr;
-
-    static char read_buf[MAX_PROTOCOL_BUFFER];
-    read_buf[0] = '\0';
 
     /* Hold horses if pending command already. */
     if ( d->incomm[0] != '\0' )
@@ -1190,8 +1112,7 @@ bool read_from_descriptor( DESCRIPTOR_DATA *d )
     {
 	sprintf( log_buf, "%s input overflow!", d->host );
 	log_string( log_buf );
-	// write_to_descriptor( d->descriptor,
-	write_to_descriptor( d,
+	write_to_descriptor( d->descriptor,
 	    "\n\r*** PUT A LID ON IT!!! ***\n\rYou cannot enter the same command more than 20 consecutive times!\n\r", 0 );
 	return FALSE;
     }
@@ -1200,8 +1121,8 @@ bool read_from_descriptor( DESCRIPTOR_DATA *d )
     {
 	int nRead;
 
-	nRead = recv( d->descriptor, read_buf + iStart,
-	    sizeof(read_buf) - 10 - iStart, 0 );
+	nRead = recv( d->descriptor, d->inbuf + iStart,
+	    sizeof(d->inbuf) - 10 - iStart, 0 );
 #ifdef WIN32
 	iErr = WSAGetLastError ();
 #else
@@ -1210,7 +1131,7 @@ bool read_from_descriptor( DESCRIPTOR_DATA *d )
 	if ( nRead > 0 )
 	{
 	    iStart += nRead;
-	    if ( read_buf[iStart-1] == '\n' || read_buf[iStart-1] == '\r' )
+	    if ( d->inbuf[iStart-1] == '\n' || d->inbuf[iStart-1] == '\r' )
 		break;
 	}
 	else if ( nRead == 0 )
@@ -1227,9 +1148,7 @@ bool read_from_descriptor( DESCRIPTOR_DATA *d )
 	}
     }
 
-    // d->inbuf[iStart] = '\0';
-    read_buf[iStart] = '\0';
-    ProtocolInput( d, read_buf, iStart, d->inbuf );
+    d->inbuf[iStart] = '\0';
     return TRUE;
 }
 
@@ -1241,38 +1160,12 @@ bool read_from_descriptor( DESCRIPTOR_DATA *d )
 void read_from_buffer( DESCRIPTOR_DATA *d )
 {
     int i, j, k;
-    unsigned char * p;
 
     /*
      * Hold horses if pending command already.
      */
     if ( d->incomm[0] != '\0' )
 	return;
-
-/* 
-
-  Look for incoming telnet negotiation
-*/
-
-
-  for (p = d->inbuf; *p; p++)
-    if (*p == IAC)
-      {
-      if (memcmp (p, do_mxp_str, strlen (do_mxp_str)) == 0)
-        {
-        turn_on_mxp (d);
-        /* remove string from input buffer */
-        memmove (p, &p [strlen (do_mxp_str)], strlen (&p [strlen (do_mxp_str)]) + 1);
-        p--; /* adjust to allow for discarded bytes */
-        } /* end of turning on MXP */
-      else  if (memcmp (p, dont_mxp_str, strlen (dont_mxp_str)) == 0)
-        {
-        d->mxp = FALSE;
-        /* remove string from input buffer */
-        memmove (p, &p [strlen (dont_mxp_str)], strlen (&p [strlen (dont_mxp_str)]) + 1);
-        p--; /* adjust to allow for discarded bytes */
-        } /* end of turning off MXP */
-      } /* end of finding an IAC */
 
     /*
      * Look for at least one new line.
@@ -1291,8 +1184,7 @@ void read_from_buffer( DESCRIPTOR_DATA *d )
     {
 	if ( k >= 254 )
 	{
-	    //write_to_descriptor( d->descriptor, "Line too long.\n\r", 0 );
-	    write_to_descriptor( d, "Line too long.\n\r", 0 );
+	    write_to_descriptor( d->descriptor, "Line too long.\n\r", 0 );
 
 	    /* skip the rest of the line */
 	    /*
@@ -1307,35 +1199,10 @@ void read_from_buffer( DESCRIPTOR_DATA *d )
 	    break;
 	}
 
-/*	if ( d->inbuf[i] == '\b' && k > 0 )
+	if ( d->inbuf[i] == '\b' && k > 0 )
 	    --k;
 	else if ( isascii(d->inbuf[i]) && isprint(d->inbuf[i]) )
-	    d->incomm[k++] = d->inbuf[i]; */
-        if ( d->inbuf[i] == (signed char)IAC )
-	{
-	    if (!memcmp(&d->inbuf[i], mxp_do, strlen(mxp_do)))
-	    {
-                i += strlen(mxp_do) - 1;
-                init_mxp(d);
-	    } else if (!memcmp(&d->inbuf[i], mxp_dont, strlen(mxp_dont)))
-	    {
-                i += strlen(mxp_do) - 1;
-                shutdown_mxp(d);
-	    } else if (!memcmp(&d->inbuf[i], mccp_do, strlen(mccp_do)))
-	    {
-                i += strlen(mxp_do) - 1;
-                compressStart(d);
-	    }
-	    else if (!memcmp(&d->inbuf[i], mccp_dont, strlen(mccp_dont)))
-	    {
-                i += strlen(mxp_do) - 1;
-                compressEnd(d);
-	    }
-        }
-        else if ( d->inbuf[i] == '\b' && k > 0 )
-            --k;
-        else if ( isascii(d->inbuf[i]) && isprint(d->inbuf[i]) )
-            d->incomm[k++] = d->inbuf[i];
+	    d->incomm[k++] = d->inbuf[i];
     }
 
     /*
@@ -1358,10 +1225,9 @@ void read_from_buffer( DESCRIPTOR_DATA *d )
 	{
 	    if ( ++d->repeat >= 20 )
 	    {
-		sprintf( log_buf, "%s input spamming!", d->host );
-		log_string( log_buf );
-		//write_to_descriptor( d->descriptor,
-		write_to_descriptor( d,
+/*		sprintf( log_buf, "%s input spamming!", d->host ); */
+/*		log_string( log_buf ); */
+		write_to_descriptor( d->descriptor,
 		    "\n\r*** PUT A LID ON IT!!! ***\n\rYou cannot enter the same command more than 20 consecutive times!\n\r", 0 );
 		strcpy( d->incomm, "quit" );
 	    }
@@ -1393,7 +1259,7 @@ void read_from_buffer( DESCRIPTOR_DATA *d )
 bool flush_buffer( DESCRIPTOR_DATA *d, bool fPrompt )
 {
     char buf[MAX_INPUT_LENGTH];
-//    extern bool mud_down;
+    extern bool mud_down;
 
     /*
      * If buffer has more than 4K inside, spit out .5K at a time   -Thoric
@@ -1419,8 +1285,7 @@ bool flush_buffer( DESCRIPTOR_DATA *d, bool fPrompt )
 	    write_to_buffer( d->snoop_by, "% ", 2 );
 	    write_to_buffer( d->snoop_by, buf, 0 );
 	}
-        //if ( !write_to_descriptor( d->descriptor, buf, 512 ) )
-        if ( !write_to_descriptor( d, buf, 512 ) )
+        if ( !write_to_descriptor( d->descriptor, buf, 512 ) )
         {
 	    d->outtop = 0;
 	    return FALSE;
@@ -1432,8 +1297,7 @@ bool flush_buffer( DESCRIPTOR_DATA *d, bool fPrompt )
     /*
      * Bust a prompt.
      */
-    if ( !d->pProtocol->WriteOOB && fPrompt && !mud_down && d->connected == CON_PLAYING )
-		//if ( fPrompt && !mud_down && d->connected == CON_PLAYING )
+    if ( fPrompt && !mud_down && d->connected == CON_PLAYING )
     {
 	CHAR_DATA *ch;
 
@@ -1483,8 +1347,7 @@ bool flush_buffer( DESCRIPTOR_DATA *d, bool fPrompt )
     /*
      * OS-dependent output.
      */
-    // if ( !write_to_descriptor( d->descriptor, d->outbuf, d->outtop ) )
-    if ( !write_to_descriptor( d, d->outbuf, d->outtop ) )
+    if ( !write_to_descriptor( d->descriptor, d->outbuf, d->outtop ) )
     {
 	d->outtop = 0;
 	return FALSE;
@@ -1496,185 +1359,13 @@ bool flush_buffer( DESCRIPTOR_DATA *d, bool fPrompt )
     }
 }
 
-/*
-* Count number of mxp tags need converting
-*    ie. < becomes &lt;
-*        > becomes &gt;
-*        & becomes &amp;
-*/
 
-int count_mxp_tags (const int bMXP, const char *txt, int length)
-  {
-  char c;
-  const char * p;
-  int count;
-  int bInTag = FALSE;
-  int bInEntity = FALSE;
-
-  for (p = txt, count = 0; 
-       length > 0; 
-       p++, length--)
-    {
-    c = *p;
-
-    if (bInTag)  /* in a tag, eg. <send> */
-      {
-      if (!bMXP)
-        count--;     /* not output if not MXP */   
-      if (c == MXP_ENDc)
-        bInTag = FALSE;
-      } /* end of being inside a tag */
-    else if (bInEntity)  /* in a tag, eg. <send> */
-      {
-      if (!bMXP)
-        count--;     /* not output if not MXP */   
-      if (c == ';')
-        bInEntity = FALSE;
-      } /* end of being inside a tag */
-    else switch (c)
-      {
-
-      case MXP_BEGc:
-        bInTag = TRUE;
-        if (!bMXP)
-          count--;     /* not output if not MXP */   
-        break;
-
-      case MXP_ENDc:   /* shouldn't get this case */
-        if (!bMXP)
-          count--;     /* not output if not MXP */   
-        break;
-
-      case MXP_AMPc:
-        bInEntity = TRUE;
-        if (!bMXP)
-          count--;     /* not output if not MXP */   
-        break;
-
-      default:
-        if (bMXP)
-          {
-          switch (c)
-            {
-            case '<':       /* < becomes &lt; */
-            case '>':       /* > becomes &gt; */
-              count += 3;    
-              break;
-
-            case '&':
-              count += 4;    /* & becomes &amp; */
-              break;
-
-            case '"':        /* " becomes &quot; */
-              count += 5;    
-              break;
-
-            } /* end of inner switch */
-          }   /* end of MXP enabled */
-      } /* end of switch on character */
-
-     }   /* end of counting special characters */
-
-  return count;
-  } /* end of count_mxp_tags */
-
-void convert_mxp_tags (const int bMXP, char * dest, const char *src, int length)
-  {
-char c;
-const char * ps;
-char * pd;
-int bInTag = FALSE;
-int bInEntity = FALSE;
-
-  for (ps = src, pd = dest; 
-       length > 0; 
-       ps++, length--)
-    {
-    c = *ps;
-    if (bInTag)  /* in a tag, eg. <send> */
-      {
-      if (c == MXP_ENDc)
-        {
-        bInTag = FALSE;
-        if (bMXP)
-          *pd++ = '>';
-        }
-      else if (bMXP)
-        *pd++ = c;  /* copy tag only in MXP mode */
-      } /* end of being inside a tag */
-    else if (bInEntity)  /* in a tag, eg. <send> */
-      {
-      if (bMXP)
-        *pd++ = c;  /* copy tag only in MXP mode */
-      if (c == ';')
-        bInEntity = FALSE;
-      } /* end of being inside a tag */
-    else switch (c)
-      {
-      case MXP_BEGc:
-        bInTag = TRUE;
-        if (bMXP)
-          *pd++ = '<';
-        break;
-
-      case MXP_ENDc:    /* shouldn't get this case */
-        if (bMXP)
-          *pd++ = '>';
-        break;
-
-      case MXP_AMPc:
-        bInEntity = TRUE;
-        if (bMXP)
-          *pd++ = '&';
-        break;
-
-      default:
-        if (bMXP)
-          {
-          switch (c)
-            {
-            case '<':
-              memcpy (pd, "&lt;", 4);
-              pd += 4;    
-              break;
-
-            case '>':
-              memcpy (pd, "&gt;", 4);
-              pd += 4;    
-              break;
-
-            case '&':
-              memcpy (pd, "&amp;", 5);
-              pd += 5;    
-              break;
-
-            case '"':
-              memcpy (pd, "&quot;", 6);
-              pd += 6;    
-              break;
-
-            default:
-              *pd++ = c;
-              break;  /* end of default */
-
-            } /* end of inner switch */
-          }
-        else
-          *pd++ = c;  /* not MXP - just copy character */
-        break;  
-
-      } /* end of switch on character */
-
-    }   /* end of converting special characters */
-  } /* end of convert_mxp_tags */
 
 /*
  * Append onto an output buffer.
  */
 void write_to_buffer( DESCRIPTOR_DATA *d, const char *txt, int length )
 {
-int origlength;
-
     if ( !d )
     {
 	bug( "Write_to_buffer: NULL descriptor" );
@@ -1690,10 +1381,6 @@ int origlength;
     if ( !d->outbuf )
     	return;
 
-    txt = ProtocolOutput( d, txt, &length );
-    if ( d->pProtocol->WriteOOB > 0 )
-        --d->pProtocol->WriteOOB;
-
     /*
      * Find length in case caller didn't.
      */
@@ -1707,16 +1394,11 @@ int origlength;
 	length = strlen(txt);
     }
 */
-  origlength = length;
-
-  /* work out how much we need to expand/contract it */
-  length += count_mxp_tags (d->mxp, txt, length);
 
     /*
      * Initial \n\r if needed.
      */
-    // if ( d->outtop == 0 && !d->fcommand )
-    if ( d->outtop == 0 && !d->fcommand && !d->pProtocol->WriteOOB )
+    if ( d->outtop == 0 && !d->fcommand )
     {
 	d->outbuf[0]	= '\n';
 	d->outbuf[1]	= '\r';
@@ -1743,7 +1425,7 @@ int origlength;
     /*
      * Copy.
      */
-    convert_mxp_tags (d->mxp, d->outbuf + d->outtop, txt, origlength );
+    strncpy( d->outbuf + d->outtop, txt, length );
     d->outtop += length;
     d->outbuf[d->outtop] = '\0';
     return;
@@ -1756,8 +1438,7 @@ int origlength;
  * If this gives errors on very long blocks (like 'ofind all'),
  *   try lowering the max block size.
  */
-//bool write_to_descriptor( int desc, char *txt, int length )
-bool write_to_descriptor_2( int desc, char *txt, int length )
+bool write_to_descriptor( int desc, char *txt, int length )
 {
     int iStart;
     int nWrite;
@@ -1774,15 +1455,6 @@ bool write_to_descriptor_2( int desc, char *txt, int length )
     }
 
     return TRUE;
-}
-
-/* mccp: write_to_descriptor wrapper */
-bool write_to_descriptor(DESCRIPTOR_DATA *d, char *txt, int length)
-{
-    if (d->out_compress)
-        return writeCompressed(d, txt, length);
-    else
-        return write_to_descriptor_2(d->descriptor, txt, length);
 }
 
 void show_title( DESCRIPTOR_DATA *d )
@@ -1828,7 +1500,7 @@ void show_classes_to_nanny( DESCRIPTOR_DATA *d )
 	ch_printf_color( ch, "&W %-15.15s ", class_table[iClass]->who_name );
 	if ( cnt == 3 )
 	{
-	    mxp_to_char( "\n\r", ch, MXP_ALL );
+	    send_to_char( "\n\r", ch );
 	    cnt = 0;
 	}
     }
@@ -1859,7 +1531,7 @@ void show_races_to_nanny( DESCRIPTOR_DATA *d )
 	    }
 	    if ( cnt == 3 )
 	    {
-		mxp_to_char( "\n\r", ch, MXP_ALL );
+		send_to_char( "\n\r", ch );
 		cnt = 0;
 	    }
 	}
@@ -1867,7 +1539,6 @@ void show_races_to_nanny( DESCRIPTOR_DATA *d )
     ch_printf_color( ch, "\n\r&GPlease select\n\r&W: ");
     return;
 }
-
 
 /*
  * Deal with sockets that haven't logged in yet.
@@ -2021,10 +1692,6 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
         return;
       }
 
-  /* telnet negotiation to see if they support MXP */
-  
- 	write_to_buffer( d, will_mxp_str, 0 );
-
 	chk = check_reconnect( d, argument, FALSE );
 	if ( chk == BERR )
 	  return;
@@ -2057,8 +1724,7 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 	    }
 	    /* Old player */
 	    write_to_buffer( d, "Password: ", 0 );
-	    //write_to_buffer( d, echo_off_str, 0 );
-	    ProtocolNoEcho( d, true );
+	    write_to_buffer( d, echo_off_str, 0 );
 	    d->connected = CON_GET_OLD_PASSWORD;
 	    return;
 	}
@@ -2100,8 +1766,7 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 	    return;
 	}
 
-	//write_to_buffer( d, echo_on_str, 0 );
-    ProtocolNoEcho( d, false );
+	write_to_buffer( d, echo_on_str, 0 );
 
 	if ( check_playing( d, ch->pcdata->filename, TRUE ) )
 	    return;
@@ -2163,11 +1828,9 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 	switch ( *argument )
 	{
 	case 'y': case 'Y':
-      ProtocolNoEcho( d, true );
 	    sprintf( buf, "\n\rMake sure to use a password that won't be easily guessed by someone else."
 	    		  "\n\rPick a good password for %s: %s",
-        ch->name );
-		//ch->name, echo_off_str );
+		ch->name, echo_off_str );
 	    write_to_buffer( d, buf, 0 );
 	    d->connected = CON_GET_NEW_PASSWORD;
 	    break;
@@ -2233,8 +1896,7 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 
 
     case CON_GET_WANT_RIPANSI:
-	// write_to_buffer( d, echo_on_str, 0 );
-	ProtocolNoEcho( d, false );
+	write_to_buffer( d, echo_on_str, 0 );
 	switch ( argument[0] )
 	{
 	case 'r': case 'R':
@@ -2623,8 +2285,6 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
     else
        act( AT_ACTION, "$n has entered the game.",  ch, NULL, NULL, TO_CANSEE );
 
-    MXPSendTag( d, "<VERSION>" ); 
-
     if ( ch->pcdata->pet )
     {
            act( AT_ACTION, "$n returns to $s master from the Void.",
@@ -2801,7 +2461,7 @@ bool check_reconnect( DESCRIPTOR_DATA *d, char *name, bool fConn )
                 if ( class_table[ch->class]->reconnect )
                         ch_printf(ch, "%s\n\r", class_table[ch->class]->reconnect );
                 else
-                        mxp_to_char( "Reconnecting.\n\r", ch, MXP_ALL );
+                        send_to_char( "Reconnecting.\n\r", ch );
                 rprog_login_trigger(ch);
                 mprog_login_trigger(ch);
 		do_look( ch, "auto" );
@@ -2821,9 +2481,6 @@ bool check_reconnect( DESCRIPTOR_DATA *d, char *name, bool fConn )
 		  to_channel( log_buf, CHANNEL_MONITOR, "Monitor", ch->level );
 */
 		d->connected = CON_PLAYING;
-
-    MXPSendTag( d, "<VERSION>" );
-
 	    }
 	    return TRUE;
 	}
@@ -2879,7 +2536,7 @@ bool check_playing( DESCRIPTOR_DATA *d, char *name, bool kick )
 	    if ( ch->switched )
 	      do_return( ch->switched, "" );
 	    ch->switched = NULL;
-	    mxp_to_char( "Reconnecting.\n\r", ch, MXP_ALL );
+	    send_to_char( "Reconnecting.\n\r", ch );
 	    do_look( ch, "auto" );
 	    check_loginmsg( ch );
 	    act( AT_ACTION, "$n has reconnected, kicking off old link.",
@@ -3001,19 +2658,11 @@ void send_to_char_color( const char *txt, CHAR_DATA *ch )
 void write_to_pager( DESCRIPTOR_DATA *d, const char *txt, int length )
 {
   int pageroffset;	/* Pager fix by thoric */
-  int origlength;   /* for MXP */
 
   if ( length <= 0 )
     length = strlen(txt);
   if ( length == 0 )
     return;
-
-  origlength = length;
-
-  /* work out how much we need to expand/contract it */
-  length += count_mxp_tags (d->mxp, txt, length);
-
-
   if ( !d->pagebuf )
   {
     d->pagesize = MAX_STRING_LENGTH;
@@ -3051,7 +2700,7 @@ void write_to_pager( DESCRIPTOR_DATA *d, const char *txt, int length )
     RECREATE(d->pagebuf, char, d->pagesize);
   }
   d->pagepoint = d->pagebuf + pageroffset;	/* pager fix (goofup fixed 08/21/97) */
-  convert_mxp_tags (d->mxp, d->pagebuf+d->pagetop, txt, origlength );
+  strncpy(d->pagebuf+d->pagetop, txt, length);
   d->pagetop += length;
   d->pagebuf[d->pagetop] = '\0';
   return;
@@ -3207,7 +2856,7 @@ void ch_printf(CHAR_DATA *ch, char *fmt, ...)
     vsprintf(buf, fmt, args);
     va_end(args);
 	
-    mxp_to_char(buf, ch, MXP_ALL );
+    send_to_char(buf, ch);
 }
 
 void pager_printf(CHAR_DATA *ch, char *fmt, ...)
@@ -3680,7 +3329,7 @@ void do_name( CHAR_DATA *ch, char *argument )
 
   if ( !NOT_AUTHED(ch) || ch->pcdata->auth_state != 2)
   {
-    mxp_to_char("Huh?\n\r", ch, MXP_ALL );
+    send_to_char("Huh?\n\r", ch);
     return;
   }
 
@@ -3688,7 +3337,7 @@ void do_name( CHAR_DATA *ch, char *argument )
 
   if (!check_parse_name(argument, TRUE))
   {
-    mxp_to_char("That name is reserved, please try another.\n\r", ch, MXP_ALL );
+    send_to_char("That name is reserved, please try another.\n\r", ch);
     return;
   }
 
@@ -3697,7 +3346,7 @@ void do_name( CHAR_DATA *ch, char *argument )
 
   if (!str_cmp(ch->name, argument))
   {
-    mxp_to_char("That's already your name!\n\r", ch, MXP_ALL );
+    send_to_char("That's already your name!\n\r", ch);
     return;
   }
 
@@ -3709,7 +3358,7 @@ void do_name( CHAR_DATA *ch, char *argument )
 
   if ( tmp )
   {
-    mxp_to_char("That name is already taken.  Please choose another.\n\r", ch, MXP_ALL );
+    send_to_char("That name is already taken.  Please choose another.\n\r", ch);
     return;
   }
 
@@ -3717,7 +3366,7 @@ void do_name( CHAR_DATA *ch, char *argument )
                         capitalize( argument ) );
   if ( stat( fname, &fst ) != -1 )
   {
-    mxp_to_char("That name is already taken.  Please choose another.\n\r", ch, MXP_ALL );
+    send_to_char("That name is already taken.  Please choose another.\n\r", ch);
     return;
   }
 
@@ -3725,7 +3374,7 @@ void do_name( CHAR_DATA *ch, char *argument )
   ch->name = STRALLOC( argument );
   STRFREE( ch->pcdata->filename );
   ch->pcdata->filename = STRALLOC( argument ); 
-  mxp_to_char("Your name has been changed.  Please apply again.\n\r", ch, MXP_ALL );
+  send_to_char("Your name has been changed.  Please apply again.\n\r", ch);
   ch->pcdata->auth_state = 0;
   return;
 }
@@ -3895,14 +3544,6 @@ void display_prompt( DESCRIPTOR_DATA *d )
   }
   else
     prompt = ch->pcdata->prompt;
-
-  /* reset MXP to default operation */
-  if (d->mxp)
-    {
-    strcpy (pbuf, ESC "[3z");
-    pbuf += 4;
-    }
-
   if ( ansi )
   {
     /* Most clients, especially mud clients, don't revert to gray but
@@ -4388,7 +4029,7 @@ bool pager_output( DESCRIPTOR_DATA *d )
   /* If there's anything to show, show it */
   if ( last != d->pagepoint )
   {
-    if ( !write_to_descriptor(d, d->pagepoint,
+    if ( !write_to_descriptor(d->descriptor, d->pagepoint,
           (last-d->pagepoint)) )
       return FALSE;
     d->pagepoint = last;
@@ -4408,9 +4049,9 @@ bool pager_output( DESCRIPTOR_DATA *d )
   /* Display the pager prompt */
   d->pagecmd = -1;
   if ( xIS_SET( ch->act, PLR_ANSI ) )
-      if ( write_to_descriptor(d, "\033[1;36m", 7) == FALSE )
+      if ( write_to_descriptor(d->descriptor, "\033[1;36m", 7) == FALSE )
 	return FALSE;
-  if ( (ret=write_to_descriptor(d,
+  if ( (ret=write_to_descriptor(d->descriptor,
 	"(C)ontinue, (N)on-stop, (R)efresh, (B)ack, (Q)uit: [C] ", 0)) == FALSE )
 	return FALSE;
   /* Restore previous color */
@@ -4425,7 +4066,8 @@ bool pager_output( DESCRIPTOR_DATA *d )
            d->prevcolor & 8 ? "1;" : "",
            d->prevcolor > 15 ? "5;" : "",
            d->prevcolor & 7 );
-      ret = write_to_descriptor( d, buf, 0 ); }
+      ret = write_to_descriptor( d->descriptor, buf, 0 );
+  }
   return ret;
 }
 
