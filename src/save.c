@@ -386,13 +386,6 @@ void fwrite_char( CHAR_DATA *ch, FILE *fp )
       fprintf( fp, "Wimpy        %d\n",	ch->wimpy		);
     if ( !xIS_EMPTY( ch->deaf ) )
       fprintf( fp, "Deaf         %s\n",	print_bitvector (&ch->deaf) );
-    if ( ch->pcdata->imc_deaf )
-      fprintf( fp, "IMC          %ld\n", ch->pcdata->imc_deaf );
-    if ( ch->pcdata->imc_allow )
-      fprintf( fp, "IMCAllow     %ld\n", ch->pcdata->imc_allow );
-    if ( ch->pcdata->imc_deny )
-      fprintf( fp, "IMCDeny      %ld\n", ch->pcdata->imc_deny );
-    fprintf(fp, "ICEListen %s~\n", ch->pcdata->ice_listen);
     if ( ch->resistant )
       fprintf( fp, "Resistant    %d\n",	ch->resistant		);
     if ( ch->no_resistant )
@@ -867,11 +860,6 @@ bool load_char_obj( DESCRIPTOR_DATA *d, char *name, bool preload )
     ch->pcdata->tell_history		= NULL;	/* imm only lasttell cmnd */
     ch->pcdata->lt_index		= 0;	/* last tell index */
     ch->morph                           = NULL;
-    /* Set up defaults for imc stuff */
-    ch->pcdata->imc_deaf		= 0;
-    ch->pcdata->imc_deny		= 0;
-    ch->pcdata->imc_allow		= 0;
-    ch->pcdata->ice_listen		= NULL;
     for (i = 0; i < AT_MAXCOLOR; ++i)
       ch->pcdata->colorize[i] = -1;
     
@@ -982,9 +970,6 @@ bool load_char_obj( DESCRIPTOR_DATA *d, char *name, bool preload )
 	fpArea = NULL;
 	strcpy(strArea, "$");
     }
-
-    if ( ch->pcdata->ice_listen == NULL )
-        ch->pcdata->ice_listen = str_dup("");
 
     if ( !found )
     {
@@ -1497,10 +1482,6 @@ int fread_char( CHAR_DATA *ch, FILE *fp, bool preload )
 	    	break;
 	    }
 	    KEY( "IllegalPK",	ch->pcdata->illegal_pk,	fread_number( fp ) );
-	    KEY ( "IMC",	ch->pcdata->imc_deaf,	fread_number( fp ) );
-	    KEY ( "IMCAllow",	ch->pcdata->imc_allow,	fread_number( fp ) );
-	    KEY ( "IMCDeny",	ch->pcdata->imc_deny,	fread_number( fp ) );
-	    KEY ( "ICEListen",	ch->pcdata->ice_listen, fread_string_nohash( fp ) );
 	    KEY( "Immune",	ch->immune,		fread_number( fp ) );
 	    break;
 

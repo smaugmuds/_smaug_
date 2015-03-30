@@ -7392,3 +7392,158 @@ ch_ret spell_midas_touch( int sn, int level, CHAR_DATA *ch, void *vo )
     send_to_char( "You transmogrify the item to gold!\n\r", ch );
     return rNONE;
 }
+
+ch_ret spell_enchant_armor( int sn, int level, CHAR_DATA *ch, void *vo )
+{
+    OBJ_DATA *obj = (OBJ_DATA *) vo;
+    AFFECT_DATA *paf;
+    EXT_BV *ext_bv_null = 0;
+
+    if ( obj->item_type != ITEM_ARMOR
+    ||   IS_OBJ_STAT(obj, ITEM_MAGIC)
+    ||   obj->first_affect )
+       return rSPELL_FAILED;
+
+    /* Bug fix here. -- Alty */
+    separate_obj(obj);
+    CREATE( paf, AFFECT_DATA, 1 );
+    paf->type          = -1;
+    paf->duration      = -1;
+    paf->location      = APPLY_AC;
+    paf->modifier      = -50;
+    paf->bitvector     = ext_bv_null[0];
+    LINK( paf, obj->first_affect, obj->last_affect, next, prev );
+
+    CREATE( paf, AFFECT_DATA, 1 );
+    paf->type          = -1;
+    paf->duration      = -1;
+    paf->location      = APPLY_HIT;
+    paf->modifier      = +50;
+    paf->bitvector     = ext_bv_null[0];
+    LINK( paf, obj->first_affect, obj->last_affect, next, prev );
+
+    CREATE( paf, AFFECT_DATA, 1 );
+    paf->type          = -1;
+    paf->duration      = -1;
+    paf->location      = APPLY_MANA;
+    paf->modifier      = +100;
+    paf->bitvector     = ext_bv_null[0];
+    LINK( paf, obj->first_affect, obj->last_affect, next, prev );
+
+    CREATE( paf, AFFECT_DATA, 1 );
+    paf->type          = -1;
+    paf->duration      = -1;
+    paf->location      = APPLY_MOVE;
+    paf->modifier      = +100;
+    paf->bitvector     = ext_bv_null[0];
+    LINK( paf, obj->first_affect, obj->last_affect, next, prev );
+
+    if ( IS_GOOD(ch) )
+    {
+/*     SET_BIT(obj->extra_flags, ITEM_ANTI_EVIL); */
+       act( AT_BLUE, "$p glows blue.", ch, obj, NULL, TO_CHAR );
+    }
+    else if ( IS_EVIL(ch) )
+    {
+/*     SET_BIT(obj->extra_flags, ITEM_ANTI_GOOD); */
+       act( AT_RED, "$p glows red.", ch, obj, NULL, TO_CHAR );
+    }
+    else
+    {
+/*     SET_BIT(obj->extra_flags, ITEM_ANTI_EVIL);
+       SET_BIT(obj->extra_flags, ITEM_ANTI_GOOD); */
+       act( AT_YELLOW, "$p glows yellow.", ch, obj, NULL, TO_CHAR );
+    }
+
+    send_to_char( "Ok.\n\r", ch );
+    return rNONE;
+}
+
+ch_ret spell_death( int sn, int level, CHAR_DATA *ch, void *vo )
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+
+    if ( !IS_NPC( victim ) && !IS_NPC( ch ) )
+    {
+       send_to_char( "I don't think so...\n\r", ch );
+       return rSPELL_FAILED;
+}
+    raw_kill( ch, victim );
+    act( AT_MAGIC, "$n's death spell instantly kills $N."
+                   , ch, NULL,
+                  victim, TO_NOTVICT );
+    return rVICT_DIED;
+}
+
+ch_ret spell_assassinate( int sn, int level, CHAR_DATA *ch, void *vo )
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    OBJ_DATA *obj;
+
+    if ( IS_NPC(ch) && IS_AFFECTED( ch, AFF_CHARM ) )
+    {
+       send_to_char( "You can't do that right now.\n\r", ch );
+       return rSPELL_FAILED;
+    }
+
+    if ( ch->mount )
+    {
+       send_to_char( "You can't get close enough while mounted.\n\r", ch );
+       return;
+    }
+
+    if ( victim == ch )
+    {
+       send_to_char( "How can you sneak up on yourself?\n\r", ch );
+       return;
+    }
+
+    if ( is_safe( ch, victim, TRUE ) )
+      return;
+
+    /* Added Stabbing Weapon -Tsunami */
+    if ( ( obj = get_eq_char( ch, WEAR_WIELD ) ) == NULL
+    ||   ( obj->value[3] != 11 && obj->value[3] != 2 ) )
+    {
+       send_to_char( "You need to wield a piercing or stabbing weapon.\n\r", ch );
+        return;
+    }
+
+
+    if ( victim->fighting )
+    {
+       send_to_char( "You can't assassinate someone who is in combat.\n\r", ch );
+       return;
+    }
+
+    /* Can assassinate a char even if it's hurt as long as it's sleeping. -Tsunami */
+    if ( victim->hit < victim->max_hit && IS_AWAKE( victim ) )
+    {
+    act( AT_PLAIN, "$N is hurt and suspicious ... you can't sneak up.",
+           ch, NULL, victim, TO_CHAR );
+       return;
+    }
+
+    raw_kill( ch, victim );
+    act( AT_MAGIC, "$n assassinates $N."
+                   , ch, NULL,
+                  victim, TO_NOTVICT );
+    return rVICT_DIED;
+}
+
+ch_ret spell_grasp_suspiria( int sn, int level, CHAR_DATA *ch, void *vo )
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    int dam,l;
+
+    level       = UMAX(0, level);
+    l          = UMAX(1,level-40);
+    dam         = 150;
+
+    if ( saves_spell_staff( level, victim ) )
+       dam = dam*3/4;
+    act( AT_MAGIC, "$n howls with rage as he grabs $N's throat."
+                    , ch, NULL,
+                   victim, TO_NOTVICT );
+    return damage( ch, victim, dam, sn );
+}

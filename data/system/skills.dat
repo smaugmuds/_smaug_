@@ -194,6 +194,19 @@ Minlevel     1
 End
 
 #SKILL
+Name         assassinate~
+Type         Skill
+Flags        0
+Target       1
+Minpos       8
+Rounds       12
+Code         spell_assassinate
+Dammsg       ~
+Wearoff      !WEAROFF!~
+Minlevel     50
+End
+
+#SKILL
 Name         astral walk~
 Type         Spell
 Info         0
@@ -1743,6 +1756,20 @@ Minlevel     51
 End
 
 #SKILL
+Name         grasp suspiria~
+Type         Skill
+Flags        908
+Target       1
+Minpos       7
+Mana         10
+Rounds       8
+Code         spell_grasp_suspiria
+Dammsg       grasp~
+Wearoff      !WEAROFF!~
+Minlevel     45
+End
+
+#SKILL
 Name         grounding~
 Type         Spell
 Info         0
@@ -2883,9 +2910,13 @@ Code         spell_smaug
 Dammsg       ~
 Wearoff      You can no longer see the invisible forces around you.~
 Hitchar      The invisible world is revealed unto you!~
-Hitvict      The invisible world is revealed unto you!~
+Hitvict      Your eyes glow bright red as they gain the ability to see anything unseen.~
+Hitroom      $N's eyes glow bright red as they gain the ability to see anything unseen.~
+Affect       'l*24' 26 'detect evil' 4
+Affect       'l*24' 26 'detect hidden' 32
 Affect       'l*24' 26 'detect_invis' 3
-Minlevel     20
+Affect       'l*24' 26 'detect magic' 16
+Minlevel     15
 End
 
 #SKILL
@@ -3582,6 +3613,24 @@ Minlevel     1
 End
 
 #SKILL
+Name         visual defiance~
+Type         Skill
+Flags        0
+Minpos       8
+Slot         29
+Mana         5
+Rounds       12
+Code         spell_invis
+Dammsg       ~
+Wearoff      You are no longer invisible.~
+Hitchar      $N fades from existence.~
+Hitvict      You fade from existence.~
+Hitroom      $N fades from existence.~
+Affect       'l*11' 26 'invis' 2
+Minlevel     2
+End
+
+#SKILL
 Name         weaken~
 Type         Spell
 Info         0
@@ -3910,6 +3959,20 @@ Minlevel     10
 End
 
 #SKILL
+Name         death~
+Type         Spell
+Flags        904
+Target       1
+Minpos       7
+Mana         35
+Rounds       8
+Code         spell_death
+Dammsg       Death Spell~
+Wearoff      !WEAROFF!~
+Minlevel     50
+End
+
+#SKILL
 Name         defensive style~
 Type         Skill
 Info         0
@@ -4032,6 +4095,20 @@ Minlevel     15
 End
 
 #SKILL
+Name         enchant armor~
+Type         Spell
+Flags        0
+Target       4
+Minpos       8
+Mana         100
+Rounds       24
+Code         spell_enchant_armor
+Dammsg       ~
+Wearoff      !Enchant Armor!~
+Minlevel     12
+End
+
+#SKILL
 Name         enhanced damage~
 Type         Skill
 Info         0
@@ -4070,6 +4147,18 @@ Minlevel     3
 End
 
 #SKILL
+Name         fourth attack~
+Type         Skill
+Info         0
+Flags        0
+Minpos       105
+Code         spell_null
+Dammsg       ~
+Wearoff      !Fourth Attack!~
+Minlevel     32
+End
+
+#SKILL
 Name         fifth attack~
 Type         Skill
 Info         0
@@ -4082,15 +4171,27 @@ Minlevel     42
 End
 
 #SKILL
-Name         fourth attack~
+Name         sixth attack~
 Type         Skill
 Info         0
 Flags        0
 Minpos       105
 Code         spell_null
 Dammsg       ~
-Wearoff      !Fourth Attack!~
-Minlevel     32
+Wearoff      !Sixth Attack!~
+Minlevel     52
+End
+
+#SKILL
+Name         seventh attack~
+Type         Skill
+Info         0
+Flags        0
+Minpos       105
+Code         spell_null
+Dammsg       ~
+Wearoff      !Seventh Attack!~
+Minlevel     62
 End
 
 #SKILL
@@ -4133,7 +4234,7 @@ Rounds       12
 Code         spell_smaug
 Dammsg       suspiric grasp~
 Hitchar      $N's deathrattle fills the air as you drain $S life...~
-Hitvict      A deathrattle escapes your throat as $n drains your life.~
+Hitvict      A Deathrattle escapes your throat as $n drains your life.~
 Hitroom      A deathrattle escapes $N's throat as $n drains $S life.~
 Misschar     You clench a clawed fist in anger as $N escapes your grasp.~
 Missroom     $n grimaces at $N, clenching a clawed fist in anger...~
@@ -4273,6 +4374,41 @@ Minlevel     18
 End
 
 #SKILL
+Name         life force~
+Type         Spell
+Flags        0
+Target       2
+Minpos       7
+Slot         61
+Mana         50
+Rounds       30
+Code         spell_smaug
+Dammsg       ~
+Wearoff      !Heal!~
+Hitchar      You restore $N's Life Force!.~
+Hitvict      You feel as if your life has suddenly been restored.~
+Affect       '' 13 '1000' 0
+Minlevel     50
+End
+
+#SKILL
+Name         lifelift~
+Type         Spell
+Flags        67174400
+Minpos       8
+Mana         50
+Rounds       16
+Code         spell_smaug
+Dammsg       ~
+Hitchar      You reach across the planes and restore $N...~
+Hitvict      A mystical hand appears from nowhere and restores you...~
+Hitroom      A mystical hand appears from nowhere and restores $N...~
+Misschar     A barrier in the planes prevents you from reaching them.~
+Affect       '' 13 '200' 0
+Minlevel     40
+End
+
+#SKILL
 Name         lunge~
 Type         Skill
 Info         8584
@@ -4305,6 +4441,24 @@ Dammsg       ~
 Hitvict      You meditate peacefully, collecting mana from the cosmos.~
 Missvict     You spend several minutes in deep concentration, but fail to collect any mana.~
 Minlevel     12
+End
+
+#SKILL
+Name         metallic skin~
+Type         Spell
+Flags        0
+Target       2
+Minpos       8
+Slot         246
+Mana         40
+Rounds       18
+Code         spell_smaug
+Dammsg       ~
+Wearoff      Your skin feels soft again.~
+Hitvict      Your skin feels like a plate of steel.~
+Hitroom      $N's skin turns into a plate of steel.~
+Affect       'l*23' 17 '-150' 0
+Minlevel     27
 End
 
 #SKILL

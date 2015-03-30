@@ -40,11 +40,6 @@
 #include <stdlib.h>
 #include <limits.h>
 
-/* force the who command to require an argument (should use cset) */
-#define REQWHOARG
-/* uncomment below to add honour to the mix
-#define HONOUR_CODE */
-
 #ifdef WIN32
   #include <winsock.h>
   #include <sys/types.h>
@@ -919,7 +914,7 @@ struct  lck_app_type
 typedef enum {
   RACE_HUMAN, RACE_ELF, RACE_DWARF, RACE_HALFLING, RACE_PIXIE, RACE_VAMPIRE, 
   RACE_HALF_OGRE, RACE_HALF_ORC, RACE_HALF_TROLL, RACE_HALF_ELF, RACE_GITH, 
-  RACE_DROW, RACE_SEA_ELF, RACE_LIZARDMAN
+  RACE_DROW, RACE_SEA_ELF, RACE_LIZARDMAN, RACE_DEMON
 } race_types;
 
 /* npc races */
@@ -937,6 +932,13 @@ typedef enum {
 #define CLASS_PALADIN	    8 /* 7-7-96 SB */
 #define CLASS_NEPHANDI	    9 
 #define CLASS_SAVAGE	   10
+#define CLASS_ARCHER	   11
+#define CLASS_ASSASSIN	   12
+#define CLASS_DEMON	   13
+#define CLASS_ANGEL	   14
+#define CLASS_WEREWOLF	   15
+#define CLASS_LICANTHROPE  16
+#define CLASS_LICH	   17
 
 /*
  * Languages -- Altrag
@@ -2704,12 +2706,6 @@ struct	pc_data
     sh_int		lt_index;	/* last_tell index */
     char *		see_me;		/* who can see me (imm only) */
     
-    long	imc_deaf;    /* IMC channel def flags */
-    long	imc_allow;   /* IMC channel allow flags */
-    long	imc_deny;    /* IMC channel deny flags */
-    char *	rreply;      /* IMC reply-to */
-    char *	rreply_name; /* IMC reply-to shown to char */
-    char *	ice_listen;  /* ICE channels */
     char *  recent_site;        /* site a player started their most recent session from */
     char *  prev_site;      /* site a player last quit from */
     sh_int	colorize	[AT_MAXCOLOR];
@@ -2988,8 +2984,6 @@ struct	system_data
     sh_int	read_mail_free;		/* Read mail for free (was 51) */
     sh_int	write_mail_free;	/* Write mail for free(was 51) */
     sh_int	take_others_mail;	/* Take others mail (was 54)   */
-    int		imc_mail_vnum;		/* Board vnum for IMC mail     */
-    sh_int	imc_mail_level;		/* Min level to send IMC mail  */
     sh_int	muse_level;		/* Level of muse channel */
     sh_int	think_level;		/* Level of think channel LEVEL_HIGOD*/
     sh_int	build_level;		/* Level of build channel LEVEL_BUILD*/

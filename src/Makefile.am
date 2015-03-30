@@ -50,8 +50,6 @@ USE_HONOUR_CODE = -DHONOUR_CODE
 
 ##### --{smaug}-- BUILD OPTIONS #####
 
-### DEVELOPER CFLAGS (All Warnings Enabled) ###
-
 # Uncomment to enable profiling
 
 PROFILING = ${PROFILE_CFLAGS}
@@ -87,16 +85,18 @@ DEBUG_FLAGS = -DREQUESTS
 
 ### DEVELOPER CFLAGS (All Warnings Enabled) ###
 
-# Uncomment the line below if you dont want warnings while building.
-# (and comment upper AM_CFLAGS)
+# Uncomment the line below if you want all warnings while building.
 
 #AM_CFLAGS = \
 #-Wall -Wshadow -Wformat-security -Wpointer-arith -Wcast-align \
 #-Wredundant-decls -Wuninitialized $(DEBUG_FLAGS)
 
+# (and comment the following AM_CFLAGS)
+
 ### PACKAGER CFLAGS (No Warnings Enabled) ###
 
 # Uncomment the line below if you dont want warnings while building.
+# (and comment previous AM_CFLAGS)
 
 AM_CFLAGS = \
 -Wno-all -Wno-cast-align -Wno-unused-result -Wno-write-strings \

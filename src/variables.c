@@ -20,11 +20,6 @@
 #include <string.h>
 #include <time.h>
 #include "mud.h"
-#ifdef USE_IMC
-#include "imc-mercbase.h"
-#include "icec-mercbase.h"
-#endif
-
 
 #if defined(KEY)
 #undef KEY

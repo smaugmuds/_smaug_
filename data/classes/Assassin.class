@@ -1,0 +1,258 @@
+Name        Assassin~
+Class       9
+Attrprime   2
+Weapon      10312
+Guild       3028
+Skilladept  85
+Thac0       17
+Thac32      9
+Hpmin       10
+Hpmax       15
+Mana        1
+Expbase     875
+Skill 'armor' 6 95
+Skill 'chill touch' 4 95
+Skill 'detect hidden' 12 75
+Skill 'detect invis' 9 75
+Skill 'detect poison' 10 80
+Skill 'invis' 5 95
+Skill 'knock' 50 80
+Skill 'magic missile' 1 75
+Skill 'pass door' 30 80
+Skill 'scry' 35 85
+Skill 'aid' 15 75
+Skill 'assassinate' 30 25
+Skill 'climb' 1 85
+Skill 'detrap' 20 85
+Skill 'disarm' 5 90
+Skill 'dodge' 1 90
+Skill 'doorbash' 11 85
+Skill 'enhanced damage' 18 65
+Skill 'gouge' 15 95
+Skill 'hide' 1 75
+Skill 'kick' 7 95
+Skill 'mount' 2 85
+Skill 'parry' 6 85
+Skill 'peek' 1 95
+Skill 'pick lock' 1 95
+Skill 'poison weapon' 16 85
+Skill 'punch' 37 50
+Skill 'scan' 12 90
+Skill 'search' 3 85
+Skill 'second attack' 8 90
+Skill 'sneak' 1 95
+Skill 'steal' 1 95
+Skill 'third attack' 23 70
+Skill 'track' 35 85
+Skill 'bludgeons' 1 50
+Skill 'flexible arms' 1 65
+Skill 'long blades' 1 85
+Skill 'pugilism' 1 95
+Skill 'short blades' 1 95
+Skill 'talonous arms' 1 85
+Skill 'common' 1 99
+Skill 'dwarven' 1 99
+Skill 'elvish' 1 99
+Skill 'gith' 1 99
+Skill 'goblin' 1 99
+Skill 'halfling' 1 99
+Skill 'ogre' 1 99
+Title
+Man~
+Woman~
+Title
+Apprentice~
+Apprentice~
+Title
+Footpad~
+Footpad~
+Title
+Lurker~
+Lurkeress~
+Title
+Pick-Pocket~
+Pick-Pocket~
+Title
+Sneak~
+Sneak~
+Title
+Pincher~
+Pincheress~
+Title
+Cut-Purse~
+Cut-Purse~
+Title
+Snatcher~
+Snatcheress~
+Title
+Sharper~
+Sharpress~
+Title
+Rogue~
+Rogue~
+Title
+Tracker~
+Trackeress~
+Title
+Magsman~
+Magswoman~
+Title
+Highwayman~
+Highwaywoman~
+Title
+Burglar~
+Burglaress~
+Title
+Assassin~
+Assassin~
+Title
+Knifer~
+Knifer~
+Title
+Quick-Blade~
+Quick-Blade~
+Title
+Killer~
+Murderess~
+Title
+Brigand~
+Brigand~
+Title
+Cut-Throat~
+Cut-Throat~
+Title
+Spy~
+Spy~
+Title
+Grand Spy~
+Grand Spy~
+Title
+Master Spy~
+Master Spy~
+Title
+Ninja~
+Ninja~
+Title
+Greater Assassin~
+Greater Assassin~
+Title
+Master of Vision~
+Mistress of Vision~
+Title
+Master of Hearing~
+Mistress of Hearing~
+Title
+Master of Smell~
+Mistress of Smell~
+Title
+Master of Taste~
+Mistress of Taste~
+Title
+Master of Touch~
+Mistress of Touch~
+Title
+Master of Reality~
+Mistress of Reality~
+Title
+Guildmaster of the Unseen~
+Guildmistress of the Unseen~
+Title
+Guildmaster of Stealth~
+Guildmistress of Stealth~
+Title
+Guildmaster of Assassination~
+Guidlmistress of Assassination~
+Title
+High Guildmaster~
+High Guildmistress~
+Title
+Brother of Patience~
+Sister of Patience~
+Title
+Brother of the Dagger~
+Sister of the Dagger~
+Title
+Brother of the Coin~
+Sister of the Coin~
+Title
+Brother of the Shadows~
+Sister of the Shadows~
+Title
+Brother of the Guild~
+Sister of the Guild~
+Title
+Lord of the Wolf~
+Lady of the Wolf~
+Title
+Lord of the Snake~
+Lady of the Serpent~
+Title
+Lord of the Hawk~
+Lady of the Hawk~
+Title
+Lord of the Panther~
+Lady of the Panther~
+Title
+Crime Lord~
+Crime Mistress~
+Title
+Infamous Crime Lord~
+Infamous Crime Mistress~
+Title
+Greater Crime Lord~
+Greater Crime Mistress~
+Title
+Master Crime Lord~
+Master Crime Mistress~
+Title
+Godfather~
+Godmother~
+Title
+Avatar~
+Avatar~
+Title
+Acolyte~
+Acolyte~
+Title
+Neophyte~
+Neophyte~
+Title
+Creator~
+Creator~
+Title
+Savior~
+Savior~
+Title
+Demi God~
+Demi Goddess~
+Title
+Immortal~
+Immortal~
+Title
+Lesser God~
+Lesser Goddess~
+Title
+God~
+Goddess~
+Title
+Greater God~
+Greater Goddess~
+Title
+Ascendant God~
+Acendant Goddess~
+Title
+Exalted God~
+Exalted Goddess~
+Title
+Ancient One~
+Ancient One~
+Title
+Eternal One~
+Eternal One~
+Title
+Infinite One~
+Infinite One~
+Title
+Supreme Entity~
+Supreme Entity~
+End

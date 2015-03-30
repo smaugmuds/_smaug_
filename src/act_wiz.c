@@ -7173,8 +7173,6 @@ void do_cset( CHAR_DATA *ch, char *argument )
     pager_printf_color(ch, "\n\r&WPort_name: %s", sysdata.port_name );
     pager_printf_color(ch, "\n\r&WMail:\n\r  &wRead all mail: &W%d  &wRead mail for free: &W%d  &wWrite mail for free: &W%d\n\r",
 	    sysdata.read_all_mail, sysdata.read_mail_free, sysdata.write_mail_free );
-    pager_printf_color(ch, "  &wTake all mail: &W%d  &wIMC mail board vnum: &W%d\n\r",
-	    sysdata.take_others_mail, sysdata.imc_mail_vnum);
     pager_printf_color(ch, "&WChannels:\n\r  &wMuse: &W%d   &wThink: &W%d   &wLog: &W%d   &wBuild: &W%d\n\r",
  	    sysdata.muse_level, sysdata.think_level, sysdata.log_level, 
 	    sysdata.build_level);
@@ -7479,13 +7477,6 @@ void do_cset( CHAR_DATA *ch, char *argument )
   {
     sysdata.dam_mob_vs_mob = level;
     send_to_char("Ok.\n\r", ch);      
-    return;
-  }
-  
-  if ( !str_cmp(arg, "imc_vnum") || !str_cmp(arg, "imc_mail_vnum") )
-  {
-    sysdata.imc_mail_vnum = level;
-    send_to_char("Ok.\n\r", ch);
     return;
   }
   
