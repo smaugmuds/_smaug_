@@ -37,12 +37,13 @@ aclocal
 autoconf
 autoheader
 
-ln -sf doc/readme.txt INSTALL
-ln -sf doc/license.txt COPYING
+ln -sf README.md INSTALL
 ln -sf README.md README
-ln -sf doc/readme.txt AUTHORS
-ln -sf doc/smaug.txt NEWS
-ln -sf doc/readme.txt ChangeLog
+ln -sf README.md AUTHORS
+ln -sf README.md NEWS
+ln -sf README.md ChangeLog
+
+ln -sf LICENSE COPYING
 
 automake -a
 
