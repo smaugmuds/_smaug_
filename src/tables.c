@@ -211,7 +211,6 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_aset" ))		return do_aset;
 	if ( !str_cmp( name, "do_ask" ))		return do_ask;
 	if ( !str_cmp( name, "do_assist" ))		return do_assist;
-	if ( !str_cmp( name, "do_assassin" ))		return do_assassin;
 	if ( !str_cmp( name, "do_astat" ))		return do_astat;
 	if ( !str_cmp( name, "do_at" ))			return do_at;
 	if ( !str_cmp( name, "do_atobj"))		return do_atobj;
@@ -424,7 +423,6 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_light" ))		return do_light;
 	if ( !str_cmp( name, "do_list" ))		return do_list;
 	if ( !str_cmp( name, "do_litterbug" ))		return do_litterbug;
-	if ( !str_cmp( name, "do_liquids" ))		return do_liquids;
 	if ( !str_cmp( name, "do_loadarea" ))		return do_loadarea;
 	if ( !str_cmp( name, "do_loadup" ))		return do_loadup;
 	if ( !str_cmp( name, "do_lock" ))		return do_lock;
@@ -460,7 +458,6 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_mfind" ))		return do_mfind;
 	if ( !str_cmp( name, "do_minvoke" ))		return do_minvoke;
 	if ( !str_cmp( name, "do_mistwalk" ))		return do_mistwalk;
-	if ( !str_cmp( name, "do_mix" ))		return do_mix;
 	if ( !str_cmp( name, "do_mlist" ))		return do_mlist;
 	if ( !str_cmp( name, "do_mmenu" ))		return do_mmenu;
 	if ( !str_cmp( name, "do_mobinvade" ))		return do_mobinvade;
@@ -550,7 +547,6 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_nanny_help" ))		return do_nanny_help;
 	if ( !str_cmp( name, "do_newbiechat" ))		return do_newbiechat;
 	if ( !str_cmp( name, "do_newbieset" ))		return do_newbieset;
-	if ( !str_cmp( name, "do_news" ))               return do_news;
 	if ( !str_cmp( name, "do_newscore" ))		return do_newscore;
 	if ( !str_cmp( name, "do_newzones" ))		return do_newzones;
 	if ( !str_cmp( name, "do_noauction" ))		return do_noauction;
@@ -705,8 +701,6 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_setclass" ))		return do_setclass;
 	if ( !str_cmp( name, "do_setcouncil" ))		return do_setcouncil;
 	if ( !str_cmp( name, "do_setdeity" ))		return do_setdeity;
-	if ( !str_cmp( name, "do_setliquid" ))		return do_setliquid;
-	if ( !str_cmp( name, "do_setmixture" ))		return do_setmixture;
 	if ( !str_cmp( name, "do_setrace" ))		return do_setrace;
 	if ( !str_cmp( name, "do_setvault"))		return do_setvault;
 	if ( !str_cmp( name, "do_setweather" ))		return do_setweather;

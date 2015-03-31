@@ -1218,7 +1218,6 @@ void load_mobiles( AREA_DATA *tarea, FILE *fp )
 	/* '+'		*/		  fread_letter( fp );
 	pMobIndex->damplus		= fread_number( fp );
 	pMobIndex->gold			= fread_number( fp );
-	pMobIndex->balance	= fread_number( fp );
 	pMobIndex->exp			= fread_number( fp );
 
 	/* pMobIndex->position		= fread_number( fp ); */
@@ -2702,7 +2701,6 @@ CHAR_DATA *create_mobile( MOB_INDEX_DATA *pMobIndex )
     mob->hit			= mob->max_hit;
     /* lets put things back the way they used to be! -Thoric */
     mob->gold			= pMobIndex->gold;
-    mob->balance	= pMobIndex->balance;
     mob->exp			= pMobIndex->exp;
     mob->position		= pMobIndex->position;
     mob->defposition		= pMobIndex->defposition;
@@ -5791,7 +5789,6 @@ MOB_INDEX_DATA *make_mobile( int vnum, int cvnum, char *name )
 	  pMobIndex->damsizedice	= 0;
 	  pMobIndex->damplus		= 0;
 	  pMobIndex->gold		= 0;
-	  pMobIndex->balance		= 0;
 	  pMobIndex->exp		= 0;
 	  /*
 	   * Bug noticed by Sevoreria Dragonlight
@@ -5841,7 +5838,6 @@ MOB_INDEX_DATA *make_mobile( int vnum, int cvnum, char *name )
 	  pMobIndex->damsizedice	= cMobIndex->damsizedice;
 	  pMobIndex->damplus		= cMobIndex->damplus;
 	  pMobIndex->gold		= cMobIndex->gold;
-	  pMobIndex->balance		= cMobIndex->balance;
 	  pMobIndex->exp		= cMobIndex->exp;
 	  pMobIndex->position		= cMobIndex->position;
 	  pMobIndex->defposition	= cMobIndex->defposition;

@@ -43,6 +43,8 @@
 
 #include "mud.h"
 
+#include "bank.h"
+
 void do_bank( CHAR_DATA *ch, char *argument )
 {
   CHAR_DATA *banker;

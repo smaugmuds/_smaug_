@@ -2540,6 +2540,7 @@ struct	char_data
     sh_int		practice;
     sh_int		numattacks;
     int			gold;
+    int			balance;
     int			exp;
     EXT_BV		act;
     EXT_BV		affected_by;
@@ -2638,6 +2639,7 @@ struct	pc_data
     COUNCIL_DATA * 	council;
     AREA_DATA *		area;
     DEITY_DATA *	deity;
+    CHAR_DATA *		balance;
     char *		homepage;
     char *		email;
     char *		icq;
@@ -2707,7 +2709,6 @@ struct	pc_data
     char **		tell_history;	/* for immortal only command lasttell */
     sh_int		lt_index;	/* last_tell index */
     char *		see_me;		/* who can see me (imm only) */
-    int 		balance;
     char *  recent_site;        /* site a player started their most recent session from */
     char *  prev_site;      /* site a player last quit from */
     sh_int	colorize	[AT_MAXCOLOR];

@@ -32,14 +32,12 @@
     \\_____________________________________________________________________//
 */
 
-extern	CHAR_DATA *find_banker;
-
 CHAR_DATA *find_banker( CHAR_DATA *ch )
 {
   CHAR_DATA *banker;
   
   for ( banker = ch->in_room->first_person; banker; banker = banker->next_in_room )
-    if ( IS_NPC( banker ) && IS_SET( banker->act, ACT_BANKER ) )
+    if ( IS_NPC( banker ) && xIS_SET( banker->act, ACT_BANKER ) )
       break;
 
   return banker;
