@@ -17,7 +17,7 @@
      |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
      |_____________________________________________________________________|
      |                                                                     |
-     |                   -*- Hints Module Definitions -*-                  |
+     |                  -*- Banking Module Definitions -*-                 |
      |_____________________________________________________________________|
     //                                                                     \\
    [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
@@ -32,20 +32,15 @@
     \\_____________________________________________________________________//
 */
 
-char *get_hint          args ( ( int level ) );
+extern	CHAR_DATA *find_banker;
 
-typedef struct  hint_data               HINT_DATA;
-struct hint_data
+CHAR_DATA *find_banker( CHAR_DATA *ch )
 {
-        HINT_DATA       *next;
-        HINT_DATA       *prev;
-        char            *text;
-        int             low;
-        int             high;
-};
-extern          HINT_DATA       * hint;
-extern          HINT_DATA       *first_hint;
-extern          HINT_DATA       *last_hint;
+  CHAR_DATA *banker;
+  
+  for ( banker = ch->in_room->first_person; banker; banker = banker->next_in_room )
+    if ( IS_NPC( banker ) && IS_SET( banker->act, ACT_BANKER ) )
+      break;
 
-#define HINT_UPDATEFREQ         1
-
+  return banker;
+}

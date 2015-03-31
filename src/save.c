@@ -1,19 +1,36 @@
-/****************************************************************************
- * [S]imulated [M]edieval [A]dventure multi[U]ser [G]ame      |   \\._.//   *
- * -----------------------------------------------------------|   (0...0)   *
- * SMAUG 1.4 (C) 1994, 1995, 1996, 1998  by Derek Snider      |    ).:.(    *
- * -----------------------------------------------------------|    {o o}    *
- * SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,      |   / ' ' \   *
- * Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,      |~'~.VxvxV.~'~*
- * Tricops, Fireblade, Edmond, Conran                         |             *
- * ------------------------------------------------------------------------ *
- * Merc 2.1 Diku Mud improvments copyright (C) 1992, 1993 by Michael        *
- * Chastain, Michael Quan, and Mitchell Tse.                                *
- * Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,          *
- * Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.     *
- * ------------------------------------------------------------------------ *
- *		     Character saving and loading module		    *
- ****************************************************************************/
+/*
+                     R E A L M S    O F    D E S P A I R  !
+   ___________________________________________________________________________
+  //            /                                                            \\
+ [|_____________\   ********   *        *   ********   *        *   *******   |]
+ [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
+ [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
+ [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
+ [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
+ [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
+ [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
+ [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
+ [|_____________\  **********  **      **  **      **  **********  *********  |]
+ [|             /  *********   *        *  *        *   ********    *******   |]
+  \\____________\____________________________________________________________//
+     |                                                                     |
+     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
+     |_____________________________________________________________________|
+     |                                                                     |
+     |              -*- Character Saving & Loading Module -*-              |
+     |_____________________________________________________________________|
+    //                                                                     \\
+   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
+   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
+   [|                                                                       |]
+   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
+   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
+   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
+   [|  Nyboe. Win32 port Nick Gammon.                                       |]
+   [|                                                                       |]
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+    \\_____________________________________________________________________//
+*/
 
 #include <sys/types.h>
 #include <ctype.h>
@@ -329,6 +346,7 @@ void fwrite_char( CHAR_DATA *ch, FILE *fp )
            ch->pcdata->stances[8], ch->pcdata->stances[9],
            ch->pcdata->stances[10], ch->pcdata->stances[11]);
     fprintf( fp, "Gold         %d\n",	ch->gold		);
+    fprintf( fp, "Balance      %d\n",	ch->balance	);
     fprintf( fp, "Exp          %d\n",	ch->exp			);
     fprintf( fp, "Height          %d\n",	ch->height	);
     fprintf( fp, "Weight          %d\n",	ch->weight	);
@@ -378,7 +396,7 @@ void fwrite_char( CHAR_DATA *ch, FILE *fp )
     fprintf( fp, "Favor	       %d\n",	ch->pcdata->favor	);
     fprintf( fp, "Glory        %d\n",   ch->pcdata->quest_curr  );
     fprintf( fp, "MGlory       %d\n",   ch->pcdata->quest_accum );
-	fprintf( fp, "Honour       %d\n",   ch->pcdata->honour );
+		fprintf( fp, "Honour       %d\n",   ch->pcdata->honour );
     fprintf( fp, "Hitroll      %d\n",	ch->hitroll		);
     fprintf( fp, "Damroll      %d\n",	ch->damroll		);
     fprintf( fp, "Armor        %d\n",	ch->armor		);
@@ -1233,6 +1251,7 @@ int fread_char( CHAR_DATA *ch, FILE *fp, bool preload )
 	    break;
 
 	case 'B':
+	    KEY( "Balance",	ch->balance,		fread_number( fp ) );
 	    KEY( "Bamfin",	ch->pcdata->bamfin,	fread_string_nohash( fp ) );
 	    KEY( "Bamfout",	ch->pcdata->bamfout,	fread_string_nohash( fp ) );
 	    KEY( "Bestowments", ch->pcdata->bestowments, fread_string_nohash( fp ) );

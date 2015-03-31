@@ -1,43 +1,43 @@
-/*#################################################################
-  #                                              |                #
-  #  ******* **    **  ******  **    **  ******  |                #
-  # ******** ***  *** ******** **    ** ******** |    \\._.//     #
-  # **       ******** **    ** **    ** **       |    (0...0)     #
-  # *******  ******** ******** **    ** **  **** |     ).:.(      #
-  #  ******* ** ** ** ******** **    ** **  **** |     {o o}      #
-  #       ** **    ** **    ** **    ** **    ** |    / ' ' \     #
-  # ******** **    ** **    ** ******** ******** | -^^.VxvxV.^^-  #
-  # *******  **    ** **    **  ******   ******  |                #
-  #                                              |                #
-  # ------------------------------------------------------------- #
-  # [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame         #
-  # ------------------------------------------------------------- #
-  # SMAUG 1.4 © 1994, 1995, 1996, 1998  by Derek Snider           #
-  # ------------------------------------------------------------- #
-  # SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,         #
-  # Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,         #
-  # Tricops, Fireblade, Edmond, Conran                            #
-  # ------------------------------------------------------------- #
-  # Merc 2.1 Diku Mud improvments copyright © 1992, 1993 by       #
-  # Michael Chastain, Michael Quan, and Mitchell Tse.             #
-  # Original Diku Mud copyright © 1990, 1991 by Sebastian Hammer, #
-  # Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja #
-  # Nyboe. Win32 port by Nick Gammon                              #
-  # ------------------------------------------------------------- #
-  # --{smaug}-- 1.8.x © 2014-2015 by Antonio Cao @(burzumishi)    #
-  # ------------------------------------------------------------- #
-  #             Liquidtable Replacement definitions               #
-  #################################################################*/
-
 /*
-**************************************************
-**	   Crimson Blade Codebase (CbC) 	          **
-**     (c) 2000-2002 John Bellone (Noplex)	    **
-**	     Coders: Noplex, Krowe		              **
-**       by Noplex (noplex@crimsonblade.org)    **
-**	  http://www.crimsonblade.org		            **
-**************************************************
-**/
+                     R E A L M S    O F    D E S P A I R  !
+   ___________________________________________________________________________
+  //            /                                                            \\
+ [|_____________\   ********   *        *   ********   *        *   *******   |]
+ [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
+ [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
+ [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
+ [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
+ [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
+ [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
+ [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
+ [|_____________\  **********  **      **  **      **  **********  *********  |]
+ [|             /  *********   *        *  *        *   ********    *******   |]
+  \\____________\____________________________________________________________//
+     |                                                                     |
+     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
+     |_____________________________________________________________________|
+     |                                                                     |
+     |            -*- Liquids & Mixtures Table Definitions -*-             |
+     |_____________________________________________________________________|
+     |                                                                     |
+     |                      Crimson Blade Codebase (CbC) 	                 |
+     |                   (c) 2000-2002 John Bellone (Noplex)     	         |
+     |	                       Coders: Noplex, Krowe		                   |
+     |                   by Noplex (noplex@crimsonblade.org)               |
+     |	                    http://www.crimsonblade.org                    |
+     |_____________________________________________________________________|
+    //                                                                     \\
+   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
+   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
+   [|                                                                       |]
+   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
+   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
+   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
+   [|  Nyboe. Win32 port Nick Gammon.                                       |]
+   [|                                                                       |]
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+    \\_____________________________________________________________________//
+*/
 
 #define LIQUIDSYSTEM
 
@@ -85,24 +85,6 @@ LIQUID_DATA *first_liquid;
 LIQUID_DATA *last_liquid;
 LIQUID_MIXTURE_LIST *first_mixture;
 LIQUID_MIXTURE_LIST *last_mixture;
-
-/* OLC */
-/*
-DECLARE_DO_FUN( do_setliquid );
-DECLARE_DO_FUN( do_setmixture );
-DECLARE_DO_FUN( do_liquids );
-*/
-
-/* funcs */
-// DECLARE_DO_FUN( do_mix );
-
-/* saving/loading */
-/*
-void load_liquids( void );
-void save_liquids( void );
-void load_mixtures( void );
-void save_mixtures( void );
-*/
 
 /* lookup functions */
 LIQUID_DATA *get_liq_name( char *argument );

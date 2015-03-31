@@ -1,33 +1,36 @@
-/*#################################################################
-  #                                              |                #
-  #  ******* **    **  ******  **    **  ******  |                #
-  # ******** ***  *** ******** **    ** ******** |    \\._.//     #
-  # **       ******** **    ** **    ** **       |    (0...0)     #
-  # *******  ******** ******** **    ** **  **** |     ).:.(      #
-  #  ******* ** ** ** ******** **    ** **  **** |     {o o}      #
-  #       ** **    ** **    ** **    ** **    ** |    / ' ' \     #
-  # ******** **    ** **    ** ******** ******** | -^^.VxvxV.^^-  #
-  # *******  **    ** **    **  ******   ******  |                #
-  #                                              |                #
-  # ------------------------------------------------------------- #
-  # [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame         #
-  # ------------------------------------------------------------- #
-  # SMAUG 1.4 © 1994, 1995, 1996, 1998  by Derek Snider           #
-  # ------------------------------------------------------------- #
-  # SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,         #
-  # Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,         #
-  # Tricops, Fireblade, Edmond, Conran                            #
-  # ------------------------------------------------------------- #
-  # Merc 2.1 Diku Mud improvments copyright © 1992, 1993 by       #
-  # Michael Chastain, Michael Quan, and Mitchell Tse.             #
-  # Original Diku Mud copyright © 1990, 1991 by Sebastian Hammer, #
-  # Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja #
-  # Nyboe. Win32 port by Nick Gammon                              #
-  # ------------------------------------------------------------- #
-  # --{smaug}-- 1.8.x © 2014-2015 by Antonio Cao @(burzumishi)    #
-  # ------------------------------------------------------------- #
-  #                    Table load/save Module                     #
-  #################################################################*/
+/*
+                     R E A L M S    O F    D E S P A I R  !
+   ___________________________________________________________________________
+  //            /                                                            \\
+ [|_____________\   ********   *        *   ********   *        *   *******   |]
+ [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
+ [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
+ [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
+ [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
+ [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
+ [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
+ [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
+ [|_____________\  **********  **      **  **      **  **********  *********  |]
+ [|             /  *********   *        *  *        *   ********    *******   |]
+  \\____________\____________________________________________________________//
+     |                                                                     |
+     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
+     |_____________________________________________________________________|
+     |                                                                     |
+     |                   -*- Table Load/Save Module -*-                    |
+     |_____________________________________________________________________|
+    //                                                                     \\
+   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
+   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
+   [|                                                                       |]
+   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
+   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
+   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
+   [|  Nyboe. Win32 port Nick Gammon.                                       |]
+   [|                                                                       |]
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+    \\_____________________________________________________________________//
+*/
 
 #include <time.h>
 #include <stdio.h>
@@ -208,6 +211,7 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_aset" ))		return do_aset;
 	if ( !str_cmp( name, "do_ask" ))		return do_ask;
 	if ( !str_cmp( name, "do_assist" ))		return do_assist;
+	if ( !str_cmp( name, "do_assassin" ))		return do_assassin;
 	if ( !str_cmp( name, "do_astat" ))		return do_astat;
 	if ( !str_cmp( name, "do_at" ))			return do_at;
 	if ( !str_cmp( name, "do_atobj"))		return do_atobj;
@@ -221,6 +225,7 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_bamfin" ))		return do_bamfin;
 	if ( !str_cmp( name, "do_bamfout" ))		return do_bamfout;
 	if ( !str_cmp( name, "do_ban" ))		return do_ban;
+	if ( !str_cmp( name, "do_bank" ))		return do_bank;
 	if ( !str_cmp( name, "do_bash" ))		return do_bash;
 	if ( !str_cmp( name, "do_bashdoor" ))		return do_bashdoor;
 	if ( !str_cmp( name, "do_beckon" ))		return do_beckon;
@@ -419,6 +424,7 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_light" ))		return do_light;
 	if ( !str_cmp( name, "do_list" ))		return do_list;
 	if ( !str_cmp( name, "do_litterbug" ))		return do_litterbug;
+	if ( !str_cmp( name, "do_liquids" ))		return do_liquids;
 	if ( !str_cmp( name, "do_loadarea" ))		return do_loadarea;
 	if ( !str_cmp( name, "do_loadup" ))		return do_loadup;
 	if ( !str_cmp( name, "do_lock" ))		return do_lock;
@@ -454,15 +460,15 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_mfind" ))		return do_mfind;
 	if ( !str_cmp( name, "do_minvoke" ))		return do_minvoke;
 	if ( !str_cmp( name, "do_mistwalk" ))		return do_mistwalk;
+	if ( !str_cmp( name, "do_mix" ))		return do_mix;
 	if ( !str_cmp( name, "do_mlist" ))		return do_mlist;
 	if ( !str_cmp( name, "do_mmenu" ))		return do_mmenu;
 	if ( !str_cmp( name, "do_mobinvade" ))		return do_mobinvade;
-        if ( !str_cmp( name, "do_morphcreate" ) ) 	return do_morphcreate;
-        if ( !str_cmp( name, "do_morphdestroy" ) ) 	return do_morphdestroy;
-        if ( !str_cmp( name, "do_morphset")) 		return do_morphset;
-        if ( !str_cmp( name, "do_morphstat")) 		return do_morphstat;
-
-        if ( !str_cmp( name, "do_mortalize" ))          return do_mortalize;
+  if ( !str_cmp( name, "do_morphcreate" ) ) 	return do_morphcreate;
+  if ( !str_cmp( name, "do_morphdestroy" ) ) 	return do_morphdestroy;
+  if ( !str_cmp( name, "do_morphset")) 		return do_morphset;
+  if ( !str_cmp( name, "do_morphstat")) 		return do_morphstat;
+  if ( !str_cmp( name, "do_mortalize" ))          return do_mortalize;
 	if ( !str_cmp( name, "do_mount" ))		return do_mount;
 	if ( !str_cmp( name, "do_mp_close_passage" ))	return do_mp_close_passage;
 	if ( !str_cmp( name, "do_mp_damage" ))		return do_mp_damage;
@@ -502,7 +508,7 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_mpjunk" ))		return do_mpjunk;
 	if ( !str_cmp( name, "do_mpkill" ))		return do_mpkill;
 	if ( !str_cmp( name, "do_mpmload" ))		return do_mpmload;
-        if ( !str_cmp( name, "do_mpmorph" ))		return do_mpmorph;
+  if ( !str_cmp( name, "do_mpmorph" ))		return do_mpmorph;
 	if ( !str_cmp( name, "do_mpmset" ))		return do_mpmset;
 	if ( !str_cmp( name, "do_mpmusic" ))		return do_mpmusic;
 	if ( !str_cmp( name, "do_mpmusicaround" ))	return do_mpmusicaround;
@@ -517,7 +523,7 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_mpplace" ))		return do_mpplace;
 	if ( !str_cmp( name, "do_mppkset" ))		return do_mppkset;
 	if ( !str_cmp( name, "do_mppurge" ))		return do_mppurge;
-        if ( !str_cmp( name, "do_mpscatter" ))          return do_mpscatter;
+  if ( !str_cmp( name, "do_mpscatter" ))          return do_mpscatter;
 	if ( !str_cmp( name, "do_mpsound" ))		return do_mpsound;
 	if ( !str_cmp( name, "do_mpsoundaround" ))	return do_mpsoundaround;
 	if ( !str_cmp( name, "do_mpsoundat" ))		return do_mpsoundat;
@@ -527,7 +533,7 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_mptag" ))		return do_mptag;
 	if ( !str_cmp( name, "do_mprmtag" ))		return do_mprmtag;
 */
-        if ( !str_cmp( name, "do_mpunmorph" ))		return do_mpunmorph;
+  if ( !str_cmp( name, "do_mpunmorph" ))		return do_mpunmorph;
 	if ( !str_cmp( name, "do_mpunnuisance" ) )	return do_mpunnuisance;
 	if ( !str_cmp( name, "do_mrange" ))		return do_mrange;
 	if ( !str_cmp( name, "do_mpfind" ))		return do_mpfind;
@@ -544,9 +550,7 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_nanny_help" ))		return do_nanny_help;
 	if ( !str_cmp( name, "do_newbiechat" ))		return do_newbiechat;
 	if ( !str_cmp( name, "do_newbieset" ))		return do_newbieset;
-/*
 	if ( !str_cmp( name, "do_news" ))               return do_news;
-*/
 	if ( !str_cmp( name, "do_newscore" ))		return do_newscore;
 	if ( !str_cmp( name, "do_newzones" ))		return do_newzones;
 	if ( !str_cmp( name, "do_noauction" ))		return do_noauction;
@@ -672,14 +676,14 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_rlist" ))		return do_rlist;
 	if ( !str_cmp( name, "do_rloop" ))		return do_rloop;
 	if ( !str_cmp( name, "do_rmenu" ))		return do_rmenu;
- 	if ( !str_cmp( name, "do_rolldie" ))		return do_rolldie;
+ 	if ( !str_cmp( name, "do_rolldie" ))	return do_rolldie;
  	if ( !str_cmp( name, "do_rpcopy" ))		return do_rpcopy;
 	if ( !str_cmp( name, "do_roster" ))		return do_roster;
 	if ( !str_cmp( name, "do_rpedit" ))		return do_rpedit;
 	if ( !str_cmp( name, "do_rpfind" ))		return do_rpfind;
 	if ( !str_cmp( name, "do_rpstat" ))		return do_rpstat;
  	if ( !str_cmp( name, "do_rreset" ))		return do_rreset;
- 	if ( !str_cmp( name, "do_rset" ))		return do_rset;
+ 	if ( !str_cmp( name, "do_rset" ))			return do_rset;
  	if ( !str_cmp( name, "do_rstat" ))		return do_rstat;
 	break;
     case 's':
@@ -694,13 +698,15 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_scribe" ))		return do_scribe;
 	if ( !str_cmp( name, "do_search" ))		return do_search;
 	if ( !str_cmp( name, "do_sedit" ))		return do_sedit;
-	if ( !str_cmp( name, "do_sell" ))		return do_sell;
+	if ( !str_cmp( name, "do_sell" ))			return do_sell;
 	if ( !str_cmp( name, "do_sellhouse" ))		return do_sellhouse;
 	if ( !str_cmp( name, "do_set_boot_time" ))	return do_set_boot_time;
 	if ( !str_cmp( name, "do_setclan" ))		return do_setclan;
 	if ( !str_cmp( name, "do_setclass" ))		return do_setclass;
 	if ( !str_cmp( name, "do_setcouncil" ))		return do_setcouncil;
 	if ( !str_cmp( name, "do_setdeity" ))		return do_setdeity;
+	if ( !str_cmp( name, "do_setliquid" ))		return do_setliquid;
+	if ( !str_cmp( name, "do_setmixture" ))		return do_setmixture;
 	if ( !str_cmp( name, "do_setrace" ))		return do_setrace;
 	if ( !str_cmp( name, "do_setvault"))		return do_setvault;
 	if ( !str_cmp( name, "do_setweather" ))		return do_setweather;
@@ -803,7 +809,7 @@ DO_FUN *skill_function( char *name )
 	if ( !str_cmp( name, "do_wizhelp" ))		return do_wizhelp;
 	if ( !str_cmp( name, "do_wizlist" ))		return do_wizlist;
 	if ( !str_cmp( name, "do_wizlock" ))		return do_wizlock;
-        if ( !str_cmp( name, "do_worth" ))              return do_worth;
+  if ( !str_cmp( name, "do_worth" ))              return do_worth;
 	break;
     case 'y':
 	if ( !str_cmp( name, "do_yell" ))		return do_yell;

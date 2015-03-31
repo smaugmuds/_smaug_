@@ -1218,6 +1218,7 @@ void load_mobiles( AREA_DATA *tarea, FILE *fp )
 	/* '+'		*/		  fread_letter( fp );
 	pMobIndex->damplus		= fread_number( fp );
 	pMobIndex->gold			= fread_number( fp );
+	pMobIndex->balance	= fread_number( fp );
 	pMobIndex->exp			= fread_number( fp );
 
 	/* pMobIndex->position		= fread_number( fp ); */
@@ -2701,6 +2702,7 @@ CHAR_DATA *create_mobile( MOB_INDEX_DATA *pMobIndex )
     mob->hit			= mob->max_hit;
     /* lets put things back the way they used to be! -Thoric */
     mob->gold			= pMobIndex->gold;
+    mob->balance	= pMobIndex->balance;
     mob->exp			= pMobIndex->exp;
     mob->position		= pMobIndex->position;
     mob->defposition		= pMobIndex->defposition;
@@ -2940,50 +2942,50 @@ void clear_char( CHAR_DATA *ch )
     ch->hunting			= NULL;
     ch->fearing			= NULL;
     ch->hating			= NULL;
-    ch->name			= NULL;
-    ch->short_descr		= NULL;
-    ch->long_descr		= NULL;
-    ch->description		= NULL;
-    ch->next			= NULL;
-    ch->prev			= NULL;
-    ch->reply			= NULL;
+    ch->name				= NULL;
+    ch->short_descr	= NULL;
+    ch->long_descr	= NULL;
+    ch->description	= NULL;
+    ch->next				= NULL;
+    ch->prev				= NULL;
+    ch->reply				= NULL;
     ch->retell			= NULL;
-	ch->variables		= NULL;
-    ch->first_carrying		= NULL;
+		ch->variables		= NULL;
+    ch->first_carrying	= NULL;
     ch->last_carrying		= NULL;
     ch->next_in_room		= NULL;
     ch->prev_in_room		= NULL;
     ch->fighting		= NULL;
     ch->switched		= NULL;
-    ch->first_affect		= NULL;
+    ch->first_affect	= NULL;
     ch->last_affect		= NULL;
     ch->prev_cmd		= NULL;    /* maps */
     ch->last_cmd		= NULL;
     ch->dest_buf		= NULL;
     ch->alloc_ptr		= NULL;
     ch->spare_ptr		= NULL;
-    ch->mount			= NULL;
+    ch->mount				= NULL;
     ch->morph    		= NULL;
     xCLEAR_BITS(ch->affected_by);
-    ch->logon			= current_time;
-    ch->armor			= 100;
+    ch->logon				= current_time;
+    ch->armor				= 100;
     ch->position		= POS_STANDING;
     ch->practice		= 0;
-    ch->hit			= 20;
+    ch->hit					= 20;
     ch->max_hit			= 20;
-    ch->mana			= 100;
+    ch->mana				= 100;
     ch->max_mana		= 100;
-    ch->move			= 100;
+    ch->move				= 100;
     ch->max_move		= 100;
     ch->height			= 72;
     ch->weight			= 180;
     ch->xflags			= 0;
-    ch->race			= 0;
-    ch->class			= 3;
+    ch->race				= 0;
+    ch->class				= 3;
     ch->speaking		= LANG_COMMON;
     ch->speaks			= LANG_COMMON;
-    ch->barenumdie		= 1;
-    ch->baresizedie		= 4;
+    ch->barenumdie	= 1;
+    ch->baresizedie	= 4;
     ch->substate		= 0;
     ch->tempnum			= 0;
     ch->perm_str		= 13;
@@ -3110,7 +3112,6 @@ void free_char( CHAR_DATA *ch )
 		}
 		DISPOSE(ch->pcdata->tell_history);
 	}
-//	DISPOSE(ch->pcdata->ice_listen);
 	DISPOSE(ch->pcdata->see_me);
 	DISPOSE(ch->pcdata);
      }
@@ -5790,6 +5791,7 @@ MOB_INDEX_DATA *make_mobile( int vnum, int cvnum, char *name )
 	  pMobIndex->damsizedice	= 0;
 	  pMobIndex->damplus		= 0;
 	  pMobIndex->gold		= 0;
+	  pMobIndex->balance		= 0;
 	  pMobIndex->exp		= 0;
 	  /*
 	   * Bug noticed by Sevoreria Dragonlight
@@ -5839,6 +5841,7 @@ MOB_INDEX_DATA *make_mobile( int vnum, int cvnum, char *name )
 	  pMobIndex->damsizedice	= cMobIndex->damsizedice;
 	  pMobIndex->damplus		= cMobIndex->damplus;
 	  pMobIndex->gold		= cMobIndex->gold;
+	  pMobIndex->balance		= cMobIndex->balance;
 	  pMobIndex->exp		= cMobIndex->exp;
 	  pMobIndex->position		= cMobIndex->position;
 	  pMobIndex->defposition	= cMobIndex->defposition;

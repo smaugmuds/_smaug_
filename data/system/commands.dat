@@ -324,6 +324,14 @@ Log         1
 End
 
 #COMMAND
+Name        bank~
+Code        do_bank
+Position    100
+Level       2
+Log         1
+End
+
+#COMMAND
 Name        bestow~
 Code        do_bestow
 Position    100
