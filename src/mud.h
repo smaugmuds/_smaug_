@@ -4827,7 +4827,7 @@ char *sha256_crypt args ((const char *key, const char *salt));
  * Turn on NOCRYPT to keep passwords in plain text.
  */
 #if	defined(NOCRYPT)
-#define sha256_crypt(s1, s2)	(s1)
+#define crypt(s1, s2)	(s1)
 #endif
 
 

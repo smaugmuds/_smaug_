@@ -1,7 +1,16 @@
 /* src/smaug.h.in.  Generated from configure.ac by autoheader.  */
 
+/* Banking Support */
+#undef BANK_INSTALLED
+
 /* Define HotBoot Executable Directory. */
 #undef BINDIR
+
+/* Password Encryption Support */
+#undef CRYPT
+
+/* Extended Rooms Support */
+#undef EXTENDED_ROOMS
 
 /* Define to 1 if you have the `alarm' function. */
 #undef HAVE_ALARM
@@ -221,6 +230,15 @@
 /* Define to 1 if the system has the type `_Bool'. */
 #undef HAVE__BOOL
 
+/* Honour Code Support */
+#undef HONOUR_CODE
+
+/* House Mobs Support */
+#undef HOUSE_MOBS
+
+/* Housing Support */
+#undef HOUSING_CODE
+
 /* Define lock file directory. */
 #undef LOCKDIR
 
@@ -230,6 +248,12 @@
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */
 #undef LT_OBJDIR
+
+/* Disable Password Encryption Support */
+#undef NOCRYPT
+
+/* Define to 1 if your C compiler doesn't accept -c and -o together. */
+#undef NO_MINUS_C_MINUS_O
 
 /* Name of package */
 #undef PACKAGE
@@ -252,14 +276,35 @@
 /* Define to the version of this package. */
 #undef PACKAGE_VERSION
 
+/* Planes Support */
+#undef PLANES
+
 /* Define to the root directory. */
 #undef PREFIX
+
+/* Regex Support */
+#undef REGEX
+
+/* Requests Support */
+#undef REQUESTS
+
+/* Who Arguments Support */
+#undef REQWHOARG
 
 /* Define modifiable architecture-independent data. */
 #undef RUNDIR
 
+/* ActComm Scramble Support */
+#undef SCRAMBLE
+
+/* SMAUG Support */
+#undef SMAUG2
+
 /* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS
+
+/* Time Format warnings */
+#undef TIMEFORMAT
 
 /* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
 #undef TIME_WITH_SYS_TIME
@@ -289,8 +334,17 @@
    #define below would cause a syntax error. */
 #undef _UINT8_T
 
+/* Define to empty if `const' does not conform to ANSI C. */
+#undef const
+
 /* Define to `int' if <sys/types.h> doesn't define. */
 #undef gid_t
+
+/* Define to `__inline__' or `__inline' if that's what the C compiler
+   calls it, or to nothing if 'inline' is not supported under any name.  */
+#ifndef __cplusplus
+#undef inline
+#endif
 
 /* Define to the type of a signed integer type of width exactly 64 bits if
    such a type exists and the standard includes do not define it. */

@@ -78,6 +78,7 @@ AC_LANG_PUSH([C])
 AC_PROG_CC([cc])
 AC_PROG_CXX([g++])
 AC_PROG_LIBTOOL
+AM_PROG_CC_C_O
 AC_PROG_LEX
 AC_PROG_AWK
 AC_PROG_GREP
@@ -130,6 +131,9 @@ AC_TYPE_UINT64_T
 AC_TYPE_UINT8_T
 AC_STRUCT_TIMEZONE
 
+AC_C_CONST
+AC_C_INLINE
+
 # Checks for library functions.
 AC_FUNC_FORK
 AC_FUNC_MKTIME
@@ -140,23 +144,190 @@ AC_CHECK_FUNCS([alarm dup2 gethostbyaddr gethostbyname gettimeofday inet_ntoa is
 AC_PATH_PROG([BASH], [bash])
 AM_CONDITIONAL([HAVE_BASH], [test -n "${BASH}"])
 
+AC_CHECK_PROG(BASH, [bash], [yes], [no])
+if test "$BASH" = "no"; then
+  AC_MSG_ERROR([Unable to find the bash command.])
+fi
+
 AC_PATH_PROG([ENV], [env])
 AM_CONDITIONAL([HAVE_ENV], [test -n "${ENV}"])
+
+AC_CHECK_PROG(ENV, [env], [yes], [no])
+if test "$ENV" = "no"; then
+  AC_MSG_ERROR([Unable to find the env command.])
+fi
 
 AC_PATH_PROG([GNUMAKE], [make])
 AM_CONDITIONAL([HAVE_GNUMAKE], [test -n "${GNUMAKE}"])
 
+AC_CHECK_PROG(GNUMAKE, [make], [yes], [no])
+if test "$GNUMAKE" = "no"; then
+  AC_MSG_ERROR([Unable to find the make command.])
+fi
+
 AC_PATH_PROG([PERL], [perl])
 AM_CONDITIONAL([HAVE_PERL], [test -n "${PERL}"])
 
+AC_CHECK_PROG(PERL, [perl], [yes], [no])
+if test "$PERL" = "no"; then
+  AC_MSG_ERROR([Unable to find the perl command.])
+fi
+
+# SMAUG 2.0 Suport (-DSMAUG -DSMAUG2) #
+AC_ARG_ENABLE(smaug2,
+              AC_HELP_STRING([--enable-smaug2],
+                             [enable SMAUG 2.0 support @<:@default=yes@:>@]),
+              [], [enable_smaug2=yes])
+if test "$enable_smaug2" = "yes"; then
+		AC_DEFINE([SMAUG2], [], [SMAUG Support])
+fi
+
+# Planes Support (-DPLANES) #
+AC_ARG_ENABLE(planes,
+              AC_HELP_STRING([--enable-planes],
+                             [enable Planes support @<:@default=yes@:>@]),
+              [], [enable_planes=yes])
+if test "$enable_planes" = "yes"; then
+		AC_DEFINE([PLANES], [], [Planes Support])
+fi
+
+# Require Who Command Argument (-DREQWHOARG) #
+AC_ARG_ENABLE(whoarg,
+              AC_HELP_STRING([--enable-whoarg],
+                             [require Who command arguments @<:@default=no@:>@]),
+              [], [enable_whoarg=no])
+if test "$enable_whoarg" = "yes"; then
+		AC_DEFINE([REQWHOARG], [], [Who Arguments Support])
+fi
+
+# Honour Code Support (-DHONOUR_CODE) #
+AC_ARG_ENABLE(honour,
+              AC_HELP_STRING([--enable-honour],
+                             [enable Honour Code support @<:@default=yes@:>@]),
+              [], [enable_honour=yes])
+if test "$enable_honour" = "yes"; then
+		AC_DEFINE([HONOUR_CODE], [], [Honour Code Support])
+fi
+
+# Housing Support (-DHOUSING_CODE) #
+AC_ARG_ENABLE(housing,
+              AC_HELP_STRING([--enable-housing],
+                             [enable Housing support @<:@default=yes@:>@]),
+              [], [enable_housing=yes])
+if test "$enable_housing" = "yes"; then
+		AC_DEFINE([HOUSING_CODE], [], [Housing Support])
+fi
+
+# House mobs Support (-DHOUSE_MOBS) #
+AC_ARG_ENABLE(housemobs,
+              AC_HELP_STRING([--enable-housemobs],
+                             [enable House Mobs support @<:@default=yes@:>@]),
+              [], [enable_housemobs=yes])
+if test "$enable_housemobs" = "yes"; then
+		AC_DEFINE([HOUSE_MOBS], [], [House Mobs Support])
+fi
+
+# Enable Banking Support (-DBANK_INSTALLED) #
+AC_ARG_ENABLE(bank,
+              AC_HELP_STRING([--enable-bank],
+                             [enable Banking Support @<:@default=yes@:>@]),
+              [], [enable_bank=yes])
+if test "$enable_bank" = "yes"; then
+		AC_DEFINE([BANK_INSTALLED], [], [Banking Support])
+fi
+
+# Enable Extended Rooms (-DEXTENDED_ROOMS) #
+AC_ARG_ENABLE(extrooms,
+              AC_HELP_STRING([--enable-extrooms],
+                             [enable Extended Rooms Support @<:@default=yes@:>@]),
+              [], [enable_extrooms=yes])
+if test "$enable_extrooms" = "yes"; then
+		AC_DEFINE([EXTENDED_ROOMS], [], [Extended Rooms Support])
+fi
+
+
+# act_comm.c SCRAMBLE Support (testing) (-DSCRAMBLE) #
+AC_ARG_ENABLE(scramble,
+              AC_HELP_STRING([--enable-scramble],
+                             [enable Act Scramble Support (testing) @<:@default=no@:>@]),
+              [], [enable_scramble=no])
+if test "$enable_scramble" = "yes"; then
+		AC_DEFINE([SCRAMBLE], [], [ActComm Scramble Support])
+fi
+
+# TIME Format Support (-DTIMEFORMAT) #
+# Enable if you are getting a line like:
+# interp.c:757: warning: int format, time_t arg (arg 7)
+AC_ARG_ENABLE(time,
+              AC_HELP_STRING([--enable-time],
+                             [enable Time Format if you are getting warning int format @<:@default=no@:>@]),
+              [], [enable_time=no])
+if test "$enable_time" = "yes"; then
+		AC_DEFINE([TIMEFORMAT], [], [Time Format warnings])
+fi
+
+# REGEX Support (-DREGEX) #
+# Enable if you are getting implicit decleration of re_exec
+AC_ARG_ENABLE(regex,
+              AC_HELP_STRING([--enable-regex],
+                             [enable if you are getting implicit decleration of re_exec @<:@default=yes@:>@]),
+              [], [enable_regex=yes])
+if test "$enable_regex" = "yes"; then
+		# Manage undefined re_exec errors
+		AC_DEFINE([REGEX], [], [Regex Support])
+		# LDFLAGS="$LDFLAGS -lgnuregex"
+fi
+
+# Password Encription Support (-DNOCRYPT) #
+AC_ARG_ENABLE(crypt,
+              AC_HELP_STRING([--enable-crypt],
+                             [enable Password Encryption support @<:@default=yes@:>@]),
+              [], [enable_crypt=yes])
+if test "$enable_crypt" = "yes"; then
+		AC_DEFINE([CRYPT], [], [Password Encryption Support])
+		LDFLAGS="$LDFLAGS -lcrypt"
+else
+		AC_DEFINE([NOCRYPT], [], [Disable Password Encryption Support])
+fi
+
+# REQUEST Support (-DREQUESTS) #
+AC_ARG_ENABLE(request,
+              AC_HELP_STRING([--enable-request],
+                             [enable Request Support @<:@default=no@:>@]),
+              [], [enable_request=no])
+if test "$enable_request" = "yes"; then
+		AC_DEFINE([REQUESTS], [], [Requests Support])
+fi
+
+# Profiling Support #
 AC_ARG_ENABLE(profiling,
               AC_HELP_STRING([--enable-profiling],
                              [enable profiling support @<:@default=no@:>@]),
               [], [enable_profiling=no])
 if test "$enable_profiling" = "yes"; then
-    PROFILING_CFLAGS="$CFLAGS -pg -g3"
+		CFLAGS="$CFLAGS -pg -g3"
 else
-    PROFILING_CFLAGS="-fomit-frame-pointer"
+		CFLAGS="$CFLAGS -fomit-frame-pointer"
+fi
+
+# Performance CFLAGS #
+AC_ARG_ENABLE(performance,
+              AC_HELP_STRING([--enable-performance],
+                             [enable Performance Flags @<:@default=yes@:>@]),
+              [], [enable_performance=yes])
+if test "$enable_performance" = "yes"; then
+		LDFLAGS="$LDFLAGS -finline-functions -funroll-loops -fdefer-pop -fstrength-reduce"
+fi
+
+# Developer CFLAGS #
+AC_ARG_ENABLE(devel,
+              AC_HELP_STRING([--enable-devel],
+                             [enable Developer Build Flags @<:@default=no@:>@]),
+              [], [enable_devel=no])
+if test "$enable_devel" = "yes"; then
+		CFLAGS="$CFLAGS -Wall -Wshadow -Wformat-security -Wpointer-arith -Wcast-align -Wredundant-decls -Wuninitialized"
+else
+		CFLAGS="$CFLAGS -Wno-all -Wno-cast-align -Wno-unused-result -Wno-write-strings -Wno-unused-but-set-variable -Wno-pointer-to-int-cast -Wno-address -Wno-int-to-pointer-cast -Wno-uninitialized"
 fi
 
 AC_CONFIG_FILES([Makefile
@@ -168,3 +339,28 @@ AC_CONFIG_FILES([Makefile
 LT_OUTPUT
 AC_OUTPUT
 
+AC_MSG_RESULT
+AC_MSG_RESULT([Building --{SMAUG}-- binary with these flags:
+
+ * Time Format fix:     <$enable_time>
+ * RE_EXEC fix:         <$enable_regex>
+ * Profiling flags:     <$enable_profiling>
+ * Developer flags:     <$enable_devel>
+ * Performance flags:   <$enable_performance>
+
+Configuring --{SMAUG}-- MUD Server with these options:
+
+ * SMAUG 2.0:           <$enable_smaug2>
+ * Password Encryption: <$enable_crypt>
+ * Request Support:     <$enable_request>
+ * Planes:              <$enable_planes>
+ * Who arguments:       <$enable_whoarg>
+ * Honour Code:         <$enable_honour>
+ * Housing:             <$enable_housing>
+ * House Mobs:          <$enable_housemobs>
+ * Banking:             <$enable_bank>
+ * Extended Rooms:      <$enable_extrooms>
+ * Act Comm Scramble:   <$enable_scramble>
+])
+AC_MSG_RESULT([Well done! \"configure\" complete, now type \"make\"!])
+AC_MSG_RESULT

@@ -79,11 +79,12 @@ man_MANS = man/smaug.1 man/smaugd.1
 CLEANDEVELFILES = compile configure depcomp aclocal.m4 src/smaug.h \
 	autom4te.cache config.guess config.sub install-sh missing src/.libs \
 	config.status ltmain.sh depcomp m4 README COPYING NEWS src/smaug \
-	AUTHORS ChangeLog INSTALL config.lt libtool src/.deps src/*.o
+	AUTHORS ChangeLog INSTALL config.lt libtool src/.deps src/*.o \
+	`find $(srcdir) -iname "Makefile.in"` \
+	`find $(srcdir) -iname "*~"`
 
 CLEANBUILDFILES = config.log etc/smaugd.conf etc/init.d/smaugd bin/smaug-monitor \
 	`find $(srcdir) -iname "stamp-h1"` \
-	`find $(srcdir) -iname "Makefile.in"` \
 	`find $(srcdir) -iname "Makefile"`
 
 CLEANFILES = $(CLEANBUILDFILES) \

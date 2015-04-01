@@ -38,112 +38,21 @@ CXX = g++
 
 ARCH = `uname -m`
 
-##### --{smaug}-- SERVER OPTIONS #####
-
-# USE_SMAUG = -DSMAUG -DSMAUG2 ### NOT USED MAYBE IN SOME EXTRA SNIPPETS ###
-
-# Comment the line if you don't want planes */
-USE_PLANES = -DPLANES
-
-# Comment the line if you don't want "who" command arguments */
-# USE_WHOARG = -DREQWHOARG
-
-# Comment the line if you don't want support for Honour Code */
-USE_HONOUR_CODE = -DHONOUR_CODE
-
-# Comment the line if you don't want support for housing */
-USE_HOUSING_CODE = -DHOUSING_CODE
-
-# Comment the line if you don't want support for house mobs */
-USE_HOUSE_MOBS = -DHOUSE_MOBS
-
-# Uncomment the line below if you've installed a banking snippet */
-USE_BANK = -DBANK_INSTALLED
-
-# Uncomment the line below if you've changed your room flags into extended bitvectors*/
-USE_EXT_ROOMS = -DEXTENDED_ROOMS
-
-# Uncomment the line below if you've want to use ACT_COMM SCRAMBLE */
-# USE_SCRAMBLE = -DSCRAMBLE
-
-##### --{smaug}-- BUILD OPTIONS #####
-
-# Uncomment to enable profiling
-
-PROFILING = ${PROFILE_CFLAGS}
-
 # Uncomment the two lines below if compiling on a Solaris box
 
 # SOLARIS_FLAG = -Dsun -DSYSV
 # SOLARIS_LINK = -lnsl -lsocket
 
-# Uncomment the line below if you are getting a line like:
-# interp.c:757: warning: int format, time_t arg (arg 7)
+smaug_CXXFLAGS = $(SOLARIS_FLAG)
+smaug_CFLAGS = $(SOLARIS_FLAG)
 
-# TIME = -DTIMEFORMAT
-
-# Uncomment the line below if you are getting implicit decleration of re_exec
-
-REG = -DREGEX
-
-# Uncomment the line below if you are getting undefined re_exec errors
-
-NEED_REG = -lgnuregex
-
-# Uncomment the line below if you are getting undefined crypt errors
-# Replaced by sha256_crypt! 
-
-NEED_CRYPT = -lcrypt 
-
-# Uncomment to disable password encryption
-
-#NO_CRYPT = -DNOCRYPT
-
-DEBUG_FLAGS = -DREQUESTS
-
-### DEVELOPER CFLAGS (All Warnings Enabled) ###
-
-# Uncomment the line below if you want all warnings while building.
-
-#AM_CFLAGS = \
-#-Wall -Wshadow -Wformat-security -Wpointer-arith -Wcast-align \
-#-Wredundant-decls -Wuninitialized $(DEBUG_FLAGS)
-
-# (and comment the following AM_CFLAGS)
-
-### PACKAGER CFLAGS (No Warnings Enabled) ###
-
-# Uncomment the line below if you dont want warnings while building.
-# (and comment previous AM_CFLAGS)
-
-AM_CFLAGS = \
--Wno-all -Wno-cast-align -Wno-unused-result -Wno-write-strings \
--Wno-unused-but-set-variable -Wno-pointer-to-int-cast \
--Wno-address -Wno-int-to-pointer-cast -Wno-uninitialized
-
-# Uncomment the line below if you want a performance increase though beware
-# your core files may not be as much of a benefit if you do.
-
-AM_PFLAGS = -finline-functions -funroll-loops -fdefer-pop -fstrength-reduce
-
-AM_CFLAGS += \
-$(PROFILING) $(USE_SMAUG) $(USE_PLANES) $(USE_WHOARG) $(USE_HONOUR_CODE) \
-$(USE_HOUSING_CODE) $(USE_HOUSE_MOBS) $(USE_BANK) $(USE_EXT_ROOMS) $(USE_SCRAMBLE) \
-$(NO_CRYPT) $(TIME) $(REG) $(SOLARIS_FLAG)
-
-AM_LDFLAGS = $(AM_PFLAGS) \
-$(PROFILING) $(SOLARIS_LINK) $(NEED_CRYPT)
-
-smaug_CXXFLAGS = $(AM_CFLAGS)
-smaug_CFLAGS = $(AM_CFLAGS)
-
-smaug_LDFLAGS = $(AM_LDFLAGS)
-
-### --{smaug}-- source files ###
+smaug_LDFLAGS = $(SOLARIS_LINK)
 
 bin_PROGRAMS = smaug$(EXEEXT)
 
 CLEANFILES = *~ *.o smaug.h smaug$(EXEEXT) stamp-h1
+
+### --{smaug}-- source files ###
 
 smaug_SOURCES = \
 act_comm.c act_info.c act_move.c act_obj.c act_wiz.c adminlist.c update.c \
