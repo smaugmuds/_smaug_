@@ -72,7 +72,7 @@ do_subst = sed -e 's,[@]sharedstatedir[@],$(sharedstatedir),g' \
 
 docdir = $(datarootdir)/doc/@PACKAGE@
 doc_DATA = README AUTHORS INSTALL NEWS LICENSE ChangeLog \
-	doc/*.md doc/*.txt doc/*.help 
+	doc/*.txt 
 
 man_MANS = man/smaug.1 man/smaugd.1
 

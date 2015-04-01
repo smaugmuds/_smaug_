@@ -1,4 +1,4 @@
-##[_{SMAUG}_] (http://smaugmuds.github.io/_smaug_)
+##[_--{SMAUG}--_] (http://smaugmuds.github.io/_smaug_)
 
 ###Introduction
 
@@ -50,11 +50,11 @@
 **AberMUD** was the first popular open source MUD. It was named after the town _Aberystwyth_, in which it was written. The first version was written in **B** by **Alan Cox**, **Richard Acott**, **Jim Finnis**,and **Leon Thrane** based at **University of Wales**, _Aberystwyth_ for an old **Honeywell** mainframe and opened in 1987.
 
 
-### --{SMAUG}-- Releases
+### **--{SMAUG}--** Releases
 
 Version **2.0** is HERE! With many bugfixes as well as important and useful new code features.
 
- * **[--{smaug}-- Release 2.0] (https://github.com/smaugmuds/_smaug_/releases/tag/2.0)** **Â¡Launch!**
+ * **[--{SMAUG 2.0}-- Release] (https://github.com/smaugmuds/_smaug_/releases/tag/2.0) ¡Launch!**
 
 #### Contents of the Release
 
@@ -68,10 +68,10 @@ Version **2.0** is HERE! With many bugfixes as well as important and useful new 
 	- data/player:      Player files (initially empty).
 	- data/backup:      Backup Player files (initially empty).
 	- data/deleted:     Deleted Player files (initially empty).
-	- data/vault:	    Guilds Vaults
-	- data/races:	    Races files.
+	- data/vault:	    	Guilds Vaults
+	- data/races:	    	Races files.
 	- data/gods:        God players.
-	- data/deity:	    Realm Deities.
+	- data/deity:	    	Realm Deities.
 	- data/councils:    Councils files.
 	- data/classes:     Classes files.
 	- data/clans:       Clans files.
@@ -84,12 +84,12 @@ Version **2.0** is HERE! With many bugfixes as well as important and useful new 
 	- data/classes:     Player Class files.
 	- data/color:       MUD Color files.
 
+
 #### Features
 
-Here are just some of the extra features --{SMAUG}-- has:
+Here are just some of the extra features **--{SMAUG}--** has:
 
-	- Full featured, bug-free command-line online building
-	- (including shops, resets, repairshops, etc)
+	- Full featured, bug-free command-line online building (including shops, resets, repairshops, etc)
 	- Optional easy to use menu-based online building
 	- Damageable and repairable equipment
 	- MUDPrograms/scripts (mob, obj and room programs)
@@ -125,25 +125,14 @@ Here are just some of the extra features --{SMAUG}-- has:
 	- Polymorph code that can be added, edited and deleted online
 	- Different prompts when you are fighting and when you are not
 	- Pets saving with their owners
-	- Pet Finding.
-	- New Healer: set the healer flag on a mob of your choice.
 	- Configurable color codes online
 	- Projectiles are fully supported
 	- Extended bit vectors for when 32 are just not enough
 	- SHA256 player passwords encryption
 	- MUD Mapper and Planes
-	- Dump Objects and Mobs to files
 	- Mounts and much much more
 	- Liquids & Mixtures System
-	- MXP Support (MUD Extension Protocol)
-	- Alias Support
-
-Changes made to areas:
-
-	- Major changes to the reset system to fix the problems with the nested put resets.
-	- All of the stock areas in this package have been updated to support the new format.
-	- Will not be backward compatible with any SMAUG mud.
-	- Areas written for Smaug 1.02a, 1.4, and 1.4a should import without a problem and remain compatible.
+	- Banking System.
 
 Realm Areas:
 
@@ -152,18 +141,20 @@ Realm Areas:
 	- Build.are  daycare.are  export.are   gods.are     grove.are     help.are
 	- manor.are  newacad.are  newgate.are  plains.are   sewer.are     unholy.are
 
-#### --{SMAUG}-- ChangeLog
 
-	* SMAUG 1.8b -> --{SMAUG}-- 2.0
+#### **--{SMAUG}--** ChangeLog
+
+	* SMAUG 1.8b -> --{SMAUG 2.0}-- 
 
 		- Removed all InterMud code: IMC2 & ICE(D)
 		- Conversion to GNU Autotools
-		- Configure checks for cc, gcc, g++, (g)awk, -ldl, -lz, -lcrypt, basic #C libraries, headers and functions
+		- Configure checks for cc, gcc, g++, (g)awk, -ldl, -lz, -lcrypt, -lssl, basic #C libraries, headers and functions
 		- Indented code with GNU style.
 		- Server logs now goes to system directory "$(localstatedir)/log/smaug/"
 		- "LOG_DIR" variable in "mud.h" is now obsolete and has been changed to "LOGDIR" in "config.h"
 		- Init Script Daemons, Monitor and configuration files: smaugd.conf & smaugd & smaugd-monitor
 		- Updated: Documentation
+		- Added bank snippet.
 		- Fixed some bugs.
 
 
@@ -178,7 +169,7 @@ Realm Areas:
  
 ### Authors and Contributors
 
-**--{SMAUG}-- 2.0** by **Antonio Cao** ([@burzumishi] (https://github.com/burzumishi))
+**--{SMAUG 2.0}--** by **Antonio Cao** ([@burzumishi] (https://github.com/burzumishi))
 Wed Jun 11 14:49:27 CEST 2014
 
 Feel free to contribute with **--{SMAUG}-- in GitHub**.
