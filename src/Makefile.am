@@ -63,6 +63,9 @@ USE_BANK = -DBANK_INSTALLED
 # Uncomment the line below if you've changed your room flags into extended bitvectors*/
 USE_EXT_ROOMS = -DEXTENDED_ROOMS
 
+# Uncomment the line below if you've want to use ACT_COMM SCRAMBLE */
+# USE_SCRAMBLE = -DSCRAMBLE
+
 ##### --{smaug}-- BUILD OPTIONS #####
 
 # Uncomment to enable profiling
@@ -125,7 +128,7 @@ AM_PFLAGS = -finline-functions -funroll-loops -fdefer-pop -fstrength-reduce
 
 AM_CFLAGS += \
 $(PROFILING) $(USE_SMAUG) $(USE_PLANES) $(USE_WHOARG) $(USE_HONOUR_CODE) \
-$(USE_HOUSING_CODE) $(USE_HOUSE_MOBS) $(USE_BANK) $(USE_EXT_ROOMS) \
+$(USE_HOUSING_CODE) $(USE_HOUSE_MOBS) $(USE_BANK) $(USE_EXT_ROOMS) $(USE_SCRAMBLE) \
 $(NO_CRYPT) $(TIME) $(REG) $(SOLARIS_FLAG)
 
 AM_LDFLAGS = $(AM_PFLAGS) \

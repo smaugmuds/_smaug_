@@ -46,39 +46,39 @@
 
 typedef enum
 {
-   LIQ_NORMAL, LIQ_ALCOHOL, LIQ_POISON, LIQ_UNUSED, LIQ_TOP
+  LIQ_NORMAL, LIQ_ALCOHOL, LIQ_POISON, LIQ_UNUSED, LIQ_TOP
 } liquids;
 
 extern char *const liquid_types[];
 
-typedef struct		liquid_data		LIQUID_DATA;
-typedef struct		liquid_mixture_list	LIQUID_MIXTURE_LIST;
+typedef struct liquid_data LIQUID_DATA;
+typedef struct liquid_mixture_list LIQUID_MIXTURE_LIST;
 
 /*
  * Structures for liquids and mixtures
  */
 struct liquid_mixture_list
 {
-	LIQUID_MIXTURE_LIST	*next;
-	LIQUID_MIXTURE_LIST	*prev;
-	char		*name;
-	int		with1; /* obj vnum if there is a obj, liq vnum if liquid */
-	int		with2;
-	int		into;
-	bool		object; /* false = no obj, true = obj */
+  LIQUID_MIXTURE_LIST *next;
+  LIQUID_MIXTURE_LIST *prev;
+  char *name;
+  int with1;			/* obj vnum if there is a obj, liq vnum if liquid */
+  int with2;
+  int into;
+  bool object;			/* false = no obj, true = obj */
 };
 
-struct liquid_data 
+struct liquid_data
 {
-	LIQUID_DATA	*next;
-	LIQUID_DATA	*prev;
+  LIQUID_DATA *next;
+  LIQUID_DATA *prev;
 /*	EXT_BV		affected_by; */
-	char		*name;
-	char		*shortdesc;
-	char		*color;
-	int		vnum;
-	int		type;
-	sh_int		mod[4];
+  char *name;
+  char *shortdesc;
+  char *color;
+  int vnum;
+  int type;
+  sh_int mod[4];
 };
 
 LIQUID_DATA *first_liquid;
@@ -87,7 +87,7 @@ LIQUID_MIXTURE_LIST *first_mixture;
 LIQUID_MIXTURE_LIST *last_mixture;
 
 /* lookup functions */
-LIQUID_DATA *get_liq_name( char *argument );
-LIQUID_DATA *check_liquid( char *argument );
-LIQUID_DATA *get_liq_index( int vnum );
-LIQUID_MIXTURE_LIST *get_mix_name( char *argument );
+LIQUID_DATA *get_liq_name (char *argument);
+LIQUID_DATA *check_liquid (char *argument);
+LIQUID_DATA *get_liq_index (int vnum);
+LIQUID_MIXTURE_LIST *get_mix_name (char *argument);

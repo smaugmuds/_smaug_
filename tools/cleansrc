@@ -1,0 +1,13 @@
+if [ -f "Makefile" ]; then make distclean; fi
+if [ -f "httpd/Makefile" ]; then cd httpd && make distclean && cd ..; fi
+
+rm -rfv ltmain.sh m4 missing install-sh INSTALL depcomp \
+COPYING config.sub config.guess compile config.h.in~ \
+config.h.in README aclocal.m4 autom4te.cache configure \
+Makefile.in src/Makefile.in AUTHORS ChangeLog NEWS src/.deps
+
+rm -rfv httpd/ltmain.sh httpd/m4 httpd/missing httpd/install-sh httpd/depcomp \
+httpd/COPYING httpd/config.sub httpd/config.guess httpd/compile httpd/config.h.in~ \
+httpd/config.h.in httpd/aclocal.m4 httpd/autom4te.cache httpd/configure \
+httpd/Makefile.in httpd/.deps httpd/INSTALL
+

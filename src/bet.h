@@ -74,40 +74,49 @@
   once.
 */
 
-int advatoi (char *s)
+int
+advatoi (char *s)
 {
-    int number = 0;	/* number to be returned */
-    int multiplier = 0;	/* multiplier used to get the extra digits right */
+  int number = 0;		/* number to be returned */
+  int multiplier = 0;		/* multiplier used to get the extra digits right */
 
-    /*
-     * as long as the current character is a digit add to current number
-     */
-    while ( isdigit(s[0]) )
-	number = (number * 10) + (*s++ - '0');
+  /*
+   * as long as the current character is a digit add to current number
+   */
+  while (isdigit (s[0]))
+    number = (number * 10) + (*s++ - '0');
 
-    switch (UPPER(s[0]))
+  switch (UPPER (s[0]))
     {
-	case 'K'  : number *= (multiplier = 1000);	++s; break;
-	case 'M'  : number *= (multiplier = 1000000);	++s; break;
-	case '\0' : break;
-	default   : return 0; /* not k nor m nor NULL - return 0! */
+    case 'K':
+      number *= (multiplier = 1000);
+      ++s;
+      break;
+    case 'M':
+      number *= (multiplier = 1000000);
+      ++s;
+      break;
+    case '\0':
+      break;
+    default:
+      return 0;			/* not k nor m nor NULL - return 0! */
     }
 
-    /* if any digits follow k/m, add those too */
-    while ( isdigit(s[0]) && (multiplier > 1))
+  /* if any digits follow k/m, add those too */
+  while (isdigit (s[0]) && (multiplier > 1))
     {
-	/* the further we get to right, the less the digit 'worth' */
-	multiplier /= 10;
-	number = number + ((*s++ - '0') * multiplier);
+      /* the further we get to right, the less the digit 'worth' */
+      multiplier /= 10;
+      number = number + ((*s++ - '0') * multiplier);
     }
 
-    /* return 0 if non-digit character was found, other than NULL */
-    if (s[0] != '\0' && !isdigit(s[0]))
-	return 0;
+  /* return 0 if non-digit character was found, other than NULL */
+  if (s[0] != '\0' && !isdigit (s[0]))
+    return 0;
 
-    /* anything left is likely extra digits (ie: 14k4443  -> 3 is extra) */
+  /* anything left is likely extra digits (ie: 14k4443  -> 3 is extra) */
 
-    return number;
+  return number;
 }
 
 
@@ -133,26 +142,27 @@ int advatoi (char *s)
   gives 10,000 etc.
 
 */
-int parsebet (const int currentbet, char *s)
+int
+parsebet (const int currentbet, char *s)
 {
-    /* check to make sure it's not blank */
-    if ( s[0] != '\0' )
+  /* check to make sure it's not blank */
+  if (s[0] != '\0')
     {
-	/* if first char is a digit, use advatoi */
-	if ( isdigit(s[0]) )
-	    return (advatoi(s));
-	if ( s[0] == '+' )		/* add percent (default 25%) */
+      /* if first char is a digit, use advatoi */
+      if (isdigit (s[0]))
+	return (advatoi (s));
+      if (s[0] == '+')		/* add percent (default 25%) */
 	{
-	    if ( s[1] == '\0' )
-		return (currentbet * 125) / 100;
-	    return (currentbet * (100 + atoi(s+1))) / 100;
+	  if (s[1] == '\0')
+	    return (currentbet * 125) / 100;
+	  return (currentbet * (100 + atoi (s + 1))) / 100;
 	}
-	if ( s[0] == '*' || s[0] == 'x' ) /* multiply (default is by 2) */
+      if (s[0] == '*' || s[0] == 'x')	/* multiply (default is by 2) */
 	{
-	    if (s[1] == '\0')
-		return (currentbet * 2);
-	    return (currentbet * atoi(s+1));
+	  if (s[1] == '\0')
+	    return (currentbet * 2);
+	  return (currentbet * atoi (s + 1));
 	}
     }
-    return 0;
+  return 0;
 }

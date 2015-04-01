@@ -1,0 +1,10 @@
+C_FILES=$(ls *.c)
+H_FILES=$(ls *.h)
+
+indent -nbad -bap -nbc -bbo -bl -bli2 -bls -ncdb -nce -cp1 -cs -di2 \
+            -ndj -nfc1 -nfca -hnl -i2 -ip5 -lp -pcs -nprs -psl -saf -sai \
+            -saw -nsc -nsob $C_FILES
+indent -nbad -bap -nbc -bbo -bl -bli2 -bls -ncdb -nce -cp1 -cs -di2 \
+            -ndj -nfc1 -nfca -hnl -i2 -ip5 -lp -pcs -nprs -psl -saf -sai \
+            -saw -nsc -nsob $H_FILES
+

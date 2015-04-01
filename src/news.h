@@ -58,8 +58,8 @@ struct news_data
 {
   NEWS *next;
   NEWS *prev;
-  int  number;
-  int  type;
+  int number;
+  int type;
   char *title;
   char *name;
   char *post;
@@ -73,7 +73,7 @@ struct news_type
   NEWS *last_news;
   NEWS_TYPE *next;
   NEWS_TYPE *prev;
-  int   vnum;
+  int vnum;
   sh_int level;
   char *header;
   char *cmd_name;
@@ -84,17 +84,18 @@ NEWS_TYPE *first_news_type;
 NEWS_TYPE *last_news_type;
 
 /* news.c */
-NEWS *grab_news args((NEWS_TYPE *type, char *str));
-NEWS_TYPE *figure_type args((char *str));
-void display_news args((CHAR_DATA *ch, NEWS *news, NEWS_TYPE *type));
-void renumber_news args((void));
-void save_news args((void));
-void load_news args((void));
-void fread_news args((NEWS *news, FILE *fp));
-char *stamp_time         args((void));
-void write_html_news  args((void));
-void snarf_news args((FILE *fpWrite));
-void display_news_type args((CHAR_DATA *ch, NEWS_TYPE *type, char *argument));
-void fread_news_type args(( NEWS_TYPE *type, FILE *fp ));
-bool news_cmd_hook args((CHAR_DATA *ch, char *cmd, char *argument));
-void link_news_to_type args((NEWS *news));
+NEWS *grab_news args ((NEWS_TYPE * type, char *str));
+NEWS_TYPE *figure_type args ((char *str));
+void display_news args ((CHAR_DATA * ch, NEWS * news, NEWS_TYPE * type));
+void renumber_news args ((void));
+void save_news args ((void));
+void load_news args ((void));
+void fread_news args ((NEWS * news, FILE * fp));
+char *stamp_time args ((void));
+void write_html_news args ((void));
+void snarf_news args ((FILE * fpWrite));
+void display_news_type
+args ((CHAR_DATA * ch, NEWS_TYPE * type, char *argument));
+void fread_news_type args ((NEWS_TYPE * type, FILE * fp));
+bool news_cmd_hook args ((CHAR_DATA * ch, char *cmd, char *argument));
+void link_news_to_type args ((NEWS * news));

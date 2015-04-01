@@ -98,7 +98,9 @@ do_stance (CHAR_DATA * ch, char *argument)
     }
   if (ch->stance > STANCE_NONE)
     {
-      send_to_char ("You cannot change stances until you come up from the one you are currently in.\n\r", ch);
+      send_to_char
+	("You cannot change stances until you come up from the one you are currently in.\n\r",
+	 ch);
       return;
     }
   switch (new_stance = get_stance_number (arg))
@@ -153,16 +155,16 @@ update_stances (CHAR_DATA * ch, bool flag)
  * A function to get current stance number. SHADDAI
  */
 int
-get_stance_mastery ( CHAR_DATA *ch )
+get_stance_mastery (CHAR_DATA * ch)
 {
-    if ( ch->stance == STANCE_NONE )
-	return 0;
-    if ( IS_NPC(ch) )
-	return ch->pIndexData->stances[ch->stance];
-    else
-	return ch->pcdata->stances[ch->stance];
+  if (ch->stance == STANCE_NONE)
+    return 0;
+  if (IS_NPC (ch))
+    return ch->pIndexData->stances[ch->stance];
+  else
+    return ch->pcdata->stances[ch->stance];
 }
- 
+
 /* This function returns the name of the stance SHADDAI */
 char *
 get_stance_name (int stance_num)
@@ -197,6 +199,7 @@ get_stance_name (int stance_num)
       return NULL;
     }
 }
+
 /* This function returns the enum value of a stance name  SHADDAI */
 
 int
@@ -273,7 +276,8 @@ can_use_stance (CHAR_DATA * ch, int new_stance)
   if ((stance_index[new_stance].max_weight > 0) &&
       (ch->carry_weight > stance_index[new_stance].max_weight))
     ability = FALSE;
-  if (stance_index[new_stance].dual_wield && get_eq_char (ch, WEAR_DUAL_WIELD))
+  if (stance_index[new_stance].dual_wield
+      && get_eq_char (ch, WEAR_DUAL_WIELD))
     ability = FALSE;
   if (IS_SET (stance_index[new_stance].class_restrictions, ch->class))
     ability = FALSE;
@@ -292,13 +296,15 @@ send_stance_message (CHAR_DATA * ch, bool flag)
    * don't have a message listed.   SHADDAI */
   if (flag)
     {
-      act (AT_STANCE, stance_index[ch->stance].others, ch, NULL, NULL, TO_ROOM);
+      act (AT_STANCE, stance_index[ch->stance].others, ch, NULL, NULL,
+	   TO_ROOM);
       act (AT_STANCE, stance_index[ch->stance].self, ch, NULL, NULL, TO_CHAR);
     }
   else
     {
       send_to_char ("Syntax is: stance <style>.\n\r", ch);
-      send_to_char ("Stance being one of: Viper, Crane, Crab, Mongoose, Bull.\n\r", ch);
+      send_to_char
+	("Stance being one of: Viper, Crane, Crab, Mongoose, Bull.\n\r", ch);
     }
   return;
 }
@@ -377,7 +383,7 @@ load_stances (void)
 	  bug (buf, 0);
 	}
     }
-  log_string("Done.");
+  log_string ("Done.");
   return rNONE;
 }
 
@@ -497,7 +503,8 @@ fread_stance (FILE * fp)
 	case 'C':
 	  if (count < 0 || count >= MAX_STANCE)
 	    break;
-	  KEY ("Class", stance_index[count].class_restrictions, fread_number (fp));
+	  KEY ("Class", stance_index[count].class_restrictions,
+	       fread_number (fp));
 	  break;
 	case 'D':
 	  if (count < 0 || count >= MAX_STANCE)
@@ -510,7 +517,8 @@ fread_stance (FILE * fp)
 	case 'E':
 	  if (!str_cmp (word, "End"))
 	    {
-	      sprintf (buf, "Fread_stance: End found here instead of load_stances");
+	      sprintf (buf,
+		       "Fread_stance: End found here instead of load_stances");
 	      bug (buf, 0);
 	      return rERROR;
 	    }
@@ -532,12 +540,14 @@ fread_stance (FILE * fp)
 	  if (count < 0 || count >= MAX_STANCE)
 	    break;
 	  KEY ("Parry", stance_index[count].parry, fread_number (fp));
-	  KEY ("Percent", stance_index[count].special_percent, fread_number (fp));
+	  KEY ("Percent", stance_index[count].special_percent,
+	       fread_number (fp));
 	  break;
 	case 'R':
 	  if (count < 0 || count >= MAX_STANCE)
 	    break;
-	  KEY ("Race", stance_index[count].race_restrictions, fread_number (fp));
+	  KEY ("Race", stance_index[count].race_restrictions,
+	       fread_number (fp));
 	  KEY ("Resist", stance_index[count].resist, fread_number (fp));
 	  break;
 	case 'S':
@@ -546,7 +556,8 @@ fread_stance (FILE * fp)
 	  KEY ("Self", stance_index[count].self, fread_string_nohash (fp));
 	  if (!str_cmp (word, "Special"))
 	    {
-	      stance_index[count].special_move = (int) get_special_number (fread_word (fp));
+	      stance_index[count].special_move =
+		(int) get_special_number (fread_word (fp));
 	      fMatch = TRUE;
 	    }
 	  if (!str_cmp (word, "Stance"))
@@ -658,7 +669,7 @@ fwrite_stance (void)
 	fprintf (fp, "Weight\t%d\n", stance_index[i].max_weight);
       fprintf (fp, "EndStance\n\n");
     }
-  fprintf (fp, "End\n" );
+  fprintf (fp, "End\n");
   fclose (fp);
   fpReserve = fopen (NULL_FILE, "r");
   return rNONE;
@@ -674,15 +685,16 @@ do_ststat (CHAR_DATA * ch, char *argument)
 
   one_argument (argument, arg);
   if (arg[0] == '\0')
-  {
-       send_to_char("STANCE list:\n\r", ch );
-       for ( index_num = 0; index_num < MAX_STANCE; index_num++ ) {
-         ch_printf( ch, "%s ", get_stance_name( index_num ) );
-	 if ( index_num != 0 && (!index_num%4) )
-	     send_to_char("\n\r", ch);
-      }
+    {
+      send_to_char ("STANCE list:\n\r", ch);
+      for (index_num = 0; index_num < MAX_STANCE; index_num++)
+	{
+	  ch_printf (ch, "%s ", get_stance_name (index_num));
+	  if (index_num != 0 && (!index_num % 4))
+	    send_to_char ("\n\r", ch);
+	}
       return;
-  }
+    }
   if (arg[0] != '\'' && arg[0] != '"' && strlen (argument) > strlen (arg))
     strcpy (arg, argument);
   if ((index_num = get_stance_number (argument)) < 0 ||
@@ -698,19 +710,21 @@ do_ststat (CHAR_DATA * ch, char *argument)
   ch_printf (ch, "Required Stances:   %s   ",
 	     get_stance_name (stance_index[index_num].stance[0]));
   if (stance_index[index_num].stance[1] > 0)
-    ch_printf (ch, "%s\n\r", get_stance_name (stance_index[index_num].stance[1]));
+    ch_printf (ch, "%s\n\r",
+	       get_stance_name (stance_index[index_num].stance[1]));
   else
     send_to_char ("\n\r", ch);
   ch_printf (ch, "Dual Wield allowed:  %s", stance_index[index_num].dual_wield
 	     ? "No\n\r" : "Yes\n\r");
   ch_printf (ch, "Damage Done:   %3d   Damage Taken:   %3d\n\r",
-       stance_index[index_num].dam_done, stance_index[index_num].dam_taken);
+	     stance_index[index_num].dam_done,
+	     stance_index[index_num].dam_taken);
   ch_printf (ch, "Dodge      :   %3d   Parry       :   %3d\n\r",
 	     stance_index[index_num].dodge, stance_index[index_num].parry);
   ch_printf (ch, "Attacks    :   %3d   Max Weight  :   %3d\n\r",
-   stance_index[index_num].num_attacks, stance_index[index_num].max_weight);
-  ch_printf (ch, "Wait	     :   %3d\n\r",
-	     stance_index[index_num].wait);
+	     stance_index[index_num].num_attacks,
+	     stance_index[index_num].max_weight);
+  ch_printf (ch, "Wait	     :   %3d\n\r", stance_index[index_num].wait);
   ch_printf (ch, "Resistance :   %s\n\r",
 	     flag_string (stance_index[index_num].resist, ris_flags));
   ch_printf (ch, "Susceptible:   %s\n\r",
@@ -720,10 +734,10 @@ do_ststat (CHAR_DATA * ch, char *argument)
   ch_printf (ch, "Special Move:  %s    Chance:   %d\n\r",
 	     get_special_name (stance_index[index_num].special_move),
 	     stance_index[index_num].special_percent);
-  ch_printf ( ch, "Class Restrictions :   %s\n\r", 
-     	     class_string(stance_index[index_num].class_restrictions));	
-  ch_printf ( ch, "Race Restrictions :    %s\n\r",
-  	     race_string(stance_index[index_num].race_restrictions));
+  ch_printf (ch, "Class Restrictions :   %s\n\r",
+	     class_string (stance_index[index_num].class_restrictions));
+  ch_printf (ch, "Race Restrictions :    %s\n\r",
+	     race_string (stance_index[index_num].race_restrictions));
 }
 
 /*
@@ -773,7 +787,8 @@ do_stset (CHAR_DATA * ch, char *argument)
       send_to_char ("Syntax: stset save\n\r", ch);
       send_to_char ("\n\r", ch);
       send_to_char ("Field being one of:\n\r", ch);
-      send_to_char ("  attacks class damage dodge dual immune others\n\r", ch);
+      send_to_char ("  attacks class damage dodge dual immune others\n\r",
+		    ch);
       send_to_char ("  parry percent protection race resist self\n\r", ch);
       send_to_char ("  special susceptible stance1 stance2 wait\n\r", ch);
       send_to_char ("  weight\n\r", ch);
@@ -803,7 +818,8 @@ do_stset (CHAR_DATA * ch, char *argument)
 	  found = TRUE;
 	  if (value < -5 || value > 5)
 	    {
-	      send_to_char ("Attacks to be added are between -5 and 5.\n\r", ch);
+	      send_to_char ("Attacks to be added are between -5 and 5.\n\r",
+			    ch);
 	      return;
 	    }
 	  stance_index[index].num_attacks = value;
@@ -841,7 +857,8 @@ do_stset (CHAR_DATA * ch, char *argument)
 	  found = TRUE;
 	  if (value < 0 || value > 1)
 	    {
-	      send_to_char ("Specify 1 for can dual wield and 0 for can't.\n\r", ch);
+	      send_to_char
+		("Specify 1 for can dual wield and 0 for can't.\n\r", ch);
 	      return;
 	    }
 	  if (value)
@@ -1003,6 +1020,7 @@ get_special_number (char *name)
 {
   return 0;
 }
+
 char *
 get_special_name (int num)
 {
