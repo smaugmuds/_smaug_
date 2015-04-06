@@ -1,3 +1,8 @@
+2015-04-06  gettextize  <bug-gnu-gettext@gnu.org>
+
+	* Makefile.in.in: Upgrade to gettext-0.19.3.
+	* Rules-quot: Upgrade to gettext-0.19.3.
+
 2015-04-05  gettextize  <bug-gnu-gettext@gnu.org>
 
 	* Makefile.in.in: New file, from gettext-0.18.1.

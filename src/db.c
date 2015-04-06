@@ -39,6 +39,8 @@
 #include <string.h>
 #include <time.h>
 #include <sys/stat.h>
+
+#include <libintl.h> 
 #include <locale.h>
 
 #ifndef WIN32
@@ -366,13 +368,13 @@ boot_db (void)
 
   unlink (BOOTLOG_FILE);
 
-  boot_log ( i18nM("((----------------[ Boot Database ]----------------))") );
+  boot_log ( ___("((----------------[ Boot Database ]----------------))") );
 
-  log_string ( i18nM("Loading interface commands ...") );
+  log_string ( ___("Loading interface commands ...") );
   load_commands ();
 
-	sprintf( log_buf, i18nM("Reading --{%s}-- System Data configuration ..."), PACKAGE );
-  log_string ( i18nM(log_buf) );
+	sprintf( log_buf, ___("Reading --{%s}-- System Data configuration ..."), PACKAGE );
+  log_string ( ___(log_buf) );
 
   /* default values */
   sysdata.read_all_mail = LEVEL_DEMI;
@@ -430,10 +432,10 @@ boot_db (void)
       sysdata.port_name = str_dup ("mud");
     }
 
-  log_string ( i18nM("Loading socials ...") );
+  log_string ( ___("Loading socials ...") );
   load_socials ();
 
-  log_string ( i18nM("Loading skill table ...") );
+  log_string ( ___("Loading skill table ...") );
   load_skill_table ();
   sort_skill_table ();
   remap_slot_numbers ();	/* must be after the sort */
@@ -455,36 +457,36 @@ boot_db (void)
       gsn_first_tongue = x;
 
 
-  log_string ( i18nM("Loading classes ...") );
+  log_string ( ___("Loading classes ...") );
   load_classes ();
 
-  log_string ( i18nM("Loading races ...") );
+  log_string ( ___("Loading races ...") );
   load_races ();
 
   /* Extended News - 12/15/01 - Nopey */
-  log_string ( i18nM("Loading extended news data ...") );
+  log_string ( ___("Loading extended news data ...") );
   load_news ();
 
-  log_string ( i18nM("Loading stance data ...") );
+  log_string ( ___("Loading stance data ...") );
   load_stances ();
 
-  log_string ( i18nM("Loading herb table ...") );
+  log_string ( ___("Loading herb table ...") );
   load_herb_table ();
 
-  log_string ( i18nM("Loading tongues ...") );
+  log_string ( ___("Loading tongues ...") );
   load_tongues ();
 
-  log_string ( i18nM("Making Wizlist ...") );
+  log_string ( ___("Making Wizlist ...") );
   make_wizlist ();
 
 /*    log_string("Making adminlist");
     make_adminlist();
 */
 
-  log_string ( i18nM("Making retiredlist ...") );
+  log_string ( ___("Making retiredlist ...") );
   make_retiredlist ();
 
-  log_string ( i18nM("Initializing request pipe ...") );
+  log_string ( ___("Initializing request pipe ...") );
   init_request_pipe ();
 
   fBootDb = TRUE;
@@ -553,7 +555,7 @@ boot_db (void)
   /*
    * Init random number generator.
    */
-  log_string ( i18nM("Initializing random number generator ...") );
+  log_string ( ___("Initializing random number generator ...") );
   init_mm ();
 
   /*
@@ -562,7 +564,7 @@ boot_db (void)
   {
     long lhour, lday, lmonth;
 
-    log_string ( i18nM("Setting time and weather ...") );
+    log_string ( ___("Setting time and weather ...") );
 
     lhour = (current_time - 650336715) / (PULSE_TICK / PULSE_PER_SECOND);
     time_info.hour = lhour % 24;
@@ -602,7 +604,7 @@ boot_db (void)
    * Assign gsn's for skills which need them.
    */
   {
-    log_string ( i18nM("Assigning gsn's ...") );
+    log_string ( ___("Assigning gsn's ...") );
     ASSIGN_GSN (gsn_style_evasive, "evasive style");
     ASSIGN_GSN (gsn_style_defensive, "defensive style");
     ASSIGN_GSN (gsn_style_standard, "standard style");
@@ -694,7 +696,7 @@ boot_db (void)
   }
 
 #ifdef PLANES
-  log_string ( i18nM("Reading in plane file ...") );
+  log_string ( ___("Reading in plane file ...") );
   load_planes ();
 #endif
 
@@ -704,11 +706,11 @@ boot_db (void)
   {
     FILE *fpList;
 
-    log_string ( i18nM("Reading in area files ...") );
+    log_string ( ___("Reading in area files ...") );
     if ((fpList = fopen (AREA_LIST, "r")) == NULL)
       {
 				perror (AREA_LIST);
-				shutdown_mud ( i18nM("Error! Unable to open area list!") );
+				shutdown_mud ( ___("Error! Unable to open area list!") );
 				exit (FALSE);
       }
 
@@ -728,7 +730,7 @@ boot_db (void)
   }
 
 #ifdef PLANES
-  log_string ( i18nM("Making sure rooms are planed ...") );
+  log_string ( ___("Making sure rooms are planed ...") );
   check_planes (NULL);
 #endif
 
@@ -752,68 +754,68 @@ boot_db (void)
    * Load up the notes file.
    */
   {
-    log_string ( i18nM("Fixing exits ...") );
+    log_string ( ___("Fixing exits ...") );
     fix_exits ();
     fBootDb = FALSE;
-    log_string ( i18nM("Initializing economy ...") );
+    log_string ( ___("Initializing economy ...") );
     initialize_economy ();
 #ifdef ENABLE_HOTBOOT
     if( fCopyOver )
     {
-      log_string( i18nM("Loading world state...") );
+      log_string( ___("Loading world state...") );
       load_world(  );
     }
 #endif
-    log_string ( i18nM("Randomizing stance data ...") );
+    log_string ( ___("Randomizing stance data ...") );
     randomize_stances ();
-    log_string ( i18nM("Resetting areas ...") );
+    log_string ( ___("Resetting areas ...") );
     area_update ();
-    log_string ( i18nM("Loading buildlist...") );
+    log_string ( ___("Loading buildlist...") );
     load_buildlist ();
 #ifdef LIQUIDSYSTEM
-    log_string ( i18nM("Loading liquids ...") );
+    log_string ( ___("Loading liquids ...") );
     load_liquids ();
-    log_string ( i18nM("Loading mixtures ...") );
+    log_string ( ___("Loading mixtures ...") );
     load_mixtures ();
 #endif
-    log_string ( i18nM("Loading boards ...") );
+    log_string ( ___("Loading boards ...") );
     load_boards ();
-    log_string ( i18nM("Loading vault list ...") );
+    log_string ( ___("Loading vault list ...") );
     load_vaults ();
-    log_string ( i18nM("Loading clans ...") );
+    log_string ( ___("Loading clans ...") );
     load_clans ();
-    log_string ( i18nM("Loading member lists ...") );
+    log_string ( ___("Loading member lists ...") );
     load_member_lists ();
-    log_string ( i18nM("Loading councils ...") );
+    log_string ( ___("Loading councils ...") );
     load_deity ();
-    log_string ( i18nM("Loading deities ...") );
+    log_string ( ___("Loading deities ...") );
     load_councils ();
-    log_string ( i18nM("Loading watches ...") );
+    log_string ( ___("Loading watches ...") );
     load_watchlist ();
-    log_string ( i18nM("Loading bans ...") );
+    log_string ( ___("Loading bans ...") );
     load_banlist ();
-    log_string ( i18nM("Loading reserved names ...") );
+    log_string ( ___("Loading reserved names ...") );
     load_reserved ();
-    log_string ( i18nM("Loading noauction vnums ...") );
+    log_string ( ___("Loading noauction vnums ...") );
     load_noauctions ();
-    log_string ( i18nM("Loading corpses ...") );
+    log_string ( ___("Loading corpses ...") );
     load_corpses ();
-    log_string ( i18nM("Loading Immortal Hosts ...") );
+    log_string ( ___("Loading Immortal Hosts ...") );
     load_imm_host ();
-    log_string ( i18nM("Loading Hints ...") );
+    log_string ( ___("Loading Hints ...") );
     load_hint ();
-    log_string ( i18nM("Loading Projects ...") );
+    log_string ( ___("Loading Projects ...") );
     load_projects ();
     /* Morphs MUST be loaded after class and race tables are set up --Shaddai */
-    log_string ( i18nM("Loading Morphs ...") );
+    log_string ( ___("Loading Morphs ...") );
     load_morphs ();
-    log_string ( i18nM("Loading Housing System, Home Accessories Data, and Home Auctioning System ...") );
+    log_string ( ___("Loading Housing System, Home Accessories Data, and Home Auctioning System ...") );
     load_homedata ();
     load_accessories ();
     load_homebuy ();
-    log_string ( i18nM("Loading login messages ...") );
+    log_string ( ___("Loading login messages ...") );
     load_loginmsg ();
-    log_string ( i18nM("Loading Colors ...") );
+    log_string ( ___("Loading Colors ...") );
     load_colors ();
     MOBtrigger = TRUE;
   }
@@ -4533,19 +4535,19 @@ log_string_plus (const char *str, sh_int log_type, sh_int level)
   switch (log_type)
     {
     default:
-      to_channel (i18n(str) + offset, CHANNEL_LOG, "Log", level);
+      to_channel (_(str) + offset, CHANNEL_LOG, "Log", level);
       break;
     case LOG_BUILD:
-      to_channel (i18n(str) + offset, CHANNEL_BUILD, "Build", level);
+      to_channel (_(str) + offset, CHANNEL_BUILD, "Build", level);
       break;
     case LOG_COMM:
-      to_channel (i18n(str) + offset, CHANNEL_COMM, "Comm", level);
+      to_channel (_(str) + offset, CHANNEL_COMM, "Comm", level);
       break;
     case LOG_WARN:
-      to_channel (i18n(str) + offset, CHANNEL_WARN, "Warn", level);
+      to_channel (_(str) + offset, CHANNEL_WARN, "Warn", level);
       break;
     case LOG_BUG:
-      to_channel (i18n(str) + offset, CHANNEL_BUG, "Bug", level);
+      to_channel (_(str) + offset, CHANNEL_BUG, "Bug", level);
       break;
     case LOG_ALL:
       break;

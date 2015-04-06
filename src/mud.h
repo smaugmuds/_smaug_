@@ -58,6 +58,7 @@
 #endif
 
 /* Include Gettext */
+#include <libintl.h> 
 #include <locale.h>
 #include "i18n.h"
 
@@ -3859,7 +3860,7 @@ do								\
                                 : "someone" )
 
 
-#define log_string(txt)		( log_string_plus( (i18n(txt)), LOG_NORMAL, LEVEL_LOG ) )
+#define log_string(txt)		( log_string_plus( (_(txt)), LOG_NORMAL, LEVEL_LOG ) )
 #define dam_message(ch, victim, dam, dt)	( new_dam_message((ch), (victim), (dam), (dt), NULL) )
 
 /*

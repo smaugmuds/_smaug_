@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smaug 2.0.0\n"
 "Report-Msgid-Bugs-To: <@burzumishi>\n"
-"POT-Creation-Date: 2015-04-06 04:23+0200\n"
+"POT-Creation-Date: 2015-04-06 21:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,196 +44,202 @@ msgstr ""
 msgid "Normal termination of game."
 msgstr ""
 
-#: src/db.c:369
+#: src/db.c:371
 msgid "((----------------[ Boot Database ]----------------))"
 msgstr ""
 
-#: src/db.c:371
+#: src/db.c:373
 msgid "Loading interface commands ..."
 msgstr ""
 
-#: src/db.c:374
+#: src/db.c:376
 #, c-format
 msgid "Reading --{%s}-- System Data configuration ..."
 msgstr ""
 
-#: src/db.c:433
+#: src/db.c:435
 msgid "Loading socials ..."
 msgstr ""
 
-#: src/db.c:436
+#: src/db.c:438
 msgid "Loading skill table ..."
 msgstr ""
 
-#: src/db.c:458
+#: src/db.c:460
 msgid "Loading classes ..."
 msgstr ""
 
-#: src/db.c:461
+#: src/db.c:463
 msgid "Loading races ..."
 msgstr ""
 
-#: src/db.c:465
+#: src/db.c:467
 msgid "Loading extended news data ..."
 msgstr ""
 
-#: src/db.c:468
+#: src/db.c:470
 msgid "Loading stance data ..."
 msgstr ""
 
-#: src/db.c:471
+#: src/db.c:473
 msgid "Loading herb table ..."
 msgstr ""
 
-#: src/db.c:474
+#: src/db.c:476
 msgid "Loading tongues ..."
 msgstr ""
 
-#: src/db.c:477
+#: src/db.c:479
 msgid "Making Wizlist ..."
 msgstr ""
 
-#: src/db.c:484
+#: src/db.c:486
 msgid "Making retiredlist ..."
 msgstr ""
 
-#: src/db.c:487
+#: src/db.c:489
 msgid "Initializing request pipe ..."
 msgstr ""
 
-#: src/db.c:556
+#: src/db.c:558
 msgid "Initializing random number generator ..."
 msgstr ""
 
-#: src/db.c:565
+#: src/db.c:567
 msgid "Setting time and weather ..."
 msgstr ""
 
-#: src/db.c:605
+#: src/db.c:607
 msgid "Assigning gsn's ..."
 msgstr ""
 
-#: src/db.c:697
+#: src/db.c:699
 msgid "Reading in plane file ..."
 msgstr ""
 
-#: src/db.c:707
+#: src/db.c:709
 msgid "Reading in area files ..."
 msgstr ""
 
-#: src/db.c:711
+#: src/db.c:713
 msgid "Error! Unable to open area list!"
 msgstr ""
 
-#: src/db.c:731
+#: src/db.c:733
 msgid "Making sure rooms are planed ..."
 msgstr ""
 
-#: src/db.c:755
+#: src/db.c:757
 msgid "Fixing exits ..."
 msgstr ""
 
-#: src/db.c:758
+#: src/db.c:760
 msgid "Initializing economy ..."
 msgstr ""
 
-#: src/db.c:763
+#: src/db.c:765
 msgid "Loading world state..."
 msgstr ""
 
-#: src/db.c:767
+#: src/db.c:769
 msgid "Randomizing stance data ..."
 msgstr ""
 
-#: src/db.c:769
+#: src/db.c:771
 msgid "Resetting areas ..."
 msgstr ""
 
-#: src/db.c:771
+#: src/db.c:773
 msgid "Loading buildlist..."
 msgstr ""
 
-#: src/db.c:774
+#: src/db.c:776
 msgid "Loading liquids ..."
 msgstr ""
 
-#: src/db.c:776
+#: src/db.c:778
 msgid "Loading mixtures ..."
 msgstr ""
 
-#: src/db.c:779
+#: src/db.c:781
 msgid "Loading boards ..."
 msgstr ""
 
-#: src/db.c:781
+#: src/db.c:783
 msgid "Loading vault list ..."
 msgstr ""
 
-#: src/db.c:783
+#: src/db.c:785
 msgid "Loading clans ..."
 msgstr ""
 
-#: src/db.c:785
+#: src/db.c:787
 msgid "Loading member lists ..."
 msgstr ""
 
-#: src/db.c:787
+#: src/db.c:789
 msgid "Loading councils ..."
 msgstr ""
 
-#: src/db.c:789
+#: src/db.c:791
 msgid "Loading deities ..."
 msgstr ""
 
-#: src/db.c:791
+#: src/db.c:793
 msgid "Loading watches ..."
 msgstr ""
 
-#: src/db.c:793
+#: src/db.c:795
 msgid "Loading bans ..."
 msgstr ""
 
-#: src/db.c:795
+#: src/db.c:797
 msgid "Loading reserved names ..."
 msgstr ""
 
-#: src/db.c:797
+#: src/db.c:799
 msgid "Loading noauction vnums ..."
 msgstr ""
 
-#: src/db.c:799
+#: src/db.c:801
 msgid "Loading corpses ..."
 msgstr ""
 
-#: src/db.c:801
+#: src/db.c:803
 msgid "Loading Immortal Hosts ..."
 msgstr ""
 
-#: src/db.c:803
+#: src/db.c:805
 msgid "Loading Hints ..."
 msgstr ""
 
-#: src/db.c:805
+#: src/db.c:807
 msgid "Loading Projects ..."
 msgstr ""
 
-#: src/db.c:808
+#: src/db.c:810
 msgid "Loading Morphs ..."
 msgstr ""
 
-#: src/db.c:810
+#: src/db.c:812
 msgid ""
 "Loading Housing System, Home Accessories Data, and Home Auctioning System ..."
 msgstr ""
 
-#: src/db.c:814
+#: src/db.c:816
 msgid "Loading login messages ..."
 msgstr ""
 
-#: src/db.c:816
+#: src/db.c:818
 msgid "Loading Colors ..."
 msgstr ""
 
 #: src/dns.c:93
+#, c-format
 msgid "Unknown Hostname!\n"
+msgstr ""
+
+#: src/act_comm.c:853
+#, c-format
+msgid "%s: %s\r\n"
 msgstr ""

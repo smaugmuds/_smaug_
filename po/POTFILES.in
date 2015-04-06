@@ -2,3 +2,4 @@
 src/smaug.c
 src/db.c
 src/dns.c
+src/act_comm.c

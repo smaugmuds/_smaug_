@@ -35,10 +35,16 @@
     \\_____________________________________________________________________//
 */
 
+#include <libintl.h> 
 #include <locale.h>
 #include "gettext.h"
 
+#define _(string) gettext (string)
+#define __(singular, plural, n) ngettext(singular, plural, n)
+#define ___(x) x
+
+/*
 #define i18n(string) gettext (string)
 #define i18nP(singular, plural, n) ngettext(singular, plural, n)
 #define i18nM(x) x
-
+*/

@@ -36,42 +36,36 @@ echo
 echo "-- --{SMAUG 2.0}-- -* Autogen *- by (@burzumishi) --"
 echo
 
+echo "Backup configure.ac Makefile.am src/Makefile.am ...";
+cp -v configure.ac configure.ac.autogen-bak
+cp -v Makefile.am Makefile.am.autogen-bak
+cp -v src/Makefile.am src/Makefile.am.autogen-bak
+
 echo "Running libtoolize ..."
 libtoolize
 
 if test -f "acinclude.m4"; then rm -rf acinclude.m4; fi;
+
+if test ! -f "m4/nls.m4"; then
+	echo "Running gettextize --copy ..."
+	gettextize --copy
+fi;
 
 for file in libtool ltoptions ltsugar ltversion lt~obsolete; do
 	echo "Appending m4/$file.m4 to acinclude.m4 ..."
 	cat m4/$file.m4 >> acinclude.m4
 done
 
-# 
-# if test ! -f "acinclude.m4" && test -f "/usr/share/libtool/libltdl/aclocal.m4"; then
-# 	echo "Copying /usr/share/aclocal/aclocal.m4 -> m4/acinclude.m4 ..."
-# 	cp -v /usr/share/libtool/libltdl/aclocal.m4 acinclude.m4
-# fi;
-
 for file in argz bison-i18n codeset expat fcntl-o gettext glib glib-gettext \
 		iconv intldir intl intltool intmax inttypes_h inttypes-pri ltdl \
 		lcmessage lib-ld lib-link lib-prefix libtool lock longlong ltoptions \
-		ltsugar ltversion nls pkg po printf-posix progtest size_max stdint_h \
+		ltsugar ltversion pkg po printf-posix progtest size_max stdint_h \
 		threadlib uintmax_t visibility wchar_t wint_t ; do
 			if test ! -f "m4/$file.m4" && test -f "/usr/share/aclocal/$file.m4"; then
 				echo "Copying /usr/share/aclocal/$file.m4 -> m4/$file.m4 ..."
 				cp -v /usr/share/aclocal/$file.m4 m4/$file.m4
 			fi;
 done;
-
-echo "Backup configure.ac Makefile.am src/Makefile.am ...";
-cp -v configure.ac configure.ac.autogen-bak
-cp -v Makefile.am Makefile.am.autogen-bak
-cp -v src/Makefile.am src/Makefile.am.autogen-bak
-
-if test ! -f "po/Makefile.in.in" && test ! -f "po/smaug.pot"; then
-	echo "Running gettextize --copy ..."
-	gettextize --copy
-fi
 
 for file in m4/Makefile.am; do
 	if test ! -f "$file"; then

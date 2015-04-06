@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smaug 2.0.0\n"
 "Report-Msgid-Bugs-To: <@burzumishi>\n"
-"POT-Creation-Date: 2015-04-06 04:23+0200\n"
+"POT-Creation-Date: 2015-04-06 21:44+0200\n"
 "PO-Revision-Date: 2015-04-05 23:55+0200\n"
 "Last-Translator: Antonio Cao <antoniocao000@gmail.com>\n"
 "Language-Team: español <es@li.org>\n"
@@ -44,201 +44,207 @@ msgstr "%s escuchando con dirección %s en puerto %d."
 msgid "Normal termination of game."
 msgstr "Finalización normal del juego."
 
-#: src/db.c:369
+#: src/db.c:371
 msgid "((----------------[ Boot Database ]----------------))"
 msgstr "((----------------[ Iniciando Base de Datos ]----------------))"
 
-#: src/db.c:371
+#: src/db.c:373
 msgid "Loading interface commands ..."
 msgstr "Cargando comandos de la interfaz ..."
 
-#: src/db.c:374
+#: src/db.c:376
 #, c-format
 msgid "Reading --{%s}-- System Data configuration ..."
 msgstr "Cargando --{%s}-- los Datos de configuración del Sistema ..."
 
-#: src/db.c:433
+#: src/db.c:435
 msgid "Loading socials ..."
 msgstr "Cargando habilidades sociales ..."
 
-#: src/db.c:436
+#: src/db.c:438
 msgid "Loading skill table ..."
 msgstr "Cargando tabla de hechizos y habilidades ..."
 
-#: src/db.c:458
+#: src/db.c:460
 msgid "Loading classes ..."
 msgstr "Cargando clases ..."
 
-#: src/db.c:461
+#: src/db.c:463
 msgid "Loading races ..."
 msgstr "Cargando razas ..."
 
-#: src/db.c:465
+#: src/db.c:467
 msgid "Loading extended news data ..."
 msgstr "Cargando datos extendidos de las noticias ..."
 
-#: src/db.c:468
+#: src/db.c:470
 msgid "Loading stance data ..."
 msgstr "Cargando datos de las estancias ..."
 
-#: src/db.c:471
+#: src/db.c:473
 msgid "Loading herb table ..."
 msgstr "Cargando tabla de hierbas ..."
 
-#: src/db.c:474
+#: src/db.c:476
 msgid "Loading tongues ..."
 msgstr "Cargando idiomas y lenguajes ..."
 
-#: src/db.c:477
+#: src/db.c:479
 msgid "Making Wizlist ..."
 msgstr "Creando lista de Inmortales ..."
 
-#: src/db.c:484
+#: src/db.c:486
 msgid "Making retiredlist ..."
 msgstr "Creando la lista de Retirados ..."
 
-#: src/db.c:487
+#: src/db.c:489
 msgid "Initializing request pipe ..."
 msgstr "Iniciando tubería de peticiones ..."
 
-#: src/db.c:556
+#: src/db.c:558
 msgid "Initializing random number generator ..."
 msgstr "Iniciando generador de números aleatorios ..."
 
-#: src/db.c:565
+#: src/db.c:567
 msgid "Setting time and weather ..."
 msgstr "Configurando el tiempo y el clima ..."
 
-#: src/db.c:605
+#: src/db.c:607
 msgid "Assigning gsn's ..."
 msgstr "Asignando GSN's ..."
 
-#: src/db.c:697
+#: src/db.c:699
 msgid "Reading in plane file ..."
 msgstr "Cargando el fichero de planos ..."
 
-#: src/db.c:707
+#: src/db.c:709
 msgid "Reading in area files ..."
 msgstr "Cargando ficheros de areas ..."
 
-#: src/db.c:711
+#: src/db.c:713
 msgid "Error! Unable to open area list!"
 msgstr "Error! No es posible cargar el listado de areas!"
 
-#: src/db.c:731
+#: src/db.c:733
 msgid "Making sure rooms are planed ..."
 msgstr "Asegurando que todas las habitaciones están planeadas ..."
 
-#: src/db.c:755
+#: src/db.c:757
 msgid "Fixing exits ..."
 msgstr "Fijando salidas ..."
 
-#: src/db.c:758
+#: src/db.c:760
 msgid "Initializing economy ..."
 msgstr "Iniciando economía ..."
 
-#: src/db.c:763
+#: src/db.c:765
 msgid "Loading world state..."
 msgstr "Cargando el estado previo del mundo ..."
 
-#: src/db.c:767
+#: src/db.c:769
 msgid "Randomizing stance data ..."
 msgstr "Randomizando datos de estancias ..."
 
-#: src/db.c:769
+#: src/db.c:771
 msgid "Resetting areas ..."
 msgstr "Reseteando areas ..."
 
-#: src/db.c:771
+#: src/db.c:773
 msgid "Loading buildlist..."
 msgstr "Cargando lista de edificaciones ..."
 
-#: src/db.c:774
+#: src/db.c:776
 msgid "Loading liquids ..."
 msgstr "Cargando líquidos ..."
 
-#: src/db.c:776
+#: src/db.c:778
 msgid "Loading mixtures ..."
 msgstr "Cargando mezclas ..."
 
-#: src/db.c:779
+#: src/db.c:781
 msgid "Loading boards ..."
 msgstr "Cargando tableros de información ..."
 
-#: src/db.c:781
+#: src/db.c:783
 msgid "Loading vault list ..."
 msgstr "Cargando listado de baúles ..."
 
-#: src/db.c:783
+#: src/db.c:785
 msgid "Loading clans ..."
 msgstr "Cargando Clanes ..."
 
-#: src/db.c:785
+#: src/db.c:787
 msgid "Loading member lists ..."
 msgstr "Cargando listados de miembros ..."
 
-#: src/db.c:787
+#: src/db.c:789
 msgid "Loading councils ..."
 msgstr "Cargando feudos ..."
 
-#: src/db.c:789
+#: src/db.c:791
 msgid "Loading deities ..."
 msgstr "Cargando deidades ..."
 
-#: src/db.c:791
+#: src/db.c:793
 msgid "Loading watches ..."
 msgstr "Cargando vistas ..."
 
-#: src/db.c:793
+#: src/db.c:795
 msgid "Loading bans ..."
 msgstr "Cargando lista de jugadores baneados ..."
 
-#: src/db.c:795
+#: src/db.c:797
 msgid "Loading reserved names ..."
 msgstr "Cargando nombres reservados ..."
 
-#: src/db.c:797
+#: src/db.c:799
 msgid "Loading noauction vnums ..."
 msgstr "Cargando vnums no subastados ..."
 
-#: src/db.c:799
+#: src/db.c:801
 msgid "Loading corpses ..."
 msgstr "Cargando cadáveres de jugadores ..."
 
-#: src/db.c:801
+#: src/db.c:803
 msgid "Loading Immortal Hosts ..."
 msgstr "Cargando Hosts Inmortales ..."
 
-#: src/db.c:803
+#: src/db.c:805
 msgid "Loading Hints ..."
 msgstr "Cargando consejos de guía ..."
 
-#: src/db.c:805
+#: src/db.c:807
 msgid "Loading Projects ..."
 msgstr "Cargando proyectos ..."
 
-#: src/db.c:808
+#: src/db.c:810
 msgid "Loading Morphs ..."
 msgstr "Cargando Polimorfismos ..."
 
-#: src/db.c:810
+#: src/db.c:812
 msgid ""
 "Loading Housing System, Home Accessories Data, and Home Auctioning System ..."
 msgstr ""
 "Cargando sistema de Hogares, datos de accesorios para el hogar y sistema de "
 "susbastas ..."
 
-#: src/db.c:814
+#: src/db.c:816
 msgid "Loading login messages ..."
 msgstr "Cargando mensajes de entrada ..."
 
-#: src/db.c:816
+#: src/db.c:818
 msgid "Loading Colors ..."
 msgstr "Cargando colores de la interfaz ..."
 
 #: src/dns.c:93
+#, c-format
 msgid "Unknown Hostname!\n"
 msgstr "Nombre de anfitrión desconocido!\n"
+
+#: src/act_comm.c:853
+#, c-format
+msgid "%s: %s\r\n"
+msgstr "%s: %s\\r\n"
 
 #~ msgid "announce: socket"
 #~ msgstr "notificación de mantenimiento: socket abierto"

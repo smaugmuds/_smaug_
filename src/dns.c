@@ -90,7 +90,7 @@ int main( int argc, char *argv[] )
     
    if( argc != 2 )
    {
-      printf( i18n("Unknown Hostname!\n") );
+      printf( _("Unknown Hostname!\n") );
     	exit( 1 );
    }
     

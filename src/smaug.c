@@ -42,6 +42,8 @@
 #include <fcntl.h>
 #include <signal.h>
 #include <stdarg.h>
+
+#include <libintl.h> 
 #include <locale.h>
 
 #include "mud.h"
@@ -87,7 +89,6 @@ const char echo_off_str[] = { IAC, WILL, TELOPT_ECHO, '\0' };
 const char echo_on_str[] = { IAC, WONT, TELOPT_ECHO, '\0' };
 const char go_ahead_str[] = { IAC, GA, '\0' };
 
-
 void auth_maxdesc args ((int *md, fd_set * ins, fd_set * outs,
 			 fd_set * excs));
 void auth_check args ((fd_set * ins, fd_set * outs, fd_set * excs));
@@ -97,7 +98,6 @@ void kill_auth args ((DESCRIPTOR_DATA * d));
 void add_member args ((CHAR_DATA * ch, char *clanname));
 
 void save_sysdata args ((SYSTEM_DATA sys));
-
 
 /*
  * Global variables.
@@ -305,11 +305,11 @@ main (int argc, char **argv)
 
 	if( !LOCALEDIR ) 
 	{
-		sprintf ( log_buf, i18nM("gettext(i18n): Error! Can't find: %s:%s!"), PACKAGE, LOCALEDIR);
+		sprintf ( log_buf, ___("gettext(i18n): Error! Can't find: %s:%s!"), PACKAGE, LOCALEDIR);
 	  log_string ( log_buf );
 	}
 
-	sprintf( log_buf, i18nM("Booting --{%s}--"), PACKAGE );
+	sprintf( log_buf, ___("Booting --{%s}--"), PACKAGE );
   log_string ( log_buf );
 
 #ifdef ENABLE_HOTBOOT
@@ -320,12 +320,12 @@ main (int argc, char **argv)
 
 #ifndef WIN32
 #ifdef WEBSRV
-  log_string ( i18nM("Initializing Web Server") );
+  log_string ( ___("Initializing Web Server") );
 	init_web(WEB_PORT);
 #endif
 #endif
 
-  log_string ( i18nM("Initializing MUD Socket") );
+  log_string ( ___("Initializing MUD Socket") );
 #ifdef ENABLE_HOTBOOT
   if( !fCopyOver )  /* We have already the port if copyover'ed */
 #endif
@@ -344,7 +344,7 @@ main (int argc, char **argv)
 
 /*  sprintf (log_buf, "%s ready at address %s on port %d.",
 	   sysdata.mud_name, hostn, port); */
-  sprintf (log_buf, i18nM("%s ready at address %s on port %d."),
+  sprintf (log_buf, ___("%s ready at address %s on port %d."),
 	   sysdata.mud_name, hostn, port);
   log_string (log_buf);
 
@@ -392,7 +392,7 @@ main (int argc, char **argv)
   /*
    * That's all, folks.
    */
-  log_string ( i18nM("Normal termination of game.") );
+  log_string ( ___("Normal termination of game.") );
   exit (0);
   return 0;
 }
@@ -1499,7 +1499,7 @@ write_to_buffer (DESCRIPTOR_DATA * d, const char *txt, int length)
   /*
    * Copy.
    */
-  strncpy (d->outbuf + d->outtop, i18n(txt), length);
+  strncpy (d->outbuf + d->outtop, _(txt), length);
   d->outtop += length;
   d->outbuf[d->outtop] = '\0';
   return;
@@ -1525,7 +1525,7 @@ write_to_descriptor (int desc, char *txt, int length)
   for (iStart = 0; iStart < length; iStart += nWrite)
     {
       nBlock = UMIN (length - iStart, 4096);
-      if ((nWrite = send (desc, i18n(txt) + iStart, nBlock, 0)) < 0)
+      if ((nWrite = send (desc, _(txt) + iStart, nBlock, 0)) < 0)
 	{
 	  perror ("Write_to_descriptor");
 	  return FALSE;
@@ -2813,7 +2813,7 @@ send_to_char (const char *txt, CHAR_DATA * ch)
       return;
     }
   if (txt && ch->desc)
-    write_to_buffer (ch->desc, i18n(txt), strlen (txt));
+    write_to_buffer (ch->desc, _(txt), strlen (txt));
   return;
 }
 
@@ -2903,7 +2903,7 @@ write_to_pager (DESCRIPTOR_DATA * d, const char *txt, int length)
       RECREATE (d->pagebuf, char, d->pagesize);
     }
   d->pagepoint = d->pagebuf + pageroffset;	/* pager fix (goofup fixed 08/21/97) */
-  strncpy (d->pagebuf + d->pagetop, i18n(txt), length);
+  strncpy (d->pagebuf + d->pagetop, _(txt), length);
   d->pagetop += length;
   d->pagebuf[d->pagetop] = '\0';
   return;
@@ -2924,10 +2924,10 @@ send_to_pager (const char *txt, CHAR_DATA * ch)
       ch = d->original ? d->original : d->character;
       if (IS_NPC (ch) || !IS_SET (ch->pcdata->flags, PCFLAG_PAGERON))
 	{
-	  send_to_char (i18n(txt), d->character);
+	  send_to_char (_(txt), d->character);
 	  return;
 	}
-      write_to_pager (d, i18n(txt), 0);
+      write_to_pager (d, _(txt), 0);
     }
   return;
 }
@@ -2953,7 +2953,7 @@ send_to_pager_color (const char *txt, CHAR_DATA * ch)
   ch = d->original ? d->original : d->character;
   if (IS_NPC (ch) || !IS_SET (ch->pcdata->flags, PCFLAG_PAGERON))
     {
-      send_to_char_color ( i18n(txt), d->character);
+      send_to_char_color ( _(txt), d->character);
       return;
     }
   while ((colstr = strpbrk (prevstr, "&^")) != NULL)
