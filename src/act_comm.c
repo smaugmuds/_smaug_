@@ -37,9 +37,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+
 #ifdef FREEBSD
 #include <unistd.h>
 #endif
+
 #include "mud.h"
 
 #ifndef WIN32
@@ -875,7 +877,7 @@ to_channel (const char *argument, int channel, const char *verb, sh_int level)
 	  && !xIS_SET (och->deaf, channel) && get_trust (vch) >= level)
 	{
 	  set_char_color (AT_LOG, vch);
-	  send_to_char_color (_(buf), vch);
+	  send_to_char_color ( _(buf), vch);
 	}
     }
 

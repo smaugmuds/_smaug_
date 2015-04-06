@@ -169,7 +169,7 @@ Realm Areas:
 	* Changes from **SMAUG 1.8b** to **--{SMAUG 2.0}--**:
 
 		- Moved "KEY" definition to "mud.h".
-		- Added GNU Gettext support (for testing).
+		- Added GNU Gettext support.
 		- Added Manteinance Message Aplication (announce.c).
 		- Required runtime data directories moved to "data".
 		- Renamed "services.c" to "win32srv.c".

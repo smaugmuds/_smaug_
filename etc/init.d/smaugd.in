@@ -34,8 +34,6 @@
 
 source @sysconfdir@/@PACKAGE@/@PACKAGE@d.conf
 
-export LC_ALL="" LANG="$SMAUG_LANG";
-
 true=0;
 false=1;
 

@@ -1,261 +1,247 @@
-# SMAUG Internationalization Support.
-# Copyright (C) 2015 Antonio Cao.
-# This file is distributed under the same license as the SMAUG package.
-# Antonio Cao <antoniocao000@gmail.com>, 2015.
+# Galician translations for smaug package.
+# Copyright (C) 2015 Free Software Foundation, Inc.
+# This file is distributed under the same license as the smaug package.
+# root <root@siriux.home>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: smaug 2.0.0\n"
 "Report-Msgid-Bugs-To: <@burzumishi>\n"
-"POT-Creation-Date: 2015-04-06 21:44+0200\n"
-"PO-Revision-Date: 2015-04-05 23:55+0200\n"
-"Last-Translator: Antonio Cao <antoniocao000@gmail.com>\n"
-"Language-Team: galego <gl@li.org>\n"
+"POT-Creation-Date: 2015-04-06 22:46+0200\n"
+"PO-Revision-Date: 2015-04-06 22:12+0200\n"
+"Last-Translator: root <root@siriux.home>\n"
+"Language-Team: Galician\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/smaug.c:308
+#: src/smaug.c:305
 #, c-format
 msgid "gettext(i18n): Error! Can't find: %s:%s!"
 msgstr "gettext(i18n): Error! Non se pode atopar: %s:%s!"
 
-#: src/smaug.c:312
+#: src/smaug.c:309
 #, c-format
 msgid "Booting --{%s}--"
 msgstr "Iniciando --{%s}-- ..."
 
-#: src/smaug.c:323
+#: src/smaug.c:320
 msgid "Initializing Web Server"
 msgstr "Iniciando Servidor Web Integrado ..."
 
-#: src/smaug.c:328
+#: src/smaug.c:325
 msgid "Initializing MUD Socket"
 msgstr "Iniciando Socket do MUD ..."
 
-#: src/smaug.c:347
+#: src/smaug.c:344
 #, c-format
 msgid "%s ready at address %s on port %d."
 msgstr "%s escoitando con dirección %s no puerto %d."
 
-#: src/smaug.c:395
+#: src/smaug.c:392
 msgid "Normal termination of game."
 msgstr "Finalización normal do xogo."
 
-#: src/db.c:371
+#: src/db.c:368
 msgid "((----------------[ Boot Database ]----------------))"
 msgstr "((----------------[ Iniciando Base de Datos ]----------------))"
 
-#: src/db.c:373
+#: src/db.c:370
 msgid "Loading interface commands ..."
 msgstr "Cargando comandos da interfaz ..."
 
-#: src/db.c:376
+#: src/db.c:373
 #, c-format
 msgid "Reading --{%s}-- System Data configuration ..."
 msgstr "Cargando --{%s}-- os Datos de configuración do Sistema ..."
 
-#: src/db.c:435
+#: src/db.c:432
 msgid "Loading socials ..."
 msgstr "Cargando prácticas sociais ..."
 
-#: src/db.c:438
+#: src/db.c:435
 msgid "Loading skill table ..."
 msgstr "Cargando táboa de feitizos ..."
 
-#: src/db.c:460
+#: src/db.c:457
 msgid "Loading classes ..."
 msgstr "Cargando clases ..."
 
-#: src/db.c:463
+#: src/db.c:460
 msgid "Loading races ..."
 msgstr "Cargando razas ..."
 
-#: src/db.c:467
+#: src/db.c:464
 msgid "Loading extended news data ..."
 msgstr "Cargando datos extendidos das novas ..."
 
-#: src/db.c:470
+#: src/db.c:467
 msgid "Loading stance data ..."
 msgstr "Cargando datos das estancias ..."
 
-#: src/db.c:473
+#: src/db.c:470
 msgid "Loading herb table ..."
 msgstr "Cargando tabla de herbas ..."
 
-#: src/db.c:476
+#: src/db.c:473
 msgid "Loading tongues ..."
 msgstr "Cargando idiomas e linguaxes ..."
 
-#: src/db.c:479
+#: src/db.c:476
 msgid "Making Wizlist ..."
 msgstr "Creando lista de Inmortais ..."
 
-#: src/db.c:486
+#: src/db.c:483
 msgid "Making retiredlist ..."
 msgstr "Creando lista de Retirados ..."
 
-#: src/db.c:489
+#: src/db.c:486
 msgid "Initializing request pipe ..."
 msgstr "Iniciando tubería de peticións ..."
 
-#: src/db.c:558
+#: src/db.c:555
 msgid "Initializing random number generator ..."
 msgstr "Iniciando xerador de números aleatorios ..."
 
-#: src/db.c:567
+#: src/db.c:564
 msgid "Setting time and weather ..."
 msgstr "Configurando o tempo e o clima ..."
 
-#: src/db.c:607
+#: src/db.c:604
 msgid "Assigning gsn's ..."
 msgstr "Asignando GSN's ..."
 
-#: src/db.c:699
+#: src/db.c:696
 msgid "Reading in plane file ..."
 msgstr "Cargando o ficheiro de planos ..."
 
-#: src/db.c:709
+#: src/db.c:706
 msgid "Reading in area files ..."
 msgstr "Cargando ficheiros de areas ..."
 
-#: src/db.c:713
+#: src/db.c:710
 msgid "Error! Unable to open area list!"
 msgstr "Error! Non é posible cargar o listado de areas!"
 
-#: src/db.c:733
+#: src/db.c:730
 msgid "Making sure rooms are planed ..."
 msgstr "Asegurando que todas as habitacións están planeadas ..."
 
-#: src/db.c:757
+#: src/db.c:754
 msgid "Fixing exits ..."
 msgstr "Fixando saídas ..."
 
-#: src/db.c:760
+#: src/db.c:757
 msgid "Initializing economy ..."
 msgstr "Iniciando economía ..."
 
-#: src/db.c:765
+#: src/db.c:762
 msgid "Loading world state..."
 msgstr "Cargando o estado previo do mundo ..."
 
-#: src/db.c:769
+#: src/db.c:766
 msgid "Randomizing stance data ..."
 msgstr "Randomizando datos das estancias ..."
 
-#: src/db.c:771
+#: src/db.c:768
 msgid "Resetting areas ..."
 msgstr "Reseteando areas ..."
 
-#: src/db.c:773
+#: src/db.c:770
 msgid "Loading buildlist..."
 msgstr "Cargando lista de edificacións ..."
 
-#: src/db.c:776
+#: src/db.c:773
 msgid "Loading liquids ..."
 msgstr "Cargando líquidos ..."
 
-#: src/db.c:778
+#: src/db.c:775
 msgid "Loading mixtures ..."
 msgstr "Cargando mesturas ..."
 
-#: src/db.c:781
+#: src/db.c:778
 msgid "Loading boards ..."
 msgstr "Cargando taboeiros de información ..."
 
-#: src/db.c:783
+#: src/db.c:780
 msgid "Loading vault list ..."
 msgstr "Cargando listado de baúles ..."
 
-#: src/db.c:785
+#: src/db.c:782
 msgid "Loading clans ..."
 msgstr "Cargando Clans ..."
 
-#: src/db.c:787
+#: src/db.c:784
 msgid "Loading member lists ..."
 msgstr "Cargando listados de membros ..."
 
-#: src/db.c:789
+#: src/db.c:786
 msgid "Loading councils ..."
 msgstr "Cargando feudos ..."
 
-#: src/db.c:791
+#: src/db.c:788
 msgid "Loading deities ..."
 msgstr "Cargando deidades ..."
 
-#: src/db.c:793
+#: src/db.c:790
 msgid "Loading watches ..."
 msgstr "Cargando vistas ..."
 
-#: src/db.c:795
+#: src/db.c:792
 msgid "Loading bans ..."
 msgstr "Cargando lista de xogadores baneados ..."
 
-#: src/db.c:797
+#: src/db.c:794
 msgid "Loading reserved names ..."
 msgstr "Cargando nomes reservados ..."
 
-#: src/db.c:799
+#: src/db.c:796
 msgid "Loading noauction vnums ..."
 msgstr "Cargando vnums non subastados ..."
 
-#: src/db.c:801
+#: src/db.c:798
 msgid "Loading corpses ..."
 msgstr "Cargando cadáveres de xogadores ..."
 
-#: src/db.c:803
+#: src/db.c:800
 msgid "Loading Immortal Hosts ..."
 msgstr "Cargando Hosts Inmortais ..."
 
-#: src/db.c:805
+#: src/db.c:802
 msgid "Loading Hints ..."
 msgstr "Cargando consexos de guía ..."
 
-#: src/db.c:807
+#: src/db.c:804
 msgid "Loading Projects ..."
 msgstr "Cargando proxectos ..."
 
-#: src/db.c:810
+#: src/db.c:807
 msgid "Loading Morphs ..."
 msgstr "Cargando Polimorfismos ..."
 
-#: src/db.c:812
+#: src/db.c:809
 msgid ""
 "Loading Housing System, Home Accessories Data, and Home Auctioning System ..."
 msgstr ""
 "Cargando sistema de Fogares, datos de accesorios para o fogar e sistema de "
 "susbastas ..."
 
-#: src/db.c:816
+#: src/db.c:813
 msgid "Loading login messages ..."
 msgstr "Cargando mensaxes de entrada ..."
 
-#: src/db.c:818
+#: src/db.c:815
 msgid "Loading Colors ..."
 msgstr "Cargando cores da interface ..."
 
-#: src/dns.c:93
+#: src/dns.c:92
+#, c-format
 msgid "Unknown Hostname!\n"
 msgstr "Nome do anfitrión descoñecido!\n"
 
-#: src/act_comm.c:853
+#: src/act_comm.c:855
 #, c-format
 msgid "%s: %s\r\n"
-msgstr "%s: %s\\r\n"
-
-#~ msgid "announce: socket"
-#~ msgstr "notificación de mantemento: socket aberto"
-
-#~ msgid "announce: pid %d\t%d\n"
-#~ msgstr "notificación de mantemento: pid %d\t%d\n"
-
-#~ msgid "announce: listen"
-#~ msgstr "notificación de mantemento: escoitando"
-
-#~ msgid "announce: accept"
-#~ msgstr "notificación de mantemento: aceptando"
-
-#~ msgid "CONNECTION made from %s at %s"
-#~ msgstr "Conexión dende %s ás %s"
+msgstr "%s: %s\r\n"

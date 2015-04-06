@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smaug 2.0.0\n"
 "Report-Msgid-Bugs-To: <@burzumishi>\n"
-"POT-Creation-Date: 2015-04-06 21:44+0200\n"
+"POT-Creation-Date: 2015-04-06 22:46+0200\n"
 "PO-Revision-Date: 2015-04-05 23:55+0200\n"
 "Last-Translator: Antonio Cao <antoniocao000@gmail.com>\n"
 "Language-Team: español <es@li.org>\n"
@@ -17,231 +17,231 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/smaug.c:308
+#: src/smaug.c:305
 #, c-format
 msgid "gettext(i18n): Error! Can't find: %s:%s!"
 msgstr "gettext(i18n): Error! No se puede encontrar: %s:%s!"
 
-#: src/smaug.c:312
+#: src/smaug.c:309
 #, c-format
 msgid "Booting --{%s}--"
 msgstr "Iniciando --{%s}-- ..."
 
-#: src/smaug.c:323
+#: src/smaug.c:320
 msgid "Initializing Web Server"
 msgstr "Iniciando Servidor Web Integrado ..."
 
-#: src/smaug.c:328
+#: src/smaug.c:325
 msgid "Initializing MUD Socket"
 msgstr "Iniciando Socket del MUD ..."
 
-#: src/smaug.c:347
+#: src/smaug.c:344
 #, c-format
 msgid "%s ready at address %s on port %d."
 msgstr "%s escuchando con dirección %s en puerto %d."
 
-#: src/smaug.c:395
+#: src/smaug.c:392
 msgid "Normal termination of game."
 msgstr "Finalización normal del juego."
 
-#: src/db.c:371
+#: src/db.c:368
 msgid "((----------------[ Boot Database ]----------------))"
 msgstr "((----------------[ Iniciando Base de Datos ]----------------))"
 
-#: src/db.c:373
+#: src/db.c:370
 msgid "Loading interface commands ..."
 msgstr "Cargando comandos de la interfaz ..."
 
-#: src/db.c:376
+#: src/db.c:373
 #, c-format
 msgid "Reading --{%s}-- System Data configuration ..."
 msgstr "Cargando --{%s}-- los Datos de configuración del Sistema ..."
 
-#: src/db.c:435
+#: src/db.c:432
 msgid "Loading socials ..."
 msgstr "Cargando habilidades sociales ..."
 
-#: src/db.c:438
+#: src/db.c:435
 msgid "Loading skill table ..."
 msgstr "Cargando tabla de hechizos y habilidades ..."
 
-#: src/db.c:460
+#: src/db.c:457
 msgid "Loading classes ..."
 msgstr "Cargando clases ..."
 
-#: src/db.c:463
+#: src/db.c:460
 msgid "Loading races ..."
 msgstr "Cargando razas ..."
 
-#: src/db.c:467
+#: src/db.c:464
 msgid "Loading extended news data ..."
 msgstr "Cargando datos extendidos de las noticias ..."
 
-#: src/db.c:470
+#: src/db.c:467
 msgid "Loading stance data ..."
 msgstr "Cargando datos de las estancias ..."
 
-#: src/db.c:473
+#: src/db.c:470
 msgid "Loading herb table ..."
 msgstr "Cargando tabla de hierbas ..."
 
-#: src/db.c:476
+#: src/db.c:473
 msgid "Loading tongues ..."
 msgstr "Cargando idiomas y lenguajes ..."
 
-#: src/db.c:479
+#: src/db.c:476
 msgid "Making Wizlist ..."
 msgstr "Creando lista de Inmortales ..."
 
-#: src/db.c:486
+#: src/db.c:483
 msgid "Making retiredlist ..."
 msgstr "Creando la lista de Retirados ..."
 
-#: src/db.c:489
+#: src/db.c:486
 msgid "Initializing request pipe ..."
 msgstr "Iniciando tubería de peticiones ..."
 
-#: src/db.c:558
+#: src/db.c:555
 msgid "Initializing random number generator ..."
 msgstr "Iniciando generador de números aleatorios ..."
 
-#: src/db.c:567
+#: src/db.c:564
 msgid "Setting time and weather ..."
 msgstr "Configurando el tiempo y el clima ..."
 
-#: src/db.c:607
+#: src/db.c:604
 msgid "Assigning gsn's ..."
 msgstr "Asignando GSN's ..."
 
-#: src/db.c:699
+#: src/db.c:696
 msgid "Reading in plane file ..."
 msgstr "Cargando el fichero de planos ..."
 
-#: src/db.c:709
+#: src/db.c:706
 msgid "Reading in area files ..."
 msgstr "Cargando ficheros de areas ..."
 
-#: src/db.c:713
+#: src/db.c:710
 msgid "Error! Unable to open area list!"
 msgstr "Error! No es posible cargar el listado de areas!"
 
-#: src/db.c:733
+#: src/db.c:730
 msgid "Making sure rooms are planed ..."
 msgstr "Asegurando que todas las habitaciones están planeadas ..."
 
-#: src/db.c:757
+#: src/db.c:754
 msgid "Fixing exits ..."
 msgstr "Fijando salidas ..."
 
-#: src/db.c:760
+#: src/db.c:757
 msgid "Initializing economy ..."
 msgstr "Iniciando economía ..."
 
-#: src/db.c:765
+#: src/db.c:762
 msgid "Loading world state..."
 msgstr "Cargando el estado previo del mundo ..."
 
-#: src/db.c:769
+#: src/db.c:766
 msgid "Randomizing stance data ..."
 msgstr "Randomizando datos de estancias ..."
 
-#: src/db.c:771
+#: src/db.c:768
 msgid "Resetting areas ..."
 msgstr "Reseteando areas ..."
 
-#: src/db.c:773
+#: src/db.c:770
 msgid "Loading buildlist..."
 msgstr "Cargando lista de edificaciones ..."
 
-#: src/db.c:776
+#: src/db.c:773
 msgid "Loading liquids ..."
 msgstr "Cargando líquidos ..."
 
-#: src/db.c:778
+#: src/db.c:775
 msgid "Loading mixtures ..."
 msgstr "Cargando mezclas ..."
 
-#: src/db.c:781
+#: src/db.c:778
 msgid "Loading boards ..."
 msgstr "Cargando tableros de información ..."
 
-#: src/db.c:783
+#: src/db.c:780
 msgid "Loading vault list ..."
 msgstr "Cargando listado de baúles ..."
 
-#: src/db.c:785
+#: src/db.c:782
 msgid "Loading clans ..."
 msgstr "Cargando Clanes ..."
 
-#: src/db.c:787
+#: src/db.c:784
 msgid "Loading member lists ..."
 msgstr "Cargando listados de miembros ..."
 
-#: src/db.c:789
+#: src/db.c:786
 msgid "Loading councils ..."
 msgstr "Cargando feudos ..."
 
-#: src/db.c:791
+#: src/db.c:788
 msgid "Loading deities ..."
 msgstr "Cargando deidades ..."
 
-#: src/db.c:793
+#: src/db.c:790
 msgid "Loading watches ..."
 msgstr "Cargando vistas ..."
 
-#: src/db.c:795
+#: src/db.c:792
 msgid "Loading bans ..."
 msgstr "Cargando lista de jugadores baneados ..."
 
-#: src/db.c:797
+#: src/db.c:794
 msgid "Loading reserved names ..."
 msgstr "Cargando nombres reservados ..."
 
-#: src/db.c:799
+#: src/db.c:796
 msgid "Loading noauction vnums ..."
 msgstr "Cargando vnums no subastados ..."
 
-#: src/db.c:801
+#: src/db.c:798
 msgid "Loading corpses ..."
 msgstr "Cargando cadáveres de jugadores ..."
 
-#: src/db.c:803
+#: src/db.c:800
 msgid "Loading Immortal Hosts ..."
 msgstr "Cargando Hosts Inmortales ..."
 
-#: src/db.c:805
+#: src/db.c:802
 msgid "Loading Hints ..."
 msgstr "Cargando consejos de guía ..."
 
-#: src/db.c:807
+#: src/db.c:804
 msgid "Loading Projects ..."
 msgstr "Cargando proyectos ..."
 
-#: src/db.c:810
+#: src/db.c:807
 msgid "Loading Morphs ..."
 msgstr "Cargando Polimorfismos ..."
 
-#: src/db.c:812
+#: src/db.c:809
 msgid ""
 "Loading Housing System, Home Accessories Data, and Home Auctioning System ..."
 msgstr ""
 "Cargando sistema de Hogares, datos de accesorios para el hogar y sistema de "
 "susbastas ..."
 
-#: src/db.c:816
+#: src/db.c:813
 msgid "Loading login messages ..."
 msgstr "Cargando mensajes de entrada ..."
 
-#: src/db.c:818
+#: src/db.c:815
 msgid "Loading Colors ..."
 msgstr "Cargando colores de la interfaz ..."
 
-#: src/dns.c:93
+#: src/dns.c:92
 #, c-format
 msgid "Unknown Hostname!\n"
 msgstr "Nombre de anfitrión desconocido!\n"
 
-#: src/act_comm.c:853
+#: src/act_comm.c:855
 #, c-format
 msgid "%s: %s\r\n"
 msgstr "%s: %s\\r\n"

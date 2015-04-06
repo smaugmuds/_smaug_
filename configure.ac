@@ -145,7 +145,7 @@ AC_FUNC_FORK
 AC_FUNC_MKTIME
 AC_FUNC_REALLOC
 
-AC_CHECK_FUNCS([bzero gethostname re_comp setlocale alarm dup2 gethostbyaddr gethostbyname gettimeofday inet_ntoa isascii memmove memset pow putenv select socket sqrt strcasecmp strchr strerror strpbrk strrchr strstr tzset strtol getcwd memchr mkdir rmdir strcspn strdup strspn])
+AC_CHECK_FUNCS([bzero gethostname re_comp setlocale textdomain bindtextdomain alarm dup2 gethostbyaddr gethostbyname gettimeofday inet_ntoa isascii memmove memset pow putenv select socket sqrt strcasecmp strchr strerror strpbrk strrchr strstr tzset strtol getcwd memchr mkdir rmdir strcspn strdup strspn])
 
 # Check for doxygen (optional) #
 AC_CHECK_PROGS([DOXYGEN], [doxygen])

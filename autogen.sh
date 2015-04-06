@@ -44,10 +44,12 @@ cp -v src/Makefile.am src/Makefile.am.autogen-bak
 echo "Running libtoolize ..."
 libtoolize
 
-if test -f "acinclude.m4"; then rm -rf acinclude.m4; fi;
+if test -f "acinclude.m4"; then rm -v acinclude.m4; fi;
 
 if test ! -f "m4/nls.m4"; then
-	echo "Running gettextize --copy ..."
+	if test -f "ABOUT-NLS"; then rm -v ABOUT-NLS; fi;
+	if test -f "po/Makefile.in.in"; then rm -v po/Makefile.in.in; fi;
+	echo "Running gettextize --copy ...";
 	gettextize --copy
 fi;
 

@@ -43,9 +43,6 @@
 #include <signal.h>
 #include <stdarg.h>
 
-#include <libintl.h> 
-#include <locale.h>
-
 #include "mud.h"
 
 /*
@@ -175,6 +172,11 @@ main (int argc, char **argv)
   struct timeval now_time;
   char hostn[128];
 
+  /* Initialize Gettext support */
+  setlocale (LC_ALL, "");
+  bindtextdomain (PACKAGE, LOCALEDIR);
+  textdomain (PACKAGE);
+
 #ifdef ENABLE_HOTBOOT
    bool fCopyOver = FALSE;
 #endif
@@ -192,11 +194,6 @@ main (int argc, char **argv)
   last_descriptor = NULL;
   sysdata.NO_NAME_RESOLVING = TRUE;
   sysdata.WAIT_FOR_AUTH = TRUE;
-
-	/* Initialize Gettext support */
-	setlocale (LC_ALL, "");
-	bindtextdomain (PACKAGE, LOCALEDIR);
-	textdomain (PACKAGE);
 
   /*
    * Init time.
@@ -305,11 +302,11 @@ main (int argc, char **argv)
 
 	if( !LOCALEDIR ) 
 	{
-		sprintf ( log_buf, ___("gettext(i18n): Error! Can't find: %s:%s!"), PACKAGE, LOCALEDIR);
+		sprintf ( log_buf, _("gettext(i18n): Error! Can't find: %s:%s!"), PACKAGE, LOCALEDIR);
 	  log_string ( log_buf );
 	}
 
-	sprintf( log_buf, ___("Booting --{%s}--"), PACKAGE );
+	sprintf( log_buf, _("Booting --{%s}--"), PACKAGE );
   log_string ( log_buf );
 
 #ifdef ENABLE_HOTBOOT
@@ -320,12 +317,12 @@ main (int argc, char **argv)
 
 #ifndef WIN32
 #ifdef WEBSRV
-  log_string ( ___("Initializing Web Server") );
+  log_string ( _("Initializing Web Server") );
 	init_web(WEB_PORT);
 #endif
 #endif
 
-  log_string ( ___("Initializing MUD Socket") );
+  log_string ( _("Initializing MUD Socket") );
 #ifdef ENABLE_HOTBOOT
   if( !fCopyOver )  /* We have already the port if copyover'ed */
 #endif
@@ -344,7 +341,7 @@ main (int argc, char **argv)
 
 /*  sprintf (log_buf, "%s ready at address %s on port %d.",
 	   sysdata.mud_name, hostn, port); */
-  sprintf (log_buf, ___("%s ready at address %s on port %d."),
+  sprintf (log_buf, _("%s ready at address %s on port %d."),
 	   sysdata.mud_name, hostn, port);
   log_string (log_buf);
 
@@ -392,7 +389,7 @@ main (int argc, char **argv)
   /*
    * That's all, folks.
    */
-  log_string ( ___("Normal termination of game.") );
+  log_string ( _("Normal termination of game.") );
   exit (0);
   return 0;
 }
@@ -2924,7 +2921,7 @@ send_to_pager (const char *txt, CHAR_DATA * ch)
       ch = d->original ? d->original : d->character;
       if (IS_NPC (ch) || !IS_SET (ch->pcdata->flags, PCFLAG_PAGERON))
 	{
-	  send_to_char (_(txt), d->character);
+	  send_to_char ( _(txt), d->character);
 	  return;
 	}
       write_to_pager (d, _(txt), 0);
@@ -4366,7 +4363,7 @@ pager_output (DESCRIPTOR_DATA * d)
 
 #ifdef WIN32
 
-void shutdown_mud (char *reason);
+void shutdown_mud (const char *reason);
 
 void
 bailout (void)

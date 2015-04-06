@@ -57,12 +57,12 @@
 #include <sys/time.h>
 #endif
 
+#include "smaug.h"
+
 /* Include Gettext */
 #include <libintl.h> 
 #include <locale.h>
 #include "i18n.h"
-
-#include "smaug.h"
 
 typedef int ch_ret;
 typedef int obj_ret;

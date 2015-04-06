@@ -1,4 +1,5 @@
 # List of source files which contain translatable strings.
+src/mud.h
 src/smaug.c
 src/db.c
 src/dns.c

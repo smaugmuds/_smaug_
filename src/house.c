@@ -47,7 +47,7 @@
 
 #include "mud.h"
 
-extern void shutdown_mud args ((char *reason));
+extern void shutdown_mud args ((const char *reason));
 void boot_log args ((const char *str, ...));
 
 bool
