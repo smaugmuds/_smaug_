@@ -306,18 +306,6 @@ save_council (COUNCIL_DATA * council)
  * Read in actual clan data.
  */
 
-#if defined(KEY)
-#undef KEY
-#endif
-
-#define KEY( literal, field, value )					\
-				if ( !str_cmp( word, literal ) )	\
-				{					\
-				    field  = value;			\
-				    fMatch = TRUE;			\
-				    break;				\
-				}
-
 /*
  * Reads in PKill and PDeath still for backward compatibility but now it
  * should be written to PKillRange and PDeathRange for multiple level pkill
@@ -512,18 +500,6 @@ fread_clan (CLAN_DATA * clan, FILE * fp)
 /*
  * Read in actual council data.
  */
-
-#if defined(KEY)
-#undef KEY
-#endif
-
-#define KEY( literal, field, value )					\
-				if ( !str_cmp( word, literal ) )	\
-				{					\
-				    field  = value;			\
-				    fMatch = TRUE;			\
-				    break;				\
-				}
 
 void
 fread_council (COUNCIL_DATA * council, FILE * fp)

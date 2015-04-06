@@ -25,7 +25,7 @@
    [|                                                                       |]
    [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
    [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
-   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
+   [|  Hammer, Michael Seifert, Hans Henrik Stfeldt, Tom Madsen, Katja    |]
    [|  Nyboe. Win32 port Nick Gammon.                                       |]
    [|                                                                       |]
    [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
@@ -203,6 +203,7 @@ do_worth (CHAR_DATA * ch, char *argument)
 }
 
 
+#ifndef NEWSCORE
 /*
  * New score command by Haus
  * This version is left for the people who have lost sight of reality so badly as to
@@ -223,6 +224,7 @@ do_score (CHAR_DATA * ch, char *argument)
   set_pager_color (AT_SCORE, ch);
 
   pager_printf (ch, "\n\rScore for %s%s.\n\r", ch->name, ch->pcdata->title);
+
   if (get_trust (ch) != ch->level)
     pager_printf (ch, "You are trusted at level %d.\n\r", get_trust (ch));
 
@@ -413,7 +415,7 @@ do_score (CHAR_DATA * ch, char *argument)
     pager_printf (ch, "Honour: %3.3d        Rank: %s\n\r", ch->pcdata->honour,
 		  get_honour (ch));
 
-#ifdef SHADDAI
+#ifdef PLRSHOWSTANCE
   pager_printf (ch, "Glory: %4.4d(%4.4d)  Stance: %s\n\r",
 		ch->pcdata->quest_curr, ch->pcdata->quest_accum,
 		get_stance_name (ch->stance));
@@ -755,6 +757,221 @@ do_score (CHAR_DATA * ch, char *argument)
   return;
 }
 
+/* Alternative scoretable */
+void do_altscore( CHAR_DATA *ch, char *argument )
+{
+
+  char buf[MAX_STRING_LENGTH];
+  AFFECT_DATA *paf;
+  int i;
+
+  if (IS_NPC (ch))
+    {
+      do_oldscore (ch, argument);
+      return;
+    }
+
+  set_pager_color (AT_SCORE, ch);
+
+  pager_printf ( ch,
+	"                                          ________________\n\r");
+
+  pager_printf ( ch,
+	" ________________________________________/%s\n\r",
+  ch->name);
+
+  pager_printf ( ch, "| You are%s\n\r",
+	IS_NPC(ch) ? ", the mobile." : ch->pcdata->title);
+
+  pager_printf ( ch,
+	"| You are level %d, and are %d years old.\n\r",
+  ch->level, get_age(ch) );
+
+  if ( get_trust( ch ) != ch->level )
+    {
+			pager_printf ( ch, "You are trusted at level %d.\n\r",
+	    get_trust( ch ) );
+    }
+
+  pager_printf ( ch, "| You are a %s %s %s\n\r",
+	ch->sex == 0 ? "Sexless" : ch->sex == 1 ? "Male" : "Female",
+	capitalize (get_race (ch)),
+	IS_NPC(ch) ? "mobile" : capitalize (get_class (ch)));
+
+  pager_printf ( ch,
+	"| You have %d practices.\n\r",
+	ch->practice);
+
+  pager_printf ( ch,
+	"| Carrying %d/%d items at %d/10 pounds.\n\r",
+	ch->carry_number, can_carry_n(ch),
+	can_carry_w(ch));
+
+
+  pager_printf ( ch,
+	"| %d/%dHPs, %d/%dMana, %d/%dMoves.\n\r",
+	ch->hit,  ch->max_hit,
+	ch->mana, ch->max_mana,
+	ch->move, ch->max_move);
+
+  if ( ch->level >= 15 )
+    {
+    pager_printf ( ch, "| Hitroll: %d   Damroll: %d   Saved:  %d\n\r",
+		GET_HITROLL(ch),
+		GET_DAMROLL(ch),
+		ch->save_time ? ctime (&(ch->save_time)) : "no save this session\n");
+    }
+    pager_printf ( ch, " ----------------------------------------------------------\n\r");
+    pager_printf ( ch, "|    Str: %d(%d)    |         {D-=ARMOR={D-\n\r");
+
+			if (GET_AC (ch) >= 101)
+				sprintf (buf, "the rags of a beggar");
+			else if (GET_AC (ch) >= 80)
+				sprintf (buf, "improper for adventure");
+			else if (GET_AC (ch) >= 55)
+				sprintf (buf, "shabby and threadbare");
+			else if (GET_AC (ch) >= 40)
+				sprintf (buf, "of poor quality");
+			else if (GET_AC (ch) >= 20)
+				sprintf (buf, "scant protection");
+			else if (GET_AC (ch) >= 10)
+				sprintf (buf, "that of a knave");
+			else if (GET_AC (ch) >= 0)
+				sprintf (buf, "moderately crafted");
+			else if (GET_AC (ch) >= -10)
+				sprintf (buf, "well crafted");
+			else if (GET_AC (ch) >= -20)
+				sprintf (buf, "the envy of squires");
+			else if (GET_AC (ch) >= -40)
+				sprintf (buf, "excellently crafted");
+			else if (GET_AC (ch) >= -60)
+				sprintf (buf, "the envy of knights");
+			else if (GET_AC (ch) >= -80)
+				sprintf (buf, "the envy of barons");
+			else if (GET_AC (ch) >= -100)
+				sprintf (buf, "the envy of dukes");
+			else if (GET_AC (ch) >= -200)
+				sprintf (buf, "the envy of emperors");
+			else
+				sprintf (buf, "that of an avatar");
+
+    pager_printf ( ch, "|    Int: %d(%d)\n\r",ch->perm_int);
+    pager_printf ( ch, "|    Wis: %d(%d)\n\r",ch->perm_wis);
+    pager_printf ( ch, "|    Dex: %d(%d)\n\r",ch->perm_dex);
+    pager_printf ( ch, "|    Con: %d(%d)\n\r",ch->perm_con);
+
+    pager_printf ( ch, " ----------------------------------------------------------\n\r");
+
+    pager_printf ( ch,"| You have %ld gold and your bank balance is %ld coins.\n\r",
+		ch->gold, ch->balance);
+    
+		if (!IS_NPC(ch)) {
+			pager_printf ( ch,"| You have scored %ld exp.\n\r",
+	    ch->exp);
+    }
+
+    if (ch->wimpy)
+    {
+			pager_printf ( ch, "| Wimpy set to %d hit points.\n\r", ch->wimpy );
+    }
+ 
+    pager_printf ( ch, "| You are ");
+         if ( ch->alignment >  900 ) sprintf ( buf, "angelic.");
+    else if ( ch->alignment >  700 ) sprintf ( buf, "saintly.");
+    else if ( ch->alignment >  350 ) sprintf ( buf, "good.");
+    else if ( ch->alignment >  100 ) sprintf ( buf, "kind.");
+    else if ( ch->alignment > -100 ) sprintf ( buf, "neutral.");
+    else if ( ch->alignment > -350 ) sprintf ( buf, "mean.");
+    else if ( ch->alignment > -700 ) sprintf ( buf, "evil.");
+    else if ( ch->alignment > -900 ) sprintf ( buf, "demonic.");
+    else                             sprintf ( buf, "satanic.");
+
+    if ( ch->level >= 10 )
+    {
+			pager_printf ( ch, "   Alignment: %d\n\r", ch->alignment );
+    }
+
+    if (ch->pcdata->quest_curr)
+    {
+		if (ch->pcdata->quest_curr == 1)
+	    pager_printf ( ch, "| You have %d quest point.\n\r", ch->pcdata->quest_curr );
+		else
+	    pager_printf ( ch, "| You have %d quest points.\n\r", ch->pcdata->quest_curr );
+    }
+    if (ch->pcdata->quest_accum)
+    {	
+		if (ch->pcdata->quest_accum == 1)
+	    pager_printf ( ch, "| You have accumulated %d quest point.\n\r", ch->pcdata->quest_accum);
+		else
+	    pager_printf ( ch, "| You have accumulated %d quest points.\n\r", ch->pcdata->quest_accum);
+    }
+
+    /* RT wizinvis and holy light */
+    if ( IS_IMMORTAL(ch))
+    {
+      pager_printf ( ch,"| Holy Light: ");
+      if (xIS_SET(ch->act,PLR_HOLYLIGHT))
+        pager_printf ( ch,"On");
+      else
+        pager_printf ( ch,"Off");
+
+      if (ch->pcdata->wizinvis)
+      {
+        pager_printf ( ch, "  Wizi %d",ch->pcdata->wizinvis);
+      }
+      pager_printf ( ch,"\n\r");
+    }
+
+	 if (ch->first_affect)
+   {
+      int i;
+      SKILLTYPE *sktmp;
+
+	    i = 0;
+	    send_to_pager (" ----------------------------------------------------------\n\r", ch);
+
+    send_to_pager ("Affect Data:                            ", ch);
+    for (paf = ch->first_affect; paf; paf = paf->next)
+			{
+		  if ((sktmp = get_skilltype (paf->type)) == NULL)
+		    continue;
+			  if (ch->level < 20)
+			    {
+			      pager_printf (ch, "[%-34.34s]    ", sktmp->name);
+			      if (i == 0)
+							i = 2;
+					      if ((++i % 3) == 0)
+									send_to_pager ("\n\r", ch);
+						    }
+							  if (ch->level >= 20)
+						    {
+						      if (paf->modifier == 0)
+										pager_printf (ch, "[%-24.24s;%5d rds]    ",
+							      sktmp->name, paf->duration);
+						      else if (paf->modifier > 999)
+										pager_printf (ch, "[%-15.15s; %7.7s;%5d rds]    ",
+							      sktmp->name,
+			  				    tiny_affect_loc_name (paf->location),
+			  				    paf->duration);
+						      else
+										pager_printf (ch, "[%-11.11s;%+-3.3d %7.7s;%5d rds]    ",
+							      sktmp->name,
+							      paf->modifier,
+							      tiny_affect_loc_name (paf->location),
+							      paf->duration);
+				    if (i == 0)
+						i = 1;
+	      			if ((++i % 2) == 0)
+								send_to_pager ("\n\r", ch);
+					    }
+			}
+	}   
+
+  send_to_pager ("\n\r", ch);
+  return;
+}
+#endif
+
 void
 do_colorscheme (CHAR_DATA * ch, char *argument)
 {
@@ -877,12 +1094,13 @@ do_compass (CHAR_DATA * ch, char *argument)
 }
 
 
+#ifdef NEWSCORE
 /*
  * New score command by Haus
  * Colorized in 2001
  */
 void
-do_cscore (CHAR_DATA * ch, char *argument)
+do_score (CHAR_DATA * ch, char *argument)
 {
   char buf[MAX_STRING_LENGTH];
   AFFECT_DATA *paf;
@@ -895,15 +1113,13 @@ do_cscore (CHAR_DATA * ch, char *argument)
     }
   set_pager_color (AT_GREEN, ch);
 
-  pager_printf_color (ch, "\n\r&GScore for %s%s.\n\r", ch->name,
-		      ch->pcdata->title);
+  pager_printf_color (ch, "\n\r&GScore for %s%s.\n\r", ch->name, ch->pcdata->title);
+
   if (get_trust (ch) != ch->level)
-    pager_printf_color (ch, "&GYou are trusted at level &Y%d.\n\r",
-			get_trust (ch));
+    pager_printf_color (ch, "&GYou are trusted at level &Y%d.\n\r", get_trust (ch));
 
   send_to_pager_color
-    ("&g----------------------------------------------------------------------------\n\r",
-     ch);
+    ("&g----------------------------------------------------------------------------\n\r", ch);
 
   pager_printf_color (ch,
 		      "&GLEVEL: &w%-3d         &GRace : &w%-10.10s        &gPlayed: &w%d hours\n\r",
@@ -1093,7 +1309,7 @@ do_cscore (CHAR_DATA * ch, char *argument)
     pager_printf_color (ch, "&GHonour: &w%3.3d        &GRank: &w%s\n\r",
 			ch->pcdata->honour, get_honour (ch));
 
-#ifdef SHADDAI
+#ifdef PLRSHOWSTANCE
   pager_printf_color (ch, "&GGlory: &w%4.4d&g(&W%4.4d&g)  &GStance: &W%s\n\r",
 		      ch->pcdata->quest_curr, ch->pcdata->quest_accum,
 		      get_stance_name (ch->stance));
@@ -1440,7 +1656,7 @@ do_cscore (CHAR_DATA * ch, char *argument)
 }
 
 void
-do_newscore (CHAR_DATA * ch, char *argument)
+do_altscore (CHAR_DATA * ch, char *argument)
 {
   char buf[MAX_STRING_LENGTH];
   char arg[MAX_INPUT_LENGTH];
@@ -1945,7 +2161,7 @@ do_newscore (CHAR_DATA * ch, char *argument)
   send_to_pager ("\n\r", ch);
   return;
 }
-
+#endif
 
 /*
  * Return ascii name of an affect location.
@@ -2374,7 +2590,7 @@ do_oldscore (CHAR_DATA * ch, char *argument)
     send_to_pager ("demonic.\n\r", ch);
   else
     send_to_pager ("satanic.\n\r", ch);
-#ifdef SHADDAI
+#ifdef PLRSHOWSTANCE
   pager_printf (ch, "Stance:    %s \n\r", get_stance_name (ch->stance));
 #endif
 
@@ -2521,7 +2737,7 @@ do_affected (CHAR_DATA * ch, char *argument)
 	  if (ch->resistant > 0 || ch->stance_resistant > 0)
 	    {
 	      send_to_char_color ("&BResistances:  ", ch);
-#ifdef SHADDAI
+#ifdef PLRSHOWSTANCE
 	      ch_printf_color (ch, "&C%s\n\r",
 			       flag_string (ch->resistant
 					    || ch->stance_resistant,
@@ -2533,7 +2749,7 @@ do_affected (CHAR_DATA * ch, char *argument)
 	  if (ch->immune > 0 || ch->stance_immune > 0)
 	    {
 	      send_to_char_color ("&BImmunities:   ", ch);
-#ifdef SHADDAI
+#ifdef PLRSHOWSTANCE
 	      ch_printf_color (ch, "&C%s\n\r",
 			       flag_string (ch->immune
 					    || ch->stance_immune, ris_flags));
@@ -2544,7 +2760,7 @@ do_affected (CHAR_DATA * ch, char *argument)
 	  if (ch->susceptible > 0 || ch->stance_susceptible > 0)
 	    {
 	      send_to_char_color ("&BSuscepts:     ", ch);
-#ifdef SHADDAI
+#ifdef PLRSHOWSTANCE
 	      ch_printf_color (ch, "&C%s\n\r",
 			       flag_string (ch->susceptible
 					    || ch->stance_susceptible,

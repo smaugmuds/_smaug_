@@ -449,16 +449,7 @@ read_hint (char *filename, FILE * fp)
   ungetc (letter, fp);
 
   CREATE (hintData, HINT_DATA, 1);
-#ifdef KEY
-#undef KEY
-#endif
-#define KEY( literal, field, value )                                    \
-                                if ( !str_cmp( word, literal ) )        \
-                                {                                       \
-                                    field  = value;                     \
-                                    fMatch = TRUE;                      \
-                                    break;                              \
-                                }
+
   hintData->next = NULL;
   hintData->prev = NULL;
   hintData->text = STRALLOC ("");

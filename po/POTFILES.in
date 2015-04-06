@@ -1,0 +1,4 @@
+# List of source files which contain translatable strings.
+src/smaug.c
+src/db.c
+src/dns.c

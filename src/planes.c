@@ -180,18 +180,6 @@ save_planes (void)
   return;
 }
 
-#ifdef KEY
-#undef KEY
-#endif
-
-#define KEY( literal, field, value )					\
-				if ( !strcmp( word, literal ) )	\
-				{					\
-				    field  = value;			\
-				    fMatch = TRUE;			\
-				    break;				\
-				}
-
 void
 read_plane (FILE * fp)
 {

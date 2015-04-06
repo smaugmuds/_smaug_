@@ -38,18 +38,6 @@
 
 #include "mud.h"
 
-#if defined(KEY)
-#undef KEY
-#endif
-
-#define KEY( literal, field, value )					\
-				if ( !str_cmp( word, literal ) )	\
-				{					\
-				    field  = value;			\
-				    fMatch = TRUE;			\
-				    break;				\
-				}
-
 bool load_race_file (char *fname);
 void write_race_file (int ra);
 
@@ -314,6 +302,8 @@ skill_function (char *name)
 	return do_alinks;
       if (!str_cmp (name, "do_allow"))
 	return do_allow;
+      if (!str_cmp (name, "do_altscore"))
+	return do_altscore;
       if (!str_cmp (name, "do_ansi"))
 	return do_ansi;
       if (!str_cmp (name, "do_answer"))
@@ -356,8 +346,10 @@ skill_function (char *name)
 	return do_bamfout;
       if (!str_cmp (name, "do_ban"))
 	return do_ban;
+#ifdef BANK_INSTALLED
       if (!str_cmp (name, "do_bank"))
 	return do_bank;
+#endif
       if (!str_cmp (name, "do_bash"))
 	return do_bash;
       if (!str_cmp (name, "do_bashdoor"))
@@ -472,8 +464,6 @@ skill_function (char *name)
 	return do_counciltalk;
       if (!str_cmp (name, "do_credits"))
 	return do_credits;
-      if (!str_cmp (name, "do_cscore"))
-	return do_cscore;
       if (!str_cmp (name, "do_cset"))
 	return do_cset;
       if (!str_cmp (name, "do_cwho"))
@@ -514,8 +504,10 @@ skill_function (char *name)
 	return do_dismiss;
       if (!str_cmp (name, "do_dismount"))
 	return do_dismount;
-/*      if (!str_cmp (name, "do_divorce"))
-	return do_divorce; */
+#ifdef MARRIAGE
+      if (!str_cmp (name, "do_divorce"))
+	return do_divorce;
+#endif
       if (!str_cmp (name, "do_dmesg"))
 	return do_dmesg;
       if (!str_cmp (name, "do_dnd"))
@@ -666,6 +658,10 @@ skill_function (char *name)
 	return do_house;
       if (!str_cmp (name, "do_homepage"))
 	return do_homepage;
+#ifdef ENABLE_HOTBOOT
+      if (!str_cmp (name, "do_hotboot"))
+	return do_hotboot;
+#endif
       if (!str_cmp (name, "do_hset"))
 	return do_hset;
       break;
@@ -782,8 +778,10 @@ skill_function (char *name)
 	return do_mapout;
       if (!str_cmp (name, "do_massign"))
 	return do_massign;
-/*      if (!str_cmp (name, "do_marry"))
-	return do_marry; */
+#ifdef MARRIAGE
+      if (!str_cmp (name, "do_marry"))
+	return do_marry;
+#endif
       if (!str_cmp (name, "do_mcreate"))
 	return do_mcreate;
       if (!str_cmp (name, "do_mdelete"))
@@ -974,8 +972,6 @@ skill_function (char *name)
 	return do_newbiechat;
       if (!str_cmp (name, "do_newbieset"))
 	return do_newbieset;
-      if (!str_cmp (name, "do_newscore"))
-	return do_newscore;
       if (!str_cmp (name, "do_newzones"))
 	return do_newzones;
       if (!str_cmp (name, "do_noauction"))
@@ -1207,8 +1203,10 @@ skill_function (char *name)
 	return do_rgrub;
       if (!str_cmp (name, "do_rip"))
 	return do_rip;
-/*      if (!str_cmp (name, "do_rings"))
-	return do_rings; */
+#ifdef MARRIAGE
+      if (!str_cmp (name, "do_rings"))
+	return do_rings;
+#endif
       if (!str_cmp (name, "do_rlist"))
 	return do_rlist;
       if (!str_cmp (name, "do_rloop"))
@@ -1714,6 +1712,8 @@ skill_name (DO_FUN * skill)
     return "do_alinks";
   if (skill == do_allow)
     return "do_allow";
+  if (skill == do_altscore)
+    return "do_altscore";
   if (skill == do_ansi)
     return "do_ansi";
   if (skill == do_answer)
@@ -1866,8 +1866,6 @@ skill_name (DO_FUN * skill)
     return "do_counciltalk";
   if (skill == do_credits)
     return "do_credits";
-  if (skill == do_cscore)
-    return "do_cscore";
   if (skill == do_cset)
     return "do_cset";
   if (skill == do_cwho)
@@ -2046,6 +2044,10 @@ skill_name (DO_FUN * skill)
     return "do_homebuy";
   if (skill == do_homepage)
     return "do_homepage";
+#ifdef ENABLE_HOTBOOT
+  if (skill == do_hotboot)
+    return "do_hotboot";
+#endif
   if (skill == do_house)
     return "do_house";
   if (skill == do_hset)
@@ -2345,8 +2347,6 @@ skill_name (DO_FUN * skill)
 /*
     if ( skill == do_news )             return "do_news";
 */
-  if (skill == do_newscore)
-    return "do_newscore";
   if (skill == do_newzones)
     return "do_newzones";
   if (skill == do_noauction)

@@ -44,19 +44,6 @@
  * level immortals.  Shaddai July 27, 1997
  */
 
-#if defined(KEY)
-#undef KEY
-#endif
-
-#define KEY( literal, field, value )                                    \
-                                if ( !str_cmp( word, literal ) )        \
-                                {                                       \
-                                    field  = value;                     \
-                                    fMatch = TRUE;                      \
-                                    break;                              \
-                                }
-
-
 int
 load_imm_host ()
 {

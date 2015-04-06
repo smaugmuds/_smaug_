@@ -44,6 +44,7 @@
 #include <time.h>
 #include <errno.h>
 #include <sys/stat.h>
+
 #include "mud.h"
 
 extern void shutdown_mud args ((char *reason));
@@ -1931,7 +1932,11 @@ fwrite_house (HOME_DATA * homedata)
 	  supermob->level = MAX_LEVEL;
 
 	  if (obj)
+#ifdef ENABLE_HOTBOOT
+	    fwrite_obj (supermob, obj, fpout, 0, OS_VAULT , FALSE);
+#else
 	    fwrite_obj (supermob, obj, fpout, 0, OS_VAULT);
+#endif
 	  supermob->level = j;
 	}
     }
@@ -2100,18 +2105,6 @@ update_house_list ()
   fpout = NULL;
 }
 
-#if defined(KEY)
-#undef KEY
-#endif
-
-#define KEY( literal, field, value )					\
-				if ( !str_cmp( word, literal ) )	\
-				{					\
-				    field  = value;			\
-				    fMatch = TRUE;			\
-				    break;				\
-				}
-
 int
 fread_house (FILE * fp)
 {
@@ -2186,8 +2179,6 @@ fread_house (FILE * fp)
 	}
     }
 }
-
-#undef KEY
 
 void
 save_house_by_vnum (int vnum)
@@ -2295,18 +2286,6 @@ load_accessories ()
   fp = NULL;
 }
 
-#if defined(KEY)
-#undef KEY
-#endif
-
-#define KEY( literal, field, value )					\
-				if ( !str_cmp( word, literal ) )	\
-				{					\
-				    field  = value;			\
-				    fMatch = TRUE;			\
-				    break;				\
-				}
-
 void
 fread_accessories (FILE * fp)
 {
@@ -2370,8 +2349,6 @@ fread_accessories (FILE * fp)
 	}
     }
 }
-
-#undef KEY
 
 bool
 add_homebuy (CHAR_DATA * seller, int vnum, bool apartment, int price)
@@ -2528,18 +2505,6 @@ load_homebuy ()
   fp = NULL;
 }
 
-#if defined(KEY)
-#undef KEY
-#endif
-
-#define KEY( literal, field, value )					\
-				if ( !str_cmp( word, literal ) )	\
-				{					\
-				    field  = value;			\
-				    fMatch = TRUE;			\
-				    break;				\
-				}
-
 void
 fread_homebuy (FILE * fp)
 {
@@ -2611,8 +2576,6 @@ fread_homebuy (FILE * fp)
 	}
     }
 }
-
-#undef KEY
 
 void
 homebuy_update ()

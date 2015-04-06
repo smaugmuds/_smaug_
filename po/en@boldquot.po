@@ -1,0 +1,265 @@
+# English translations for smaug package.
+# Copyright (C) 2015 Free Software Foundation, Inc.
+# This file is distributed under the same license as the smaug package.
+# Automatically generated, 2015.
+#
+# All this catalog "translates" are quotation characters.
+# The msgids must be ASCII and therefore cannot contain real quotation
+# characters, only substitutes like grave accent (0x60), apostrophe (0x27)
+# and double quote (0x22). These substitutes look strange; see
+# http://www.cl.cam.ac.uk/~mgk25/ucs/quotes.html
+#
+# This catalog translates grave accent (0x60) and apostrophe (0x27) to
+# left single quotation mark (U+2018) and right single quotation mark (U+2019).
+# It also translates pairs of apostrophe (0x27) to
+# left single quotation mark (U+2018) and right single quotation mark (U+2019)
+# and pairs of quotation mark (0x22) to
+# left double quotation mark (U+201C) and right double quotation mark (U+201D).
+#
+# When output to an UTF-8 terminal, the quotation characters appear perfectly.
+# When output to an ISO-8859-1 terminal, the single quotation marks are
+# transliterated to apostrophes (by iconv in glibc 2.2 or newer) or to
+# grave/acute accent (by libiconv), and the double quotation marks are
+# transliterated to 0x22.
+# When output to an ASCII terminal, the single quotation marks are
+# transliterated to apostrophes, and the double quotation marks are
+# transliterated to 0x22.
+#
+# This catalog furthermore displays the text between the quotation marks in
+# bold face, assuming the VT100/XTerm escape sequences.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smaug 2.0.0\n"
+"Report-Msgid-Bugs-To: <@burzumishi>\n"
+"POT-Creation-Date: 2015-04-06 04:23+0200\n"
+"PO-Revision-Date: 2015-04-06 04:23+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: en@boldquot\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/smaug.c:308
+#, c-format
+msgid "gettext(i18n): Error! Can't find: %s:%s!"
+msgstr "gettext(i18n): Error! Can't find: %s:%s!"
+
+#: src/smaug.c:312
+#, c-format
+msgid "Booting --{%s}--"
+msgstr "Booting --{%s}--"
+
+#: src/smaug.c:323
+msgid "Initializing Web Server"
+msgstr "Initializing Web Server"
+
+#: src/smaug.c:328
+msgid "Initializing MUD Socket"
+msgstr "Initializing MUD Socket"
+
+#: src/smaug.c:347
+#, c-format
+msgid "%s ready at address %s on port %d."
+msgstr "%s ready at address %s on port %d."
+
+#: src/smaug.c:395
+msgid "Normal termination of game."
+msgstr "Normal termination of game."
+
+#: src/db.c:369
+msgid "((----------------[ Boot Database ]----------------))"
+msgstr "((----------------[ Boot Database ]----------------))"
+
+#: src/db.c:371
+msgid "Loading interface commands ..."
+msgstr "Loading interface commands ..."
+
+#: src/db.c:374
+#, c-format
+msgid "Reading --{%s}-- System Data configuration ..."
+msgstr "Reading --{%s}-- System Data configuration ..."
+
+#: src/db.c:433
+msgid "Loading socials ..."
+msgstr "Loading socials ..."
+
+#: src/db.c:436
+msgid "Loading skill table ..."
+msgstr "Loading skill table ..."
+
+#: src/db.c:458
+msgid "Loading classes ..."
+msgstr "Loading classes ..."
+
+#: src/db.c:461
+msgid "Loading races ..."
+msgstr "Loading races ..."
+
+#: src/db.c:465
+msgid "Loading extended news data ..."
+msgstr "Loading extended news data ..."
+
+#: src/db.c:468
+msgid "Loading stance data ..."
+msgstr "Loading stance data ..."
+
+#: src/db.c:471
+msgid "Loading herb table ..."
+msgstr "Loading herb table ..."
+
+#: src/db.c:474
+msgid "Loading tongues ..."
+msgstr "Loading tongues ..."
+
+#: src/db.c:477
+msgid "Making Wizlist ..."
+msgstr "Making Wizlist ..."
+
+#: src/db.c:484
+msgid "Making retiredlist ..."
+msgstr "Making retiredlist ..."
+
+#: src/db.c:487
+msgid "Initializing request pipe ..."
+msgstr "Initializing request pipe ..."
+
+#: src/db.c:556
+msgid "Initializing random number generator ..."
+msgstr "Initializing random number generator ..."
+
+#: src/db.c:565
+msgid "Setting time and weather ..."
+msgstr "Setting time and weather ..."
+
+#: src/db.c:605
+msgid "Assigning gsn's ..."
+msgstr "Assigning gsn's ..."
+
+#: src/db.c:697
+msgid "Reading in plane file ..."
+msgstr "Reading in plane file ..."
+
+#: src/db.c:707
+msgid "Reading in area files ..."
+msgstr "Reading in area files ..."
+
+#: src/db.c:711
+msgid "Error! Unable to open area list!"
+msgstr "Error! Unable to open area list!"
+
+#: src/db.c:731
+msgid "Making sure rooms are planed ..."
+msgstr "Making sure rooms are planed ..."
+
+#: src/db.c:755
+msgid "Fixing exits ..."
+msgstr "Fixing exits ..."
+
+#: src/db.c:758
+msgid "Initializing economy ..."
+msgstr "Initializing economy ..."
+
+#: src/db.c:763
+msgid "Loading world state..."
+msgstr "Loading world state..."
+
+#: src/db.c:767
+msgid "Randomizing stance data ..."
+msgstr "Randomizing stance data ..."
+
+#: src/db.c:769
+msgid "Resetting areas ..."
+msgstr "Resetting areas ..."
+
+#: src/db.c:771
+msgid "Loading buildlist..."
+msgstr "Loading buildlist..."
+
+#: src/db.c:774
+msgid "Loading liquids ..."
+msgstr "Loading liquids ..."
+
+#: src/db.c:776
+msgid "Loading mixtures ..."
+msgstr "Loading mixtures ..."
+
+#: src/db.c:779
+msgid "Loading boards ..."
+msgstr "Loading boards ..."
+
+#: src/db.c:781
+msgid "Loading vault list ..."
+msgstr "Loading vault list ..."
+
+#: src/db.c:783
+msgid "Loading clans ..."
+msgstr "Loading clans ..."
+
+#: src/db.c:785
+msgid "Loading member lists ..."
+msgstr "Loading member lists ..."
+
+#: src/db.c:787
+msgid "Loading councils ..."
+msgstr "Loading councils ..."
+
+#: src/db.c:789
+msgid "Loading deities ..."
+msgstr "Loading deities ..."
+
+#: src/db.c:791
+msgid "Loading watches ..."
+msgstr "Loading watches ..."
+
+#: src/db.c:793
+msgid "Loading bans ..."
+msgstr "Loading bans ..."
+
+#: src/db.c:795
+msgid "Loading reserved names ..."
+msgstr "Loading reserved names ..."
+
+#: src/db.c:797
+msgid "Loading noauction vnums ..."
+msgstr "Loading noauction vnums ..."
+
+#: src/db.c:799
+msgid "Loading corpses ..."
+msgstr "Loading corpses ..."
+
+#: src/db.c:801
+msgid "Loading Immortal Hosts ..."
+msgstr "Loading Immortal Hosts ..."
+
+#: src/db.c:803
+msgid "Loading Hints ..."
+msgstr "Loading Hints ..."
+
+#: src/db.c:805
+msgid "Loading Projects ..."
+msgstr "Loading Projects ..."
+
+#: src/db.c:808
+msgid "Loading Morphs ..."
+msgstr "Loading Morphs ..."
+
+#: src/db.c:810
+msgid ""
+"Loading Housing System, Home Accessories Data, and Home Auctioning System ..."
+msgstr ""
+"Loading Housing System, Home Accessories Data, and Home Auctioning System ..."
+
+#: src/db.c:814
+msgid "Loading login messages ..."
+msgstr "Loading login messages ..."
+
+#: src/db.c:816
+msgid "Loading Colors ..."
+msgstr "Loading Colors ..."
+
+#: src/dns.c:93
+msgid "Unknown Hostname!\n"
+msgstr "Unknown Hostname!\n"

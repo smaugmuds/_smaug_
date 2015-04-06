@@ -174,18 +174,6 @@ save_deity (DEITY_DATA * deity)
 
 /* Read in actual deity data */
 
-#if defined(KEY)
-#undef KEY
-#endif
-
-#define KEY( literal, field, value )					\
-				if ( !str_cmp( word, literal ) )	\
-				{					\
-				      field = value;			\
-				      fMatch = TRUE;			\
-				      break;				\
-				}
-
 void
 fread_deity (DEITY_DATA * deity, FILE * fp)
 {

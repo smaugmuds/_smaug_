@@ -1,0 +1,38 @@
+ 
+GETTEXT SUPPORT
+---------------
+
+ Here's the recipe for C or C++ based packages.                      
+                                                                     
+ Add an invocation of AM_GNU_GETTEXT([external]) to the package's configure.{ac,in} file.                                            
+                                                                     
+ Invoke “gettextize --copy”. It will do most of the autoconf & automake related work for you.                                     
+                                                                     
+ Add the gettext.h file to the package's source directory, and include it in all source files that contain translatable strings or do output via printf or fprintf.                                
+                                                                     
+ In the source file defining the main() function of the program, add these lines to the header:                                         
+                                                                     
+    #include <locale.h>                                              
+    #include "gettext.h"                                             
+                                                                     
+ And these lines near the beginning of the main() function:         
+                                                                     
+    setlocale (LC_ALL, "");                                          
+    bindtextdomain (PACKAGE, LOCALEDIR);                             
+    textdomain (PACKAGE);                                            
+                                                                     
+ Mark all strings that should be translated with _(), like this: i18n("No errors found."). 
+
+ While doing this, try to turn the strings into good English, one entire sentence per string, not more than one paragraph per string, and use format strings instead of string concatenation. This is needed so that the translators can provide accurate translations.                     
+                                                                     
+ In every source file containing translatable strings, add these lines to the header:                                               
+                                                                     
+    #include "gettext.h"                                             
+    #define i18n(string) gettext (string)                            
+                                                                     
+ In the freshly created po/ directory, set up the POTFILES.in file, and do a “make update-po”. Then distribute the generated .pot      
+  file to your nearest translation project.                          
+                                                                     
+ Shortly before a release, integrate the translators' .po files into the po/ directory and do “make update-po” again.                   
+                                                                     
+ You find detailed descriptions of how this all works in the GNU gettext manual, chapters “The Maintainer's View” and “Preparing Program Sources”.                                                  

@@ -652,14 +652,6 @@ Log         1
 End
 
 #COMMAND
-Name        cscore~
-Code        do_cscore
-Position    100
-Level       51
-Log         0
-End
-
-#COMMAND
 Name        compass~
 Code        do_compass
 Position    100
@@ -1317,6 +1309,14 @@ Code        do_homepage
 Position    100
 Level       10
 Log         0
+End
+
+#COMMAND
+Name        hotboot~
+Code        do_hotboot
+Position    100
+Level       61
+Log         1
 End
 
 #COMMAND
@@ -2903,8 +2903,8 @@ Log         0
 End
 
 #COMMAND
-Name        oscore~
-Code        do_score
+Name        altscore~
+Code        do_altscore
 Position    100
 Level       2
 Log         0
@@ -3661,7 +3661,7 @@ End
 
 #COMMAND
 Name        score~
-Code        do_cscore
+Code        do_score
 Position    100
 Level       2
 Log         0

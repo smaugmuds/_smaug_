@@ -54,12 +54,13 @@ AC_COPYRIGHT(["2014-2015 (c) Antonio Cao (@burzumishi)"])
 LT_INIT
 LT_LANG([C])
 
-AM_PROG_LIBTOOL
-AM_SANITY_CHECK
-AM_INIT_AUTOMAKE
-
+AC_CONFIG_SRCDIR([src/smaug.c])
 AC_CONFIG_HEADERS([src/smaug.h])
 AC_CONFIG_MACRO_DIR([m4])
+
+AM_INIT_AUTOMAKE
+AM_PROG_LIBTOOL
+AM_SANITY_CHECK
 
 AC_CANONICAL_HOST
 AC_CANONICAL_BUILD
@@ -69,14 +70,17 @@ AC_DEFINE_UNQUOTED([RUNDIR], ["${prefix}/com/smaug/"], [Define modifiable archit
 AC_DEFINE_UNQUOTED([LOGDIR], ["${prefix}/var/log/smaug/"], [Define to log directory.])
 AC_DEFINE_UNQUOTED([BINDIR], ["${prefix}/bin/"], [Define HotBoot Executable Directory.])
 AC_DEFINE_UNQUOTED([LOCKDIR], ["${prefix}/var/lock/smaug/"], [Define lock file directory.])
+AC_DEFINE_UNQUOTED([LOCALEDIR], ["${prefix}/share/locale/"], [Define locale directory.])
 
-AC_SUBST([DESCRIPTION], ["--{smaug}-- MUD Server"])
+AC_SUBST([DESCRIPTION], ["--{SMAUG}-- MUD Server"])
 
 AC_LANG([C])
 AC_LANG_PUSH([C])
 
 AC_PROG_CC([cc])
 AC_PROG_CXX([g++])
+
+AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 AM_PROG_CC_C_O
 AC_PROG_LEX
@@ -93,6 +97,9 @@ AC_FUNC_MALLOC
 AC_SUBST(LIBTOOL_DEPS)
 
 # Checks for libraries.
+# Check for gettext #
+AM_GNU_GETTEXT([external])
+
 AC_CHECK_LIB([crypt], [encrypt])
 AM_CONDITIONAL([HAVE_CRYPT], [test -n "${crypt}"])
 
@@ -115,7 +122,7 @@ AC_CHECK_LIB([pthread], [main])
 AM_CONDITIONAL([HAVE_PTHREAD], [test -n "${pthread}"])
 
 # Checks for header files.
-AC_CHECK_HEADERS([arpa/inet.h fcntl.h malloc.h math.h etdb.h netinet/in.h sys/param.h sys/socket.h sys/time.h unistd.h pthread.h openssl/ssl.h limits.h stddef.h zlib.h])
+AC_CHECK_HEADERS([arpa/inet.h arpa/telnet.h ctype.h direct.h dirent.h dlfcn.h endian.h errno.h fcntl.h io.h libintl.h limits.h locale.h malloc.h netdb.h netinet/in.h netinet/in_systm.h netinet/ip.h process.h re_comp.h regex.h signal.h stdarg.h stdio.h stdlib.h string.h strings.h sys/cdefs.h sys/endian.h sys/param.h sys/socket.h sys/stat.h sys/time.h sys/types.h sys/wait.h time.h types.h unistd.h windows.h winsock.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_HEADER_STDBOOL
@@ -139,8 +146,13 @@ AC_FUNC_FORK
 AC_FUNC_MKTIME
 AC_FUNC_REALLOC
 
-AC_CHECK_FUNCS([alarm dup2 gethostbyaddr gethostbyname gettimeofday inet_ntoa isascii memmove memset pow putenv select socket sqrt strcasecmp strchr strerror strpbrk strrchr strstr tzset strtol getcwd memchr mkdir rmdir strcspn strdup strspn])
+AC_CHECK_FUNCS([bzero gethostname re_comp setlocale alarm dup2 gethostbyaddr gethostbyname gettimeofday inet_ntoa isascii memmove memset pow putenv select socket sqrt strcasecmp strchr strerror strpbrk strrchr strstr tzset strtol getcwd memchr mkdir rmdir strcspn strdup strspn])
 
+# Check for doxygen (optional) #
+AC_CHECK_PROGS([DOXYGEN], [doxygen])
+AM_CONDITIONAL([HAVE_DOXYGEN], [test -n "${DOXYGEN}"])
+
+# Check for bash (required) #
 AC_PATH_PROG([BASH], [bash])
 AM_CONDITIONAL([HAVE_BASH], [test -n "${BASH}"])
 
@@ -149,6 +161,7 @@ if test "$BASH" = "no"; then
   AC_MSG_ERROR([Unable to find the bash command.])
 fi
 
+# Check for env (required) #
 AC_PATH_PROG([ENV], [env])
 AM_CONDITIONAL([HAVE_ENV], [test -n "${ENV}"])
 
@@ -157,6 +170,7 @@ if test "$ENV" = "no"; then
   AC_MSG_ERROR([Unable to find the env command.])
 fi
 
+# Check for make (required) #
 AC_PATH_PROG([GNUMAKE], [make])
 AM_CONDITIONAL([HAVE_GNUMAKE], [test -n "${GNUMAKE}"])
 
@@ -165,6 +179,7 @@ if test "$GNUMAKE" = "no"; then
   AC_MSG_ERROR([Unable to find the make command.])
 fi
 
+# Check for perl (required) #
 AC_PATH_PROG([PERL], [perl])
 AM_CONDITIONAL([HAVE_PERL], [test -n "${PERL}"])
 
@@ -173,14 +188,7 @@ if test "$PERL" = "no"; then
   AC_MSG_ERROR([Unable to find the perl command.])
 fi
 
-# SMAUG 2.0 Suport (-DSMAUG -DSMAUG2) #
-AC_ARG_ENABLE(smaug2,
-              AC_HELP_STRING([--enable-smaug2],
-                             [enable SMAUG 2.0 support @<:@default=yes@:>@]),
-              [], [enable_smaug2=yes])
-if test "$enable_smaug2" = "yes"; then
-		AC_DEFINE([SMAUG2], [], [SMAUG Support])
-fi
+### SMAUG BASIC FEATURES ###
 
 # Planes Support (-DPLANES) #
 AC_ARG_ENABLE(planes,
@@ -227,15 +235,6 @@ if test "$enable_housemobs" = "yes"; then
 		AC_DEFINE([HOUSE_MOBS], [], [House Mobs Support])
 fi
 
-# Enable Banking Support (-DBANK_INSTALLED) #
-AC_ARG_ENABLE(bank,
-              AC_HELP_STRING([--enable-bank],
-                             [enable Banking Support @<:@default=yes@:>@]),
-              [], [enable_bank=yes])
-if test "$enable_bank" = "yes"; then
-		AC_DEFINE([BANK_INSTALLED], [], [Banking Support])
-fi
-
 # Enable Extended Rooms (-DEXTENDED_ROOMS) #
 AC_ARG_ENABLE(extrooms,
               AC_HELP_STRING([--enable-extrooms],
@@ -244,7 +243,6 @@ AC_ARG_ENABLE(extrooms,
 if test "$enable_extrooms" = "yes"; then
 		AC_DEFINE([EXTENDED_ROOMS], [], [Extended Rooms Support])
 fi
-
 
 # act_comm.c SCRAMBLE Support (testing) (-DSCRAMBLE) #
 AC_ARG_ENABLE(scramble,
@@ -255,9 +253,18 @@ if test "$enable_scramble" = "yes"; then
 		AC_DEFINE([SCRAMBLE], [], [ActComm Scramble Support])
 fi
 
+# Liquids & Mixtures System Support (-DLIQUIDSYSTEM) #
+# Replaces: "do_drink", "do_fill", "do_empty" functions from "misc.c".
+AC_ARG_ENABLE(liquids,
+              AC_HELP_STRING([--enable-liquids],
+                             [enable Liquids & Mixtures System @<:@default=yes@:>@]),
+              [], [enable_liquids=yes])
+if test "$enable_liquids" = "yes"; then
+		AC_DEFINE([LIQUIDSYSTEM], [], [Liquids & Mixtures System])
+fi
+
 # TIME Format Support (-DTIMEFORMAT) #
-# Enable if you are getting a line like:
-# interp.c:757: warning: int format, time_t arg (arg 7)
+# Enable if you are getting a line like: interp.c:757: warning: int format, time_t arg (arg 7)
 AC_ARG_ENABLE(time,
               AC_HELP_STRING([--enable-time],
                              [enable Time Format if you are getting warning int format @<:@default=no@:>@]),
@@ -285,7 +292,7 @@ AC_ARG_ENABLE(crypt,
               [], [enable_crypt=yes])
 if test "$enable_crypt" = "yes"; then
 		AC_DEFINE([CRYPT], [], [Password Encryption Support])
-		LDFLAGS="$LDFLAGS -lcrypt"
+		# LDFLAGS="$LDFLAGS -lcrypt"
 else
 		AC_DEFINE([NOCRYPT], [], [Disable Password Encryption Support])
 fi
@@ -310,6 +317,8 @@ else
 		CFLAGS="$CFLAGS -fomit-frame-pointer"
 fi
 
+### SMAUG BUILD FLAGS ###
+
 # Performance CFLAGS #
 AC_ARG_ENABLE(performance,
               AC_HELP_STRING([--enable-performance],
@@ -330,17 +339,110 @@ else
 		CFLAGS="$CFLAGS -Wno-all -Wno-cast-align -Wno-unused-result -Wno-write-strings -Wno-unused-but-set-variable -Wno-pointer-to-int-cast -Wno-address -Wno-int-to-pointer-cast -Wno-uninitialized"
 fi
 
+### SMAUG 2.0 EXTRA FEATURES ###
+
+# SMAUG 2.0 Suport (-DSMAUG -DSMAUG2) #
+AC_ARG_ENABLE(smaug2,
+              AC_HELP_STRING([--enable-smaug2],
+                             [enable SMAUG 2.0 support @<:@default=yes@:>@]),
+              [], [enable_smaug2=yes])
+if test "$enable_smaug2" = "yes"; then
+		AC_DEFINE([SMAUG2], [], [SMAUG Support])
+fi
+
+# New Score Table (-DNEWSCORE) #
+AC_ARG_ENABLE(newscore,
+              AC_HELP_STRING([--enable-newscore],
+                             [enable New Score Tables @<:@default=yes@:>@]),
+              [], [enable_newscore=yes])
+if test "$enable_newscore" = "yes"; then
+		AC_DEFINE([NEWSCORE], [], [New Score Tables])
+fi
+
+# Player Show Stance (-DPLRSHOWSTANCE) #
+AC_ARG_ENABLE(showstance,
+              AC_HELP_STRING([--enable-showstance],
+                             [enable Show Stances in Player Score @<:@default=yes@:>@]),
+              [], [enable_showstance=yes])
+if test "$enable_showstance" = "yes"; then
+		AC_DEFINE([PLRSHOWSTANCE], [], [Show Stances Score])
+fi
+
+# Enable Banking Support (-DBANK_INSTALLED) #
+AC_ARG_ENABLE(bank,
+              AC_HELP_STRING([--enable-bank],
+                             [enable Banking Support @<:@default=yes@:>@]),
+              [], [enable_bank=yes])
+if test "$enable_bank" = "yes"; then
+		AC_DEFINE([BANK_INSTALLED], [], [Banking Support])
+fi
+
+# Enable Marriage Support (-DMARRIAGE) #
+AC_ARG_ENABLE(marry,
+              AC_HELP_STRING([--enable-marry],
+                             [enable Marriage Support @<:@default=yes@:>@]),
+              [], [enable_marry=yes])
+if test "$enable_marry" = "yes"; then
+		AC_DEFINE([MARRIAGE], [], [Marriage Support])
+fi
+
+# Player Bleeding (-DBLEEDING) #
+AC_ARG_ENABLE(bleeding,
+              AC_HELP_STRING([--enable-bleeding],
+                             [enable Player Bleeding @<:@default=yes@:>@]),
+              [], [enable_bleeding=yes])
+if test "$enable_bleeding" = "yes"; then
+		AC_DEFINE([BLEEDING], [], [Player Bleeding])
+fi
+
+# Enable Hotboot Support (-DENABLE_HOTBOOT) #
+AC_ARG_ENABLE(hotboot,
+              AC_HELP_STRING([--enable-hotboot],
+                             [enable Hotboot Support @<:@default=yes@:>@]),
+              [], [enable_hotboot=yes])
+if test "$enable_hotboot" = "yes"; then
+		AC_DEFINE([ENABLE_HOTBOOT], [], [Hotboot Support])
+fi
+AM_CONDITIONAL([ENABLE_HOTBOOT], [test "$enable_hotboot" = "yes"])
+
+# Enable Web Server (-DWEBSRV)
+AC_ARG_ENABLE(websrv,
+              AC_HELP_STRING([--enable-websrv],
+                             [enable Integrated Web Server (Listen on port [:8080]) @<:@default=yes@:>@]),
+              [], [enable_websrv=yes])
+if test "$enable_websrv" = "yes"; then
+		AC_DEFINE([WEBSRV], [], [Integrated Web Server])
+		AC_DEFINE([WEB_PORT], [8080], [Integrated Web Server Port])
+fi
+AM_CONDITIONAL([WEBSRV], [test "$enable_websrv" = "yes"])
+
+# Enable DNS Resolver Support (-DENABLE_DNS_RESOLV) #
+AC_ARG_ENABLE(dns,
+              AC_HELP_STRING([--enable-dns],
+                             [enable DNS Resolver @<:@default=yes@:>@]),
+              [], [enable_dns=yes])
+if test "$enable_dns" = "yes"; then
+		AC_DEFINE([ENABLE_DNS_RESOLV], [], [DNS Resolver])
+fi
+AM_CONDITIONAL([ENABLE_DNS_RESOLV], [test "$enable_dns" = "yes"])
+
+# Create build files #
+
 AC_CONFIG_FILES([Makefile
+		 po/Makefile.in
 		 src/Makefile
 		 bin/Makefile
 		 etc/Makefile
-		 etc/init.d/Makefile])
+		 etc/init.d/Makefile
+		 Doxyfile])
 
 LT_OUTPUT
 AC_OUTPUT
 
+# Show configure build flags & options #
+
 AC_MSG_RESULT
-AC_MSG_RESULT([Building --{SMAUG}-- binary with these flags:
+AC_MSG_RESULT([Configured --{SMAUG}-- build flags:
 
  * Time Format fix:     <$enable_time>
  * RE_EXEC fix:         <$enable_regex>
@@ -348,9 +450,8 @@ AC_MSG_RESULT([Building --{SMAUG}-- binary with these flags:
  * Developer flags:     <$enable_devel>
  * Performance flags:   <$enable_performance>
 
-Configuring --{SMAUG}-- MUD Server with these options:
+Configured --{SMAUG}-- MUD Server basic features:
 
- * SMAUG 2.0:           <$enable_smaug2>
  * Password Encryption: <$enable_crypt>
  * Request Support:     <$enable_request>
  * Planes:              <$enable_planes>
@@ -358,9 +459,21 @@ Configuring --{SMAUG}-- MUD Server with these options:
  * Honour Code:         <$enable_honour>
  * Housing:             <$enable_housing>
  * House Mobs:          <$enable_housemobs>
- * Banking:             <$enable_bank>
  * Extended Rooms:      <$enable_extrooms>
  * Act Comm Scramble:   <$enable_scramble>
+ * Liquids System:      <$enable_liquids>
+
+Configured --{SMAUG}-- MUD Server extra features:
+
+ * SMAUG 2.0:           <$enable_smaug2>
+ * New Score Tables:    <$enable_newscore>
+ * Show Stance Info:    <$enable_showstance>
+ * Banking:             <$enable_bank>
+ * Marry:               <$enable_marry>
+ * Player Bleeding:     <$enable_bleeding>
+ * DNS Resolver:        <$enable_dns>
+ * Web Server:          <$enable_websrv>
+ * HotBoot:             <$enable_hotboot>
 ])
 AC_MSG_RESULT([Well done! \"configure\" complete, now type \"make\"!])
 AC_MSG_RESULT

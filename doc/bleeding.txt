@@ -1,0 +1,64 @@
+CHARACTER BLEEDING v1.1
+by: Seven
+
+     Before I begin I'd like to give credit where credit is due.  This snippet
+expands upon a bleeding snippet written by Grehyton at...
+
+http://www.grehyton.inetsolve.com/snippets/bleeding.txt
+
+for Merc and is similar in function.  As for licenses etc, I am hereby releasing
+this code to the public domain.  I require nothing in return other than that you
+keep all comments in place.  I would appreciate any feedback but it's not a
+requirement.  Keep in mind that this won't get any better without fresh ideas
+from all the people who look at it, nor will anything else.  If you're tired of
+stagnant code that's been old since you STARTED mud coding, now's the time to
+start interacting with the mud coding community and hopefully we all can push the
+technology forward...  If you like something someone else has made and enjoy
+getting it for free, why not take 10 seconds to send them any ideas or complaints
+you may have. (You'll find my email address at the bottom of this text file)
+
+Changes in this version (1.1)
+
+1. The code to add bleeding counters has been moved to the armor damaging section
+   of fight.c to solve many problems..
+2. More number depth in bleeding counters (bleeding uses more counters to attain
+   the same affects as before, which allows for minor bleeding now and possibly
+   bleeding more often in the future without being a death sentance if not cured)
+3. Bleeding causes less damage per counter, but there are more counters used so it
+   evens out.  Damage also moved from my home-made jumble to the standard damage()
+   function now that other bits of code have been changed appropriately to avoid
+   loops and crashes.
+4. More bleeding messages (just copies) span over a larger number of counters.
+5. Bleeding slows faster in general, especially when a player is sitting, resting
+   or sleeping. (Hmm.. slows faster... is that an oxymoron?)
+6. PCs will take minor damage during a fight from blood loss.
+
+Initial changes to Grehyton's code (1.0)
+
+1. No character regeneration if they're bleeding.
+2. Bleeding damage and messages are based upon severity of the bleeding condition.
+3. Added some balancing chances to gain_condition so PC's don't bleed to death
+   after every fight.
+4. Added a pool of blood at the feet of a bleeding char on a tick.
+5. Bleeding starts if a char is hit for 25% of their maxhit or more (bad bleeding),
+   or by a small chance per damage taken (over 18).  1 in 10 chance if armor is
+   being worn on the body area that was hit.  1 in 5 if no armor is covering that
+   body area.  Chances seem small, but with the average number of hits landed in
+   combat being more than one, it works out pretty well.
+6. Mental state worsens while a char is bleeding and they'll begin to get tired.
+7. Loss of blood causes thirst.
+8. Other small semantic changes not worth mentioning.
+
+
+IDEAS FOR THE NEXT VERSION: (Some unfinished from the previous version)
+1.  Bleeding chars in the same room cause increased BLOOD_THIRST in vampires
+2.  Smaller pools of blood for lesser bleeding conditions
+3.  Changes to healing spells to strip the bleeding condition
+4.  A new spell called "aggrevate wounds" that worsens bleeding
+5.  Scaled down bleeding for mobs (major project)
+6.  Increased chance to track a bleeding character
+7.  Slicing and piercing weapons cause more bleeding than blunt weapons.
+
+
+If you've noticed, I'm a big fan of number_range ;)  Send any questions, comments,
+flames, etc to seven@nycap.rr.com  I'll respond the same day.

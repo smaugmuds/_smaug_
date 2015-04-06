@@ -1364,7 +1364,11 @@ do_mset (CHAR_DATA * ch, char *argument)
       send_to_char ("  pos defpos part (see BODYPARTS)\n\r", ch);
       send_to_char ("  sav1 sav2 sav4 sav4 sav5 (see SAVINGTHROWS)\n\r", ch);
       send_to_char ("  resistant immune susceptible (see RIS)\n\r", ch);
+#ifdef BLEEDING
+      send_to_char ("  attack defense numattacks bleeding\n\r", ch);
+#else
       send_to_char ("  attack defense numattacks\n\r", ch);
+#endif
       send_to_char ("  speaking speaks (see LANGUAGES)\n\r", ch);
       send_to_char ("  name short long description title spec clan\n\r", ch);
       send_to_char ("  council quest qp qpa favor deity\n\r", ch);
@@ -1476,6 +1480,24 @@ do_mset (CHAR_DATA * ch, char *argument)
 	victim->pIndexData->perm_int = value;
       return;
     }
+
+#ifdef BLEEDING
+    if ( !str_cmp( arg2, "bleeding" ) )
+    {
+        if ( IS_NPC(victim) )
+        {
+            send_to_char( "Not on NPC's.\n\r", ch );
+            return;
+        }
+        if ( value < -1 || value > 100 )
+        {
+           send_to_char( "Bleeding range is -1 to 100.\n\r", ch );
+            return;
+        }
+        victim->pcdata->condition[COND_BLEEDING] = value;
+        return;
+    }
+#endif
 
   if (!str_cmp (arg2, "wis"))
     {

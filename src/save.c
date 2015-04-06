@@ -278,16 +278,20 @@ save_char_obj (CHAR_DATA * ch)
 
       fwrite_char (ch, fp);
       if (ch->morph)
-	fwrite_morph_data (ch, fp);
+				fwrite_morph_data (ch, fp);
       if (ch->first_carrying)
-	fwrite_obj (ch, ch->last_carrying, fp, 0, OS_CARRY);
+#ifdef ENABLE_HOTBOOT
+				fwrite_obj (ch, ch->last_carrying, fp, 0, OS_CARRY, ch->pcdata->hotboot );
+#else
+				fwrite_obj (ch, ch->last_carrying, fp, 0, OS_CARRY);
+#endif
 
       if (sysdata.save_pets && ch->pcdata->pet)
-	fwrite_mobile (fp, ch->pcdata->pet);
+				fwrite_mobile (fp, ch->pcdata->pet);
       if (ch->variables)
-	fwrite_variables (ch, fp);
+				fwrite_variables (ch, fp);
       if (ch->comments)		/* comments */
-	fwrite_comments (ch, fp);	/* comments */
+				fwrite_comments (ch, fp);	/* comments */
       fprintf (fp, "#END\n");
       ferr = ferror (fp);
       fclose (fp);
@@ -353,7 +357,9 @@ fwrite_char (CHAR_DATA * ch, FILE * fp)
 	   ch->pcdata->stances[8], ch->pcdata->stances[9],
 	   ch->pcdata->stances[10], ch->pcdata->stances[11]);
   fprintf (fp, "Gold         %d\n", ch->gold);
+#ifdef BANK_INSTALLED
   fprintf (fp, "Balance      %d\n", ch->balance);
+#endif
   fprintf (fp, "Exp          %d\n", ch->exp);
   fprintf (fp, "Height          %d\n", ch->height);
   fprintf (fp, "Weight          %d\n", ch->weight);
@@ -514,10 +520,20 @@ fwrite_char (CHAR_DATA * ch, FILE * fp)
 	   ch->mod_int,
 	   ch->mod_wis, ch->mod_dex, ch->mod_con, ch->mod_cha, ch->mod_lck);
 
+#ifdef BLEEDING
+  fprintf (fp, "Condition    %d %d %d %d %d\n",
+#else
   fprintf (fp, "Condition    %d %d %d %d\n",
+#endif
 	   ch->pcdata->condition[0],
 	   ch->pcdata->condition[1],
-	   ch->pcdata->condition[2], ch->pcdata->condition[3]);
+	   ch->pcdata->condition[2],
+#ifdef BLEEDING
+		 ch->pcdata->condition[3],
+		 ch->pcdata->condition[4]);
+#else
+		 ch->pcdata->condition[3]);
+#endif
 
   // Hmm not sure if we really want this.  Might suck if you forgot you
   // were visible to some peeps.
@@ -618,8 +634,11 @@ fwrite_char (CHAR_DATA * ch, FILE * fp)
  * Write an object and its contents.
  */
 void
-fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest,
-	    sh_int os_type)
+#ifdef ENABLE_HOTBOOT
+fwrite_obj( CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest, sh_int os_type, bool hotboot )
+#else
+fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest, sh_int os_type)
+#endif
 {
   EXTRA_DESCR_DATA *ed;
   AFFECT_DATA *paf;
@@ -631,23 +650,43 @@ fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest,
       return;
     }
 
+   if( !obj )
+   {
+      bug( "%s: NULL obj", __FUNCTION__ );
+      return;
+   }
+
   /*
    * Slick recursion to write lists backwards,
    *   so loading them will load in forwards order.
    */
   if (obj->prev_content && os_type != OS_CORPSE)
-    fwrite_obj (ch, obj->prev_content, fp, iNest, os_type);
+    if( os_type == OS_CARRY )
+#ifdef ENABLE_HOTBOOT
+      fwrite_obj( ch, obj->prev_content, fp, iNest, OS_CARRY, hotboot );
+#else
+	    fwrite_obj (ch, obj->prev_content, fp, iNest, OS_CARRY);
+#endif
 
   /*
    * Castrate storage characters.
    * Catch deleted objects                                    -Thoric
    * Do NOT save prototype items!                             -Thoric
    */
-  if ((ch && ch->level < obj->level)
-      || (obj->item_type == ITEM_KEY && !IS_OBJ_STAT (obj, ITEM_CLANOBJECT))
-      || ((os_type == OS_VAULT) && (obj->item_type == ITEM_CORPSE_PC))
-      || obj_extracted (obj) || IS_OBJ_STAT (obj, ITEM_PROTOTYPE))
-    return;
+#ifdef ENABLE_HOTBOOT
+   if( !hotboot )
+   {
+#endif
+		if ((ch && ch->level < obj->level)
+		    || (obj->item_type == ITEM_KEY && !IS_OBJ_STAT (obj, ITEM_CLANOBJECT))
+#ifndef ENABLE_HOTBOOT
+		    || ((os_type == OS_VAULT) && (obj->item_type == ITEM_CORPSE_PC))
+#endif
+		    || obj_extracted (obj) || IS_OBJ_STAT (obj, ITEM_PROTOTYPE))
+		  return;
+#ifdef ENABLE_HOTBOOT
+		}
+#endif
 
   /* Strip out existing gold-midas keys */
   if (obj->item_type == ITEM_TREASURE
@@ -657,6 +696,14 @@ fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest,
   /*    Munch magic flagged containers for now - bandaid */
   if (obj->item_type == ITEM_CONTAINER && IS_OBJ_STAT (obj, ITEM_MAGIC))
     xTOGGLE_BIT (obj->extra_flags, ITEM_MAGIC);
+  
+#ifdef ENABLE_HOTBOOT
+   /*
+    * DO NOT save corpses lying on the ground as a hotboot item, they already saved elsewhere! - Samson 
+    */
+   if( hotboot && obj->item_type == ITEM_CORPSE_PC )
+      return;
+#endif
 
   /* Corpse saving. -- Altrag */
   fprintf (fp, (os_type == OS_CORPSE ? "#CORPSE\n" : "#OBJECT\n"));
@@ -675,9 +722,17 @@ fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest,
     fprintf (fp, "Description  %s~\n", obj->description);
   if (QUICKMATCH (obj->action_desc, obj->pIndexData->action_desc) == 0)
     fprintf (fp, "ActionDesc   %s~\n", obj->action_desc);
-  fprintf (fp, "Vnum         %d\n", obj->pIndexData->vnum);
+	  fprintf (fp, "Vnum         %d\n", obj->pIndexData->vnum);
+#ifdef ENABLE_HOTBOOT
+  if( ( os_type == OS_CORPSE || hotboot ) && obj->in_room )
+  {
+     fprintf( fp, "Room         %d\n", obj->in_room->vnum );
+     fprintf( fp, "Rvnum	   %d\n", obj->room_vnum );
+  }
+#else
   if ((os_type == OS_CORPSE || os_type == OS_VAULT) && obj->in_room)
     fprintf (fp, "Room         %d\n", obj->in_room->vnum);
+#endif
   if (!xSAME_BITS (obj->extra_flags, obj->pIndexData->extra_flags))
     fprintf (fp, "ExtraFlags   %s\n", print_bitvector (&obj->extra_flags));
   if (obj->wear_flags != obj->pIndexData->wear_flags)
@@ -780,7 +835,11 @@ fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest,
   fprintf (fp, "End\n\n");
 
   if (obj->first_content)
-    fwrite_obj (ch, obj->last_content, fp, iNest + 1, OS_CARRY);
+#ifdef ENABLE_HOTBOOT
+    fwrite_obj (ch, obj->last_content, fp, iNest + 1, OS_CARRY, hotboot );
+#else
+    fwrite_obj (ch, obj->last_content, fp, iNest + 1, OS_CARRY );
+#endif
 
   return;
 }
@@ -833,6 +892,9 @@ load_char_obj (DESCRIPTOR_DATA * d, char *name, bool preload)
   ch->pcdata->condition[COND_THIRST] = 48;
   ch->pcdata->condition[COND_FULL] = 48;
   ch->pcdata->condition[COND_BLOODTHIRST] = 10;
+#ifdef BLEEDING
+  ch->pcdata->condition[COND_BLEEDING] = 0;
+#endif
   ch->pcdata->nuisance = NULL;
   ch->pcdata->wizinvis = 0;
   ch->pcdata->charmies = 0;
@@ -858,6 +920,11 @@ load_char_obj (DESCRIPTOR_DATA * d, char *name, bool preload)
   ch->pcdata->tell_history = NULL;	/* imm only lasttell cmnd */
   ch->pcdata->lt_index = 0;	/* last tell index */
   ch->morph = NULL;
+
+#ifdef ENABLE_HOTBOOT
+  ch->pcdata->hotboot = FALSE;  /* Never changed except when PC is saved during hotboot save */
+#endif
+
   for (i = 0; i < AT_MAXCOLOR; ++i)
     ch->pcdata->colorize[i] = -1;
 
@@ -1090,19 +1157,6 @@ load_char_obj (DESCRIPTOR_DATA * d, char *name, bool preload)
 /*
  * Read in a char.
  */
-
-#if defined(KEY)
-#undef KEY
-#endif
-
-#define KEY( literal, field, value )					\
-				if ( !strcmp( word, literal ) )	\
-				{					\
-				    field  = value;			\
-				    fMatch = TRUE;			\
-				    break;				\
-				}
-
 int
 fread_char (CHAR_DATA * ch, FILE * fp, bool preload)
 {
@@ -1227,7 +1281,9 @@ fread_char (CHAR_DATA * ch, FILE * fp, bool preload)
 	  break;
 
 	case 'B':
+#ifdef BANK_INSTALLED
 	  KEY ("Balance", ch->balance, fread_number (fp));
+#endif
 	  KEY ("Bamfin", ch->pcdata->bamfin, fread_string_nohash (fp));
 	  KEY ("Bamfout", ch->pcdata->bamfout, fread_string_nohash (fp));
 	  KEY ("Bestowments", ch->pcdata->bestowments,
@@ -1283,11 +1339,18 @@ fread_char (CHAR_DATA * ch, FILE * fp, bool preload)
 	  if (!str_cmp (word, "Condition"))
 	    {
 	      line = fread_line (fp);
+#ifdef BLEEDING
+	      sscanf (line, "%d %d %d %d %d", &x1, &x2, &x3, &x4, &x5);
+#else
 	      sscanf (line, "%d %d %d %d", &x1, &x2, &x3, &x4);
+#endif
 	      ch->pcdata->condition[0] = x1;
 	      ch->pcdata->condition[1] = x2;
 	      ch->pcdata->condition[2] = x3;
 	      ch->pcdata->condition[3] = x4;
+#ifdef BLEEDING
+	      ch->pcdata->condition[4] = x5;
+#endif
 	      fMatch = TRUE;
 	      break;
 	    }
@@ -2481,7 +2544,11 @@ write_corpses (CHAR_DATA * ch, char *name, OBJ_DATA * objrem)
 		return;
 	      }
 	  }
+#ifdef ENABLE_HOTBOOT
+	fwrite_obj (ch, corpse, fp, 0, OS_CORPSE, FALSE );
+#else
 	fwrite_obj (ch, corpse, fp, 0, OS_CORPSE);
+#endif
       }
   if (fp)
     {
@@ -2596,7 +2663,11 @@ fwrite_mobile (FILE * fp, CHAR_DATA * mob)
   re_equip_char( mob );
   */
   if (mob->first_carrying)
+#ifdef ENABLE_HOTBOOT
+    fwrite_obj (mob, mob->last_carrying, fp, 0, OS_CARRY, FALSE );
+#else
     fwrite_obj (mob, mob->last_carrying, fp, 0, OS_CARRY);
+#endif
   fprintf (fp, "EndMobile\n");
   return;
 }

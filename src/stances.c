@@ -37,19 +37,6 @@
 #include <time.h>
 #include "mud.h"
 
-
-#if defined(KEY)
-#undef KEY
-#endif
-
-#define KEY( literal, field, value )                                    \
-                                if ( !str_cmp( word, literal ) )        \
-                                {                                       \
-                                    field  = value;                     \
-                                    fMatch = TRUE;                      \
-                                    break;                              \
-                                }
-
 int get_risflag args ((char *flag));
 
 /* Main function behind stances to drop you into one.  SHADDAI */

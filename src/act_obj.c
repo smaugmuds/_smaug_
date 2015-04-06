@@ -2945,7 +2945,11 @@ save_storeroom (CHAR_DATA * ch, char *vnum)
       ch->level = LEVEL_HERO;	/* make sure EQ doesn't get lost */
       contents = ch->in_room->last_content;
       if (contents)
-	fwrite_obj (ch, contents, fp, 0, OS_VAULT);
+#ifdef ENABLE_HOTBOOT
+				fwrite_obj (ch, contents, fp, 0, OS_VAULT, FALSE );
+#else
+				fwrite_obj (ch, contents, fp, 0, OS_VAULT);
+#endif
       fprintf (fp, "#END\n");
       ch->level = templvl;
       fclose (fp);

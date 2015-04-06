@@ -2377,7 +2377,12 @@ do_mstat (CHAR_DATA * ch, char *argument)
 			"&cThirst: &w%d   &cFull: &w%d   &cDrunk: &w%d\n\r",
 			victim->pcdata->condition[COND_THIRST],
 			victim->pcdata->condition[COND_FULL],
+#ifdef BLEEDING
+			victim->pcdata->condition[COND_DRUNK],
+			victim->pcdata->condition[COND_BLEEDING] );
+#else
 			victim->pcdata->condition[COND_DRUNK]);
+#endif
   else
     send_to_pager ("\n\r", ch);
   pager_printf_color (ch,

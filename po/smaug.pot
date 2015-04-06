@@ -1,0 +1,239 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: smaug 2.0.0\n"
+"Report-Msgid-Bugs-To: <@burzumishi>\n"
+"POT-Creation-Date: 2015-04-06 04:23+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/smaug.c:308
+#, c-format
+msgid "gettext(i18n): Error! Can't find: %s:%s!"
+msgstr ""
+
+#: src/smaug.c:312
+#, c-format
+msgid "Booting --{%s}--"
+msgstr ""
+
+#: src/smaug.c:323
+msgid "Initializing Web Server"
+msgstr ""
+
+#: src/smaug.c:328
+msgid "Initializing MUD Socket"
+msgstr ""
+
+#: src/smaug.c:347
+#, c-format
+msgid "%s ready at address %s on port %d."
+msgstr ""
+
+#: src/smaug.c:395
+msgid "Normal termination of game."
+msgstr ""
+
+#: src/db.c:369
+msgid "((----------------[ Boot Database ]----------------))"
+msgstr ""
+
+#: src/db.c:371
+msgid "Loading interface commands ..."
+msgstr ""
+
+#: src/db.c:374
+#, c-format
+msgid "Reading --{%s}-- System Data configuration ..."
+msgstr ""
+
+#: src/db.c:433
+msgid "Loading socials ..."
+msgstr ""
+
+#: src/db.c:436
+msgid "Loading skill table ..."
+msgstr ""
+
+#: src/db.c:458
+msgid "Loading classes ..."
+msgstr ""
+
+#: src/db.c:461
+msgid "Loading races ..."
+msgstr ""
+
+#: src/db.c:465
+msgid "Loading extended news data ..."
+msgstr ""
+
+#: src/db.c:468
+msgid "Loading stance data ..."
+msgstr ""
+
+#: src/db.c:471
+msgid "Loading herb table ..."
+msgstr ""
+
+#: src/db.c:474
+msgid "Loading tongues ..."
+msgstr ""
+
+#: src/db.c:477
+msgid "Making Wizlist ..."
+msgstr ""
+
+#: src/db.c:484
+msgid "Making retiredlist ..."
+msgstr ""
+
+#: src/db.c:487
+msgid "Initializing request pipe ..."
+msgstr ""
+
+#: src/db.c:556
+msgid "Initializing random number generator ..."
+msgstr ""
+
+#: src/db.c:565
+msgid "Setting time and weather ..."
+msgstr ""
+
+#: src/db.c:605
+msgid "Assigning gsn's ..."
+msgstr ""
+
+#: src/db.c:697
+msgid "Reading in plane file ..."
+msgstr ""
+
+#: src/db.c:707
+msgid "Reading in area files ..."
+msgstr ""
+
+#: src/db.c:711
+msgid "Error! Unable to open area list!"
+msgstr ""
+
+#: src/db.c:731
+msgid "Making sure rooms are planed ..."
+msgstr ""
+
+#: src/db.c:755
+msgid "Fixing exits ..."
+msgstr ""
+
+#: src/db.c:758
+msgid "Initializing economy ..."
+msgstr ""
+
+#: src/db.c:763
+msgid "Loading world state..."
+msgstr ""
+
+#: src/db.c:767
+msgid "Randomizing stance data ..."
+msgstr ""
+
+#: src/db.c:769
+msgid "Resetting areas ..."
+msgstr ""
+
+#: src/db.c:771
+msgid "Loading buildlist..."
+msgstr ""
+
+#: src/db.c:774
+msgid "Loading liquids ..."
+msgstr ""
+
+#: src/db.c:776
+msgid "Loading mixtures ..."
+msgstr ""
+
+#: src/db.c:779
+msgid "Loading boards ..."
+msgstr ""
+
+#: src/db.c:781
+msgid "Loading vault list ..."
+msgstr ""
+
+#: src/db.c:783
+msgid "Loading clans ..."
+msgstr ""
+
+#: src/db.c:785
+msgid "Loading member lists ..."
+msgstr ""
+
+#: src/db.c:787
+msgid "Loading councils ..."
+msgstr ""
+
+#: src/db.c:789
+msgid "Loading deities ..."
+msgstr ""
+
+#: src/db.c:791
+msgid "Loading watches ..."
+msgstr ""
+
+#: src/db.c:793
+msgid "Loading bans ..."
+msgstr ""
+
+#: src/db.c:795
+msgid "Loading reserved names ..."
+msgstr ""
+
+#: src/db.c:797
+msgid "Loading noauction vnums ..."
+msgstr ""
+
+#: src/db.c:799
+msgid "Loading corpses ..."
+msgstr ""
+
+#: src/db.c:801
+msgid "Loading Immortal Hosts ..."
+msgstr ""
+
+#: src/db.c:803
+msgid "Loading Hints ..."
+msgstr ""
+
+#: src/db.c:805
+msgid "Loading Projects ..."
+msgstr ""
+
+#: src/db.c:808
+msgid "Loading Morphs ..."
+msgstr ""
+
+#: src/db.c:810
+msgid ""
+"Loading Housing System, Home Accessories Data, and Home Auctioning System ..."
+msgstr ""
+
+#: src/db.c:814
+msgid "Loading login messages ..."
+msgstr ""
+
+#: src/db.c:816
+msgid "Loading Colors ..."
+msgstr ""
+
+#: src/dns.c:93
+msgid "Unknown Hostname!\n"
+msgstr ""

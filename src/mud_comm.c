@@ -3509,11 +3509,18 @@ simple_damage (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt)
 
     default:
       if (dam > victim->max_hit / 4)
-	act (AT_HURT, "That really did HURT!", victim, 0, 0, TO_CHAR);
+				act (AT_HURT, "That really did HURT!", victim, 0, 0, TO_CHAR);
+
+#ifdef BLEEDING
+				 /* Start bleeding unless level is 5 or less */
+				 if ( !IS_NPC(victim) && victim->level > 5 )
+				 gain_condition( victim, COND_BLEEDING, 3 );
+#endif
+
       if (victim->hit < victim->max_hit / 4)
-	act (AT_DANGER,
-	     "You wish that your wounds would stop BLEEDING so much!", victim,
-	     0, 0, TO_CHAR);
+				act (AT_DANGER,
+		     "You wish that your wounds would stop BLEEDING so much!", victim,
+		     0, 0, TO_CHAR);
       break;
     }
 

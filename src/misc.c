@@ -48,12 +48,11 @@
 
 extern int top_exit;
 
+#ifndef LIQUIDSYSTEM
 /*
  * Fill a container
  * Many enhancements added by Thoric (ie: filling non-drink containers)
  */
-/* do_fill is defined in liquids.c */
-/*
 void do_fill( CHAR_DATA *ch, char *argument )
 {
     char arg1[MAX_INPUT_LENGTH];
@@ -68,9 +67,8 @@ void do_fill( CHAR_DATA *ch, char *argument )
 
     argument = one_argument( argument, arg1 );
     argument = one_argument( argument, arg2 );
-*/
     /* munch optional words */
- /*   if ( (!str_cmp( arg2, "from" ) || !str_cmp( arg2, "with" ))
+    if ( (!str_cmp( arg2, "from" ) || !str_cmp( arg2, "with" ))
     &&    argument[0] != '\0' )
     argument = one_argument( argument, arg2 );
 
@@ -98,9 +96,9 @@ void do_fill( CHAR_DATA *ch, char *argument )
     act( AT_ACTION, "$n tries to fill $p... (Don't ask me how)", ch, obj, NULL, TO_ROOM );
     send_to_char( "You cannot fill that.\n\r", ch );
     return;
-  */
+
 	/* place all fillable item types here */
-	/*
+
 	   case ITEM_DRINK_CON:
 	   src_item1 = ITEM_FOUNTAIN;   src_item2 = ITEM_BLOOD;
 	   src_item3 = ITEM_PUDDLE;     break;
@@ -153,12 +151,12 @@ void do_fill( CHAR_DATA *ch, char *argument )
 	   source = NULL;
 	   }
 	   else
-	 */
+
       /* This used to let you fill a pipe from an object on the ground.  Seems
          to me you should be holding whatever you want to fill a pipe with.
          It's nitpicking, but I needed to change it to get a mobprog to work
          right.  Check out Lord Fitzgibbon if you're curious.  -Narn */
-/*     if ( dest_item == ITEM_PIPE )
+     if ( dest_item == ITEM_PIPE )
       {
         if ( ( source = get_obj_carry( ch, arg2 ) ) == NULL )
 	{
@@ -286,9 +284,9 @@ void do_fill( CHAR_DATA *ch, char *argument )
 
 	switch( source->item_type )
 	{
-						  			   	    default:	*//* put something in container */
+						  			   	    default:	/* put something in container */
 										/*      if ( !source->in_room *//* disallow inventory items */
-/*		||   !CAN_WEAR(source, ITEM_TAKE)
+		||   !CAN_WEAR(source, ITEM_TAKE)
 		||   IS_OBJ_STAT( source, ITEM_NOFILL )
 		||   IS_SET( source->magic_flags, ITEM_PKDISARMED )
 		||   (IS_OBJ_STAT( source, ITEM_PROTOTYPE) && !can_take_proto(ch))
@@ -352,8 +350,8 @@ void do_fill( CHAR_DATA *ch, char *argument )
 		    }
 		}
 	    case ITEM_CONTAINER:
-														   							    		if ( source->item_type == ITEM_CONTAINER *//* don't remove */
-/*		&&   IS_SET(source->value[1], CONT_CLOSED) )
+														   							    		if ( source->item_type == ITEM_CONTAINER /* don't remove */
+		&&   IS_SET(source->value[1], CONT_CLOSED) )
 		{
 		    act( AT_PLAIN, "The $d is closed.", ch, NULL, source->name, TO_CHAR );
 		    return;
@@ -524,9 +522,9 @@ void do_drink( CHAR_DATA *ch, char *argument )
     int liquid;
 
     argument = one_argument( argument, arg );
-*/
+
     /* munch optional words */
-/*
+
     if ( !str_cmp( arg, "from" ) && argument[0] != '\0' )
 	argument = one_argument( argument, arg );
 
@@ -587,8 +585,8 @@ void do_drink( CHAR_DATA *ch, char *argument )
     case ITEM_BLOOD:
 	if ( IS_VAMPIRE(ch) && !IS_NPC(ch) )
 	{
-									   						    if ( obj->timer > 0	 *//* if timer, must be spilled blood */
-/*
+									   						    if ( obj->timer > 0	 /* if timer, must be spilled blood */
+
 	    &&   ch->level > 5
 	    &&   ch->pcdata->condition[COND_BLOODTHIRST] > (5+ch->level/10) )
 	    {
@@ -668,10 +666,9 @@ void do_drink( CHAR_DATA *ch, char *argument )
 		ch, obj, liq_table[liquid].liq_name, TO_CHAR );
 	}
 
-				      		       	amount = 1; *//* UMIN(amount, obj->value[1]); */
+				      		       	amount = 1; /* UMIN(amount, obj->value[1]); */
 	/* what was this? concentrated drinks?  concentrated water
 	   too I suppose... sheesh! */
-/*
 
 	gain_condition( ch, COND_DRUNK,
 	    amount * liq_table[liquid].liq_affect[COND_DRUNK  ] );
@@ -711,9 +708,9 @@ void do_drink( CHAR_DATA *ch, char *argument )
 	}
 
 	if ( obj->value[3] )
-	{ */
+	{ 
 	    /* The drink was poisoned! */
-/*
+
 	    AFFECT_DATA af;
 
 	    act( AT_POISON, "$n sputters and gags.", ch, NULL, NULL, TO_ROOM );
@@ -736,9 +733,9 @@ void do_drink( CHAR_DATA *ch, char *argument )
 	    extract_obj( obj );
 	}
 	break;
-*/
+
     /* puddle - modified from the ITEM_DRINK_CON case */
-/*
+
     case ITEM_PUDDLE: 
 	if ( obj->value[1] <= 0 ) 
 	{ 
@@ -760,10 +757,10 @@ void do_drink( CHAR_DATA *ch, char *argument )
 		ch, obj, liq_table[liquid].liq_name, TO_CHAR ); 
 	} 
  
-				      		       	amount = 1; *//* UMIN(amount, obj->value[1]); */
+				      		       	amount = 1; /* UMIN(amount, obj->value[1]); */
 	/* what was this? concentrated drinks?  concentrated water 
 	   too I suppose... sheesh! */
-/* 
+
 	gain_condition( ch, COND_DRUNK, 
 	    amount * liq_table[liquid].liq_affect[COND_DRUNK  ] ); 
 	gain_condition( ch, COND_FULL, 
@@ -802,9 +799,9 @@ void do_drink( CHAR_DATA *ch, char *argument )
 	} 
  
 	if ( obj->value[3] ) 
-	{ */
+	{ 
 	    /* The drink was poisoned! */
-/*
+
 	    AFFECT_DATA af; 
  
 	    act( AT_POISON, "$n sputters and gags.", ch, NULL, NULL, TO_ROOM ); 
@@ -834,7 +831,7 @@ void do_drink( CHAR_DATA *ch, char *argument )
       WAIT_STATE( ch, PULSE_PER_SECOND );
     return;
 }
-*/
+#endif
 
 void
 do_eat (CHAR_DATA * ch, char *argument)
@@ -1907,7 +1904,7 @@ do_light (CHAR_DATA * ch, char *argument)
   return;
 }
 
-/*
+#ifndef LIQUIDSYSTEM
 void do_empty( CHAR_DATA *ch, char *argument )
 {
     OBJ_DATA *obj;
@@ -2056,7 +2053,7 @@ void do_empty( CHAR_DATA *ch, char *argument )
 	  return;
     }
 }
-*/
+#endif
 
 /*
  * Apply a salve/ointment					-Thoric

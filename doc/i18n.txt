@@ -1,0 +1,166 @@
+=========================
+Internationalization Tips
+=========================
+
+This chapter contains some tips on internationlization.
+
+
+Do Not Split Sentences
+----------------------
+
+Sentences should not be split. An example (in a programming language, supporting string addition) might be:
+
+		String s = i18n("Press OK to delete ") + n + i18n(" files");
+
+While this is very easy to type for a programmer, the translator will have a hard job to split the transation into the two sub strings, in order to form a valid sentence in the target language. Furthermore single word split offs (like " files") might appear multiple times in the program, but requiring different translations on each appearence. Placeholders are a better solution:
+
+		printf(i18n("Press OK to delete %d files"), n);
+
+The translators just have to take care about the plaseholders. If a string contains several sentences, a split might make sense:
+
+		char * msg = "Press ok to confirm the following actions:\n"
+		"Deleting of %d files\n"
+		"Deleting of %d directories";
+
+This string can be split into three frangments, without making the translators life harder.
+
+
+Avoid Multiple Placeholders
+---------------------------
+
+The following code:
+
+		printf("Press OK to %s %d file(s)", action, number);
+
+Works with 'action' taking the strings "create" and "delete". The problem here is, that the german translation will be like:
+
+		printf("Drücken Sie OK, um %d Datei(en) zu %s", number, action);
+
+Here, the two placeholders are swapped, as the german word order in this sentence is different. There are only two ways to make this code fragment translatable:
+
+The first (and better one): avoid it. As 'action' has two values only, it could be made an enum:
+
+		switch (action)
+		{
+			case create:
+				printf(i18n(Press OK to insert %d file(s)), number); break;
+			case delete:
+				printf(i18n(Press OK to delete %d file(s)), number); break;
+		}
+
+Second (if this is not possible), take a replacement library, which uses positions instead of types, as FormatMessage in win32 or MessageFormat in java:
+
+		new MessageFormat(i18n("Press OK to {0} {1} file(s)"))
+			.format(new Object[] {action, new Integer(number)})
+
+The translated string could be in german:
+
+		"Drücken Sie OK, um {1} Datei(en) zu {0}"
+
+
+Multi Plural Handling
+---------------------
+
+The code:
+
+		printf(i18n("You have won %d point(s)!"), n);
+
+Produces the not really nice output "... point(s)". It would be better, to use the correct form of "point":
+
+		if (n == 1)
+			printf(i18n("You have won one point!"));
+		else
+			printf(i18n("You have won %d points!"), n);
+
+The only problem with this: Not all languages form different sentences for n == 1 and n != 1. Others also use the singular form for n
+ == 101, have more variations (for n == 1, n == 2 and n > 2) or whatever. Dealing all this cases results in huge, unreadable code. Fortunately, gettext can handle this. To do so, a new macro is defined:
+
+		#define i18nP(singular, plural, n) ngettext(singular, plural, n)
+
+To use this, code the fragment above has to be rewritten into:
+
+		printf(i18nP("You have won one point!", "You have won %d points!", n), n);
+
+i18nP takes 3 parameters. The first is the english singular. The second is the english plural, which should contain a placeholder for the number. The third is the number, which determines the plural form to use. It has to be non negative! The reasons for the three parameters is, that gettext must work, even if no translation file was found (i.e. using english). In this case the third parameter determines, if the macro returns the first (n == 1) or second (n != 1) parameter.
+
+Note, that gettext does not perform the placeholder substitution! This is the reason, why 'n' was given twice in the example above: printf will take the second 'n' and replace the %d by it, if the translation still contains a %d.
+
+The .po and .pot files get both strings as id:
+
+		.pot file
+
+		...
+		msgid "You have won one point!"
+		msgid_plural "You have won %d points!"
+		msgstr[0] ""
+		...
+
+The .po file of the target language must contain a rule on how a plural is formed:
+
+		german .po file
+
+		...
+		Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;
+		...
+
+This line contains the number of plural forms (here: 2) and a c-expression, which takes the numeric value and returns a number between 0 and nplurals - 1. This value selects the string, which is returned. In this case, the expression always returns 1 (the plural form), except if n == 1, where 0 is returned (the singular form). Other languages have different expressions here.
+
+The .po file now has one translation for each plural form:
+
+		.po file
+
+		...
+		msgid "You have won one point!"
+		msgid_plural "You have won %d points!"
+		msgstr[0] "Sie haben einen Punkt gewonnen!"
+		msgstr[1] "Sie haben %d Punkte gewonnen!"
+		...
+
+On runtime the 'plural' expression is evaluated for the n passed to i18nP. The result is the index, which translation is returned from the .po file.
+
+Late Translation
+----------------
+
+There are rare cases, where a translated string is instantiated before gettext was initialized. One example is a global char array like:
+const char * errors [] = {i18n("a message"), i18n("another message")};
+
+		int main(int)
+		{
+				    setlocale (LC_ALL, "");
+				    bindtextdomain (PACKAGE, LOCALEDIR);
+				    textdomain (PACKAGE);
+				    printf(i18n("error: %s\n"), errors[1]);
+		}
+
+The array is initialized before the first line of 'main' is executed and therefore before the correct .mo file could be loaded. The translated error messages in this example will never show up! A more subtile example is, where messages are cached, but the display language can be changed afterwards.
+
+To solve these problems, the untranslated messages should be stored/cached and the translation should be done in the moment, the message is displayed. The only problem is to mark such strings for translation, so that xgettext (or 'gmake update-po') can find them. 
+
+This is done by defining an additional macro:
+
+		#define i18nM(x) x
+
+i18nM simply does nothing. But it is defined in po/Makevars, so that xgettext will treat it similar as i18n. So the example above should be coded as:
+
+		const char * errors [] = {i18nM("a message"), i18nM("another message")};
+
+		int main(int)
+		{
+				    setlocale (LC_ALL, "");
+				    bindtextdomain (PACKAGE, LOCALEDIR);
+				    textdomain (PACKAGE);
+				    printf(i18n("error: %s\n"), i18n(errors[1]));
+		}
+
+xgettext (or 'gmake update-po') now finds the two error messages and adds them to the .pot and .po files. It also finds i18n(errors[1]), but as this does not contain a string constant as argument, nothing is done here. On compile time, the i18nM are just removed and i18n is replaced by gettext(...). On run time gettext is initialized first. Afterwards the untranslated string errors[1] is passed to gettext(...) and is translated correctly.
+
+Ambigous Translations
+---------------------
+
+The following code snipped:
+
+		const char * directions [] = {i18nM("right"), i18nM("left")};
+		const char * results [] = {i18nM("right"), i18nM("wrong")};
+
+Has one problem: The .pot and .po files will contain the string 'right' only once. Therefore the translator can give it only one translation: either the opposite of 'left' or the opposite of 'wrong'. In most other languages, both are different! Note that this problem can also occur, if both strings appear in different files possibly in different modules. Usually the translator is the first to realize this!
+

@@ -42,8 +42,9 @@
 #include <fcntl.h>
 #include <signal.h>
 #include <stdarg.h>
-#include "mud.h"
+#include <locale.h>
 
+#include "mud.h"
 
 /*
  * Socket and TCP/IP stuff.
@@ -139,7 +140,6 @@ void new_descriptor args ((int new_desc));
 bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
 bool write_to_descriptor args ((int desc, char *txt, int length));
 
-
 /*
  * Other local functions (OS-independent).
  */
@@ -175,6 +175,10 @@ main (int argc, char **argv)
   struct timeval now_time;
   char hostn[128];
 
+#ifdef ENABLE_HOTBOOT
+   bool fCopyOver = FALSE;
+#endif
+
   /*
    * Memory debugging if needed.
    */
@@ -189,12 +193,17 @@ main (int argc, char **argv)
   sysdata.NO_NAME_RESOLVING = TRUE;
   sysdata.WAIT_FOR_AUTH = TRUE;
 
+	/* Initialize Gettext support */
+	setlocale (LC_ALL, "");
+	bindtextdomain (PACKAGE, LOCALEDIR);
+	textdomain (PACKAGE);
+
   /*
    * Init time.
    */
   gettimeofday (&now_time, NULL);
   current_time = (time_t) now_time.tv_sec;
-/*  gettimeofday( &boot_time, NULL);   okay, so it's kludgy, sue me :) */
+	/* gettimeofday( &boot_time, NULL);   okay, so it's kludgy, sue me :) */
   boot_time = time (0);		/*  <-- I think this is what you wanted */
   strcpy (str_boot_time, ctime (&current_time));
 
@@ -212,17 +221,19 @@ main (int argc, char **argv)
   new_boot_time->tm_mday += 1;
   if (new_boot_time->tm_hour > 12)
     new_boot_time->tm_mday += 1;
-  new_boot_time->tm_sec = 0;
-  new_boot_time->tm_min = 0;
-  new_boot_time->tm_hour = 6;
+		new_boot_time->tm_sec = 0;
+		new_boot_time->tm_min = 0;
+		new_boot_time->tm_hour = 6;
 
   /* Update new_boot_time (due to day increment) */
   new_boot_time = update_time (new_boot_time);
   new_boot_struct = *new_boot_time;
   new_boot_time = &new_boot_struct;
+
   /* Bug fix submitted by Gabe Yoder */
   new_boot_time_t = mktime (new_boot_time);
   reboot_check (mktime (new_boot_time));
+
   /* Set reboot time string for do_time */
   get_reboot_string ();
 
@@ -247,15 +258,24 @@ main (int argc, char **argv)
   if (argc > 1)
     {
       if (!is_number (argv[1]))
-	{
-	  fprintf (stderr, "Usage: %s [port #]\n", argv[0]);
-	  exit (1);
-	}
-      else if ((port = atoi (argv[1])) <= 1024)
-	{
-	  fprintf (stderr, "Port number must be above 1024.\n");
-	  exit (1);
-	}
+			{
+				fprintf (stderr, "Usage: %s [port #]\n", argv[0]);
+				exit (1);
+			}
+				  else if ((port = atoi (argv[1])) <= 1024)
+			{
+				fprintf (stderr, "Port number must be above 1024.\n");
+				exit (1);
+			}
+#ifdef ENABLE_HOTBOOT
+      if( argv[2] && argv[2][0] )
+      {
+         fCopyOver = TRUE;
+         control = atoi( argv[3] );
+      }
+      else
+         fCopyOver = FALSE;
+#endif
     }
 
   /*
@@ -273,8 +293,8 @@ main (int argc, char **argv)
     err = WSAStartup (wVersionRequested, &wsadata);
     if (err)
       {
-	fprintf (stderr, "Error %i on WSAStartup\n", err);
-	exit (1);
+				fprintf (stderr, "Error %i on WSAStartup\n", err);
+				exit (1);
       }
 
     /* standard termination signals */
@@ -283,30 +303,66 @@ main (int argc, char **argv)
   }
 #endif /* WIN32 */
 
-  log_string ("Booting Database");
+	if( !LOCALEDIR ) 
+	{
+		sprintf ( log_buf, i18nM("gettext(i18n): Error! Can't find: %s:%s!"), PACKAGE, LOCALEDIR);
+	  log_string ( log_buf );
+	}
+
+	sprintf( log_buf, i18nM("Booting --{%s}--"), PACKAGE );
+  log_string ( log_buf );
+
+#ifdef ENABLE_HOTBOOT
+  boot_db( fCopyOver );
+#else
   boot_db ();
-  log_string ("Initializing socket");
-  control = init_socket (port);
-  control2 = init_socket (port + 1);
-  conclient = init_socket (port + 10);
-  conjava = init_socket (port + 20);
+#endif
+
+#ifndef WIN32
+#ifdef WEBSRV
+  log_string ( i18nM("Initializing Web Server") );
+	init_web(WEB_PORT);
+#endif
+#endif
+
+  log_string ( i18nM("Initializing MUD Socket") );
+#ifdef ENABLE_HOTBOOT
+  if( !fCopyOver )  /* We have already the port if copyover'ed */
+#endif
+		control = init_socket (port);
+		control2 = init_socket (port + 1);
+		conclient = init_socket (port + 10);
+		conjava = init_socket (port + 20);
 
   /* I don't know how well this will work on an unnamed machine as I don't
      have one handy, and the man pages are ever-so-helpful.. -- Alty */
   if (gethostname (hostn, sizeof (hostn)) < 0)
-    {
-      perror ("main: gethostname");
-      strcpy (hostn, "unresolved");
-    }
-  sprintf (log_buf, "%s ready at address %s on port %d.",
+  {
+    perror ("main: gethostname");
+    strcpy (hostn, "unresolved");
+  }
+
+/*  sprintf (log_buf, "%s ready at address %s on port %d.",
+	   sysdata.mud_name, hostn, port); */
+  sprintf (log_buf, i18nM("%s ready at address %s on port %d."),
 	   sysdata.mud_name, hostn, port);
-/*
-    sprintf( log_buf, "Realms of Despair ready at address %s on port %d.",
-	hostn, port );
-*/
   log_string (log_buf);
 
+#ifdef ENABLE_HOTBOOT
+  if( fCopyOver )
+  {
+    log_string( "Initializing hotboot recovery." );
+    hotboot_recover(  );
+  }
+#endif
+
   game_loop ();
+
+#ifndef WIN32
+#ifdef WEBSRV
+	shutdown_web();
+#endif
+#endif
 
   closesocket (control);
   closesocket (control2);
@@ -336,7 +392,7 @@ main (int argc, char **argv)
   /*
    * That's all, folks.
    */
-  log_string ("Normal termination of game.");
+  log_string ( i18nM("Normal termination of game.") );
   exit (0);
   return 0;
 }
@@ -376,9 +432,9 @@ init_socket (int port)
     if (setsockopt (fd, SOL_SOCKET, SO_DONTLINGER,
 		    (void *) &ld, sizeof (ld)) < 0)
       {
-	perror ("Init_socket: SO_DONTLINGER");
-	closesocket (fd);
-	exit (1);
+				perror ("Init_socket: SO_DONTLINGER");
+				closesocket (fd);
+				exit (1);
       }
   }
 #endif
@@ -672,6 +728,15 @@ game_loop ()
        * Autonomous game motion.
        */
       update_handler ();
+
+#ifndef WIN32
+#ifdef WEBSRV
+      /*
+       * Handle web server requests
+       */
+			handle_web();
+#endif
+#endif
 
       /*
        * Check REQUESTS pipe
@@ -1214,7 +1279,7 @@ read_from_buffer (DESCRIPTOR_DATA * d)
    */
   if (k == 0)
     d->incomm[k++] = ' ';
-  d->incomm[k] = '\0';
+ 		d->incomm[k] = '\0';
 
   /*
    * Deal with bozos with #repeat 1000 ...
@@ -1222,15 +1287,15 @@ read_from_buffer (DESCRIPTOR_DATA * d)
   if (k > 1 || d->incomm[0] == '!')
     {
       if (d->incomm[0] != '!' && strcmp (d->incomm, d->inlast))
-	{
-	  d->repeat = 0;
-	}
+			{
+				d->repeat = 0;
+			}
       else
-	{
-	  if (++d->repeat >= 20)
+			{
+	  	if (++d->repeat >= 20)
 	    {
-/*		sprintf( log_buf, "%s input spamming!", d->host ); */
-/*		log_string( log_buf ); */
+			/* sprintf( log_buf, "%s input spamming!", d->host ); */
+			/* log_string( log_buf ); */
 	      write_to_descriptor (d->descriptor,
 				   "\n\r*** PUT A LID ON IT!!! ***\n\rYou cannot enter the same command more than 20 consecutive times!\n\r",
 				   0);
@@ -1434,7 +1499,7 @@ write_to_buffer (DESCRIPTOR_DATA * d, const char *txt, int length)
   /*
    * Copy.
    */
-  strncpy (d->outbuf + d->outtop, txt, length);
+  strncpy (d->outbuf + d->outtop, i18n(txt), length);
   d->outtop += length;
   d->outbuf[d->outtop] = '\0';
   return;
@@ -1460,7 +1525,7 @@ write_to_descriptor (int desc, char *txt, int length)
   for (iStart = 0; iStart < length; iStart += nWrite)
     {
       nBlock = UMIN (length - iStart, 4096);
-      if ((nWrite = send (desc, txt + iStart, nBlock, 0)) < 0)
+      if ((nWrite = send (desc, i18n(txt) + iStart, nBlock, 0)) < 0)
 	{
 	  perror ("Write_to_descriptor");
 	  return FALSE;
@@ -2748,7 +2813,7 @@ send_to_char (const char *txt, CHAR_DATA * ch)
       return;
     }
   if (txt && ch->desc)
-    write_to_buffer (ch->desc, txt, strlen (txt));
+    write_to_buffer (ch->desc, i18n(txt), strlen (txt));
   return;
 }
 
@@ -2775,7 +2840,7 @@ send_to_char_color (const char *txt, CHAR_DATA * ch)
   while ((colstr = strpbrk (prevstr, "&^")) != NULL)
     {
       if (colstr > prevstr)
-	write_to_buffer (d, prevstr, (colstr - prevstr));
+			write_to_buffer (d, prevstr, (colstr - prevstr));
       ln = make_color_sequence (colstr, colbuf, d);
       if (ln < 0)
 	{
@@ -2783,11 +2848,11 @@ send_to_char_color (const char *txt, CHAR_DATA * ch)
 	  break;
 	}
       else if (ln > 0)
-	write_to_buffer (d, colbuf, ln);
+			write_to_buffer (d, colbuf, ln);
       prevstr = colstr + 2;
     }
-  if (*prevstr)
-    write_to_buffer (d, prevstr, 0);
+  	if (*prevstr)
+    	write_to_buffer (d, prevstr, 0);
   return;
 }
 
@@ -2838,7 +2903,7 @@ write_to_pager (DESCRIPTOR_DATA * d, const char *txt, int length)
       RECREATE (d->pagebuf, char, d->pagesize);
     }
   d->pagepoint = d->pagebuf + pageroffset;	/* pager fix (goofup fixed 08/21/97) */
-  strncpy (d->pagebuf + d->pagetop, txt, length);
+  strncpy (d->pagebuf + d->pagetop, i18n(txt), length);
   d->pagetop += length;
   d->pagebuf[d->pagetop] = '\0';
   return;
@@ -2859,10 +2924,10 @@ send_to_pager (const char *txt, CHAR_DATA * ch)
       ch = d->original ? d->original : d->character;
       if (IS_NPC (ch) || !IS_SET (ch->pcdata->flags, PCFLAG_PAGERON))
 	{
-	  send_to_char (txt, d->character);
+	  send_to_char (i18n(txt), d->character);
 	  return;
 	}
-      write_to_pager (d, txt, 0);
+      write_to_pager (d, i18n(txt), 0);
     }
   return;
 }
@@ -2888,13 +2953,13 @@ send_to_pager_color (const char *txt, CHAR_DATA * ch)
   ch = d->original ? d->original : d->character;
   if (IS_NPC (ch) || !IS_SET (ch->pcdata->flags, PCFLAG_PAGERON))
     {
-      send_to_char_color (txt, d->character);
+      send_to_char_color ( i18n(txt), d->character);
       return;
     }
   while ((colstr = strpbrk (prevstr, "&^")) != NULL)
     {
       if (colstr > prevstr)
-	write_to_pager (d, prevstr, (colstr - prevstr));
+			write_to_pager (d, prevstr, (colstr - prevstr));
       ln = make_color_sequence (colstr, colbuf, d);
       if (ln < 0)
 	{
@@ -2917,10 +2982,11 @@ figure_color (sh_int AType, CHAR_DATA * ch)
   if (at >= AT_COLORBASE && at < AT_TOPCOLOR)
     {
       at -= AT_COLORBASE;
+
       if (IS_NPC (ch) || ch->pcdata->colorize[at] == -1)
-	at = at_color_table[at].def_color;
+				at = at_color_table[at].def_color;
       else
-	at = ch->pcdata->colorize[at];
+				at = ch->pcdata->colorize[at];
     }
   if (at < 0 || at > AT_WHITE + AT_BLINK)
     {
@@ -2929,8 +2995,6 @@ figure_color (sh_int AType, CHAR_DATA * ch)
     }
   return at;
 }
-
-
 
 /* Modified to fix color bleeding bugs - Luc 09/2000 */
 void
@@ -2963,8 +3027,6 @@ set_char_color (sh_int AType, CHAR_DATA * ch)
       write_to_buffer (ch->desc, buf, nc);
     }
 }
-
-
 
 /* Modified to fix color bleeding bugs - Luc 09/2000 */
 void
@@ -3018,7 +3080,6 @@ pager_printf (CHAR_DATA * ch, char *fmt, ...)
   send_to_pager (buf, ch);
 }
 
-
 /*
  * Function to strip off the "a" or "an" or "the" or "some" from an object's
  * short description for the purpose of using it in a sentence sent to
@@ -3038,7 +3099,7 @@ myobj (OBJ_DATA * obj)
     return obj->short_descr + 4;
   if (!str_prefix ("some ", obj->short_descr))
     return obj->short_descr + 5;
-  return obj->short_descr;
+  	return obj->short_descr;
 }
 
 

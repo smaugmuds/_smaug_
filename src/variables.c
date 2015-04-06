@@ -38,19 +38,6 @@
 #include <time.h>
 #include "mud.h"
 
-#if defined(KEY)
-#undef KEY
-#endif
-
-#define KEY( literal, field, value )					\
-				if ( !str_cmp( word, literal ) )	\
-				{					\
-				    field  = value;			\
-				    fMatch = TRUE;			\
-				    break;				\
-				}
-
-
 VARIABLE_DATA *
 make_variable (char type, int vnum, char *tag)
 {

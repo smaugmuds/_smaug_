@@ -63,16 +63,6 @@ get_liquid_type (char *name)
   return -1;
 }
 
-#ifdef KEY
-#undef KEY
-#endif
-#define KEY( literal, field, value )					\
-				if ( !str_cmp( word, literal ) )	\
-				{					\
-				    field  = value;			\
-				    fMatch = TRUE;			\
-				    break;				\
-				}
 /*
  * How do you like this hack job? ;)			-Nopey 
  */

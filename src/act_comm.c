@@ -850,7 +850,7 @@ to_channel (const char *argument, int channel, const char *verb, sh_int level)
   if (!first_descriptor || argument[0] == '\0')
     return;
 
-  sprintf (buf, "%s: %s\r\n", verb, argument);
+  sprintf ( buf, i18n("%s: %s\r\n"), i18n(verb), i18n(argument) );
 
   for (d = first_descriptor; d; d = d->next)
     {
@@ -875,7 +875,7 @@ to_channel (const char *argument, int channel, const char *verb, sh_int level)
 	  && !xIS_SET (och->deaf, channel) && get_trust (vch) >= level)
 	{
 	  set_char_color (AT_LOG, vch);
-	  send_to_char_color (buf, vch);
+	  send_to_char_color (i18n(buf), vch);
 	}
     }
 

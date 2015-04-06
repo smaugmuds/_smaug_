@@ -37,20 +37,6 @@
 #include <stdio.h>
 #include "mud.h"
 
-
-
-#if defined(KEY)
-#undef KEY
-#endif
-
-#define KEY( literal, field, value )                                    \
-                                if ( !str_cmp( word, literal ) )        \
-                                {                                       \
-                                    field  = value;                     \
-                                    fMatch = TRUE;                      \
-                                    break;                              \
-                                }
-
 MORPH_DATA *morph_start = NULL;
 MORPH_DATA *morph_end = NULL;
 int morph_vnum = 0;

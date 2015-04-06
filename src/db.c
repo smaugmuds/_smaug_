@@ -39,6 +39,7 @@
 #include <string.h>
 #include <time.h>
 #include <sys/stat.h>
+#include <locale.h>
 
 #ifndef WIN32
 #include <dirent.h>
@@ -50,20 +51,7 @@
 
 extern int _filbuf args ((FILE *));
 
-#if defined(KEY)
-#undef KEY
-#endif
-
 void init_supermob ();
-
-#define KEY( literal, field, value )					\
-				if ( !str_cmp( word, literal ) )	\
-				{					\
-				    field  = value;			\
-				    fMatch = TRUE;			\
-				    break;				\
-				}
-
 
 /*
  * Globals.
@@ -365,19 +353,26 @@ shutdown_mud (char *reason)
  * Big mama top level function.
  */
 void
+#ifdef ENABLE_HOTBOOT
+boot_db (bool fCopyOver)
+#else
 boot_db (void)
+#endif
 {
   sh_int wear, x;
 
   fpArea = NULL;
   show_hash (32);
-  unlink (BOOTLOG_FILE);
-  boot_log ("---------------------[ Boot Log ]--------------------");
 
-  log_string ("Loading commands");
+  unlink (BOOTLOG_FILE);
+
+  boot_log ( i18nM("((----------------[ Boot Database ]----------------))") );
+
+  log_string ( i18nM("Loading interface commands ...") );
   load_commands ();
 
-  log_string ("Loading sysdata configuration...");
+	sprintf( log_buf, i18nM("Reading --{%s}-- System Data configuration ..."), PACKAGE );
+  log_string ( i18nM(log_buf) );
 
   /* default values */
   sysdata.read_all_mail = LEVEL_DEMI;
@@ -424,18 +419,21 @@ boot_db (void)
   sysdata.magichell = FALSE;
   sysdata.save_flags = SV_DEATH | SV_PASSCHG | SV_AUTO
     | SV_PUT | SV_DROP | SV_GIVE | SV_AUCTION | SV_ZAPDROP | SV_IDLE;
+
   if (!load_systemdata (&sysdata))
     {
-      log_string ("Not found.  Creating new configuration.");
+      log_string ("System Data configuration file NOT FOUND!\n");
+			log_string ("Creating a new System Data configuration file ...\n");
+			log_string ("Please don't forget to modify the default settings!\n");
       sysdata.alltimemax = 0;
       sysdata.mud_name = str_dup ("(Name not set)");
       sysdata.port_name = str_dup ("mud");
     }
 
-  log_string ("Loading socials");
+  log_string ( i18nM("Loading socials ...") );
   load_socials ();
 
-  log_string ("Loading skill table");
+  log_string ( i18nM("Loading skill table ...") );
   load_skill_table ();
   sort_skill_table ();
   remap_slot_numbers ();	/* must be after the sort */
@@ -457,35 +455,36 @@ boot_db (void)
       gsn_first_tongue = x;
 
 
-  log_string ("Loading classes");
+  log_string ( i18nM("Loading classes ...") );
   load_classes ();
 
-  log_string ("Loading races");
+  log_string ( i18nM("Loading races ...") );
   load_races ();
 
   /* Extended News - 12/15/01 - Nopey */
-  log_string ("Loading extended news data");
+  log_string ( i18nM("Loading extended news data ...") );
   load_news ();
 
-  log_string ("Loading stance data");
+  log_string ( i18nM("Loading stance data ...") );
   load_stances ();
 
-  log_string ("Loading herb table");
+  log_string ( i18nM("Loading herb table ...") );
   load_herb_table ();
 
-  log_string ("Loading tongues");
+  log_string ( i18nM("Loading tongues ...") );
   load_tongues ();
 
-  log_string ("Making wizlist");
+  log_string ( i18nM("Making Wizlist ...") );
   make_wizlist ();
 
 /*    log_string("Making adminlist");
     make_adminlist();
 */
-  log_string ("Making retiredlist");
+
+  log_string ( i18nM("Making retiredlist ...") );
   make_retiredlist ();
 
-  log_string ("Initializing request pipe");
+  log_string ( i18nM("Initializing request pipe ...") );
   init_request_pipe ();
 
   fBootDb = TRUE;
@@ -551,12 +550,10 @@ boot_db (void)
     for (x = 0; x < MAX_LAYERS; x++)
       save_equipment[wear][x] = NULL;
 
-
-
   /*
    * Init random number generator.
    */
-  log_string ("Initializing random number generator");
+  log_string ( i18nM("Initializing random number generator ...") );
   init_mm ();
 
   /*
@@ -565,7 +562,7 @@ boot_db (void)
   {
     long lhour, lday, lmonth;
 
-    log_string ("Setting time and weather");
+    log_string ( i18nM("Setting time and weather ...") );
 
     lhour = (current_time - 650336715) / (PULSE_TICK / PULSE_PER_SECOND);
     time_info.hour = lhour % 24;
@@ -605,7 +602,7 @@ boot_db (void)
    * Assign gsn's for skills which need them.
    */
   {
-    log_string ("Assigning gsn's");
+    log_string ( i18nM("Assigning gsn's ...") );
     ASSIGN_GSN (gsn_style_evasive, "evasive style");
     ASSIGN_GSN (gsn_style_defensive, "defensive style");
     ASSIGN_GSN (gsn_style_standard, "standard style");
@@ -697,7 +694,7 @@ boot_db (void)
   }
 
 #ifdef PLANES
-  log_string ("Reading in plane file...");
+  log_string ( i18nM("Reading in plane file ...") );
   load_planes ();
 #endif
 
@@ -707,12 +704,12 @@ boot_db (void)
   {
     FILE *fpList;
 
-    log_string ("Reading in area files...");
+    log_string ( i18nM("Reading in area files ...") );
     if ((fpList = fopen (AREA_LIST, "r")) == NULL)
       {
-	perror (AREA_LIST);
-	shutdown_mud ("Unable to open area list");
-	exit (1);
+				perror (AREA_LIST);
+				shutdown_mud ( i18nM("Error! Unable to open area list!") );
+				exit (FALSE);
       }
 
     for (;;)
@@ -731,7 +728,7 @@ boot_db (void)
   }
 
 #ifdef PLANES
-  log_string ("Making sure rooms are planed...");
+  log_string ( i18nM("Making sure rooms are planed ...") );
   check_planes (NULL);
 #endif
 
@@ -755,61 +752,68 @@ boot_db (void)
    * Load up the notes file.
    */
   {
-    log_string ("Fixing exits");
+    log_string ( i18nM("Fixing exits ...") );
     fix_exits ();
     fBootDb = FALSE;
-    log_string ("Initializing economy");
+    log_string ( i18nM("Initializing economy ...") );
     initialize_economy ();
-    log_string ("Randomizing stance data");
+#ifdef ENABLE_HOTBOOT
+    if( fCopyOver )
+    {
+      log_string( i18nM("Loading world state...") );
+      load_world(  );
+    }
+#endif
+    log_string ( i18nM("Randomizing stance data ...") );
     randomize_stances ();
-    log_string ("Resetting areas");
+    log_string ( i18nM("Resetting areas ...") );
     area_update ();
-    log_string ("Loading buildlist");
+    log_string ( i18nM("Loading buildlist...") );
     load_buildlist ();
-    log_string ("Loading liquids");
+#ifdef LIQUIDSYSTEM
+    log_string ( i18nM("Loading liquids ...") );
     load_liquids ();
-    log_string ("Loading mixtures");
+    log_string ( i18nM("Loading mixtures ...") );
     load_mixtures ();
-    log_string ("Loading boards");
+#endif
+    log_string ( i18nM("Loading boards ...") );
     load_boards ();
-    log_string ("Loading vault list");
+    log_string ( i18nM("Loading vault list ...") );
     load_vaults ();
-    log_string ("Loading clans");
+    log_string ( i18nM("Loading clans ...") );
     load_clans ();
-    log_string ("Loading member lists");
+    log_string ( i18nM("Loading member lists ...") );
     load_member_lists ();
-    log_string ("Loading councils");
+    log_string ( i18nM("Loading councils ...") );
     load_deity ();
-    log_string ("Loading deities");
+    log_string ( i18nM("Loading deities ...") );
     load_councils ();
-    log_string ("Loading watches");
+    log_string ( i18nM("Loading watches ...") );
     load_watchlist ();
-    log_string ("Loading bans");
+    log_string ( i18nM("Loading bans ...") );
     load_banlist ();
-    log_string ("Loading reserved names");
+    log_string ( i18nM("Loading reserved names ...") );
     load_reserved ();
-    log_string ("Loading noauction vnums");
+    log_string ( i18nM("Loading noauction vnums ...") );
     load_noauctions ();
-    log_string ("Loading corpses");
+    log_string ( i18nM("Loading corpses ...") );
     load_corpses ();
-    log_string ("Loading Immortal Hosts");
+    log_string ( i18nM("Loading Immortal Hosts ...") );
     load_imm_host ();
-    log_string ("Loading Hints");
+    log_string ( i18nM("Loading Hints ...") );
     load_hint ();
-    log_string ("Loading Projects");
+    log_string ( i18nM("Loading Projects ...") );
     load_projects ();
-
     /* Morphs MUST be loaded after class and race tables are set up --Shaddai */
-    log_string ("Loading Morphs");
+    log_string ( i18nM("Loading Morphs ...") );
     load_morphs ();
-    log_string ("Loading Housing System, Home Accessories Data,"
-		" and Home Auctioning System");
+    log_string ( i18nM("Loading Housing System, Home Accessories Data, and Home Auctioning System ...") );
     load_homedata ();
     load_accessories ();
     load_homebuy ();
-    log_string ("Loading login messages");
+    log_string ( i18nM("Loading login messages ...") );
     load_loginmsg ();
-    log_string ("Loading Colors");
+    log_string ( i18nM("Loading Colors ...") );
     load_colors ();
     MOBtrigger = TRUE;
   }
@@ -4529,19 +4533,19 @@ log_string_plus (const char *str, sh_int log_type, sh_int level)
   switch (log_type)
     {
     default:
-      to_channel (str + offset, CHANNEL_LOG, "Log", level);
+      to_channel (i18n(str) + offset, CHANNEL_LOG, "Log", level);
       break;
     case LOG_BUILD:
-      to_channel (str + offset, CHANNEL_BUILD, "Build", level);
+      to_channel (i18n(str) + offset, CHANNEL_BUILD, "Build", level);
       break;
     case LOG_COMM:
-      to_channel (str + offset, CHANNEL_COMM, "Comm", level);
+      to_channel (i18n(str) + offset, CHANNEL_COMM, "Comm", level);
       break;
     case LOG_WARN:
-      to_channel (str + offset, CHANNEL_WARN, "Warn", level);
+      to_channel (i18n(str) + offset, CHANNEL_WARN, "Warn", level);
       break;
     case LOG_BUG:
-      to_channel (str + offset, CHANNEL_BUG, "Bug", level);
+      to_channel (i18n(str) + offset, CHANNEL_BUG, "Bug", level);
       break;
     case LOG_ALL:
       break;
@@ -7731,16 +7735,6 @@ read_project (char *filename, FILE * fp)
 
   CREATE (project, PROJECT_DATA, 1);
 
-#ifdef KEY
-#undef KEY
-#endif
-#define KEY( literal, field, value )                                    \
-                                if ( !str_cmp( word, literal ) )        \
-                                {                                       \
-                                    field  = value;                     \
-                                    fMatch = TRUE;                      \
-                                    break;                              \
-                                }
   project->first_log = NULL;
   project->last_log = NULL;
   project->next = NULL;
@@ -7999,18 +7993,6 @@ fread_loginmsg (FILE * fp)
   char buf[MAX_STRING_LENGTH];
 
   CREATE (lmsg, LMSG_DATA, 1);
-
-#if defined(KEY)
-#undef KEY
-#endif
-
-#define KEY( literal, field, value )					\
-	if ( !str_cmp( word, literal ) )					\
-	{													\
-		field = value;									\
-		fMatch = TRUE;									\
-		break;											\
-	}													\
 
   for (;;)
     {

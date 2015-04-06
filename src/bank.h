@@ -32,6 +32,8 @@
     \\_____________________________________________________________________//
 */
 
+#ifdef BANK_INSTALLED
+
 CHAR_DATA *
 find_banker (CHAR_DATA * ch)
 {
@@ -44,3 +46,5 @@ find_banker (CHAR_DATA * ch)
 
   return banker;
 }
+
+#endif

@@ -39,8 +39,6 @@
     \\_____________________________________________________________________//
 */
 
-#define LIQUIDSYSTEM
-
 #define TOP_MOD_NUM 4
 #define MAX_COND_VAL 100
 

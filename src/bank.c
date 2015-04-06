@@ -45,6 +45,8 @@
 
 #include "bank.h"
 
+#ifdef BANK_INSTALLED
+
 void
 do_bank (CHAR_DATA * ch, char *argument)
 {
@@ -286,3 +288,5 @@ do_bank (CHAR_DATA * ch, char *argument)
     }
   return;
 }
+
+#endif

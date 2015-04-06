@@ -57,6 +57,10 @@
 #include <sys/time.h>
 #endif
 
+/* Include Gettext */
+#include <locale.h>
+#include "i18n.h"
+
 #include "smaug.h"
 
 typedef int ch_ret;
@@ -110,6 +114,14 @@ typedef int bool;
 typedef short int sh_int;
 typedef unsigned char bool;
 #endif
+
+#define KEY( literal, field, value )   \
+if ( !str_cmp( word, (literal) ) )     \
+{                                      \
+   (field) = (value);                  \
+   fMatch = TRUE;                      \
+   break;                              \
+}
 
 /*
  * Structure types.
@@ -242,6 +254,8 @@ typedef ch_ret SPELL_FUN args ((int sn, int level, CHAR_DATA * ch, void *vo));
 #define MAX_STRING_LENGTH	 4096	/* buf */
 #define MAX_INPUT_LENGTH	 1024	/* arg */
 #define MAX_INBUF_SIZE		 1024
+#define MSL                MAX_STRING_LENGTH 
+#define MIL                MAX_INPUT_LENGTH
 
 #define HASHSTR			/* use string hashing */
 
@@ -309,6 +323,10 @@ extern int MAX_PC_CLASS;
 #define LEVEL_AVATAR		   (MAX_LEVEL - 15)
 #define LEVEL_LOG		    LEVEL_LESSER
 #define LEVEL_HIGOD		    LEVEL_GOD
+
+#ifdef ENABLE_HOTBOOT
+#include "hotboot.h"
+#endif
 
 #include "news.h"		/* Extended News - 12/15/01 - Nopey */
 #include "house.h"
@@ -813,6 +831,9 @@ typedef enum
   CON_GET_WANT_RIPANSI, CON_TITLE, CON_PRESS_ENTER,
   CON_WAIT_1, CON_WAIT_2, CON_WAIT_3,
   CON_ACCEPTED, CON_GET_PKILL, CON_READ_IMOTD
+#ifdef ENABLE_HOTBOOT
+	, CON_COPYOVER_RECOVER
+#endif
 } connection_types;
 
 /*
@@ -864,6 +885,8 @@ struct descriptor_data
   char *user;
   int newstate;
   unsigned char prevcolor;
+  int ifd;
+  pid_t ipid;
 };
 
 
@@ -981,6 +1004,8 @@ typedef enum
 /*
  * Real action "TYPES" for act.
  */
+
+
 #define AT_COLORIZE	   -1	/* Color sequence to interpret color codes */
 #define AT_BLACK	    0
 #define AT_BLOOD	    1
@@ -1938,8 +1963,10 @@ typedef enum
 #define OBJ_VNUM_BLOOD_SPLATTER	     94
 #define OBJ_VNUM_PUDDLE		     95
 
+#ifdef MARRIAGE
 #define OBJ_VNUM_DIAMOND_RING 100
 #define OBJ_VNUM_WEDDING_BAND 101
+#endif
 
 /* Academy eq */
 #define OBJ_VNUM_SCHOOL_MACE	  10315
@@ -2277,7 +2304,11 @@ typedef enum
  */
 typedef enum
 {
-  COND_DRUNK, COND_FULL, COND_THIRST, COND_BLOODTHIRST, MAX_CONDS
+  COND_DRUNK, COND_FULL, COND_THIRST, COND_BLOODTHIRST, 
+#ifdef BLEEDING
+	COND_BLEEDING,
+#endif
+  MAX_CONDS
 } conditions;
 
 /*
@@ -2577,8 +2608,13 @@ struct char_data
   sh_int practice;
   sh_int numattacks;
   int gold;
-  int balance;
   int exp;
+#ifdef BANK_INSTALLED
+  int balance;
+#endif
+#ifdef MARRIAGE
+	char *spouse;
+#endif
   EXT_BV act;
   EXT_BV affected_by;
   EXT_BV no_affected_by;
@@ -2645,6 +2681,9 @@ struct char_data
   int regoto;
   sh_int mobinvis;		/* Mobinvis level SB */
   sh_int stance;		/* Stances */
+#ifdef ENABLE_HOTBOOT
+  int home_vnum; /* hotboot tracker */
+#endif
 };
 
 
@@ -2676,7 +2715,12 @@ struct pc_data
   COUNCIL_DATA *council;
   AREA_DATA *area;
   DEITY_DATA *deity;
+#ifdef BANK_INSTALLED
   CHAR_DATA *balance;
+#endif
+#ifdef MARRIAGE
+	char *spouse;
+#endif
   char *homepage;
   char *email;
   char *icq;
@@ -2749,6 +2793,9 @@ struct pc_data
   char *recent_site;		/* site a player started their most recent session from */
   char *prev_site;		/* site a player last quit from */
   sh_int colorize[AT_MAXCOLOR];
+#ifdef ENABLE_HOTBOOT
+   bool hotboot;  /* hotboot tracker */
+#endif
 };
 
 
@@ -2787,6 +2834,9 @@ struct extra_descr_data
   EXTRA_DESCR_DATA *prev;	/* Previous in list                 */
   char *keyword;		/* Keyword in look/examine          */
   char *description;		/* What to see                      */
+#ifdef MARRIAGE
+	char *deleted;
+#endif
 };
 
 
@@ -2845,6 +2895,9 @@ struct obj_data
   ROOM_INDEX_DATA *in_room;
   char *name;
   char *short_descr;
+#ifdef MARRIAGE
+  char *extra_descr;
+#endif
   char *description;
   char *action_desc;
   char *owner;
@@ -2863,6 +2916,9 @@ struct obj_data
   int value[6];
   sh_int count;			/* support for object grouping */
   int serial;			/* serial number               */
+#ifdef ENABLE_HOTBOOT
+  int room_vnum; /* hotboot tracker */
+#endif
 };
 
 
@@ -3072,6 +3128,9 @@ struct system_data
   sh_int save_version;		/* for versions on all files */
   bool wizlock;			/* rebooting wizlocked? */
   bool magichell;
+#ifdef ENABLE_HOTBOOT
+   void *dlHandle;
+#endif
 };
 
 
@@ -3800,7 +3859,7 @@ do								\
                                 : "someone" )
 
 
-#define log_string(txt)		( log_string_plus( (txt), LOG_NORMAL, LEVEL_LOG ) )
+#define log_string(txt)		( log_string_plus( (i18n(txt)), LOG_NORMAL, LEVEL_LOG ) )
 #define dam_message(ch, victim, dam, dt)	( new_dam_message((ch), (victim), (dam), (dt), NULL) )
 
 /*
@@ -4080,6 +4139,7 @@ DECLARE_DO_FUN (do_afk);
 DECLARE_DO_FUN (do_aid);
 DECLARE_DO_FUN (do_alinks);
 DECLARE_DO_FUN (do_allow);
+DECLARE_DO_FUN (do_altscore);
 DECLARE_DO_FUN (do_ansi);
 DECLARE_DO_FUN (do_answer);
 DECLARE_DO_FUN (do_appear);
@@ -4161,7 +4221,6 @@ DECLARE_DO_FUN (do_council_outcast);
 DECLARE_DO_FUN (do_councils);
 DECLARE_DO_FUN (do_counciltalk);
 DECLARE_DO_FUN (do_credits);
-DECLARE_DO_FUN (do_cscore);
 DECLARE_DO_FUN (do_cset);
 DECLARE_DO_FUN (do_cwho);
 DECLARE_DO_FUN (do_defeats);
@@ -4181,7 +4240,9 @@ DECLARE_DO_FUN (do_disarm);
 DECLARE_DO_FUN (do_disconnect);
 DECLARE_DO_FUN (do_dismiss);
 DECLARE_DO_FUN (do_dismount);
+#ifdef MARRIAGE
 DECLARE_DO_FUN (do_divorce);
+#endif
 DECLARE_DO_FUN (do_dmesg);
 DECLARE_DO_FUN (do_dnd);
 DECLARE_DO_FUN (do_down);
@@ -4251,6 +4312,9 @@ DECLARE_DO_FUN (do_hl);
 DECLARE_DO_FUN (do_hlist);
 DECLARE_DO_FUN (do_holylight);
 DECLARE_DO_FUN (do_homepage);
+#ifdef ENABLE_HOTBOOT
+DECLARE_DO_FUN( do_hotboot );
+#endif
 DECLARE_DO_FUN (do_hset);
 DECLARE_DO_FUN (do_icq);
 DECLARE_DO_FUN (do_ide);
@@ -4297,16 +4361,16 @@ DECLARE_DO_FUN (do_makecouncil);
 DECLARE_DO_FUN (do_makedeity);
 DECLARE_DO_FUN (do_makeguild);
 DECLARE_DO_FUN (do_makerepair);
-
 #ifdef MYSTARIC
 DECLARE_DO_FUN (do_makecasino);
 #endif
-
 DECLARE_DO_FUN (do_makeshop);
 DECLARE_DO_FUN (do_makeretiredlist);
 DECLARE_DO_FUN (do_makewizlist);
 DECLARE_DO_FUN (do_massign);
-//DECLARE_DO_FUN (do_marry);
+#ifdef MARRIAGE
+DECLARE_DO_FUN (do_marry);
+#endif
 DECLARE_DO_FUN (do_meditate);
 DECLARE_DO_FUN (do_memberlist);
 DECLARE_DO_FUN (do_memory);
@@ -4340,7 +4404,6 @@ DECLARE_DO_FUN (do_name);
 DECLARE_DO_FUN (do_nanny_help);
 DECLARE_DO_FUN (do_newbiechat);
 DECLARE_DO_FUN (do_newbieset);
-DECLARE_DO_FUN (do_newscore);
 DECLARE_DO_FUN (do_newzones);
 DECLARE_DO_FUN (do_noauction);
 DECLARE_DO_FUN (do_nobeckon);
@@ -4449,7 +4512,9 @@ DECLARE_DO_FUN (do_revert);
 DECLARE_DO_FUN (do_rgrid);
 DECLARE_DO_FUN (do_rgrub);
 DECLARE_DO_FUN (do_rip);
+#ifdef MARRIAGE
 DECLARE_DO_FUN (do_rings);
+#endif
 DECLARE_DO_FUN (do_rlist);
 DECLARE_DO_FUN (do_rloop);
 DECLARE_DO_FUN (do_rolldie);
@@ -4868,6 +4933,10 @@ char *sha256_crypt args ((const char *key, const char *salt));
 #define VAULT_DIR				RUNDIR			"vault/"	/* storage vaults */
 #define HOUSE_DIR       RUNDIR 			"houses/"	/* Location of housing directory */
 
+#ifdef NEWCOLORS
+#define COLOR_DIR				RUNDIR 			"color/"	/* New color files */
+#endif
+
 /*
  * The watch directory contains a maximum of one file for each immortal
  * that contains output from "player watches". The name of each file
@@ -4946,10 +5015,17 @@ char *sha256_crypt args ((const char *key, const char *salt));
 #define STANCE_FILE     SYSTEM_DIR 	"stances.dat"
 
 
-#define HOUSE_LIST            			"house.lst"	/* Location of housing list for loadup of houses */
-#define HOMEBUY_FILE      HOUSE_DIR "homebuy.dat"	/* Location of automated housing auction file */
+#define HOUSE_LIST      	     			"house.lst"	/* Location of housing list for loadup of houses */
+#define HOMEBUY_FILE    HOUSE_DIR 	"homebuy.dat"	/* Location of automated housing auction file */
 #define ACCESSORIES_FILE  HOUSE_DIR "homeaccessories.dat"	/* Location of house accessories file */
 
+#ifdef ENABLE_HOTBOOT
+#define EXE_FILE 				BINDIR 		"/" PACKAGE   /* Location for server executable binary file */
+
+#define HOTBOOT_FILE 		SYSTEM_DIR 	"copyover.dat"  /* for hotboots */
+#define HOTBOOT_DIR  		RUNDIR 			"hotboot/"   /* For storing objects across hotboots */
+#define MOB_FILE		 								"mobs.dat"  /* For storing mobs across hotboots */
+#endif
 
 /*
  * Our function prototypes.
@@ -5064,7 +5140,7 @@ DE *get_deity args ((char *name));
 void load_deity args ((void));
 void save_deity args ((DEITY_DATA * deity));
 
-/* comm.c */
+/* smaug.c */
 int c_strlen (const char *s);
 int colorlen (const char *s, int goal);
 void close_socket args ((DESCRIPTOR_DATA * dclose, bool force));
@@ -5100,7 +5176,11 @@ void reset_area args ((AREA_DATA * pArea));
 void show_file args ((CHAR_DATA * ch, char *filename));
 void show_file_vnum args ((CHAR_DATA * ch, char *filename, int lo, int hi));
 char *str_dup args ((char const *str));
+#ifdef ENABLE_HOTBOOT
+void boot_db args ((bool fCopyOver));
+#else
 void boot_db args ((void));
+#endif
 void area_update args ((void));
 void add_char args ((CHAR_DATA * ch));
 void save_noauctions args ((void));
@@ -5573,8 +5653,13 @@ void save_char_obj args ((CHAR_DATA * ch));
 bool load_char_obj args ((DESCRIPTOR_DATA * d, char *name, bool preload));
 void set_alarm args ((long seconds));
 void requip_char args ((CHAR_DATA * ch));
+#ifdef ENABLE_HOTBOOT
+void fwrite_obj args ((CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp,
+		       int iNest, sh_int os_type, bool hotboot));
+#else
 void fwrite_obj args ((CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp,
 		       int iNest, sh_int os_type));
+#endif
 void fread_obj args ((CHAR_DATA * ch, FILE * fp, sh_int os_type));
 void de_equip_char args ((CHAR_DATA * ch));
 void re_equip_char args ((CHAR_DATA * ch));

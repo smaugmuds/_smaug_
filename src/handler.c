@@ -1894,6 +1894,9 @@ obj_to_room (OBJ_DATA * obj, ROOM_INDEX_DATA * pRoomIndex)
   obj->in_room = pRoomIndex;
   obj->carried_by = NULL;
   obj->in_obj = NULL;
+#ifdef ENABLE_HOTBOOT
+   obj->room_vnum = pRoomIndex->vnum;  /* hotboot tracker */
+#endif
   if (item_type == ITEM_FIRE)
     pRoomIndex->light += count;
   falling++;

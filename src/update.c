@@ -495,6 +495,10 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
   if (iCond == COND_BLOODTHIRST)
     ch->pcdata->condition[iCond] = URANGE (0, condition + value,
 					   10 + ch->level);
+#ifdef BLEEDING
+	if ( iCond == COND_BLEEDING )
+		ch->pcdata->condition[iCond] = URANGE( 0, condition + value, 100 );
+#endif
   else
     ch->pcdata->condition[iCond] = URANGE (0, condition + value, 48);
 
@@ -546,6 +550,11 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 	    }
 	  retcode = rNONE;
 	  break;
+#ifdef BLEEDING
+	case COND_BLEEDING:
+	  retcode = rNONE;
+    break;
+#endif
 	default:
 	  bug ("Gain_condition: invalid condition type %d", iCond);
 	  retcode = rNONE;
@@ -602,6 +611,11 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 			    ch);
 	    }
 	  break;
+#ifdef BLEEDING
+	case COND_BLEEDING:
+	  retcode = rNONE;
+    break;
+#endif
 	}
     }
 
@@ -633,6 +647,11 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 	      send_to_char ("You feel an urgent need for blood.\n\r", ch);
 	    }
 	  break;
+#ifdef BLEEDING
+	case COND_BLEEDING:
+	  retcode = rNONE;
+    break;
+#endif
 	}
     }
 
@@ -664,6 +683,11 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 	      send_to_char ("You feel an aching in your fangs.\n\r", ch);
 	    }
 	  break;
+#ifdef BLEEDING
+	case COND_BLEEDING:
+	  retcode = rNONE;
+    break;
+#endif
 	}
     }
 
@@ -1047,20 +1071,42 @@ char_update (void)
       else
 	ch_save = NULL;
 
+#ifdef BLEEDING
+    if ( !IS_NPC(ch) && ch->pcdata->condition[COND_BLEEDING] == 0 )
+		{
+#endif
       if (ch->position >= POS_STUNNED)
-	{
-	  if (ch->hit < ch->max_hit)
-	    ch->hit += hit_gain (ch);
+			{
+				if (ch->hit < ch->max_hit)
+					ch->hit += hit_gain (ch);
 
-	  if (ch->mana < ch->max_mana)
-	    ch->mana += mana_gain (ch);
+				if (ch->mana < ch->max_mana)
+					ch->mana += mana_gain (ch);
 
-	  if (ch->move < ch->max_move)
-	    ch->move += move_gain (ch);
-	}
+				if (ch->move < ch->max_move)
+					ch->move += move_gain (ch);
+			}
+#ifdef BLEEDING
+		}
+    else
+			if ( IS_NPC(ch) )
+			{
+				if ( ch->position >= POS_STUNNED )
+				{
+						if ( ch->hit  < ch->max_hit )
+					ch->hit   += hit_gain(ch);
+
+						if ( ch->mana < ch->max_mana )
+					ch->mana  += mana_gain(ch);
+
+						if ( ch->move < ch->max_move )
+					ch->move  += move_gain(ch);
+				}
+			}
+#endif
 
       if (ch->position == POS_STUNNED)
-	update_pos (ch);
+				update_pos (ch);
 
       /* Expire variables */
       if (ch->variables)
@@ -1306,6 +1352,109 @@ char_update (void)
 			(IS_NPC (ch) ? 2 : IS_PKILL (ch) ? 3 : 4), 100);
 	      damage (ch, ch, 6, gsn_poison);
 	    }
+
+#ifdef BLEEDING
+		/* Bleeding update code -Seven */
+		if ( !IS_NPC(ch))
+        {
+            if ( ch->pcdata->condition[COND_BLEEDING] > 0 )
+            {
+				switch( ch->pcdata->condition[COND_BLEEDING] )
+				{
+					default:
+					{
+					act( AT_BLOOD, "You are bleeding profusely!", ch, NULL, NULL, TO_CHAR );
+					act( AT_BLOOD, "$n is bleeding profusely.", ch, NULL, NULL, TO_ROOM );
+					}
+					break;
+					case   1:
+					{
+					act( AT_BLOOD, "Blood drips slowly from your wounds...", ch, NULL, NULL, TO_CHAR );
+	    				act( AT_BLOOD, "Blood drips slowly from $n's wounds.", ch, NULL, NULL, TO_ROOM );
+					}
+					break;
+					case   2:
+					{
+					act( AT_BLOOD, "Blood drips slowly from your wounds...", ch, NULL, NULL, TO_CHAR );
+	    				act( AT_BLOOD, "Blood drips slowly from $n's wounds.", ch, NULL, NULL, TO_ROOM );
+					}
+					break;
+					case   3:
+					{
+					act( AT_BLOOD, "Blood is dripping quickly from your wounds...", ch, NULL, NULL, TO_CHAR );
+    					act( AT_BLOOD, "Blood is dripping quickly from $n's wounds.", ch, NULL, NULL, TO_ROOM );
+					}
+					break;
+					case   4:
+					{
+					act( AT_BLOOD, "Blood is dripping quickly from your wounds...", ch, NULL, NULL, TO_CHAR );
+    					act( AT_BLOOD, "Blood is dripping quickly from $n's wounds.", ch, NULL, NULL, TO_ROOM );
+					}
+					break;
+					case   5:
+					{
+					act( AT_BLOOD, "Blood is dripping quickly from your wounds...", ch, NULL, NULL, TO_CHAR );
+    					act( AT_BLOOD, "Blood is dripping quickly from $n's wounds.", ch, NULL, NULL, TO_ROOM );
+					}
+					break;
+					case   6:
+					{
+					act( AT_BLOOD, "Blood runs freely from your wounds...", ch, NULL, NULL, TO_CHAR );
+					act( AT_BLOOD, "Blood runs freely from $n's wounds.", ch, NULL, NULL, TO_ROOM );
+					}
+					break;
+					case   7:
+					{
+					act( AT_BLOOD, "Blood runs freely from your wounds...", ch, NULL, NULL, TO_CHAR );
+					act( AT_BLOOD, "Blood runs freely from $n's wounds.", ch, NULL, NULL, TO_ROOM );
+					}
+					case   8:
+					{
+					act( AT_BLOOD, "Blood runs freely from your wounds...", ch, NULL, NULL, TO_CHAR );
+    					act( AT_BLOOD, "Blood runs freely from $n's wounds.", ch, NULL, NULL, TO_ROOM );
+					}
+					break;
+				}
+			/* 4 in 5 chance to slow bleeding on a tick
+			 * A work in progress...
+			 */
+				if ( number_range( 1, 5 ) > 1 )
+				{
+					if ( ch->pcdata->condition[COND_BLEEDING] != 1
+						&& (ch->position == POS_SITTING
+						|| ch->position == POS_SLEEPING
+						|| ch->position == POS_RESTING) )
+					{
+						gain_condition( ch, COND_BLEEDING,  -2 );
+						if ( ch->pcdata->condition[COND_BLEEDING] == 0 )
+							send_to_char("Your bleeding stops.\n\r",ch);
+						else
+							send_to_char("Your bleeding slows...\n\r",ch);
+					}
+					else
+					{
+						gain_condition( ch, COND_BLEEDING,  -1 );
+						if ( ch->pcdata->condition[COND_BLEEDING] == 0 )
+							send_to_char("Your bleeding stops.\n\r",ch);
+						else
+							send_to_char("Your bleeding slows a little...\n\r",ch);
+					}
+				}
+				make_blood( ch );
+				worsen_mental_state( ch, ch->pcdata->condition[COND_BLEEDING] );
+				gain_condition( ch, COND_THIRST,  -1 );
+		/* Damage moved to the end of the code to prevent characters who
+		 * have bled to death from being addressed after the fact (crash bug fix)
+		 */
+				if ( ch->pcdata->condition[COND_BLEEDING] == 0 )
+					damage(ch, ch, (ch->max_hit * 1/100), TYPE_UNDEFINED);
+				else
+					damage(ch, ch, (ch->pcdata->condition[COND_BLEEDING] * (ch->max_hit * 1/100)), TYPE_UNDEFINED);
+			}
+		}
+		/* End of bleeding update code */
+#endif
+
 	  else if (ch->position == POS_INCAP)
 	    damage (ch, ch, 1, TYPE_UNDEFINED);
 	  else if (ch->position == POS_MORTAL)

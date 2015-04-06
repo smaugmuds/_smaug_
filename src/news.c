@@ -56,17 +56,6 @@
 #include <stdlib.h>
 #include "mud.h"
 
-#ifdef KEY
-#undef KEY
-#endif
-#define KEY( literal, field, value )                                    \
-                                if ( !str_cmp( word, literal ) )        \
-                                {                                       \
-                                    field  = value;                     \
-                                    fMatch = TRUE;                      \
-                                    break;                              \
-                                }
-
 #define FCLOSE(fp) fclose(fp); fp=NULL;
 
 /* locals */

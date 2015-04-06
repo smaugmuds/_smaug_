@@ -1631,18 +1631,6 @@ read_board (char *boardfile, FILE * fp)
   board->oreadmessg = NULL;
   board->postmessg = NULL;
 
-#ifdef KEY
-#undef KEY
-#endif
-#define KEY( literal, field, value )					\
-				if ( !str_cmp( word, literal ) )	\
-				{					\
-				    field  = value;			\
-				    fMatch = TRUE;			\
-				    break;				\
-				}
-
-
   for (;;)
     {
       word = feof (fp) ? "End" : fread_word (fp);
