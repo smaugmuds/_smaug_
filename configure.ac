@@ -70,7 +70,6 @@ AC_DEFINE_UNQUOTED([RUNDIR], ["${prefix}/com/smaug/"], [Define modifiable archit
 AC_DEFINE_UNQUOTED([LOGDIR], ["${prefix}/var/log/smaug/"], [Define to log directory.])
 AC_DEFINE_UNQUOTED([BINDIR], ["${prefix}/bin/"], [Define HotBoot Executable Directory.])
 AC_DEFINE_UNQUOTED([LOCKDIR], ["${prefix}/var/lock/smaug/"], [Define lock file directory.])
-AC_DEFINE_UNQUOTED([LOCALEDIR], ["${prefix}/share/locale/"], [Define locale directory.])
 
 AC_SUBST([DESCRIPTION], ["--{SMAUG}-- MUD Server"])
 

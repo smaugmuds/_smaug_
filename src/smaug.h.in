@@ -342,9 +342,6 @@
 /* Liquids & Mixtures System */
 #undef LIQUIDSYSTEM
 
-/* Define locale directory. */
-#undef LOCALEDIR
-
 /* Define lock file directory. */
 #undef LOCKDIR
 

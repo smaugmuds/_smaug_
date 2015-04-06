@@ -76,8 +76,8 @@ docdir = $(datarootdir)/doc/@PACKAGE@
 doc_DATA = README AUTHORS INSTALL NEWS LICENSE ChangeLog \
 	doc/*.txt ABOUT-NLS
 
-## localedir = $(datadir)/locale
-## DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+localedir = $(datadir)/locale
+DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
 man_MANS = man/smaug.1 man/smaugd.1
 

@@ -39,10 +39,18 @@ echo
 echo "Running libtoolize ..."
 libtoolize
 
-if test ! -f "acinclude.m4" && test -f "/usr/share/libtool/libltdl/aclocal.m4"; then
-	echo "Copying /usr/share/aclocal/aclocal.m4 -> m4/acinclude.m4 ..."
-	cp -v /usr/share/libtool/libltdl/aclocal.m4 acinclude.m4
-fi;
+if test -f "acinclude.m4"; then rm -rf acinclude.m4; fi;
+
+for file in libtool ltoptions ltsugar ltversion lt~obsolete; do
+	echo "Appending m4/$file.m4 to acinclude.m4 ..."
+	cat m4/$file.m4 >> acinclude.m4
+done
+
+# 
+# if test ! -f "acinclude.m4" && test -f "/usr/share/libtool/libltdl/aclocal.m4"; then
+# 	echo "Copying /usr/share/aclocal/aclocal.m4 -> m4/acinclude.m4 ..."
+# 	cp -v /usr/share/libtool/libltdl/aclocal.m4 acinclude.m4
+# fi;
 
 for file in argz bison-i18n codeset expat fcntl-o gettext glib glib-gettext \
 		iconv intldir intl intltool intmax inttypes_h inttypes-pri ltdl \
