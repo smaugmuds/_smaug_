@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smaug 2.0.0\n"
 "Report-Msgid-Bugs-To: <@burzumishi>\n"
-"POT-Creation-Date: 2015-04-06 22:46+0200\n"
+"POT-Creation-Date: 2015-04-07 08:13+0200\n"
 "PO-Revision-Date: 2015-04-05 23:55+0200\n"
 "Last-Translator: Antonio Cao <antoniocao000@gmail.com>\n"
 "Language-Team: español <es@li.org>\n"
@@ -236,6 +236,17 @@ msgstr "Cargando mensajes de entrada ..."
 msgid "Loading Colors ..."
 msgstr "Cargando colores de la interfaz ..."
 
+#: src/db.c:2692
+msgid ""
+"You hear some squeaking sounds...\n"
+"\r"
+msgstr "Escuchas unos chasquidos ..."
+
+#: src/db.c:2713
+#, c-format
+msgid "Resetting: %s\n"
+msgstr "Reseteando: %s\n"
+
 #: src/dns.c:92
 #, c-format
 msgid "Unknown Hostname!\n"
@@ -245,6 +256,9 @@ msgstr "Nombre de anfitrión desconocido!\n"
 #, c-format
 msgid "%s: %s\r\n"
 msgstr "%s: %s\\r\n"
+
+#~ msgid "greeting"
+#~ msgstr "bienvenida"
 
 #~ msgid "announce: socket"
 #~ msgstr "notificación de mantenimiento: socket abierto"

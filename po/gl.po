@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smaug 2.0.0\n"
 "Report-Msgid-Bugs-To: <@burzumishi>\n"
-"POT-Creation-Date: 2015-04-06 22:46+0200\n"
+"POT-Creation-Date: 2015-04-07 08:13+0200\n"
 "PO-Revision-Date: 2015-04-06 22:12+0200\n"
 "Last-Translator: root <root@siriux.home>\n"
 "Language-Team: Galician\n"
@@ -236,6 +236,17 @@ msgstr "Cargando mensaxes de entrada ..."
 msgid "Loading Colors ..."
 msgstr "Cargando cores da interface ..."
 
+#: src/db.c:2692
+msgid ""
+"You hear some squeaking sounds...\n"
+"\r"
+msgstr "Escoitanse uns chascarridos ..."
+
+#: src/db.c:2713
+#, c-format
+msgid "Resetting: %s\n"
+msgstr "Reseteando: %s\n"
+
 #: src/dns.c:92
 #, c-format
 msgid "Unknown Hostname!\n"
@@ -245,3 +256,6 @@ msgstr "Nome do anfitrión descoñecido!\n"
 #, c-format
 msgid "%s: %s\r\n"
 msgstr "%s: %s\r\n"
+
+#~ msgid "greeting"
+#~ msgstr "benvida"

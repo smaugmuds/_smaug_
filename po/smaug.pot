@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smaug 2.0.0\n"
 "Report-Msgid-Bugs-To: <@burzumishi>\n"
-"POT-Creation-Date: 2015-04-06 22:46+0200\n"
+"POT-Creation-Date: 2015-04-07 08:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -232,6 +232,17 @@ msgstr ""
 
 #: src/db.c:815
 msgid "Loading Colors ..."
+msgstr ""
+
+#: src/db.c:2692
+msgid ""
+"You hear some squeaking sounds...\n"
+"\r"
+msgstr ""
+
+#: src/db.c:2713
+#, c-format
+msgid "Resetting: %s\n"
 msgstr ""
 
 #: src/dns.c:92

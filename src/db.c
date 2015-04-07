@@ -422,8 +422,8 @@ boot_db (void)
   if (!load_systemdata (&sysdata))
     {
       log_string ("System Data configuration file NOT FOUND!\n");
-			log_string ("Creating a new System Data configuration file ...\n");
-			log_string ("Please don't forget to modify the default settings!\n");
+	log_string ("Creating a new System Data configuration file ...\n");
+	log_string ("Please don't forget to modify the default settings!\n");
       sysdata.alltimemax = 0;
       sysdata.mud_name = str_dup ("(Name not set)");
       sysdata.port_name = str_dup ("mud");
@@ -2689,7 +2689,7 @@ area_update (void)
 	  if (pArea->resetmsg)
 	    sprintf (buf, "%s\n\r", pArea->resetmsg);
 	  else
-	    strcpy (buf, "You hear some squeaking sounds...\n\r");
+	    strcpy (buf, _("You hear some squeaking sounds...\n\r") );
 	  for (pch = first_char; pch; pch = pch->next)
 	    {
 	      if (!IS_NPC (pch)
@@ -2710,7 +2710,7 @@ area_update (void)
 	{
 	  ROOM_INDEX_DATA *pRoomIndex;
 
-	  fprintf (stderr, "Resetting: %s\n", pArea->filename);
+	  fprintf (stderr, _("Resetting: %s\n"), pArea->filename);
 	  reset_area (pArea);
 	  if (reset_age == -1)
 	    pArea->age = -1;
