@@ -3569,7 +3569,7 @@ do_findnote (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 

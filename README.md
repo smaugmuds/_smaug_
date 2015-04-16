@@ -167,6 +167,7 @@ Realm Areas:
 #### **--{SMAUG}--** ChangeLog
 
 	* Changes from **SMAUG 1.8b** to **--{SMAUG 2.0}--**:
+```
 
 		- Moved "KEY" definition to "mud.h".
 		- Added GNU Gettext support.
@@ -189,7 +190,7 @@ Realm Areas:
 		- Installed files are now splitted in several libraries and binaries using "Ranlib & Libtool": "libsmaug-act.so", "libsmaug-player.so", "libsmaug-mudprog.so", "libsmaug-info.so", "libsmaug-realm.so", "smaug", "smaugd" & "smaugd-monitor".
 		- Configure checks for "cc", "gcc", "g++", "(g)awk", "-ldl", "-lz", "-lcrypt", "-lssl", "basic C# libraries", "C# headers & functions", "bash", "env", "perl".
 		- Configure options to include required definitions for enabling or disabling code snippets and flags:
-```
+
 				Configured --{SMAUG}-- build flags:
 
 				 * Time Format fix:     <no>

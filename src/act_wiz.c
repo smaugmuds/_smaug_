@@ -39,7 +39,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <errno.h>
+
 #include "mud.h"
+
 #ifdef WIN32
 #include <io.h>
 #define F_OK 0
@@ -3526,7 +3528,7 @@ do_statshield (CHAR_DATA * ch, char *argument)
   one_argument (argument, arg);
   if (IS_NPC (ch) || get_trust (ch) < LEVEL_GREATER)
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
   if (arg[0] == '\0')
@@ -3636,7 +3638,7 @@ do_return (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) && get_trust (ch) < LEVEL_IMMORTAL)
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -3712,7 +3714,7 @@ do_minvoke (CHAR_DATA * ch, char *argument)
 
       if (IS_NPC (ch))
 	{
-	  send_to_char ("Huh?\n\r", ch);
+	  send_to_char (_("Huh?\n"), ch);
 	  return;
 	}
       if (!ch->pcdata || !(pArea = ch->pcdata->area))
@@ -3834,7 +3836,7 @@ do_oinvoke (CHAR_DATA * ch, char *argument)
 
       if (IS_NPC (ch))
 	{
-	  send_to_char ("Huh?\n\r", ch);
+	  send_to_char (_("Huh?\n"), ch);
 	  return;
 	}
       if (!ch->pcdata || !(pArea = ch->pcdata->area))
@@ -4526,7 +4528,7 @@ do_imm_news (CHAR_DATA * ch, char *argument)
 
   if (!IS_IMMORTAL (ch))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -10445,7 +10447,7 @@ do_qpset (CHAR_DATA * ch, char *argument)
     }
   if (get_trust (ch) < LEVEL_IMMORTAL)
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -11103,7 +11105,7 @@ do_khistory (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch) || !IS_IMMORTAL (ch))
     {
-      ch_printf (ch, "Huh?\n\r");
+      ch_printf (ch, _("Huh?\n"));
       return;
     }
 
@@ -11834,7 +11836,7 @@ do_ipcompare (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -12103,7 +12105,7 @@ do_nuisance (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -12262,7 +12264,7 @@ do_unnuisance (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
   one_argument (argument, arg);
@@ -12420,7 +12422,7 @@ do_oowner (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -12478,7 +12480,7 @@ do_appear (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -12562,7 +12564,7 @@ do_disappear (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 

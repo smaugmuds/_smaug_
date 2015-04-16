@@ -4,3 +4,14 @@ src/smaug.c
 src/db.c
 src/dns.c
 src/act_comm.c
+src/act_info.c
+src/act_wiz.c
+src/act_move.c
+src/act_obj.c
+src/mud_prog.c
+src/mud_comm.c
+src/player.c
+src/skills.c
+src/save.c
+src/update.c
+src/variables.c

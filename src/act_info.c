@@ -49,53 +49,53 @@
  */
 
 char *const imm_badge[15] = {
-  "&G&r(&wSupreme Entity&r)",
-  "&G&r(&wInfinite&G&r)",
-  "&G&r(&wEternal&G&r)",
-  "&G&r(&wAncient&G&r)",
-  "&G&r(&wExalted God&G&r)",
-  "&G(&wAscendant God&G)",
-  "&G(&wGreater God&G)",
-  "&G(&wGod&G)",
-  "&G(&wLesser God&G)",
-  "&G(&wImmortal&G)",
-  "&G(&wDemi God&G)",
-  "&G(&WSavior&G)",
-  "&G(&WCreator&G)",
-  "&G(&WAcolyte&G)",
-  "&G&W(Neophyte)"
+  ___("&G&r(&wSupreme Entity&r)"),
+  ___("&G&r(&wInfinite&G&r)"),
+  ___("&G&r(&wEternal&G&r)"),
+  ___("&G&r(&wAncient&G&r)"),
+  ___("&G&r(&wExalted God&G&r)"),
+  ___("&G(&wAscendant God&G)"),
+  ___("&G(&wGreater God&G)"),
+  ___("&G(&wGod&G)"),
+  ___("&G(&wLesser God&G)"),
+  ___("&G(&wImmortal&G)"),
+  ___("&G(&wDemi God&G)"),
+  ___("&G(&WSavior&G)"),
+  ___("&G(&WCreator&G)"),
+  ___("&G(&WAcolyte&G)"),
+  ___("&G&W(Neophyte)")
 };
 
 char *const where_name[] = {
-  "<used as light>      ",
-  "<worn on finger>     ",
-  "<worn on finger>     ",
-  "<worn around neck>   ",
-  "<worn around neck>   ",
-  "<worn on body>       ",
-  "<worn on head>       ",
-  "<worn on legs>       ",
-  "<worn on feet>       ",
-  "<worn on hands>      ",
-  "<worn on arms>       ",
-  "<worn as shield>     ",
-  "<worn about body>    ",
-  "<worn about waist>   ",
-  "<worn around wrist>  ",
-  "<worn around wrist>  ",
-  "<wielded>            ",
-  "<held>               ",
-  "<dual wielded>       ",
-  "<worn on ears>       ",
-  "<worn on eyes>       ",
-  "<missile wielded>    ",
-  "<worn on back>       ",
-  "<worn over face>     ",
-  "<worn around ankle>  ",
-  "<worn around ankle>  ",
-  "<BUG Inform Nivek>  ",
-  "<BUG Inform Nivek>  ",
-  "<BUG Inform Nivek>  "
+  ___("<used as light>      "),
+  ___("<worn on finger>     "),
+  ___("<worn on finger>     "),
+  ___("<worn around neck>   "),
+  ___("<worn around neck>   "),
+  ___("<worn on body>       "),
+  ___("<worn on head>       "),
+  ___("<worn on legs>       "),
+  ___("<worn on feet>       "),
+  ___("<worn on hands>      "),
+  ___("<worn on arms>       "),
+  ___("<worn as shield>     "),
+  ___("<worn about body>    "),
+  ___("<worn about waist>   "),
+  ___("<worn around wrist>  "),
+  ___("<worn around wrist>  "),
+  ___("<wielded>            "),
+  ___("<held>               "),
+  ___("<dual wielded>       "),
+  ___("<worn on ears>       "),
+  ___("<worn on eyes>       "),
+  ___("<missile wielded>    "),
+  ___("<worn on back>       "),
+  ___("<worn over face>     "),
+  ___("<worn around ankle>  "),
+  ___("<worn around ankle>  "),
+  ___("<BUG Inform Nivek>  "),
+  ___("<BUG Inform Nivek>  "),
+  ___("<BUG Inform Nivek>  ")
 };
 
 
@@ -131,71 +131,71 @@ format_obj_to_char (OBJ_DATA * obj, CHAR_DATA * ch, bool fShort)
 
   buf[0] = '\0';
   if (IS_OBJ_STAT (obj, ITEM_INVIS))
-    strcat (buf, "(Invis) ");
+    strcat (buf, _("(Invis) "));
   if ((IS_AFFECTED (ch, AFF_DETECT_EVIL) || ch->class == CLASS_PALADIN)
       && IS_OBJ_STAT (obj, ITEM_EVIL))
-    strcat (buf, "(Red Aura) ");
+    strcat (buf, _("(Red Aura) "));
 
   if (ch->class == CLASS_PALADIN
       && (IS_OBJ_STAT (obj, ITEM_ANTI_EVIL)
 	  && !IS_OBJ_STAT (obj, ITEM_ANTI_NEUTRAL)
 	  && !IS_OBJ_STAT (obj, ITEM_ANTI_GOOD)))
-    strcat (buf, "(Flaming Red) ");
+    strcat (buf, _("(Flaming Red) "));
   if (ch->class == CLASS_PALADIN
       && (!IS_OBJ_STAT (obj, ITEM_ANTI_EVIL)
 	  && IS_OBJ_STAT (obj, ITEM_ANTI_NEUTRAL)
 	  && !IS_OBJ_STAT (obj, ITEM_ANTI_GOOD)))
-    strcat (buf, "(Flaming Grey) ");
+    strcat (buf, _("(Flaming Grey) "));
   if (ch->class == CLASS_PALADIN
       && (!IS_OBJ_STAT (obj, ITEM_ANTI_EVIL)
 	  && !IS_OBJ_STAT (obj, ITEM_ANTI_NEUTRAL)
 	  && IS_OBJ_STAT (obj, ITEM_ANTI_GOOD)))
-    strcat (buf, "(Flaming White) ");
+    strcat (buf, _("(Flaming White) "));
 
 
   if (ch->class == CLASS_PALADIN
       && (IS_OBJ_STAT (obj, ITEM_ANTI_EVIL)
 	  && IS_OBJ_STAT (obj, ITEM_ANTI_NEUTRAL)
 	  && !IS_OBJ_STAT (obj, ITEM_ANTI_GOOD)))
-    strcat (buf, "(Smouldering Red-Grey) ");
+    strcat (buf, _("(Smouldering Red-Grey) "));
   if (ch->class == CLASS_PALADIN
       && (IS_OBJ_STAT (obj, ITEM_ANTI_EVIL)
 	  && !IS_OBJ_STAT (obj, ITEM_ANTI_NEUTRAL)
 	  && IS_OBJ_STAT (obj, ITEM_ANTI_GOOD)))
-    strcat (buf, "(Smouldering Red-White) ");
+    strcat (buf, _("(Smouldering Red-White) "));
   if (ch->class == CLASS_PALADIN
       && (!IS_OBJ_STAT (obj, ITEM_ANTI_EVIL)
 	  && IS_OBJ_STAT (obj, ITEM_ANTI_NEUTRAL)
 	  && IS_OBJ_STAT (obj, ITEM_ANTI_GOOD)))
-    strcat (buf, "(Smouldering Grey-White) ");
+    strcat (buf, _("(Smouldering Grey-White) "));
 
   if (IS_AFFECTED (ch, AFF_DETECT_MAGIC) && IS_OBJ_STAT (obj, ITEM_MAGIC))
-    strcat (buf, "(Magical) ");
+    strcat (buf, _("(Magical) "));
   if (!glowsee && IS_OBJ_STAT (obj, ITEM_GLOW))
-    strcat (buf, "(Glowing) ");
+    strcat (buf, _("(Glowing) "));
   if (IS_OBJ_STAT (obj, ITEM_HUM))
-    strcat (buf, "(Humming) ");
+    strcat (buf, _("(Humming) "));
   if (IS_OBJ_STAT (obj, ITEM_HIDDEN))
-    strcat (buf, "(Hidden) ");
+    strcat (buf, _("(Hidden) "));
   if (IS_OBJ_STAT (obj, ITEM_BURIED))
-    strcat (buf, "(Buried) ");
+    strcat (buf, _("(Buried) "));
   if (IS_IMMORTAL (ch) && IS_OBJ_STAT (obj, ITEM_PROTOTYPE))
-    strcat (buf, "(PROTO) ");
+    strcat (buf, _("(PROTO) "));
   if ((IS_AFFECTED (ch, AFF_DETECTTRAPS) || xIS_SET (ch->act, PLR_HOLYLIGHT))
       && is_trapped (obj))
-    strcat (buf, "(Trap) ");
+    strcat (buf, _("(Trap) "));
 
   if (fShort)
     {
       if (glowsee && !IS_IMMORTAL (ch))
-	strcat (buf, "the faint glow of something");
+	strcat (buf, _("the faint glow of something"));
       else if (obj->short_descr)
 	strcat (buf, obj->short_descr);
     }
   else
     {
       if (glowsee)
-	strcat (buf, "You see the faint glow of something nearby.");
+	strcat (buf, _("You see the faint glow of something nearby."));
       else if (obj->description)
 	strcat (buf, obj->description);
     }
@@ -217,92 +217,90 @@ hallucinated_object (int ms, bool fShort)
     switch (number_range (6 - URANGE (1, sms / 2, 5), sms))
       {
       case 1:
-	return "a sword";
+	return _("a sword");
       case 2:
-	return "a stick";
+	return _("a stick");
       case 3:
-	return "something shiny";
+	return _("something shiny");
       case 4:
-	return "something";
+	return _("something");
       case 5:
-	return "something interesting";
+	return _("something interesting");
       case 6:
-	return "something colorful";
+	return _("something colorful");
       case 7:
-	return "something that looks cool";
+	return _("something that looks cool");
       case 8:
-	return "a nifty thing";
+	return _("a nifty thing");
       case 9:
-	return "a cloak of flowing colors";
+	return _("a cloak of flowing colors");
       case 10:
-	return "a mystical flaming sword";
+	return _("a mystical flaming sword");
       case 11:
-	return "a swarm of insects";
+	return _("a swarm of insects");
       case 12:
-	return "a deathbane";
+	return _("a deathbane");
       case 13:
-	return "a figment of your imagination";
+	return _("a figment of your imagination");
       case 14:
-	return "your gravestone";
+	return _("your gravestone");
       case 15:
-	return "the long lost boots of Ranger Thoric";
+	return _("the long lost boots of Ranger Thoric");
       case 16:
-	return "a glowing tome of arcane knowledge";
+	return _("a glowing tome of arcane knowledge");
       case 17:
-	return "a long sought secret";
+	return _("a long sought secret");
       case 18:
-	return "the meaning of it all";
+	return _("the meaning of it all");
       case 19:
-	return "the answer";
+	return _("the answer");
       case 20:
-	return "the key to life, the universe and everything";
+	return _("the key to life, the universe and everything");
       }
   switch (number_range (6 - URANGE (1, sms / 2, 5), sms))
     {
     case 1:
-      return "A nice looking sword catches your eye.";
+      return _("A nice looking sword catches your eye.");
     case 2:
-      return "The ground is covered in small sticks.";
+      return _("The ground is covered in small sticks.");
     case 3:
-      return "Something shiny catches your eye.";
+      return _("Something shiny catches your eye.");
     case 4:
-      return "Something catches your attention.";
+      return _("Something catches your attention.");
     case 5:
-      return "Something interesting catches your eye.";
+      return _("Something interesting catches your eye.");
     case 6:
-      return "Something colorful flows by.";
+      return _("Something colorful flows by.");
     case 7:
-      return "Something that looks cool calls out to you.";
+      return _("Something that looks cool calls out to you.");
     case 8:
-      return "A nifty thing of great importance stands here.";
+      return _("A nifty thing of great importance stands here.");
     case 9:
-      return "A cloak of flowing colors asks you to wear it.";
+      return _("A cloak of flowing colors asks you to wear it.");
     case 10:
-      return "A mystical flaming sword awaits your grasp.";
+      return _("A mystical flaming sword awaits your grasp.");
     case 11:
-      return "A swarm of insects buzzes in your face!";
+      return _("A swarm of insects buzzes in your face!");
     case 12:
-      return "The extremely rare Deathbane lies at your feet.";
+      return _("The extremely rare Deathbane lies at your feet.");
     case 13:
-      return "A figment of your imagination is at your command.";
+      return _("A figment of your imagination is at your command.");
     case 14:
-      return
-	"You notice a gravestone here... upon closer examination, it reads your name.";
+      return _("You notice a gravestone here... upon closer examination, it reads your name.");
     case 15:
-      return "The long lost boots of Ranger Thoric lie off to the side.";
+      return _("The long lost boots of Ranger Thoric lie off to the side.");
     case 16:
-      return
-	"A glowing tome of arcane knowledge hovers in the air before you.";
+      return _("A glowing tome of arcane knowledge hovers in the air before you.");
     case 17:
-      return "A long sought secret of all mankind is now clear to you.";
+      return _("A long sought secret of all mankind is now clear to you.");
     case 18:
-      return "The meaning of it all, so simple, so clear... of course!";
+      return _("The meaning of it all, so simple, so clear... of course!");
     case 19:
-      return "The answer.  One.  It's always been One.";
+      return _("The answer.  One.  It's always been One.");
     case 20:
-      return "The key to life, the universe and everything awaits your hand.";
+      return _("The key to life, the universe and everything awaits your hand.");
     }
-  return "Whoa!!!";
+  return _("Whoa!!!");
 }
 
 
@@ -367,7 +365,7 @@ show_list_to_char (OBJ_DATA * list, CHAR_DATA * ch, bool fShort,
 	  if (IS_NPC (ch) || xIS_SET (ch->act, PLR_COMBINE))
 	    send_to_char ("     ", ch);
 	  set_char_color (AT_OBJECT, ch);
-	  send_to_char ("Nothing.\n\r", ch);
+	  send_to_char (_("Nothing.\n"), ch);
 	}
       return;
     }
@@ -406,7 +404,7 @@ show_list_to_char (OBJ_DATA * list, CHAR_DATA * ch, bool fShort,
 	  if (IS_NPC (ch) || xIS_SET (ch->act, PLR_COMBINE))
 	    send_to_char ("     ", ch);
 	  set_char_color (AT_OBJECT, ch);
-	  send_to_char ("Nothing.\n\r", ch);
+	  send_to_char (_("Nothing.\n"), ch);
 	}
       return;
     }
@@ -539,7 +537,7 @@ show_list_to_char (OBJ_DATA * list, CHAR_DATA * ch, bool fShort,
       if (IS_NPC (ch) || xIS_SET (ch->act, PLR_COMBINE))
 	send_to_char ("     ", ch);
       set_char_color (AT_OBJECT, ch);
-      send_to_char ("Nothing.\n\r", ch);
+      send_to_char (_("Nothing.\n"), ch);
     }
 
   /*
@@ -631,9 +629,9 @@ show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
   if (!IS_NPC (victim) && !victim->desc)
     {
       if (!victim->switched)
-	send_to_char_color ("&P[(Link Dead)] ", ch);
+	send_to_char_color (_("&P[(Link Dead)] "), ch);
       else if (!IS_AFFECTED (victim, AFF_POSSESS))
-	strcat (buf, "(Switched) ");
+	strcat (buf, _("(Switched) "));
     }
   if (IS_NPC (victim) && IS_AFFECTED (victim, AFF_POSSESS) && IS_IMMORTAL (ch)
       && victim->desc)
@@ -642,15 +640,15 @@ show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
       strcat (buf, buf1);
     }
   if (!IS_NPC (victim) && xIS_SET (victim->act, PLR_AFK))
-    strcat (buf, "[AFK] ");
+    strcat (buf, _("[AFK] "));
 
   if ((!IS_NPC (victim) && xIS_SET (victim->act, PLR_WIZINVIS))
       || (IS_NPC (victim) && xIS_SET (victim->act, ACT_MOBINVIS)))
     {
       if (!IS_NPC (victim))
-	sprintf (buf1, "(Invis %d) ", victim->pcdata->wizinvis);
+	sprintf (buf1, _("(Invis %d) "), victim->pcdata->wizinvis);
       else
-	sprintf (buf1, "(Mobinvis %d) ", victim->mobinvis);
+	sprintf (buf1, _("(Mobinvis %d) "), victim->mobinvis);
       strcat (buf, buf1);
     }
 
@@ -661,67 +659,67 @@ show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
       switch (ilevel)
 	{
 	case MAX_LEVEL - 0:
-	  send_to_char_color ("&G&r(&wSupreme Entity&G&r)&P ", ch);
+	  send_to_char_color (_("&G&r(&wSupreme Entity&G&r)&P "), ch);
 	  break;
 	case MAX_LEVEL - 1:
-	  send_to_char_color ("&G&r(&wInfinite&G&r)&P ", ch);
+	  send_to_char_color (_("&G&r(&wInfinite&G&r)&P "), ch);
 	  break;
 	case MAX_LEVEL - 2:
-	  send_to_char_color ("&G&r(&wEternal&G&r)&P ", ch);
+	  send_to_char_color (_("&G&r(&wEternal&G&r)&P "), ch);
 	  break;
 	case MAX_LEVEL - 3:
-	  send_to_char_color ("&G&r(&wAncient&G&r)&P ", ch);
+	  send_to_char_color (_("&G&r(&wAncient&G&r)&P "), ch);
 	  break;
 	case MAX_LEVEL - 4:
 	  if (victim->sex == 2)
-	    send_to_char_color ("&G&r(&wExalted Goddess&G&r)&P ", ch);
+	    send_to_char_color (_("&G&r(&wExalted Goddess&G&r)&P "), ch);
 	  else
-	    send_to_char_color ("&G&r(&wExalted God&G&r)&P ", ch);
+	    send_to_char_color (_("&G&r(&wExalted God&G&r)&P "), ch);
 	  break;
 	case MAX_LEVEL - 5:
 	  if (victim->sex == 2)
-	    send_to_char_color ("&G(&wAscendant Goddess&G)&P ", ch);
+	    send_to_char_color (_("&G(&wAscendant Goddess&G)&P "), ch);
 	  else
-	    send_to_char_color ("&G(&wAscendant God&G)&P ", ch);
+	    send_to_char_color (_("&G(&wAscendant God&G)&P "), ch);
 	  break;
 	case MAX_LEVEL - 6:
 	  if (victim->sex == 2)
-	    send_to_char_color ("&G(&wGreater Goddess&G)&P ", ch);
+	    send_to_char_color (_("&G(&wGreater Goddess&G)&P "), ch);
 	  else
-	    send_to_char_color ("&G(&wGreater God&G)&P ", ch);
+	    send_to_char_color (_("&G(&wGreater God&G)&P "), ch);
 	  break;
 	case MAX_LEVEL - 7:
 	  if (victim->sex == 2)
-	    send_to_char_color ("&G(&wGoddess&G)&P ", ch);
+	    send_to_char_color (_("&G(&wGoddess&G)&P "), ch);
 	  else
-	    send_to_char_color ("&G(&wGod&G)&P ", ch);
+	    send_to_char_color (_("&G(&wGod&G)&P "), ch);
 	  break;
 	case MAX_LEVEL - 8:
 	  if (victim->sex == 2)
-	    send_to_char_color ("&G(&wLesser Goddess&G)&P ", ch);
+	    send_to_char_color (_("&G(&wLesser Goddess&G)&P "), ch);
 	  else
-	    send_to_char_color ("&G(&wLesser God&G)&P ", ch);
+	    send_to_char_color (_("&G(&wLesser God&G)&P "), ch);
 	  break;
 	case MAX_LEVEL - 9:
-	  send_to_char_color ("&G(&wImmortal&G)&P ", ch);
+	  send_to_char_color (_("&G(&wImmortal&G)&P "), ch);
 	  break;
 	case MAX_LEVEL - 10:
 	  if (victim->sex == 2)
-	    send_to_char_color ("&G(&wDemi Goddess&G)&P ", ch);
+	    send_to_char_color (_("&G(&wDemi Goddess&G)&P "), ch);
 	  else
-	    send_to_char_color ("&G(&wDemi God&G)&P ", ch);
+	    send_to_char_color (_("&G(&wDemi God&G)&P "), ch);
 	  break;
 	case MAX_LEVEL - 11:
-	  send_to_char_color ("&G(&WSavior&G)&P ", ch);
+	  send_to_char_color (_("&G(&WSavior&G)&P "), ch);
 	  break;
 	case MAX_LEVEL - 12:
-	  send_to_char_color ("&G(&WCreator&G)&P ", ch);
+	  send_to_char_color (_("&G(&WCreator&G)&P "), ch);
 	  break;
 	case MAX_LEVEL - 13:
-	  send_to_char_color ("&G(&WAcolyte&G)&P ", ch);
+	  send_to_char_color (_("&G(&WAcolyte&G)&P "), ch);
 	  break;
 	case MAX_LEVEL - 14:
-	  send_to_char_color ("&G&W(Neophyte)&P ", ch);
+	  send_to_char_color (_("&G&W(Neophyte)&P "), ch);
 	  break;
 	default:
 	  break;
@@ -742,8 +740,8 @@ show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
       if (!IS_IMMORTAL (victim)
 	  && ch->level < 26
 	  && victim->pcdata->council
-	  && !str_cmp (victim->pcdata->council->name, "Newbie Council"))
-	ch_printf_color (ch, "&P&W<&PNew Player Advisor&W>&P ");
+	  && !str_cmp (victim->pcdata->council->name, _("Newbie Council")))
+	ch_printf_color (ch, _("&P&W<&PNew Player Advisor&W>&P "));
       if (victim->pcdata->clan
 	  && IS_SET (victim->pcdata->flags, PCFLAG_DEADLY)
 	  && victim->pcdata->clan->badge
@@ -751,50 +749,50 @@ show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
 	      && victim->pcdata->clan->clan_type != CLAN_GUILD))
 	ch_printf_color (ch, "&P%s ", victim->pcdata->clan->badge);
       else if (CAN_PKILL (victim) && victim->level < 51)
-	send_to_char_color ("&P(&wUnclanned&P) ", ch);
+	send_to_char_color (_("&P(&wUnclanned&P) "), ch);
     }
 
   set_char_color (AT_PERSON, ch);
 
   if (IS_AFFECTED (victim, AFF_INVISIBLE))
-    strcat (buf, "(Invis) ");
+    strcat (buf, _("(Invis) "));
   if (IS_AFFECTED (victim, AFF_HIDE))
-    strcat (buf, "(Hide) ");
+    strcat (buf, _("(Hide) "));
   if (IS_AFFECTED (victim, AFF_PASS_DOOR))
-    strcat (buf, "(Translucent) ");
+    strcat (buf, _("(Translucent) "));
   if (IS_AFFECTED (victim, AFF_FAERIE_FIRE))
-    strcat (buf, "(Pink Aura) ");
+    strcat (buf, _("(Pink Aura) "));
   if (IS_EVIL (victim)
       && (IS_AFFECTED (ch, AFF_DETECT_EVIL) || ch->class == CLASS_PALADIN))
-    strcat (buf, "(Red Aura) ");
+    strcat (buf, _("(Red Aura) "));
   if (IS_NEUTRAL (victim) && ch->class == CLASS_PALADIN)
-    strcat (buf, "(Grey Aura) ");
+    strcat (buf, _("(Grey Aura) "));
   if (IS_GOOD (victim) && ch->class == CLASS_PALADIN)
-    strcat (buf, "(White Aura) ");
+    strcat (buf, _("(White Aura) "));
 
 
   if (IS_AFFECTED (victim, AFF_BERSERK))
-    strcat (buf, "(Wild-eyed) ");
+    strcat (buf, _("(Wild-eyed) "));
   if (IS_AFFECTED (victim, AFF_GRAPPLE))
-    strcat (buf, "(Grappling) ");
+    strcat (buf, _("(Grappling) "));
   if (!IS_NPC (victim) && xIS_SET (victim->act, PLR_ATTACKER))
-    strcat (buf, "(ATTACKER) ");
+    strcat (buf, _("(ATTACKER) "));
   if (!IS_NPC (victim) && xIS_SET (victim->act, PLR_KILLER))
-    strcat (buf, "(KILLER) ");
+    strcat (buf, _("(KILLER) "));
   if (!IS_NPC (victim) && xIS_SET (victim->act, PLR_THIEF))
-    strcat (buf, "(THIEF) ");
+    strcat (buf, _("(THIEF) "));
   if (!IS_NPC (victim) && xIS_SET (victim->act, PLR_LITTERBUG))
-    strcat (buf, "(LITTERBUG) ");
+    strcat (buf, _("(LITTERBUG) "));
   if (IS_NPC (victim) && IS_IMMORTAL (ch)
       && xIS_SET (victim->act, ACT_PROTOTYPE))
-    strcat (buf, "(PROTO) ");
+    strcat (buf, _("(PROTO) "));
   if (IS_NPC (victim) && ch->mount && ch->mount == victim
       && ch->in_room == ch->mount->in_room)
-    strcat (buf, "(Mount) ");
+    strcat (buf, _("(Mount) "));
   if (victim->desc && victim->desc->connected == CON_EDITING)
-    strcat (buf, "(Writing) ");
+    strcat (buf, _("(Writing) "));
   if (victim->morph != NULL)
-    strcat (buf, "(Morphed) ");
+    strcat (buf, _("(Morphed) "));
 
   set_char_color (AT_PERSON, ch);
   if ((victim->position == victim->defposition
@@ -842,122 +840,122 @@ show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
   if ((timer = get_timerptr (victim, TIMER_DO_FUN)) != NULL)
     {
       if (timer->do_fun == do_meditate)
-	strcat (buf, " is in a meditative state.");
+	strcat (buf, _(" is in a meditative state."));
       else if (timer->do_fun == do_cast)
-	strcat (buf, " is here chanting.");
+	strcat (buf, _(" is here chanting."));
       else if (timer->do_fun == do_dig)
-	strcat (buf, " is here digging.");
+	strcat (buf, _(" is here digging."));
       else if (timer->do_fun == do_trance)
-	strcat (buf, " is in a deep trance.");
+	strcat (buf, _(" is in a deep trance."));
       else if (timer->do_fun == do_search)
-	strcat (buf, " is searching the area for something.");
+	strcat (buf, _(" is searching the area for something."));
       else if (timer->do_fun == do_detrap)
-	strcat (buf, " is working with the trap here.");
+	strcat (buf, _(" is working with the trap here."));
       else
-	strcat (buf, " is looking rather lost.");
+	strcat (buf, _(" is looking rather lost."));
     }
   else
     {
       switch (victim->position)
 	{
 	case POS_DEAD:
-	  strcat (buf, " is DEAD!!");
+	  strcat (buf, _(" is DEAD!!"));
 	  break;
 	case POS_MORTAL:
-	  strcat (buf, " is mortally wounded.");
+	  strcat (buf, _(" is mortally wounded."));
 	  break;
 	case POS_INCAP:
-	  strcat (buf, " is incapacitated.");
+	  strcat (buf, _(" is incapacitated."));
 	  break;
 	case POS_STUNNED:
-	  strcat (buf, " is lying here stunned.");
+	  strcat (buf, _(" is lying here stunned."));
 	  break;
 	case POS_SLEEPING:
 	  if (ch->position == POS_SITTING || ch->position == POS_RESTING)
-	    strcat (buf, " is sleeping nearby.");
+	    strcat (buf, _(" is sleeping nearby."));
 	  else
-	    strcat (buf, " is deep in slumber here.");
+	    strcat (buf, _(" is deep in slumber here."));
 	  break;
 	case POS_RESTING:
 	  if (ch->position == POS_RESTING)
-	    strcat (buf, " is sprawled out alongside you.");
+	    strcat (buf, _(" is sprawled out alongside you."));
 	  else if (ch->position == POS_MOUNTED)
-	    strcat (buf, " is sprawled out at the foot of your mount.");
+	    strcat (buf, _(" is sprawled out at the foot of your mount."));
 	  else
-	    strcat (buf, " is sprawled out here.");
+	    strcat (buf, _(" is sprawled out here."));
 	  break;
 	case POS_SITTING:
 	  if (ch->position == POS_SITTING)
-	    strcat (buf, " sits here with you.");
+	    strcat (buf, _(" sits here with you."));
 	  else if (ch->position == POS_RESTING)
-	    strcat (buf, " sits nearby as you lie around.");
+	    strcat (buf, _(" sits nearby as you lie around."));
 	  else
-	    strcat (buf, " sits upright here.");
+	    strcat (buf, _(" sits upright here."));
 	  break;
 	case POS_STANDING:
 	  if (IS_IMMORTAL (victim))
-	    strcat (buf, " radiates with a godly light.");
+	    strcat (buf, _(" radiates with a godly light."));
 	  else
 	    if ((victim->in_room->sector_type == SECT_UNDERWATER)
 		&& !IS_AFFECTED (victim, AFF_AQUA_BREATH) && !IS_NPC (victim))
-	    strcat (buf, " is drowning here.");
+	    strcat (buf, _(" is drowning here."));
 	  else if (victim->in_room->sector_type == SECT_UNDERWATER)
-	    strcat (buf, " is here in the water.");
+	    strcat (buf, _(" is here in the water."));
 	  else
 	    if ((victim->in_room->sector_type == SECT_OCEANFLOOR)
 		&& !IS_AFFECTED (victim, AFF_AQUA_BREATH) && !IS_NPC (victim))
-	    strcat (buf, " is drowning here.");
+	    strcat (buf, _(" is drowning here."));
 	  else if (victim->in_room->sector_type == SECT_OCEANFLOOR)
-	    strcat (buf, " is standing here in the water.");
+	    strcat (buf, _(" is standing here in the water."));
 	  else
 	    if (IS_AFFECTED (victim, AFF_FLOATING)
 		|| IS_AFFECTED (victim, AFF_FLYING))
 	    if (victim->stance > STANCE_NONE)
 	      {
-		strcat (buf, " is hovering here in a ");
+		strcat (buf, _(" is hovering here in a "));
 		strcat (buf, get_stance_name (victim->stance));
-		strcat (buf, " stance.");
+		strcat (buf, _(" stance."));
 	      }
 	    else
-	      strcat (buf, " is hovering here.");
+	      strcat (buf, _(" is hovering here."));
 	  else if (victim->stance > STANCE_NONE)
 	    {
-	      strcat (buf, " is standing here in a ");
+	      strcat (buf, _(" is standing here in a "));
 	      strcat (buf, get_stance_name (victim->stance));
-	      strcat (buf, " stance.");
+	      strcat (buf, _(" stance."));
 	    }
 	  else
-	    strcat (buf, " is standing here.");
+	    strcat (buf, _(" is standing here."));
 	  break;
 	case POS_SHOVE:
-	  strcat (buf, " is being shoved around.");
+	  strcat (buf, _(" is being shoved around."));
 	  break;
 	case POS_DRAG:
-	  strcat (buf, " is being dragged around.");
+	  strcat (buf, _(" is being dragged around."));
 	  break;
 	case POS_MOUNTED:
-	  strcat (buf, " is here, upon ");
+	  strcat (buf, _(" is here, upon "));
 	  if (!victim->mount)
-	    strcat (buf, "thin air???");
+	    strcat (buf, _("thin air???"));
 	  else if (victim->mount == ch)
-	    strcat (buf, "your back.");
+	    strcat (buf, _("your back."));
 	  else if (victim->in_room == victim->mount->in_room)
 	    {
 	      strcat (buf, PERS (victim->mount, ch));
 	      strcat (buf, ".");
 	    }
 	  else
-	    strcat (buf, "someone who left??");
+	    strcat (buf, _("someone who left??"));
 	  break;
 	case POS_FIGHTING:
 	case POS_EVASIVE:
 	case POS_DEFENSIVE:
 	case POS_AGGRESSIVE:
 	case POS_BERSERK:
-	  strcat (buf, " is here, fighting ");
+	  strcat (buf, _(" is here, fighting "));
 	  if (!victim->fighting)
 	    {
-	      strcat (buf, "thin air???");
+	      strcat (buf, _("thin air???"));
 
 	      /* some bug somewhere.... kinda hackey fix -h */
 	      if (!victim->mount)
@@ -966,14 +964,14 @@ show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
 		victim->position = POS_MOUNTED;
 	    }
 	  else if (who_fighting (victim) == ch)
-	    strcat (buf, "YOU!");
+	    strcat (buf, _("YOU!"));
 	  else if (victim->in_room == victim->fighting->who->in_room)
 	    {
 	      strcat (buf, PERS (victim->fighting->who, ch));
 	      strcat (buf, ".");
 	    }
 	  else
-	    strcat (buf, "someone who left??");
+	    strcat (buf, _("someone who left??"));
 	  break;
 	}
     }
@@ -996,11 +994,11 @@ show_char_to_char_1 (CHAR_DATA * victim, CHAR_DATA * ch)
   if (can_see (victim, ch) && !IS_NPC (ch)
       && !xIS_SET (ch->act, PLR_WIZINVIS))
     {
-      act (AT_ACTION, "$n looks at you.", ch, NULL, victim, TO_VICT);
+      act (AT_ACTION, _("$n looks at you."), ch, NULL, victim, TO_VICT);
       if (victim != ch)
-	act (AT_ACTION, "$n looks at $N.", ch, NULL, victim, TO_NOTVICT);
+	act (AT_ACTION, _("$n looks at $N."), ch, NULL, victim, TO_NOTVICT);
       else
-	act (AT_ACTION, "$n looks at $mself.", ch, NULL, victim, TO_NOTVICT);
+	act (AT_ACTION, _("$n looks at $mself."), ch, NULL, victim, TO_NOTVICT);
     }
 
   if (victim->description[0] != '\0')
@@ -1015,20 +1013,20 @@ show_char_to_char_1 (CHAR_DATA * victim, CHAR_DATA * ch)
       if (victim->morph != NULL && victim->morph->morph != NULL)
 	send_to_char (victim->morph->morph->description, ch);
       else if (IS_NPC (victim))
-	act (AT_PLAIN, "You see nothing special about $M.", ch, NULL, victim,
+	act (AT_PLAIN, _("You see nothing special about $M."), ch, NULL, victim,
 	     TO_CHAR);
       else if (ch != victim)
-	act (AT_PLAIN, "$E isn't much to look at...", ch, NULL, victim,
+	act (AT_PLAIN, _("$E isn't much to look at..."), ch, NULL, victim,
 	     TO_CHAR);
       else
-	act (AT_PLAIN, "You're not much to look at...", ch, NULL, NULL,
+	act (AT_PLAIN, _("You're not much to look at..."), ch, NULL, NULL,
 	     TO_CHAR);
     }
 
   /* Show stance they are in if someone looks at them.  SHADDAI */
   if (victim->stance > STANCE_NORMAL)
     {
-      ch_printf (ch, "\n\r%s is in a %s fighting stance.\n\r",
+      ch_printf (ch, _("\n\r%s is in a %s fighting stance.\n\r"),
 		 capitalize (PERS (victim, ch)),
 		 get_stance_name (victim->stance));
     }
@@ -1046,9 +1044,9 @@ show_char_to_char_1 (CHAR_DATA * victim, CHAR_DATA * ch)
 	    {
 	      send_to_char ("\n\r", ch);
 	      if (victim != ch)
-		act (AT_PLAIN, "$N is using:", ch, NULL, victim, TO_CHAR);
+		act (AT_PLAIN, _("$N is using:"), ch, NULL, victim, TO_CHAR);
 	      else
-		act (AT_PLAIN, "You are using:", ch, NULL, NULL, TO_CHAR);
+		act (AT_PLAIN, _("You are using:"), ch, NULL, NULL, TO_CHAR);
 	      found = TRUE;
 	    }
 	  if ((!IS_NPC (victim)) && (victim->race > 0)
@@ -1070,11 +1068,11 @@ show_char_to_char_1 (CHAR_DATA * victim, CHAR_DATA * ch)
   if (IS_IMMORTAL (ch))
     {
       if (IS_NPC (victim))
-	ch_printf (ch, "\n\rMobile #%d '%s' ",
+	ch_printf (ch, _("\nMobile #%d '%s' "),
 		   victim->pIndexData->vnum, victim->name);
       else
 	ch_printf (ch, "\n\r%s ", victim->name);
-      ch_printf (ch, "is a level %d %s %s.\n\r",
+      ch_printf (ch, _("is a level %d %s %s.\n"),
 		 victim->level,
 		 IS_NPC (victim) ? victim->race < MAX_NPC_RACE
 		 && victim->race >=
@@ -1096,7 +1094,7 @@ show_char_to_char_1 (CHAR_DATA * victim, CHAR_DATA * ch)
 
   if (number_percent () < LEARNED (ch, gsn_peek))
     {
-      ch_printf (ch, "\n\rYou peek at %s inventory:\n\r",
+      ch_printf (ch, _("\nYou peek at %s inventory:\n"),
 		 victim->sex == 1 ? "his" : victim->sex == 2 ? "her" : "its");
       show_list_to_char (victim->first_carrying, ch, TRUE, TRUE);
       learn_from_success (ch, gsn_peek);
@@ -1127,7 +1125,7 @@ show_char_to_char (CHAR_DATA * list, CHAR_DATA * ch)
 	       && !(!IS_NPC (rch) && IS_IMMORTAL (rch)))
 	{
 	  set_char_color (AT_BLOOD, ch);
-	  send_to_char ("The red form of a living creature is here.\n\r", ch);
+	  send_to_char (_("The red form of a living creature is here.\n"), ch);
 	}
     }
 
@@ -1147,7 +1145,7 @@ check_blind (CHAR_DATA * ch)
 
   if (IS_AFFECTED (ch, AFF_BLIND))
     {
-      send_to_char ("You can't see a thing!\n\r", ch);
+      send_to_char (_("You can't see a thing!\n"), ch);
       return FALSE;
     }
 
@@ -1221,13 +1219,13 @@ do_look (CHAR_DATA * ch, char *argument)
 
   if (ch->position < POS_SLEEPING)
     {
-      send_to_char ("You can't see anything but stars!\n\r", ch);
+      send_to_char (_("You can't see anything but stars!\n"), ch);
       return;
     }
 
   if (ch->position == POS_SLEEPING)
     {
-      send_to_char ("You can't see anything, you're sleeping!\n\r", ch);
+      send_to_char (_("You can't see anything, you're sleeping!\n"), ch);
       return;
     }
 
@@ -1239,7 +1237,7 @@ do_look (CHAR_DATA * ch, char *argument)
       && !IS_AFFECTED (ch, AFF_TRUESIGHT) && room_is_dark (ch->in_room))
     {
       set_char_color (AT_DGREY, ch);
-      send_to_char ("It is pitch black ... \n\r", ch);
+      send_to_char (_("It is pitch black ... \n"), ch);
       show_char_to_char (ch->in_room->first_person, ch);
       return;
     }
@@ -1410,7 +1408,7 @@ do_look (CHAR_DATA * ch, char *argument)
     {
       if (!IS_OUTSIDE (ch))
 	{
-	  send_to_char ("You can't see the sky indoors.\n\r", ch);
+	  send_to_char (_("You can't see the sky indoors.\n"), ch);
 	  return;
 	}
       else
@@ -1616,7 +1614,7 @@ do_look (CHAR_DATA * ch, char *argument)
 	      && get_trust (ch) < LEVEL_IMMORTAL)
 	    {
 	      set_char_color (AT_MAGIC, ch);
-	      send_to_char ("You attempt to scry...\n\r", ch);
+	      send_to_char (_("You attempt to scry ...\n"), ch);
 	      /*
 	       * Change by Narn, Sept 96 to allow characters who don't have the
 	       * scry spell to benefit from objects that are affected by scry.
@@ -1634,7 +1632,7 @@ do_look (CHAR_DATA * ch, char *argument)
 
 		  if (number_percent () > percent)
 		    {
-		      send_to_char ("You fail.\n\r", ch);
+		      send_to_char (_("You fail.\n"), ch);
 		      return;
 		    }
 		}
@@ -1819,53 +1817,53 @@ show_condition (CHAR_DATA * ch, CHAR_DATA * victim)
     {
       strcpy (buf, PERS (victim, ch));
       if (percent >= 100)
-	strcat (buf, " is in perfect health.\n\r");
+	strcat (buf, _(" is in perfect health.\n"));
       else if (percent >= 90)
-	strcat (buf, " is slightly scratched.\n\r");
+	strcat (buf, _(" is slightly scratched.\n"));
       else if (percent >= 80)
-	strcat (buf, " has a few bruises.\n\r");
+	strcat (buf, _(" has a few bruises.\n"));
       else if (percent >= 70)
-	strcat (buf, " has some cuts.\n\r");
+	strcat (buf, _(" has some cuts.\n"));
       else if (percent >= 60)
-	strcat (buf, " has several wounds.\n\r");
+	strcat (buf, _(" has several wounds.\n"));
       else if (percent >= 50)
-	strcat (buf, " has many nasty wounds.\n\r");
+	strcat (buf, _(" has many nasty wounds.\n"));
       else if (percent >= 40)
-	strcat (buf, " is bleeding freely.\n\r");
+	strcat (buf, _(" is bleeding freely.\n"));
       else if (percent >= 30)
-	strcat (buf, " is covered in blood.\n\r");
+	strcat (buf, _(" is covered in blood.\n"));
       else if (percent >= 20)
-	strcat (buf, " is leaking guts.\n\r");
+	strcat (buf, _(" is leaking guts.\n"));
       else if (percent >= 10)
-	strcat (buf, " is almost dead.\n\r");
+	strcat (buf, _(" is almost dead.\n"));
       else
-	strcat (buf, " is DYING.\n\r");
+	strcat (buf, _(" is DYING.\n"));
     }
   else
     {
-      strcpy (buf, "You");
+      strcpy (buf, _("You"));
       if (percent >= 100)
-	strcat (buf, " are in perfect health.\n\r");
+	strcat (buf, _(" are in perfect health.\n"));
       else if (percent >= 90)
-	strcat (buf, " are slightly scratched.\n\r");
+	strcat (buf, _(" are slightly scratched.\n"));
       else if (percent >= 80)
-	strcat (buf, " have a few bruises.\n\r");
+	strcat (buf, _(" have a few bruises.\n"));
       else if (percent >= 70)
-	strcat (buf, " have some cuts.\n\r");
+	strcat (buf, _(" have some cuts.\n"));
       else if (percent >= 60)
-	strcat (buf, " have several wounds.\n\r");
+	strcat (buf, _(" have several wounds.\n"));
       else if (percent >= 50)
-	strcat (buf, " have many nasty wounds.\n\r");
+	strcat (buf, _(" have many nasty wounds.\n"));
       else if (percent >= 40)
-	strcat (buf, " are bleeding freely.\n\r");
+	strcat (buf, _(" are bleeding freely.\n"));
       else if (percent >= 30)
-	strcat (buf, " are covered in blood.\n\r");
+	strcat (buf, _(" are covered in blood.\n"));
       else if (percent >= 20)
-	strcat (buf, " are leaking guts.\n\r");
+	strcat (buf, _(" are leaking guts.\n"));
       else if (percent >= 10)
-	strcat (buf, " are almost dead.\n\r");
+	strcat (buf, _(" are almost dead.\n"));
       else
-	strcat (buf, " are DYING.\n\r");
+	strcat (buf, _(" are DYING.\n"));
     }
 
   buf[0] = UPPER (buf[0]);
@@ -2338,10 +2336,10 @@ do_time (CHAR_DATA * ch, char *argument)
 
   set_char_color (AT_YELLOW, ch);
   ch_printf (ch,
-	     "It is %d o'clock %s, Day of %s, %d%s the Month of %s.\n\r"
-	     "The mud started up at:    %s\r"
-	     "The system time (E.S.T.): %s\r"
-	     "Next Reboot is set for:   %s\r",
+	     _("It is %d o'clock %s, Day of %s, %d%s the Month of %s.\n"
+	     "The mud started up at:    %s"
+	     "The system time (E.S.T.): %s"
+	     "Next Reboot is set for:   %s"),
 	     (time_info.hour % 12 == 0) ? 12 : time_info.hour % 12,
 	     time_info.hour >= 12 ? "pm" : "am",
 	     day_name[day % 7],
@@ -2400,7 +2398,7 @@ do_weather (CHAR_DATA * ch, char *argument)
 
   if (!IS_OUTSIDE (ch))
     {
-      ch_printf (ch, "You can't see the sky from here.\n\r");
+      ch_printf (ch, _("You can't see the sky from here.\n"));
       return;
     }
 
@@ -2420,7 +2418,7 @@ do_weather (CHAR_DATA * ch, char *argument)
       single = precip_msg[precip];
     }
 
-  sprintf (buf, "%s and %s.\n\r", combo, single);
+  sprintf (buf, _("%s and %s.\n"), combo, single);
 
   set_char_color (AT_BLUE, ch);
 
@@ -2579,7 +2577,7 @@ similar_help_files (CHAR_DATA * ch, char *argument)
   bool single = FALSE;
 
 
-  send_to_pager_color ("&C&RSimilar Help Files:\n\r", ch);
+  send_to_pager_color (_("&C&RSimilar Help Files:\n"), ch);
 
   for (pHelp = first_help; pHelp; pHelp = pHelp->next)
     {
@@ -2607,7 +2605,7 @@ similar_help_files (CHAR_DATA * ch, char *argument)
 
   if (lvl == 0)
     {
-      send_to_pager_color ("&C&RNo similar help files.\n\r", ch);
+      send_to_pager_color (_("&C&RNo similar help files.\n"), ch);
       return;
     }
 
@@ -2626,7 +2624,7 @@ similar_help_files (CHAR_DATA * ch, char *argument)
 	      if (single)
 		{
 		  send_to_pager_color
-		    ("&C&WOpening only similar helpfile.&C\n\r", ch);
+		    (_("&C&WOpening only similar helpfile.&C\n"), ch);
 		  do_help (ch, buf);
 		  return;
 		}
@@ -2661,7 +2659,7 @@ do_help (CHAR_DATA * ch, char *argument)
 
       //  Looks better printing out the missed argument before going to similar
       //  helpfiles. - Senir
-      pager_printf_color (ch, "&C&RNo help on \'%s\' found.\n\r", argument);
+      pager_printf_color (ch, _("&C&RNo help on \'%s\' found.\n"), argument);
       similar_help_files (ch, argument);
       return;
     }
@@ -2685,13 +2683,13 @@ do_changes (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch))
     return;
-  send_to_char_color ("\n\r&gChanges to the Realms ...\n\r", ch);
+  send_to_char_color (_("\n&gChanges to the Realms ...\n"), ch);
   show_file (ch, CHANGE_FILE);
-  send_to_char_color ("&G&g... type &G'&gnews&G'&g for recent updates.\n\r",
+  send_to_char_color (_("&G&g... type &G'&gnews&G'&g for recent updates.\n"),
 		      ch);
   if (IS_IMMORTAL (ch))
     send_to_char_color
-      ("&G&gImmortals should also check &G'&gimmnews&G'&g.\n\r", ch);
+      (_("&G&gImmortals should also check &G'&gimmnews&G'&g.\n"), ch);
   return;
 }
 
@@ -4681,7 +4679,7 @@ do_practice (CHAR_DATA * ch, char *argument)
 		send_to_pager ("\n\r", ch);
 	      set_pager_color (AT_MAGIC, ch);
 	      send_to_pager_color
-		(" ----------------------------------[&CSpells&B]----------------------------------\n\r",
+		(_(" ----------------------------------[&CSpells&B]----------------------------------\n"),
 		 ch);
 	      col = 0;
 	    }
@@ -4738,7 +4736,7 @@ do_practice (CHAR_DATA * ch, char *argument)
       if (col % 3 != 0)
 	send_to_pager ("\n\r", ch);
       set_pager_color (AT_MAGIC, ch);
-      pager_printf (ch, "You have %d practice sessions left.\n\r",
+      pager_printf (ch, _("You have %d practice sessions left.\n"),
 		    ch->practice);
     }
   else
@@ -4750,7 +4748,7 @@ do_practice (CHAR_DATA * ch, char *argument)
 
       if (!IS_AWAKE (ch))
 	{
-	  send_to_char ("In your dreams, or what?\n\r", ch);
+	  send_to_char (_("In your dreams, or what?\n"), ch);
 	  return;
 	}
 
@@ -4760,14 +4758,14 @@ do_practice (CHAR_DATA * ch, char *argument)
 
       if (!mob)
 	{
-	  send_to_char ("You can't do that here.\n\r", ch);
+	  send_to_char (_("You can't do that here.\n"), ch);
 	  return;
 	}
 
       if (ch->practice <= 0)
 	{
 	  act (AT_TELL,
-	       "$n tells you 'You must earn some more practice sessions.'",
+	       _("$n tells you 'You must earn some more practice sessions.'"),
 	       mob, NULL, ch, TO_VICT);
 	  return;
 	}
@@ -4785,14 +4783,14 @@ do_practice (CHAR_DATA * ch, char *argument)
 	      )))
 	{
 	  act (AT_TELL,
-	       "$n tells you 'You're not ready to learn that yet...'", mob,
+	       _("$n tells you 'You're not ready to learn that yet...'"), mob,
 	       NULL, ch, TO_VICT);
 	  return;
 	}
 
       if (is_name (skill_tname[skill_table[sn]->type], CANT_PRAC))
 	{
-	  act (AT_TELL, "$n tells you 'I do not know how to teach that.'",
+	  act (AT_TELL, _("$n tells you 'I do not know how to teach that.'"),
 	       mob, NULL, ch, TO_VICT);
 	  return;
 	}
@@ -4806,7 +4804,7 @@ do_practice (CHAR_DATA * ch, char *argument)
 	  if (!is_name (buf, skill_table[sn]->teachers))
 	    {
 	      act (AT_TELL,
-		   "$n tells you, 'I know not know how to teach that.'", mob,
+		   _("$n tells you, 'I know not know how to teach that.'"), mob,
 		   NULL, ch, TO_VICT);
 	      return;
 	    }
@@ -4834,14 +4832,14 @@ do_practice (CHAR_DATA * ch, char *argument)
 	  && skill_table[sn]->guild != 99)
 	{
 	  act (AT_TELL,
-	       "$n tells you 'That is only for members of guilds...'", mob,
+	       _("$n tells you 'That is only for members of guilds...'"), mob,
 	       NULL, ch, TO_VICT);
 	  return;
 	}
 
       if (!IS_NPC (ch) && skill_table[sn]->guild == 99 && !IS_PKILL (ch))
 	{
-	  act (AT_TELL, "$n tells you 'Only deadlies may use that skill ...'",
+	  act (AT_TELL, _("$n tells you 'Only deadlies may use that skill ...'"),
 	       mob, NULL, ch, TO_VICT);
 	  return;
 	}
@@ -4861,26 +4859,26 @@ do_practice (CHAR_DATA * ch, char *argument)
       if (ch->pcdata->learned[sn] >= adept)
 	{
 	  sprintf (buf,
-		   "$n tells you, 'I've taught you everything I can about %s.'",
+		   _("$n tells you, 'I've taught you everything I can about %s.'"),
 		   skill_table[sn]->name);
 	  act (AT_TELL, buf, mob, NULL, ch, TO_VICT);
 	  act (AT_TELL,
-	       "$n tells you, 'You'll have to practice it on your own now...'",
+	       _("$n tells you, 'You'll have to practice it on your own now...'"),
 	       mob, NULL, ch, TO_VICT);
 	}
       else
 	{
 	  ch->practice--;
 	  ch->pcdata->learned[sn] += int_app[get_curr_int (ch)].learn;
-	  act (AT_ACTION, "You practice $T.",
+	  act (AT_ACTION, _("You practice $T."),
 	       ch, NULL, skill_table[sn]->name, TO_CHAR);
-	  act (AT_ACTION, "$n practices $T.",
+	  act (AT_ACTION, _("$n practices $T."),
 	       ch, NULL, skill_table[sn]->name, TO_ROOM);
 	  if (ch->pcdata->learned[sn] >= adept)
 	    {
 	      ch->pcdata->learned[sn] = adept;
 	      act (AT_TELL,
-		   "$n tells you. 'You'll have to practice it on your own now...'",
+		   _("$n tells you. 'You'll have to practice it on your own now...'"),
 		   mob, NULL, ch, TO_VICT);
 	    }
 	}
@@ -5881,16 +5879,16 @@ do_afk (CHAR_DATA * ch, char *argument)
     (ch->act, PLR_AFK)
     {
       xREMOVE_BIT (ch->act, PLR_AFK);
-      send_to_char ("You are no longer afk.\n\r", ch);
+      send_to_char (_("You are no longer afk.\n"), ch);
 /*	act(AT_GREY,"$n is no longer afk.", ch, NULL, NULL, TO_ROOM);*/
-      act (AT_GREY, "$n is no longer afk.", ch, NULL, NULL, TO_CANSEE);
+      act (AT_GREY, _("$n is no longer afk."), ch, NULL, NULL, TO_CANSEE);
     }
   else
     {
       xSET_BIT (ch->act, PLR_AFK);
-      send_to_char ("You are now afk.\n\r", ch);
+      send_to_char (_("You are now afk.\n"), ch);
 /*	act(AT_GREY,"$n is now afk.", ch, NULL, NULL, TO_ROOM);*/
-      act (AT_GREY, "$n is now afk.", ch, NULL, NULL, TO_CANSEE);
+      act (AT_GREY, _("$n is now afk."), ch, NULL, NULL, TO_CANSEE);
       return;
     }
 
@@ -6050,7 +6048,7 @@ do_whois (CHAR_DATA * ch, char *argument)
 
   if (argument[0] == '\0')
     {
-      send_to_pager ("You must input the name of an online character.\n\r",
+      send_to_pager (_("You must input the name of an online character.\n"),
 		     ch);
       return;
     }
@@ -6059,13 +6057,13 @@ do_whois (CHAR_DATA * ch, char *argument)
   strcat (buf, argument);
   if (((victim = get_char_world (ch, buf)) == NULL))
     {
-      send_to_pager ("No such character online.\n\r", ch);
+      send_to_pager (_("No such character online.\n"), ch);
       return;
     }
 
   if (IS_NPC (victim))
     {
-      send_to_pager ("That's not a player!\n\r", ch);
+      send_to_pager (_("That's not a player!\n"), ch);
       return;
     }
 
@@ -6543,10 +6541,10 @@ do_version (CHAR_DATA * ch, char *argument)
     return;
 
   set_char_color (AT_YELLOW, ch);
-  ch_printf (ch, "SMAUG %s by @(burzumishi)\n\r", PACKAGE_VERSION);
+  ch_printf (ch, _("--{%s}-- by %s\n"), PACKAGE_STRING, PACKAGE_BUGREPORT);
 
   if (IS_IMMORTAL (ch))
-    ch_printf (ch, "Compiled on %s at %s.\n\r", __DATE__, __TIME__);
+    ch_printf (ch, _("Compiled on %s at %s.\n"), __DATE__, __TIME__);
 
   return;
 }
