@@ -36,6 +36,7 @@
 */
 
 #include <libintl.h> 
+#include <langinfo.h>
 #include <locale.h>
 #include "gettext.h"
 
@@ -48,3 +49,10 @@
 #define i18nP(singular, plural, n) ngettext(singular, plural, n)
 #define i18nM(x) x
 */
+
+const char *SMAUGlocale;
+
+int i18n_setlocale (void);
+int i18n_getlocale (void);
+int i18n_display_locale (void);
+

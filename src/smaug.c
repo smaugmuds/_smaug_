@@ -172,10 +172,7 @@ main (int argc, char **argv)
   struct timeval now_time;
   char hostn[128];
 
-  /* Initialize Gettext support */
-  setlocale (LC_ALL, "");
-  bindtextdomain (PACKAGE, LOCALEDIR);
-  textdomain (PACKAGE);
+	i18n_setlocale();
 
 #ifdef ENABLE_HOTBOOT
    bool fCopyOver = FALSE;
@@ -3574,7 +3571,7 @@ do_name (CHAR_DATA * ch, char *argument)
 
   if (!NOT_AUTHED (ch) || ch->pcdata->auth_state != 2)
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 

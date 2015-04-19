@@ -279,7 +279,7 @@ do_mpasupress (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -329,7 +329,7 @@ do_mpkill (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
   one_argument (argument, arg);
@@ -379,7 +379,7 @@ do_mpjunk (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -460,7 +460,7 @@ do_mpasound (CHAR_DATA * ch, char *argument)
     }
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -502,7 +502,7 @@ do_mpechoaround (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -550,7 +550,7 @@ do_mpechoat (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -600,7 +600,7 @@ do_mpecho (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -633,7 +633,7 @@ do_mpsoundaround (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -674,7 +674,7 @@ do_mpsoundat (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -713,7 +713,7 @@ do_mpsound (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -746,7 +746,7 @@ do_mpmusicaround (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -779,7 +779,7 @@ do_mpmusic (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -812,7 +812,7 @@ do_mpmusicat (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -847,7 +847,7 @@ do_mpmload (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -882,7 +882,7 @@ do_mpoload (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -958,7 +958,7 @@ do_mpplace (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || ch->desc || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1059,7 +1059,7 @@ do_mppardon (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1145,7 +1145,7 @@ do_mppurge (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1211,7 +1211,7 @@ do_mpinvis (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1269,7 +1269,7 @@ do_mpgoto (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1315,7 +1315,7 @@ do_mpat (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1359,7 +1359,7 @@ do_mpadvance (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1505,7 +1505,7 @@ do_mptransfer (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1664,7 +1664,7 @@ do_mpforce (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1750,7 +1750,7 @@ do_mpnuisance (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || ch->desc || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1803,7 +1803,7 @@ do_mpunnuisance (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || ch->desc || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1865,7 +1865,7 @@ do_mpbodybag (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || ch->desc || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1923,7 +1923,7 @@ do_mpmorph (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || ch->desc || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1970,7 +1970,7 @@ do_mpunmorph (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || ch->desc || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -2008,7 +2008,7 @@ do_mpechozone (CHAR_DATA * ch, char *argument)	/* Blod, late 97 */
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -2056,7 +2056,7 @@ do_mp_practice (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || ch->desc || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -2165,7 +2165,7 @@ void do_mpstrew( CHAR_DATA *ch, char *argument )
  
     if ( !IS_NPC( ch ) || ch->desc || IS_AFFECTED( ch, AFF_CHARM ))
     {
-          send_to_char( "Huh?\n\r", ch );
+          send_to_char( _("Huh?\n"), ch );
           return;
     }
 
@@ -2243,7 +2243,7 @@ do_mpscatter (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || ch->desc || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -2325,7 +2325,7 @@ do_mp_slay (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -2400,7 +2400,7 @@ do_mp_damage (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -2475,7 +2475,7 @@ do_mp_log (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -2504,7 +2504,7 @@ do_mp_restore (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || ch->desc || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -2561,7 +2561,7 @@ do_mpfavor (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || ch->desc || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -2642,7 +2642,7 @@ do_mp_open_passage (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -2728,7 +2728,7 @@ do_mp_fill_in (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM) || ch->desc)
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -2762,7 +2762,7 @@ do_mp_close_passage (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -2833,7 +2833,7 @@ do_mpnothing (CHAR_DATA * ch, char *argument)
 {
   if (!IS_NPC (ch) || ch->desc || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -2854,7 +2854,7 @@ do_mpdream (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -2882,7 +2882,7 @@ do_mpapply (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || ch->desc || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -2929,7 +2929,7 @@ do_mpapplyb (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || ch->desc || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -3103,7 +3103,7 @@ do_mp_deposit (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -3134,7 +3134,7 @@ do_mp_withdraw (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -3164,7 +3164,7 @@ do_mpdelay (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || ch->desc || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -3215,7 +3215,7 @@ do_mppeace (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || ch->desc || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -3268,7 +3268,7 @@ do_mppkset (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || ch->desc || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -3318,7 +3318,7 @@ do_mpoowner (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || ch->desc || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -3612,7 +3612,7 @@ do_mphunt (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || ch->desc || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -3644,7 +3644,7 @@ do_mphate (CHAR_DATA * ch, char *argument)
 
   if (!IS_NPC (ch) || ch->desc || IS_AFFECTED (ch, AFF_CHARM))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 

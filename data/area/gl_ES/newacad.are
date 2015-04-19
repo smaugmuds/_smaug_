@@ -1,0 +1,7017 @@
+#AREA   Darkhaven Academy~
+
+
+
+#AUTHOR Scarab~
+
+#RANGES
+1 5 0 60
+$
+
+#RESETMSG You hear the patter of little feet as the battleground teems with life...~
+
+#FLAGS
+1 3
+
+#ECONOMY 0 497845790
+
+#MOBILES
+#10300
+wolf arena~
+the dread wolf~
+A dread wolf is hunting here
+~
+~
+1073741889 0 0 C
+4 0 35 44d0+1 0d0+0
+500 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 66692 0 2048 0 0 0
+#10301
+slug arena~
+a slimy slug~
+A slimy slug is here scrounging up a meal
+~
+~
+65 0 0 C
+4 0 45 44d0+1 0d0+0
+500 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 66560 0 2048 0 0 0
+#10302
+naga arena~
+the bone naga~
+A bone naga rears up on its tail, ready to strike at you.
+~
+Possessing the lower body of a snake and the upper body of a skeleton,
+this creature is something to be careful of.
+~
+65 0 -200 C
+5 0 88 55d0+1 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 62
+0 0 0 0 131073 131073 0
+0 0 66561 0 2048 0 0 0
+#10303
+crawler arena~
+a carrion crawler~
+A carrion crawler growls at you.
+~
+~
+65 56 0 C
+5 0 -1 55d0+1 0d0+0
+1000 0
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 1159 0 2048 0 0 0
+#10304
+~
+the naga~
+A naga is here, eyes narrowed in anger.
+~
+Not the prettiest creature you have evere seen. This beast's entire lower
+half is that of a snake, while the upper part of it's body is that of a
+woman, and she doesn't look happy to see you.
+~
+1073741891 0 0 S
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+#10305
+naga cage~
+the naga~
+A naga is here, eyes narrowed in anger
+~
+Not the prettiest creature you have ever seen. This beasts entire lower
+half is that of a snake. The upper part of its body is that of a woman.
+She does not look happy to see you.
+~
+1073741891 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 1159 0 0 0 0 0
+#10306
+naga cage~
+the naga~
+A naga is here, eyes narrowed in anger
+~
+Not the prettiest creature you have ever seen. This beasts entire lower
+half is that of a snake. The upper part of its body is that of a woman.
+She does not look happy to see you.
+~
+67 0 0 C
+1 0 -92 11d1+0 0d0+0
+0 0
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 1159 0 0 0 0 0
+#10307
+naga cage~
+the naga~
+A naga is here, eyes narrowed in anger
+~
+Not the prettiest creature you have ever seen. This beasts entire lower
+half is that of a snake. The upper part of its body is that of a woman.
+She does not look happy to see you.
+~
+67 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 1159 0 0 0 0 0
+#10308
+naga cage~
+the naga~
+A naga is here, eyes narrowed in anger
+~
+Not the prettiest creature you have ever seen. This beasts entire lower
+half is that of a snake. The upper part of its body is that of a woman.
+She does not look happy to see you.
+~
+67 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 1159 0 0 0 0 0
+#10309
+naga cage~
+the naga~
+A naga is here, eyes narrowed in anger
+~
+Not the prettiest creature you have ever seen. This beasts entire lower
+half is that of a snake. The upper part of its body is that of a woman.
+She does not look happy to see you.
+~
+67 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 1159 0 0 0 0 0
+#10310
+naga cage~
+the naga~
+A naga is here, eyes narrowed in anger
+~
+Not the prettiest creature you have ever seen. This beasts entire lower
+half is that of a snake. The upper part of its body is that of a woman.
+She does not look happy to see you.
+~
+67 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 1159 0 0 0 0 0
+#10311
+naga cage~
+the naga~
+A naga is here, eyes narrowed in anger
+~
+Not the prettiest creature you have ever seen. This beasts entire lower
+half is that of a snake. The upper part of its body is that of a woman.
+She does not look happy to see you.
+~
+67 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 1159 0 0 0 0 0
+#10312
+gnoll cage~
+the gnoll~
+A young gnoll is here ready to attack you.
+~
+Eager to test his prowess in battle, this young gnoll bares his fangs at you.
+He is trying to strike fear in your heart.
+~
+35 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 0
+0 0 0 0 1 1 0
+0 0 1031 0 0 0 0 0
+> death_prog 90~
+if level($n) >= 4
+if mobinroom(10312) <= 1
+mpmload 10357
+mpat 10333 mpecho _yel A small creature appears out of nowhere!
+mpforce $n glance pixie
+endif
+endif
+~
+|
+#10313
+gnoll cage~
+the gnoll~
+A young gnoll is here ready to attack you.
+~
+Eager to test his prowess in battle, this young gnoll bares his fangs at you.
+He is trying to strike fear in your heart.
+~
+35 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 0
+0 0 0 0 1 1 0
+0 0 1031 0 0 0 0 0
+> death_prog 90~
+if level($n) >= 4
+if mobinroom(10313) <= 1
+mpmload 10357
+mpat 10336 mpecho _yel A small creature appears out of nowhere!
+mpforce $n glance pixie
+endif
+endif
+~
+|
+#10314
+gnoll cage~
+the gnoll~
+A young gnoll is here ready to attack you.
+~
+Eager to test his prowess in battle, this young gnoll bares his fangs at you.
+He is trying to strike fear in your heart.
+~
+35 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 0
+0 0 0 0 1 1 0
+0 0 1031 0 0 0 0 0
+> death_prog 90~
+if level($n) >= 4
+if mobinroom(10314) <= 1
+mpmload 10357
+mpat 10340 mpecho _yel A small creature appears out of nowhere!
+mpforce $n glance pixie
+endif
+endif
+~
+|
+#10315
+gnoll cage~
+the gnoll~
+A young gnoll is here ready to attack you.
+~
+Eager to test his prowess in battle, this young gnoll bares his fangs at you.
+He is trying to strike fear in your heart.
+~
+35 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 0
+0 0 0 0 1 1 0
+0 0 1031 0 0 0 0 0
+> death_prog 90~
+if level($n) >= 4
+if mobinroom(10315) <= 1
+mpmload 10357
+mpat 10344 mpecho _yel A small creature appears out of nowhere!
+mpforce $n glance pixie
+endif
+endif
+~
+|
+#10316
+gnoll cage~
+the gnoll~
+A young gnoll is here ready to attack you.
+~
+Eager to test his prowess in battle, this young gnoll bares his fangs at you.
+He is trying to strike fear in your heart.
+~
+35 8 0 C
+1 0 69 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 83
+0 0 0 0 131073 131073 0
+0 0 1031 0 0 0 0 0
+> death_prog 90~
+if level($n) >= 4
+if mobinroom(10316) <= 1
+mpmload 10357
+mpat 10348 mpecho _yel A small creature appears out of nowhere!
+mpforce $n glance pixie
+endif
+endif
+~
+|
+#10317
+gnoll cage~
+the gnoll~
+A young gnoll is here ready to attack you
+~
+Eager to test his prowess in battle, this young gnoll bares his fangs at you.
+He is trying to strike fear in your heart.
+~
+35 0 0 C
+1 0 0 11d1+0 0d0+0
+100 0
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 1031 0 0 0 0 0
+> death_prog 90~
+if level($n) >= 4
+if mobinroom(10317) <= 1
+mpmload 10357
+mpat 10352 mpecho _yel A small creature appears out of nowhere!
+mpforce $n glance pixie
+endif
+endif
+~
+|
+#10318
+gnoll cage~
+the gnoll~
+A young gnoll is here ready to attack you.
+~
+Eager to test his prowess in battle, this young gnoll bares his fangs at you.
+He is trying to strike fear in your heart.
+~
+35 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 0
+0 0 0 0 1 1 0
+0 0 1031 0 0 0 0 0
+> death_prog 90~
+if level($n) >= 4
+if mobinroom(10318) <= 1
+mpmload 10357
+mpat 10387 mpecho _yel A small creature appears out of nowhere!
+mpforce $n glance pixie
+endif
+endif
+~
+|
+#10319
+kobold cage~
+the kobold~
+A kobold with a sickly grin on its face is here.
+~
+He looks back at you with his beady little eyes. With a snarl he attacks.
+You are sure you can beat in combat.
+~
+35 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 0
+3 0 0 0 131073 131072 0
+0 0 3 0 0 0 0 0
+#10320
+kobold cage~
+the kobold~
+A kobold with a sickly grin on its face is here.
+~
+He looks back at you with his beady little eyes. With a snarl he attacks.
+You are sure you can beat in combat.
+~
+35 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 0
+3 0 0 0 131073 131072 0
+0 0 3 0 0 0 0 0
+#10321
+kobold cage~
+the kobold~
+A kobold with a sickly grin on its face is here.
+~
+He looks back at you with his beady little eyes. With a snarl he attacks.
+You are sure you can beat in combat.
+~
+35 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 0
+3 0 0 0 131073 131072 0
+0 0 3 0 0 0 0 0
+#10322
+kobold cage~
+the kobold~
+A kobold with a sickly grin on its face is here.
+~
+He looks back at you with his beady little eyes. With a snarl he attacks.
+You are sure you can beat in combat.
+~
+35 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 0
+3 0 0 0 131073 131072 0
+0 0 3 0 0 0 0 0
+#10323
+kobold cage~
+the kobold~
+A kobold with a sickly grin on its face is here.
+~
+He looks back at you with his beady little eyes. With a snarl he attacks.
+You are sure you can beat in combat.
+~
+35 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 0
+3 0 0 0 131073 131072 0
+0 0 3 0 0 0 0 0
+#10324
+kobold cage~
+the kobold~
+A kobold with a sickly grin on its face is here.
+~
+He looks back at you with his beady little eyes. With a snarl he attacks.
+You are sure you can beat in combat.
+~
+35 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 0
+3 0 0 0 131073 131072 0
+0 0 3 0 0 0 0 0
+#10325
+kobold cage~
+the kobold~
+A kobold with a sickly grin on its face is here.
+~
+You can't really make out any physical details of the guardian. The form
+of the spectre is constantly shifting in and out of existence, what you
+can see of it is more like a transparent mist.
+~
+35 0 1000 C
+1 0 90 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 84
+3 0 0 0 3 2 0
+0 0 3 0 0 0 0 0
+#10326
+minotaur cage~
+the minotaur~
+A minotaur is here snorting at your intrusion.
+~
+Not the largest of the species you have ever seen. Actually this minotaur
+looks pretty small compared to the others of its kind that you have seen.
+~
+67 0 0 S
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+#10327
+minotaur cage~
+the minotaur~
+A minotaur is here snorting at your intrusion.
+~
+Not the largest of the species you have ever seen. Actually this minotaur
+looks pretty small compared to the others of its kind that you have seen.
+~
+67 0 0 S
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+#10328
+minotaur cage~
+the minotaur~
+A minotaur is here snorting at your intrusion.
+~
+Not the largest of the species you have ever seen. Actually this minotaur
+looks pretty small compared to the others of its kind that you have seen.
+~
+67 0 0 S
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+#10329
+minotaur cage~
+the minotaur~
+A minotaur is here snorting at your intrusion.
+~
+Not the largest of the species you have ever seen. Actually this minotaur
+looks pretty small compared to the others of its kind that you have seen.
+~
+67 0 0 S
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+#10330
+minotaur cage~
+the minotaur~
+A minotaur is here snorting at your intrusion.
+~
+Not the largest of the species you have ever seen. Actually this minotaur
+looks pretty small compared to the others of its kind that you have seen.
+~
+67 0 0 S
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+#10331
+minotaur cage~
+the minotaur~
+A minotaur is here snorting at your intrusion.
+~
+Not the largest of the species you have ever seen. Actually this minotaur
+looks pretty small compared to the others of its kind that you have seen.
+~
+67 0 0 S
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+#10332
+minotaur cage~
+the minotaur~
+A minotaur is here snorting at your intrusion.
+~
+Not the largest of the species you have ever seen. Actually this minotaur
+looks pretty small compared to the others of its kind that you have seen.
+~
+67 0 0 S
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+#10333
+healer spectre cage~
+the spectre~
+A spectral guardian of the academy is here watching your progress.
+~
+You can't really make out any physical details of the guardian. The form
+of the spectre is constantly shifting in and out of existence, what you
+can see of it is more like a transparent mist.
+~
+3 184 1000 C
+50 0 0 20000d1+0 0d0+0
+0 0
+8 8 0
+18 13 13 13 13 13 0
+0 0 0 0 0
+1 0 0 0 2 3 0
+0 0 0 0 2097152 0 0 0
+> act_prog p is dying~
+mpforce 0.$n drink
+mpechoat $n Drinking fluid will help your thirst and improve your mental state.
+~
+> act_prog p is starved~
+mpoload 20
+give mushroom $n
+mpforce $n eat mushroom
+mpechoat $n Eating food will help your hunger and improve your mental state.
+~
+|
+#10334
+healer spectre cage~
+the spectre~
+A spectral guardian of the academy is here watching your progress.
+~
+You can't really make out any physical details of the guardian. The form
+of the spectre is constantly shifting in and out of existence, what you
+can see of it is more like a transparent mist.
+~
+1073741827 184 1000 C
+50 0 0 20000d1+0 0d0+0
+0 0
+8 8 0
+18 13 13 13 13 13 0
+0 0 0 0 0
+1 0 0 0 3 3 0
+0 0 0 0 2097152 0 0 0
+> act_prog p is dying~
+mpforce 0.$n drink
+mpechoat $n Drinking fluid will help your thirst and improve your mental state.
+~
+> act_prog p is starved~
+mpoload 20
+give mushroom $n
+mpforce $n eat mushroom
+mpechoat $n Eating food will help your hunger and improve your mental state.
+~
+|
+#10335
+healer spectre cage~
+the spectre~
+A spectral guardian of the academy is here watching your progress.
+~
+You can't really make out any physical details of the guardian. The form
+of the spectre is constantly shifting in and out of existence, what you
+can see of it is more like a transparent mist.
+~
+3 184 1000 C
+50 0 0 20000d1+0 0d0+0
+0 0
+8 8 0
+18 13 13 13 13 13 0
+0 0 0 0 0
+1 0 0 0 2 3 0
+0 0 0 0 2097152 0 0 0
+> act_prog p is dying~
+mpforce 0.$n drink
+mpechoat $n Drinking fluid will help your thirst and improve your mental state.
+~
+> act_prog p is starved~
+mpoload 20
+give mushroom $n
+mpforce $n eat mushroom
+mpechoat $n Eating food will help your hunger and improve your mental state.
+~
+|
+#10336
+healer spectre cage~
+the spectre~
+A spectral guardian of the academy is here watching your progress.
+~
+You can't really make out any physical details of the guardian. The form
+of the spectre is constantly shifting in and out of existence, what you
+can see of it is more like a transparent mist.
+~
+3 184 1000 C
+50 0 0 20000d1+0 0d0+0
+0 0
+8 8 0
+18 13 13 13 13 13 0
+0 0 0 0 0
+1 0 0 0 2 3 0
+0 0 0 0 2097152 0 0 0
+> act_prog p is dying~
+mpforce 0.$n drink
+mpechoat $n Drinking fluid will help your thirst and improve your mental state.
+~
+> act_prog p is starved~
+mpoload 20
+give mushroom $n
+mpforce $n eat mushroom
+mpechoat $n Eating food will help your hunger and improve your mental state.
+~
+|
+#10337
+healer spectre cage~
+the spectre~
+A spectral guardian of the academy is here watching your progress.
+~
+You can't really make out any physical details of the guardian. The form
+of the spectre is constantly shifting in and out of existence, what you
+can see of it is more like a transparent mist.
+~
+3 184 1000 C
+50 0 0 20000d1+0 0d0+0
+0 0
+8 8 0
+18 13 13 13 13 13 0
+0 0 0 0 0
+1 0 0 0 2 3 0
+0 0 0 0 2097152 0 0 0
+> act_prog p is dying~
+mpforce 0.$n drink
+mpechoat $n Drinking fluid will help your thirst and improve your mental state.
+~
+> act_prog p is starved~
+mpoload 20
+give mushroom $n
+mpforce $n eat mushroom
+mpechoat $n Eating food will help your hunger and improve your mental state.
+~
+|
+#10338
+healer spectre cage~
+the spectre~
+A spectral guardian of the academy is here watching your progress.
+~
+You can't really make out any physical details of the guardian. The form
+of the spectre is constantly shifting in and out of existence, what you
+can see of it is more like a transparent mist.
+~
+3 184 1000 C
+50 0 0 20000d1+0 0d0+0
+0 0
+8 8 0
+18 13 13 13 13 13 0
+0 0 0 0 0
+1 0 0 0 2 3 0
+0 0 0 0 2097152 0 0 0
+> act_prog p is dying~
+mpforce 0.$n drink
+mpechoat $n Drinking fluid will help your thirst and improve your mental state.
+~
+> act_prog p is starved~
+mpoload 20
+give mushroom $n
+mpforce $n eat mushroom
+mpechoat $n Eating food will help your hunger and improve your mental state.
+~
+|
+#10339
+healer spectre cage~
+the spectre~
+A spectral guardian of the academy is here watching your progress.
+~
+Not the prettiest creature you have evere seen. This beast's entire lower
+half is that of a snake, while the upper part of it's body is that of a
+woman, and she doesn't look happy to see you.
+~
+67 184 0 C
+50 0 94 20000d1+0 0d0+0
+100 0
+8 8 0
+18 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 0 0 0 0 0 0
+> act_prog p is dying~
+mpforce 0.$n drink
+mpechoat $n Drinking fluid will help your thirst and improve your mental state.
+~
+> act_prog p is starved~
+mpoload 20
+give mushroom $n
+mpforce $n eat mushroom
+mpechoat $n Eating food will help your hunger and improve your mental state.
+~
+|
+#10340
+Domick Dom teacher~
+Domick~
+Domick, Lord of Knowledge, sits here reading, waiting for students.
+~
+Domick carries himself with a grace and confidence born from his
+long life and many experiences in these Realms. He is looked on
+with awe and unquestioned respect. That respect is well deserved.
+Do not attempt to kill him, for you shall surely die.
+~
+1027 4194472 1000 C
+1 0 94 1d1+1000 0d0+0
+100 0
+8 8 1
+13 13 13 13 13 13 0
+0 0 0 0 37
+0 4 0 0 131072 131073 0
+0 0 0 0 1059840 0 0 0
+> all_greet_prog 100~
+tell $n Are you ready for your lessons?
+~
+|
+#10342
+Toric lord healer~
+Lord Toric~
+A Lord of Healing stands here, overseeing your progress.
+~
+This is Toric, a Lord of Healing.  If you grovel before him, you might
+receive extra assistance.  Groveling before the Lords will not get you
+very far in the game, but honest play, helping others and strategy will.
+~
+1073741827 4194472 1000 C
+25 0 94 30000d1+0 0d0+0
+100 0
+8 8 1
+13 13 13 13 13 13 0
+0 0 0 0 -30
+0 6 0 0 131072 131073 0
+0 0 0 0 1058816 0 0 0
+> all_greet_prog 100~
+if isnpc($n)
+if ischarmed($n)
+  or isfollow($n)
+else
+  if isnpc($n)
+    mppurge $n
+  else
+    if level($n) > 10
+    else
+      if sex($n) == 2
+        mpforce $n curtsey
+        mpechoat $n Only go north if you are ready to enter combat.
+        mpechoat $n Remember to look at me, you will be pleasantly surprised.
+        smile $n
+      else
+        mpforce $n bow
+        mpechoat $n Only go north if you are ready to enter combat.
+        mpechoat $n Remember to look at me, you will be pleasantly surprised.
+        smile $n
+      endif
+    endif
+  endif
+endif
+endif
+~
+> act_prog p looks at you.~
+if isnpc($n)
+else
+  if level($n) > 10
+    smile $n
+  else
+    pat $n
+    mpechoat $n You are definitely learning!
+    mpechoat $n Now find the word in my description that will earn you a spell.
+    cast shield $n
+  endif
+endif
+~
+> act_prog p grovels in the~
+if isnpc($n)
+else
+  if level($n) > 10
+    smile $n
+    say You are too experienced to have need of my assistance, $n.
+  else
+    clap $n 
+    say Well done, $n.
+    c fly $n
+    tell $n that will help you with your movements.
+  endif
+endif
+~
+|
+#10343
+Zurg sage storekeeper~
+Zurg~
+A sage storekeeper is here, selling his wares.
+~
+This is a friendly shopkeeper. His eyes sparkle with amusement. He seems
+patient with those still learning to use the shop. 
+~
+3 4194856 0 C
+1 0 94 1000d1+0 0d0+0
+100 0
+8 8 1
+18 13 13 13 13 13 0
+0 0 0 0 44
+3 0 0 0 131072 131073 0
+0 0 3 0 1048576 0 0 0
+> all_greet_prog 100~
+smile $n
+say Welcome to my store!
+~
+> death_prog 100~
+mpgoto 10399
+drop all
+mpmload 10343
+mpforce 2.sage get torch
+mpforce 2.sage get meat
+mpforce 2.sage get dragonskin
+mpforce 2.sage mpgoto 10357
+mpat 10357 mpecho The corpse of the sage disappears in a flash!
+~
+|
+#10344
+dragonsnake dragon snake cage~
+the dragonsnake~
+A dragonsnake is here, venomous saliva dripping from its jaws.
+~
+This is a small, but vicious dragon. His body is long and serpentine.
+This will be quite a battle, but the prize is well worth the effort.
+~
+3 0 0 C
+4 0 35 50d1+0 0d0+0
+1000 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 44
+3 0 0 0 131072 131073 0
+0 0 3 0 2048 0 0 0
+> death_prog 100~
+mpoload 10307 2
+mpoload 10309 2
+~
+|
+#10345
+chadoyn cage~
+the chadoyn~
+The chadoyn is straining its leash, attempting to attack you.
+~
+He looks back at you with his beady little eyes and a snarl on his face.
+You are pretty sure you can best him in regards to combat.
+~
+1073741827 0 0 C
+4 0 25 44d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 44
+85 0 0 0 131072 131073 0
+0 0 3 0 2048 0 0 0
+> death_prog 85~
+if level($n) >= 6
+if rand(50)
+mpechoat $n You feel an overwhelming desire for greater challenge.
+else
+mpechoat $n The chadoyn is far too easy for you to kill.
+endif
+endif
+~
+|
+#10346
+Silvina receptionist woman~
+Silvina~
+An aged woman sits here, assisting Adventurers into the proper portals.
+~
+This is a woman of average beauty, her face is wrinkled from both time
+and laughter.  She enjoys her duties in the Academy, aiding the new
+adventurers to the training area of their chosen class.
+~
+3 680 1000 C
+50 0 94 15000d1+0 5d5+5
+100 0
+8 8 2
+13 13 13 13 13 13 0
+0 0 0 0 44
+0 0 0 0 131072 131073 0
+0 0 3 0 0 0 0 0
+> all_greet_prog 100~
+mpechoat $n Silvina looks up from her filing and appraises your needs.
+say Hello there, $n.
+if class ($n) == Mage
+mpechoat $n I will direct you to the mage portal momentarily.
+endif
+if class ($n) == Cleric
+mpechoat $n I will direct you to the cleric portal momentarily.
+endif
+if class ($n) == Warrior
+mpechoat $n I will direct you to the warrior portal momentarily.
+endif
+if class ($n) == Vampire
+mpechoat $n I will direct you to the vampire portal momentarily.
+endif
+if class ($n) == Druid
+mpechoat $n I will direct you to the druid portal momentarily.
+endif
+if class ($n) == Ranger
+mpechoat $n I will direct you to the ranger portal momentarily.
+endif
+if class ($n) == Thief
+mpechoat $n I will direct you to the thief portal momentarily.
+endif
+if class ($n) == Augurer
+mpechoat $n I will direct you to the augurer portal momentarily.
+endif
+mpechoat $n Please, read the certificate on the wall as you wait.
+~
+> rand_prog 33~
+if class ($r) == Mage
+mpechoat $r The ground opens beneath you!  You drop into the Mages portal.
+mpechoat $r You land in the Mages Hall with a bounce.
+mpechoaround $r $r disappears down a portal marked:  Mages Only!
+mptransfer $r 10323
+mpat $r mpforce $r bounce
+endif
+if class ($r) == Cleric
+mpechoat $r The ground opens beneath you!  You drop into the Clerics portal.
+mpechoat $r You land in the Clerics Hall with a bounce.
+mpechoaround $r $r disappears down a portal marked:  Clerics Only!
+mptransfer $r 10324
+mpat $r mpforce $r bounce
+endif
+if class ($r) == Warrior
+mpechoat $r The ground opens beneath you!  You drop into the Warriors portal.
+mpechoat $r You land in the Warriors Hall with a bounce.
+mpechoaround $r $r disappears down a portal marked:  Warriors Only!
+mptransfer $r 10318
+mpat $r mpforce $r bounce
+endif
+if class ($r) == Vampire
+mpechoat $r The ground opens beneath you!  You drop into the Vampires portal.
+mpechoat $r You land in the Vampires Hall with a bounce.
+mpechoaround $r $r disappears down a portal marked:  Vampires Only!
+mptransfer $r 10321
+mpat $r mpforce $r bounce
+endif
+~
+> rand_prog 32~
+if class ($r) == Ranger
+mpechoat $r The ground opens beneath you!  You drop into the Rangers portal.
+mpechoat $r You land in the Rangers Hall with a bounce.
+mpechoaround $r $r disappears down a portal marked:  Rangers Only!
+mptransfer $r 10391
+mpat $r mpforce $r bounce
+endif
+if class ($r) == Druid
+mpechoat $r The ground opens beneath you!  You drop into the Druids portal.
+mpechoat $r You land in the Druids Hall with a bounce.
+mpechoaround $r $r disappears down a portal marked:  Druids Only!
+mptransfer $r 10320
+mpat $r mpforce $r bounce
+endif
+if class ($r) == Thief
+mpechoat $r The ground opens beneath you!  You drop into the Thieves portal.
+mpechoat $r You land in the Thieves Hall with a bounce.
+mpechoaround $r $r disappears down a portal marked:  Thieves Only!
+mptransfer $r 10322
+mpat $r mpforce $r bounce
+endif
+if class ($r) == Augurer
+mpechoat $r The ground opens beneath you!  You drop into the Augurers portal.
+mpechoat $r You land in the Augurers Hall with a bounce.
+mpechoaround $r $r disappears down a portal marked:  Augurers Only!
+mptransfer $r 10400
+mpat $r mpforce $r bounce
+endif
+~
+|
+#10347
+None~
+this is a none~
+This is a nones long
+~
+He looks back at you with his beady little eyes and a snarl on his face.
+You are pretty sure you can best him in regards to combat
+~
+1073741859 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 44
+3 0 0 0 131073 131072 0
+0 0 3 0 0 0 0 0
+#10348
+None~
+this is a none~
+This is a nones long
+~
+He looks back at you with his beady little eyes and a snarl on his face.
+You are pretty sure you can best him in regards to combat
+~
+1073741859 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 44
+3 0 0 0 131073 131072 0
+0 0 3 0 0 0 0 0
+#10349
+statue mage cage~
+the statue~
+A marble statue of an ancient mage
+~
+This is a statue of an wizened old mage. Made of fine marble that is magical
+and contains the spirit of the subject after which it was fashioned.
+~
+3 680 1000 C
+50 0 35 40d1+0 5d5+5
+100 0
+8 8 1
+13 13 13 13 13 13 0
+0 0 0 0 0
+0 0 0 0 1 1 0
+0 0 3 0 3072 0 0 0
+> act_prog p bounces around.~
+mpforce $n look
+mpecho The statue begins to move, marble transforming to flesh.
+emote looks at you.
+smile $n
+mpecho The statue once again returns to its solid marble form.
+~
+> act_prog p looks at you.~
+if class($n) == Mage
+mpechoat $n Hello $n, I am a fellow mage who is here to tell you a little
+mpechoat $n about the mage class. For instance, our prime stat is intelligence.
+cast 'dragon wit' $n
+mpechoat $n That spell will raise your int by 3 for a while, the spell is
+mpechoat $n called dragon wit. To find out all the spells, skills, weapon
+mpechoat $n types and languages available to you, type SLIST. To find out
+mpechoat $n information on the mage class, type HELP MAGE.
+mpechoat $n Good luck $n!
+if level($n) == 1
+or level($n) == 2
+or level($n) == 3
+mpechoat $n I have a gift for you, type SAY BESTOW to receive it.
+endif
+endif
+~
+> speech_prog bestow~
+if class($n) == Mage
+if level($n) == 1
+or level($n) == 2
+or level($n) == 3
+mpoload 10320 1
+mpoload 10330 1
+mpoload 10330 1
+mpoload 10331 1
+put potion bag
+put potion bag
+put scroll bag
+give bag $n
+mpechoat $n To use the potions, type QUAFF POTION or QUAFF ELIXIR.
+mpechoat $n To use the scroll, type RECITE SCROLL.
+mpechoat $n Type exam bag to see what is inside, and get <item> bag or
+mpechoat $n put <item> bag to get and remove items.
+mpechoat $n Use these items wisely, as they may save your life.
+mpforce $n config +brief
+mpforce $n wake
+mpforce $n down
+mpat $n mpforce $n config -brief
+else
+smile $n
+mpechoat $n You are too high a level to need my assistance now.
+endif
+endif
+~
+|
+#10350
+statue cleric cage~
+the statue~
+A marble statue of an ancient cleric
+~
+This is a statue made of fine marble, depicting a cleric. She is done
+in a lifelike manner, like she was a real person dipped in the marble.
+~
+3 680 1000 C
+50 0 35 40d1+0 5d5+5
+100 0
+8 8 2
+13 13 13 13 13 13 0
+0 0 0 0 0
+0 1 0 0 1 1 0
+0 0 3 0 3072 0 0 0
+> act_prog p bounces around.~
+mpforce $n look
+mpecho The statue begins to move, marble transforming to flesh.
+emote looks at you.
+smile $n
+mpecho The statue once again returns to its solid marble form.
+~
+> speech_prog bestow~
+if class($n) == Cleric
+if level($n) == 1
+or level($n) == 2
+or level($n) == 3
+mpoload 10321 1
+mpoload 10330 1
+mpoload 10330 1
+mpoload 10331 1
+put potion bag
+put potion bag
+put scroll bag
+give bag $n
+mpechoat $n To use the potions, type QUAFF POTION or QUAFF ELIXIR.
+mpechoat $n To use the scroll, type RECITE SCROLL.
+mpechoat $n Type exam bag to see what is inside, and get <item> bag or
+mpechoat $n put <item> bag to get and remove items.
+mpechoat $n Use these items wisely, as they may save your life.
+mpforce $n config +brief
+mpforce $n wake
+mpforce $n down
+mpat $n mpforce $n config -brief
+else
+smile $n
+mpechoat $n You are too high a level to need my assistance now.
+endif
+endif
+~
+> act_prog p looks at you.~
+if class($n) == Cleric
+mpechoat $n Hello $n, I am a fellow cleric who is here to tell you a little
+mpechoat $n about the cleric class. For instance, our prime stat is wisdom.
+cast sagacity $n
+mpechoat $n That spell will raise your wis by 3 for a while, the spell is
+mpechoat $n called sagacity. To find out all the spells, skills, weapon
+mpechoat $n types and languages available to you, type SLIST. To find out
+mpechoat $n information on the cleric class, type HELP CLERIC.
+mpechoat $n Good luck $n!
+if level($n) == 1
+or level($n) == 2
+or level($n) == 3
+mpechoat $n I have a gift for you, type SAY BESTOW to receive it.
+endif
+endif
+~
+|
+#10351
+statue thief cage~
+the statue~
+A marble statue of an ancient thief.
+~
+This statue is made from the darkest black marble you have ever seen.
+It depicts a shadowy cloaked thief. You feel his eyes on you, like it is
+a living person and not a statue at all.
+~
+3 680 1000 C
+50 0 35 40d1+0 5d5+5
+100 0
+8 8 1
+13 13 13 13 13 13 0
+0 0 0 0 0
+0 2 0 0 1 1 0
+0 0 3 0 3072 0 0 0
+> act_prog p looks at you.~
+if class($n) == Thief
+mpechoat $n Hello $n, I am a fellow thief who is here to tell you a little
+mpechoat $n about the thief class. For instance, our prime stat is dexterity.
+cast slink $n
+mpechoat $n That spell will raise your dex by 3 for a while, the spell is
+mpechoat $n called slink. To find out all the spells, skills, weapon
+mpechoat $n types and languages available to you, type SLIST. To find out
+mpechoat $n information on the thief class, type HELP THIEF.
+mpechoat $n Good luck $n!
+if level($n) == 1
+or level($n) == 2
+or level($n) == 3
+mpechoat $n I have a gift for you, type SAY BESTOW to receive it.
+endif
+endif
+~
+> act_prog p bounces around.~
+mpforce $n look
+mpecho The statue begins to move, marble transforming to flesh.
+emote looks at you.
+smile $n
+mpecho The statue once again returns to its solid marble form.
+~
+> speech_prog bestow~
+if class($n) == Thief
+if level($n) == 1
+or level($n) == 2
+or level($n) == 3
+mpoload 10322 1
+mpoload 10330 1
+mpoload 10330 1
+mpoload 10331 1
+put potion bag
+put potion bag
+put scroll bag
+give bag $n
+mpechoat $n To use the potions, type QUAFF POTION or QUAFF ELIXIR.
+mpechoat $n To use the scroll, type RECITE SCROLL.
+mpechoat $n Type exam bag to see what is inside, and get <item> bag or
+mpechoat $n put <item> bag to get and remove items.
+mpechoat $n Use these items wisely, as they may save your life.
+mpforce $n config +brief
+mpforce $n wake
+mpforce $n down
+mpat $n mpforce $n config -brief
+else
+smile $n
+mpechoat $n You are too high a level to need my assistance now.
+endif
+endif
+~
+|
+#10352
+statue warrior cage~
+the statue~
+A marble statue of an ancient warrior
+~
+This warrior is carved from the finest of marbles. The artist seems to
+have caught the vitality of his subject, so much so that the statue seems
+alive.
+~
+3 680 1000 C
+50 0 35 40d1+0 5d5+5
+100 0
+8 8 1
+13 13 13 13 13 13 0
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 3 0 3072 0 0 0
+> act_prog p looks at you.~
+if class($n) == Warrior
+mpechoat $n Hello $n, I am a fellow warrior who is here to tell you a little
+mpechoat $n about the warrior class. For instance, our prime stat is strength.
+cast 'kindred strength' $n
+mpechoat $n That spell will raise your str by 3 for a while, the spell is
+mpechoat $n called kindred strength. To find out all the skills, weapon
+mpechoat $n types and languages available to you, type SLIST. To find out
+mpechoat $n information on the warrior class, type HELP WARRIOR.
+mpechoat $n Good luck $n!
+if level($n) == 1
+or level($n) == 2
+or level($n) == 3
+mpechoat $n I have a gift for you, type SAY BESTOW to receive it.
+endif
+endif
+~
+> act_prog p bounces around.~
+mpforce $n look
+mpecho The statue begins to move, marble transforming to flesh.
+emote looks at you.
+smile $n
+mpecho The statue once again returns to its solid marble form.
+~
+> speech_prog bestow~
+if class($n) == Warrior
+if level($n) == 1
+or level($n) == 2
+or level($n) == 3
+mpoload 10323 1
+mpoload 10330 1
+mpoload 10330 1
+mpoload 10331 1
+put potion bag
+put potion bag
+put scroll bag
+give bag $n
+mpechoat $n To use the potions, type QUAFF POTION or QUAFF ELIXIR.
+mpechoat $n To use the scroll, type RECITE SCROLL.
+mpechoat $n Type exam bag to see what is inside, and get <item> bag or
+mpechoat $n put <item> bag to get and remove items.
+mpechoat $n Use these items wisely, as they may save your life.
+mpforce $n config +brief
+mpforce $n wake
+mpforce $n down
+mpat $n mpforce $n config -brief
+else
+smile $n
+mpechoat $n You are too high a level to need my assistance now.
+endif
+endif
+~
+|
+#10353
+statue vampire cage~
+the statue~
+A marble statue of an ancient vampire
+~
+This is a marble carving of a seductress, only the fangs give away her
+vampiric nature. Her eyes are hypnotic, making you feel like she is 
+looking deep into your soul.
+~
+3 680 1000 C
+50 0 35 40d1+0 5d5+5
+100 0
+8 8 2
+13 13 13 13 13 13 0
+0 0 0 0 0
+0 4 0 0 1 1 0
+0 0 3 0 3072 0 0 0
+> act_prog p looks at you.~
+if class($n) == Vampire
+mpechoat $n Hello $n, I am a fellow vampire who is here to tell you a little
+mpechoat $n about the vampire class. For instance, our prime stat is dexterity.
+cast slink $n
+mpechoat $n That spell will raise your dex by 3 for a while, the spell is
+mpechoat $n called slink. To find out all the spells, skills, weapon
+mpechoat $n types and languages available to you, type SLIST. To find out
+mpechoat $n information on the vampire class, type HELP VAMPIRE.
+mpechoat $n Good luck $n!
+if level($n) == 1
+or level($n) == 2
+or level($n) == 3
+mpechoat $n I have a gift for you, type SAY BESTOW to receive it.
+endif
+endif
+~
+> act_prog p bounces around.~
+mpforce $n look
+mpecho The statue begins to move, marble transforming to flesh.
+emote looks at you.
+smile $n
+mpecho The statue once again returns to its solid marble form.
+~
+> speech_prog bestow~
+if class($n) == Vampire
+if level($n) == 1
+or level($n) == 2
+or level($n) == 3
+mpoload 10324 1
+mpoload 10330 1
+mpoload 10330 1
+mpoload 10331 1
+put potion bag
+put potion bag
+put scroll bag
+give bag $n
+mpechoat $n To use the potions, type QUAFF POTION or QUAFF ELIXIR.
+mpechoat $n To use the scroll, type RECITE SCROLL.
+mpechoat $n Type exam bag to see what is inside, and get <item> bag or
+mpechoat $n put <item> bag to get and remove items.
+mpechoat $n Use these items wisely, as they may save your life.
+mpforce $n config +brief
+mpforce $n wake
+mpforce $n down
+mpat $n mpforce $n config -brief
+else
+mpechoat $n You are too high a level to need my assistance now.
+smile $n
+endif
+endif
+~
+|
+#10354
+statue druid cage~
+the statue~
+A marble statue of an ancient druid.
+~
+This is a finely carved statue of an old druidess in ceremonial white
+robes. She is made to look so natural, you are sure she is alive.
+~
+3 680 1000 C
+50 0 35 40d1+0 5d5+5
+100 0
+8 8 2
+13 13 13 13 13 13 0
+0 0 0 0 0
+0 5 0 0 1 1 0
+0 0 3 0 3072 0 0 0
+> act_prog p looks at you.~
+if class($n) == Druid
+mpechoat $n Hello $n, I am a fellow druid who is here to tell you a little
+mpechoat $n about the druid class. For instance, our prime stat is wisdom.
+cast 'sagacity' $n
+mpechoat $n That spell will raise your wis by 3 for a while, the spell is
+mpechoat $n called sagacity. To find out all the spells, skills, weapon
+mpechoat $n types and languages available to you, type SLIST. To find out
+mpechoat $n information on the druid class, type HELP DRUID.
+mpechoat $n Good luck $n!
+if level($n) == 1
+or level($n) == 2
+or level($n) == 3
+mpechoat $n I have a gift for you, type SAY BESTOW to receive it.
+endif
+endif
+~
+> act_prog p bounces around.~
+mpforce $n look
+mpecho The statue begins to move, marble transforming to flesh.
+emote looks at you.
+smile $n
+mpecho The statue once again returns to its solid marble form.
+~
+> speech_prog bestow~
+if class($n) == druid
+if level($n) == 1
+or level($n) == 2
+or level($n) == 3
+mpoload 10325 1
+mpoload 10330 1
+mpoload 10330 1
+mpoload 10331 1
+put potion bag
+put potion bag
+put scroll bag
+give bag $n
+mpechoat $n To use the potions, type QUAFF POTION or QUAFF ELIXIR.
+mpechoat $n To use the scroll, type RECITE SCROLL.
+mpechoat $n Type exam bag to see what is inside, and get <item> bag or
+mpechoat $n put <item> bag to get and remove items.
+mpechoat $n Use these items wisely, as they may save your life.
+mpforce $n config +brief
+mpforce $n wake
+mpforce $n down
+mpat $n mpforce $n config -brief
+else
+smile $n
+mpechoat $n You are too high a level to need my assistance now.
+endif
+endif
+~
+|
+#10355
+statue ranger cage~
+the statue~
+A marble statue of an ancient ranger.
+~
+This statue was made with excellent details. This ranger stands proud.
+Then you notice a movement, you are sure it is alive.
+~
+3 680 1000 C
+50 0 35 40d1+0 5d5+5
+100 0
+8 8 1
+13 13 13 13 13 13 0
+0 0 0 0 0
+0 6 0 0 1 1 0
+0 0 3 0 3072 0 0 0
+> act_prog p bounces around.~
+mpforce $n look
+mpecho The statue begins to move, marble transforming to flesh.
+emote looks at you.
+smile $n
+mpecho The statue once again returns to its solid marble form.
+~
+> act_prog p looks at you.~
+if class($n) == Ranger
+mpechoat $n Hello $n, I am a fellow ranger who is here to tell you a little
+mpechoat $n about the ranger class. For instance, our prime stat is strength.
+cast 'kindred strength' $n
+mpechoat $n That spell will raise your str by 3 for a while, the spell is
+mpechoat $n called kindred strength. To find out all the spells, skills, weapon
+mpechoat $n types and languages available to you, type SLIST. To find out
+mpechoat $n information on the ranger class, type HELP RANGER.
+mpechoat $n Good luck $n!
+if level($n) == 1
+or level($n) == 2
+or level($n) == 3
+mpechoat $n I have a gift for you, type SAY BESTOW to receive it.
+endif
+endif
+~
+> speech_prog bestow~
+if class($n) == Ranger
+if level($n) == 1
+or level($n) == 2
+or level($n) == 3
+mpoload 10326 1
+mpoload 10330 1
+mpoload 10330 1
+mpoload 10331 1
+put potion bag
+put potion bag
+put scroll bag
+give bag $n
+mpechoat $n To use the potions, type QUAFF POTION or QUAFF ELIXIR.
+mpechoat $n To use the scroll, type RECITE SCROLL.
+mpechoat $n Type exam bag to see what is inside, and get <item> bag or
+mpechoat $n put <item> bag to get and remove items.
+mpechoat $n Use these items wisely, as they may save your life.
+mpforce $n config +brief
+mpforce $n wake
+mpforce $n down
+mpat $n mpforce $n config -brief
+else
+smile $n
+mpechoat $n You are too high a level to need my assistance now.
+endif
+endif
+~
+|
+#10357
+pixie tiny~
+a tiny pixie~
+A tiny pixie floats about you.
+~
+~
+3 4718632 0 C
+4 0 -100 1d1+300 0d0+0
+0 0
+8 8 1
+13 13 13 25 13 13 25
+0 0 0 0 0
+85 0 0 0 135619917 135619917 0
+0 0 0 0 0 0 0 0
+> act_prog p glances at you.~
+nudge $n
+if class ($n) == Cleric
+  say This place is far too easy for a cleric of your power!
+endif
+if class($n) == Mage
+  say Look at you!  Such a strong mage, and you're massacring gnolls?
+endif
+if class($n) == Thief
+  say Look at you!  A stealthy thief, murdering gnolls?
+endif
+if class($n) == Warrior
+  say Such a strong warrior, and you're killing gnolls?
+endif
+if class($n) == Vampire
+  say Do you not thirst for more blood?  A greater challenge?
+endif
+if class($n) == Druid
+  say Do you not feel nature calling you to a greater challenge?
+endif
+if class($n) == Ranger
+  say Such a strong ranger!  These gnolls are far too simple for you!
+endif
+if class($n) == Augurer
+  say Do you not crave a greater challenge?
+endif
+shake
+mea $n The small pixie pulls you close to her and whispers into your ear...
+mer $n $I pulls $n close and whispers into $s ear...
+mea $n $I says, "Why don't you go visit my friend Deren?"
+mea $n $I says, "He runs a supply store at the entrance to the Academy."
+mea $n $I says, "Give him this, and he will be happy to help you..."
+if rand(50)
+  mpoload 10370 1 10
+  mpecho _blu $I utters the words 'eacret fafst'.
+  mpoload 10370 1 10
+  give staff $n
+else
+  mpoload 10371 1 10
+  mpecho _blu $I utters the words 'eacret ildhse'.
+  give shield $n
+endif
+tell $n You must hurry!  What I gave you is magical, and will disappear soon!
+mpecho _yel The pixie vanishes in a flash of light!
+mpgoto 10399
+mpat 10399 mpecho purge
+~
+|
+#10358
+mob~
+a test mob~
+This is a test mob.
+~
+~
+1073741825 0 0 S
+1 0 0 11d1+0 0d0+0
+0 0
+8 8 0
+#10359
+None~
+this is a none~
+This is a nones long
+~
+Eager to test hit prowess in battle this young gnoll bares his fangs at you
+in an attempt to strike fear into your heart.
+~
+1073741859 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 37
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#10360
+None~
+this is a none~
+This is a nones long
+~
+Eager to test hit prowess in battle this young gnoll bares his fangs at you
+in an attempt to strike fear into your heart.
+~
+1073741859 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 37
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#10361
+None~
+this is a none~
+This is a nones long
+~
+~
+1073741827 0 -400 S
+1 0 0 11d1+0 0d0+0
+300 0
+8 8 0
+#10362
+None~
+this is a none~
+This is a nones long
+~
+Eager to test hit prowess in battle this young gnoll bares his fangs at you
+in an attempt to strike fear into your heart.
+~
+1073741859 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 37
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#10363
+None~
+this is a none~
+This is a nones long
+~
+Eager to test hit prowess in battle this young gnoll bares his fangs at you
+in an attempt to strike fear into your heart.
+~
+1073741859 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 37
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#10364
+None~
+this is a none~
+This is a nones long
+~
+No fur covers the body of this beast, only a pastey white skin. So thin
+is the skin on this beast that you can see the organs working to keep
+this thing alive. Even from a distance you can smell it's fetid breath.
+~
+1073741889 0 -1000 S
+1 0 90 11d1+0 0d0+0
+0 0
+8 8 0
+#10365
+None~
+this is a none~
+This is a nones long
+~
+Eager to test hit prowess in battle, this young gnoll bares his fangs at you.
+He is trying to strike fear in your heart.
+~
+1073741859 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 37
+0 0 0 0 131073 131072 0
+0 0 1031 0 0 0 0 0
+#10366
+None~
+this is a none~
+This is a nones long
+~
+Eager to test hit prowess in battle this young gnoll bares his fangs at you
+in an attempt to strike fear into your heart.
+~
+1073741859 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 37
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#10367
+None~
+this is a none~
+This is a nones long
+~
+Not the largest of the species you have ever seen. Actually this minotaur
+looks pretty small compared to the other's of it's kind that you have
+heard about.
+~
+1073741827 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 48
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#10368
+None~
+this is a none~
+This is a nones long
+~
+Not the largest of the species you have ever seen. Actually this minotaur
+looks pretty small compared to the other's of it's kind that you have
+heard about.
+~
+1073741827 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 48
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#10369
+None~
+this is a none~
+This is a nones long
+~
+Not the largest of the species you have ever seen. Actually this minotaur
+looks pretty small compared to the other's of it's kind that you have
+heard about.
+~
+1073741827 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 48
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#10370
+None~
+this is a none~
+This is a nones long
+~
+Not the largest of the species you have ever seen. Actually this minotaur
+looks pretty small compared to the other's of it's kind that you have
+heard about.
+~
+1073741827 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 48
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#10371
+None~
+this is a none~
+This is a nones long
+~
+Not the largest of the species you have ever seen. Actually this minotaur
+looks pretty small compared to the other's of it's kind that you have
+heard about.
+~
+1073741827 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 48
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#10372
+None~
+this is a none~
+This is a nones long
+~
+Not the largest of the species you have ever seen. Actually this minotaur
+looks pretty small compared to the other's of it's kind that you have
+heard about.
+~
+1073741827 0 0 C
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 48
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#10382
+None~
+this is a none~
+This is a nones long
+~
+~
+1073742017 0 0 S
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+#10386
+None~
+this is a none~
+This is a nones long
+~
+Wallowing in a pool of it's own slime, this slug turns sightless eyes
+towards you thinking you may make a good meal.
+~
+1073742017 0 0 S
+1 0 94 11d1+0 0d0+0
+100 0
+8 8 0
+#10393
+None~
+this is a none~
+This is a nones long
+~
+Dragged back from thier eternal rest these nagas were Queen Asp's personal
+bodyguards. Known to be fierce fighters in thier past lifetime they now
+possess an "undying" loyalty to thier Queen.
+~
+1073741857 0 0 C
+1 0 60 11d1+0 0d0+0
+300 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 67
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#10394
+Abbigayle language teacher~
+abbigayle~
+A beautiful lady stands here, waiting for her students.
+~
+This has to be one of the most beautiful women in these Realms, both inside
+and out. Her eyes have a sparkle of amusement and her face an easy smile.
+She knows you are admiring her, and she does not seem to mind. She is
+comfortable and confident that the picture she makes is breath taking. Her
+voice at last breaks the spell. Her voice is like satin, you can hardly
+wait for your lessons to begin. Any reason to hear her speak the tongues
+foreign to your ears.
+~
+1048579 4194472 0 C
+5 16 5 1000d1+0 1d6+3
+50 450
+8 8 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 671871 671871 0
+0 0 3 0 1059840 0 0 0
+> all_greet_prog 100~
+if ispc($n)
+wink $n
+if level($n) < 20
+tell $n My lessons start when you reach level 20. Have fun until then.
+else
+tell $n I am ready to teach you, are you prepared for the lessons?
+endif
+grin $n
+endif
+~
+> death_prog 100~
+say You know, I am really a lover, not a fighter ...
+mpslay $n
+mpat $n mpechoat $n But alas, killing me was a slaying offense.
+mpgoto 10399
+mpat 10306 mpmload 10394
+~
+> act_prog p flees head over heels!~
+mptrans 0.$n
+mpechoat $n Abbigayle says, 'You fled, so I shall spare your life!'
+mpgoto 10399
+mpat 10306 mpmload 10394
+~
+|
+#10396
+naga spirit arena~
+the spirit naga~
+A spirit naga glides towards you and attacks!
+~
+Dragged back from their eternal rest, these nagas were Queen Asp's personal
+bodyguards.  Known to be fierce fighters in their past lifetime, they now
+possess an "undying" loyalty to their Queen.
+~
+33 0 0 C
+7 0 60 1d1+50 0d0+0
+300 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 0
+84 0 0 0 4097 135169 0
+0 0 0 0 0 0 0 0
+> death_prog 78~
+if level($n) >= 9
+if rand(50)
+mpechoat $n The ease of this kill seems humorous.  Greater adventure awaits.
+mpforce $n laugh
+else
+mpechoat $n You feel infinite boredom as you easily slay another naga.
+mpforce $n sigh
+mpechoat $n You know somewhere, greater adventure awaits you.
+endif
+endif
+~
+|
+#10397
+queen naga asp~
+Asp~
+Asp, Queen of the Nagas, bares her fangs at your intrusion.
+~
+Standing before you is a woman of flawless beauty, looking down you gasp in
+shock horror. From the waist down Asp has the form of a snake! Skilled with
+a sword and possession of a keen intellect are but a few of the traits that
+have allowed her to rise in power among her people.
+~
+35 0 0 C
+7 0 80 60d1+0 0d0+0
+500 0
+8 8 2
+13 13 13 13 13 13 0
+0 0 0 0 62
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#10398
+apprentice scvital~
+an apprentice of Scarab~
+An apprentice of Scarab is here studying his spellbook.
+~
+Don't let appearances fool you, this young one possesses great magical
+skill beyond his years. He one days hopes to fill the position of his
+master Scarab in his role as Archmage of the Realm's.
+~
+1 67108872 0 C
+50 0 -200 9000d1+0 0d0+0
+0 0
+8 8 1
+13 13 13 13 13 13 0
+0 0 0 0 0
+0 0 0 0 1 4 0
+0 0 0 0 0 0 2097152 512
+#10399
+Tsythia Mistress Headmistress~
+Mistress Tsythia~
+The illustrious Darkhaven Academy Headmistress stands here to greet you.
+~
+This is a woman of great beauty.  Because of her health, she almost glows.
+You can barely take your eyes from her, she is hypnotizing.  She smiles at
+you, knowing you are appreciating her beauty.  You bet she is as deadly as
+she is beautiful to gain the position of headmistress of this Academy.
+~
+3 4194472 0 S
+1 0 0 1000d1+0 0d0+0
+0 0
+8 8 0
+> death_prog 100~
+mpmload 10399
+say You may kill this body, but my spirit will not die!
+smile 2.tsythia
+~
+> act_prog p from the south.~
+mpechoat $n Mistress Tsythia says 'Hello, $n.  How was the battlegrounds?'
+mpechoat $n Please take the time to visit the note room to the east.
+mpechoat $n When done here, leave up to explore Darkhaven.
+~
+> act_prog p from the north.~
+mpechoat $n Mistress Tsythia says 'Hello, $n.  How was the Academy?'
+mpechoat $n Please take the time to visit the note room to the east.
+mpechoat $n When done here, leave up to explore Darkhaven.
+~
+> act_prog p from the east.~
+mpechoat $n Mistress Tsythia says 'Hello, $n.  Did you enjoy the reading?'
+mpechoat $n To the north is the Academy, and south is the Battlegrounds.
+mpechoat $n When done here, leave up to explore Darkhaven.
+~
+> act_prog p from above.~
+mpechoat $n Mistress Tsythia says 'Hello, $n. How was your trip to Darkhaven?'
+mpechoat $n To the north is the Academy, and south is the Battlegrounds.
+mpechoat $n Please take the time to visit the note room to the east.
+~
+> act_prog p from somewhere.~
+mpechoat $n Mistress Tsythia says 'Hello, $n. I see you have met Tagetarle.'
+mpechoat $n Please take the time to visit the note room to the east.
+mpechoat $n To the north is the Academy, and south is the Battlegrounds.
+mpechoat $n When done here, leave up to explore Darkhaven.
+~
+> rand_prog 100~
+if level($r) == 1
+ mpechoat 0.$r Well done, $r!
+mpechoat 0.$r You have passed the Spectral Gates, and have entered the game.
+ mpechoat 0.$r Your accomplishment has earned you level two...
+ mpat 'hvak1 advancer' mpforce 'hvak1 advancer' mpat 0.$r mpadvance 0.$r 2
+mpat hvak1 mpfor hvak1 ask What soul passes the gateway into this dominion?
+ if class($r) == mage
+   mpat hvak2 mpfor hvak2 answer The acolyte Mage, $r ...
+  endif
+  if class($r) == cleric
+    mpat hvak2 mpfor hvak2 answer $r, a Cleric prentice ...
+  endif
+  if class($r) == thief
+    mpat hvak2 mpfor hvak2 answer The fledgling thief, $r ...
+  endif
+  if class($r) == warrior
+    mpat hvak2 mpfor hvak2 answer A Warrior initiate called $r ...
+  endif
+  if class($r) == vampire
+    mpat hvak2 mpfor hvak2 answer A neophyte Vampire known as $r ...
+  endif
+  if class($r) == druid
+    mpat hvak2 mpfor hvak2 answer A postulant Druid named $r ...
+  endif
+  if class($r) == ranger
+    mpat hvak2 mpfor hvak2 answer $r, an intrepid Ranger ...
+  endif
+  if class($r) == augurer
+    mpat hvak2 mpfor hvak2 answer $r, a novitiate Augurer ...
+  endif
+  mpechoat $r ... Please leave north to experience the Darkhaven Academy.
+  mpechoat $r ... You may now "save" to make your character permanent.
+endif
+~
+> act_prog p is starved~
+mpoload 20
+give mushroom $n
+mpforce 0.$n eat mushroom
+mpechoat $n This will help your hunger, and your mental state.  Enjoy $n.
+~
+> act_prog p is dying~
+mpforce $n drink
+mpechoat $n A drink from this fountain will quench your thirst and improve your
+mpechoat $n mental state.
+~
+|
+#10400
+statue Augurer cage~
+The statue~
+A marble statue of an ancient Augurer stands here.
+~
+This Augurer is carved from the finest of marbles.  The artist seems to have
+caught the vitality of his subject, so much so that the statue seems alive.
+~
+1073741827 680 1000 C
+50 0 35 40d1+0 5d5+5
+100 0
+8 8 1
+13 13 13 13 13 13 0
+0 0 0 0 0
+0 7 0 0 1 1 0
+0 0 3 0 3072 0 0 0
+> act_prog p looks at you.~
+if class($n) == Augurer
+mpechoat $n Hello $n, I am a fellow Augurer who is here to tell you a little
+mpechoat $n about the Augurer class.  For instance, our prime stat is wisdom.
+cast 'sagacity' $n
+mpechoat $n That spell will raise your wisdom by 3 for a while, the spell is
+mpechoat $n called Sagacity.  To find out all the spells, skills, weapon types
+mpechoat $n and languages available to you, type 'slist'.  To see additional
+mpechoat $n information on the Augurer class, type 'help augurer'.
+mpechoat $n Good luck $n!
+if level($n) == 1
+or level($n) == 2
+or level($n) == 3
+mpechoat $n I have a gift for you, say the word 'bestow' to receive it...
+endif
+endif
+~
+> act_prog p bounces around.~
+mpforce $n look
+mpecho The statue begins to move, marble transforming to flesh.
+emote looks at you.
+smile $n
+mpecho The statue once again returns to its solid marble form.
+~
+> speech_prog bestow~
+if class($n) == Augurer
+if level($n) == 1
+or level($n) == 2
+or level($n) == 3
+mpoload 10330 1
+mpoload 10330 1
+mpoload 10331 1
+mpoload 10400 1
+put potion bag
+put potion bag
+put escape bag
+give bag $n
+mpechoat $n To use the potions, type 'quaff potion' or 'quaff elixir'.
+mpechoat $n To use the scroll, type 'recite scroll'.
+mpechoat $n Type 'exam bag' to see what is inside, and 'get <item> bag' or
+mpechoat $n 'put <item> bag' to get and remove items.
+mpechoat $n Use these items wisely, as they may save your life...
+mpforce $n config +brief
+mpforce $n wake
+mpforce $n down
+mpat $n mpforce $n config -brief
+else
+smile $n
+mpechoat $n You are too high a level to need my assistance now.
+endif
+endif
+~
+|
+#10401
+healer spectre cage~
+The spectre~
+A spectral guardian watches the progress of young Augurers.
+~
+You can't really make out any physical details of the guardian. The form
+of the spectre is constantly shifting in and out of existence, what you
+can see of it is more like a transparent mist.
+~
+3 184 1000 C
+50 0 0 20000d1+0 0d0+0
+0 0
+8 8 0
+18 13 13 13 13 13 0
+0 0 0 0 0
+1 0 0 0 3 2 0
+0 0 0 0 2097152 0 0 0
+> act_prog p is dying~
+mpforce 0.$n drink
+mpechoat $n Drinking fluid will help your thirst and improve your mental state.
+~
+> act_prog p is starved~
+mpoload 20
+give mushroom $n
+mpforce $n eat mushroom
+mpechoat $n Eating food will help your hunger and improve your mental state.
+~
+|
+#10402
+naga cage~
+the naga~
+A naga is here, eyes narrowed in anger
+~
+Not the prettiest creature you have ever seen, this beast's entire
+lower half is that of a snake, while the upper part is that of a
+woman.  She does not look happy to see you.
+~
+67 0 0 C
+1 0 94 9d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 1159 0 0 0 0 0
+#10403
+minotaur cage~
+the minotaur~
+A minotaur is here snorting at your intrusion.
+~
+Not the largest of the species you have ever seen.  Actually, this minotaur
+looks rather small compared to others of its kind you have encountered.
+~
+67 0 0 S
+1 0 94 8d1+0 0d0+0
+100 0
+8 8 0
+#10404
+gnoll cage~
+the gnoll~
+A young gnoll is here ready to attack you.
+~
+Eager to test his prowess in battle, this young gnoll bares his fangs at you
+as he tries to strike fear in your heart.
+~
+35 0 0 C
+1 0 94 9d1+9 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 0
+0 0 0 0 1 1 0
+0 0 1031 0 0 0 0 0
+> death_prog 90~
+if level($n) >= 4
+if mobinroom(10404) <= 1
+mpmload 10357
+mpat 10404 mpecho _yel A small creature appears out of nowhere!
+mpforce $n glance pixie
+endif
+endif
+~
+|
+#10405
+kobold cage~
+the kobold~
+A kobold with a sickly grin on its face is here.
+~
+It looks back at you with beady little eyes.  With a snarl he attacks, but
+you are sure you can beat in combat.
+~
+35 0 0 C
+1 0 94 8d1+0 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 0
+3 0 0 0 131073 131072 0
+0 0 3 0 0 0 0 0
+#10406
+fire ant arena~
+a Fire Ant~
+A large fire ant wanders here, cautious of your intrusion.
+~
+This ant is almost as tall as you are!  You cannot believe you are looking
+at a insect of this size.  His body is tense with aggrevation as he
+ponders your intrusion.  You have interrupted his food collecting, perhaps
+you will now be his next meal.
+~
+101 33280 0 C
+7 11 25 1d10+120 1d4+6
+340 2000
+8 8 1
+15 13 13 13 13 13 13
+0 0 0 0 0
+83 3 0 0 1 1 0
+0 0 1775 0 2048 0 0 0
+#10407
+ant fire arena~
+a Fire Ant~
+A large fire ant wanders here, cautious of your intrusion.
+~
+This ant is almost as tall as you are!  You cannot believe you are looking
+at a insect of this size.  His body is tense with aggrevation as he
+ponders your intrusion.  You have interrupted his food collecting, perhaps
+you will now be his next meal.
+~
+101 33280 0 C
+7 11 25 1d10+120 1d4+6
+340 2000
+8 8 1
+15 13 13 13 13 13 13
+0 0 0 0 0
+83 3 0 0 135679493 135679493 0
+0 0 1775 0 2048 0 0 0
+#10408
+ant fire arena~
+a Fire Ant~
+A large fire ant wanders here, cautious of your intrusion.
+~
+This ant is almost as tall as you are!  You cannot believe you are looking
+at a insect of this size.  His body is tense with aggrevation as he
+ponders your intrusion.  You have interrupted his food collecting, perhaps
+you will now be his next meal.
+~
+101 33280 0 C
+7 11 25 1d10+120 1d4+6
+340 2000
+8 8 1
+15 13 13 13 13 13 13
+0 0 0 0 0
+83 3 0 0 135679493 135679493 0
+0 0 1775 0 2048 0 0 0
+#10409
+ant fire arena~
+a Fire Ant~
+A large fire ant wanders here, cautious of your intrusion.
+~
+This ant is almost as tall as you are!  You cannot believe you are looking
+at a insect of this size.  His body is tense with aggrevation as he
+ponders your intrusion.  You have interrupted his food collecting, perhaps
+you will now be his next meal.
+~
+101 33280 0 C
+7 11 25 1d10+120 1d4+6
+340 2000
+8 8 1
+15 13 13 13 13 13 13
+0 0 0 0 0
+83 3 0 0 135679493 135679493 0
+0 0 1775 0 2048 0 0 0
+#10410
+centipede arena~
+a centipede~
+A centipede parades across your feet, causing a chill to crawl up your spine.
+~
+This centipede is half the length of a grown human male is tall.  It has
+the nerve to walk across your feet as if you existance means nothing to
+it. You watch in awe as those one hundred legs move in rhythm.
+~
+65 4194816 0 C
+8 11 25 2d7+130 1d4+6
+1000 2000
+8 8 1
+15 13 13 17 13 13 13
+0 0 0 0 0
+83 3 0 0 135679493 135679493 0
+0 0 1775 0 2048 0 0 0
+#10411
+centipede arena~
+a centipede~
+A centipede parades across your feet, causing a chill to crawl up your spine.
+~
+This centipede is half the length of a grown human male is tall.  It has
+the nerve to walk across your feet as if you existance means nothing to
+it. You watch in awe as those one hundred legs move in rhythm.
+~
+65 4194816 0 C
+8 11 25 2d7+130 1d4+6
+1000 2000
+8 8 1
+15 13 13 17 13 13 13
+0 0 0 0 0
+83 3 0 0 135679493 135679493 0
+0 0 1775 0 2048 0 0 0
+#10412
+centipede arena~
+a centipede~
+A centipede parades across your feet, causing a chill to crawl up your spine.
+~
+This centipede is half the length of a grown human male is tall.  It has
+the nerve to walk across your feet as if you existance means nothing to
+it. You watch in awe as those one hundred legs move in rhythm.
+~
+65 4194816 0 C
+8 11 25 2d7+130 1d4+6
+1000 2000
+8 8 1
+15 13 13 17 13 13 13
+0 0 0 0 0
+83 3 0 0 135679493 135679493 0
+0 0 1775 0 2048 0 0 0
+#10413
+centipede arena~
+a centipede~
+A centipede parades across your feet, causing a chill to crawl up your spine.
+~
+This centipede is half the length of a grown human male is tall.  It has
+the nerve to walk across your feet as if you existance means nothing to
+it. You watch in awe as those one hundred legs move in rhythm.
+~
+65 4194816 0 C
+8 11 25 2d7+130 1d4+6
+1000 2000
+8 8 1
+15 13 13 17 13 13 13
+0 0 0 0 0
+83 3 0 0 135679493 135679493 0
+0 0 1775 0 2048 0 0 0
+#10414
+rat grey arena~
+a large grey rat~
+A large rat scuttles across your path, eyes glowing in the dark.
+~
+This is one large rat.  You would not want to allow him to bite you.
+His grey fur is matted from blood and dirt, and his eyes seem to
+watch your every movement.
+~
+65 4194816 0 C
+6 11 25 1d10+75 1d4+3
+500 2000
+8 8 1
+15 13 13 14 13 13 13
+0 0 0 0 0
+77 3 0 0 135680721 135680721 0
+0 0 1775 0 2048 0 1 0
+#10415
+rat grey arena~
+a large grey rat~
+A large rat scuttles across your path, eyes glowing in the dark.
+~
+This is one large rat.  You would not want to allow him to bite you.
+His grey fur is matted from blood and dirt, and his eyes seem to
+watch your every movement.
+~
+65 4194816 0 C
+6 11 25 1d10+75 1d4+3
+500 2000
+8 8 1
+15 13 13 14 13 13 13
+0 0 0 0 0
+77 3 0 0 135680721 135680721 0
+0 0 1775 0 2048 0 1 0
+#10416
+rat grey arena~
+a large grey rat~
+A large rat scuttles across your path, eyes glowing in the dark.
+~
+This is one large rat.  You would not want to allow him to bite you.
+His grey fur is matted from blood and dirt, and his eyes seem to
+watch your every movement.
+~
+65 4194816 0 C
+6 11 25 1d10+75 1d4+3
+500 2000
+8 8 1
+15 13 13 14 13 13 13
+0 0 0 0 0
+77 3 0 0 135680721 135680721 0
+0 0 1775 0 2048 0 1 0
+#10417
+rat grey arena~
+a large grey rat~
+A large rat scuttles across your path, eyes glowing in the dark.
+~
+This is one large rat.  You would not want to allow him to bite you.
+His grey fur is matted from blood and dirt, and his eyes seem to
+watch your every movement.
+~
+65 4194816 0 C
+6 11 25 1d10+75 1d4+3
+500 2000
+8 8 1
+15 13 13 14 13 13 13
+0 0 0 0 0
+77 3 0 0 135680721 135680721 0
+0 0 1775 0 2048 0 1 0
+#10418
+mole arena~
+a mole~
+A dirty mole appears from a hole in the ground.
+~
+This mole is covered in mud!  His body is plump and his movements
+are slow.  You can see his small, beady eyes, but doubt that he
+can really see you.
+~
+65 512 0 C
+6 11 25 1d10+99 1d4+3
+500 2000
+8 8 1
+15 13 13 14 13 13 13
+0 0 0 0 0
+76 3 0 0 135680815 135680815 0
+0 0 1775 0 2048 0 0 0
+#10419
+mole arena~
+a mole~
+A dirty mole appears from a hole in the ground.
+~
+This mole is covered in mud!  His body is plump and his movements
+are slow.  You can see his small, beady eyes, but doubt that he
+can really see you.
+~
+65 512 0 C
+6 11 25 1d10+99 1d4+3
+500 2000
+8 8 1
+15 13 13 14 13 13 13
+0 0 0 0 0
+76 3 0 0 135680815 135680815 0
+0 0 1775 0 2048 0 0 0
+#10420
+mole arena~
+a mole~
+A dirty mole appears from a hole in the ground.
+~
+This mole is covered in mud!  His body is plump and his movements
+are slow.  You can see his small, beady eyes, but doubt that he
+can really see you.
+~
+65 512 0 C
+6 11 25 1d10+99 1d4+3
+500 2000
+8 8 1
+15 13 13 14 13 13 13
+0 0 0 0 0
+76 3 0 0 135680815 135680815 0
+0 0 1775 0 2048 0 0 0
+#10421
+mole arena~
+a mole~
+A dirty mole appears from a hole in the ground.
+~
+This mole is covered in mud!  His body is plump and his movements
+are slow.  You can see his small, beady eyes, but doubt that he
+can really see you.
+~
+65 512 0 C
+6 11 25 1d10+99 1d4+3
+500 2000
+8 8 1
+15 13 13 14 13 13 13
+0 0 0 0 0
+76 3 0 0 135680815 135680815 0
+0 0 1775 0 2048 0 0 0
+#10497
+hvak1 advancer~
+Hungrily, a hollow voice~
+Hvak1 Advancer is here (should always be in 10499)
+~
+~
+1073741825 4194344 0 S
+50 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+#10498
+hvak2 advancer~
+A rasping voice~
+Hvak2 Advancer is here (should always be in 10499)
+~
+~
+1073741825 4194344 0 S
+50 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+#10499
+final mob~
+a newly created final mob~
+Some god abandoned a newly created final mob here.
+~
+~
+1073741825 0 0 S
+1 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+#0
+
+
+#OBJECTS
+#10300
+bracelet charm academy~
+a charm bracelet~
+A charm bracelet from the academy lies here~
+~
+9 0 4097
+2 2 0 0
+2 0 0
+E
+bracelet charm~
+This is a bracelet that will bring you luck in your travels. It can
+be found at the Darkhaven Acamdemy
+~
+A
+31 1
+> drop_prog 100~
+mpforce $n sac $o
+~
+|
+#10301
+combat boots academy~
+a pair of black combat boots~
+A pair of black combat boots from the Academy lies here~
+~
+9 0 65
+3 3 0 0
+3 0 0
+E
+combat boots~
+This boots are so comfortable and light, you feel you can walk a lot
+farther. The can be found at the Darkhaven Academy.
+~
+A
+14 100
+> drop_prog 100~
+mpforce $n sac $o
+~
+|
+#10302
+belt leather academy~
+a braided leather belt~
+A braided leather belt from the Academy lies here~
+~
+9 0 2049
+2 2 0 0
+2 0 0
+E
+belt leather~
+This belt is made of a fine leather, braided for strength. You can get
+it at the Darkhaven Academy.
+~
+A
+5 1
+> drop_prog 100~
+mpforce $n sac $o
+~
+|
+#10303
+leggings mail academy~
+heavy mail leggings~
+Heavy mail leggings from the Academy lie here~
+~
+9 0 33
+2 2 0 0
+3 0 0
+E
+leggings~
+These leggings will offer good protection until you can get better. They
+can be found at the Darkhaven Academy.
+~
+> drop_prog 100~
+mpforce $n sac $o
+~
+|
+#10304
+helmet iron academy~
+a wrought iron helmet~
+A wrought iron helmet from the Academy~
+~
+9 0 17
+3 3 0 0
+2 0 0
+E
+helmet iron~
+This is a helmet made of fine iron, from the Darkhaven Academy.  It will
+protect you until you can find better.
+~
+A
+3 1
+> drop_prog 100~
+mpforce $n sac $o
+~
+|
+#10305
+cape brocade academy~
+a black brocade cape~
+A black brocade cape from the academy~
+~
+9 0 1025
+2 2 0 0
+3 0 0
+E
+cape brocade~
+This cape is made from a heavy brocade. It will offer you warmth and
+protection until you can find something better. You can find it at the
+Darkhave Academy.
+~
+> drop_prog 100~
+mpforce $n sac $o
+~
+|
+#10306
+collar metal academy~
+a strong metal collar~
+A strong metal collar from the academy~
+~
+9 0 5
+3 2 0 0
+5 0 0
+E
+collar metal ~
+This collar fits closely around your neck. It is thick with spikes to
+protect you in battle. You can find it in the Darkhaven Academy
+~
+> drop_prog 100~
+mpforce $n sac $o
+~
+|
+#10307
+visor completion academy~
+a visor of completion~
+A visor of completion is here, emitting a faint glow.~
+~
+9 64 131073
+2 0 0 0
+1 0 0
+E
+visor completion~
+Congratulations! You have completed the Darkhaven Academy and can now
+wear this visor with pride! It is magic too, type WEAR VISOR to use.
+~
+A
+4 1
+A
+3 1
+> wear_prog 100~
+mpechoat $n As you wear this visor, you feel more intelligent and wise!
+mpechoaround $n As $n wears the visor of completion, $e looks more complete!
+~
+|
+#10308
+plate armour academy~
+a plate of armour~
+A plate of armour from the Academy lies here~
+~
+9 0 9
+2 2 0 0
+5 0 0
+E
+plate armour~
+This plate of armour will give you protection until you can find
+something better. 
+~
+#10309
+sleeves tin academy~
+lightweight tin sleeves~
+Lightweight tin sleeves from the academy~
+~
+9 0 257
+3 3 0 0
+1 0 0
+E
+sleeves tin~
+This sleeves will protect your arms until you can find something better.
+You can find them in the Darkhaven Academy.
+~
+A
+1 1
+> drop_prog 100~
+mpforce $n sac $o
+~
+|
+#10310
+shield crest academy~
+a shield with the Darkhaven Academy crest~
+A shield with the Darkhaven Academy crest lies here~
+~
+9 0 513
+2 2 0 0
+5 0 0
+E
+shield crest~
+This is your first shield, it will help keep you safe until you can
+find something better.
+~
+#10311
+orb eye enlightenment academy.~
+an eye of enlightenment~
+A glistening orbs shines as a guiding light to new adventurers.~
+~
+1 65 1
+0 0 -1 0
+1 0 0
+A
+24 -1
+#10312
+academy dagger~
+a finely honed dagger~
+You see a finely honed dagger here.~
+~
+5 64 8193
+12 1 6 11
+2 0 0
+A
+18 2
+A
+19 1
+#10313
+sword academy~
+a finely honed sword~
+You see a finely honed sword here.~
+~
+5 64 8193
+12 0 0 3
+2 0 0
+E
+sword~
+Made of decent quality, this sword should serve you well in your battles
+to come.
+~
+A
+18 2
+A
+19 1
+#10314
+dragonskin skin water~
+a dragonskin~
+You see a dragonskin water container here.~
+~
+17 0 1
+15 15 0 0
+0 30 3
+#10315
+mace academy~
+a finely wrought mace~
+You see a finely wrought mace here.~
+~
+5 64 8193
+12 3 6 7
+2 0 0
+E
+mace~
+Made of decent quality this weapon shall servre you well in the battles
+to come.
+~
+A
+18 2
+A
+19 1
+#10316
+torch~
+a torch~
+A piece of wood, partly wrapped in cloth is here.~
+~
+1 0 65537
+0 0 24 0
+1 20 2
+#10317
+dried rabbit meat~
+dried rabbit meat~
+Some sort of dried meat is on the ground here.~
+~
+19 0 1
+24 0 0 0
+1 40 4
+#10318
+shortsword sword snakebite~
+a shortsword named "Snakebite"~
+A sword lies here, twitching on its own.~
+~
+5 8389184 8193
+12 0 0 3
+3 0 0
+A
+19 3
+A
+1 -1
+#10319
+gloves kid academy~
+kid gloves~
+A pair of kid gloves from the Academy lie here~
+~
+9 0 129
+3 0 0 0
+2 0 0
+A
+2 1
+> drop_prog 100~
+mpforce $n sac $o
+~
+|
+#10320
+bag tricks~
+a bag of tricks~
+A mage seems to have left their bag here.~
+~
+15 0 1
+75 1 0 0
+5 0 0
+E
+bag tricks~
+This bag of tricks belongs to a member of the mage class.
+~
+#10321
+bag healing~
+a bag of healing~
+A cleric seems to have left their bag here.~
+~
+15 0 1
+75 1 0 0
+5 0 0
+E
+bag healing~
+This bag of healing belongs to a member of the clerics class.
+~
+#10322
+bag stealth~
+a bag of stealth~
+A thief seems to have left their bag here.~
+~
+15 0 1
+75 1 0 0
+5 0 0
+E
+bag stealth~
+This bag of stealth belongs to a member of the thief class.
+~
+#10323
+bag war~
+a bag of war~
+A warrior seems to have left their bag here.~
+~
+15 0 1
+75 1 0 0
+5 0 0
+E
+bag war~
+This bag of war belongs to a member of the warrior class.
+~
+#10324
+bag darkness~
+a bag of darkness~
+A vampire seems to have left their bag here.~
+~
+15 0 1
+75 1 0 0
+5 0 0
+E
+bag darkness~
+This bag of darkness belongs to a member of the vampire class.
+~
+#10325
+bag nature~
+a bag of nature~
+A druid seems to have left their bag here.~
+~
+15 0 1
+75 1 0 0
+5 0 0
+E
+bag nature~
+This bag of nature belongs to a member of the druid class.
+~
+#10326
+bag freedom~
+a bag of freedom~
+A ranger seems to have left their bag here.~
+~
+15 0 1
+75 1 0 0
+5 0 0
+E
+bag freedom~
+This bag of freedom belongs to a member of the ranger class.
+~
+#10330
+anti-death antideath elixir potion~
+an anti-death elixir~
+An odd, glowing potion lays here.~
+~
+10 1 1
+20 16 61 81
+2 0 0
+E
+anti-death antideath elixir potion~
+This potion was made to help heal you and restore your movements points.
+~
+#10331
+scroll escape recall~
+a scroll of escape~
+A dark paper covered in arcane writing lies here.~
+~
+2 0 1
+10 35 43 42
+5 0 0
+#10333
+adventurer's guide book academy~
+The Adventurer's Guide~
+A book with "DON'T PANIC, LOOK AT ME!" written on the cover lies here.~
+~
+9 524288 16385
+5 5 0 0
+1 1234 123
+E
+sets~
+Regular equipment setup:              Equipment setup during dual wield:
+-----------------------------------------------------------------------------
+<used as light>                       <used as light>
+<worn on finger>                      <worn on finger>
+<worn on finger>                      <worn on finger>
+<worn around neck>                    <worn around neck>
+<worn around neck>                    <worn around neck>
+<worn on body>                        <worn on body>
+<worn on head>                        <worn on head>
+<worn on legs>                        <worn on legs>
+<worn on feet>                        <worn on feet>
+<worn on hands>                       <worn on hands>
+<worn on arms>                        <worn on arms>
+<worn as shield>                      <worn about body>
+<worn about body>                     <worn about waist>
+<worn about waist>                    <worn around wrist>
+<worn around wrist>                   <worn around wrist>
+<worn around wrist>                   <wielded>
+<wielded>                             <dual wielded>
+<held>                                <worn on ears>
+<worn on ears>                        <worn on eyes>
+<worn on eyes>
+~
+E
+guide book~
+Some helpful files for those new to mudding:
+ 
+SPAM -        Will explain what spam is, and why you should not do it.
+CONFIG -      Will teach you about our configuration menu.
+SCORE -       Will tell you about your characters personal score sheet.
+MOVEMENT -    Will teach you various commands for moving about the game.
+OBJECTS -     Will teach you various commands to use your equipment.
+CONTAINER -   Will teach you about using containers to holdblongings.
+CHANNELS -    Will teach you about communication with other players.
+GROUP -       Will help you with grouping with other adventurers.
+COMBAT -      Will teach you how to choose, start and stop a fight.
+DEATH -       Will tell you about the death experience in the game.
+PRACTICE -    Will teach you about training spells, skills, and weapons.
+INFORMATION - Will cover ways to find certain types of information.
+ 
+To use these help files, type HELP <topic> from the topics listed in
+capital letters above.
+~
+A
+3 1
+A
+5 1
+A
+4 1
+> get_prog 100~
+if ispc($n)
+mea $n _whi Your intelligence is increased by reading and learning from this
+mea $n _whi Adventurer's Guide book.  Take the time to "look book' and read!
+endif
+~
+|
+#10343
+kobold~
+a newly created kobold~
+Some god dropped a newly created kobold here.~
+~
+13 1073741824 0
+0 0 0 0
+0 0 0
+#10345
+chains Chadoyn bindings~
+the chadoyn's bindings~
+A set of of sturdy chains attached to a collar splays over the floor.~
+~
+9 524288 5
+0 3 0 0
+2 1 0
+A
+17 -3
+#10359
+gnoll~
+a newly created gnoll~
+Some god dropped a newly created gnoll here.~
+~
+13 1073741824 0
+0 0 0 0
+0 0 0
+#10360
+gnoll~
+a newly created gnoll~
+Some god dropped a newly created gnoll here.~
+~
+13 1073741824 0
+0 0 0 0
+0 0 0
+#10362
+gnoll~
+a newly created gnoll~
+Some god dropped a newly created gnoll here.~
+~
+13 1073741824 0
+0 0 0 0
+0 0 0
+#10363
+gnoll~
+a newly created gnoll~
+Some god dropped a newly created gnoll here.~
+~
+13 1073741824 0
+0 0 0 0
+0 0 0
+#10365
+gnoll~
+a newly created gnoll~
+Some god dropped a newly created gnoll here.~
+~
+13 1073741824 0
+0 0 0 0
+0 0 0
+#10366
+gnoll~
+a newly created gnoll~
+Some god dropped a newly created gnoll here.~
+~
+13 1073741824 0
+0 0 0 0
+0 0 0
+#10367
+board academy~
+the Newbie Council Noteboard~
+A board stands here, ready for your posts.~
+~
+13 0 0
+0 0 0 0
+0 0 0
+E
+board newbie~
+This board can be read by typing NOTE LIST and then NOTE READ <#>.
+Type HELP NOTE for instructions on how to post a note here.
+~
+#10370
+staff shimmering magical~
+a shimmering, magical staff~
+A magical staff shimmers on the ground.~
+~
+4 321 16385
+5 1 1 36
+1 60 6
+#10371
+shield shiny~
+a shiny shield~
+A shiny shield lies here, surrounded by an aura of magic.~
+~
+9 321 16385
+2 2 0 0
+1 200 20
+#10372
+map hand-drawn~
+a hand-drawn map~
+A hand-drawn map has been carelessly forgotten.~
+~
+35 321 1
+0 0 0 0
+1 100 10
+E
+map~
+Instructions for use:
+ 
+This map will magically point you in the right direction.  To invoke its
+magical powers, you must examine it.  Remember, this map will only work
+on a roadway or path.  It will not work within the Academy, and this map
+will _not_ direct you back to Darkhaven.
+ 
+Be warned that this map's power will eventually wane.  When this happens,
+it will vanish...
+ 
+~
+> exa_prog 100~
+mea $n _yel The map radiates pulsating blasts of energy!
+mpecho _red $O glows red before your eyes!
+if isimmort($n)
+or level($n) <= 12
+  if inroom($n) == 21038
+  or inroom($n) == 21037
+  or inroom($n) == 21036
+    mea $n _cha The map draws you to the west.
+  else
+  if inroom($n) == 21000
+  or inroom($n) == 21042
+  or inroom($n) == 21043
+  or inroom($n) == 21044
+    mea $n _cha The map draws you to the south.
+  else
+  if inroom($n) == 21020
+    mea $n _cha The map draws you to the east.
+  else
+  if inroom($n) == 21019 
+    mea $n _cha The map draws you to the north.
+  else
+  if inroom($n) < 21000
+  or inroom($n) > 21407
+    mea $n The map spins and glows, but is too far from Darkhaven to function.
+  else
+    mea $n The map seems unable to direct you.
+  endif
+endif
+endif
+endif
+endif
+else
+  mea $n You are far too experienced to use this map!
+  mea $n The Gods force you to sacrifice the map!
+  mpforce 0.$n drop map
+  mpforce 0.$n sac map
+endif
+~
+|
+#10373
+map magic~
+a magical map~
+A map glows with a magical blessing.~
+~
+35 321 1
+0 0 0 0
+1 100 10
+E
+map~
+Instructions for use:
+ 
+This map will magically point you in the right direction.  To invoke its
+magical powers, you must examine it.  Remember, this map will only work
+on a roadway or path.  It will not work within the Academy, and this map
+will _not_ direct you back to Darkhaven.
+ 
+Be warned that this map's power will eventually wane.  When this happens,
+it will vanish...
+ 
+~
+> exa_prog 100~
+mea $n _yel The map showers you with pulses of energy!
+mpecho _red $O glows red before your eyes!
+if isimmort($n)
+or level($n) <= 12
+  if inroom($n) == 21038
+  or inroom($n) == 21012
+  or inroom($n) == 21113
+  or inroom($n) == 21112
+  or inroom($n) == 3503
+    mea $n _cha The map draws you to the east.
+  else
+  if inroom($n) == 3502
+    mea $n _cha The map draws you to the northeast.
+  else
+  if inroom($n) == 6500
+  else
+  if inroom($n) < 21000
+  or inroom($n) > 21407
+    mea $n The map spins and glows, but is too far from Darkhaven to function.
+  else
+    mea $n The map seems unable to direct you.
+  endif
+endif
+endif
+endif
+else
+  mea $n You are far too experienced to use this map!
+  mea $n The Gods force you to sacrifice the map.
+  mpforce 0.$n drop map
+  mpforce 0.$n sac map
+endif
+~
+|
+#10374
+map old decaying~
+an old, decaying map~
+An old map lies here, crushed and decaying.~
+~
+2 321 1
+50 42 -1 -1
+1 1 0
+E
+map~
+Instructions for use:
+ 
+This map will lead you to a room of magic, from which you can be transported
+out of the city of Darkhaven.  The map will point you in the right direction
+when you examine it...
+ 
+The map is magical, and will eventually disappear from your inventory.  If
+you want to return to the city, you can "recite map" and you will recall.
+ 
+~
+> exa_prog 100~
+mpecho _whi $O glows with a blinding white light!
+if isimmort($n)
+or level($n) <= 12
+  if inroom($n) == 21038
+  or inroom($n) == 21037
+  or inroom($n) == 21036
+  or inroom($n) == 21163
+  or inroom($n) == 21165
+  or inroom($n) == 21182
+    mea $n _cha The map draws you to the west.
+  else
+  if inroom($n) == 21000
+    mea $n _cha The map draws you to the northwest.
+  else
+  if inroom($n) == 21166
+  or inroom($n) == 21167
+  or inroom($n) == 21168
+  or inroom($n) == 21181
+    mea $n _cha The map draws you to the north.
+  else
+  if inroom($n) < 21000
+  or inroom($n) > 21407
+    mea $n The map spins and glows, but is too far from Darkhaven to function.
+  else 
+    mea $n The map seems unable to direct you.
+  endif
+endif
+endif
+endif
+else
+  mea $n You are far too experienced to be using this map!
+  mer $n The Gods do not allow $n to use $O.
+  mpforce 0.$n drop map
+  mpforce 0.$n sac map
+endif
+~
+|
+#10375
+map wizard's wizard~
+a wizard's map~
+An absent-minded wizard dropped a map here.~
+~
+2 321 1
+51 42 -1 -1
+1 100 10
+E
+map~
+This map will lead you to a room of magic, from which you can be transported
+out of the city of Darkhaven.  The map will point you in the right direction
+when you examine it...
+ 
+This map is magical, and will eventually disappear from your inventory.  If
+you want to return to the city, you can "recite map" and you will recall.
+ 
+~
+> exa_prog 100~
+mpecho _dbl $O glows with an aura of magic.
+if isimmort($n) 
+or level($n) <= 12
+  if inroom($n) == 21038
+  or inroom($n) == 21037
+  or inroom($n) == 21036
+  or inroom($n) == 21163
+  or inroom($n) == 21165
+    mea $n _cha The map draws you to the west.
+  else
+  if inroom($n) == 21000
+    mea $n _cha The map draws you to the northwest.
+  else
+  if inroom($n) == 21166
+  or inroom($n) == 21167
+  or inroom($n) == 21168
+  or inroom($n) == 21181
+    mea $n _cha The map draws you to the north.
+  else
+  if inroom($n) == 21182
+    mea $n The map draws you to the east.
+  else
+  if inroom($n) < 21000
+  or inroom($n) > 21407
+    mea $n The map spins and glows, but is too far from Darkhaven to function.
+  else
+    mea $n The map seems unable to direct you.
+  endif
+endif
+endif
+endif
+endif
+else
+  mea $n You are far too experienced to use this map!
+  mea $n Thoric forces you to sacrifice $O
+  mer $n The Gods force $n to sacrifice $O
+  mpforce 0.$n drop map
+  mpforce 0.$n sac map
+endif
+~
+|
+#10397
+scboots~
+black deerskin boots~
+A pair of black boots lies here.~
+~
+9 0 65
+0 0 0 0
+0 0 0
+#10398
+scrobes~
+midnight black robes~
+A pile of dark cloth is lieing here.~
+~
+9 0 1025
+0 0 0 0
+0 0 0
+#10399
+scstaff~
+staff of the Arcane~
+A staff is here, standing by itself~
+~
+4 80 16385
+54 100 100 30
+0 0 0
+#10400
+bag wit~
+a bag of wit~
+An augurer seems to have left their bag here.~
+~
+15 0 1
+75 1 0 0
+5 0 0
+E
+bag wit~
+This bag of tricks belongs to a member of the augurer class.
+~
+#10401
+fountain~
+a fountain~
+A large marble fountain gushes forth here.~
+~
+25 0 0
+50 50 0 0
+500 3000 300
+E
+fountain~
+It is very nice.  Made from fine white marble.
+~
+#10410
+menacing granitic blade~
+a menacing granitic blade~
+A blade of metallic stone protrudes from a leather-wrapped hilt.~
+~
+5 68 8193
+12 1 6 11
+2 0 0
+E
+menacing granitic blade~
+Of rough but usable quality, it should serve you well in your early years.
+~
+A
+18 2
+A
+19 1
+#10411
+adamantium mace~
+a gleaming adamantium mace~
+A mace of brightly gleaming metal hums with inner power.~
+~
+5 524610 8193
+12 0 0 7
+2 0 0
+E
+adamantium mace~
+Forged of a gleaming metal, this mace will serve you well in your early years.
+~
+A
+18 2
+A
+19 1
+#10412
+heavy broadsword broad sword~
+a heavy, iron-forged broadsword~
+Light glints from the blade of a heavy, iron-forged broadsword.~
+~
+5 524352 8193
+12 0 0 3
+2 0 0
+E
+broadsword broad sword~
+Made of a heavy iron alloy, it will serve you well in your early years.
+~
+A
+18 2
+A
+19 1
+#10413
+root dirty arena~
+a dirty root~
+A root, covered in dirt, lies here on the ground.~
+~
+26 537133056 16385
+20 15 84 -1
+3 1200 120
+A
+5 1
+A
+4 1
+#10499
+final object~
+a newly created final object~
+Some god dropped a newly created final object here.~
+~
+13 1073741824 0
+0 0 0 0
+0 0 0
+#0
+
+
+#ROOMS
+#10300
+Darkhaven Academy~
+You stand inside the Darkhaven Academy, an establishment designed to teach
+the basics of play inside this game.  Each room has a specific purpose and
+contains information on the various commands to maneuver around and interact 
+with the players.  We recommend you explore the Academy in full, taking the 
+time to read the instructions in each room.
+ 
+Type N to move north to the next room in the Academy.  If you have already
+completed the rigors of the Academy and wish to test your combat mettle in
+the battlegrounds, type OPEN S or OPEN DOOR, then S to enter the arena.
+~
+0 1049608 3
+D0
+A Stone Corridor
+~
+~
+16777216 -1 10301
+D2
+~
+door~
+16777219 -1 10382
+D4
+Above you is the entrance to the town of Darkhaven.
+~
+~
+0 -1 21280
+E
+door~
+You see a solid oak door.
+~
+E
+s~
+You see an oak door.
+~
+E
+south~
+You see a door.
+~
+> leave_prog 100~
+if ispc($n)
+if level($n) == 1
+mpforce $n config +brief
+endif
+endif
+~
+|
+S
+#10301
+A Stone Corridor~
+To the west is the language lessons room. Lady Abbigalye is there
+to assist you in learning the languages of the land.  To the east
+is where Domick will assist you in practicing your weapons, skills
+and spells.  When you are finished with your lessons, come back
+here and continue north through the Academy.
+~
+0 3145736 0
+D0
+Reading Room
+~
+~
+0 -1 10304
+D1
+The Laboratory of Skills and Spells.
+~
+~
+0 -1 10303
+D2
+Entrance to Darkhaven Academy
+~
+~
+0 -1 10300
+D3
+Abbigayle's Language Lessons.
+~
+~
+0 -1 10306
+> leave_prog 100~
+if isimmort($n)
+else
+  mpforce $n vis
+endif
+~
+> entry_prog 100~
+if ispc($n)
+if level($n) == 1
+mpechoat $n _whi You cannot proceed until you have reached level 2!
+mpechoat $n _whi I shall return you to Tsythia promptly.
+mptransfer 0.$n 10300
+mpat 10300 mpforce 0.$n look
+endif
+endif
+~
+|
+S
+#10302
+Somewhere~
+You did it! You are an excellent student! To continue your education,
+please leave north. That will return you to the Reading room.
+~
+0 3145740 0
+D0
+The Reading Room
+~
+~
+0 -1 10304
+S
+#10303
+The Laboratory of Skills and Spells~
+This is where you will practice your arsenal of weapons, spells and skills.
+Type PRACTICE to get a list of these currently available to you.  Everyone
+will have sections listing skills, weapons and languages.  Spells casters
+will have an additional section for spells.  To practice a spell, skill or
+weapons style, type PRACTICE <full name of spell, skill or weapon style>.
+ 
+For instance, to practice dispel magic, you would type PRAC DISPEL MAGIC.
+When practicing, you start at 0% and one practice will earn you between
+15% and 20% proficieny.  Additional knowledge is gained through usage of
+the skill or spell until adept, which is a maximum of 30% - 95%.
+ 
+To get see information using spells, skills or weapons, type HELP CAST or
+HELP <spell, skill or weapon style>.  For general questions on practicing,
+type HELP PRACTICE.  The number of practice sessions you may gain at each
+level is determined by the amount of wisdom you have when you level.
+~
+0 1049608 0
+D3
+A Stone Corridor
+~
+~
+0 -1 10301
+S
+#10304
+The Reading Room~
+This is a silent room, which means while here you will not see any of the
+channels. In fact, you can only use socials, emotes and group tell here.
+The room was created to give you a quiet place to read our help files.
+You can reduce your own screen scroll by reducing the number of channels 
+you receive. You can get a full list of channels by typing CHAN. You may 
+turn off a channel by type CHAN -<channel> and reactive a channel by 
+typing CHAN +<channel>. For example, you can turn off auction channel by 
+type CHAN -AUCTION and you can turn it back on by typing CHAN +AUCTION. 
+You can also turn off ALL your channels by typing CHAN -ALL and turn them 
+all on again by typing CHAN +ALL. Once you have finished reading, you are
+ready to test your ability to negotiate your way around.
+Going west will take you into another part of the Academy. The test is to
+follow all the room descriptions until you can find your way back to this 
+point. If at any time you become lost, type U to return to this room. Once 
+you have successfully returned here, please continue to the north to
+explore the rest of the Academy.
+~
+0 3211272 0
+D0
+A Marble Corridor
+~
+~
+0 -1 10314
+D2
+A Stone Corridor
+~
+~
+0 -1 10301
+D3
+Wandering the Academy
+~
+~
+0 -1 10307
+S
+#10305
+Chamber of Trials for Rangers~
+Here you will experience your first full combat against MOBILES, also known
+as MOBS. Mobile is the name used for monsters and the like in the game.
+All exits, except down, lead to a CAGE mob. Some of these cage mobs may be
+aggressive and will attack you upon entering their room. As you kill them, 
+you will gain experience, as well as academy equipment and gold. Once you 
+have defeated a mob, type GET ALL CORPSE to loot the coins and equipment.
+You may also type CONFIG +AUTOLOOT or CONFIG +AUTOGOLD. Autoloot will take
+everything from the corpse when you kill it. Autogold will take only the
+gold from the corpse. When you loot a corpse of equipment, the items are
+transferred to your inventory. You may suffer injury during the battle, so 
+return here and type REST or SLEEP. This will speed your healing process. 
+When you are finished healing, type WAKE or STAND to continue.
+~
+0 3146760 0
+D0
+A cage
+~
+~
+0 -1 10389
+D1
+A cage
+~
+~
+0 -1 10388
+D2
+A cage
+~
+~
+0 -1 10387
+D3
+A cage
+~
+~
+0 -1 10390
+D5
+A Stone Corridor
+~
+~
+0 -1 10356
+S
+#10306
+Abbigayle's Language Lessons~
+This is where you LEARN your LANGUAGES.  Languages are learned differently
+than spells, skills and weapons, as you must be adept ata language before
+you may use it.  To see a list of the languages available to you, simply
+type PRACTICE.  You do not need to learn the TONGUE of your race nor the
+common language, as they both come naturally to you.  To learn a language,
+type LANGUAGE LEARN <language type>.
+ 
+For more information on how to learn a language, type HELP LANGUAGES.  To
+learn how to use languages, type HELP SPEAK and HELP TONGUE.  It will cost
+a few practice sessions each time you wish to increase your fluency in a
+language.  Those who are intelligent, wise and lucky will find it takes
+fewer practice sessions to become adept at a language.
+~
+0 1049608 0
+D1
+A Stone Corridor
+~
+~
+0 -1 10301
+S
+#10307
+Wandering the Academy~
+Each player has a menu of items that the game controls automatically once
+it has been configured. To get a list of this menu, type CONFIG. For this
+part of your schooling, it is suggested you type CONFIG +AUTOEXIT. This
+will have the mud show you all obvious exits available to you. When you
+are moving around the game, EXIT is a very important command. When you
+type EXIT, it shows you the room names each exit shown under obvious exits.
+You can use this command to get hints of dangers and death traps that might
+be close by. You may also try to LOOK in adjoining rooms. You do this by
+typing LOOK <direction>. Your next move is to the west, to see what you
+are walking into, try typing EXIT and L W. 
+~
+0 3145736 0
+D1
+The Reading Room
+~
+~
+0 -1 10304
+D3
+Wandering Darkhaven Academy, it looks safe
+~
+~
+0 -1 10309
+D4
+Back to the beginning
+~
+~
+0 -1 10304
+E
+Door~
+You see a solid oak door.
+~
+S
+#10308
+A Dank Pit~
+Here stands a Chadoyn.  He was captured trying to slaughter the students
+of the Academy, and the Immortals decided to spare his life and throw him
+in chains for use as a teaching aid.  With him you can practice attacking
+and fleeing, but hopefully not dying.  You will also want to make use of
+the 'consider' command.  This command compares your level and hitpoints
+to that of the creature.  To use here, type 'con chadoyn'.
+ 
+To use the consider command elsewhere, type CON <MOBNAME>.  It is wise to
+ALWAYS consider a mob before fighting it the first time.  This will many
+times save your life, as mobs are often a lot more difficult then they
+outwardly appear.  Be careful and enjoy your fight.
+~
+0 3145736 0
+D3
+A Dank Pit
+~
+~
+0 -1 10316
+S
+#10309
+Wandering Darkhaven Academy~
+This is where you will start learning about exits not listed under "Exits".
+Doors are not seen on the game. You must read room description and LOOK
+<direction> to find them. Another method of finding a door is to "bump" into
+the walls. Type N. OUCH! You ran into the door. You want to be careful not
+to be affected with the pass door spell while using the bump method, as you
+may end up in a room you would rather not visit. Now, type OPEN N or OPEN
+DOOR. Next type EXIT, you will now see the north exit listed under "Exits".
+Type HELP OPEN to find out more information on doors.
+~
+0 3145736 0
+D0
+An Enclosed Room
+~
+door~
+3 -1 10310
+D1
+Wandering the Academy
+~
+~
+0 -1 10307
+D3
+Lost in Darkhaven Academy
+~
+~
+0 -1 10311
+D4
+Back to the beginning
+~
+~
+0 -1 10304
+E
+door~
+You see a solid oak door.
+~
+S
+#10310
+An Enclosed Room~
+You did it! Well done. You will find many rooms such as this all over the
+game. Some are easy to find because of hints in the room descriptions.
+Some are very hard to find, as the clues could be rooms away. However, you
+are now armed with the tools to locate them. You know how to use "look", 
+bump, and "exit". Many classes also get a spell called "scry". This spell
+will allow the person affected by it to see the into the adjoining rooms.
+It is used like "look", but gives you more detailed information. To see if
+you gain the scry spell at a later level, type SLIST. This will give you a
+list of all spells, skills and weapon types you may practice. Slist also
+gives you information on what level you may practice each, to what percent
+you are currently practiced in each, and what the maximum percent that you
+may practice each.
+~
+0 3145736 0
+D2
+Wandering Darkhaven Academy
+~
+door~
+3 -1 10309
+S
+#10311
+Lost in Darkhaven Academy~
+There are several special exit types that you may encounter in your travels.
+You have experienced open exits and closed doors to this point. There are
+also hidden doors. The hidden door can not be found with the "bump" method.
+Often they will not show up with the "look" method either. These exits are
+found by reading room descriptions, mobiles descriptions and looking at
+objects. You are looking for words that stand out, those words will be the
+door name. You will also find doors that are locked. You may get past some
+locked doors with the pass door spell, the pick door skill or bash door skill.
+Some doors may only be passed by using the matching key. Other exits you
+may find require you to be skilled in climb or affected by the fly spell.
+All exits are in real directions that can be abbreviated to the following:
+N, E, W, S, NE, NW, SE, SW, U, or D. There are also SOMEWHERE exits that
+use "leave", "climb", "enter", or just a word to use. To the north you
+will experience a hidden exit, use the room description to find the door name.
+~
+0 3145736 0
+D0
+Lost in Darkhaven Academy
+~
+~
+0 -1 10312
+D1
+Wandering Darkhaven Academy
+~
+~
+0 -1 10309
+D4
+Back to the beginning
+~
+~
+0 -1 10304
+S
+#10312
+Lost in Darkhaven Academy~
+You are standing in a richly decorated room. A large oak table surrounded
+by twelve chairs dominates a large portion of the area. Crystal globes with
+continual light spells cast on them hover about the room, providing a soft
+comfortable light. The walls are adorned with tapestries of the finest
+quality. The tapestry on the west wall draws your attention more so than
+the others. Now, you have many clues on the possible exit. Try to find the
+right word by typing LOOK <word>. For example, try LOOK GLOBES. Sometimes
+looking at other things in the rooms description will lead you to the word
+that will open the exit. 
+~
+0 3145736 0
+D2
+Lost in Darkhaven Academy
+~
+~
+0 -1 10311
+D3
+door
+~
+tapestry door~
+11 -1 10313
+D4
+Back to the beginning
+~
+~
+0 -1 10304
+E
+tapestry~
+Upon closer inspection you realise that this is not even a tapestry, but
+a cunningly camouflaged wall! You can see the outline of a door as you
+look closer.
+~
+E
+west~
+You see a tapestry on the wall here, something just isn't right about it.
+~
+E
+w~
+You see a tapestry on the wall.
+~
+E
+door~
+You see a cleverly disguised door.
+~
+E
+Crystal globes~
+This globes cast shadows in the corners. The shadows on the west
+tapestry almost appears to be an opening.
+~
+S
+#10313
+A Secret Alcove~
+Well Done! You have found this secret room. Sometimes these secret rooms
+will contain valuable items or will lead to other parts of the area you
+are exploring. Always pay close attention to room descriptions, mobiles
+descriptions and items, this will many times bring profitable results.
+This is a where you will experience a Somewhere exit. To find your way
+out, try looking at the picture on the wall. If you can not figure it out, 
+you may leave by the up exit. Good luck!
+~
+0 3145740 0
+D1
+Lost in Darkhaven Academy
+~
+door~
+3 -1 10312
+D4
+Back to the beginning
+~
+~
+0 -1 10304
+D10
+~
+crack~
+524288 -1 10302
+E
+door~
+You see an oak door.
+~
+E
+picture~
+This is a picture of fresh cut flowers in a glass vase. It seems to
+be hanging here just to cover a huge crack. That crack is so large, you
+can probably squeeze through it! Perhaps you should look closer at the
+crack. HINT: type CRACK. 
+~
+E
+crack~
+This is a huge CRACK, you could probably squeeze through it. 
+~
+E
+wall~
+This is a picture of fresh cut flowers in a glass vase. It seems to
+be hanging here just to cover a huge crack. That crack is so large, you
+can probably squeeze through it! Perhaps you should look closer at the
+crack. HINT: type CRACK.
+~
+S
+#10314
+A Marble Corridor~
+This room will teach you several commands to check your statistics and 
+character health. These commands are SCORE, EQUIPMENT, INVENTORY, and
+LEVEL. Score is used by typing SC, it tells you all the basic statistics
+about your character. Equipment is used by typing EQ, this shows you all 
+the items you are currently wearing. Inventory is used by typing I, and 
+shows you all items you are carrying other than your worn equipment.
+Level is used by typing LEVEL, it show your current level, your current
+experience points, and the experience needed for the next few levels.
+Use the help menu to get more information on the topics covered here,
+type HELP <subject>.
+~
+0 3145736 0
+D0
+Preparing for combat
+~
+~
+0 -1 10315
+D2
+The Reading Room
+~
+~
+0 -1 10304
+S
+#10315
+Preparing for combat~
+The time is drawing near to experience combat.  Directly below you now is
+the Chadoyn Pit, the home of a creature which will assist you in learning
+how to initiate combat.  The Chadoyn is not aggressive, which means you
+must begin the fight.  There are many ways to start a fight, the quickest
+way is to type KILL <mob>.  As you gain skills and spells, you may find
+many of them are also capable of initiating combat.
+ 
+Some of the more popular spells used to start an attack are DISPEL MAGIC,
+SLEEP, CHARM PERSON, BLINDNESS, WEAKEN, CURSE, and FAERIE FIRE.  Some of
+the most popular skills used to begin an attack are STEAL and BACKSTAB.
+  ** These skills and spells WILL also begin an attack on a player **
+ 
+Wands, staves and scrolls may also be used to start fights. 
+~
+0 3145736 0
+D0
+A Marble Corridor
+~
+~
+0 -1 10317
+D2
+A Marble Corridor
+~
+~
+0 -1 10314
+D5
+A Dank Pit
+~
+~
+0 -1 10316
+S
+#10316
+A Dank Pit~
+This room explains about WIMPY, FLEE, and RECALL as a way to leave from
+combat. Wimpy is an automatic withdrawal from a fight when your hitpoints
+reach a set minimum. To set your wimpy, type WIMPY or WIMPY <number>. The
+number being the amount of hitpoints you want remaining when you leave the
+battle. You will lose experience for wimpying out of a fight, but the amount
+of experience lost will generally be less then the amount lost from death.
+You may also manually withdraw from a fight with flee. To use flee, just
+type FLEE. You may flee out of the fight at any amount of hitpoints. Fleeing
+will cost you loss of experience. You may also "recall" from a fight. This
+is done with the spell "word of recall" or reciting a recall scroll. You 
+lose more experience when you recall from a fight then when you use wimpy
+or flee. Recall should be used as a last resort.
+~
+0 3145740 0
+D1
+A Dank Pit
+~
+~
+0 -1 10308
+D4
+Preparing for combat
+~
+~
+0 -1 10315
+S
+#10317
+A Marble Corridor~
+Congratulations! You have come far in your training. Your next step is
+getting your equipment from the cage mobs for your chosen class. North
+of here is the Academy Healer, Lord Toric.  He will cast spells on you,
+to help with your fights. Sit with him until you are ready to proceed in
+your training.
+~
+0 3146760 0
+D0
+The Academy Healer
+~
+~
+0 -1 10319
+D2
+Preparing for combat
+~
+~
+0 -1 10315
+S
+#10318
+Hall of the Warrior~
+You see shields of every make and shape mounted on the walls here. Donated
+by the warriors who have passed through these hallowed halls before you. The
+clash and ring of steel can be heard coming from the floor beneath you.
+~
+0 3146760 0
+D5
+Chamber of Trials for Warriors
+~
+~
+0 -1 10325
+S
+#10319
+The Academy Healer~
+This is a healer. You will find many of them throughout the game. Their
+purpose is to cast spells of armor, bless, cure blindness, cure poison, 
+cure light, and refresh. The healer casts these spells randomly to the
+characters in the room. Some healers have programs that will allow you
+to purchase certain spells for coins. Others have programs that will give
+you a spell when you say a certain word or phrase, or do a certain social
+to them. It is important to look at mobiles to read their descriptions.
+Many will have hints in their descriptions that will tell you what to
+say or do to get their favor.
+~
+0 1049612 0
+D0
+The Room of Portals
+~
+~
+16777216 -1 10355
+D2
+A Marble Corridor
+~
+~
+0 -1 10317
+S
+#10320
+Hall of the Druid~
+Walking along this hall is strangely reminiscent of a stroll through a
+lush forest. A light breeze touches your cheek and you look twice to make
+sure you are indeed in Darkhaven Academy. You see a soft glow coming from
+the floor.
+~
+0 3146752 0
+D5
+Chamber of Trials for Druids
+~
+~
+0 -1 10326
+S
+#10321
+Hall of the Vampire~
+The hall is so dimly lit here that details are hard to discern. The rustle
+of dead leaves, blowing in the wind, fills your ears. As you grow to realize
+they are more whispers than leaves, you find yourself compelled. Willingly,
+you proceed to their source.
+~
+0 3146760 0
+D5
+Chamber of Trials for Vampires
+~
+~
+0 -1 10327
+S
+#10322
+Hall of the Thief~
+You have the distinct feeling that you are not the only person here.
+Every now and then you catch glimpses of shadows dancing across the wall.
+You can feel a slight breeze, as if someone has passed close by you. Upon
+searching the area, you confirm you are the only person in sight.
+~
+0 3146760 0
+D5
+Chamber of Trials for Thieves
+~
+~
+0 -1 10328
+S
+#10323
+Hall of the Mage~
+The pungent odour of sulphur is dominant here. Fine mists cover the floor,
+and a harsh chanting seems to be coming from all around you. Thunder claps
+and bursts of light can be seen and heard coming from below you.
+~
+0 3146760 0
+D5
+Chamber of Trials for Mages
+~
+~
+0 -1 10329
+S
+#10324
+Hall of the Cleric~
+A feeling of utter peace and tranquility fills your spirit, ahead you
+see the horrors of your nightmares come to life, not giving them a second
+glance you pass right through them to fulfill your destiny.
+~
+0 3146760 0
+D5
+Chamber of Trials for Clerics
+~
+~
+0 -1 10330
+S
+#10325
+Chamber of Trials for Warriors~
+Here you will experience your first full combat against MOBILES, also known
+as MOBS. Mobile is the name used for monsters and the like in the game.
+All exits, except down, lead to a CAGE mob. Some of these cage mobs may be
+aggressive and will attack you upon entering their room. As you kill them,
+you will gain experience, as well as academy equipment and gold. Once you
+have defeated a mob, type GET ALL CORPSE to loot the coins and equipment.
+You may also type CONFIG +AUTOLOOT or CONFIG +AUTOGOLD. Autoloot will take
+everything from the corpse when you kill it. Autogold will take only the
+gold from the corpse. When you loot a corpse of equipment, the items are
+transferred to your inventory. You may suffer injury during the battle, so
+return here and type REST or SLEEP. This will speed your healing process.
+When you are finished healing, type WAKE or STAND to continue.
+~
+0 3146760 0
+D0
+A cage
+~
+~
+0 -1 10339
+D1
+A cage
+~
+~
+0 -1 10342
+D2
+A cage
+~
+~
+0 -1 10340
+D3
+A cage
+~
+~
+0 -1 10341
+D5
+A Stone Corridor
+~
+~
+0 -1 10356
+S
+#10326
+Chamber of Trials for Druids~
+Here you will experience your first full combat against MOBILES, also known
+as MOBS. Mobile is the name used for monsters and the like in the game.
+All exits, except down, lead to a CAGE mob. Some of these cage mobs may be
+aggressive and will attack you upon entering their room. As you kill them,
+you will gain experience, as well as academy equipment and gold. Once you
+have defeated a mob, type GET ALL CORPSE to loot the coins and equipment.
+You may also type CONFIG +AUTOLOOT or CONFIG +AUTOGOLD. Autoloot will take
+everything from the corpse when you kill it. Autogold will take only the
+gold from the corpse. When you loot a corpse of equipment, the items are
+transferred to your inventory. You may suffer injury during the battle, so
+return here and type REST or SLEEP. This will speed your healing process.
+When you are finished healing, type WAKE or STAND to continue.
+~
+0 3146760 0
+D0
+A cage
+~
+~
+0 -1 10343
+D1
+A cage
+~
+~
+0 -1 10346
+D2
+A cage
+~
+~
+0 -1 10344
+D3
+A cage
+~
+~
+0 -1 10345
+D5
+A Stone Corridor
+~
+~
+0 -1 10356
+S
+#10327
+Chamber of Trials for Vampires~
+Here you will experience your first full combat against MOBILES, also known
+as MOBS. Mobile is the name used for monsters and the like in the game.
+All exits, except down, lead to a CAGE mob. Some of these cage mobs may be
+aggressive and will attack you upon entering their room. As you kill them,
+you will gain experience, as well as academy equipment and gold. Once you
+have defeated a mob, type GET ALL CORPSE to loot the coins and equipment.
+You may also type CONFIG +AUTOLOOT or CONFIG +AUTOGOLD. Autoloot will take
+everything from the corpse when you kill it. Autogold will take only the
+gold from the corpse. When you loot a corpse of equipment, the items are
+transferred to your inventory. You may suffer injury during the battle, so
+return here and type REST or SLEEP. This will speed your healing process.
+When you are finished healing, type WAKE or STAND to continue.
+~
+0 3146760 0
+D0
+A cage
+~
+~
+0 -1 10347
+D1
+A cage
+~
+~
+0 -1 10350
+D2
+A cage
+~
+~
+0 -1 10348
+D3
+A cage
+~
+~
+0 -1 10349
+D5
+A Stone Corridor
+~
+~
+0 -1 10356
+S
+#10328
+Chamber of Trials for Thieves~
+Here you will experience your first full combat against MOBILES, also known
+as MOBS. Mobile is the name used for monsters and the like in the game.
+All exits, except down, lead to a CAGE mob. Some of these cage mobs may be
+aggressive and will attack you upon entering their room. As you kill them,
+you will gain experience, as well as academy equipment and gold. Once you
+have defeated a mob, type GET ALL CORPSE to loot the coins and equipment.
+You may also type CONFIG +AUTOLOOT or CONFIG +AUTOGOLD. Autoloot will take
+everything from the corpse when you kill it. Autogold will take only the
+gold from the corpse. When you loot a corpse of equipment, the items are
+transferred to your inventory. You may suffer injury during the battle, so
+return here and type REST or SLEEP. This will speed your healing process.
+When you are finished healing, type WAKE or STAND to continue.
+~
+0 3146760 0
+D0
+A cage
+~
+~
+0 -1 10351
+D1
+A cage
+~
+~
+0 -1 10354
+D2
+A cage
+~
+~
+0 -1 10352
+D3
+A cage
+~
+~
+0 -1 10353
+D5
+A Stone Corridor
+~
+~
+0 -1 10356
+S
+#10329
+Chamber of Trials for Mages~
+Here you will experience your first full combat against MOBILES, also known
+as MOBS. Mobile is the name used for monsters and the like in the game.
+All exits, except down, lead to a CAGE mob. Some of these cage mobs may be
+aggressive and will attack you upon entering their room. As you kill them,
+you will gain experience, as well as academy equipment and gold. Once you
+have defeated a mob, type GET ALL CORPSE to loot the coins and equipment.
+You may also type CONFIG +AUTOLOOT or CONFIG +AUTOGOLD. Autoloot will take
+everything from the corpse when you kill it. Autogold will take only the
+gold from the corpse. When you loot a corpse of equipment, the items are
+transferred to your inventory. You may suffer injury during the battle, so
+return here and type REST or SLEEP. This will speed your healing process.
+When you are finished healing, type WAKE or STAND to continue.
+~
+0 3146760 0
+D0
+A cage
+~
+~
+0 -1 10335
+D1
+A cage
+~
+~
+0 -1 10338
+D2
+A cage
+~
+~
+0 -1 10336
+D3
+A cage
+~
+~
+0 -1 10337
+D5
+A Stone Corridor
+~
+~
+0 -1 10356
+S
+#10330
+Chamber of Trials for Clerics~
+Here you will experience your first full combat against MOBILES, also known
+as MOBS. Mobile is the name used for monsters and the like in the game.
+All exits, except down, lead to a CAGE mob. Some of these cage mobs may be
+aggressive and will attack you upon entering their room. As you kill them,
+you will gain experience, as well as academy equipment and gold. Once you
+have defeated a mob, type GET ALL CORPSE to loot the coins and equipment.
+You may also type CONFIG +AUTOLOOT or CONFIG +AUTOGOLD. Autoloot will take
+everything from the corpse when you kill it. Autogold will take only the
+gold from the corpse. When you loot a corpse of equipment, the items are
+transferred to your inventory. You may suffer injury during the battle, so
+return here and type REST or SLEEP. This will speed your healing process.
+When you are finished healing, type WAKE or STAND to continue.
+~
+0 3146760 0
+D0
+A cage
+~
+~
+0 -1 10332
+D1
+A cage
+~
+~
+0 -1 10334
+D2
+A cage
+~
+~
+0 -1 10333
+D3
+A cage
+~
+~
+0 -1 10331
+D5
+A Stone Corridor
+~
+~
+0 -1 10356
+S
+#10331
+Clerics West Cage~
+Kill this "cage" mob, remove the "academy" equipment from the corpse, and
+then sacrifice the corpse. Sacrifice is as the name states, you sacrifice
+the corpse to the gods and they reward you for it. To use, type SAC CORPSE.
+You may also sacrifice unwanted items, by first dropping them on the ground,
+then typing SAC <item>. For more information on sacrifice, see the help.
+~
+0 3145736 0
+D1
+Chamber of Trials for Clerics
+~
+~
+0 -1 10330
+S
+#10332
+Clerics North Cage~
+As you loot the corpses you will be collecting your equipment, you need to
+learn the commands for using your equipment. The commands are: GET, DROP,
+WEAR, WIELD, HOLD, REMOVE, REPAIR, and EXAMINE. To get a piece of equipment
+from a corpse you type GET <item> CORPSE. To get an item from the ground
+you type GET <item>. To drop a piece of equipment from your inventory, type
+DROP <item>. To wear an item, type WEAR <item> or WEAR ALL. To wield a
+weapon, type WIELD <item>. You may not wield a weapon if you are already
+wielding one, you must first remove the weapon you are using. To remove a
+weapon or item, type REMOVE <item>. Many pieces of equipment may be damaged
+and repaired. To see the condition of a piece of equipment, type EXAM <item>.
+If is it in need of repair, you need to find a blacksmith. Once in the room
+with the blacksmith, remove item to inventory and type REPAIR <item>.
+~
+0 3145736 0
+D2
+Chamber of Trials for Clerics
+~
+~
+0 -1 10330
+S
+#10333
+Clerics South Cage~
+The stench of rotting corpses assaults your senses. Bits of bone and pieces
+of rusted armor are strewn about the cage. Remember, kill, loot the corpse,
+then sacrifice the corpse. You may type CONFIG +AUTOSAC to have all corpse
+sacrificed automatically at the mobiles death. You must use caution when
+using autosac as items still inside the corpse are also sacrificed. Even
+if you have CONFIG +AUTOLOOT, there are times when your hands are full or
+you have reached maximum weight and will be unable to get everything from
+the corpse.
+~
+0 3145736 0
+D0
+Chamber of Trials for Clerics
+~
+~
+0 -1 10330
+S
+#10334
+Clerics East Cage~
+The cage mobs are all named "cage" in addition to their actual name. This
+mob can be killed using KILL CAGE or KILL KOBOLD. All the other cage mobs
+are similarly named. The mobs in the battlegrounds will all be referred to
+as "arena" in addition to their name. Also, all equipment available in the
+Academy is named "academy". You can WEAR ACADEMY or REMOVE ACADEMY in
+addition to the actual name of the item.
+~
+0 3145736 0
+D3
+Chamber of Trials for Clerics
+~
+~
+0 -1 10330
+S
+#10335
+Mages North Cage~
+As you loot the corpses you will be collecting your equipment, you need to
+learn the commands for using your equipment. The commands are: GET, DROP,
+WEAR, WIELD, HOLD, REMOVE, REPAIR, and EXAMINE. To get a piece of equipment
+from a corpse you type GET <item> CORPSE. To get an item from the ground
+you type GET <item>. To drop a piece of equipment from your inventory, type
+DROP <item>. To wear an item, type WEAR <item> or WEAR ALL. To wield a
+weapon, type WIELD <item>. You may not wield a weapon if you are already
+wielding one, you must first remove the weapon you are using. To remove a
+weapon or item, type REMOVE <item>. Many pieces of equipment may be damaged
+and repaired. To see the condition of a piece of equipment, type EXAM <item>.
+If is it in need of repair, you need to find a blacksmith. Once in the room
+with the blacksmith, remove item to inventory and type REPAIR <item>.
+~
+0 3145736 0
+D2
+Chamber of Trials for Mages
+~
+~
+0 -1 10329
+S
+#10336
+Mages South Cage~
+The stench of rotting corpses assaults your senses. Bits of bone and pieces
+of rusted armor are strewn about the cage. Remember, kill, loot the corpse,
+then sacrifice the corpse. You may type CONFIG +AUTOSAC to have all corpse
+sacrificed automatically at the mobiles death. You must use caution when
+using autosac as items still inside the corpse are also sacrificed. Even
+if you have CONFIG +AUTOLOOT, there are times when your hands are full or
+you have reached maximum weight and will be unable to get everything from
+the corpse.
+~
+0 3145736 0
+D0
+Chamber of Trials for Mages
+~
+~
+0 -1 10329
+S
+#10337
+Mages West Room~
+Kill this "cage" mob, remove the "academy" equipment from the corpse, and
+then sacrifice the corpse. Sacrifice is as the name states, you sacrifice
+the corpse to the gods and they reward you for it. To use, type SAC CORPSE.
+You may also sacrifice unwanted items, by first dropping them on the ground,
+then typing SAC <item>. For more information on sacrifice, see the help.
+~
+0 3145736 0
+D1
+Chamber of Trials for Mages
+~
+~
+0 -1 10329
+S
+#10338
+Mages East Room~
+The cage mobs are all named "cage" in addition to their actual name. This
+mob can be killed using KILL CAGE or KILL KOBOLD. All the other cage mobs
+are similarly named. The mobs in the battlegrounds will all be referred to
+as "arena" in addition to their name. Also, all equipment available in the
+Academy is named "academy". You can WEAR ACADEMY or REMOVE ACADEMY in
+addition to the actual name of the item.
+~
+0 3145736 0
+D3
+Chamber of Trials for Mages
+~
+~
+0 -1 10329
+S
+#10339
+Warriors North Cage~
+As you loot the corpses you will be collecting your equipment, you need to
+learn the commands for using your equipment. The commands are: GET, DROP,
+WEAR, WIELD, HOLD, REMOVE, REPAIR, and EXAMINE. To get a piece of equipment
+from a corpse you type GET <item> CORPSE. To get an item from the ground
+you type GET <item>. To drop a piece of equipment from your inventory, type
+DROP <item>. To wear an item, type WEAR <item> or WEAR ALL. To wield a
+weapon, type WIELD <item>. You may not wield a weapon if you are already
+wielding one, you must first remove the weapon you are using. To remove a
+weapon or item, type REMOVE <item>. Many pieces of equipment may be damaged
+and repaired. To see the condition of a piece of equipment, type EXAM <item>.
+If is it in need of repair, you need to find a blacksmith. Once in the room
+with the blacksmith, remove item to inventory and type REPAIR <item>.
+~
+0 3145736 0
+D2
+Chamber of Trials for Warriors
+~
+~
+0 -1 10325
+S
+#10340
+Warriors South Cage~
+The stench of rotting corpses assaults your senses. Bits of bone and pieces
+of rusted armor are strewn about the cage. Remember, kill, loot the corpse,
+then sacrifice the corpse. You may type CONFIG +AUTOSAC to have all corpse
+sacrificed automatically at the mobiles death. You must use caution when
+using autosac as items still inside the corpse are also sacrificed. Even
+if you have CONFIG +AUTOLOOT, there are times when your hands are full or
+you have reached maximum weight and will be unable to get everything from
+the corpse.
+~
+0 3145736 0
+D0
+Chamber of Trials for Warriors
+~
+~
+0 -1 10325
+S
+#10341
+Warriors West Cage~
+Kill this "cage" mob, remove the "academy" equipment from the corpse, and
+then sacrifice the corpse. Sacrifice is as the name states, you sacrifice
+the corpse to the gods and they reward you for it. To use, type SAC CORPSE.
+You may also sacrifice unwanted items, by first dropping them on the ground,
+then typing SAC <item>. For more information on sacrifice, see the help.
+~
+0 3145736 0
+D1
+Chamber of Trials for Warriors
+~
+~
+0 -1 10325
+S
+#10342
+Warriors East Cage~
+The cage mobs are all named "cage" in addition to their actual name. This
+mob can be killed using KILL CAGE or KILL KOBOLD. All the other cage mobs
+are similarly named. The mobs in the battlegrounds will all be referred to
+as "arena" in addition to their name. Also, all equipment available in the
+Academy is named "academy". You can WEAR ACADEMY or REMOVE ACADEMY in
+addition to the actual name of the item.
+~
+0 3145736 0
+D3
+Chamber of Trials for Warriors
+~
+~
+0 -1 10325
+S
+#10343
+Druids North Cage~
+As you loot the corpses you will be collecting your equipment, you need to
+learn the commands for using your equipment. The commands are: GET, DROP,
+WEAR, WIELD, HOLD, REMOVE, REPAIR, and EXAMINE. To get a piece of equipment
+from a corpse you type GET <item> CORPSE. To get an item from the ground
+you type GET <item>. To drop a piece of equipment from your inventory, type
+DROP <item>. To wear an item, type WEAR <item> or WEAR ALL. To wield a
+weapon, type WIELD <item>. You may not wield a weapon if you are already
+wielding one, you must first remove the weapon you are using. To remove a
+weapon or item, type REMOVE <item>. Many pieces of equipment may be damaged
+and repaired. To see the condition of a piece of equipment, type EXAM <item>.
+If is it in need of repair, you need to find a blacksmith. Once in the room
+with the blacksmith, remove item to inventory and type REPAIR <item>.
+~
+0 3145736 0
+D2
+Chamber of Trials for Druids
+~
+~
+0 -1 10326
+S
+#10344
+Druids South Cage~
+The stench of rotting corpses assaults your senses. Bits of bone and pieces
+of rusted armor are strewn about the cage. Remember, kill, loot the corpse,
+then sacrifice the corpse. You may type CONFIG +AUTOSAC to have all corpse
+sacrificed automatically at the mobiles death. You must use caution when
+using autosac as items still inside the corpse are also sacrificed. Even
+if you have CONFIG +AUTOLOOT, there are times when your hands are full or
+you have reached maximum weight and will be unable to get everything from
+the corpse.
+~
+0 3145736 0
+D0
+Chamber of Trials for Druids
+~
+~
+0 -1 10326
+S
+#10345
+Druids West Cage~
+Kill this "cage" mob, remove the "academy" equipment from the corpse, and
+then sacrifice the corpse. Sacrifice is as the name states, you sacrifice
+the corpse to the gods and they reward you for it. To use, type SAC CORPSE.
+You may also sacrifice unwanted items, by first dropping them on the ground,
+then typing SAC <item>. For more information on sacrifice, see the help.
+~
+0 3145736 0
+D1
+Chamber of Trials for Druids
+~
+~
+0 -1 10326
+S
+#10346
+Druids East Cage~
+The cage mobs are all named "cage" in addition to their actual name. This
+mob can be killed using KILL CAGE or KILL KOBOLD. All the other cage mobs
+are similarly named. The mobs in the battlegrounds will all be referred to
+as "arena" in addition to their name. Also, all equipment available in the
+Academy is named "academy". You can WEAR ACADEMY or REMOVE ACADEMY in
+addition to the actual name of the item.
+~
+0 3145736 0
+D3
+Chamber of Trials for Druids
+~
+~
+0 -1 10326
+S
+#10347
+Vampires North Cage~
+As you loot the corpses you will be collecting your equipment, you need to
+learn the commands for using your equipment. The commands are: GET, DROP,
+WEAR, WIELD, HOLD, REMOVE, REPAIR, and EXAMINE. To get a piece of equipment
+from a corpse you type GET <item> CORPSE. To get an item from the ground
+you type GET <item>. To drop a piece of equipment from your inventory, type
+DROP <item>. To wear an item, type WEAR <item> or WEAR ALL. To wield a
+weapon, type WIELD <item>. You may not wield a weapon if you are already
+wielding one, you must first remove the weapon you are using. To remove a
+weapon or item, type REMOVE <item>. Many pieces of equipment may be damaged
+and repaired. To see the condition of a piece of equipment, type EXAM <item>.
+If is it in need of repair, you need to find a blacksmith. Once in the room
+with the blacksmith, remove item to inventory and type REPAIR <item>.
+~
+0 3145736 0
+D2
+Chamber of Trials for Vampires
+~
+~
+0 -1 10327
+S
+#10348
+Vampires South Cage~
+The stench of rotting corpses assaults your senses. Bits of bone and pieces
+of rusted armor are strewn about the cage. Remember, kill, loot the corpse,
+then sacrifice the corpse. You may type CONFIG +AUTOSAC to have all corpse
+sacrificed automatically at the mobiles death. You must use caution when
+using autosac as items still inside the corpse are also sacrificed. Even
+if you have CONFIG +AUTOLOOT, there are times when your hands are full or
+you have reached maximum weight and will be unable to get everything from
+the corpse.
+~
+0 3145736 0
+D0
+Chamber of Trials for Vampires
+~
+~
+0 -1 10327
+S
+#10349
+Vampires West Cage~
+Kill this "cage" mob, remove the "academy" equipment from the corpse, and
+then sacrifice the corpse. Sacrifice is as the name states, you sacrifice
+the corpse to the gods and they reward you for it. To use, type SAC CORPSE.
+You may also sacrifice unwanted items, by first dropping them on the ground,
+then typing SAC <item>. For more information on sacrifice, see the help.
+~
+0 3145736 0
+D1
+Chamber of Trials for Vampires
+~
+~
+0 -1 10327
+S
+#10350
+Vampires East Cage~
+The cage mobs are all named "cage" in addition to their actual name. This
+mob can be killed using KILL CAGE or KILL KOBOLD. All the other cage mobs
+are similarly named. The mobs in the battlegrounds will all be referred to
+as "arena" in addition to their name. Also, all equipment available in the
+Academy is named "academy". You can WEAR ACADEMY or REMOVE ACADEMY in
+addition to the actual name of the item.
+~
+0 3145736 0
+D3
+Chamber of Trials for Vampires
+~
+~
+0 -1 10327
+S
+#10351
+Thieves North Cage~
+As you loot the corpses you will be collecting your equipment, you need to
+learn the commands for using your equipment. The commands are: GET, DROP,
+WEAR, WIELD, HOLD, REMOVE, REPAIR, and EXAMINE. To get a piece of equipment
+from a corpse you type GET <item> CORPSE. To get an item from the ground
+you type GET <item>. To drop a piece of equipment from your inventory, type
+DROP <item>. To wear an item, type WEAR <item> or WEAR ALL. To wield a
+weapon, type WIELD <item>. You may not wield a weapon if you are already
+wielding one, you must first remove the weapon you are using. To remove a
+and repaired. To see the condition of a piece of equipment, type EXAM <item>.
+If is it in need of repair, you need to find a blacksmith. Once in the room
+with the blacksmith, remove item to inventory and type REPAIR <item>.
+~
+0 3145736 0
+D2
+Chamber of Trials for Thieves
+~
+~
+0 -1 10328
+S
+#10352
+Thieves South Cage~
+The stench of rotting corpses assaults your senses. Bits of bone and pieces
+of rusted armor are strewn about the cage. Remember, kill, loot the corpse,
+then sacrifice the corpse. You may type CONFIG +AUTOSAC to have all corpse
+sacrificed automatically at the mobiles death. You must use caution when
+using autosac as items still inside the corpse are also sacrificed. Even
+if you have CONFIG +AUTOLOOT, there are times when your hands are full or
+you have reached maximum weight and will be unable to get everything from
+the corpse.
+~
+0 3145736 0
+D0
+Chamber of Trials for Thieves
+~
+~
+0 -1 10328
+S
+#10353
+Thieves West Cage~
+Kill this "cage" mob, remove the "academy" equipment from the corpse, and
+then sacrifice the corpse. Sacrifice is as the name states, you sacrifice
+the corpse to the gods and they reward you for it. To use, type SAC CORPSE.
+You may also sacrifice unwanted items, by first dropping them on the ground,
+then typing SAC <item>. For more information on sacrifice, see the help.
+~
+0 3145736 0
+D1
+Chamber of Trials for Thieves
+~
+~
+0 -1 10328
+S
+#10354
+Thieves East Cage~
+The cage mobs are all named "cage" in addition to their actual name. This
+mob can be killed using KILL CAGE or KILL KOBOLD. All the other cage mobs
+are similarly named. The mobs in the battlegrounds will all be referred to
+as "arena" in addition to their name. Also, all equipment available in the
+Academy is named "academy". You can WEAR ACADEMY or REMOVE ACADEMY in
+addition to the actual name of the item.
+~
+0 3145736 0
+D3
+Chamber of Trials for Thieves
+~
+~
+0 -1 10328
+S
+#10355
+The Room of Portals~
+This is the portal room which leads to the training hall for each of the
+classes.  Prepare to be transferred once your presence is noticed.  It may
+take a few moments, so please be patient.  Should you decide you are not
+ready to face the Chamber of Trials, you can return to the south.  You
+notice a large certificate on the wall; at least you have something
+to read while you wait.
+~
+0 3146764 0
+D2
+The Academy Healer
+~
+~
+0 -1 10319
+E
+certificate wall~
+I have enjoyed writing the revision of the Darkhaven Academy. I wanted
+the new players armed with as much information as possible before venturing
+into the open game. Take your time here, learning the commands and seeing
+how the programs on the mobs and items work. It will help you later in your
+travels. If you have trouble understanding anything you find in the Academy,
+type WHO 51 and ask an immortal for assistance. I wish you well in your
+adventuring. May you enjoy many hours of joy and develop many friendships.
+
+                     Warm Huggles,
+                     Brittany Seccunda-DethBlayde
+                     February 9, 1996
+ 
+** Please be sure to read HELP RULES STAKE prior to engaging in fighting.
+** Staking a mob is illegal, as is stealing a kill.
+~
+> speech_prog p temporarily out of order~
+if class ($r) == Mage
+  mpechoat $r The ground opens beneath you!  You drop into the Mages portal.
+  mpechoat $r You land in the Mages Hall with a bounce.
+  mptransfer $r 10323
+  mpat $r mpforce $r bounce
+endif
+if class ($r) == Cleric
+  mpechoat $r The ground opens beneath you!  You drop into the Clerics portal.
+  mpechoat $r You land in the Clerics Hall with a bounce.
+  mptransfer $r 10324
+  mpat $r mpforce $r bounce
+endif
+if class ($r) == Warrior
+  mpechoat $r The ground opens beneath you!  You drop into the Warriors portal.
+  mpechoat $r You land in the Warriors Hall with a bounce.
+  mptransfer $r 10318
+  mpat $r mpforce $r bounce
+endif
+if class ($r) == Vampire
+  mpechoat $r The ground opens beneath you!  You drop into the Vampires portal.
+  mpechoat $r You land in the Vampires Hall with a bounce.
+  mptransfer $r 10321
+  mpat $r mpforce $r bounce
+endif
+if class ($r) == Druid
+  mpechoat $r The ground opens beneath you!  You drop into the Druids portal.
+  mpechoat $r You land in the Druids Hall with a bounce.
+  mptransfer $r 10320
+  mpat $r mpforce $r bounce
+endif
+if class ($r) == Ranger
+  mpechoat $r The ground opens beneath you!  You drop into the Rangers portal.
+  mpechoat $r You land in the Rangers Hall with a bounce.
+  mptransfer $r 10391
+  mpat $r mpforce $r bounce
+endif
+if class ($r) == Thief
+  mpechoat $r The ground opens beneath you!  You drop into the Thieves portal.
+  mpechoat $r You land in the Thieves Hall with a bounce.
+  mptransfer $r 10322
+  mpat $r mpforce $r bounce
+endif
+~
+|
+S
+#10356
+A Stone Corridor~
+This is the stage of your training where you may begin to feel pangs of
+hunger and a parched throat. In other words, you need food and drink.
+To the east is the Darkhaven Supply Store. You may purchase water and
+some meat. Once you have eaten and drunk, you will be ready to proceed
+north.
+~
+0 3145736 0
+D0
+A Stone Corridor
+~
+~
+0 -1 10358
+D1
+To the east is the Darkhaven Academy Supply Store.
+~
+~
+0 -1 10357
+S
+#10357
+Darkhaven Academy Supply Store~
+This is a regular shop, you type LIST to see what you can purchase and
+BUY <item> to make the purchase. Like many other places in the game,
+you may bribe the storekeeper to give you an item. There are many mobs
+in this world that will sell you keys, items or information in exchange
+for a few gold coins. Be sure to look at the mobiles for hints on these
+types of programs. 
+~
+0 3146760 0
+D3
+A Stone Corridor can be seen to the west.
+~
+~
+0 -1 10356
+S
+#10358
+A Stone Corridor~
+In this part of the academy you will learn about the Death Trap, more
+commonly known as a DT. A death trap is exactly as its name states, a
+room that causes your death. Unlike a regular death, you do not lose
+your hitpoints and you do not leave a corpse behind. All the items you 
+were wearing and carrying are destroyed. You do not leave a corpse behind.
+You are then transported back to the Temple in Darkhaven. Going west will
+give you more information about death traps.
+~
+0 3145736 0
+D0
+A Stone Corridor
+~
+~
+0 -1 10360
+D2
+A Stone Corridor
+~
+~
+0 -1 10356
+D3
+This is a DEATH TRAP!! The only one in the game that won't kill you!
+~
+~
+0 -1 10359
+S
+#10359
+Slow Death~
+This is what you will see if you stumble into a death trap.  As previously
+stated, a DT kills instantaneously and destroys any and all equipment you
+have at the time.  Hints as to the placement of a death trap are sometimes
+given in the room that preceeds them.  Also remember to use "exit" and
+"look" to find these deadly rooms.  Note:  no DTS are found in Darkhaven.
+~
+0 3145736 0
+D1
+A Stone Corridor
+~
+~
+0 -1 10358
+S
+#10360
+A Stone Corridor~
+One final challenge remains for you. Then you may enter the battlegrounds
+to further hone your combat skills. To the west is a creature that holds
+the visor of completion. Kill him and it is yours.
+~
+0 3145736 0
+D2
+A Stone Corridor
+~
+~
+0 -1 10358
+D3
+A Final Test
+~
+~
+0 -1 10361
+S
+#10361
+A Final Test~
+You can hear the clash of steel and chanting coming from somewhere above
+you. This room smells of decay. The walls are dripping with some sort of
+green ichor. It looks as if it is burning right through. You see a flash
+of light from the above, then it is gone.
+~
+0 3145736 0
+D1
+~
+~
+0 -1 10360
+D4
+A door leading to the Battlegrounds
+~
+~
+3 -1 10362
+> act_prog P from the east.~
+if mobinroom(10344) < 1
+mpmload 10344
+endif
+~
+> rand_prog 50~
+if mobinroom(10344) < 1
+mpmload 10344
+endif
+~
+|
+S
+#10362
+In the middle of the eastern wall~
+This is the Academy entrance to the Battleground. Below here is the lower
+level of the Academy. The battleground were supplied to allow you to further
+hone the combat skills learned in your schooling. Kill the beasts that wander
+here. If you wish to leave, exiting up will take you to Lord Toric.
+~
+0 3145740 0
+D0
+~
+~
+0 -1 10363
+D2
+~
+~
+0 -1 10365
+D3
+~
+~
+0 -1 10369
+D4
+~
+~
+16777216 -1 10319
+D5
+A door that leads to the lower level of the Academy
+~
+~
+3 -1 10361
+S
+#10363
+Along the eastern wall~
+You hear the howl of some unnatural beast echo off the walls. The ground
+is stained with dried blood, looking closer you see tracks of some sort
+of creature ... but what?
+~
+0 3145736 0
+D0
+~
+~
+0 -1 10364
+D2
+~
+~
+0 -1 10362
+D3
+~
+~
+0 -1 10370
+D4
+~
+~
+16777216 -1 10319
+S
+#10364
+North-East Corner~
+This area will allow you to further hone your combat skills. Kill the beasts
+that wander here. If you wish to leave, exiting up will take you to the room
+for Toric, the Lord of Healing, in the Darkhaven Academy.
+~
+0 3145736 0
+D2
+~
+~
+0 -1 10363
+D3
+~
+~
+0 -1 10371
+D4
+~
+~
+16777216 -1 10319
+S
+#10365
+Along the eastern wall~
+You hear the howl of some unnatural beast echo off the walls. The ground
+is stained with dried blood, looking closer you see tracks of some sort
+of creature ... but what?
+~
+0 3145736 0
+D0
+~
+~
+0 -1 10362
+D2
+~
+~
+0 -1 10366
+D3
+~
+~
+0 -1 10368
+D4
+~
+~
+16777216 -1 10319
+S
+#10366
+South-East Corner~
+This area will allow you to further hone your combat skills. Kill the beasts
+that wander here. If you wish to leave, exiting up will take you to the room
+for Toric, the Lord of Healing, in the Darkhaven Academy.
+~
+0 3145736 0
+D0
+~
+~
+0 -1 10365
+D3
+~
+~
+0 -1 10367
+D4
+~
+~
+16777216 -1 10319
+S
+#10367
+Along the southern wall~
+You hear the howl of some unnatural beast echo off the walls. The ground
+is stained with dried blood, looking closer you see tracks of some sort
+of creature ... but what?
+~
+0 3145736 0
+D0
+~
+~
+0 -1 10368
+D1
+~
+~
+0 -1 10366
+D3
+~
+~
+0 -1 10376
+D4
+~
+~
+16777216 -1 10319
+S
+#10368
+Battle Grounds~
+This area will allow you to further hone your combat skills. Kill the beasts
+that wander here. If you wish to leave, exiting up will take you to the room
+for Toric, the Lord of Healing, in the Darkhaven Academy.
+~
+0 3145736 0
+D0
+~
+~
+0 -1 10369
+D1
+~
+~
+0 -1 10365
+D2
+~
+~
+0 -1 10367
+D3
+~
+~
+0 -1 10375
+D4
+~
+~
+16777216 -1 10319
+S
+#10369
+Mid-way in the Battlegrounds~
+You hear the howl of some unnatural beast echo off the walls. The ground
+is stained with dried blood, looking closer you see tracks of some sort
+of creature ... but what?
+~
+0 3145740 0
+D0
+~
+~
+0 -1 10370
+D1
+~
+~
+0 -1 10362
+D2
+~
+~
+0 -1 10368
+D3
+~
+~
+0 -1 10374
+D4
+~
+~
+16777216 -1 10319
+S
+#10370
+Battle Grounds~
+This area will allow you to further hone your combat skills. Kill the beasts
+that wander here. If you wish to leave, exiting up will take you to the room
+for Toric, the Lord of Healing, in the Darkhaven Academy.
+~
+0 3145736 0
+D0
+~
+~
+0 -1 10371
+D1
+~
+~
+0 -1 10363
+D2
+~
+~
+0 -1 10369
+D3
+~
+~
+0 -1 10373
+D4
+~
+~
+16777216 -1 10319
+S
+#10371
+Along the northern wall~
+You hear the howl of some unnatural beast echo off the walls. The ground
+is stained with dried blood, looking closer you see tracks of some sort
+of creature ... but what?
+~
+0 3145736 0
+D1
+~
+~
+0 -1 10364
+D2
+~
+~
+0 -1 10370
+D3
+~
+~
+0 -1 10372
+D4
+~
+~
+16777216 -1 10319
+S
+#10372
+In the middle of the northern wall~
+This area will allow you to further hone your combat skills. Kill the beasts
+that wander here. If you wish to leave, exiting up will take you to the room
+for Toric, the Lord of Healing, in the Darkhaven Academy.
+~
+0 3145736 0
+D1
+~
+~
+0 -1 10371
+D2
+~
+~
+0 -1 10373
+D3
+~
+~
+0 -1 10381
+D4
+~
+~
+16777216 -1 10319
+S
+#10373
+Central Battlegrounds~
+You hear the howl of some unnatural beast echo off the walls. The ground
+is stained with dried blood, looking closer you see tracks of some sort
+of creature ... but what?  You can hear a load wail of pain coming from
+somewhere below!  Yet another sound catches your attention, as someone
+succumbs to death.
+~
+0 3145736 0
+D0
+~
+~
+0 -1 10372
+D1
+~
+~
+0 -1 10370
+D2
+~
+~
+0 -1 10374
+D3
+~
+~
+0 -1 10380
+D4
+~
+~
+16777216 -1 10319
+D5
+Below is a dark, muddy tunnel, leading deep underground.
+~
+~
+16777216 -1 10406
+S
+#10374
+The Center of the Battlegrounds~
+This area will allow you to further hone your combat skills. Kill the beasts
+that wander here. If you wish to leave, exiting up will take you to the room
+for Toric, the Lord of Healing, in the Darkhaven Academy.
+~
+0 3145736 0
+D0
+~
+~
+0 -1 10373
+D1
+~
+~
+0 -1 10369
+D2
+~
+~
+0 -1 10375
+D3
+~
+~
+0 -1 10379
+D4
+~
+~
+16777216 -1 10319
+S
+#10375
+Central Battlegrounds~
+You hear the howl of some unnatural beast echo off the walls. The ground
+is stained with dried blood, looking closer you see tracks of some sort
+of creature ... but what?
+~
+0 3145736 0
+D0
+~
+~
+0 -1 10374
+D1
+~
+~
+0 -1 10368
+D2
+~
+~
+0 -1 10376
+D3
+~
+~
+0 -1 10378
+D4
+~
+~
+16777216 -1 10319
+S
+#10376
+In the middle of the southern wall~
+This area will allow you to further hone your combat skills. Kill the beasts
+that wander here. If you wish to leave, exiting up will take you to the room
+for Toric, the Lord of Healing, in the Darkhaven Academy.
+~
+0 3145736 0
+D0
+~
+~
+0 -1 10375
+D1
+~
+~
+0 -1 10367
+D3
+~
+~
+0 -1 10377
+D4
+~
+~
+16777216 -1 10319
+S
+#10377
+Along the southern wall~
+You hear the howl of some unnatural beast echo off the walls. The ground
+is stained with dried blood, looking closer you see tracks of some sort
+of creature ... but what?
+~
+0 3145736 0
+D0
+~
+~
+0 -1 10378
+D1
+~
+~
+0 -1 10376
+D3
+~
+~
+0 -1 10386
+D4
+~
+~
+16777216 -1 10319
+S
+#10378
+Battle Grounds~
+This area will allow you to further hone your combat skills. Kill the beasts
+that wander here. If you wish to leave, exiting up will take you to the room
+for Toric, the Lord of Healing, in the Darkhaven Academy.
+~
+0 3145736 0
+D0
+~
+~
+0 -1 10379
+D1
+~
+~
+0 -1 10375
+D2
+~
+~
+0 -1 10377
+D3
+~
+~
+0 -1 10385
+D4
+~
+~
+16777216 -1 10319
+S
+#10379
+Mid-way in the Battlegrounds~
+You hear the howl of some unnatural beast echo off the walls. The ground
+is stained with dried blood, looking closer you see tracks of some sort
+of creature ... but what?
+~
+0 3145736 0
+D0
+~
+~
+0 -1 10380
+D1
+~
+~
+0 -1 10374
+D2
+~
+~
+0 -1 10378
+D3
+~
+~
+0 -1 10384
+D4
+~
+~
+16777216 -1 10319
+S
+#10380
+Battle Grounds~
+This area will allow you to further hone your combat skills. Kill the beasts
+that wander here. If you wish to leave, exiting up will take you to the room
+for Toric, the Lord of Healing, in the Darkhaven Academy.
+~
+0 3145736 0
+D0
+~
+~
+0 -1 10381
+D1
+~
+~
+0 -1 10373
+D2
+~
+~
+0 -1 10379
+D3
+~
+~
+0 -1 10383
+D4
+~
+~
+16777216 -1 10319
+S
+#10381
+Along the northern wall~
+You hear the howl of some unnatural beast echo off the walls. The ground
+is stained with dried blood, looking closer you see tracks of some sort
+of creature ... but what?
+~
+0 3145736 0
+D1
+~
+~
+0 -1 10372
+D2
+~
+~
+0 -1 10380
+D3
+~
+~
+0 -1 10382
+D4
+~
+~
+16777216 -1 10319
+S
+#10382
+North-West Corner~
+This area will allow you to further hone your combat skills. Kill the beasts
+that wander here. If you wish to leave, exiting up will take you to the room
+for Toric, the Lord of Healing, in the Darkhaven Academy.
+~
+0 3145740 0
+D0
+~
+~
+16777219 -1 10300
+D1
+~
+~
+0 -1 10381
+D2
+~
+~
+0 -1 10383
+D4
+~
+~
+16777216 -1 10319
+> leave_prog 100~
+if isimmort($n)
+else
+  mpforce $n vis
+endif
+~
+> entry_prog 100~
+if ispc($n)
+if level($n) == 1
+mpechoat $n _whi You cannot proceed until you have reached level 2!
+mpechoat $n _whi I shall return you to Tsythia promptly.
+mptransfer 0.$n 10300
+mpat 10300 mpforce 0.$n look
+endif
+endif
+~
+|
+S
+#10383
+Along the western wall~
+You hear the howl of some unnatural beast echo off the walls. The ground
+is stained with dried blood, looking closer you see tracks of some sort
+of creature ... but what?
+~
+0 3145736 0
+D0
+~
+~
+0 -1 10382
+D1
+~
+~
+0 -1 10380
+D2
+~
+~
+0 -1 10384
+D4
+~
+~
+16777216 -1 10319
+S
+#10384
+In the middle of the western wall~
+This area will allow you to further hone your combat skills. Kill the beasts
+that wander here. If you wish to leave, exiting up will take you to the room
+for Toric, the Lord of Healing, in the Darkhaven Academy.
+~
+0 3145736 0
+D0
+~
+~
+0 -1 10383
+D1
+~
+~
+0 -1 10379
+D2
+~
+~
+0 -1 10385
+D4
+~
+~
+16777216 -1 10319
+S
+#10385
+Along the western wall~
+You hear the howl of some unnatural beast echo off the walls. The ground
+is stained with dried blood, looking closer you see tracks of some sort
+of creature ... but what?
+~
+0 3145736 0
+D0
+~
+~
+0 -1 10384
+D1
+~
+~
+0 -1 10378
+D2
+~
+~
+0 -1 10386
+D4
+~
+~
+16777216 -1 10319
+S
+#10386
+South-West Corner~
+This area will allow you to further hone your combat skills. Kill the beasts
+that wander here. If you wish to leave, exiting up will take you to the room
+for Toric, the Lord of Healing, in the Darkhaven Academy. You see some strange
+symbols glowing in the ground here.  They look like RUNES.
+~
+0 3145736 0
+D0
+West Wall
+~
+~
+0 -1 10385
+D1
+East Wall
+~
+~
+0 -1 10377
+D4
+The Temple Of Darkhaven
+~
+~
+16777216 -1 10319
+D5
+~
+~
+3 -1 10392
+E
+Runes~
+Going down into this hole will take you to the domain of the Naga. Be careful
+they are aggressive, proceed at your own risk!.
+~
+S
+#10387
+Rangers South Cage~
+The stench of rotting corpses assaults your senses. Bits of bone and pieces
+of rusted armor are strewn about the cage. Remember, kill, loot the corpse, 
+then sacrifice the corpse. You may type CONFIG +AUTOSAC to have all corpse
+sacrificed automatically at the mobiles death. You must use caution when
+using autosac as items still inside the corpse are also sacrificed. Even 
+if you have CONFIG +AUTOLOOT, there are times when your hands are full or
+you have reached maximum weight and will be unable to get everything from
+the corpse.
+~
+0 3145736 0
+D0
+Chamber of Trials
+~
+~
+0 -1 10305
+S
+#10388
+Rangers East Cage~
+The cage mobs are all named "cage" in addition to their actual name. This
+mob can be killed using KILL CAGE or KILL KOBOLD. All the other cage mobs
+are similarly named. The mobs in the battlegrounds will all be referred to
+as "arena" in addition to their name. Also, all equipment available in the
+Academy is named "academy". You can WEAR ACADEMY or REMOVE ACADEMY in
+addition to the actual name of the item.
+~
+0 3145736 0
+D3
+Chamber of Trials
+~
+~
+0 -1 10305
+S
+#10389
+Rangers North Cage~
+As you loot the corpses you will be collecting your equipment, you need to
+learn the commands for using your equipment. The commands are: GET, DROP,
+WEAR, WIELD, HOLD, REMOVE, REPAIR, and EXAMINE. To get a piece of equipment
+from a corpse you type GET <item> CORPSE. To get an item from the ground
+you type GET <item>. To drop a piece of equipment from your inventory, type
+DROP <item>. To wear an item, type WEAR <item> or WEAR ALL. To wield a
+weapon, type WIELD <item>. You may not wield a weapon if you are already 
+wielding one, you must first remove the weapon you are using. To remove a
+weapon or item, type REMOVE <item>. Many pieces of equipment may be damaged
+and repaired. To see the condition of a piece of equipment, type EXAM <item>.
+If is it in need of repair, you need to find a blacksmith. Once in the room
+with the blacksmith, remove item to inventory and type REPAIR <item>.
+~
+0 3145736 0
+D2
+Chamber of Trials
+~
+~
+0 -1 10305
+S
+#10390
+Rangers West Cage~
+Kill this "cage" mob, remove the "academy" equipment from the corpse, and
+then sacrifice the corpse. Sacrifice is as the name states, you sacrifice
+the corpse to the gods and they reward you for it. To use, type SAC CORPSE.
+You may also sacrifice unwanted items, by first dropping them on the ground,
+then typing SAC <item>. For more information on sacrifice, see the help.
+~
+0 3145736 0
+D1
+Chamber of Trials
+~
+~
+0 -1 10305
+S
+#10391
+Hall of the Ranger~
+The freedom of the wild, always has it fascinated you. To be free in the
+land, independent of cities and civilizations. These thoughts flood your
+mind as you walk this hallway.
+~
+0 3146764 0
+D5
+Chamber of Trials for Rangers
+~
+~
+0 -1 10305
+S
+#10392
+In a Humid Cavern.~
+You are standing in an underground cavern, moss is prevalent along the ceiling
+and walls. A steady dripping is echoing through the area and seems to be coming
+from everywhere.
+~
+0 3145741 0
+D3
+~
+~
+0 -1 10393
+D4
+~
+~
+3 -1 10386
+> entry_prog 100~
+if level($n) < 4
+mpechoat $n This dark cavern is full of aggressive mobs!  Perhaps you should
+mpechoat $n return to the battle grounds until you are more experienced.
+else
+if level($n) > 10
+mpechoat $n This dark cavern is meant for adventurer's less experienced than
+mpechoat $n yourself.  Perhaps you should try a more challenging area.
+else
+endif
+endif
+~
+|
+S
+#10393
+In the Cavern~
+The steady sound of hissing can be heard in the distance.  The air here
+is extremely humid, you are finding it very difficult to breathe.
+~
+0 3145737 0
+D1
+~
+~
+0 -1 10392
+D2
+~
+~
+0 -1 10394
+S
+#10394
+In the Cavern~
+You feel as if you are being pulled into the mire, the constant dampness
+of the cavern has caused the ground to be turned into a mud bog.
+~
+0 3145737 0
+D0
+~
+~
+0 -1 10393
+D1
+~
+~
+0 -1 10395
+D3
+~
+~
+0 -1 10396
+S
+#10395
+Deeper in the Cavern~
+The steady sound of hissing can be heard in the distance, closer actually
+than you would like. The air here is humid and breathing is difficult.
+~
+0 3145737 0
+D2
+~
+~
+0 -1 10397
+D3
+~
+~
+0 -1 10394
+S
+#10396
+In the Cavern~
+You feel you are being pulled into the mire, the constant dampness and
+humidity have caused the ground to be transformed into a mud bog.
+~
+0 3145737 0
+D1
+~
+~
+0 -1 10394
+S
+#10397
+Cove of the Queen~
+You have inadvertently stumbled upon the cove of the Queen of the Nagas.
+This room is littered with bloated corpses of adventurers who have been
+reported lost in the past few days.
+~
+0 3145737 0
+D0
+~
+~
+0 -1 10395
+S
+#10398
+DELETE THIS ROOM~
+This room is for questions and problems you may find as a new player.
+All level of players are welcome to post questions/suggestions here.
+If you are between level 1 and level 10, you may receive a piece of
+note paper and a quill to write with by typing:    NOD
+
+If you are above level 10 and wish to post here, you can buy note paper
+in Darkhaven. Please type HELP NOTE to learn how to write a note. There
+is no use of profanity on this or any note board.
+
+**--**     Any note posted here may be removed at any time.     **--**
+~
+0 3211276 0
+D3
+Entrance to Darkhaven Academy
+~
+~
+0 -1 10300
+> leave_prog 100~
+if isimmort($n)
+else
+  mpforce $n vis
+endif
+~
+> act_prog p nods solemnly.~
+if isnpc($n)
+else
+if level($n) > 10
+mpechoat $n You are too high a level to receive supplies here.
+else
+mpechoat $n Here, let me set you up with supplies!
+mpoload 36 1
+mpoload 37 1
+give note $n
+give quill $n
+mpforce $n hold note
+mpechoat $n There, now type NOTE WRITE to get into note editor.
+endif
+endif
+~
+> entry_prog 100~
+if ispc($n)
+if level($n) == 1
+mpforce $n config -brief
+endif
+endif
+~
+|
+S
+#10399
+Blazing Chamber~
+This chamber is covered with runes of warding and power a ball of scrying
+hovers in front of Scarab's throne. The throne is made from the bones of
+his mortal self before he passed onto the realm of immortality. Looking
+you discover a t.v. and vcr behind the throne for use when the Realms are
+not in need of the Lord of Dark Magic.
+~
+0 2097164 0
+> act_prog p purge~
+mppurge
+mpecho The room is purged!
+~
+|
+S
+#10400
+Hall of the Augurer~
+This chamber is filled with an aura of utter calmness and peace.  The
+walls are painted a soft hue, adding to the affect.  Here is were the
+Augurers come to meditate and reflect upon their activities of the
+day.  Small, spartan cots line the walls, each well-padded to make a
+comfortable resting place for an exhausted adventurer.
+~
+0 3146764 0
+D5
+Chamber of Trials for Augurers.
+~
+~
+0 -1 10401
+E
+cots~
+Several cots line each wall. They look like they are very comfortable.
+~
+E
+walls~
+The walls are painted a soft blue, adding a calm feeling to the place.
+~
+S
+#10401
+Chamber of Trials for Augurers~
+Here you will experience your first full combat against MOBILES, also known
+as MOBS. Mobile is the name used for monsters and the like in the game.
+All exits, except down, lead to a CAGE mob. Some of these cage mobs may be
+aggressive and will attack you upon entering their room. As you kill them,
+you will gain experience, as well as academy equipment and gold. Once you
+have defeated a mob, type GET ALL CORPSE to loot the coins and equipment.
+You may also type CONFIG +AUTOLOOT or CONFIG +AUTOGOLD. Autoloot will take
+everything from the corpse when you kill it. Autogold will take only the
+gold from the corpse. When you loot a corpse of equipment, the items are
+transferred to your inventory. You may suffer injury during the battle, so
+return here and type REST or SLEEP. This will speed your healing process.
+When you are finished healing, type WAKE or STAND to continue.
+~
+0 3146764 0
+D0
+A cage.
+~
+~
+0 -1 10402
+D1
+A cage.
+~
+~
+0 -1 10403
+D2
+A cage.
+~
+~
+0 -1 10404
+D3
+A cage.
+~
+~
+0 -1 10405
+D5
+A Stone Corridor.
+~
+~
+0 -1 10356
+S
+#10402
+Augurers North Cage~
+As you loot the corpses you will collect basic Academy equipment.  The
+commands for using your new belongings are:  GET, DROP, WEAR, WIELD, HOLD,
+REMOVE, REPAIR, and EXAMINE.  "Get <item>" or "get <item> corpse" takes an
+object from the ground or from a corpse and places it into your inventory.
+To wear an item from your inventory type "wear item", and to remove it and
+return it to your inventory type "remove <item>".  To drop an item in your
+inventory, type "drop <item>".  To wield a weapon, type "wield <weapon>".
+Many items may be damaged and repaired.  To see an item's condition, type
+"exam <item>".  To repair an item type "repair <item>" at a blacksmith.
+~
+0 3145740 0
+D2
+Chamber of Trials for Augurers.
+~
+~
+0 -1 10401
+S
+#10403
+Augurers East Cage~
+Kill this "cage" mob, remove the "academy" equipment from its corpse, and
+then sacrifice the corpse.  Sacrifice is as the name states, you sacrifice
+the corpse to the gods and they reward you for it (albeit minorly).  To use,
+type 'sac corpse'.  You may also sacrifice unwanted items by first dropping
+them and then typing 'sac <item>'.  See 'help sacrifice' for information.
+~
+0 3145740 0
+D3
+Chamber of Trials for Augurers.
+~
+~
+0 -1 10401
+S
+#10404
+Augurers South Cage~
+The stench of rotting corpses assaults your nostrils, while bits of bone
+and pieces of rusted armor are strewn about the cage.  Remember - kill,
+loot the corpse, then sacrifice the corpse.  You may type 'config +autosac'
+to have all corpse sacrificed automatically when you kill the creature.
+You must use caution when using autosac, as items still inside the corpse
+are also sacrificed.  Even if you have 'config +autloot', there are times
+when your hands are full or you have reached maximum weight and will be
+unable to get everything from the corpse automatically.
+~
+0 3145740 0
+D0
+Chamber of Trials for Augurers.
+~
+~
+0 -1 10401
+S
+#10405
+Augurers West Cage~
+The cage mobs are all named "cage" in addition to their actual name, thus
+these creatures can be killed using 'kill cage' or 'kill kobold'.  All the
+other cage mobs are similarly named.  The mobs in the battlegrounds will all
+be referred to as "arena" in addition to their name.  Also, all equipment
+available in the Academy is named "academy".  You can 'wear academy' or
+'remove academy' in addition to the actual name of the item.
+~
+0 3145740 0
+D1
+Chamber of Trials for Augurers.
+~
+~
+0 -1 10401
+S
+#10406
+A dark tunnel below the Battlegrounds~
+You have left the relative saftey of the battlegrounds above.  A thick
+stench of death, moisture, and heat mix to assault your every breath.
+The walls of this tunnel are covered with a slimy layer of a liquid
+similar to sweat.  Below your feet, the ground seems to sink slightly,
+barely handling your weight.  Crudely carved tunnels lead deeper into
+this underground chamber to the southwest and southeast.
+~
+0 3145737 13
+D4
+Above you is the Darkhaven Academy battlegrounds.
+~
+~
+16777216 -1 10373
+D8
+To the southeast is a tunnel leading away from the Battlegrounds.
+~
+~
+0 -1 10407
+D9
+To the southwest is a tunnel leading away from the Battlegrounds.
+~
+~
+0 -1 10427
+S
+#10407
+A dark tunnel below the Battlegrounds~
+The walls of this tunnel are close, barely allowing you passage.
+The earth under your feet is damp and sticking to your boots.  A
+squeal can be heard coming from the south.  You may want to return
+back to the safety of the Battlegrounds.
+~
+0 3145737 13
+D2
+~
+~
+0 -1 10408
+D7
+~
+~
+0 -1 10406
+S
+#10408
+A dark tunnel below the Battlegrounds~
+Darkness engulfs this tunnel, making it impossible to see without a 
+light source.  Water drips slowly down the tunnel walls, adding to
+the moisture in the soil and humidity in the air.  This place does
+appear to be very welcoming.
+~
+0 3145737 13
+D0
+~
+~
+0 -1 10407
+D1
+~
+~
+0 -1 10409
+S
+#10409
+A dark tunnel below the Battlegrounds~
+The walls of this tunnel are close, barely allowing you passage.
+The earth under your feet is damp and sticking to your boots.  A
+squeal can be heard coming from the south.  You may want to return
+back to the safety of the Battlegrounds far towards the north.
+~
+0 3145737 13
+D2
+~
+~
+0 -1 10410
+D3
+~
+~
+0 -1 10408
+S
+#10410
+A dark tunnel below the Battlegrounds~
+Darkness engulfs this tunnel, making it impossible to see without a
+light source.  Water drips slowly down the tunnel walls, adding to
+the moisture in the soil and humidity in the air.  This place does
+appear to be very welcoming.
+~
+0 3145737 13
+D0
+~
+~
+0 -1 10409
+D2
+~
+~
+0 -1 10411
+S
+#10411
+A dark tunnel below the Battlegrounds~
+You have entered a opening in the rock, and can see a large cavern
+to the east.  Sounds echo around you, coming from everywhere and
+nowhere. This place gives you a sick feeling in the pit of your
+stomach.
+~
+0 3145737 13
+D0
+~
+~
+0 -1 10410
+D2
+~
+~
+0 -1 10412
+D3
+~
+~
+0 -1 10420
+D9
+~
+~
+0 -1 10416
+S
+#10412
+A dark tunnel below the Battlegrounds~
+The tunnel stops abruptly at the southern wall.  There are several 
+openings leading away from the tunnel, into a large cavern.  You can
+hear a lot of noise in the area, and none of it sounds pleasant.
+~
+0 3145737 13
+D0
+~
+~
+0 -1 10411
+D3
+~
+~
+0 -1 10416
+D7
+~
+~
+0 -1 10420
+D9
+~
+~
+0 -1 10413
+S
+#10413
+A hollow cavern deep underground~
+Booming echoes overwhelm your senses.  Loud dripping, sounding like
+many large hammers crashing against the stone walls, assault your every
+moment. Cries of death surround and torment you.  You get a distinct
+urge to move away from here as quickly, and unnoticed, as possible.
+~
+0 3145737 13
+D0
+~
+~
+0 -1 10416
+D3
+~
+~
+0 -1 10414
+D6
+~
+~
+0 -1 10412
+D7
+~
+~
+0 -1 10417
+S
+#10414
+A hollow cavern deep underground~
+The sounds seem to coalesces here, making one noise indistinguishable
+from the next.  The cavern wall to the south seems to be sweating, 
+drips of water roll down its face, collecting in a puddle at your feet.
+You have a desire to leave this place, and venture somewhere less
+deafening.
+~
+0 3145737 13
+D0
+~
+~
+0 -1 10417
+D1
+~
+~
+0 -1 10413
+D3
+~
+~
+0 -1 10415
+D6
+~
+~
+0 -1 10416
+D7
+~
+~
+0 -1 10418
+S
+#10415
+A hollow cavern deep underground~
+Booming echoes overwhelm your senses.  Loud dripping, sounding like
+many large hammers crashing against the stone walls, assault your every
+moment. Cries of death surround and torment you.  You get a distinct
+urge to move away from here as quickly, and unnoticed, as possible.
+~
+0 3145737 13
+D0
+~
+~
+0 -1 10418
+D1
+~
+~
+0 -1 10414
+D6
+~
+~
+0 -1 10417
+D7
+~
+~
+0 -1 10419
+S
+#10416
+A hollow cavern deep underground~
+You sink a few inches into the mud that makes up the floor of this
+cavern. Darkness and noise punctuate the devestating nothingness
+that fills this space.  If there is life to be found in this place, 
+you are sure you do not want to run across it.
+~
+0 3145737 13
+D0
+~
+~
+0 -1 10420
+D1
+~
+~
+0 -1 10412
+D2
+~
+~
+0 -1 10413
+D3
+~
+~
+0 -1 10417
+D6
+~
+~
+0 -1 10411
+D7
+~
+~
+0 -1 10421
+D9
+~
+~
+0 -1 10414
+S
+#10417
+A hollow cavern deep underground~
+As you wander through the muggy darkness, your nose detects the musty
+scents of fungus and decay as your passing stirs the still air.  The
+sounds of battle echo around you as you continue your journey through
+the gloom, loud enough to make you believe that around the next
+corner you may find two combatents struggling for life. You continue
+onwards through the gloom, your senses screaming for you to flee before
+it's too late.
+~
+0 3145737 13
+D0
+~
+~
+0 -1 10421
+D1
+~
+~
+0 -1 10416
+D2
+~
+~
+0 -1 10414
+D3
+~
+~
+0 -1 10418
+D6
+~
+~
+0 -1 10420
+D7
+~
+~
+0 -1 10422
+D8
+~
+~
+0 -1 10413
+D9
+~
+~
+0 -1 10415
+S
+#10418
+A hollow cavern deep underground~
+Hollow and barren of color and light, this place is overwhelming with
+sounds and moisture.  The sound of water dripping and wails of pain and
+death can be heard all around you.  Whatever resides in this awful place
+does not welcome strangers.
+~
+0 3145737 13
+D0
+~
+~
+0 -1 10422
+D1
+~
+~
+0 -1 10417
+D2
+~
+~
+0 -1 10415
+D3
+~
+~
+0 -1 10419
+D6
+~
+~
+0 -1 10421
+D7
+~
+~
+0 -1 10423
+D8
+~
+~
+0 -1 10414
+S
+#10419
+A dark tunnel below the Battlegrounds~
+The tunnel stops abruptly at the southern wall.  There are several
+openings leading away from the tunnel, into a large cavern.  You can
+hear a lot of noise in the area, and none of it sounds pleasant.
+~
+0 3145737 13
+D0
+~
+~
+0 -1 10423
+D1
+~
+~
+0 -1 10418
+D6
+~
+~
+0 -1 10422
+D8
+~
+~
+0 -1 10415
+S
+#10420
+A hollow cavern deep underground~
+Hollow and barren of color and light, this place is overwhelming with
+sounds and moisture.  The sound of water dripping and wails of pain and
+death can be heard all around you.  Whatever resides in this awful place
+does not welcome strangers.
+~
+0 3145737 13
+D1
+~
+~
+0 -1 10411
+D2
+~
+~
+0 -1 10416
+D3
+~
+~
+0 -1 10421
+D8
+~
+~
+0 -1 10412
+D9
+~
+~
+0 -1 10417
+S
+#10421
+A hollow cavern deep underground~
+To the north is a craggy rock wall of the cavern, covered in a slimy
+film of an unknown source.  From all directions you are assaulted by
+howls of pain, and cries of death.  Moisture clings to your skin,
+making you feel much hotter then you should for the air temperature.
+~
+0 3145737 13
+D1
+~
+~
+0 -1 10420
+D2
+~
+~
+0 -1 10417
+D3
+~
+~
+0 -1 10422
+D8
+~
+~
+0 -1 10416
+D9
+~
+~
+0 -1 10418
+S
+#10422
+A hollow cavern deep underground~
+You sink a few inches into the mud that makes up the floor of this
+cavern. Darkness and noise punctuate the devestating nothingness
+that fills this space.  If there is life to be found in this place,
+you are sure you do not want to run across it.
+~
+0 3145737 13
+D1
+~
+~
+0 -1 10421
+D2
+~
+~
+0 -1 10418
+D3
+~
+~
+0 -1 10423
+D8
+~
+~
+0 -1 10417
+D9
+~
+~
+0 -1 10419
+S
+#10423
+A dark tunnel below the Battlegrounds~
+You have entered a opening in the rock, and can see a large cavern
+to the west.  Sounds echo around you, coming from everywhere and
+nowhere. This place gives you a sick feeling in the pit of your
+stomach.
+~
+0 3145737 13
+D0
+~
+~
+0 -1 10424
+D1
+~
+~
+0 -1 10422
+D2
+~
+~
+0 -1 10419
+D8
+~
+~
+0 -1 10418
+S
+#10424
+A dark tunnel below the Battlegrounds~
+Darkness engulfs this tunnel, making it impossible to see without a
+light source.  Water drips slowly down the tunnel walls, adding to
+the moisture in the soil and humidity in the air.  This place does
+appear to be very welcoming.
+~
+0 3145737 13
+D0
+~
+~
+0 -1 10425
+D2
+~
+~
+0 -1 10423
+S
+#10425
+A dark tunnel below the Battlegrounds~
+The walls of this tunnel are close, barely allowing you passage.
+The earth under your feet is damp and sticking to your boots.  A
+squeal can be heard coming from the south.  You may want to return
+back to the safety of the Battlegrounds far towards the north.
+~
+0 3145737 13
+D1
+~
+~
+0 -1 10426
+D2
+~
+~
+0 -1 10424
+S
+#10426
+A dark tunnel below the Battlegrounds~
+Darkness engulfs this tunnel, making it impossible to see without a
+light source.  Water drips slowly down the tunnel walls, adding to
+the moisture in the soil and humidity in the air.  This place does
+appear to be very welcoming.
+~
+0 3145737 13
+D0
+~
+~
+0 -1 10427
+D3
+~
+~
+0 -1 10425
+S
+#10427
+A dark tunnel below the Battlegrounds~
+The walls of this tunnel are close, barely allowing you passage.
+The earth under your feet is damp and sticking to your boots.  A
+squeal can be heard coming from the south.  You may want to return
+back to the safety of the Battlegrounds.
+~
+0 3145737 0
+D2
+~
+~
+0 -1 10426
+D6
+~
+~
+0 -1 10406
+S
+#10429
+Not currently used~
+~
+0 1075838980 1
+S
+#10498
+Floating in a void~
+~
+0 1073741828 1
+S
+#10499
+Chamber of the Watch~
+Here reside the watchers of the gateway between the Realms and the
+outside world, and from here all new adventurers are observed and
+noted by the inhabitants herein.
+ 
+** This room should *not* be used for any activities of any kind
+other than those of the two mobs residing here.  Do not ever move
+or purge either of these mobiles if the pre-auth system is used. **
+~
+0 1075838980 1
+S
+#0
+
+
+#RESETS
+M 0 10399 1 10300
+D 0 10300 2 1
+M 0 10340 1 10303
+M 0 10333 1 10305
+M 0 10394 1 10306
+M 0 10345 1 10308
+E 1 10345 1 3
+D 0 10309 0 1
+D 0 10310 2 1
+D 0 10312 3 1
+D 0 10313 1 1
+M 0 10352 1 10318
+M 0 10342 1 10319
+M 0 10354 1 10320
+M 0 10353 1 10321
+M 0 10351 1 10322
+M 0 10349 1 10323
+M 0 10350 1 10324
+M 0 10334 1 10325
+M 0 10335 1 10326
+M 0 10336 1 10327
+M 0 10337 1 10328
+M 0 10338 1 10329
+M 0 10339 1 10330
+M 0 10326 2 10331
+E 1 10306 14 3
+E 1 10319 14 9
+M 0 10326 2 10331
+E 1 10306 14 3
+E 1 10319 14 9
+M 0 10305 2 10332
+E 1 10302 14 13
+E 1 10303 14 7
+M 0 10305 2 10332
+E 1 10302 14 13
+E 1 10303 14 7
+M 0 10312 2 10333
+E 1 10304 14 6
+E 1 10305 14 12
+M 0 10312 2 10333
+E 1 10304 14 6
+E 1 10305 14 12
+M 0 10319 2 10334
+E 1 10300 14 14
+E 1 10301 14 8
+M 0 10319 2 10334
+E 1 10300 14 14
+E 1 10301 14 8
+M 0 10306 2 10335
+E 1 10302 14 13
+E 1 10303 14 7
+M 0 10306 2 10335
+E 1 10302 14 13
+E 1 10303 14 7
+M 0 10313 2 10336
+E 1 10304 14 6
+E 1 10305 14 12
+M 0 10313 2 10336
+E 1 10304 14 6
+E 1 10305 14 12
+M 0 10327 2 10337
+E 1 10306 14 3
+E 1 10319 14 9
+M 0 10327 2 10337
+E 1 10306 14 3
+E 1 10319 14 9
+M 0 10320 2 10338
+E 1 10300 14 14
+E 1 10301 14 8
+M 0 10320 2 10338
+E 1 10300 14 14
+E 1 10301 14 8
+M 0 10307 2 10339
+E 1 10302 14 13
+E 1 10303 14 7
+M 0 10307 2 10339
+E 1 10302 14 13
+E 1 10303 14 7
+M 0 10314 2 10340
+E 1 10304 14 6
+E 1 10305 14 12
+M 0 10314 2 10340
+E 1 10304 14 6
+E 1 10305 14 12
+M 0 10328 2 10341
+E 1 10306 14 3
+E 1 10319 14 9
+M 0 10328 2 10341
+E 1 10306 14 3
+E 1 10319 14 9
+M 0 10321 2 10342
+E 1 10300 14 14
+E 1 10301 14 8
+M 0 10321 2 10342
+E 1 10300 14 14
+E 1 10301 14 8
+M 0 10308 2 10343
+E 1 10302 14 13
+E 1 10303 14 7
+M 0 10308 2 10343
+E 1 10302 14 13
+E 1 10303 14 7
+M 0 10315 2 10344
+E 1 10304 14 6
+E 1 10305 14 12
+M 0 10315 2 10344
+E 1 10304 14 6
+E 1 10305 14 12
+M 0 10329 2 10345
+E 1 10306 14 3
+E 1 10319 14 9
+M 0 10329 2 10345
+E 1 10306 14 3
+E 1 10319 14 9
+M 0 10322 2 10346
+E 1 10300 14 14
+E 1 10301 14 8
+M 0 10322 2 10346
+E 1 10300 14 14
+E 1 10301 14 8
+M 0 10309 2 10347
+E 1 10302 14 13
+E 1 10303 14 7
+M 0 10309 2 10347
+E 1 10302 14 13
+E 1 10303 14 7
+M 0 10316 2 10348
+E 1 10304 14 6
+E 1 10305 14 12
+M 0 10316 2 10348
+E 1 10304 14 6
+E 1 10305 14 12
+M 0 10330 2 10349
+E 1 10306 14 3
+E 1 10319 14 9
+M 0 10330 2 10349
+E 1 10306 14 3
+E 1 10319 14 9
+M 0 10323 2 10350
+E 1 10300 14 14
+E 1 10301 14 8
+M 0 10323 2 10350
+E 1 10300 14 14
+E 1 10301 14 8
+M 0 10310 2 10351
+E 1 10302 14 13
+E 1 10303 14 7
+M 0 10310 2 10351
+E 1 10302 14 13
+E 1 10303 14 7
+M 0 10317 2 10352
+E 1 10304 14 6
+E 1 10305 14 12
+M 0 10317 2 10352
+E 1 10304 14 6
+E 1 10305 14 12
+M 0 10331 2 10353
+E 1 10306 14 3
+E 1 10319 14 9
+M 0 10331 2 10353
+E 1 10306 14 3
+E 1 10319 14 9
+M 0 10324 2 10354
+E 1 10300 14 14
+E 1 10301 14 8
+M 0 10324 2 10354
+E 1 10300 14 14
+E 1 10301 14 8
+M 0 10343 1 10357
+G 1 10316 1
+G 1 10317 1
+G 1 10314 1
+D 0 10361 4 1
+D 0 10362 5 1
+M 0 10303 4 10363
+M 0 10301 4 10365
+M 0 10300 4 10365
+M 0 10301 4 10367
+M 0 10301 4 10368
+M 0 10302 4 10370
+M 0 10302 4 10370
+M 0 10303 4 10370
+M 0 10302 4 10372
+M 0 10302 4 10372
+M 0 10300 4 10373
+M 0 10300 4 10374
+M 0 10301 4 10375
+M 0 10303 4 10377
+M 0 10300 4 10379
+M 0 10303 4 10381
+D 0 10382 0 1
+D 0 10386 5 1
+M 0 10318 2 10387
+E 1 10304 14 6
+E 1 10305 14 12
+M 0 10318 2 10387
+E 1 10304 14 6
+E 1 10305 14 12
+M 0 10325 2 10388
+E 1 10300 14 14
+E 1 10301 14 8
+M 0 10325 2 10388
+E 1 10300 14 14
+E 1 10301 14 8
+M 0 10311 2 10389
+E 1 10302 14 13
+E 1 10303 14 7
+M 0 10311 2 10389
+E 1 10302 14 13
+E 1 10303 14 7
+M 0 10332 2 10390
+E 1 10306 14 3
+E 1 10319 14 9
+M 0 10332 2 10390
+E 1 10306 14 3
+E 1 10319 14 9
+M 0 10355 1 10391
+D 0 10392 4 1
+M 0 10396 4 10395
+M 0 10396 4 10395
+M 0 10396 4 10396
+M 0 10396 4 10396
+M 0 10397 1 10397
+E 1 10318 2 16
+O 0 10367 1 10398
+M 0 10401 1 10401
+M 0 10400 1 10400
+M 0 10402 2 10402
+E 1 10302 1 13
+E 1 10303 1 7
+M 0 10402 2 10402
+E 1 10302 1 13
+E 1 10303 1 7
+M 0 10403 2 10403
+E 1 10306 1 3
+E 1 10319 1 9
+M 0 10403 2 10403
+E 1 10306 1 3
+E 1 10319 1 9
+M 0 10405 2 10405
+E 1 10300 1 14
+E 1 10301 1 8
+M 0 10405 2 10405
+E 1 10300 1 14
+E 1 10301 1 8
+M 0 10404 2 10404
+E 1 10304 1 6
+E 1 10305 1 12
+M 0 10404 2 10404
+E 1 10304 1 6
+E 1 10305 1 12
+M 0 10346 1 10355
+M 0 10497 1 10499
+M 0 10498 1 10499
+O 0 10401 1 10300
+O 0 10401 1 10319
+O 0 10401 1 10374
+O 0 10401 1 10386
+O 0 10401 1 10382
+O 0 10401 1 10364
+O 0 10401 1 10366
+O 0 10401 1 10325
+O 0 10401 1 10326
+O 0 10401 1 10327
+O 0 10401 1 10328
+O 0 10401 1 10329
+O 0 10401 1 10330
+O 0 10401 1 10401
+O 0 10401 1 10305
+M 0 10406 1 10413
+M 0 10407 1 10418
+M 0 10408 1 10424
+M 0 10409 1 10408
+M 0 10410 1 10423
+M 0 10411 1 10412
+M 0 10412 1 10415
+M 0 10413 1 10421
+M 0 10414 1 10425
+M 0 10415 1 10407
+M 0 10416 1 10414
+M 0 10417 1 10411
+M 0 10418 1 10409
+M 0 10419 1 10426
+M 0 10420 1 10422
+M 0 10421 1 10427
+S
+
+
+#SHOPS
+ 10343    0  0  0  0  0   120  90         0 23    ; Zurg
+ 10357    0  0  0  0  0   120  90         0 23    ; a tiny pixie
+0
+
+
+#REPAIRS
+0
+
+
+#SPECIALS
+M  10325 spec_guard
+M  10333 spec_cast_adept
+M  10334 spec_cast_adept
+M  10335 spec_cast_adept
+M  10336 spec_cast_adept
+M  10337 spec_cast_adept
+M  10338 spec_cast_adept
+M  10339 spec_cast_adept
+M  10342 spec_cast_adept
+M  10398 spec_cast_undead
+M  10401 spec_cast_adept
+S
+
+
+#$

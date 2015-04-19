@@ -850,7 +850,7 @@ do_make (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch) || !ch->pcdata->clan)
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -860,7 +860,7 @@ do_make (CHAR_DATA * ch, char *argument)
       && str_cmp (ch->name, clan->deity)
       && (clan->clan_type != CLAN_GUILD || str_cmp (ch->name, clan->number1)))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -922,7 +922,7 @@ do_induct (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch) || !ch->pcdata->clan)
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -937,7 +937,7 @@ do_induct (CHAR_DATA * ch, char *argument)
     ;
   else
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1094,7 +1094,7 @@ do_council_induct (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch) || !ch->pcdata->council)
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1104,7 +1104,7 @@ do_council_induct (CHAR_DATA * ch, char *argument)
       && (council->head2 == NULL || str_cmp (ch->name, council->head2))
       && str_cmp (council->name, "mortal council"))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1164,7 +1164,7 @@ do_outcast (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch) || !ch->pcdata->clan)
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1179,7 +1179,7 @@ do_outcast (CHAR_DATA * ch, char *argument)
     ;
   else
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1337,7 +1337,7 @@ do_council_outcast (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch) || !ch->pcdata->council)
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1347,7 +1347,7 @@ do_council_outcast (CHAR_DATA * ch, char *argument)
       && (council->head2 == NULL || str_cmp (ch->name, council->head2))
       && str_cmp (council->name, "mortal council"))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1408,7 +1408,7 @@ do_setclan (CHAR_DATA * ch, char *argument)
   set_char_color (AT_PLAIN, ch);
   if (IS_NPC (ch))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1744,7 +1744,7 @@ do_setcouncil (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1899,7 +1899,7 @@ do_showclan (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
   if (argument[0] == '\0')
@@ -1979,7 +1979,7 @@ do_showcouncil (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
   if (argument[0] == '\0')
@@ -2315,7 +2315,7 @@ do_defeats (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch) || !ch->pcdata->clan)
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
   if (ch->pcdata->clan->clan_type != CLAN_ORDER
@@ -2342,7 +2342,7 @@ do_defeats (CHAR_DATA * ch, char *argument)
     }
   else
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 }
@@ -2354,7 +2354,7 @@ do_victories (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch) || !ch->pcdata->clan)
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
   if (ch->pcdata->clan->clan_type != CLAN_ORDER
@@ -2380,7 +2380,7 @@ do_victories (CHAR_DATA * ch, char *argument)
     }
   else
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 }
@@ -2942,7 +2942,7 @@ do_roster (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch) || !ch->pcdata->clan)
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -2962,7 +2962,7 @@ do_roster (CHAR_DATA * ch, char *argument)
       show_members (ch, ch->pcdata->clan_name);
       return;
     }
-  send_to_char ("Huh?\n\r", ch);
+  send_to_char (_("Huh?\n"), ch);
   return;
 }
 
@@ -2976,7 +2976,7 @@ do_memberlist (CHAR_DATA * ch, char *argument)
       if (IS_NPC (ch) || !ch->pcdata->clan
 	  || str_cmp (ch->name, ch->pcdata->clan->leader))
 	{
-	  send_to_char ("Huh?\n\r", ch);
+	  send_to_char (_("Huh?\n"), ch);
 	  return;
 	}
 

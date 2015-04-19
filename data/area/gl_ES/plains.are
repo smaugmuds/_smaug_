@@ -1,0 +1,1374 @@
+#AREA   Plains of the North~
+
+
+
+#AUTHOR Copper~
+
+#RANGES
+1 20 0 60
+$
+
+#FLAGS 
+0
+
+#MOBILES
+#300
+druid Aruncus~
+Aruncus the Druid~
+Aruncus the Druid is walking around here, searching for herbs.
+~
+Aruncus is a tall, skinny druid with a face marked by nature.
+He seems to be in peace with himself and his surroundings.
+~
+193 8 -500 C
+13 8 2 13d13+130 3d5+2
+500 15000
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 1
+0 0 1711 0 0 0 16 524291
+#301
+hermit sorbus~
+Sorbus the Hermit~
+Sorbus the Hermit is sitting here, roasting a rabbit.
+~
+Sorbus bares the marks of a long, hard life in solitude.
+He is dressed in simple clothing and looks like he has little
+or nothing to say.
+~
+3 0 0 C
+8 16 6 4d4+40 1d9+2
+0 400
+6 6 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 1
+0 0 1775 0 0 0 16 2
+#303
+Ofcol man villageman~
+an Ofcol village man~
+A man of the Ofcol village is here, watching you closely.
+~
+He seems like a nice person with no interest in harming you or others.
+He wears normal, light clothing and has an anonymous face.
+~
+69 0 0 C
+6 15 6 6d6+60 2d4+2
+200 800
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 1
+0 0 1775 0 0 0 0 2
+#304
+Ofcol woman villagewoman~
+an Ofcol village woman~
+A woman of the Ofcol village glances at you warily.
+~
+She seems like a nice person with no interest in harming you or others.
+She wears a minimum of clothing and has big ... eyes.
+~
+69 0 0 C
+6 16 5 5d5+50 2d4+1
+100 600
+8 8 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 1
+0 0 1775 0 0 0 64 0
+#305
+worm Shudde-M'ell~
+Shudde-M'ell~
+Shudde-M'ell the Giant worm of G'harne is guarding his treasure.
+~
+Shudde-M'ell is about 15 ft long and is surrounded by an evil stench,
+The worm is the protector of the treasure of G'harne and has been so
+for as long anyone can remember.
+~
+35 552 -1000 C
+22 -2 0 10d10+500 8d2+6
+50666 75000
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+70 3 0 0 65536 65536 3
+0 0 1310767 0 0 0 5 3
+#306
+luxan shopkeeper~
+Luxan~
+Luxan the Shopkeeper is here, eager to sell you anything.
+~
+He looks like a mean trader from the outskirts of Darkhaven.  His life
+seems to be totally occupied with trading.  He looks very fit and capable
+of protecting his goods.
+~
+7 0 400 C
+23 0 0 0d0+0 2d10+0
+27000 80000
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 3
+0 0 1775 0 0 0 400 524291
+#308
+keeper innkeeper~
+the Innkeeper~
+An Innkeeper is here waiting for your order.
+~
+The Innkeeper looks skilled in brewing different beers and mixing the
+wierdest drinks known. He also looks very big.
+~
+3 0 -100 C
+23 0 0 0d0+0 2d10+1
+100 80000
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 3
+0 0 1775 0 0 0 400 524291
+#309
+rabbit~
+the cute rabbit~
+A cute rabbit is here.
+~
+It is a small, furry creature with long ears and big feet.
+~
+65 0 0 C
+1 20 6 1d4+1 1d4+0
+0 50
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+76 3 0 0 512 512 1
+0 0 1709 0 0 0 32 2
+#350
+dragon pet~
+the pet dragon~
+Ravan's pet dragon is bouncing around here flapping her cute wings.
+~
+Ravan's pet dragon is about 3 ft. tall with small pointy teeth.
+The small wings are eagerly trying to lift her from the ground,
+but so far they haven't succeeded.
+~
+1073741955 524424 1000 C
+10 0 0 10d10+100 10d10+0
+0 30000
+8 8 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+31 3 0 0 2048 2048 1
+0 0 296621 0 0 0 7 524291
+#0
+
+
+#OBJECTS
+#300
+herbs herb timian~
+a small dusk of timian herbs~
+Some herbs are lying here, small green leaves and tiny pink flowers.~
+~
+26 0 1
+12 3 -1 -1
+1 5 0
+E
+herbs herb timian~
+This herb smells rather spicy; maybe you should try it?
+~
+#301
+herbs herb gyvel~
+a small dusk of black gyvel~
+Some black gyvel is lying here, dark green with black leaves and tiny
+blood red flowers.~
+~
+26 0 1
+45 33 -1 -1
+1 50 5
+E
+herbs herb gyvel~
+This herb smells rather special, but is it poisonous?
+~
+#302
+plant ivy~
+a small dusk of poison ivy~
+Some poison ivy is growing here.~
+~
+19 0 1
+1 0 0 1
+1 5 0
+E
+plant ivy~
+This plant has dark green juicy leaves.
+You notice some small white thorns on it.~
+#303
+blood jar~
+a dark red jar~
+A small jar in a dark, red colour.~
+~
+17 0 1
+2 2 13 0
+2 50 5
+E
+blood jar~
+The jar is made of dry clay, covered with markings suggesting its
+occult origin.
+~
+#304
+wild flowers~
+wild flowers~
+A bunch of pretty wild flowers is here.~
+~
+13 1024 16401
+0 0 0 0
+1 10 1
+E
+wild flowers~
+These wild flowers are really pretty.
+Just like the flowers you would wear in your hair.~
+#307
+amulet~
+a strange amulet~
+A strange looking amulet is lying here, half covered with dust.~
+~
+9 192 5
+2 0 0 0
+1 500 50
+E
+amulet~
+Judging from the signs inscripted in the amulet, you gather it must
+have belonged to a druid.  It is weird looking with symbols from nature
+dominating it.
+~
+A
+21 -5
+A
+31 1
+#308
+staff stick~
+a druish staff~
+A staff with druidic marks have been left here.~
+~
+9 0 24576
+0 0 0 0
+4 15 1
+E
+staff stick~
+Then staff is about 5 ft long, engraved with mythical signs and figures.
+Otherwise the staff seems of no real interest.
+~
+A
+12 15
+A
+31 1
+A
+25 1
+#309
+rabbit roast wabbit~
+a rabbit roast~
+You see a deliciously looking rabbit roast.~
+~
+19 0 1
+24 0 0 0
+5 40 4
+E
+roast rabbit wabbit~
+Well the rabbit looks rather dead.
+You guess that this once was a ferocious rabbit who's life now has
+changed to that of a tasty wabbit woast.
+~
+#310
+template scroll~
+a strange template~
+A strange template made of an exotic green metal is placed here~
+~
+2 64 16385
+20 216 4 26
+1 15000 1500
+E
+template scroll metal~
+The template is made of an exotic green metal and looks
+centuries old.
+Inscripted upon is the words 'Ep ep fi'hur G'harne
+                             G'harne fhtagn Shudde-M'ell hyas Negg'h'
+And beneath the inscription you see horrifying death scenes depicted.
+~
+#311
+potion clear~
+a clear potion~
+A clear potion wrapped in leather is unnoticed placed here.~
+~
+10 64 1
+20 18 19 20
+2 2500 250
+E
+potion clear~
+As you examine the potion more, you notice the oddities of this
+potion. When you look through it you notice strange things...
+The clear potion is certainly not of this world.
+~
+E
+leather~
+The leather wrapped around the potion is old and decayed, originating
+from an, to you, unknown creature.~
+#312
+scroll jhyfrdow~
+a scroll titled 'jhyfrdow'~
+An odd looking scroll is here.~
+~
+2 0 1
+12 27 -1 -1
+1 500 50
+E
+scroll jhyfrdow~
+The scroll is titled 'jhyfrdow' and looks very old.
+As you examine it closer you notice primitive drawings of
+men doing some kind of a ritual.
+~
+E
+ritual men drawings~
+The drawing pictures people gathered round giant stone formations,
+worshipping a giant worm like creature.
+It seems they are sacrificing some of their own species.
+~
+#313
+crimson flask blood~
+a flask of crimson liquid~
+A flask of crimson liquid draws your attention.~
+~
+27 0 1
+1 1 13 0
+3 35000 3500
+E
+blood jar~
+The jar is made of dry clay, covered with markings suggesting its
+occult origin.
+~
+#0
+
+
+#ROOMS
+#300
+Path in the plains~
+You are walking on a path situated in the rough plains.
+You feel the strong winds blow through your hair as you study
+the beautiful landscaping here. The path continues east, north
+and west leads to plains and you see the path around Darkhaven
+to the south.
+~
+0 0 2
+D0
+You see the grassy plains.
+~
+~
+0 -1 315
+D1
+You notice nothing special, except that the path in the plains continues.
+~
+~
+0 -1 301
+D2
+Towards the south you notice the citywall of Darkhaven.
+~
+~
+0 -1 3904
+D3
+You see the grassy plains.
+~
+~
+0 -1 316
+S
+#301
+Path in the plains~
+You are walking on a path situated in the rough plains.
+You feel the strong winds blow through your hair as you study
+the beautiful landscaping here. The path continues east and west.
+~
+0 0 2
+D1
+You notice nothing special, except that the path in the plains continues.
+~
+~
+0 -1 302
+D3
+You notice nothing special, except that the path in the plains continues.
+~
+~
+0 -1 300
+S
+#302
+Path in the plains~
+You are walking on a path situated in the rough plains.
+You feel the strong winds blow through your hair as you study
+the beautiful landscaping here. The path continues north and west.
+~
+0 0 2
+D0
+You notice nothing special, except that the path in the plains continues.
+~
+~
+0 -1 303
+D3
+You notice nothing special, except that the path in the plains continues.
+~
+~
+0 -1 301
+S
+#303
+Path in the plains~
+You are walking on a path situated in the rough plains.
+You feel the strong winds blow through your hair as you study
+the beautiful landscaping here. The path leads north and south.
+To the east and the west you have the grassy plains.
+~
+0 0 2
+D0
+You notice nothing special, except that the path in the plains continues.
+~
+~
+0 -1 304
+D1
+To the east you notice the grassy plains.
+~
+~
+0 -1 317
+D2
+You notice nothing special, except that the path in the plains continues.
+~
+~
+0 -1 302
+D3
+To the west you can see more of the beautiful grassy plains.
+~
+~
+0 -1 315
+S
+#304
+Path in the plains~
+You are walking on a path situated in the rough plains.
+You feel the strong winds blow through your hair as you study
+the beautiful landscaping here. The Path leads north and south.
+~
+0 0 2
+D0
+The path continues north as small foothills begins to appear.
+~
+~
+0 -1 305
+D2
+The path leads south towards the town.
+~
+~
+0 -1 303
+S
+#305
+Path in the plains~
+You are walking on a path situated in the rough plains.
+You feel the strong winds blow through your hair as you watch the
+beautiful landscaping here. To the east and west you see the grassy plains.
+The path extends into small foothills to the north and also continues south.
+~
+0 0 2
+D0
+The path continues into the small foothills.
+~
+~
+0 -1 306
+D1
+You see the grassy plains here.
+~
+~
+0 -1 321
+D2
+The path continues towards Darkhaven.
+~
+~
+0 -1 304
+D3
+You see the grassy plains here.
+~
+~
+0 -1 320
+S
+#306
+Path in the foothills~
+You are on the path leading through the small foothills.
+The wind blow through your hair as you study the beautiful
+landscaping here. From the north you sense a certain freshness.
+The path continues east and south. You smell freshness from north.
+~
+0 0 2
+D0
+You see grassy plains and perhaps some crystal clear water.
+~
+~
+0 -1 326
+D1
+The path continues towards east here.
+~
+~
+0 -1 307
+D2
+The path in the plains wind through the small foothills.
+~
+~
+0 -1 305
+S
+#307
+Path in the foothills~
+You are walking on a path situated in the small foothills.
+The winds are more than average here but it feels nice. You can follow
+the path east or west.
+~
+0 0 2
+D1
+The path continues in the foothills
+~
+~
+0 -1 308
+D3
+To the west the path takes a bend southwards.
+~
+~
+0 -1 306
+S
+#308
+Path in the foothills~
+You are walking on a narrow path in the foothills.
+You feel the strong winds blow through your hair as you study
+the beautiful landscaping here. The path goes north and west.
+~
+0 0 2
+D0
+The narrow path through the foothills turns left here.
+~
+~
+0 -1 309
+D3
+To the west you can see the path continues.
+~
+~
+0 -1 307
+S
+#309
+Path in the foothills~
+You are walking on a path situated in foothills.
+To the west you sense a certain freshness and the path continues
+south and east.
+~
+0 0 2
+D1
+You see the path continues in the foothills.
+~
+~
+0 -1 310
+D2
+You see the path continues in the foothills.
+~
+~
+0 -1 308
+D3
+You see grassy plains and perhaps some crystal clear water.
+~
+~
+0 -1 326
+S
+#310
+Path in the foothills~
+You are walking on a long path in the east-west direction.
+The surroundings are green, vegetated foothills.
+You are able to force your way through some dense plants to the north.
+~
+0 0 2
+D0
+You can't really see much through the vegetation on the foothills.
+~
+~
+0 -1 327
+D1
+To the east you notice that the path continues towards a T-intersection.
+~
+~
+0 -1 311
+D3
+You just see the path through the foothills.
+~
+~
+0 -1 309
+S
+#311
+Path in the foothills~
+You are walking on the long, narrow path through the foothills.
+To your east you see a T-intersection and to the west the path
+continues far.
+~
+0 0 2
+D1
+You can go to the T-intersection this way.
+~
+~
+0 -1 312
+D3
+You can see the long path through the plains.
+~
+~
+0 -1 310
+S
+#312
+The path intersection~
+You are standing on an intersection between 3 paths.
+To the west you can follow a long, narrow path through the foothills.
+To the north a wide path leads to the Village of Ofcol and an
+ancient path leads towards the south.
+~
+0 0 2
+D0
+The wide road to Ofcol runs here.
+~
+~
+0 -1 313
+D2
+Here is a partially hidden, ancient looking path.
+~
+~
+0 -1 332
+D3
+You can see the long narrow path running through the foothills.
+~
+~
+0 -1 311
+S
+#313
+The Road to Ofcol~
+You travel down a wide road with trail marks on it.  To the north stands the
+township of Ofcol, dominated by a great, gleaming citadel to its northeast.
+South of you lies the T intersection, or you can enter the foothills to the
+west.  The foothills east of you appear to be too steep to climb.
+~
+0 0 2
+D0
+The road continues towards Ofcol.
+~
+~
+0 -1 314
+D2
+You can see the T-intersection in the souther direction.
+~
+~
+0 -1 312
+D3
+You think you can climb these foothills.
+~
+~
+0 -1 327
+S
+#314
+Nearing Ofcol~
+You are standing outside the town of Ofcol.  There appears to be a small
+village portion ahead that may be a nice, safe place to stay before entering
+the city itself.  You can journey northward to the town, or back south to
+an intersection of paths.
+~
+0 4 2
+D0
+You notice a sign saying : Stranger we welcome you to the
+                           peaceful city of Ofcol.
+~
+~
+0 -1 5550
+D2
+Here you see the road go towards the intersection.
+~
+~
+0 -1 313
+S
+#315
+Gallow hill~
+You walk in the grassy plains. On this little hill you can see
+two gallows, with rotting human tissue hanging from the robe.
+There is a sign here.
+~
+0 0 4
+D0
+The plains extend far to the north.
+~
+~
+0 -1 320
+D1
+To the east you can see a small path in the plains.
+~
+~
+0 -1 303
+D2
+To the south you can see a small path in the plains.
+~
+~
+0 -1 300
+D3
+The plains extend far to the west.
+~
+~
+0 -1 318
+E
+sign~
+The sign says:
+
+  Loyal citizens of Darkhaven.  These are the earthly remains of the
+  two heretics 'Dim' and 'Gamma' of this world. Having forged them-
+  selves to immortality, they called upon themselves the anger of the
+  implementators.  Let this be a lesson too all .....
+
+                                    -- the Powers that Be.
+~
+S
+#316
+Grassy plains~
+You walk in the grassy plains among the herbs which grow here. The wind is
+strong and rough. Far to the north you can see the foothills and further on
+mountain peaks are visible.
+~
+0 0 4
+D0
+The plains extend far to the north.
+~
+~
+0 -1 318
+D1
+When you look to the east you notice at small path.
+~
+~
+0 -1 300
+S
+#317
+Grassy plains~
+You walk in the grassy plains among the herbs which grow here. The wind is
+strong and rough. Far to the north you can see the foothills and further on
+mountain peaks are visible. City of Darkhaven is to the south but so are some
+VERY steep slopes.
+~
+0 0 4
+D1
+The plains extend far to the east.
+~
+~
+0 -1 338
+D2
+Some VERY steep slopes prevent you from going this way, it might kill you.
+~
+~
+0 -1 345
+D3
+A small path is running through the plains.
+~
+~
+0 -1 303
+S
+#318
+Grassy plains~
+You walk in the beautiful grassy plains. The wind is strong and rough.
+Far to the north you can see the foothills and further on mountain peaks
+are visible.
+~
+0 0 4
+D0
+The plains extend far to the north.
+~
+~
+0 -1 319
+D1
+The plains extend far to the east.
+~
+~
+0 -1 315
+D2
+The plains extend far to the south.
+~
+~
+0 -1 316
+S
+#319
+Grassy plains~
+You walk in the grassy plains among the herbs which grow here. The wind is
+strong and rough. To the north you can see the foothills and just behind
+mountain peaks are visible.
+~
+0 0 4
+D0
+To the north, the plains extend into small foothills, behind a small hill
+you notice something ...
+~
+~
+0 -1 330
+D1
+The plains extend far to the east.
+~
+~
+0 -1 320
+D2
+The plains extend far to the south.
+~
+~
+0 -1 318
+S
+#320
+Grassy plains~
+You walk in some grassy plains. The wind is strong and rough. To the
+north you can see the foothills and further on mountain peaks are visible.
+~
+0 0 4
+D0
+The plains extend into small foothills to the north.
+~
+~
+0 -1 322
+D1
+East of here you see a winding path in the plains.
+~
+~
+0 -1 305
+D2
+The plains extend far to the south.
+~
+~
+0 -1 315
+D3
+The plains extend far to the west.
+~
+~
+0 -1 319
+S
+#321
+Grassy plains~
+You walk in the grassy plains. The wind is fairly strong.
+~
+0 0 4
+D2
+The plains extend far to the south.
+~
+~
+0 -1 338
+D3
+A small path is running through the plains.
+~
+~
+0 -1 305
+S
+#322
+Grassy foothills~
+You walk in the grassy foothills north of the plains. The wind is rough.
+To the north you can see foothills and just behind them mountain peaks
+are visible.
+~
+0 0 4
+D0
+The small foothills extend into foothills far to the north.
+~
+~
+0 -1 324
+D2
+The small foothills extend into plains far to the south.
+~
+~
+0 -1 320
+D3
+The small foothills extend far to the west.
+~
+~
+0 -1 330
+S
+#323
+The steep foothills~
+You walk in the steep foothills. It is rather hard to move here.
+To the north you can see a grassy valley with wildflowers.
+~
+0 0 4
+D0
+You see a path toward the valley.
+~
+~
+0 0 7800
+D1
+The foothills extend far to the east.
+~
+~
+0 -1 324
+D2
+On the horizon you can see the City of Darkhaven.
+~
+~
+0 -1 330
+S
+#324
+The steep foothills~
+You are walking in the steep foothills. It is rather hard to move here.
+To the north you can see the mountains towering over you.  Pine trees
+grow here.
+~
+0 0 4
+D0
+The path continues up the mountain.
+~
+~
+0 -1 901
+D1
+The foothills extend far to the east.
+~
+~
+0 -1 325
+D2
+The foothills extend downwards to the south. In the horizon you can
+see the City Of Darkhaven.
+~
+~
+0 -1 322
+D3
+The foothills extend far to the west.
+~
+~
+0 -1 323
+E
+mountains~
+The mountains seems dark and all most alive, as they contrast against
+the sky.
+~
+E
+pine tree trees pines~
+The all too quiet trees suggest that something roams these woods.
+~
+S
+#325
+The steep foothills~
+You are walking in the steep foothills. It is rather hard to move here.
+Further to the north you can see the mountains towering over you.
+Several pinetrees grow here.
+~
+0 0 4
+D1
+The foothills extend into smaller hills far to the east.
+~
+~
+0 -1 326
+D3
+The foothills extend far to the west.
+~
+~
+0 -1 324
+S
+#326
+The pool in the foothills~
+You are standing by a pool in the small foothills. It is clear and cold.
+A steep slope rises up into the foothills to the north. Behind them ...
+the mountains.
+~
+0 0 4
+D1
+To the east you notice a small path in the foothills.
+~
+~
+0 -1 309
+D2
+To the south a path winds its way south into the plains.
+~
+~
+0 -1 306
+D3
+The foothills extend far to the west.
+~
+~
+0 -1 325
+E
+pool~
+The pool is crystal clear, but as you look into it you notice that
+you can't see the bottom of it ... it must be pretty deep.
+~
+S
+#327
+The foothills~
+You are walking in some foothills. It is rather hard to move here.
+Further to the north you can see the mountains towering over you.
+Several pinetrees grow here.
+~
+0 0 4
+D1
+To the east you notice a small path in the foothills.
+~
+~
+0 -1 313
+D2
+To the south a steep slope runs down to a small path in the foothills.
+~
+~
+0 -1 310
+S
+#330
+In front of hut in foothills~
+You are standing in the foothills. To the west, well hidden among the small
+foothills and pines, you see a small hut. To the north you can see
+the foothills, and some pineforrest. Further on mountain peaks are visible.
+~
+0 0 4
+D0
+The steep foothills seems hard to climb
+~
+~
+0 -1 323
+D1
+The foothills extend far to the east.
+~
+~
+0 -1 322
+D2
+To the south the foothills extend into plains far to the south.
+~
+~
+0 -1 319
+D3
+You see a small crumbled hut here, must be a hermit living here.
+~
+door~
+1 -1 331
+S
+#331
+Hermit's hut~
+You are inside the hermit's hut. It is rather old, but serves it purpose.
+It keeps its habitant from the rough winds and dangerous beasts of the
+plains and foothills. There is a small fireplace here.
+~
+0 8 0
+D1
+Through the door you can see the foothills.
+~
+door~
+1 -1 330
+E
+fireplace~
+The hermit cooks here.
+~
+S
+#332
+The ancient path~
+You are moving on an ancient path. The path is slightly covered with
+leaves and twitches.
+To the north you can see the T-crossing and the path continues south.
+~
+0 0 3
+D0
+As you look to the north you see a T-intersection.
+~
+~
+0 -1 312
+D2
+The ancient path continues through the plains.
+~
+~
+0 -1 333
+S
+#333
+The ancient path~
+You are standing on the ancient path which runs north and south.
+The path is hardly visible here.
+~
+0 0 3
+D0
+You see the ancient path.
+~
+~
+0 -1 332
+D2
+You trace the path carefully and see no immediate dangers.
+~
+~
+0 -1 334
+S
+#334
+The ancient path~
+You are standing on the ancient path which runs north and south.
+The path is hardly visible here.
+~
+0 0 3
+D0
+You see the ancient path.
+~
+~
+0 -1 333
+D2
+You trace the path carefully and see no immediate dangers.
+~
+~
+0 -1 335
+S
+#335
+The ancient path~
+The path runs north and east from here.  You notice some markers placed
+along the side of the path.
+~
+0 0 3
+D0
+You see the ancient path winding its way north from here. Looks safe.
+~
+~
+0 -1 334
+D1
+Further ahead you see a bridge over a small creak.
+~
+~
+0 -1 336
+E
+markers~
+The markers seems like normal stones, but the way they are
+arranged makes you think there is something special about them.
+~
+S
+#336
+The wooden bridge~
+You have stepped upon a wooden bridge. It looks old but safe to cross.
+It is made of a wood you haven't seen before.
+~
+0 0 2
+D1
+The path continues, further ahead you notice some rock formations.
+~
+~
+0 -1 337
+D3
+The ancient path leads west and turns north further ahead.
+~
+~
+0 -1 335
+E
+rock formation formations~
+The rock formations are made of 7 huge, monolith like stones, placed
+in a symbolic circle.
+You notice it's possible to enter the ring.
+~
+S
+#337
+The ancient path~
+You find yourself located between the bridge and the rock formations.
+As you approach the formations you begin to realize the true size of
+them, about 15 feet tall and almost perfect rectangular shape.
+You feel impressed with the awesome sight.
+~
+0 0 3
+D1
+To the east you enter the ring of stones. You wonder if it's safe.
+~
+~
+0 -1 339
+D3
+To the west the ancient path leads across the wooden bridge.
+~
+~
+0 -1 336
+E
+rock formation formations~
+The rock formations are made of seven huge monolith placed in a circle.
+You notice it's possible to enter the ring.
+~
+S
+#338
+Grassy plains~
+You walk in the grassy plains among the herbs which grow here. The wind is
+strong and rough. Far to the north you can see the foothills and further on
+mountain peaks are visible.
+~
+0 0 4
+D0
+The plains extend far to the north.
+~
+~
+0 -1 321
+D3
+The plains extend far to the east.
+~
+~
+0 -1 317
+S
+#339
+The Stones of G'harne~
+You are in the center of 7, 15 ft tall monolithic stones.  In the center of
+the ring stands a large sacrificial altar.  Though the ground is covered
+with dirt, the altar shows no sign of such.  You spin around in awe,
+forgetting your bearings.
+~
+0 0 2
+D3
+You see the ancient path and the wooden bridge here.
+~
+~
+2048 -1 337
+D5
+A tunnel has been revealed.
+~
+altar~
+1035 -1 340
+E
+stones g'harne monolith~
+The stones of G'harne tower fifteen feet over you.
+The giant stones are made of a material you haven't seen before.
+It resembles black marble, but somehow feels different.
+~
+E
+altar sacrifice~
+You move closer to examine the sacrifice altar of G'harne.
+The altar is about 3 feet high, 10 feet long and 4 feet wide.
+It has engraved pictures of death rituals and horrifying worms.
+~
+E
+death rituals worms engraving picture~
+The pictures are depicting evil rituals.
+You see druids pouring blood over herbs on an altar like this one.
+There are people calling giant worms into existence with dark spells.
+~
+S
+#340
+Dark smelly tunnels~
+You are standing in a gloomy tunnel leading south and west.  The walls
+are covered with a smelly slime and small rotting pieces of a meat like
+substance, fills the air with an unbearable stench.  You might be able
+to force your way into fresh air from here.
+~
+0 265 0
+D2
+~
+~
+0 -1 341
+D3
+~
+~
+0 -1 342
+D4
+You welcome the sight of fresh air.
+~
+slime~
+1035 -1 339
+E
+meat rotting slime substance~
+You try to examine the substance closer, but must refrain from this
+as all you really want to do is puke.
+You puke.
+~
+S
+#341
+Dead end tunnel~
+The tunnel comes to an abrupt end here. It simply looks like it hasn't been
+excavated further.  North of here the tunnel makes a turn west.
+~
+0 265 0
+D0
+~
+~
+0 -1 340
+S
+#342
+Dark smelly tunnels~
+You are standing in a gloomy tunnel leading east and west.
+The walls are covered with a smelly slime and small rotting pieces of a
+meat like substance, fills the air with an unbearable stench.
+~
+0 265 0
+D1
+The tunnel continues in this direction.
+~
+~
+0 -1 340
+D3
+The tunnel continues in this direction.
+~
+~
+0 -1 343
+E
+meat rotting slime substance~
+You try to examine the substance closer, but must refrain from this
+as all you really want to do is puke.
+You puke.
+~
+S
+#343
+Dark smelly tunnels~
+You are standing in a small smelly tunnel under the plains.
+The smell is growing stronger to the west, so is the density of the
+slime and other undeterminable substances ...
+~
+0 256 0
+D1
+The unbearable stench is less intensive in this direction.
+~
+~
+0 -1 342
+D3
+The tunnel seems to extend into some kind of cave.
+~
+~
+0 -1 344
+E
+slime substance~
+BWADR! ...
+~
+S
+#344
+The Hall of G'harne~
+You stand in the hall of G'harne. The walls are dressed with strange
+carving, symbolizing human sacrifice and people worshipping giant worms.
+Disgusting slime and gore are also very dominant in your view of this room.
+~
+0 265 0
+D1
+It looks like a good idea just to run in this direction.
+~
+~
+0 -1 343
+E
+slime gore~
+You puke.
+~
+S
+#345
+Steep slope~
+You try to climb down the slope.
+~
+0 12 2
+S
+#0
+
+
+#RESETS
+O 0 300 10 327
+O 0 301 10 319
+O 0 304 3 316
+O 0 304 3 323
+O 0 304 3 338
+M 0 305 1 344
+G 1 310 5
+G 1 311 5
+M 0 309 10 324
+M 0 309 10 318
+M 0 309 10 334
+M 0 300 1 323
+E 1 308 2 17
+E 1 307 2 3
+G 1 312 1
+G 1 302 10
+M 0 301 1 331
+G 1 303 2
+O 0 309 30 331
+D 0 340 4 1
+D 0 339 5 1
+S
+
+
+#SHOPS
+ 306    1 10 11 19  0   120  60         0 23    ; Luxan
+ 308    0  0  0  0  0   110 100         0 23    ; the Innkeeper
+0
+
+
+#REPAIRS
+0
+
+
+#SPECIALS
+M  350 spec_cast_mage
+S
+
+
+#$

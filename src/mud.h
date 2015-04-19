@@ -4916,26 +4916,26 @@ char *sha256_crypt args ((const char *key, const char *salt));
 #define NULL_FILE	"/dev/null"	/* To reserve one stream        */
 #endif
 
-#define AREA_DIR				RUNDIR			"area/"	/* Player files                 */
-#define PLAYER_DIR			RUNDIR			"player/"	/* Player files                 */
-#define BACKUP_DIR			RUNDIR			"player/backup/"	/* Backup Player files  */
-#define GOD_DIR					RUNDIR			"gods/"	/* God Info Dir                 */
-#define BOARD_DIR				RUNDIR			"boards/"	/* Board data dir               */
-#define CLAN_DIR				RUNDIR			"clans/"	/* Clan data dir                */
-#define COUNCIL_DIR 		RUNDIR			"councils/"	/* Council data dir             */
-#define DEITY_DIR				RUNDIR			"deity/"	/* Deity data dir               */
-#define BUILD_DIR  			RUNDIR			"building/"	/* Online building save dir     */
-#define SYSTEM_DIR			RUNDIR			"system/"	/* Main system files            */
-#define PROG_DIR				RUNDIR			"mudprogs/"	/* MUDProg files                */
-#define CORPSE_DIR			RUNDIR			"corpses/"	/* Corpses                      */
-#define	CLASS_DIR				RUNDIR			"classes/"	/* Classes                      */
-#define	RACE_DIR				RUNDIR			"races/"	/* Races                        */
-#define WATCH_DIR				RUNDIR			"watch/"	/* Imm watch files --Gorog      */
-#define VAULT_DIR				RUNDIR			"vault/"	/* storage vaults */
-#define HOUSE_DIR       RUNDIR 			"houses/"	/* Location of housing directory */
+#define AREA_DIR				RUNDIR		"area/"			     	/* Area files     	    				*/
+#define PLAYER_DIR			RUNDIR		"player/"					/* Player files     	  				*/
+#define BACKUP_DIR			RUNDIR		"player/backup/"	/* Backup Player files  				*/
+#define GOD_DIR					RUNDIR		"gods/"						/* God Info Dir         				*/
+#define BOARD_DIR				RUNDIR		"boards/"					/* Board data dir               */
+#define CLAN_DIR				RUNDIR		"clans/"					/* Clan data dir                */
+#define COUNCIL_DIR 		RUNDIR		"councils/"				/* Council data dir             */
+#define DEITY_DIR				RUNDIR		"deity/"					/* Deity data dir               */
+#define BUILD_DIR  			RUNDIR		"building/"				/* Online building save dir     */
+#define SYSTEM_DIR			RUNDIR		"system/"					/* Main system files            */
+#define PROG_DIR				RUNDIR		"mudprogs/"				/* MUDProg files                */
+#define CORPSE_DIR			RUNDIR		"corpses/"				/* Corpses                      */
+#define	CLASS_DIR				RUNDIR		"classes/"				/* Classes                      */
+#define	RACE_DIR				RUNDIR		"races/"					/* Races                        */
+#define WATCH_DIR				RUNDIR		"watch/"					/* Imm watch files --Gorog      */
+#define VAULT_DIR				RUNDIR		"vault/"					/* storage vaults								*/
+#define HOUSE_DIR       RUNDIR 		"houses/"					/* Location of housing directory */
 
 #ifdef NEWCOLORS
-#define COLOR_DIR				RUNDIR 			"color/"	/* New color files */
+#define COLOR_DIR				RUNDIR 		"color/"	/* New color files */
 #endif
 
 /*

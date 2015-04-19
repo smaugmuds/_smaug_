@@ -1,0 +1,1330 @@
+#AREA   Dwarven Village~
+
+
+
+#AUTHOR Raff~
+
+#RANGES
+10 35 0 60
+$
+
+#FLAGS
+0
+
+#ECONOMY 0 13141784
+
+#MOBILES
+#6500
+dwarf guard~
+the dwarven guard~
+A dwarven guard is here.
+~
+The guard looks very tough and mean.
+~
+2051 8 500 S
+20 0 -2 20d20+200 2d4+18
+10000 40000
+8 8 1
+#6501
+dwarf worker miner~
+the dwarven worker~
+A dwarven mining worker is here.
+~
+He is very dirty, and looks extremely over-worked.
+~
+2113 0 900 S
+12 4 1 12d12+120 1d7+7
+3500 6000
+8 8 1
+#6502
+wraith~
+the wraith~
+A wraith is awaiting your first move here.
+~
+A black, almost transparent wraith.
+~
+3 40 -900 S
+29 -5 -10 29d29+290 4d6+15
+50000 125000
+8 8 1
+#6503
+storekeeper~
+the storekeeper~
+There is the Hide & Tooth storekeeper standing here, waiting patiently.
+~
+The storekeeper is very rotund, but looks like a sharp guy.
+~
+3 40 900 C
+35 2 2 6d10+990 2d9+20
+100000 80000
+8 8 1
+16 13 13 14 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+3 0 0 3 3072 0 64 1
+#6504
+Granite Head baker~
+the baker~
+Granite Head, the baker, is waiting for a customer here.
+~
+Granite Head is covered with flour and grains.  He smacks his hands
+together and approaches you with a smile.
+~
+3 40 900 C
+35 2 2 7d10+990 2d9+19
+20000 80000
+8 8 1
+16 13 13 15 13 13 13
+0 0 0 0 0
+2 3 0 0 5 4 0
+3 0 0 3 3072 0 0 1
+#6505
+lizard~
+the giant lizard~
+A giant lizard is here.
+~
+This scaly creature looks like it is well adapted to it's underground
+habitat.  He looks very powerful.
+~
+65 8 100 S
+18 7 2 10d20+500 4d4+5
+1200 25000
+8 8 1
+#6506
+giant~
+the giant~
+A giant is here.
+~
+The giant is about 8 feet tall, with arms of steel, and looks very strong.
+~
+65 0 0 S
+16 5 1 4d20+300 3d7+5
+2000 24000
+8 8 1
+#6507
+dwarf miner~
+the dwarven miner~
+A dwarven miner is here.
+~
+The mineworker is very tired, and very dirty, and he has bulging muscles.
+~
+2051 0 0 S
+8 14 7 8d8+100 2d9+9
+40 1000
+8 8 1
+#6508
+dwarf leader~
+the dwarven mine leader~
+A dwarven mine leader is here.
+~
+The mine leader is very big and very strong.
+~
+2051 0 0 S
+21 0 -8 5d3+400 3d9+3
+20000 52000
+8 8 1
+#6509
+dwarf doctor~
+the dwarven doctor~
+The dwarven doctor is here.
+~
+He is a very skilled surgeon, with hands of steel.
+~
+2051 136 1000 S
+9 15 4 9d9+99 3d4+12
+1500 15000
+8 8 1
+#6510
+dwarf peon~
+the dwarven peon~
+A dwarven peon is awaiting help here.
+~
+~
+2051 0 500 S
+3 16 6 5d3+33 2d4+3
+75 400
+8 8 1
+#6511
+dwarf~
+the dwarf~
+A grinning dwarf is here.
+~
+~
+2051 0 500 S
+9 10 2 9d9+99 3d4+1
+1250 6000
+8 8 1
+#6512
+dwarf son~
+the unwanted son~
+An unwanted son is here.  You feel sorry for the guy.
+~
+~
+65 0 250 S
+9 12 3 3d4+125 3d5+5
+50 5000
+8 8 1
+#6513
+dwarf daughter~
+the unwanted daughter~
+An unwanted daughter is here.  You feel sorry for her.
+~
+~
+65 0 250 S
+10 11 2 3d4+135 3d5+7
+50 5000
+8 8 1
+#6514
+dwarf guard~
+the barracks guard~
+A barrack guard is here.
+~
+~
+2051 0 100 S
+16 5 1 16d16+160 3d6+8
+3000 18000
+8 8 1
+#6515
+man~
+the man in waiting~
+A man in waiting is here.  He looks nervous and unsure of himself.
+~
+~
+2051 0 300 S
+15 12 7 6d8+180 3d7+5
+6969 20000
+8 8 1
+#6516
+mazekeeper~
+the mazekeeper~
+A mazekeeper is here.
+~
+He looks VERY tough.
+~
+2083 128 -1000 S
+29 0 -9 25d29+290 4d8+15
+80000 200000
+8 8 1
+#6517
+snake~
+the giant snake~
+There is a giant snake here.
+~
+~
+35 0 -1000 S
+15 7 2 3d7+432 3d7+6
+3000 30000
+8 8 1
+#0
+
+
+#OBJECTS
+#6502
+key green~
+a deep green key~
+A deep green key is on the floor.~
+~
+18 0 1
+0 0 0 0
+1 0 0
+#6504
+dwarven hammer~
+a dwarven hammer~
+There is a dwarven hammer laying here.~
+~
+5 0 8193
+0 3 6 8
+3 5500 550
+A
+18 2
+#6505
+dwarven plate~
+dwarven plate mail~
+A set of dwarven plate mail is laying here.~
+~
+9 0 9
+8 0 0 0
+4 4500 450
+#6506
+long black stick~
+a long, black stick~
+A long, black stick lays here.~
+~
+4 0 16385
+12 10 10 15
+3 100 10
+#6507
+long white stick~
+a long, white stick~
+A long, white stick lays here.~
+~
+1 0 16385
+0 0 100 0
+3 0 0
+A
+20 -1
+#6508
+dwarven stone club~
+a dwarven stone club~
+A dwarven club made of stone lays here.~
+~
+5 0 8193
+0 2 6 8
+8 3000 300
+A
+13 10
+A
+19 2
+#6509
+two-handed dwarven axe~
+a two-handed dwarven axe~
+A two-handed Dwarven axe is here.~
+~
+5 0 8193
+0 2 7 1
+5 5000 500
+A
+18 2
+A
+1 2
+#6510
+dwarven helmet~
+a dwarven helmet~
+A dwarven helmet has been dropped here.~
+~
+9 0 17
+8 0 0 0
+4 2500 250
+A
+4 2
+#6511
+ring golden dwarven~
+a dwarven golden ring~
+A pretty golden ring is here.~
+~
+8 64 3
+0 0 0 0
+1 15000 1500
+A
+18 1
+A
+19 1
+A
+13 5
+#6512
+dwarven gloves~
+dwarven gloves~
+Thick dwarven gloves lay here.~
+~
+9 0 129
+4 0 0 0
+2 4000 400
+A
+1 1
+A
+2 1
+#6513
+note~
+a note~
+A crumpled note is here.~
+~
+12 0 1
+0 0 0 0
+0 0 0
+E
+note letter letters~
+It seems to be a juicy love letter from the Queen.  Unfortunately, it's
+not suitable for young eyes.
+~
+#6514
+castle key~
+a castle key~
+There is a key to Strangelove Castle here.~
+~
+18 0 1
+0 0 0 0
+0 10 1
+#6516
+key mine~
+a mine key~
+There is a key to the mines here.~
+~
+18 0 1
+0 0 0 0
+0 10 1
+#6517
+coal pile~
+a small pile of coal~
+A small pile of coal has been heaped here.~
+~
+13 0 16385
+0 0 0 0
+100 0 0
+#6518
+dwarven mining pick~
+a dwarven mining pick~
+A dwarven mining pick has been left here.~
+~
+5 256 8193
+0 2 3 11
+1 300 30
+A
+13 20
+A
+18 2
+A
+19 2
+#6519
+pills~
+a box of birth control pills~
+There is a box of birth control pills here.~
+~
+26 0 1
+20 82 -1 -1
+1 300 30
+E
+birth control pills pill~
+They are in a circular container, and there are numbers corresponding
+to the day that they are to be taken.  You can tell they haven't been
+used for a while.
+~
+#0
+
+
+#ROOMS
+#6500
+The Path to the Dwarven Village~
+You walk in the hill's shadow down an ever-widening path which leads to the
+outskirts of the dwarven village.  The hill rises above you to the southwest,
+and a smaller path leads to its crest in that direction.  A tunnel here leads
+down a short distance into the hill itself, and the dwarven village can be
+seen near the mountains to the north.
+~
+0 0 2
+D0
+The path continues.
+~
+~
+0 -1 6501
+D5
+The pitter patter of little feet echos from within the tunnel.
+~
+~
+0 -1 6601
+D9
+A small path leads up the hill to the crossroads.
+~
+~
+0 -1 3502
+S
+#6501
+Path nearing the Mountain~
+You are near the base a rugged mountain.  Dense forest prevents passage in
+most directions, and it grows dark to the north as the path begins its way
+up the shadowed mountain.
+~
+0 0 4
+D0
+The path continues up the mountain.
+~
+~
+0 -1 6502
+D2
+The path heads toward the main city.
+~
+~
+0 -1 6500
+S
+#6502
+Path up the Mountain~
+Standing near the halfway point up the mountain, you can easily see the
+hill of the crossroads in the distance to the southwest, while the top
+of the mountain is very near to the north.
+~
+0 0 5
+D0
+The top of the mountain is easily seen from here.
+~
+~
+0 -1 6503
+D2
+The base of the mountain is near.
+~
+~
+0 -1 6501
+S
+#6503
+Top of the Mountain~
+You stand on the mountain's top.  Far to the south you can see the spires
+of the city of Darkhaven, and a path leads down the mountainside to its
+base in that direction.  To your east and west, large gates have been
+built into the rock face.
+~
+0 0 4
+D1
+An entrance to the mountain which seems to lead underground.
+~
+~
+0 -1 6540
+D2
+The path leads down the mountain to the main city.
+~
+~
+0 -1 6502
+D3
+There is an entrance to the mountain.
+~
+~
+0 -1 6505
+S
+#6504
+Along the Narrow Path~
+This is a narrow, eerie path leading to the far side of the dwarven village.
+It looks to be less travelled than the others, and continues to north or
+opens up to the south.
+~
+0 8 0
+D0
+~
+~
+0 -1 6506
+D2
+~
+~
+0 -1 6540
+S
+#6505
+A Gate in the Mountain~
+You stand in before a large tunnel which leads into the mountain.  Barring
+access to the tunnel is a large, sturdy gate painted a dark green and
+secured with an oversized lock.  
+~
+0 0 2
+D1
+~
+~
+0 -1 6503
+D3
+~
+door~
+39 6502 6513
+S
+#6506
+Bend in the Narrow Path~
+The path narrows and bends here to the east.  The increasing trees hang over
+the path, which itself is becoming rapidly overgrown.  The path continues to
+the south and east.
+~
+0 8 0
+D1
+~
+~
+0 -1 6507
+D2
+~
+~
+0 -1 6504
+E
+tree trees~
+They hang over the road in the most ominous of ways.
+~
+S
+#6507
+Bend in the Narrow Path~
+The path continues to narrow, and bends here to the north or back west.
+The increasing trees hang over the path, which itself is overgrown.
+The path continues to the north and west.
+~
+0 8 0
+D0
+~
+~
+0 -1 6508
+D3
+~
+~
+0 -1 6506
+S
+#6508
+Along the Narrow North-South Pass~
+The narrow path leads to both the north and south here.  To the north
+and east you can see a tall structure, and to the narrow path leads
+back along the mountain to the south.
+~
+0 8 0
+D0
+~
+~
+0 -1 6509
+D2
+~
+~
+0 -1 6507
+S
+#6509
+The Door to the Kingdom~
+The narrow path comes to an abrupt halt here.  A small castle of sorts
+stands immediately to the east, and a guard post is just to the west.
+The narrow path continues back over the mountain to the south.
+~
+0 8 0
+D1
+~
+door~
+39 6502 6510
+D2
+~
+~
+0 -1 6508
+D3
+~
+~
+0 -1 6522
+S
+#6510
+Path to the Castle~
+You are on a path that will eventually lead to the castle.  It
+continues north to the castle, and there is a door on the western wall.
+~
+0 8 0
+D0
+~
+~
+0 -1 6511
+D3
+~
+door~
+39 6502 6509
+S
+#6511
+Still on the path to the Castle~
+You are still on the path to the castle, or back to the
+Dwarven village, whichever way you wish to go.  The path
+continues to the north and south.
+~
+0 8 0
+D0
+~
+~
+0 -1 6512
+D2
+~
+~
+0 -1 6510
+S
+#6512
+Door to Castle~
+Here there is a door to the castle to the east.  The castle
+is elegantly designed, and looks much like a roll of toilet paper
+standing on end.  A sign says:
+
+              ******************************************
+              *  WELCOME TO THE CASTLE OF STRANGELOVE  *
+              *      Here, celibacy is uninvited       *
+              ******************************************
+~
+0 8 0
+D1
+~
+door~
+39 6514 6525
+D2
+~
+~
+0 -1 6511
+S
+#6513
+Inside the entrance~
+Everything here is covered in soot and very grimy.  The path continues
+to the east and north, and there is a door to the west.
+~
+0 8 0
+D0
+The little underground path continues to the north.
+~
+~
+0 -1 6514
+D1
+The path leads outside the entrance.
+~
+door~
+39 6502 6505
+D3
+This looks like an entrance to some type of store room.
+~
+~
+0 -1 6526
+S
+#6514
+Path~
+You are on a path in the dwarven village which leads north to the shops
+and south to the corner of the area.
+~
+0 8 0
+D0
+~
+~
+0 -1 6515
+D2
+~
+~
+0 -1 6513
+S
+#6515
+Turn in road~
+You are on a path that leads to a Hide & Tooth shop to the west, and the
+path continues to the south.
+~
+0 8 0
+D2
+~
+~
+0 -1 6514
+D3
+The Hide & Tooth shop is seen to the west.
+~
+~
+0 -1 6516
+S
+#6516
+Hide & Tooth Shop~
+You are in the Hide & Tooth shop.  Here you may buy the finest in Dwarven
+weapons and armors. The path continues to the north and east.
+~
+0 8 0
+D0
+~
+~
+0 -1 6517
+D1
+~
+~
+0 -1 6515
+S
+#6517
+Path to the north of shop~
+You are on a path to the north of the Hide & Tooth shop.  The path continues
+to the north, and there is Granite Head's bakery to the west.
+~
+0 8 0
+D0
+~
+~
+0 -1 6518
+D2
+~
+~
+0 -1 6516
+D3
+~
+~
+0 -1 6535
+S
+#6518
+North of Shops~
+Here the path bends to the east towards the barracks. To the
+south you can see the shops.
+~
+0 8 0
+D1
+~
+~
+0 -1 6519
+D2
+~
+~
+0 -1 6517
+S
+#6519
+Path by Hospital~
+Here the path passes by the Hospital to the north.  It continues
+to the east to the barracks, and to the west.
+~
+0 8 0
+D0
+~
+~
+0 -1 6534
+D1
+~
+~
+0 -1 6520
+D3
+~
+~
+0 -1 6518
+S
+#6520
+Path next to barracks~
+Here the path continues west, and east to the barracks.
+~
+0 8 0
+D1
+~
+~
+0 -1 6521
+D3
+~
+~
+0 -1 6519
+S
+#6521
+Entrance to barracks~
+Here there is an entrance to the barracks to the south, and
+the path continues to the west.
+~
+0 8 0
+D2
+~
+door~
+3 -1 6523
+D3
+~
+~
+0 -1 6520
+S
+#6522
+A Guard House~
+You stand inside a guard house just to the west of the castle's entrance.
+There is little of interest here.
+~
+0 8 0
+D1
+~
+~
+0 -1 6509
+S
+#6523
+First Barrack room~
+Here is the first of two main rooms of barracks.  The
+barracks continue to the south, and you can leave the room
+to the north.
+~
+0 8 0
+D0
+~
+door~
+3 -1 6521
+D2
+~
+~
+0 -1 6524
+S
+#6524
+Back of Barracks~
+Here is the back of the dwarven barracks.  There are rows
+of beds here, and there is a stench that is unbearable.
+~
+0 8 0
+D0
+~
+~
+0 -1 6523
+S
+#6525
+Inside of Castle Strangelove~
+You are just inside the castle.  It is very tubular in shape,
+and it is very featureless.  There is a set of stairs that lead
+up, and the door leads out of the castle to the west.
+~
+0 8 0
+D3
+~
+door~
+39 6514 6512
+D4
+~
+~
+0 -1 6528
+S
+#6526
+A store room~
+There is a layer of dust on the floor at least 3 inches thick!  It is
+probable that not many people have been in here for many months.
+~
+0 9 0
+D1
+A lighted area that looks like a well worn path.
+~
+~
+0 -1 6513
+D5
+~
+trapdoor~
+3 0 6527
+E
+floor dust~
+After blowing all the dust off the floor, you notice a trapdoor!
+~
+S
+#6527
+Wine cellar~
+This room smells like wine, and you can only assume it used to be
+a wine cellar at one time.
+~
+0 9 0
+D4
+~
+~
+3 -1 6526
+S
+#6528
+Stairs in castle~
+The stairs continue to circle up and down here.
+~
+0 8 0
+D4
+~
+~
+0 -1 6529
+D5
+~
+~
+0 -1 6525
+S
+#6529
+Stairs~
+You are still circling around on the stairs.  You are starting to
+get dizzy from going around and around and around and around and
+around.  The stairs continue up and down.
+~
+0 8 0
+D4
+~
+~
+0 -1 6530
+D5
+~
+~
+0 -1 6528
+S
+#6530
+Top of stairs~
+You are at the top of the stairs in the castle.  There is an exit
+to the east, and the stairs lead down.
+~
+0 8 0
+D1
+~
+~
+0 -1 6531
+D5
+~
+~
+0 -1 6529
+S
+#6531
+Queen's waiting room~
+This is the Queen's waiting room.  Here the men literally
+'wait' for the queen.  You've heard that the queen really likes
+to get to 'know' her people, in the biblical sense.  The queen's
+bedroom is to the north, and you can see stairs to the west.
+~
+0 8 0
+D0
+~
+door~
+35 6502 6532
+D3
+~
+~
+0 -1 6530
+S
+#6532
+Bedroom~
+This is the Queen's bedroom.  The bed is all ruffled, and there
+is a stack of dirty sheets piled in the corner.
+
+A note has been scrawled in lipstick on the mirror:
+
+     I'm out looking for my pills.
+     Why don't you slip into something comfortable while you're waiting?
+~
+0 8 0
+D2
+~
+door~
+35 6502 6531
+S
+#6534
+Hospital~
+You are inside the Dwarven Hospital.  It smells like rubbing
+alcohol, and there is blood all over the walls.
+~
+0 8 0
+D2
+~
+~
+0 -1 6519
+S
+#6535
+Granite Head's Bakery~
+The aroma coming from this room is sensuous.  You can almost taste
+the pastries dissolving in your mouth.
+~
+0 8 0
+D1
+~
+~
+0 -1 6517
+S
+#6540
+Dark Path before a Mountain Gate~
+Here, where the well worn path passes through shadow, stands a gate which
+covers a wide tunnel leading into the mountainside.  Sounds and smells of
+mining float up from the tunnel and through the bars.  The path continues
+to the north and west, or you can take your chances through the gate.
+~
+0 8 0
+D0
+~
+~
+0 -1 6504
+D1
+~
+door~
+39 6502 6541
+D3
+~
+~
+0 -1 6503
+S
+#6541
+Mine entrance~
+The little path here leads down toward the mines, while the worn path
+continues to the west.
+~
+0 8 0
+D3
+~
+door~
+39 6502 6540
+D5
+~
+~
+0 -1 6542
+S
+#6542
+Inside the mine~
+There are holes everywhere from the places that the workers blew
+away the rock to get to whatever they were looking for.  A path leads
+down and up.
+~
+0 9 0
+D4
+~
+~
+0 -1 6541
+D5
+~
+~
+0 -1 6554
+S
+#6543
+Path in the mine~
+You are deep inside the mine, and you feel very uncomfortable.  The
+path continues to the east, and leads to the mineshaft to the west.
+~
+0 9 0
+D1
+~
+~
+0 -1 6544
+D3
+~
+~
+0 -1 6554
+S
+#6544
+Mine crossroad~
+You are at a crossroad in the mine.  There is a door to the north,
+and the path continues to the south, east, and west.
+~
+0 9 0
+D0
+~
+door~
+39 6502 6546
+D1
+~
+~
+0 -1 6545
+D2
+~
+~
+0 -1 6551
+D3
+~
+~
+0 -1 6543
+S
+#6545
+Coal Room~
+You are inside the storage area for the raw materials
+that are found down here.  The room is very unsturdy as the
+supports are very rickety.
+~
+0 9 0
+D3
+~
+~
+0 -1 6544
+S
+#6546
+Mine Maze~
+You have entered the maze of the mines.  To the east you
+can see some inscriptions, and you can exit to the south.
+~
+0 9 0
+D1
+~
+~
+0 -1 6547
+D2
+~
+door~
+39 6502 6544
+S
+#6547
+Maze inscription~
+You are inside the maze, but not far enough in that you could get lost.
+~
+0 9 0
+D0
+~
+~
+0 -1 6548
+D3
+~
+~
+0 -1 6546
+S
+#6548
+Maze~
+You are in a maze.
+~
+0 9 0
+D0
+~
+~
+0 -1 6549
+D2
+~
+~
+0 -1 6547
+S
+#6549
+Maze~
+You are in a maze.
+~
+0 9 0
+D0
+~
+~
+0 -1 6550
+D3
+~
+~
+0 -1 6548
+S
+#6550
+Maze~
+You are in a maze.
+~
+0 9 0
+D2
+~
+~
+0 -1 6549
+D3
+~
+~
+0 -1 6552
+S
+#6551
+Mining equipment room~
+This is the storage room for equipment used by the
+Dwarven miners.  It is very small, and you can tell that
+not many miners actually use any equipment.
+~
+0 9 0
+D0
+~
+~
+0 -1 6544
+S
+#6552
+Solved the Maze.~
+You have solved the maze.  You can tell by the last few moves that there
+is no way that a dumb worker could have figured that out.  It seems pretty
+desolate here.
+There is a sign along the south wall:
+ 
+    Those who enter, plan on a timely death.
+    Especially if you're loyal to the queen.
+~
+0 9 0
+D1
+~
+~
+0 -1 6550
+D3
+~
+~
+0 -1 6553
+S
+#6553
+The Mazekeeper's Room~
+You have entered the Mazekeeper's room.  There are pictures of
+the Queen with darts thrown in it.  Spray-painted on the wall are
+things like 'the queen shall suffer' and 'Catholics Rule'.
+~
+0 9 0
+D1
+~
+~
+0 -1 6552
+S
+#6554
+Bottom of mineshaft~
+You are at the bottom of the mineshaft.  The air here is very sooty, and
+it is very hard to breathe.  The mineshaft leads up and east.
+~
+0 9 0
+D1
+~
+~
+0 -1 6543
+D4
+~
+~
+0 -1 6542
+S
+#0
+
+
+#RESETS
+D 0 6505 3 2
+D 0 6513 1 2
+D 0 6509 1 2
+D 0 6510 3 2
+D 0 6512 1 2
+D 0 6525 3 2
+D 0 6521 2 1
+D 0 6523 0 1
+D 0 6526 5 1
+D 0 6527 4 1
+D 0 6540 1 2
+D 0 6541 3 2
+D 0 6544 0 2
+D 0 6546 2 2
+D 0 6531 0 1
+D 0 6532 2 1
+M 0 6500 4 6505
+E 1 6504 10 16
+E 1 6505 10 5
+G 1 6502 10
+M 0 6500 4 6505
+E 1 6504 10 16
+E 1 6505 10 5
+M 0 6500 4 6540
+E 1 6504 10 16
+E 1 6505 10 5
+G 1 6502 10
+M 0 6500 4 6540
+E 1 6504 10 16
+E 1 6505 10 5
+O 0 6506 1 6534
+O 0 6507 2 6513
+O 0 6507 2 6505
+O 0 6507 2 6503
+O 0 6507 1 6540
+M 0 6501 6 6503
+M 0 6501 6 6502
+M 0 6501 6 6501
+M 0 6502 1 6527
+G 1 6502 10
+M 0 6503 1 6516
+G 1 6504 10
+G 1 6505 10
+G 1 6510 10
+G 1 6511 10
+G 1 6512 10
+E 1 6504 10 16
+M 0 6504 1 6535
+E 1 6504 10 16
+M 0 6505 1 6515
+M 0 6506 2 6508
+M 0 6500 6 6509
+E 1 6509 10 16
+E 1 6510 10 6
+E 1 6511 10 1
+M 0 6500 6 6509
+E 1 6512 10 9
+E 1 6509 10 16
+E 1 6505 10 5
+M 0 6507 4 6543
+E 1 6508 10 16
+M 0 6507 4 6543
+E 1 6508 10 16
+M 0 6507 4 6542
+E 1 6508 10 16
+M 0 6508 4 6543
+E 1 6512 10 9
+E 1 6508 10 16
+M 0 6510 4 6534
+M 0 6510 4 6534
+M 0 6514 4 6521
+E 1 6509 10 16
+M 0 6514 4 6521
+E 1 6509 10 16
+M 0 6500 4 6521
+M 0 6500 4 6521
+M 0 6500 4 6521
+M 0 6511 8 6523
+M 0 6511 8 6523
+E 1 6504 10 16
+E 1 6514 10 17
+M 0 6511 8 6523
+M 0 6511 8 6523
+M 0 6511 8 6524
+O 0 6513 1 6524
+M 0 6502 2 6524
+M 0 6511 8 6524
+M 0 6512 3 6528
+M 0 6512 3 6529
+M 0 6513 3 6529
+M 0 6513 3 6530
+M 0 6515 4 6531
+M 0 6515 4 6531
+M 0 6509 1 6534
+E 1 6506 10 17
+M 0 6516 1 6553
+M 0 6517 2 6548
+M 0 6517 2 6549
+O 0 6516 1 6532
+O 0 6517 6 6545
+O 0 6518 3 6551
+M 0 6500 2 6512
+E 1 6508 10 16
+M 0 6500 2 6512
+E 1 6508 10 16
+M 0 6505 1 6520
+S
+
+
+#SHOPS
+ 6503    0  0  0  0  0   150  50         0 23    ; the storekeeper
+ 6504    0  0  0  0  0   150  50         0 23    ; the baker
+0
+
+
+#REPAIRS
+0
+
+
+#SPECIALS
+S
+
+
+#$

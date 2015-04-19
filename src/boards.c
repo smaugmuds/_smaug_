@@ -802,7 +802,7 @@ do_note (CHAR_DATA * ch, char *arg_passed, bool IS_MAIL)
 
       if (!IS_IMMORTAL (ch))
 	{
-	  send_to_char ("Huh?\n\r", ch);
+	  send_to_char (_("Huh?\n"), ch);
 	}
       board = find_board (ch);
       if (!board)

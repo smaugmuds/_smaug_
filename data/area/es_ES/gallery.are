@@ -1,0 +1,4019 @@
+#AREA   Darkhaven Art Gallery~
+
+
+
+#AUTHOR Zaknafein~
+
+#RANGES
+10 50 0 60
+$
+
+#FLAGS
+0
+
+#ECONOMY 0 94935260
+
+#MOBILES
+#24800
+woman receptionist~
+the receptionist~
+The gallery's receptionist looks up at you and smiles warmly.
+~
+This young lady enjoys her job here at the art gallery.  It gives her the 
+opportunity to see her share of muscled, handsome warriors.
+~
+3 4194344 0 C
+30 0 -200 1d1+3800 25d5+25
+0 0
+8 8 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 0 0 3072 0 0 2
+> rand_prog 15~
+sit
+, hums happily to herself.
+~
+> bribe_prog 100~
+mpoload 24800 1
+mpjunk all.coins
+give key $n
+say Thank you, $n, and enjoy your visit
+~
+> greet_prog 100~
+if inroom($i) == 24801
+  emote looks up from her work
+  smile $n
+  say Welcome to the Art Gallery, $n
+else
+  emote looks about in worry at her strange surroundings.
+endif
+~
+> act_prog p north.~
+stand
+close n
+lock n
+sit
+~
+> speech_prog fuck shit goddam bitch ass~
+sigh
+say PLEASE watch your language in here.
+~
+> fight_prog 100~
+mpat 3 c heal
+if isnpc($n)
+  mppurge $n
+else
+  say The Gods do not wish my soul to pass on to the next Reality.
+  mpforce $n flee
+endif
+~
+|
+#24801
+mike michael cosner curator~
+the Art Gallery's curator~
+The gallery curator sits here, moaning about the unending sea of papers.
+~
+Mike hasn't had a good day.  In fact, he hasn't had a good day in months.  
+His job is slowly killing him.  The stress is just too much.  How would YOU 
+feel if your job consisted of pricing all the art in the Realms?
+~
+67 0 0 S
+40 0 -100 1d1+20000 0d0+0
+0 0
+8 8 1
+> rand_prog 80~
+if inroom($i) == 24802
+else
+  mpecho The Curator exclaims, 'Oh my!  I really must be getting back to work!'
+  mpecho He produces a large map, quickly unfolding it and taking his bearings.
+  mpecho $I winks at you, smiles and says, 'Well, it's been fun!'
+  mpecho Before you can say a word, he darts off.
+  mpgoto 24802
+endif
+~
+|
+#24802
+cashier woman gift shoppe~
+the cashier~
+The gift shoppe cashier stands here, ready to accept your money.
+~
+She looks quite bored.  Evidently, having to stand around all day selling 
+reproductions of art touches a nerve in the boredom region of the brain.
+~
+67 0 0 S
+50 0 -200 30000d0+1 0d0+0
+0 0
+8 8 2
+#24803
+sculpture phunbaba demon~
+the sculpture of Phunbaba~
+A hideous-looking sculpture stands hunched over here.
+~
+A plaque mounted on the statue says proudly, "PHUNBABA".
+~
+67 8320 0 C
+44 0 -300 5000d0+1 3d4+15
+0 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 34
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+> greet_prog 100~
+mpecho The bronze sculpture's eyes gleam as you enter the room.
+~
+|
+#24804
+phunbaba demon green~
+Phunbaba~
+A hideous-looking, hunchbacked demon snarls at you ferally.  Run!
+~
+Now that Phunbaba has come to life, he is truly a frightening sight!  Acidic 
+drool falls from his lips to the floor, and he grins, threatening to show a 
+faint glimmer of intelligence.
+~
+99 168 0 S
+35 0 -200 3000d0+1 0d0+0
+3 0
+8 8 1
+#24805
+green envy color~
+Envy~
+A vague sense of fiery jealousy forms a humanoid shape in front of you.
+~
+Damn!  What it must be like to be able to change shape at will!  You fume 
+with jealousy at the ethereal quality of the shape before you.  "Why can't 
+-I- be like that...that thing?", you think to yourself.
+~
+67 524328 0 C
+35 0 -200 7000d0+1 0d0+0
+13 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 84
+3 0 0 0 131073 131072 0
+0 0 0 112 0 0 0 0
+> rand_prog 25~
+grumble
+  sigh
+~
+|
+#24806
+melancholy blue color~
+Melancholy~
+Sadness washes over you as a nebulous mass congeals into a shape above you.
+~
+*sniffle* How depressing.  The essence before you conveys such a feeling of 
+unspeakable loss and depression that you can't help but cry.  You can feel 
+your knees grow weak from the emotion, and it becomes an effort to stand.
+~
+1 524288 0 C
+40 0 -50 500d0+500 0d0+0
+0 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 84
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+> rand_prog 25~
+cry
+  sniff
+~
+|
+#24807
+yellow cowardice color~
+Cowardice~
+A yellow mist forms around you and immediately darts off into the distance.
+~
+You don't know whether to laugh or cry at the display of weakness before you.
+The sense of pathetic cowardice eminating from the mist that surrounds you 
+turns your stomach.  You wonder how ANYthing could be that afraid.
+~
+195 524328 0 C
+39 0 -200 7000d0+1 0d0+0
+0 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 84
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+> rand_prog 25~
+gasp  
+  grovel
+~
+|
+#24808
+confusion indigo color~
+Confusion~
+A dark blue fog creeps towards you, causing you to look around in bewilderment.
+~
+The fog feels cool against your skin.  What are you doing here?  You can 
+remember coming in here for a reason, but what was it?  You stop and scratch 
+your head.  Hmm.  Maybe it would be best to just leave this place.
+~
+67 524328 0 C
+38 0 -250 7000d0+1 0d0+0
+0 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 84
+3 0 0 0 131073 131073 0
+0 0 0 0 0 0 0 0
+> rand_prog 25~
+ponder
+  shrug
+~
+|
+#24809
+life orange color~
+Life~
+An orange glow surrounds the area, filling your body with vitality.
+~
+You have never felt so alive!  The pure energy coursing through your veins 
+fills you with a renewed sense of vigor.  If you were forced to remain here 
+forever, you wouldn't mind.  In fact, that seems like a very good idea.
+~
+67 524328 0 C
+35 0 -200 7000d0+1 0d0+0
+0 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 84
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+> rand_prog 25~
+dance
+  sing
+~
+|
+#24810
+purple violet love color~
+Love~
+A purple cloud becomes a beautiful shape before you, filling you with love.
+~
+Your heart feels as though it might burst due to the deep passion you feel 
+inside.  You gaze longingly into the violet mass before you, completely lost 
+in a world of desire and peace.  Siiiiiiiigh.
+~
+67 524328 0 C
+35 0 -200 7000d0+1 0d0+0
+0 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 84
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+> rand_prog 25~
+kiss $n
+  love $n
+~
+|
+#24811
+anger red hatred color~
+Anger~
+A red mist surrounds you, filling you with an intense hatred.
+~
+A wild growl escapes your lips as you gaze into the crimson vapor.  Your 
+vision films over with the color of blood, and your brain pumps adrenaline 
+straight to your muscles and tendons.  You feel an almost insane rage coming 
+from this mass.
+~
+99 524328 -1000 C
+37 0 -250 7000d0+1 0d0+0
+100 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 84
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+> rand_prog 25~
+fume $n
+  glare $n
+~
+|
+#24812
+white innocence ball color~
+Innocence~
+An innocent-looking white ball of light floats here, seeming almost amused.
+~
+Although you are close to blinded by the intensity of the form in front of 
+you, you know that it doesn't matter much.  There is no way this entity could 
+harm you.  It's too nice.  You smile to yourself and sigh happily.
+~
+67 524456 1000 S
+40 0 -200 9000d0+1 0d0+0
+1 0
+8 8 0
+> rand_prog 25~
+smile
+  giggle
+~
+|
+#24813
+evil black color~
+Evil~
+A large mass of absolute blackness surrounds you, chilling you to your bones.
+~
+Nothing, in all the Realms, is this evil.  Not Shimmergloom, not Lord Seth, not
+War, nothing.  Your heart freezes with dread, your throat tightens, and your 
+flesh chills.  You try to scream, but nothing comes out.  This  is  pure  evil.
+~
+67 524456 0 S
+45 0 -200 10000d0+1 0d0+0
+666 0
+8 8 0
+> rand_prog 25~
+growl
+  scream
+~
+|
+#24814
+left foot welmar leftfoot~
+Welmar's Left Foot~
+The monstrous left foot of King Welmar is here, tapping impatiently.
+~
+~
+3 0 0 C
+20 0 -50 900d0+100 0d0+0
+0 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 85
+85 0 0 0 131073 131072 0
+0 0 0 0 0 0 32 0
+> act_prog defend_foot~
+mpgoto rightfoot
+  mpkill $n
+~
+> death_prog 100~
+mpgoto 4
+~
+|
+#24815
+right foot welmar rightfoot~
+Welmar's Right Foot~
+The humongous right foot of King Welmar is here, tracing designs on the floor.
+~
+~
+3 0 0 C
+20 0 -50 900d0+100 0d0+0
+0 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 85
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 32 0
+> act_prog defend_foot~
+mpgoto leftfoot
+  mpkill $n
+~
+> death_prog 100~
+mpgoto 4
+~
+|
+#24816
+right hand welmar righthand~
+Welmar's Right hand~
+The gigantic right hand of King Welmar is here, gripping a huge golden sceptre.
+~
+~
+65 0 750 C
+30 0 -75 1900d0+100 0d0+0
+0 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 85
+85 0 0 0 131073 131072 0
+0 0 0 0 0 0 16 0
+> act_prog defend_me~
+mpgoto $n
+  mpecho Welmar's Right Hand comes to the rescue!
+  mpkill $n 
+~
+> death_prog 100~
+mpgoto 4
+~
+|
+#24817
+left hand welmar lefthand~
+Welmar's Left hand~
+Welmar's enormous left hand is here, drumming its fingers.
+~
+~
+1 0 -1000 C
+30 0 -75 1900d0+100 0d0+0
+0 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 85
+85 0 0 0 131073 131072 0
+0 0 0 0 0 0 16 0
+> act_prog defend_me~
+mpgoto $n
+  mpecho Welmar's Left Hand comes to the rescue!
+  mpkill $n 
+~
+> death_prog 100~
+mpgoto 4
+~
+|
+#24818
+left eye welmar~
+Welmar's Left Eye~
+King Welmar's left eye glares at you in irritation.
+~
+~
+3 172 750 C
+35 0 -100 2400d0+100 0d0+0
+0 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 85
+85 0 0 0 131073 131072 1
+0 0 0 0 0 0 0 2
+> death_prog 100~
+mpgoto 4
+~
+|
+#24819
+right eye welmar~
+Welmar's Right Eye~
+King Welmar's right eye stares at you impassively.
+~
+~
+3 172 750 C
+35 0 -100 2400d0+100 0d0+0
+0 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 85
+85 0 0 0 131073 131072 1
+0 0 0 0 0 0 0 0
+> death_prog 100~
+mpgoto 4
+~
+|
+#24820
+mouth welmar~
+Welmar's Mouth~
+King Welmar's mouth mutters something about "kill" and "damn intruders".
+~
+~
+3 0 -1000 C
+40 0 -150 2900d0+100 0d0+0
+0 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 85
+85 0 0 0 131073 131072 0
+0 0 0 0 0 0 1 0
+> death_prog 100~
+mpgoto 4
+~
+|
+#24821
+dragon dust Dracolithos~
+Dracolithos~
+A swirling cloud of dust forms a terrifying dragon shape before you.
+~
+Dracolithos has lived in this painting for thousands of years, feeding on 
+those adventurers foolish or unlucky to end up in this wasteland.  It 
+displays its pile of bone powder as one would show a trophy on their wall.  
+You begin to regret ever coming to the art gallery.
+~
+3 4792872 0 C
+50 0 -150 1d1+11000 8d8+6
+650000 0
+8 8 0
+18 13 13 16 13 13 0
+0 0 0 -15 -6
+31 0 0 0 131073 131073 5
+0 0 198688 0 2100231 520 7 3
+> rand_prog 8~
+emote snorts, sending sand clouds swirling.
+hide
+~
+> all_greet_prog 100~
+mpecho As you trudge along, the sand all around you begins to swirl upward.
+mpecho This is unlike any dust storm you've ever seen, though.
+~
+> death_prog 100~
+mpoload 24816
+mpecho The insubstantial form of Dracolithos finally returns from whence
+mpecho it came:  dust.  All that remains is a simple band of fire-blown
+mpecho glass, pitted and etched by time and driven sand.
+~
+> act_prog p flees head over heels!~
+mpat 3 c heal
+mpat 3 c heal
+mpat 3 c heal
+mpat 3 c heal
+mpat 3 c heal
+~
+> rand_prog 5~
+mpat 3 c heal
+~
+|
+#24822
+zombie noble~
+a zombie noble~
+A well-dressed zombie turns to you and emits a terrifying moan.
+~
+A close examination of this zombie wasn't really what you had in mind.  
+Unfortunately, the details of his rotting visage are forever etched into your 
+mind.  Looks like he's been sitting here for a long, long, LONG time.
+~
+67 40 -1000 C
+30 0 -75 1000d0+500 0d0+0
+10000 0
+8 8 1
+13 13 13 13 13 13 0
+0 0 0 0 71
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#24823
+ghoul noble~
+a ghoul noble~
+A ghoul dressed in tattered majestic robes growls at you hungrily.
+~
+This ghoul seems as bereft of brain power as any other undead creature, but 
+an evil glint in its eyes gives away a faint remainder of cunning, if not 
+intelligence.  Watch out for this one.
+~
+99 40 -1000 C
+35 0 -100 1200d0+50 0d0+0
+20000 0
+8 8 1
+13 13 13 13 13 13 0
+0 0 0 0 67
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#24824
+skeleton lady~
+a lady skeleton~
+A lady of regal bearing stands here, devoid of everything but bone.
+~
+This important-looking skeleton's face is forever locked in a grin, due to 
+the fact that she has no face to do anything else with.  Her crown is still 
+on her head, the only thing on what's left of her body that hasn't rotted away.
+~
+67 40 -1000 C
+35 0 -100 1300d0+50 0d0+0
+10000 0
+8 8 2
+13 13 13 13 13 13 0
+0 0 0 0 60
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#24825
+vampire lord king~
+The Vampire Lord~
+A fearsome vampire sits here, smiling coldly.
+~
+This vampire has not bothered to wipe the blood from his face, a testament to 
+his many kills.  You can almost feel his razor-sharp fangs digging into your 
+neck, and you rub your neck involuntarily at the thought.
+~
+99 2097320 -1000 C
+45 0 -200 2800d0+200 0d0+0
+50000 0
+8 8 1
+13 13 13 13 13 13 0
+0 0 0 0 5
+3 0 0 0 131073 131072 0
+0 0 0 0 2048 0 0 2
+#24826
+deer~
+a strong deer~
+A deer spies you and quickly bounds away.
+~
+This stag's antlers look rather intimidating.  You can imagine yourself being 
+impaled on the many racks of them.  His skin looks rather warm, though.  No 
+wonder he looks so carefree.
+~
+193 0 0 C
+20 0 0 400d0+100 0d0+0
+0 0
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 0 0 0 0 0 2
+> death_prog 100~
+mpoload 24821
+~
+> fight_prog 20~
+kick
+~
+|
+#24827
+yeti~
+a tundra yeti~
+A huge yeti rises up before you, its white fur blending with the snow.
+~
+This huge animal resembles a large white bear, only with much stronger arms 
+and jaws.  You wouldn't want to get caught between either of those.
+~
+97 32 0 C
+22 0 0 1d1+800 10d2+5
+0 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 0 0 0 1048576 64 2
+#24828
+dragon icingdeath ingeloakastimizilian ice white~
+Icingdeath~
+Icingdeath, king of the white dragons, lies here on a frozen bed of gold.
+~
+Ingeloakastimizilian, or Icingdeath, as he has come to be known, has lived in 
+this cavern for hundreds of years.  He, like many others of his kind, has grown
+too large to leave his lair.  So Icingdeath is content to lie here in repose 
+and count his treasure in his tiny dragon mind.  Disturbing him was probably 
+a very bad idea.
+~
+99 4726972 0 C
+45 0 -250 7000d0+1000 2d5+4
+750000 0
+8 8 1
+17 13 13 16 13 13 0
+0 0 0 0 0
+3 0 0 0 131073 131073 0
+0 0 4686861 4 2099202 1 64 2
+> rand_prog 25~
+mpforce all shiver
+~
+> greet_prog 100~
+mpecho Ingeloakastimizilian's eyes dart open as soon as you step into
+the room.
+  mpecho The thin layer of ice that covers the dragon's body immediately
+  mpecho shatters as he screams, a truly horrible sound.
+if clan ($n) == Dragonslayer
+yell I have you now you puny Dragonslayer! 
+yell You will be my dinner after a centuries long fast $n.
+else
+endif
+~
+> death_prog 100~
+mpecho Icingdeath shudders once as blood trickles out of his nostrils.  He
+  mpecho gathers his lungs for one final breath of frost, but all that comes
+  mpecho out is a mildly nippy cough.  His head crashes to the floor.
+~
+|
+#24829
+lich aram aram-dol dol~
+Aram-Dol~
+A skeletal being of pure evil lies here, its eyes glowing with an unholy light.
+~
+Aram-Dol has been feeding off unwary adventurers for centuries now, their 
+life force sustaining his existence.  He should have been dead millenia ago, 
+but his evil ambitions and magic crown have allowed him to cheat death and 
+enter the realm of the undead.
+~
+67 60 0 C
+45 0 -200 7000d0+1000 0d0+0
+100000 0
+8 8 1
+13 13 13 13 13 13 0
+0 0 0 0 67
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+> fight_prog 25~
+mpecho Aram-Dol grabs your arm!
+  c 'energy drain' $n
+~
+> death_prog 100~
+mpecho Aram-Dol emits a terrifying scream as he crumbles into dust.  All
+  mpecho that remains of him are his crown and his wand.
+mpoload 24823 40
+drop decay
+mpoload 24822 40
+drop crown
+~
+|
+#24830
+butcher graeme davis~
+the butcher~
+A blond young man offers a blood-stained hand as you enter the room.
+~
+Graeme loves his job.  It gives him the chance to take out his aggressions on 
+human-sized targets with a huge cleaver.  He doesn't look like the type to be 
+messed with.
+~
+67 4726972 0 S
+10 0 -300 29000d0+1000 0d0+0
+0 0
+8 8 0
+#24831
+baker jon lang~
+the baker~
+A wild-eyed man is here, covered in flour from his shoes to his glasses.
+~
+Jon Lang runs around manically as you study him.  The flour all over his body 
+is caked into his skin and clothes.  Apparently, he hasn't had time to clean 
+himself.
+~
+67 4726972 0 S
+10 0 -300 29000d0+1000 0d0+0
+0 0
+8 8 1
+#24832
+stafford fruit markham vendor~
+the fruit stand vendor~
+A grizzled, moustached man stands here, offering you various fruits.
+~
+Stafford has given up his job designing signs for the shops around here, and 
+is content to sell you every fruit he has ever come across.  Yes, his job is 
+just about as boring as it sounds.
+~
+67 4726972 0 S
+10 0 -300 29000d0+1000 0d0+0
+0 0
+8 8 1
+#24833
+tabby cat orange~
+the orange tabby~
+A beautiful orange tabby cat rubs up against your leg and purrs here.
+~
+The cat's coat is a lustrous orange.  Obviously, someone has been taking care 
+of her quite well.
+~
+67 0 0 C
+20 0 -75 900d0+100 0d0+0
+0 0
+8 8 2
+13 13 13 13 13 13 0
+0 0 0 0 29
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#24834
+bonnie dairy milkmaid roberts ~
+the dimpled milkmaid~
+A beautiful blonde woman shyly offers you dairy products.
+~
+Bonnie has grown fed up with her bureaucratic job at the university.  She now 
+runs the Goodbody Dairy, which has been her dream for many years.  Her cheeks
+flush as she offers you merchandise.
+~
+67 4726972 0 S
+10 0 -300 29000d0+200 0d0+0
+0 0
+8 8 2
+#24835
+barbarian heafstaag~
+a barbarian fighter~
+A huge barbarian stands here motionless, awaiting his next target.
+~
+This huge man appears to be quite worked up about something.  Every muscle on 
+his huge body is taut with exertion.  It is his eyes that draw your attention,
+though.  They are frightened, pleading eyes.  The eyes of a beaten man.
+~
+67 0 0 S
+30 0 -175 3500d0+500 0d0+0
+0 0
+8 8 1
+> rand_prog 20~
+growl
+~
+|
+#24836
+storm giant galstorm~
+the storm giant chieftain~
+A storm giant stands here, completely motionless.
+~
+The twenty-foot-plus giant that stands before you pays you absolutely no 
+attention.  You can hear energy crackling all around him, which gives him away
+as a storm giant even before his deep violet skin.
+~
+67 0 0 S
+50 0 -200 5500d0+500 0d0+0
+0 0
+8 8 1
+> rand_prog 25~
+cackle
+~
+|
+#24837
+mind flayer galflayer~
+the mind flayer~
+A revoltingly colored mind flayer stands here, its eyes widening in shock.
+~
+This illithid is one of the most disgusting creatures you've ever seen.  Its 
+skin glistens with slime, and its bizarre eyes have no pupils.  This creature's
+very existence is a defamation of nature.
+~
+99 8 0 C
+30 0 -100 2500d0+500 0d0+0
+10000 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 85
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#24838
+siberian husky dog~
+a Siberian Husky~
+A healthy-looking Siberian Husky sits here at the table, intent on his hand.
+~
+A tag on his collar says "Tundra".
+~
+67 0 0 C
+10 0 -50 500d0+500 0d0+0
+10000 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 30
+3 0 0 0 131073 131072 0
+0 0 4 0 0 0 0 0
+#24839
+golden retriever dog~
+a Golden Retriever~
+A Golden Retriever with a shiny coat sits here oblivious at the table.
+~
+A tag on his collar says "Pyrite".
+~
+67 0 0 C
+10 0 -50 500d0+500 0d0+0
+10000 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 30
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#24840
+dachsund weiner dog~
+a Wirehaired Dachsund~
+A seemingly bored Wirehaired Dachsund is losing.  Poor doggie.
+~
+A tag on his collar says "Schultz".
+~
+67 0 0 C
+10 0 -50 500d0+500 0d0+0
+10000 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 30
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#24841
+irish setter dog~
+an Irish Setter~
+An excited Irish Setter leans up against the table here, wagging its tail.
+~
+A tag on his collar says "O'Sullivan".
+~
+67 0 0 C
+10 0 -50 500d0+500 0d0+0
+40000 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 30
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#24842
+boxer dog~
+a Boxer~
+A mean-looking Boxer has lost all his money.  Better watch out.
+~
+A tag on his collar says "Tyson".
+~
+99 0 0 C
+10 0 -50 500d0+500 0d0+0
+0 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 30
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#24843
+dragonfly blue~
+a sky blue dragonfly~
+A gigantic light blue dragonfly buzzes next to your ear.
+~
+Its wings are moving much too fast for you to see, but you decide to trust 
+your senses and believe that this creature is flying.  You'd hate to be 
+bitten by one of these.  If dragonflies do indeed bite.  Hmm.
+~
+67 524288 0 C
+10 0 -50 500d0+500 0d0+0
+0 0
+8 8 0
+13 13 13 13 13 13 0
+0 0 0 0 83
+3 0 0 0 131073 131072 0
+0 0 0 0 0 0 0 0
+#24844
+blue jay bluejay~
+an exuberant blue jay~
+A happy-looking blue jay flies circles around your head.
+~
+This bird is uncommonly happy for some reason.  You can't imagine why, given 
+the mood of this room.  You half expect it to burst into tears at any moment.
+That would be the icing on the cake.
+~
+67 524288 0 S
+15 0 -75 1000d0+500 0d0+0
+0 0
+8 8 0
+#24845
+~
+the butcher~
+A blond young man offers a blood-stained hand as you enter the room.
+~
+Graeme loves his job.  It gives him the chance to take out his aggressions on 
+human-sized targets with a huge cleaver.  He doesn't look like the type to be 
+messed with.
+~
+1073741891 4726972 0 S
+10 0 -300 29000d0+1000 0d0+0
+0 0
+8 8 0
+#24846
+~
+the baker~
+A wild-eyed man is here, covered in flour from his shoes to his glasses.
+~
+Jon Lang runs around manically as you study him.  The flour all over his body 
+is caked into his skin and clothes.  Apparently, he hasn't had time to clean 
+himself.
+~
+1073741891 4726972 0 S
+10 0 -300 29000d0+1000 0d0+0
+0 0
+8 8 1
+#24847
+~
+the fruit stand vendor~
+A grizzled, moustached man stands here, offering you various fruits.
+~
+Stafford has given up his job designing signs for the shops around here, and 
+is content to sell you every fruit he has ever come across.  Yes, his job is 
+just about as boring as it sounds.
+~
+1073741891 4726972 0 S
+10 0 -300 29000d0+1000 0d0+0
+0 0
+8 8 1
+#24848
+~
+the dimpled milkmaid~
+A beautiful blonde woman shyly offers you dairy products.
+~
+Bonnie has grown fed up with her bureaucratic job at the university.  She now 
+runs the Goodbody Dairy, which has been her dream for many years.  Her cheeks
+flush as she offers you merchandise.
+~
+1073741891 4726972 0 S
+10 0 -300 29000d0+1000 0d0+0
+0 0
+8 8 2
+#24850
+~
+the butcher~
+A blond young man offers a blood-stained hand as you enter the room.
+~
+Graeme loves his job.  It gives him the chance to take out his aggressions on 
+human-sized targets with a huge cleaver.  He doesn't look like the type to be 
+messed with.
+~
+1073741891 4726972 0 S
+10 0 -300 29000d0+1000 0d0+0
+0 0
+8 8 0
+#24851
+butcher graeme davis~
+the butcher~
+A blond young man offers a blood-stained hand as you enter the room.
+~
+Graeme loves his job.  It gives him the chance to take out his aggressions on 
+human-sized targets with a huge cleaver.  He doesn't look like the type to be 
+messed with.
+~
+67 4726972 0 S
+10 0 -300 1d0+600 0d0+0
+0 0
+8 8 0
+#24852
+milkmaid dairy roberts bonnie~
+the dimpled milkmaid~
+A beautiful blonde woman shyly offers you dairy products.
+~
+Bonnie has grown fed up with her bureaucratic job at the university.  She now 
+runs the Goodbody Dairy, which has been her dream for many years.  Her cheeks
+flush as she offers you merchandise.
+~
+67 4726972 0 S
+10 0 -300 300d0+200 0d0+0
+0 0
+8 8 2
+#24853
+baker jon lang~
+the baker~
+A wild-eyed man is here, covered in flour from his shoes to his glasses.
+~
+Jon Lang runs around manically as you study him.  The flour all over his body 
+is caked into his skin and clothes.  Apparently, he hasn't had time to clean 
+himself.
+~
+67 4726972 0 S
+10 0 -300 300d0+500 0d0+0
+0 0
+8 8 1
+#24854
+stafford fruit markham vendor~
+the fruit stand vendor~
+A grizzled, moustached man stands here, offering you various fruits.
+~
+Stafford has given up his job designing signs for the shops around here, and 
+is content to sell you every fruit he has ever come across.  Yes, his job is 
+just about as boring as it sounds.
+~
+67 4726972 0 S
+10 0 -300 200d0+650 0d0+0
+0 0
+8 8 1
+#24892
+wiggins scott ~
+Scott~
+A towering man in a Corps of Cadets uniform stands here at attention.
+~
+Scott is in uniform, of course.  It looks like quite an uncomfortable uniform
+at that.  You're very glad YOU don't have to wear it.  You're also very glad 
+you're not the one in the Corps.
+~
+65 4726972 0 S
+50 0 -300 29000d0+1000 0d0+0
+0 0
+8 8 0
+#24893
+aaron white~
+Aaron~
+A smiling student in tattered sweatshorts stands here, whining about work.
+~
+Aaron notices your gaze and says "What the hell are you looking at?"  He is 
+holding his koofers for the big test tomorrow.
+~
+67 4726972 0 S
+50 0 -300 29000d0+1000 0d0+0
+0 0
+8 8 1
+#24894
+schneider rob schneidr~
+Rob~
+A tall young lad with thick glasses is here, making fun of you.
+~
+Rob is wearing his "Politically Incorrect" T-shirt, and shorts (of course...
+the guy doesn't have any other legwear).  He is working on a five-page paper 
+for Political Theory class.  Don't disturb him.
+~
+67 4726972 0 S
+50 0 -300 29000d0+1000 0d0+0
+0 0
+8 8 1
+#24895
+tex aaron lee~
+Tex~
+A tall, lanky Texan stands here with his thumbs in his belt loops.
+~
+After a close inspection of Tex's outfit, you wonder why he is here in 
+Blacksburg and not down in Austin.  Faded cowboy boots, a black cowboy hat, 
+blue jeans jacket, and a Garth Brooksesque shirt make up this weirdo's ensemble
+Aaron notices your gaze and says "What the hell are you looking at?"  He is 
+holding his koofers for the big test tomorrow.
+After a close inspection of Tex's outfit, you wonder why he is here in 
+Blacksburg and not down in Austin.  Faded cowboy boots, a black cowboy hat, 
+blue jeans jacket, and a Garth Brooksesque shirt make up this weirdo's ensemble
+~
+65 4726972 0 S
+50 0 -300 29000d0+1000 0d0+0
+0 0
+8 8 1
+#24896
+forrester chris~
+Forrester~
+A thin, goateed weakling stands here doing impressions.
+~
+Forrester is battling with Rob for "Smallest Person in Miles".  He still 
+looks quite dangerous, though.
+~
+67 4726972 0 S
+50 0 -300 29000d0+1000 0d0+0
+0 0
+8 8 1
+#24897
+cox brian bastard~
+Cox~
+An annoying bastard is here, wandering about the area.
+~
+You can't get a good look at him through all the flannel.  But maybe that's 
+just as well.
+~
+65 4726972 0 S
+50 0 -300 29000d0+1000 0d0+0
+0 0
+8 8 1
+#24898
+roberts grant troll-boy~
+Grant~
+A disinterested, long haired freak sits here at his computer.
+~
+Grant is in his customary position.  Sprawled in his favorite, uncomfortable 
+red chair with his feet in his computer desk.  His face is twisted in a look 
+of concentration as he types much, MUCH too quickly on his keyboard.
+~
+67 4726972 0 S
+50 0 -300 29000d0+1000 0d0+0
+0 0
+8 8 1
+#24899
+seguin brian~
+Seguin~
+Brian Seguin stands here, laughing at something.  What a dork.
+~
+Seguin is wearing his usual outfit.  A dark sweater with khaki shorts.  The kid
+has no fashion sense.  But that's why the women love him.
+~
+67 4726972 -1000 S
+50 0 -300 29000d0+1000 0d0+0
+0 0
+8 8 1
+#0
+
+
+#OBJECTS
+#24800
+key~
+the Art Gallery key~
+A silver key with the initials "D A G" carved on it lies here.~
+~
+18 0 1
+0 0 0 0
+1 1000000 -31072
+#24801
+ruby sabre spectrum~
+a ruby sabre~
+A long sabre, completely covered in rubies, is stuck in the ground here.~
+~
+5 147457 8193
+0 0 0 3
+5 500000 -15536
+A
+18 5
+A
+19 5
+A
+1 2
+#24802
+topaz staff spectrum~
+a topaz staff~
+A five-foot-long staff made of orange topaz lies on the ground here.~
+~
+5 25264129 8193
+0 0 0 7
+7 200000 20000
+A
+18 7
+A
+19 3
+A
+13 50
+#24803
+golden axe gold spectrum~
+a golden axe~
+A huge half moon-bladed axe made entirely of gold lies here on the ground.~
+~
+5 25346049 8193
+0 0 0 1
+10 500000 -15536
+A
+18 2
+A
+19 8
+A
+2 2
+#24804
+emerald morningstar star spectrum~
+an emerald morningstar~
+A large emerald spiked ball, chained to a long handle, is here on the ground.~
+~
+5 8437761 8193
+0 0 0 8
+12 350000 -30536
+A
+18 3
+A
+19 7
+A
+5 2
+#24805
+blue topaz claw glove spectrum~
+a blue topaz glove~
+A blue topaz-encrusted glove with wicked claws on the fingers lies here.~
+~
+5 25247745 8193
+0 0 0 5
+3 200000 20000
+A
+18 8
+A
+19 7
+A
+4 2
+#24806
+blue sapphire scythe spectrum~
+a sapphire scythe~
+A midnight blue scythe lies here, light glinting off its wicked blade.~
+~
+5 16924673 8193
+0 0 0 10
+15 450000 -20536
+A
+3 2
+A
+19 7
+#24807
+amethyst dagger gauche spectrum~
+an amethyst gauche~
+A long dagger completely covered in amethyst lies here on the ground.~
+~
+5 147457 8193
+0 0 0 11
+3 325000 32500
+A
+18 6
+A
+19 4
+#24808
+ivory rapier spectrum~
+an ivory rapier~
+A perfectly balanced ivory-covered rapier is skewered into the ground here. ~
+~
+5 8537089 8193
+0 0 0 2
+15 225000 22500
+A
+18 12
+A
+19 -2
+A
+12 50
+#24809
+onyx whip spectrum~
+an onyx whip~
+A whip with a handle of the deepest onyx lies here forgotten.~
+~
+5 529 8193
+0 0 0 4
+6 425000 -23036
+A
+18 5
+A
+19 5
+#24810
+daisy flower~
+bhelliom~
+An intricately designed rose made of sapphire lies here, pulsing with life.~
+~
+3 0 16385
+50 5 5 89
+1 2000000 3392
+A
+17 0
+#24811
+dandelion flower~
+a dandelion~
+A huge dandelion is sprouting up from the ground below you.~
+~
+3 0 16385
+50 5 5 88
+1 2000000 3392
+#24812
+bouquet marigolds flower marigold~
+a marigold~
+A single marigold is pushing up through the soil here.~
+~
+3 0 16385
+50 5 5 36
+1 2000000 3392
+#24813
+pansy flower~
+a pansy~
+A tasty-looking pansy grows by itself off to the side here.~
+~
+26 0 1
+50 66 67 34
+1 2000000 3392
+#24814
+primrose flower~
+a potted primrose~
+A bright red primrose grows in a pot here.~
+~
+26 0 1
+50 56 39 91
+1 2000000 3392
+#24815
+plaque keystone~
+the Art Gallery's keystone~
+A plaque is mounted on the keystone of the gallery.~
+~
+12 0 0
+0 0 0 0
+0 0 0
+E
+plaque keystone~
+------------------------------------------------------------------------------
+                      Copyright 1995 Do'Urden Enterprises
+ 
+This area, my second, is dedicated to Becky Boilek, who gives me the inspir-
+ ation to write these things.  Who gives me the inspiration for EVERYTHING.
+                               Thank you, Becky.
+ 
+Oh yeah, and by the way, the Art Gallery was based, in part (a small part) on
+Owzer's house, in Final Fantasy III.  Those who've played it know what I mean.
+------------------------------------------------------------------------------
+~
+#24816
+scorched band glass~
+a scorched band of glass~
+A dark piece of sand-etched glass has fallen here.~
+~
+9 35840 3
+0 0 0 0
+8 248000 24800
+A
+22 -2
+A
+17 -5
+A
+12 -40
+A
+13 25
+A
+18 1
+A
+19 3
+#24817
+tattered cape~
+a tattered cape~
+An old, tattered, moth-eaten cape lies here in a heap.~
+~
+9 192 1025
+10 0 0 0
+2 5000 500
+A
+17 5
+A
+5 2
+#24818
+crown~
+a flawless crown~
+A completely flawless golden crown lies here on the ground.~
+~
+9 192 17
+0 0 0 0
+5 50000 5000
+A
+5 2
+A
+24 -8
+#24819
+sceptre death~
+the Death Sceptre~
+A jet black sceptre is here, exuding an aura of evil.~
+~
+4 6870 16385
+50 5 10 8
+5 1000000 -31072
+A
+17 -40
+A
+1 2
+A
+5 1
+#24820
+pool evermelt~
+mikeCosnerGraemeDavisLaszloTabaJonLangBrianSeguinBrianCoxAaronWhiteRobSchneiderAaronLeeScottWigginsChrisForrester~
+The pool's water looks inviting and refreshing.  Care for a sip?~
+~
+25 0 0
+0 0 0 0
+10000 0 0
+#24821
+fat deer animal layer~
+a layer of animal fat~
+A disgusting mass of black-tinged animal fat lies here.~
+~
+9 0 9
+0 0 0 0
+1 1 0
+E
+fat deer animal layer~
+Looks like this nasty stuff would keep you quite warm on a cold day.
+~
+#24822
+crown jeweled~
+an extravagantly jeweled crown~
+A gold crown layered in huge jewels lies here on the ground.~
+~
+9 4820 17
+0 0 0 0
+3 100000 10000
+A
+9 -100
+A
+5 3
+A
+19 4
+#24823
+wand decay~
+the Wand of Decay~
+An ice-cold onyx wand lies here on the ground, killing all life underneath it.~
+~
+3 4820 16385
+60 3 3 25
+5 100000 10000
+A
+9 -100
+A
+5 2
+A
+19 5
+A
+17 -25
+A
+13 25
+#24824
+ice plate breastplate~
+the Ice Breastplate~
+A large breastplate made entirely of ice lies here twinkling the ground.~
+~
+9 1 9
+-50 -50 0 0
+10 500000 -15536
+A
+17 -30
+A
+5 1
+A
+23 -10
+#24825
+ice leggings~
+the Ice Leggings~
+A pair of leggings fashioned entirely of ice lie here, shining brightly.~
+~
+9 1 33
+-50 12 0 0
+5 300000 30000
+A
+17 -20
+A
+4 1
+A
+14 100
+#24826
+ice arm guards~
+the Ice Arm Guards~
+Two arm guards made of opaque ice lie here on the ground.~
+~
+9 1 257
+-50 13 0 0
+4 200000 20000
+A
+17 -10
+A
+1 1
+A
+19 6
+#24827
+ice earrings~
+the Ice Earrings~
+Two dragon's head-shaped earrings made of ice lie here untouched.~
+~
+9 1 65537
+-50 13 0 0
+1 150000 15000
+A
+17 -5
+A
+12 50
+#24828
+ice gauntlets~
+the Ice Gauntlets~
+Two rock-hard gauntlets made entirely of ice lie here waiting to be picked up.~
+~
+9 1 129
+-50 16 0 0
+3 225000 22500
+A
+17 -10
+A
+2 1
+A
+18 6
+#24829
+ice helm~
+the Ice Helm~
+A helmet made of the hardest ice lies here, seemingly giving off its own light.~
+~
+9 1 17
+-50 -50 0 0
+4 250000 25000
+A
+17 -15
+A
+3 1
+A
+24 -5
+#24830
+ice girth~
+the Ice Girth~
+A large hoop of ice lies here on the ground, waiting to be put on.~
+~
+9 1 2049
+-50 15 0 0
+3 175000 17500
+A
+17 -15
+A
+24 -8
+A
+23 -9
+A
+20 -9
+A
+21 -9
+A
+22 -9
+#24831
+pork chop marketplace~
+a juicy pork chop~
+A pork chop, stewing in its own juices, lies on the ground here.~
+%s voraciously scarf$q down $p.~
+19 0 1
+70 0 0 0
+2 14 1
+#24832
+steak huge marketplace~
+a huge steak~
+A steak, weighing several pounds, lies here growing cold on the ground.~
+%s force$q $p down your throat in three bites.  *choke*~
+19 0 1
+80 0 0 0
+3 16 1
+#24833
+haunch goat marketplace~
+a haunch of goat~
+A warm haunch of goat lies here on the dirty ground.~
+$s~
+19 0 1
+65 0 0 0
+2 13 1
+#24834
+veal cutlet marketplace~
+a veal cutlet~
+A small cutlet of tender veal is lying on the ground here.~
+%s whip$q out a knife and fork and delicately eat$q $p.~
+19 0 1
+65 0 0 0
+2 13 1
+#24835
+venison cut marketplace~
+a cut of venison~
+A tasty-looking cut of venison is growing dirty on the ground here.~
+%s season$q $p and eat$q it with a flourish.~
+19 0 1
+60 0 0 0
+1 12 1
+#24836
+chicken breast marketplace~
+a broiled chicken breast~
+A breast of some poor chicken is going to waste on the ground here.~
+%s feel$q like chicken tonight and eat$q $p.~
+19 0 1
+60 0 0 0
+1 12 1
+#24837
+ribs rack marketplace~
+a rack of ribs~
+A rack of ribs, covered in an unknown sauce, is here on the ground.~
+%s slather$q $p with sauce and eat$q them quickly.~
+19 0 1
+70 0 0 0
+2 14 1
+#24838
+liver steak marketplace~
+a liver steak~
+A cut of liver formed into a steak lies here on the ground.~
+%s eat$q $p in five bites.  Wow!~
+19 0 1
+60 0 0 0
+1 12 1
+#24839
+meatloaf slab marketplace~
+a slab of meatloaf~
+A slab of old-looking meatloaf is here on the ground.~
+%s reluctantly nibble$q on $p.~
+19 0 1
+65 0 0 0
+3 13 1
+#24840
+turkey drumstick marketplace~
+a turkey drumstick~
+A yummy-looking turkey drumstick lies here on the ground.~
+%s tear$q some meat off $p and gulp$q it down.~
+19 0 1
+70 0 0 0
+1 14 1
+#24841
+pheasant roast marketplace~
+a roast pheasant~
+A plump roast pheasant lies here on the ground, surrounded by steam.~
+%s briefly consider$q the plight of $p, then eat$q it anyway.~
+19 0 1
+60 0 0 0
+2 12 1
+#24842
+honeybaked ham marketplace~
+a honeybaked ham~
+A large ham, slathered with honey and sugar, lies here on the ground.~
+%s eat$q an entire honeybaked ham in one bite!  Whoa!~
+19 0 1
+80 0 0 0
+4 17 1
+#24843
+bacon strips marketplace~
+a few strips of bacon~
+Several strips of lean bacon lie on the ground here.~
+%s savor$q $p.  Mmmmm.~
+19 0 1
+50 0 0 0
+1 10 1
+#24844
+apple pie marketplace~
+a hot apple pie~
+A freshly baked apple pie lies here steaming on the ground.~
+%s eat$q all four quarters of $p.  Impressive.~
+19 0 1
+80 0 0 0
+2 16 1
+#24845
+cherry pie marketplace~
+a fresh cherry pie~
+A hot cherry pie with oh-so-flaky crust lies here on the ground.~
+%s gobble$q down $p, getting cherry filling everywhere.~
+19 0 1
+75 0 0 0
+2 15 1
+#24846
+blueberry pie marketplace~
+a yummy blueberry pie~
+A large blueberry pie lies here on the ground growing cold.~
+%s procure$q a scoop of ice cream, and eat$q it with $p.~
+19 0 1
+75 0 0 0
+2 15 1
+#24847
+pecan pie marketplace~
+a tasty pecan pie~
+A perfectly baked pecan pie lies here on the ground, losing its heat.~
+%s quickly eat$q $p, dropping soft pecans on the floor.~
+19 0 1
+75 0 0 0
+2 15 1
+#24848
+pumpkin pie marketplace~
+a moist pumpkin pie~
+A glorious-smelling pumpkin pie lies here on the ground.~
+%s eat$q $p in one bite, then cough$q up the tin on the ground.~
+19 0 1
+80 0 0 0
+2 17 1
+#24849
+donut doughnut jelly marketplace~
+a jelly donut~
+Jelly leaks out of a powdered donut that is on the ground here.~
+%s reluctantly eat$q $p without any beer to go with it.  *sigh*~
+19 0 1
+50 0 0 0
+0 10 1
+#24850
+stickybun gooey marketplace~
+a gooey stickybun~
+A gooey, sugar-covered stickybun lies here on the ground.~
+%s carefully eat$q $p, but get$q sticky sauce everywhere anyway.~
+19 0 1
+55 0 0 0
+1 10 1
+#24851
+chocolate chip cookie marketplace~
+a chocolate-chip cookie~
+The most tasty-looking cookie you have ever seen lies on the ground here.~
+%s eat$q $p and proclaim$q it THE BEST COOKIE EVER!~
+19 0 1
+35 0 0 0
+1 8 0
+#24852
+brownie marketplace~
+a moist brownie~
+A nut-filled, frosted brownie lies here on the ground.~
+%s eat$q $p in several little bites, and wince$q when it is gone.~
+19 0 1
+30 0 0 0
+1 7 0
+#24854
+angel food angelfood cake marketplace~
+a freshly baked angel food cake~
+A moist, bouncy angel food cake lies here on the ground.~
+%s look$q around suspiciously, then scarf$q down $p.~
+19 0 1
+90 0 0 0
+3 20 2
+#24855
+chocolate cake marketplace~
+a sinful chocolate cake~
+A chocolate cake sits here, beckoning you to eat it.~
+%s throw$q health to the wind and eat$q $p.~
+19 0 1
+90 0 0 0
+3 20 2
+#24856
+ice shoes~
+the Ice Shoes~
+A pair of shoes made of flawless ice lie here on the ground.~
+~
+9 1 65
+0 0 0 0
+3 300000 30000
+A
+2 1
+A
+17 -15
+A
+2 2
+#24857
+ice orb~
+the Ice Orb~
+A crystal clear, perfectly formed sphere gives off its own light here.~
+~
+4 1 16385
+43 5 5 36
+1 1000000 -31072
+#24858
+ice tooth~
+the Ice Tooth~
+The razor-sharp tooth of a white dragon lies here embedded in the ground.~
+~
+5 25313281 8193
+0 0 0 11
+2 1500000 18928
+A
+19 7
+A
+18 2
+#24859
+statue hokies 1995 nit champs baby~
+the 1995 NIT Championship Statue~
+A solid gold statue of a heavyset, moustached man stands here.~
+~
+13 0 0
+0 0 0 0
+20000 0 0
+E
+statue nit smith sean shawn~
+This statue serves to remind everyone of the results of the 1995 National 
+Invitation Tournament.
+ 
+VIRGINIA TECH -- 65
+MARQUETTE     -- 64
+ 
+The Virginia Tech Hokies.  1995 NIT Champions.
+~
+#24860
+juicy big red apple marketplace~
+a big red apple~
+An unbruised, big, juicy apple lies here on the ground.~
+%s loudly eat$q $p.  CRUNCH! CRUNCH! CRUNCH!~
+19 0 1
+35 0 0 0
+1 7 0
+#24861
+orange plump marketplace~
+a plump orange~
+A yummy-looking orange is here lying on the ground.~
+%s peel$q $p and wolf$q it down.~
+19 0 1
+30 0 0 0
+1 6 0
+#24862
+banana underripe marketplace~
+an underripe banana~
+A greenish banana lies here on the ground, waiting to be peeled and eaten.~
+%s dramatically peel$q $p and eat$q it in one bite.~
+19 0 1
+25 0 0 0
+1 5 0
+#24863
+grapes bunch marketplace~
+a bunch of red grapes~
+A bunch of red grapes lie here, glistening with water.~
+%s pick$q a few grapes from $p and eat$q them.~
+19 0 1
+35 0 0 0
+1 7 0
+#24864
+watermelon huge marketplace~
+a huge half watermelon~
+A perfectly ripe half of a watermelon lies here, ready to be eaten.~
+%s messily eat$q $p and spit$q the seeds in random directions.~
+19 0 1
+50 0 0 0
+2 10 1
+#24865
+pear ripe marketplace~
+a ripe pear~
+A pear-shaped pear lies here on the ground.~
+%s messily eat$q $p, stem and all.~
+19 0 1
+30 0 0 0
+1 6 0
+#24866
+peach juicy marketplace~
+a juicy peach~
+A moist, juicy peach is here lying on the ground.~
+%s eat$q $p and wince$q at the fuzz taste.~
+19 0 1
+25 0 0 0
+1 5 0
+#24867
+tomato large marketplace~
+a large tomato~
+An abnormally large tomato lies here on the ground.~
+%s chomp$q on $p, not caring if it's a fruit or vegetable.~
+19 0 1
+30 0 0 0
+1 6 0
+#24868
+corn ear marketplace~
+an ear of white corn~
+A shucked ear of white, buttered corn lies here on the ground.~
+%s butter$q $p and eat$q it rapidly.~
+19 0 1
+40 0 0 0
+1 8 0
+#24869
+zucchini crisp marketplace~
+a crisp zucchini~
+A watery, crisp zucchini lies here on the ground getting dirty.~
+%s eat$q $p, making disturbingly loud noises.~
+19 0 1
+35 0 0 0
+1 7 0
+#24870
+carrot dirty marketplace~
+a dirty carrot~
+A fresh carrot lies here, tinged with dirt.~
+%s eat$q $p, and immediately regret$q it.  BLECCH!~
+19 0 1
+25 0 0 6
+1 5 0
+#24871
+celery stalk marketplace~
+a celery stalk~
+A leafy stalk of celery lies here on the ground.~
+%s eat$q $p and feel$q quite healthy.~
+19 0 1
+20 0 0 0
+1 4 0
+#24872
+broccoli flower marketplace~
+a broccoli flower~
+A flower of fresh broccoli is lying here on the ground.~
+%s cover$q $p with cheese and scarf$q it down.~
+19 0 1
+25 0 0 0
+1 5 0
+#24873
+apricot tart marketplace~
+a tart apricot~
+A shriveled apricot lies here on the ground.~
+%s eat$q $p and shudder$q at the flavor.~
+19 0 1
+25 0 0 0
+1 5 0
+#24874
+milk bottle marketplace~
+a bottle of ice cold milk~
+A bottle of milk stands here, condensation glistening on its side.~
+%s drink$q milk from $p.  It does a body good.~
+17 0 1
+20 20 10 0
+2 30 3
+#24875
+milk buttermilk butter jug marketplace~
+a jug of buttermilk~
+A jug of buttermilk stands here, overflowing with its contents.~
+~
+17 0 1
+25 25 10 0
+2 35 3
+#24876
+milk chocolate carton marketplace~
+a carton of chocolate milk~
+A big carton of chocolate milk lies here, ready to be chugged.~
+~
+17 0 1
+30 30 10 0
+2 40 4
+#24877
+swiss cheese marketplace~
+a block of swiss cheese~
+A large block of cheese, filled with holes, lies here on the ground.~
+%s make$q silly gestures with $p, then eat$q it quickly.~
+19 0 1
+55 0 0 0
+1 11 1
+#24878
+cheddar cheese marketplace~
+several slices of cheddar cheese~
+A few slices of heavy cheddar cheese lie here on the ground.~
+%s roll$q up $p and eat$q them all at once.~
+19 0 1
+55 0 0 0
+1 11 1
+#24879
+muenster cheese marketplace~
+a wedge of muenster cheese~
+A large wedge of muenster cheese is lying here on the ground.~
+%s scarf$q $p without stopping to breathe.  Wow.~
+19 0 1
+55 0 0 0
+1 11 1
+#24880
+monterey jack cheese wheel marketplace~
+a wheel of Monterey Jack cheese~
+A yummy-looking wheel of Monterey Jack cheese lies here on the ground.~
+%s roll$q $p on the ground before eating it.  Yum.~
+19 0 1
+55 0 0 0
+1 11 1
+#24881
+bag mozzarella cheese marketplace~
+a bag of shredded mozzarella cheese~
+A large quantity of shredded mozzarella cheese is here in a bag.~
+%s dump$q the contents of $p down the proverbial hatch.~
+19 0 1
+55 0 0 0
+1 11 1
+#24882
+ice cream vanilla marketplace~
+a bowl of vanilla ice cream~
+A large bowl lies here, filled with a few scoops of vanilla ice cream.~
+%s eat$q several spoonfuls from $p.~
+19 0 1
+50 0 0 0
+2 10 1
+#24883
+ice cream chocolate marketplace~
+a bowl of chocolate ice cream~
+A large bowl lies here, filled with a few scoops of chocolate ice cream.~
+%s slurp$q $p completely clean.~
+19 0 1
+50 0 0 0
+2 10 1
+#24884
+flamberge sword two-handed~
+a flamberge~
+A massive, fearsome-looking, two-handed sword lies here on the ground.~
+~
+5 25346048 8193
+0 0 0 3
+15 800000 14464
+A
+18 -5
+A
+19 5
+#24885
+slave crown~
+the Slave Crown~
+An ordinary-looking crown with a blood red stone lies here.~
+~
+9 208 17
+-20 0 0 0
+1 13 1
+A
+3 -20
+A
+4 -20
+A
+2 -20
+#24887
+storm giant beard~
+a storm giant beard~
+A large mass of thick violet hair lies here on the ground.~
+~
+9 0 9
+0 0 0 0
+2 5000 500
+A
+1 3
+A
+23 -5
+#24888
+club gigantic~
+a gigantic club~
+A ridiculously big club lies here on the ground.  Good luck picking it up.~
+~
+5 0 8193
+0 0 0 8
+25 500 50
+A
+17 10
+A
+19 5
+#24889
+lifeless body corpse~
+the drained body~
+A dead human with a horrified look on his pale face lies here.~
+~
+15 0 1
+0 0 0 0
+100 0 0
+#24890
+body corpse dead lizardman~
+the drained lizardman body~
+A lizardman corpse lies here, its scales seeming somehow pale.~
+~
+15 0 1
+0 0 0 0
+100 0 0
+#24891
+mind flayer tentacle~
+a mind flayer tentacle~
+The severed tentacle of a mind flayer lies here on the ground.~
+~
+9 0 4097
+0 0 0 0
+0 1000000 -31072
+A
+3 2
+#24892
+mind flayer robe~
+a mind flayer's robe~
+An exotic-looking robe lies here, its inside covered with slime.~
+~
+9 0 1025
+0 0 0 0
+1 10000 1000
+A
+3 1
+A
+13 100
+#24893
+cards deck~
+a deck of cards~
+An old, beat-up deck of cards lies here on the ground.~
+~
+3 0 16385
+20 13 5 7
+1 10000 1000
+#24894
+visor clear~
+a clear visor~
+A flimsy-looking visor lies here crumpled on the ground.~
+~
+9 0 17
+0 0 0 0
+1 1000 100
+A
+4 2
+#24895
+chest dusty~
+a dusty chest~
+An old, dusty-looking chest sits here, covered with cobwebs and blood.~
+~
+15 0 0
+200 1 24816 0
+0 0 0
+#24896
+lake blood red~
+the lake of blood~
+The lake of blood you just crawled out of is as still as death here.~
+~
+27 0 0
+5 40 0 1
+0 0 0
+#24897
+tree lemon~
+a lemon tree~
+A brilliant yellow tree, covered with lemons, grows eagerly here.~
+~
+15 1 0
+10000 0 0 0
+10000 0 0
+#24898
+lemon tiny~
+a tiny lemon~
+A perfectly formed lemon lies here on the ground.~
+~
+19 0 1
+80 0 0 0
+1 0 0
+#24899
+glass wine~
+a glass of violet wine~
+A violet crystal glass of exquisite wine stands here.~
+~
+17 0 1
+4 4 2 0
+1 15 1
+#0
+
+
+#ROOMS
+#24800
+Entrance to the Darkhaven Art Gallery~
+The change in atmosphere as you step through the doors into the gallery is 
+striking.  Far from the tumult outside, the interior of the building is 
+remarkably serene.  The body of the gallery is north of here, past a
+busy-looking receptionist sitting at her desk.
+~
+0 8 1
+D0
+~
+~
+0 -1 24801
+D2
+Law Street lies to the south.
+~
+~
+0 -1 21021
+S
+#24801
+Receptionist's Desk~
+A sign hanging from the ceiling says :
+ 
+"ADMISSION : 100 GOLD"
+ 
+Apparently, this is the main entrance to the gallery.  You can see various 
+paintings lining the walls far to the north, and two rooms containing 
+important-looking art closer that way.
+~
+0 8 1
+D0
+~
+entrance hallway passage room~
+1063 24800 24804
+D2
+~
+~
+0 -1 24800
+D3
+~
+~
+0 -1 24802
+S
+#24802
+Curator's Desk~
+Without a doubt, this is the messiest desk you've ever laid eyes on.  
+Hundreds of loose documents (most of them with an outrageously high price at 
+the bottom) litter the surface.  More than a few lie on the floor.  A 
+nameplate is unobscured by the mountain of paper, however.
+~
+0 8 1
+D1
+~
+~
+0 -1 24801
+E
+nameplate desk~
+The gold nameplate says "MICHAEL COSNER - CURATOR"
+~
+S
+#24803
+Dracolithos' Treasure Vault~
+This place seems remarkably cool, and there is (thank the gods) a cool, clear 
+fountain flowing in front of you.  A few chests line the room, some of them 
+with cobwebs on them, some with bloodstains.
+~
+0 3145736 1
+D2
+~
+~
+0 -1 24848
+S
+#24804
+Outside the Art of the Year Rooms~
+This room exists only to lead you to the east and west.  West leads to the 
+year's featured painting, and east is the year's featured sculpture.  They 
+both look equally fascinating.  The hallway leads north to the rest of the 
+gallery.
+~
+0 8 1
+D0
+~
+~
+0 -1 24807
+D1
+~
+~
+0 -1 24806
+D2
+~
+~
+35 24800 24801
+D3
+~
+~
+0 -1 24805
+S
+#24805
+Painting of the Year~
+The painting of the year has definitely earned its title.  The ice-capped 
+mountains are painted in such detail that you could probably count the 
+individual snowflakes if you had a mind to.  Actually, that seems like a good 
+idea.  One...two...three...hmm.  There must be an easier way to do this.
+ 
+A small card by the painting says : 25.50
+~
+0 12 1
+D1
+~
+~
+0 -1 24804
+D3
+~
+painting~
+1 -1 24831
+S
+#24806
+Sculpture of the Year~
+Ugh.  What an ugly sculpture.  If the artist was trying to make this thing 
+beautiful, he should be executed.  The monochromaticity of the bronze only 
+adds to this hideous beast's ugliness, with its lower jaw jutting out, its 
+too-long, twisted horns, and generally stupid appearance.  Yeccch.
+ 
+A sign on the wall says : 30.40
+~
+0 8 1
+D3
+~
+~
+0 -1 24804
+S
+#24807
+By the "Wasteland" Painting~
+You are standing before an amazingly detailed painting of a completely barren 
+wasteland.  No plants.  No animals.  No water.  No nothing.  You don't envy 
+anyone who would be in THAT scene.
+ 
+A small card by the painting says : 45.50
+~
+0 12 1
+D0
+~
+painting~
+1027 -1 24815
+D1
+~
+~
+0 -1 24808
+D2
+~
+~
+0 -1 24804
+D3
+~
+~
+0 -1 24814
+S
+#24808
+By the "Canine Recreation" Painting~
+Ah, now THIS is a familiar work of art.  It shows five dogs, each wearing a 
+strange visor of transparent material.  The dogs are playing a game as old as 
+time itself.  Smoke hovers in the air above the green table.  How rustic.
+ 
+A small card by the painting says : 5.10
+~
+0 12 1
+D0
+~
+~
+0 -1 24809
+D1
+~
+painting~
+3 -1 24816
+D3
+~
+~
+0 -1 24807
+S
+#24809
+By the "Spectrum" Painting~
+This seems like an ordinary painting.  It simply shows the colors of the 
+rainbow, from red to violet, with black and white on the top and bottom, 
+respectively.  The colors are the most vibrant you have ever seen.
+ 
+A small card by the painting says : 30.40
+~
+0 12 1
+D0
+~
+~
+0 -1 24810
+D2
+~
+~
+0 -1 24808
+D3
+~
+painting~
+3 -1 24817
+S
+#24810
+By the "Still Life of Monarchy" Painting~
+This painting is the most uninteresting one you've seen so far.  It shows a 
+picture of King Welmar sitting on his throne.  Nothing to get excited about.  
+You can almost see the old man's face twist into a disdainful sneer.
+ 
+A small card by the painting says : 15.35
+~
+0 8 1
+D0
+~
+painting~
+3 -1 24818
+D2
+~
+~
+0 -1 24809
+D3
+~
+~
+0 -1 24811
+S
+#24811
+By the "Arena of Valorous Combat" Painting~
+Thousands of cheering fans make up the border of this painting.  Their 
+attention appears to be focused on the two gargantuan barbarians in the 
+center of the arena.  There are also numerous gladiatorial contests 
+surrounding the main attraction.
+ 
+A small card by the painting says : 25.30
+~
+0 12 1
+D1
+~
+~
+0 -1 24810
+D2
+~
+painting~
+3 -1 24819
+D3
+~
+~
+0 -1 24812
+S
+#24812
+By the "Tea Party" Painting~
+A few rich-looking, well-to-do nobles sit at a table in the painting.  Their 
+capes are frozen in mid-flow, probably due to an invisible breeze, and the 
+ladies' dresses are slightly green on the bottom from grass stains.  All 
+their backs are to you, making their faces hidden from view.
+ 
+A small card by the painting says : 25.45
+~
+0 12 1
+D1
+~
+~
+0 -1 24811
+D2
+~
+~
+0 -1 24813
+D3
+~
+painting~
+3 -1 24820
+S
+#24813
+By the "Loss" Painting~
+What a morbid painting!  Depicted on the wall in front of you is a large 
+graveyard, with quite a few stones.  A new arrival is on the way, apparently, 
+as a large group of people are gathered around an open grave.  How depressing.
+ 
+A small card by the painting says : 45.50
+~
+0 12 1
+D0
+~
+~
+0 -1 24812
+D1
+~
+painting~
+3 -1 24821
+D2
+~
+~
+0 -1 24814
+S
+#24814
+By the "Urban Jungle" Painting~
+You've never seen so much food in your life.  Each of the four food groups 
+are represented quite spectacularly.  From baker to butcher to ice cream 
+maker, to grocer to fruit dealer, the amount of fare is astounding.
+ 
+A small card by the painting says : N/A
+~
+0 12 1
+D0
+~
+~
+0 -1 24813
+D1
+~
+~
+0 -1 24807
+D2
+~
+painting~
+3 -1 24822
+S
+#24815
+Oops~
+Perhaps coming through this painting wasn't such a good idea.  You look 
+around and see nothing but cracked soil.  Everywhere.  You quickly decide to 
+go back the way you came, and spin around to jump back through the portal.
+ 
+It's not there.
+ 
+Quickly taking stock of your options, you decide to begin the trek to find a 
+way out of here.  NOW.
+~
+0 3153924 10
+D0
+~
+~
+0 -1 24840
+D1
+~
+~
+0 -1 24840
+D2
+~
+~
+0 -1 24840
+D3
+~
+~
+0 -1 24840
+S
+#24816
+Dogs Playing Poker~
+The array of multicolored chips on the table here are enough to make any 
+being rich, be it canine or human or elf.  The smoke in the air is quite 
+thick, and you can't suppress a cough as it fills your lungs.  Well, now that 
+you're here, maybe you'd like to play a few hands.
+~
+0 12 1
+D3
+~
+~
+33 -1 24808
+S
+#24817
+Green~
+You are floating in a vast space of green.  Waves of sea green.  Hovering 
+carpets of hunter green.  Every shade of green ever created occupies your 
+field of vision.  This makes the rain forest seem like a drab grey.  All 
+kinds of plant life flourish around you, seeming to thrive on the verdant 
+atmosphere.
+~
+0 0 9
+D1
+~
+~
+0 -1 24823
+D3
+~
+~
+0 -1 24824
+D4
+~
+~
+0 -1 24829
+D5
+~
+~
+0 -1 24830
+E
+plant plants~
+These plants are more exotic than you would have expected to see in midair.
+Of course, midair plants are not easily found, but that's neither here nor
+there.
+~
+S
+#24818
+Welmar's Left Foot~
+Perhaps this painting was just a wee bit more interesting than it looked.  
+You are standing at the foot of King Welmar.  A three-hundred-foot tall King 
+Welmar.  His foot alone is as big as ten of you!  You can see his huge toes 
+(each bigger than your head) wiggling around in his sandals.  Evidently today 
+was his pedicure.
+~
+0 12 1
+D2
+~
+~
+33 -1 24810
+D4
+~
+~
+0 -1 24849
+S
+#24819
+The Arena~
+The painting you saw appears to be quite outdated.  Almost all the fans have 
+left, except for a few seated, robed figures, all intensely concentrating.  
+Some of them notice you and slowly fade into nothingness as you watch.  The 
+wave of a facial tentacle gives their identity away.
+~
+0 0 1
+D1
+~
+~
+0 -1 24870
+D3
+~
+~
+0 -1 24871
+D4
+~
+~
+0 -1 24872
+S
+#24820
+The Tea Party~
+Now that you're in the scene, something seems horribly wrong.  The air stinks 
+of death and decay.  You can faintly recall where you've encountered this 
+stench before, but it escapes you at the mom--that's it!  A graveyard!  The 
+color drains from your face as you hear tormented moans all around you.
+~
+0 4 1
+D0
+~
+~
+0 -1 24857
+D1
+~
+~
+33 -1 24812
+S
+#24821
+The Funeral~
+A few dozen people gather around an open grave here, sniffling and wiping 
+their eyes.  A priest solemnly eulogizes the new occupant.  Or it seems as 
+though he is.  His lips are moving, but you don't hear anything.  As you 
+watch, the priest, and then the rest of the mourners shimmer and fade into 
+nothingness, leaving only yourself with an open grave.  *gulp*
+~
+0 4 1
+D5
+~
+~
+0 -1 24864
+S
+#24822
+Danishes N Donuts~
+The freshly baked bread in the back of this store makes your mouth start to 
+water in anticipation.  The selection beneath the display case is astounding.
+The fare ranges from omelettes to muffins to freshly popped popcorn.  They 
+all look incredibly appetizing.
+~
+0 4 1
+D0
+~
+~
+33 -1 24814
+D1
+~
+~
+0 -1 24867
+S
+#24823
+Blue~
+The blue sky has never been this clear that YOU've ever seen.  You can see 
+for miles...at least you think it's miles.  There's no landmark to judge 
+distance by.  Sky as far as the eye can see around you, and a deep blue ocean 
+beneath you.  Blue jays and midnight blue dragonflies hover around you.
+~
+0 0 9
+D1
+~
+~
+0 -1 24825
+D3
+~
+~
+0 -1 24817
+D4
+~
+~
+0 -1 24829
+D5
+~
+~
+0 -1 24830
+S
+#24824
+Yellow~
+Sunlight envelops you as you find yourself standing on a seemingly boundless 
+field of yellow.  The sun dominates the sky, easily a hundred times larger 
+than usual.  Golden trees make up a forest all around you, with lemons and 
+bananas hanging from every tree.
+~
+0 0 2
+D1
+~
+~
+0 -1 24817
+D3
+~
+~
+0 -1 24826
+D4
+~
+~
+0 -1 24829
+D5
+~
+~
+0 -1 24830
+E
+sun sky~
+The sun stretches as far as your peripheral vision can see, almost occupying
+the entire sky.  Strangely, though, it is not hot.  It's actually pleasantly
+warm.  Ahhhhhhhh.
+~
+S
+#24825
+Indigo~
+You just missed the dusk here, apparently.  The sky is a thick dark blue, 
+with a hint of violet.  The moon is not out tonight, leaving you with a clear 
+view of the night sky.  Numerous trees surround you, laden with blueberries 
+larger than any berries you've seen.  A small pond lies quietly off in the 
+distance, undisturbed by the wind that ruffles your clothes and hair.
+~
+0 0 2
+D1
+~
+~
+0 -1 24827
+D3
+~
+~
+0 -1 24823
+D4
+~
+~
+0 -1 24829
+D5
+~
+~
+0 -1 24830
+E
+pond~
+The dark blue sky reflects onto the pond beautifully, and its cool waters
+entice you.  Feel like a swim?  Too bad.  You wouldn't be able to reach it.
+~
+S
+#24826
+Orange~
+You find yourself walking through a beautiful forest.  Somehow the season has 
+changed to fall, as evidenced by the numerous hues of orange on the leaves of 
+the trees.  The dirt you stand on is a deep reddish orange, with many paw 
+prints lining the path.  The bark of the trees has somehow been changed into 
+a very rich brown-tinged orange.
+~
+0 0 3
+D1
+~
+~
+0 -1 24824
+D3
+~
+~
+0 -1 24828
+D4
+~
+~
+0 -1 24829
+D5
+~
+~
+0 -1 24830
+S
+#24827
+Violet~
+The waning dusk turns the lake you are standing in into a picture of the 
+deepest purple.  Light reflecting off the lake turns all the colors around 
+you into progressive shades of the same color, including the grapevines in 
+the distance.  A table is set up on the shore, draped in a violet tablecloth.
+~
+0 0 2
+D3
+~
+~
+0 -1 24825
+D4
+~
+~
+0 -1 24829
+D5
+~
+~
+0 -1 24830
+S
+#24828
+Red~
+Horror dawns on you as you realize what the thick red liquid you're wading in 
+is.  You quickly scramble out of it and take in your surroundings.  The sky 
+is the light red of sunrise.  The blood you were just swimming in drips off 
+your equipment onto the brick path under your feet.  The sunlight bathes the 
+nearby trees in red, matching the color of the leaves.
+~
+0 0 3
+D1
+~
+~
+0 -1 24826
+D4
+~
+~
+0 -1 24829
+D5
+~
+~
+0 -1 24830
+S
+#24829
+White~
+The brightness that encompasses you makes everything you've ever seen seem 
+dim and diluted by comparison.  Everywhere you turn, you can see nothing but 
+white.  Closing your eyes doesn't help; the afterimage is just as bad.  There 
+is no horizon; no floor, no ceiling, no walls.  Panic wells up in you as you 
+lose track of the exit.  You spin around and look in all directions, quickly 
+realizing that, for once in your life, your sense of direction is totally gone.
+~
+0 0 9
+D5
+~
+~
+0 -1 24809
+S
+#24830
+Black~
+Your light source does nothing to penetrate the thick, silent darkness around 
+you.  The only thing that gives you ANY sense of direction is the division of 
+blackness; there are actually deeper shades of black than what you saw when 
+you first arrived here, evidenced by the horizon of absolute darkness in the 
+distance.  The "sky" is actually a lighter shade of black than the "ground" 
+here.  You wonder how this is possible.
+~
+0 0 9
+D4
+~
+~
+0 -1 24809
+S
+#24831
+High above Icewind Dale~
+Two things immediately strike you as you step onto the top of this mountain.  
+How beautiful the view is, with the mountains almost touching the sky, their 
+snow-capped peaks untouched by any creature, and how COLD it is!  Yikes!  
+You'd best get moving if you want your blood to stay in liquid form.
+~
+0 4 5
+D1
+~
+~
+33 -1 24805
+D5
+~
+~
+0 -1 24832
+S
+#24832
+Trudging along in Icewind Dale~
+Hmm.  There goes your way back up.  The mountain is virtually unclimbable from
+here.  Looks like the only way out now is to the east, towards a huge glacier
+far in the distance.  Your slowly numbing legs scream for action.  Time to get
+moving before they fall off.
+~
+0 4 5
+D1
+~
+~
+0 -1 24833
+S
+#24833
+Within Sight of the Reghed Glacier~
+The huge glacier looming in the distance is even bigger than you thought, now
+that you are nearing it.  Something seems odd about the glacier, but you can't
+stop to figure it out now.  It's either move or freeze.  The glacier awaits, as
+does glory.  You can also see a long path to the north that eventually leads 
+to a huge rocky cliff.
+~
+0 4 5
+D1
+~
+~
+0 -1 24834
+D3
+~
+~
+0 -1 24832
+S
+#24834
+At the Base of the Reghed Glacier~
+Well, whatever was abnormal about this glacier seems to have vanished now that
+you're this close to it.  The surface of the glacier is an impregnable wall of
+deep-frozen ice.  Seemingly impregnable.  You didn't come all this way just to
+look at a glacier.  Perhaps there's something else of interest here...
+~
+0 4 5
+D1
+~
+crack~
+1035 -1 24835
+D3
+~
+~
+0 -1 24833
+E
+glacier mountain wall~
+The glacier does indeed look impenetrable.  It'd be a cold day in hell before
+you found any way inside of it.  No pun intended.  Hmm.  Well, actually, now
+that you're looking REALLY hard, you can see some sort of depression at the
+base of the mountain.  Probably just a trick of the imagination, though.
+~
+E
+base~
+There is a rather large crack at the base of the glacier.  So large, in fact,
+that you'd probably be able to fit through it with a bit of help.
+~
+S
+#24835
+The Shores of Evermelt~
+The cold temperature no longer seems incapacitating by this warm pool.  In 
+fact, you could stay here for quite a while if you had a mind to.  Steam 
+billows off the surface of the pool in great clouds.  You have heard legends 
+of what lies beyond the pool.  Care to find out if they're true?
+~
+0 12 1
+D3
+~
+~
+35 -1 24834
+D5
+~
+pool evermelt water~
+1057 24821 24836
+S
+#24836
+Swimming in Evermelt~
+The water is remarkably warm down here.  The steam rising off the surface 
+above you doesn't do justice to the toasty feeling flowing through your 
+veins.  Remaining down here would be a bad idea, though...if you get to used 
+to this temperature, you'll turn into an icicle seconds after getting out.
+~
+0 12 6
+D0
+~
+~
+0 -1 24837
+D4
+~
+~
+0 -1 24835
+S
+#24837
+Swept Along by the Current~
+Hmm.  The current feels a lot stronger than it felt a few seconds ago.  In 
+fact, it's doubtful you could make it back to where you just were those few 
+seconds ago.  Might as well enjoy the ride now.
+~
+0 12 6
+D0
+~
+~
+0 -1 24838
+S
+#24838
+Still Lost in the Current~
+Your lungs are screaming for air now.  It takes all of your years of 
+experience as an adventurer to keep from gulping in a mouthful of water.  
+Perhaps now would be a good time to find some oxygen, before you find 
+something less pleasant--death.
+~
+0 12 6
+D0
+~
+~
+0 -1 24839
+S
+#24839
+The Waterfall (!!)~
+Uh-oh.  Time to act quick.  Just to your north, you hear the telltale roar of 
+water falling into a lower pool.  And from the sound of it, that pool is 
+quite a ways away.  Frantically looking around for a way out of this, you spy 
+a few icicles above you.  Maybe that's your ticket out of this mess.  It 
+probably would be a good idea to grab one before you go over the falls north.
+~
+0 12 6
+D0
+If you go this way, death is assured.  The fall is quite far.
+~
+~
+0 -1 24858
+D4
+~
+~
+0 -1 24859
+S
+#24840
+Lost in the barren wasteland~
+Your throat constricts involuntarily as a huge wave of thirst overwhelms 
+you.  It doesn't look like there's any way out of this godforsaken place.  
+You promise yourself that if you ever see a painting of a wasteland, you'll 
+stay the hell away from it.
+~
+0 3153920 10
+D0
+~
+~
+0 -1 24840
+D1
+~
+~
+0 -1 24840
+D2
+~
+~
+0 -1 24841
+D3
+~
+~
+0 -1 24840
+S
+#24841
+Lost in the barren wasteland~
+The lack of moisture in your throat fits nicely with the look of this place.  
+You're beginning to wonder if there is a way out of this place, or if the 
+gods have cursed you to a slow, agonizing death.
+~
+0 3153920 10
+D0
+~
+~
+0 -1 24842
+D1
+~
+~
+0 -1 24840
+D2
+~
+~
+0 -1 24840
+D3
+~
+~
+0 -1 24840
+S
+#24842
+Lost in the barren wasteland~
+You can feel the heat of the sun overhead beating down on your already burned 
+skin.  What a way to go.  There's not even anyone, anyTHING around to notice 
+you expire.  You thought your death would bring more fanfare than this.
+~
+0 3153920 10
+D0
+~
+~
+0 -1 24840
+D1
+~
+~
+0 -1 24843
+D2
+~
+~
+0 -1 24840
+D3
+~
+~
+0 -1 24840
+S
+#24843
+Lost in the barren wasteland~
+*pant* *pant* This is not good.  Although you feel like you're making 
+progress in this accursed place, you still don't see any change in 
+atmosphere.  That could be what is causing you to panic.  Or perhaps it's 
+because you can feel your brain frying.
+~
+0 3153920 10
+D0
+~
+~
+0 -1 24840
+D1
+~
+~
+0 -1 24844
+D2
+~
+~
+0 -1 24840
+D3
+~
+~
+0 -1 24840
+S
+#24844
+Lost in the barren wasteland~
+You whistle a little tune that has no melody to yourself as you trudge 
+further along in this place.  Relief seems close at hand, but not by much.  
+Your grip on sanity is starting to loosen.  Time to leave.  Now.
+~
+0 3153920 10
+D0
+~
+~
+0 -1 24845
+D1
+~
+~
+0 -1 24840
+D2
+~
+~
+0 -1 24840
+D3
+~
+~
+0 -1 24840
+S
+#24845
+Lost in the barren wasteland~
+Your heart skips a beat as you see a huge pond in the distance.  You run 
+towards it, without caring what happens to you and your equipment.  You reach 
+the shore and dive in...
+ 
+Only to land headfirst on more of the cracked, dry, hard ground you've been 
+destroying your footgear on for the last hour.  *groan*
+~
+0 3153920 10
+D0
+~
+~
+0 -1 24840
+D1
+~
+~
+0 -1 24840
+D2
+~
+~
+0 -1 24846
+D3
+~
+~
+0 -1 24840
+S
+#24846
+Lost in the barren wasteland~
+Perhaps that dog over there can tell you how to get out of here.  Or maybe 
+that purple zorgflatz to your left.  Wait a minute--what's a zorgflatz?  
+Dimly you realize that to stay in this hell means a fate worse than death.  
+Insanity.  This may be your last hope of escape.
+~
+0 3145732 10
+D0
+~
+~
+0 -1 24840
+D1
+~
+~
+0 -1 24847
+D2
+~
+~
+0 -1 24840
+D3
+~
+~
+0 -1 24840
+S
+#24847
+Lost in the barren wasteland~
+Doo de doo de doo de doo...la de da de da...you've never been so happy.  The 
+pack of purple zorgflatzes that guards your dreams is right on your tail, but 
+you're happy, happy, happy!!  (You're also on the edge of insanity.  Be 
+careful)
+~
+0 3153924 10
+D0
+~
+~
+0 -1 24848
+D1
+~
+~
+0 -1 24840
+D2
+~
+~
+0 -1 24840
+D3
+~
+~
+0 -1 24840
+S
+#24848
+The Edge of the Barren Wasteland~
+By all the gods!  It's the edge of this accursed, blasted land!  Yippee!!  
+Yeehaa!  Alri--uh-oh.  Your elation evaporates in the blink of an eye, 
+quickly replaced by dread, as you look more closely at the pile of white 
+powder right next to you.  Sniffing carefully, you discover that it is 
+powdered bone!  What could have crushed THIS many bones, into THIS fine a 
+substance.  You have a sick feeling you might just find out.
+~
+0 3153924 10
+D0
+~
+~
+0 -1 24803
+D1
+~
+~
+0 -1 24840
+D2
+~
+~
+0 -1 24840
+D3
+~
+~
+0 -1 24840
+S
+#24849
+Welmar's Left Knee~
+The old king's knee is pretty bony, but there is a good deal of muscle 
+beneath.  The old codger has, after all, seen his share of adventuring.  But 
+these knees creak from arthritis when they move.  Doesn't look like his 
+majesty will be doing any strenuous activity today.
+~
+0 8 1
+D3
+~
+~
+0 -1 24850
+D5
+~
+~
+0 -1 24818
+S
+#24850
+Welmar's Lower Torso~
+Now that you're here, you realize you don't feel like spending too much time 
+near the waist of a seventy-year-old man.  Ugh.  Welmar doesn't have a 
+queen.  You wonder how the old man can keep such a sunny outlook on life 
+without any female companionship.  Or maybe that's what the guards are for...
+~
+0 8 1
+D1
+~
+~
+0 -1 24849
+D3
+~
+~
+0 -1 24851
+D4
+~
+~
+0 -1 24853
+S
+#24851
+Welmar's Right Knee~
+His majesty's right knee is covered by his opulent robe, but if it's like the 
+rest of his skin, it's probably pretty pale and splotchy.  Why his subjects 
+choose to follow the old man is a mystery to you.  He doesn't look very 
+authoritative from down here.
+~
+0 8 1
+D1
+~
+~
+0 -1 24850
+D5
+~
+~
+0 -1 24852
+S
+#24852
+Welmar's Right Foot~
+King Welmar's right foot is as exquisitely pedicured as his left.  It looks 
+as though he hasn't made any pilgrimages recently.  Or ever will.  Welmar 
+gets carried wherever he goes now.  Ah, the life of a king.  Sounds pretty 
+boring.
+~
+0 8 1
+D4
+~
+~
+0 -1 24851
+S
+#24853
+Welmar's Chest~
+Despite the years of inactivity, Welmar's chest remains finely muscled.  
+However, it is not the same type of muscle that he used to possess.  Welmar 
+used to make the ladies swoon with his displays of strength.  Now his only 
+strength comes from the inside.  You begin to understand why he is respected.
+~
+0 8 1
+D1
+~
+~
+0 -1 24855
+D3
+~
+~
+0 -1 24856
+D4
+~
+~
+0 -1 24854
+D5
+~
+~
+0 -1 24850
+S
+#24854
+Welmar's Head~
+Welmar's white beard chokes you as you walk around on his face.  his 
+aristocratic nose is a hundred times as intimidating at this size.  You could 
+probably fetch a pretty hefty price for that nose.  Assuming, of course, his 
+Majesty would part with it.  You could always...convince him.
+~
+0 8 1
+D5
+~
+~
+0 -1 24853
+S
+#24855
+Welmar's Left Arm~
+The old man's arm still has a few corded muscles deep beneath the skin, 
+although they have long since atrophied due to inactivity.  You feel 
+relatively certain you could put him down in an arm-wrestling contest.
+~
+0 8 1
+D3
+~
+~
+0 -1 24853
+S
+#24856
+Welmar's Right Arm~
+This arm doesn't get much activity nowadays.  Welmar only uses it to 
+gesticulate feebly with his golden sceptre.  Of course, doing anything with a 
+sceptre THAT big would require you to either be this Welmar's size, or to get 
+a few thousand giant strength spells cast on you.  Neither seems to be an 
+option.
+~
+0 8 1
+D1
+~
+~
+0 -1 24853
+S
+#24857
+The Head of the Table~
+Several exotic-looking glasses line the table here, all of them empty.  One 
+of them has a familiar reddish tinge in the bottom.  It looks like...blood!  
+What kind of fiend would drink a glass of blood?  Looking at a half-eaten 
+piece of bread on the table, you realize exactly what kind of fiend would.  
+The two small holes in the top of the bread gives it away.  Vampire.
+~
+0 4 2
+D2
+~
+~
+0 -1 24820
+S
+#24858
+Over the Falls~
+Your failure to find a handhold on the icicles also means the failure of all 
+your life functions.  You are thrown over the side...
+ 
+ 
+ 
+ 
+ 
+And land on the rocks below.
+~
+0 4 1
+> entry_prog 100~
+if isaffected($n) == Flying
+else
+mpdamage $n 85
+endif
+~
+|
+S
+#24859
+Hugging the Icicle~
+Your lungs eagerly gulp in air as you cling for dear life to the icicle.
+Thankfully, your almost numb hands remembered how to grip, although the grip 
+is a tenuous one.  It looks like you can swing yourself down to the shore of 
+the raging river.
+~
+0 12 5
+D5
+~
+~
+0 -1 24860
+S
+#24860
+On the Riverbank~
+You land on the solid ice painfully.  Your ordeal with Evermelt is at an end, 
+finally.  However, another ordeal appears to be awaiting you to the west.  
+The rhythmic breathing you hear from that direction easily drowns out the 
+roaring of the waterfall behind you.  Torn between self-preservation and 
+curiousity, you stand indecisively.
+~
+0 12 2
+D3
+~
+~
+0 -1 24861
+S
+#24861
+The Tunnel to...?~
+All is silent now except the heavy breathing coming from the north.  You can 
+see light glinting off some material in the large cavern, but the rest of
+the room is obscured.  Your legs feel frozen in place, but the sound from the 
+north is so intriguing...
+~
+0 268 2
+D0
+To the north is Icingdeath's Lair...are you sure you want to go that way?
+~
+~
+0 -1 24862
+D1
+~
+~
+0 -1 24860
+S
+#24862
+The Lair of Ingeloakastimizilian~
+The treasure all around you is utterly astounding.  Not the amount of it, of 
+course.  You have seen more treasure in other lairs.  It's the way the 
+coins, gems, weapons, and other fascinating items are frozen to the floor.  
+Looking around, you see other things frozen to the floor.  A human, dressed 
+in full armor, is encased in an icy tomb for eternity, his death scream 
+forever locked in his throat.  The entire floor is covered with some form of 
+treasure or life, or what USED to be life before Ingeloakastimizilian 
+destroyed it.
+~
+0 12 1
+D2
+~
+~
+0 -1 24861
+D4
+~
+~
+0 -1 24863
+S
+#24863
+On top of the Reghed Glacier~
+Now what?  You're on top of the biggest glacier in all the Realms, with no 
+way to go but down, back into Icingdeath's lair.  As you sink into 
+despondency, you hear a low hum above you.  You look up and see...the 
+portal!  You can make it back to the Art Gallery!
+~
+0 4 5
+D4
+~
+~
+0 -1 24805
+D5
+~
+~
+0 -1 24862
+S
+#24864
+The Grave~
+As you step down into the soft dirt, a chill passes through your bones.  You 
+look around for the source of the feeling, everything goes dark.  The earth 
+has sealed above you!  The only sound now is your breathing, which is becoming
+more and more rapid.  Trying to collect your thoughts, you notice something 
+unusual about this pit.  There are cobwebs on every surface around here, almost
+as if this grave has been closed for years.  The only exception is the south 
+wall, which is completely clean.
+~
+0 260 2
+D2
+~
+wall dirt~
+1033 -1 24865
+S
+#24865
+Lair of Aram-Dol~
+You now realize why this area was perfectly clean.  The walls in this room, 
+as well as the floor, are solid stone.  There are corpses strewn about the 
+room, most with a horrified look on their face.  Whatever killed them must 
+have given them one hell of a scare.  You've heard tales of underground stone 
+lairs, and combined with the many corpses strewn about, everything starts to 
+fall into place.  This is the lair of a lich.
+~
+0 260 2
+D0
+~
+~
+0 -1 24864
+D4
+~
+~
+0 -1 24813
+S
+#24866
+Death~
+..Everything begins to fade to black.
+ 
+You feel yourself leaving your body... rising up into the air, you feel
+more free than you have ever felt before...
+ 
+However, before your deity comes to collect your soul, you feel a strange
+pulling sensation as strange and colorful mists swirl around you...
+ 
+~
+0 12 1
+S
+#24867
+Ye Olde Meat Shoppe~
+Entering this store, you're reminded of how long it has been since you've had 
+a good steak.  The cuts of meat hanging from hooks in the back remind you, 
+however.  You can see large sides of beef, medium-sized veal cutlets, and a 
+few other tasty delectables.
+~
+0 4 1
+D1
+~
+~
+0 -1 24868
+D3
+~
+~
+0 -1 24822
+S
+#24868
+Fruits R Us~
+Every fruit ever to grace a tree in all the Realms is displayed here in front
+of you.  Apples, oranges, kiwis, melons, everything.  Vegetables completely 
+occupy another container next to the fruit.  This one is filled with corn, 
+zucchini, and other healthy foods.
+~
+0 4 1
+D1
+~
+~
+0 -1 24869
+D3
+~
+~
+0 -1 24867
+S
+#24869
+Goodbody Dairy~
+You vow to never even think about anything bovine once leaving this place.  
+Every milk and cheese product you can imagine lies here, carefully kept cool 
+by a bluish-white glow.  A sign says, "ALL PRODUCTS KEPT REFRIGERATED".  
+You'll have to ask the local scholar what ree-frigg-er-ated means sometime.  
+It sounds dangerous.  But the food is so enticing...
+~
+0 4 1
+D3
+~
+~
+0 -1 24868
+S
+#24870
+The Arena~
+As you step near the two humanoids fighting in this section of the arena, 
+they both grow limp and collapse, their eyes rolling back in their heads.  By 
+the time you reach them, they are both quite dead.  Looking up in the stands, 
+you see one of the mind flayers gurgle something to his companion, and they 
+both disappear suddenly.
+~
+0 0 1
+D3
+~
+~
+0 -1 24819
+S
+#24871
+The Arena~
+Before you can get near the lizardman and warrior, they fall down in a heap 
+together, both quite dead.  They didn't kill each other, so what could have 
+possibly killed them?  Hmm.  This is unlike anything you've ever seen 
+before.  They don't look like they had any history of coronary trouble...how
+utterly puzzling.
+~
+0 0 1
+D1
+~
+~
+0 -1 24819
+S
+#24872
+In the Stands~
+As you climb up into the seating section, what few remaining illithids you 
+could see disappear suddenly.  Ignoring the yawning portal above you (which 
+leads back to the gallery, incidentally), you look around for an explanation 
+as to where the brain feeders could have gone.
+~
+0 0 1
+D4
+~
+~
+0 -1 24811
+D5
+~
+~
+0 -1 24819
+S
+#24873
+Floating in a void~
+~
+0 4 1
+S
+#24874
+Floating in a void~
+~
+0 4 1
+S
+#24875
+Floating in a void~
+~
+0 4 1
+S
+#24880
+Floating in a void~
+~
+0 1073741828 1
+S
+#24884
+Floating in a void~
+~
+0 1073741828 1
+S
+#24885
+Floating in a void~
+~
+0 1073741828 1
+S
+#24886
+Floating in a void~
+~
+0 4 1
+S
+#24891
+Tex's Room~
+Nothing too remarkable about this room, other than a stolen lounge table and 
+an interesting poster.  perhaps that's why Tex is ALWAYS in Grant and Seguin's
+room.
+~
+0 2097160 1
+D3
+~
+~
+0 -1 24893
+E
+poster~
+The poster has five women with flags on their bikini tops.  It says on the
+bottom, "WORLD CUPS".  How...liberating.
+~
+S
+#24892
+Aaron and Rob's room~
+So the rumors are true.  Aaron's side of the room IS always messy.  And today 
+is no exception.  Aaron's side is covered with clothes and papers, and the 
+everpresent brown beanbag chair.  Rob's side is spotless, as usual, except for
+a broken bottle of Snapple on the floor.  Neither of them are on the MUD, 
+though.  They're not as addicted as the rest of us.
+~
+0 2097160 1
+D1
+~
+~
+0 -1 24893
+S
+#24893
+Outside 305 and 310~
+You stand between two open doorways.  They both lead to triples.  Ordinarily, 
+it would be quite cramped.  But Rob and Aaron did a pretty good job of making 
+Huguley move, so they've only got the two of them in there.  Plus, Tex and his
+roommate managed to only ahve the two of them in there.  Lucky bastards.
+~
+0 2097160 1
+D1
+~
+~
+0 -1 24891
+D3
+~
+~
+0 -1 24892
+S
+#24894
+Still in the hallway~
+To the west is Vu's room.  He's gone through four roommates already, and he 
+doesn't appear to mind.  He's got quite a setup behind that door.  The other
+three doors are a mystery, though.  No idea who lives in them.
+~
+0 2097160 1
+D0
+~
+~
+0 -1 24895
+D1
+~
+'pair of doors'~
+1063 -1 24894
+D2
+~
+~
+0 -1 24893
+D3
+~
+'pair of doors'~
+1063 -1 24894
+S
+#24895
+Walking down the hallway~
+You are outside four locked rooms.  One is blaring Stone Temple Pilots.  The 
+same Stone Temple Pilots song they've been playing the entire year.  The room 
+next to that one on the west wall is the R.A.'s room.  No one has any idea 
+who lives through the two doors on the east wall.  The hallway continues to 
+the south, or back to outside MUD Central to the north.
+~
+0 2097160 1
+D0
+~
+~
+0 -1 24898
+D1
+~
+'pair of doors'~
+1063 -1 24894
+D2
+~
+~
+0 -1 24894
+D3
+~
+'pair of doors'~
+1063 -1 24894
+S
+#24896
+223 Rasche Hall~
+This is Scott and Matt's room.  You wouldn't know who Matt is.  He's never on 
+the MUD.  There is a big computer under Scott's loft, the most powerful 
+computer that's used for MUDding among the circle of friends.  The room is 
+spotless, since any of the commanding officers in Echo Company could burst in 
+for inspection at any time.  Sounds like an exciting life.
+~
+0 2097160 1
+D4
+~
+~
+0 -1 24899
+S
+#24897
+Forrester and Cox's Room~
+Quite an interesting design.  A closet door stretches between the two lofts 
+in this poorly lit room.  A stereo on said closet door is playing 96.3 ROV FM.
+Cox's computer is on, of course (never, NEVER turn off a UNIX computer), 
+while Forrester's computer has the Warp screen saver on.  There are several 
+boxes stapled to Cox's loft.
+~
+0 2097160 1
+D3
+You can leave this messy-ass room and go out into the hall to your west.
+~
+~
+0 -1 24898
+E
+computer computers~
+Cox has four windows open on the screen.  The joy of owning an X Windows 
+system.  You wonder how he can keep track of everything.  Forrester's screen 
+saver has a password, though.  Good luck getting in.
+~
+E
+box boxes loft~
+Cox's loft has food boxes stapled to it!  What a weirdo!
+~
+S
+#24898
+The Third Floor Miles Hallway~
+To your west is Grant and Seguin's room, and east is Forrester and Cox's 
+room.  The other two doors here are closed and locked, though.  Brett, 
+Jeremy, Dave, and the other Jeremy don't take too kindly to visitors. Way down
+the hall to the south are two more open doors.
+~
+0 2097160 1
+D1
+~
+~
+0 -1 24897
+D2
+~
+~
+0 -1 24895
+D3
+~
+~
+0 -1 24899
+S
+#24899
+Grant and Seguin's Room~
+This is a pretty cool room.  It has two lofts, numerous posters on the wall, 
+two computers, and one hell of an entertainment center.  Faith No More plays 
+loudly from the four speakers in the room, and a paused game of Final Fantasy 
+III is on the TV.  Care to relax for a bit?
+~
+0 2097160 1
+D1
+You can leave the twins' room and go out into the hall to the east.
+~
+~
+0 -1 24898
+D5
+~
+~
+0 -1 24896
+E
+loft lofts~
+The lofts are quite different in appearance.  Seguin's is quite sturday and 
+clean, while Grant's is unmade and wobbly.
+~
+E
+desk desks~
+Another contrast.  Seguin's is perfectly organized, Grant's is perfectly 
+messy.  Rather appropriate, actually.
+~
+E
+tv television~
+Looks like Seguin has finally caught up to Grant in Final Fantasy III.  He's 
+at the last fight.  As you watch, the Blitz guy does a Bum Rush on Kefka.
+~
+E
+computer computers~
+Somehow Grant and Seguin have figured out a way to be on the MUD at the same 
+time.  And, of course, they both are.  Grant is building, while Seguin is 
+bitching about losing another apple of discord.
+~
+S
+#0
+
+
+#RESETS
+M 0 24800 1 24801
+D 0 24801 0 2
+M 0 24801 1 24802
+M 0 24803 1 24806
+D 0 24807 0 1
+D 0 24808 1 1
+D 0 24809 3 1
+D 0 24810 0 1
+D 0 24811 2 1
+D 0 24812 3 1
+D 0 24813 1 1
+D 0 24814 2 1
+M 0 24805 1 24817
+E 1 24804 1 16
+M 0 24814 1 24818
+M 0 24806 1 24823
+E 1 24805 1 16
+M 0 24807 1 24824
+E 1 24803 1 16
+M 0 24808 1 24825
+E 1 24806 1 16
+M 0 24809 1 24826
+E 1 24802 1 16
+M 0 24810 1 24827
+E 1 24807 1 16
+G 1 24899 1
+M 0 24811 1 24828
+E 1 24801 1 16
+M 0 24812 1 24829
+E 1 24808 1 16
+M 0 24813 1 24830
+E 1 24809 1 16
+M 0 24821 1 24848
+M 0 24815 1 24852
+M 0 24818 1 24854
+M 0 24819 1 24854
+M 0 24820 1 24854
+M 0 24817 1 24855
+M 0 24816 1 24856
+M 0 24822 1 24820
+E 1 24817 1 12
+M 0 24823 1 24820
+M 0 24824 1 24820
+E 1 24817 1 12
+E 1 24818 1 6
+M 0 24825 1 24857
+E 1 24819 1 17
+O 0 24820 1 24835
+M 0 24827 3 24832
+M 0 24827 3 24833
+M 0 24827 3 24834
+M 0 24826 2 24832
+M 0 24826 2 24834
+M 0 24828 1 24862
+E 1 24824 1 5
+E 1 24825 1 7
+E 1 24826 1 10
+E 1 24827 1 19
+E 1 24858 1 16
+E 1 24857 1 17
+E 1 24828 1 9
+E 1 24856 1 8
+E 1 24829 1 6
+E 1 24830 1 13
+M 0 24829 1 24865
+M 0 24851 1 24867
+G 1 24831 1
+G 1 24832 1
+G 1 24833 1
+G 1 24834 1
+G 1 24835 1
+G 1 24836 1
+G 1 24837 1
+G 1 24838 1
+G 1 24839 1
+G 1 24840 1
+G 1 24841 1
+G 1 24842 1
+G 1 24843 1
+M 0 24853 1 24822
+G 1 24844 1
+G 1 24845 1
+G 1 24846 1
+G 1 24847 1
+G 1 24848 1
+G 1 24849 1
+G 1 24850 1
+G 1 24851 1
+G 1 24852 1
+G 1 24854 1
+G 1 24855 1
+M 0 24854 1 24868
+G 1 24872 1
+G 1 24871 1
+G 1 24870 1
+G 1 24869 1
+G 1 24868 1
+G 1 24867 1
+G 1 24866 1
+G 1 24865 1
+G 1 24864 1
+G 1 24863 1
+G 1 24862 1
+G 1 24861 1
+G 1 24873 1
+G 1 24860 1
+M 0 24833 1 24826
+M 0 24852 1 24869
+G 1 24874 1
+G 1 24875 1
+G 1 24876 1
+G 1 24877 1
+G 1 24878 1
+G 1 24879 1
+G 1 24880 1
+G 1 24881 1
+G 1 24882 1
+G 1 24883 1
+O 0 24889 1 24870
+P 1 24885 1 24889
+O 0 24890 1 24870
+P 1 24885 1 24890
+O 0 24890 1 24871
+P 1 24885 1 24890
+O 0 24889 1 24871
+P 1 24885 1 24889
+M 0 24837 3 24872
+E 1 24892 1 12
+M 0 24837 3 24872
+E 1 24892 1 12
+M 0 24837 3 24872
+E 1 24892 1 12
+O 0 24893 1 24816
+M 0 24838 1 24816
+E 1 24894 1 6
+M 0 24839 1 24816
+E 1 24894 1 6
+M 0 24840 1 24816
+E 1 24894 1 6
+M 0 24841 1 24816
+E 1 24894 1 6
+M 0 24842 1 24816
+E 1 24894 1 6
+T 5 1 5 24803
+O 0 24895 1 24803
+O 0 24896 1 24828
+O 0 24897 1 24824
+P 1 24898 1 24897
+O 0 24898 1 24824
+M 0 24843 2 24823
+M 0 24843 2 24823
+M 0 24844 2 24823
+M 0 24844 2 24823
+O 0 24899 1 24827
+O 0 24899 2 24827
+M 0 24836 1 24819
+E 1 24887 1 5
+E 1 24888 1 16
+E 1 24885 1 6
+M 0 24835 1 24819
+E 1 24885 1 6
+E 1 24884 1 16
+D 0 24834 1 1
+D 0 24835 3 1
+S
+
+
+#SHOPS
+ 24801    0  0  0  0  0   120  90         0 23    ; the Art Gallery's curator
+ 24830   19 17 26  0  0   120  90         0 23    ; the butcher
+ 24831   19 17 26  0  0   120  90         0 23    ; the baker
+ 24832   19 17 26  0  0   120  90         0 23    ; the fruit stand vendor
+ 24834   19 17 26  0  0   120  90         0 23    ; the dimpled milkmaid
+ 24851   19 17 26  0  0   120  90         0 23    ; the butcher
+ 24852   19 17 26  0  0   120  90         0 23    ; the dimpled milkmaid
+ 24853   19 17 26  0  0   120  90         0 23    ; the baker
+ 24854   19 17 26  0  0   120  90         0 23    ; the fruit stand vendor
+0
+
+
+#REPAIRS
+0
+
+
+#SPECIALS
+M  24804 spec_breath_lightning
+M  24814 spec_guard
+M  24815 spec_guard
+M  24820 spec_cast_mage
+M  24821 spec_breath_gas
+M  24823 spec_poison
+M  24825 spec_cast_undead
+M  24828 spec_breath_frost
+M  24829 spec_cast_mage
+M  24830 spec_guard
+M  24831 spec_guard
+M  24832 spec_guard
+M  24834 spec_guard
+M  24845 spec_guard
+M  24846 spec_guard
+M  24847 spec_guard
+M  24848 spec_guard
+M  24850 spec_guard
+M  24851 spec_executioner
+M  24852 spec_executioner
+M  24853 spec_executioner
+M  24854 spec_executioner
+M  24892 spec_guard
+M  24893 spec_guard
+M  24894 spec_guard
+M  24895 spec_guard
+M  24896 spec_guard
+M  24897 spec_guard
+M  24898 spec_guard
+M  24899 spec_guard
+S
+
+
+#$

@@ -19,7 +19,6 @@
 #     |                         -*- configure.ac -*-                        |
 #     |                                                                     |
 #     |   Process this file with autoconf to produce a configure script     |
-#     |                                                                     |
 #     |_____________________________________________________________________|
 #    //                                                                     \\
 #   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
@@ -33,32 +32,34 @@
 #   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
 #    \\_____________________________________________________________________//
 
-
-AC_PREREQ([2.69])
-LT_PREREQ([2.4])  # require libtool
-
-AC_SUBST([PACKAGE], ["smaug"])
-
-AC_SUBST([SMAUG_MAJOR_VERSION], [2])
-AC_SUBST([SMAUG_MINOR_VERSION], [0])
-AC_SUBST([SMAUG_UPDATE_VERSION], [0])
-
-AC_SUBST([VERSION], ["${SMAUG_MAJOR_VERSION}.${SMAUG_MINOR_VERSION}.${SMAUG_UPDATE_VERSION}"])
-
 AC_INIT([smaug], [2.0.0],
 	[<@burzumishi>],
 	[smaug])
 
 AC_COPYRIGHT(["2014-2015 (c) Antonio Cao (@burzumishi)"])
 
-LT_INIT
-LT_LANG([C])
+AC_REVISION([$Revision: 1.20 $])
 
-AC_CONFIG_SRCDIR([src/smaug.c])
+AC_PREREQ([2.69])
+LT_PREREQ([2.4])  # require libtool
+
+AC_CONFIG_SRCDIR([configure.ac])
 AC_CONFIG_HEADERS([src/smaug.h])
 AC_CONFIG_MACRO_DIR([m4])
 
-AM_INIT_AUTOMAKE
+AH_TOP([
+#ifndef SMAUG_CONFIG_H__
+#define SMAUG_CONFIG_H__
+])
+
+AH_BOTTOM([
+#endif /* SMAUG_CONFIG_H__ */
+])
+
+AM_INIT_AUTOMAKE([dist-xz])
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
+
 AM_PROG_LIBTOOL
 AM_SANITY_CHECK
 
@@ -72,6 +73,9 @@ AC_DEFINE_UNQUOTED([BINDIR], ["${prefix}/bin/"], [Define HotBoot Executable Dire
 AC_DEFINE_UNQUOTED([LOCKDIR], ["${prefix}/var/lock/smaug/"], [Define lock file directory.])
 
 AC_SUBST([DESCRIPTION], ["--{SMAUG}-- MUD Server"])
+
+LT_INIT
+LT_LANG([C])
 
 AC_LANG([C])
 AC_LANG_PUSH([C])
@@ -90,12 +94,16 @@ AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_PROG_MKDIR_P
+AM_PROG_AS
 
 AC_FUNC_MALLOC
 
 AC_SUBST(LIBTOOL_DEPS)
 
 # Checks for libraries.
+
+AM_WITH_DMALLOC
+
 # Check for gettext #
 AM_GNU_GETTEXT([external])
 
@@ -186,6 +194,135 @@ AC_CHECK_PROG(PERL, [perl], [yes], [no])
 if test "$PERL" = "no"; then
   AC_MSG_ERROR([Unable to find the perl command.])
 fi
+
+## CPU architecture specific assembly
+
+build_cpu_mmx="no"
+build_cpu_sse3="no"
+build_cpu_altivec="no"
+build_cpu_neon="no"
+
+want_neon="yes"
+AC_ARG_ENABLE([neon],
+   [AS_HELP_STRING([--disable-neon],[disable neon support @<:@default=enable@:>@])],
+   [
+    if test "x${enableval}" = "xyes"; then
+       want_neon="yes"
+    else
+       want_neon="no"
+    fi
+   ])
+
+SSE3_CFLAGS=""
+ALTIVEC_CFLAGS=""
+NEON_CFLAGS=""
+
+case $host_cpu in
+  i*86|x86_64|amd64)
+    AC_DEFINE([BUILD_MMX], [1], [Build MMX Code])
+    build_cpu_mmx="yes"
+    AC_CHECK_HEADER([immintrin.h],
+       [
+        AC_DEFINE(BUILD_SSE3, 1, [Build SSE3 Code])
+        build_cpu_sse3="yes"
+       ],
+       [build_cpu_sse3="no"])
+    AC_MSG_CHECKING([whether to build SSE3 code])
+    AC_MSG_RESULT([${build_cpu_sse3}])
+
+    if test "x$build_cpu_sse3" = "xyes" ; then
+       SSE3_CFLAGS="-msse3"
+    fi
+    ;;
+  *power* | *ppc*)
+    build_cpu_altivec="yes"
+    AC_CHECK_HEADER([altivec.h],
+       [
+        AC_DEFINE([BUILD_ALTIVEC], [1], [Build Altivec Code])
+        AC_DEFINE([HAVE_ALTIVEC_H], [1], [Have altivec.h header file])
+        build_cpu_altivec="yes"
+       ],
+       [
+        save_CFLAGS=$CFLAGS
+        save_CPPFLAGS=$CPPFLAGS
+        CFLAGS=$CFLAGS" -maltivec"
+        CPPFLAGS=$CPPFLAGS" -maltivec"
+        unset ac_cv_header_altivec_h
+        AC_CHECK_HEADER([altivec.h],
+          [
+            AC_DEFINE([BUILD_ALTIVEC], [1], [Build Altivec Code])
+            AC_DEFINE([HAVE_ALTIVEC_H], [1], [Have altivec.h header file])
+            build_cpu_altivec="yes"
+          ],
+          [build_cpu_altivec="no"]
+        )
+        CFLAGS=$save_CFLAGS
+        CPPFLAGS=$save_CPPFLAGS
+       ]
+    )
+    if test "x${build_cpu_altivec}" = "xyes"; then
+       AC_MSG_CHECKING([whether to use altivec compiler flag])
+       if test "x$GCC" = "xyes"; then
+          if echo "int main(){return 0;}" | ${CPP} -faltivec - > /dev/null 2>&1; then
+             altivec_cflags="-faltivec"
+             AC_DEFINE([BUILD_ALTIVEC], [1], [Build Altivec Code])
+          elif echo "int main(){return 0;}" | ${CPP} -maltivec - > /dev/null 2>&1; then
+             altivec_cflags="-maltivec"
+             AC_DEFINE([BUILD_ALTIVEC], [1], [Build Altivec Code])
+          fi
+       fi
+       AC_MSG_RESULT([${altivec_cflags}])
+       CFLAGS="$CFLAGS ${altivec_cflags}"
+       ALTIVEC_CFLAGS="-maltivec"
+    fi
+    ;;
+  arm*)
+    if test "x${want_neon}" = "xyes"; then
+       build_cpu_neon="yes"
+       AC_MSG_CHECKING([whether to use NEON instructions])
+       CFLAGS_save="${CFLAGS}"
+       CFLAGS="${CFLAGS} -mfpu=neon -ftree-vectorize"
+       AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <arm_neon.h>]], [[asm volatile ("vqadd.u8 d0, d1, d0\n")]])],[
+           AC_MSG_RESULT([yes])
+           AC_DEFINE([BUILD_NEON], [1], [Build NEON Code])
+           build_cpu_neon="yes"
+           NEON_CFLAGS="-mfpu=neon"
+       	 ],[
+	   AC_MSG_RESULT([no])
+           build_cpu_neon="no"
+       	 ])
+       CFLAGS="${CFLAGS_save}"
+    fi
+    ;;
+esac
+
+AC_SUBST([ALTIVEC_CFLAGS])
+AC_SUBST([SSE3_CFLAGS])
+AC_SUBST([NEON_CFLAGS])
+
+# sockets
+
+case "$host_os" in
+   mingw*)
+      have_socket="no"
+      ;;
+   *solaris*)
+      AC_CHECK_LIB([socket], [connect],
+         [
+          have_socket="yes"
+          requirement_elm_libs="-lsocket ${requirement_elm_libs}"
+         ],
+         [have_socket="no"])
+      ;;
+   darwin*)
+      have_socket="yes"
+      ;;
+   *)
+      have_socket="yes"
+      ;;
+esac
+
+AM_CONDITIONAL([BUILD_RUN], [test "x$have_socket" = "xyes"])
 
 ### SMAUG BASIC FEATURES ###
 

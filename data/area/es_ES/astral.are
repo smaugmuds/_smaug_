@@ -1,0 +1,3855 @@
+#AREA   The Astral Plane~
+
+
+
+#AUTHOR Andi~
+
+#RANGES
+15 35 0 60
+$
+
+#RESETMSG The astral field glitters with a thousand points of light for a moment...~
+
+#FLAGS
+0
+
+#ECONOMY 0 2064393
+
+#MOBILES
+#800
+astral guardian figure~
+the astral guardian~
+A shimmering grey figure stands vigil before the pearly gate.
+~
+You see a shimmering grey figure, vaguely humanoid in shape. Its sole
+striking feature is the item it wields: a pearl wand. The astral
+guardian seems to notice your attention and shifts uneasily.
+~
+3 4202664 0 C
+38 -20 -15 1d1+825 8d12+100
+100000 600000
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+85 3 0 0 8192 8193 3
+0 0 32 1048608 2048 0 301989968 524291
+> greet_prog 100~
+if level($n) < 10
+say You may not pass $n, for you will only
+say find death beyond this gate.
+else
+if level($n) > 35
+say You are too mighty, $n. I will not allow
+say you to pass and tamper with the balance of the
+say astral plane.
+, firmly grips a pearl wand and points it at you...
+else
+say Though it be foolish, if you wish to enter the
+say astral plane, you have but to say so...
+endif
+endif
+~
+> speech_prog p i wish to enter the astral plane~
+if level($n) < 10
+, gives you an irritated glare but makes no action.
+else
+if level($n) > 35
+say You shall not enter while I exist...
+else
+say So be it!
+mpecho A rolling thunder booms as the gate to the astral plane opens!
+un n
+op n
+mpforce $n north
+close n
+lock n
+endif
+endif
+~
+> speech_prog p i wish to enter the astral plane.~
+if level($n) < 10
+, gives you an irritated glare but makes no action.
+else
+if level($n) > 35
+say $n, you shall not enter while I exist...
+else
+say So be it!
+mpecho A rolling thunder booms as the gate to the astral plane opens!
+un n
+op n
+mpforce $n north
+close n
+lock n
+endif
+endif
+~
+> fight_prog 40~
+if level($n) < 30
+say You should not have toyed with my powers!
+c ear
+c fire
+c blind
+else
+mpechoat $n The guardian chants a strange phrase and points at you...
+mpechoaround $n The guardian chants a strange phrase and points at $n...
+mpdamage $n 100
+endif
+~
+|
+#801
+nightmare~
+A pitch-black nightmare~
+A nightmare is here, kicking at you with its flaming hooves.
+~
+The nightmare is a wholly evil being, sent out by the rulers of the lower 
+planes to torment mortals.  It vaguely resembles a horse, with a hide blacker
+than the darkest night, and hooves that burn with unholy fires.
+~
+262209 33607252 -950 C
+18 2 -2 18d18+180 5d3+10
+6000 32000
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+86 3 0 0 8192 8192 2
+0 0 173 0 0 0 8224 0
+#802
+night hag~
+An evil night hag~
+A night hag reaches out to steal your soul.
+~
+You see a shadowy creature with long talons and an evil grin, whose sole 
+purpose is to hunt down and slay mortals in order to obtain souls for her foul
+master to torment.
+~
+97 520 -1000 C
+24 0 -1 24d24+240 5d5+5
+12500 67500
+8 8 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+67 3 0 0 1 1 0
+0 0 239 7168 0 17 35651586 0
+> greet_prog 100~
+cac
+say Now your soul shall be mine!
+~
+|
+#803
+stalker invisible~
+An invisible stalker~
+You see a wavy distortion in the air.
+~
+You see only a wavy distortion in the air.  You reach out to touch it, and
+feel nothing, not even the slightest of motions.
+~
+65 117966 200 C
+20 3 0 17d17+170 2d7+6
+0 19000
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+85 3 0 0 8192 8192 0
+0 0 1263 0 0 0 134218368 2
+#804
+soulless one being~
+A poor soulless being~
+The soulless one wanders mindlessly.
+~
+This unfortunate being has had its very soul torn from its body.  It now roams
+mindlessly, unaware of its surroundings.
+~
+193 0 0 C
+12 8 5 10d10+100 1d6+2
+250 7500
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+84 3 0 0 4096 4096 0
+0 0 0 0 8192 0 150994944 0
+> greet_prog 100~
+moan
+~
+|
+#805
+githyanki hunter~
+A githyanki hunter~
+A githyanki hunter searches for signs of the githzerai.
+~
+You see a leathery-skinned humanoid creature that stands almost as tall as a
+normal man.  Like all githyanki, his teeth are fanged and his eyes hollow
+and sunken.
+~
+69 33280 -500 C
+11 6 6 11d11+110 1d5+4
+1000 8000
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+85 3 0 0 8192 1 0
+0 0 1263 0 0 0 144 524288
+> rand_prog 5~
+, examines this portion of the astral field for signs of the githzerai.
+~
+|
+#806
+githyanki warrior figure~
+A githyanki warrior~
+You see a humanoid figure clad in splinted armor.
+~
+You see a leathery-skinned humanoid creature that stands as tall as a normal
+man.  Like all githyanki, his teeth are fanged and his eyes hollow and sunken.
+He is clad in ornately designed splinted armor, and wields a sword that
+whistles through the air as it slices towards your neck.
+~
+1073741889 512 -500 C
+15 4 6 15d15+150 1d5+6
+2500 15000
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+85 3 0 0 373419 373419 2
+0 0 1263 0 0 0 32 2
+#807
+guardian githyanki figure~
+A githyanki guardian~
+A humanoid figure clad in splinted armor blocks your way.
+~
+You see a leathery-skinned humanoid creature that stands as tall as a normal
+man.  Like all githyanki, his teeth are fanged and his eyes hollow and sunken.
+He is clad in ornately designed splinted armor, and wields a sword that
+whistles through the air as it slices towards your neck.
+~
+35 512 -500 C
+15 4 6 15d15+150 1d5+6
+6000 15000
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+85 3 0 0 8192 1 2
+0 0 239 0 0 0 528 525312
+#808
+knight figure githyanki~
+A githyanki knight~
+A tall figure armored in black observes you quietly.
+~
+You see a leathery-skinned humanoid creature that stands a full foot taller
+than a normal man.  His features are obscured by a suit of ornately designed
+splinted armor -- you only hear the hissing of his breath and the scraping
+of his sword against its scabbard as it is unsheathed.
+~
+65 512 -500 C
+25 -2 6 25d25+250 1d5+15
+10000 90000
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 8192 1 0
+0 0 1263 0 0 0 4208 1
+#809
+githyanki knight protector~
+A githyanki protector~
+A black knight of the githyanki protects his queen.
+~
+You see a leathery-skinned humanoid creature that stands a full foot taller
+than a normal man.  His features are obscured by a suit of ornately designed
+splinted armor -- you only hear the hissing of his breath and the scraping
+of his sword against its scabbard as it is unsheathed.
+~
+35 4194856 -500 C
+25 -2 6 25d25+250 1d5+15
+10000 90000
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 8192 1 3
+0 0 1199 0 0 0 592 2
+> greet_prog 50~
+say None may approach the Queen of the Gith!
+, sheathes his blade and charges into battle!
+~
+|
+#810
+githyanki gish~
+An evil gish~
+A small githyanki laughs at you through fanged teeth.
+~
+You see a leathery-skinned humanoid creature that stands nearly as tall as a
+normal man.  Like all githyanki, his teeth are fanged and his eyes hollow and
+sunken.  The gish are well-versed in the arcane arts, unlike the normal gith
+people.  You notice this from the blast of lightning headed towards you.
+~
+193 512 -500 C
+11 6 6 11d11+110 1d5+2
+3000 12500
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+85 3 0 0 8192 8192 0
+0 0 1263 0 0 0 514 0
+#811
+githyanki gish~
+An evil gish~
+A gish laughs as flame leaps from his hands towards your face.
+~
+You see a leathery-skinned humanoid creature that stands nearly as tall as a
+normal man.  Like all githyanki, his teeth are fanged and his eyes hollow and
+sunken.  The gish are well-versed in the arcane arts, unlike the normal gith
+people.  You notice this from the blast of lightning headed towards you.
+~
+101 512 -500 C
+11 6 6 11d11+110 1d5+2
+3000 12500
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+85 3 0 0 8192 1 0
+0 0 235 0 1 2 268435968 0
+#812
+gith githyanki warlock figure humanoid~
+A warlock of the Gith~
+A humanoid figure stands here, holding a silvery sword.
+~
+You see a leathery-skinned creature, clad all in black and bearing a silvery-
+colored sword.  Like all githyanki, his teeth are fanged and his eyes hollow
+and sunken.  As you turn to flee, you feel the impact of a fireball against
+your back.
+~
+97 536 -500 C
+30 0 2 20d20+200 1d5+8
+10000 55000
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 -10
+85 3 0 0 8192 1 0
+0 0 1263 0 10240 0 268435968 524290
+> fight_prog 50~
+, prays a mantra to his Queen for aid.
+mpechoat $n Suddenly, floating haunting eyes appear and gaze at you.  Two bolts
+mpechoat $n of blazing blue lightning erupt from them, striking you!
+mpechoaround $n of blazing blue lightning erupt from them, striking $n!
+c lightning $n
+c lightning $n
+~
+> death_prog 100~
+if rand(60)
+mpecho In a final effort to destroy you, the warlock slits his wrists in
+mpecho a sickening ritual.  Coils of dark energy begin to flow along the
+mpecho ground, forming into a nightmare.
+mpmload 801
+mpforce nightmare c fireball $n
+else
+mpecho With his dying words, the warlock recites a powerful scroll...
+mpjunk all.scroll
+mpdamage $r 100
+endif
+~
+|
+#813
+githyanki lich queen~
+The lich-queen~
+The evil lich-queen of the Gith reaches out to destroy you.
+~
+The lich-queen of the githyanki was once human, but no longer.  Her skin has
+completely shrunken around her skull, held together solely by the force of
+unholy magic and the powers of this plane of existence.  The cold glare of her
+hollow eyes sends you into paroxysms of fright.
+~
+35 67109560 -750 C
+30 -8 -8 30d30+300 4d5+20
+100000 475000
+8 8 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+67 3 0 0 8192 1 4
+0 0 1263 7170 2048 17 266818 524291
+> death_prog 100~
+mptransfer $n 878
+mpgoto 878
+mpecho As the killing blow destroys the lich-queen's corporeal form, wisps
+mpecho of her spirit arise from the floor.  A haunting voice whispers words
+mpecho of a spidery language and the floor suddenly cracks and opens.  You
+mpecho fall through the chasm about the altar into a swirling field of
+mpecho blackness, the cackles of a witch following your descent...
+~
+> fight_prog 100~
+if rand(10)
+, summons her minions from the lower planes...
+mpmload 802
+mpmload 809
+else
+if rand(40)
+, curls her flail past $r's defenses, mauling him!
+mpdamage $r 80
+else
+, sneers at you.
+c 'acid blast' $n
+endif
+endif
+~
+> greet_prog 60~
+say Yes...more souls to dine on at my leisure!
+mpecho Deadly flames erupt from the lich-queen's fingers!
+c 'burning hands' $n
+~
+|
+#814
+lady gith~
+Lady Gith~
+Lady Gith forms from a cloud of blackness, her face drenched in tears.
+~
+A beautiful human maiden stands before you, tears streaming down her face.
+Once a mighty warrior, she led the githyanki to freedom from their formers
+enslavers, the mind flayers.  She is now imprisoned in this prison due to
+an unholy alliance broken by the traitorous lich-queen.  She is consumed
+by eternal grief for her people, who have been twisted into monsters by
+their ruler.
+~
+3 301998760 1000 C
+35 -15 -10 35d35+350 10d3+50
+5000 750000
+8 8 2
+18 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 8192 8193 0
+0 0 1263 7171 11264 28 1073742512 524291
+> greet_prog 75~
+cry
+say There is no hope for my people.  Though you have defeated their 
+say horrible leader, she will return...
+~
+> rand_prog 3~
+, weeps softly.
+~
+> rand_prog 2~
+say If you wish to leave this lair of despair, you have but to say
+say so.  Only my brethren and I are truly chained here...
+~
+> speech_prog p I wish to leave this lair of despair~
+nod
+say Goodbye, $n...
+mpechoaround $n White light flows from Gith's outstretched fingers and
+mpechoaround $n swirls about $n.
+mpechoat $n White light flows from Gith's outstretched fingers and
+mpechoat $n swirls about you.
+mptransfer $n 21000
+if ispkill($n)
+  mptrans 0.$n 3009
+else
+  mptrans 0.$n 21000
+endif
+~
+> speech_prog p I wish to leave this lair of despair.~
+nod
+say Goodbye, $n...
+mpechoaround $n White light flows from Gith's outstretched fingers and
+mpechoaround $n swirls about $n.
+mpechoat $n White light flows from Gith's outstretched fingers and
+mpechoat $n swirls about you.
+mptransfer $n 21000
+~
+> fight_prog 50~
+say If only I could die.  This place allows none of my kind peace!
+mpecho With unparalleled rage, Lady Gith summons forth a torrent of acid!
+c 'acid blast' $n
+c 'acid blast' $n
+~
+|
+#815
+ghost~
+An insubstantial ghost~
+A ghost wanders here, intent on destroying all life.
+~
+The ghost makes no sound.  It is a shadowy shell of its former self, cursed
+now to roam forever without rest.  The mind of this creature has been twisted
+and destroyed in this torment, and it now intends to destroy all true living
+beings it encounters, including you.
+~
+65 1101516 -1000 C
+16 2 0 16d16+160 2d9+2
+0 19000
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+67 3 0 0 1 1 2
+0 0 0 7170 8192 17 4096 0
+#816
+githzerai prisoner~
+An imprisoned githzerai~
+A githzerai plots his escape plan.
+~
+You see a conniving humanoid, a descendant of a race of humans once enslaved
+by the mind flayers and related to the githyanki.  Unfortunately, the two races
+are bitter enemies, and this one happened to get caught.  He intends to escape.
+~
+65 512 -250 C
+10 8 8 10d10+100 1d4+4
+0 6000
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+85 3 0 0 8192 1 1
+0 0 1263 0 0 0 32 2
+#817
+mind flayer prisoner~
+a tortured mind flayer~
+A mind flayer lies here, scarred from the torture inflicted by the githyanki.
+~
+You see a formerly tall humanoid creature, with four tentacles hanging from the
+middle of its head.  It is hunched over, bent and scarred from torture
+inflicted by the githyanki.  It cringes as you approach.
+~
+3 0 0 C
+8 13 2 8d8+80 3d4+5
+0 3000
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+85 3 0 0 8192 1 2
+0 0 9455 0 3072 0 4096 0
+#818
+dragon red slave~
+The enslaved red dragon~
+A giant red dragon is chained here, his breath heating the furnace.
+~
+The mighty scaled beast has been magically bound and subdued by the residents
+of the keep.  Nevertheless, he is still an impressive sight, some twenty feet
+in length with an even more massive wingspan.  He watches you, smoke drifting
+from his open mouth.
+~
+3 520 -400 C
+28 -3 -6 28d28+280 3d5+25
+100000 350000
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+31 3 0 0 10243 2048 3
+0 0 1343657 1048577 2048 2 8199 0
+#819
+fire furnace flame~
+A massive blast of fire~
+The fires of the furnace burn away at your skin!
+~
+The fire feeds on your skin like a living being, licking out at your hair.
+~
+99 33554944 0 C
+13 5 5 13d13+130 3d3+3
+0 10000
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+85 3 0 0 373419 373419 1
+0 0 0 1 1 2 268435456 0
+#899
+border mob~
+a newly created border mob~
+Some god abandoned a newly created border mob here.
+~
+~
+1073741825 0 0 S
+1 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+#0
+
+
+#OBJECTS
+#800
+pearl wand~
+a pearl wand~
+The ground seems to cradle a pearl wand here.~
+blast~
+5 1600 8193
+12 4 8 6
+5 1000000 -31072
+E
+wand pearl~
+An intricate number of nooks have been engraved in the end of the wand,
+as though it was a key of some sort...
+~
+A
+12 60
+A
+13 20
+A
+18 5
+A
+19 8
+#801
+scroll violet~
+a violet scroll~
+A rolled piece of violet parchment lies on the floor.~
+~
+2 256 1
+15 1 3 67
+1 2500 250
+E
+scroll violet~
+The scroll is written on soft violet parchment that has a pleasing smell to it.
+~
+#802
+tablet scroll black~
+a black etched tablet~
+Lying on the ground is a jet black stone tablet.~
+~
+2 16 1
+30 216 213 -1
+5 15000 1500
+E
+tablet scroll black~
+The tablet is an unreflective black rectangular piece of stone, with strange
+writings etched deep into its surface.
+~
+#803
+scroll githyanki~
+a scroll with githyanki writings on it~
+You see a scroll written in an alien tongue.~
+~
+2 0 1
+24 30 30 -1
+1 7500 750
+E
+scroll githyanki~
+The scroll has writings on it that you cannot comprehend.
+~
+#804
+amulet demon~
+a small demon's amulet~
+A small amulet lies here in the dirt.~
+~
+3 144 16385
+25 5 5 25
+5 20000 2000
+E
+'amulet demon'~
+The amulet has been forged of an unknown metal.  Raised inscriptions
+and images depict snakes, tortured victims and various unholy rites.
+A tingling sensation passes through you when you point the amulet
+towards another living being.
+~
+A
+3 -1
+A
+4 -1
+#805
+talisman devilish~
+a devilish talisman~
+On the ground is a small talisman which radiates a tangible evil.~
+~
+4 144 16385
+25 5 5 65
+5 21000 2100
+E
+talisman devilish~
+The talisman is a red circular stone object hanging from a metallic chain.
+It seems to pulse with a life of its own and you feel uncomfortable being
+anywhere near it.  Engraved in the center is one word.  Merely reading
+it induces chilling fright.
+~
+A
+13 -10
+#806
+knife silvery~
+a silvery knife~
+A flat-bladed silvery knife lies here.~
+stab~
+5 64 8193
+0 2 4 2
+3 1000 100
+E
+knife silvery~
+The knife is forged from a strange silvery metal the likes of which you
+have never seen in your own world.  It is incredibly sharp and hard, yet
+feels almost fluid to the touch.
+~
+A
+18 1
+A
+19 1
+#807
+dagger silvery~
+a silvery dagger~
+A sharp-looking silvery dagger lies here.~
+pierce~
+5 64 8193
+0 3 4 11
+3 1500 150
+E
+dagger silvery~
+The dagger is forged from a strange silvery metal the likes of which you
+have never seen in your own world.  It is incredibly sharp and hard, yet
+feels almost fluid to the touch.
+~
+A
+18 2
+A
+19 1
+#808
+sword thin~
+an extremely sharp and thin sword~
+Light glints off the edge of a razor-sharp sword.~
+slice~
+5 64 8193
+0 4 4 1
+3 2000 200
+E
+sword thin~
+The sword is forged from a strange silvery metal.  It barely measures an inch
+across at its widest point, yet it is totally inflexible and razor-sharp.  It
+could probably cut through stone.
+~
+A
+2 1
+A
+18 1
+A
+19 3
+#809
+sword thin two two-handed~
+a thin two-handed sword~
+A heavy yet thinly bladed two-handed sword lies here.~
+slash~
+5 64 8193
+0 6 4 3
+16 5000 500
+E
+sword thin two two-handed~
+The sword is forged from a strange silvery metal.  It barely measures two
+inches across at its widest point, yet it is totally inflexible and razor
+sharp.  It could probably cut through stone.
+~
+A
+18 2
+A
+19 4
+#810
+sword silvery~
+a silvery sword~
+A silvery sword gleams unnaturally with an alien light.~
+slash~
+5 65 8193
+0 5 4 3
+13 10000 1000
+E
+sword silvery~
+The sword is forged from a strange silvery metal the likes of which you have
+never seen in  your own world.  It is incredibly sharp and hard, yet feels
+almost fluid to the touch.
+~
+A
+2 2
+A
+18 4
+A
+19 2
+#811
+flail barbed iron~
+an iron barbed flail~
+A rusty iron flail with wicked barbs on it tears at the ground.~
+tear~
+5 18 8193
+0 5 5 5
+14 20000 2000
+E
+flail barbed iron~
+This hideous weapon has claimed many lives.  You can tell from the bloodstains
+dried into the iron and from the residue of flesh that hangs from the many
+barbs on it.
+~
+A
+18 3
+A
+19 7
+#812
+sword gith~
+the holy sword of the githyanki~
+You feel tendrils of soft light emanating from a magnificent blade.~
+slash~
+5 1344 8193
+0 10 3 3
+25 100000 10000
+E
+sword gith~
+The blade of this sword is made of pure platinum.  It is believed to be
+the blade that the Lady Gith used in leading her people to freedom.
+~
+A
+1 2
+A
+18 11
+A
+19 4
+A
+26 8192
+#813
+stone flame~
+a brightly flaming stone~
+The room is lit by a hot blue flame coming from a small stone.~
+~
+1 0 1
+0 0 -1 0
+1 5000 500
+E
+stone flame~
+This stone burns with an flame that emits great heat, yet it can be held with
+ease.  The flame creates a light that allows you to see for miles.
+~
+A
+17 -2
+A
+23 -5
+A
+13 15
+> damage_prog 90~
+mpoload 813
+mpecho As the flaming stone is split in two, one half sputters
+mpecho and dies, while the other one begins flaming anew...
+drop stone
+mpforce $n get stone
+mpforce $n wear stone
+~
+|
+#814
+powder astral~
+some astral powder~
+Twinkling powder floats before your eyes.~
+~
+26 0 1
+20 81 -1 -1
+1 5000 500
+E
+powder astral~
+You see the residue of the astral plane.
+~
+#815
+vest splint~
+a splint mail vest~
+An intricately fashioned splint mail vest lies here.~
+~
+9 0 9
+7 0 0 0
+45 5000 500
+E
+vest splint~
+This splint mail has been expertly and ornately fashioned from the highest
+quality of steels.
+~
+#816
+skirt splint~
+a splint mail skirt~
+An intricately fashioned splint mail skirt lies here.~
+~
+9 0 33
+7 0 0 0
+20 1000 100
+E
+skirt splint~
+This splint mail has been expertly and ornately fashioned from the highest
+quality of steels.
+~
+#817
+sleeves splint~
+a pair of splint mail sleeves~
+A pair of intricately fashioned splint mail sleeves lie here.~
+~
+9 0 257
+7 0 0 0
+15 1000 100
+E
+sleeves splint~
+This splint mail has been expertly and ornately fashioned from the highest
+quality of steels.
+~
+#818
+gauntlets ornate~
+a pair of ornately designed gauntlets~
+A pair of painstakingly designed ornate gauntlets lie here.~
+~
+9 0 129
+7 0 0 0
+5 19000 1900
+E
+gauntlets ornate~
+These gauntlets have been expertly and ornately fashioned from the highest
+quality of steels.
+~
+A
+1 2
+A
+18 1
+A
+19 1
+#819
+dress silk~
+a dress of black silk~
+A dress of black silk has been left lying here.~
+~
+9 64 9
+3 3 0 0
+5 50 5
+E
+dress black silk~
+The dress seems to afford little mundane protection, yet glows with a
+strange magical power...
+~
+A
+17 -6
+A
+24 -2
+A
+31 3
+A
+27 2
+A
+13 40
+> damage_prog 100~
+mpecho As the magical dress is damaged, mystic powers are released from
+mpecho the black silk and begin swirling about $n's form...
+c fires $n
+c ices $n
+c sanc $n
+~
+> repair_prog 100~
+mpecho Though the dress has been sewn together, the magical threads which
+mpecho gave it life have been severed and it decays to nothing...
+mpforce $n drop dress
+mpforce $n sac dress
+~
+|
+#820
+potion violet~
+a violet potion~
+A tall glass flask holds a translucent violet fluid.~
+~
+10 0 1
+18 29 34 18
+2 1000 100
+E
+potion violet~
+The violet fluid inside shifts and swirls.
+~
+#821
+potion vial murky~
+a vial of murky fluid~
+A small vial contains a murky, sludge-like substance.~
+~
+10 0 1
+15 4 67 -1
+1 750 75
+E
+potion vial murky~
+The murky liquid inside this vial looks a lot like sewer water.
+~
+#822
+potion silvery~
+a silvery-colored potion~
+An octagonal vial holds a silvery-colored fluid that reflects light.~
+~
+10 0 1
+20 19 20 21
+2 1500 150
+E
+potion silvery~
+The octagonal vial contains a silvery-colored liquid that shimmers in the light.
+~
+#823
+mint chocolate~
+a tasty-looking chocolate mint~
+Someone has dropped a delicious-looking chocolate mint here.~
+~
+26 0 1
+35 81 28 -1
+0 1000 100
+E
+mint chocolate~
+This mint is made from the finest of chocolates, surrounding a cool peppermint
+interior that must be savored, not swallowed.
+~
+#824
+pentagram~
+a black pentagram~
+A small black metal pentagram has been left here.~
+~
+18 32 16385
+0 0 0 0
+10 0 0
+E
+pentagram~
+The pentagram is a small circular hoop that surrounds a five-pointed star.
+Inscribed on its exterior loop are markings in an alien tongue.
+~
+#825
+silk pouch~
+a pouch of fine silk~
+A pouch crafted of the finest silk lies here.~
+~
+20 0 1
+169372 0 0 0
+100 400000 -25536
+E
+pouch rotting~
+You think you see glints of metal through the holes...
+~
+#826
+vial etherealness~
+a vial of etherealness~
+A vial of wispy vapors lies here.~
+~
+10 67 16385
+45 74 84 84
+2 22600 2260
+#899
+border object~
+a newly created border object~
+Some god dropped a newly created border object here.~
+~
+13 1073741824 0
+0 0 0 0
+0 0 0
+#0
+
+
+#ROOMS
+#800
+The Bottom of the Rainbow~
+You are standing before a shimmering rainbow arching high up into the
+sky.  You feel somehow separated from the natural world, even though the
+city of Darkhaven lies below you.
+~
+0 0 9
+D4
+The rainbow extends above you, fading out of existence only meters away.
+~
+~
+0 -1 801
+D5
+You can see the Temple of Darkhaven below you.
+~
+~
+0 -1 21338
+E
+rainbow~
+The rainbow softly glows with beams of light in colors that defy
+description.
+~
+S
+#801
+On the Rainbow~
+You are standing on the rainbow, surrounded by many beams of multicolored
+light.  Through the bottom of the rainbow you can barely make out the
+cathedral of Darkhaven.
+~
+0 0 9
+D4
+The rainbow extends far above you, slowly fading into darkness.
+~
+~
+0 -1 802
+D5
+The rainbow extends below you towards Darkhaven.
+~
+~
+0 -1 800
+E
+rainbow~
+The rainbow softly glows with beams of light in colors that defy
+description.
+~
+S
+#802
+On the Rainbow~
+You are standing on the rainbow, surrounded by many beams of multicolored
+light.  Through the bottom of the rainbow you can see the city of Darkhaven and
+the land surrounding it.  The vast landscape seems to be leagues below you.
+~
+0 0 9
+D4
+The rainbow extends far above you, slowly fading into darkness.
+~
+~
+0 -1 803
+D5
+The rainbow extends below you towards the land you once knew as home.
+~
+~
+0 -1 801
+E
+rainbow~
+The rainbow softly glows with beams of light in colors that defy
+description.
+~
+S
+#803
+On the Rainbow~
+You are standing on the rainbow, surrounded by many beams of multicolored
+light.  The rainbow extends above and below you as far as you can see.
+~
+0 0 9
+D4
+The rainbow extends far above you.  You see a glowing white light at the 
+rainbow's end.
+~
+~
+0 -1 804
+D5
+The rainbow extends far below you, slowly fading into darkness.
+~
+~
+0 -1 802
+E
+rainbow~
+The rainbow brightly glows with beams of light in colors that defy
+description.
+~
+S
+#804
+On the Rainbow~
+You are nearing the end of the rainbow.  The beams of multicolored
+light have begun to merge and solidify.  All around you you see glowing
+star-like motes of dust.  High above you is a floating bridge.
+~
+0 0 9
+D4
+The rainbow extends above you, merging into a brilliant glowing
+bridge.
+~
+~
+0 -1 805
+D5
+The rainbow extends far below you, slowly fading into darkness.
+~
+~
+0 -1 803
+E
+rainbow~
+The rainbow brilliantly glows with beams of blinding light, in colors
+that sweep together and merge before your eyes.
+~
+E
+motes star stars dust~
+The star-like motes dance before your eyes.  They are incredibly beautiful yet
+intangible -- your hand passes right through them.
+~
+E
+bridge~
+The colors of the rainbow seem to converge into a glowing bridge that leads
+to a massive white gate.
+~
+S
+#805
+The Glowing Bridge at the Rainbow's End~
+After a long climb you have reached the end of the rainbow.  The brilliant
+colors have twisted and merged into a beautiful glowing bridge that leads
+toward a massive white gate to the north.  All around you is a soft, peaceful 
+glow interrupted only by the passing of star-like dust motes before your eyes.
+~
+0 0 1
+D0
+The bridge leads on to a massive white gate.  You see a large grey figure
+standing there.
+~
+~
+0 -1 806
+D5
+The bridge fragments into a beautiful spectrum of colors that drops out of sight below you.
+~
+~
+0 -1 804
+E
+rainbow~
+The rainbow seems to be forming directly from the light of the bridge.  It
+drops out of sight below you.
+~
+E
+motes star stars dust~
+The star-like motes dance before your eyes.  They are incredibly beautiful yet
+intangible -- your hand passes right through them.
+~
+E
+bridge~
+The bridge glows with an unearthly light.
+~
+E
+gate~
+The gate towers ten feet above your head. Beyond it is a field of utter
+blackness from which the motes of light seem to issue forth.
+~
+S
+#806
+The Astral Gate~
+The bridge ends here before a massive, pearly-colored gate beyond which
+you can see a field of blackness filled with silvery snake-like tendrils,
+stars, and occasional flashes of light.  A slate plaque inset in the wall
+next to the gate catches your eye.
+~
+0 0 1
+D0
+Through the gate you see a massive field of blackness that extends as far
+as you can see.
+~
+gate~
+1063 800 807
+D2
+The bridge extends towards the rainbow, which drops out of sight
+below you.
+~
+~
+0 -1 805
+E
+gate~
+You see a huge, glowing gate wrought from an incredibly hard translucent 
+material.  Each of the intricately carved bars of this mighty gate are about 
+as thick as a man's wrist, rising from the floor to a height of ten feet. A
+plaque is inset into the wall next to the gate.
+~
+E
+plaque~
+The plaque reads: 
+
+Let this gate stand to protect mortal man for all time against the perils of 
+the outer planes of existence and the creatures fair and foul that dwell
+within.
+
+(This zone, the Astral Plane and accompanying githyanki keep, was written by
+ Andersen for any standard Merc 2.0 mud.)
+ 
+(This zone was later renovated and spiced up by Lord Rennard for the
+Realms of Despair.)
+~
+S
+#807
+Into the Astral Plane~
+You find yourself floating in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is very disorienting.  To the south is a set of pearly
+gates: the sole mundane manner of leaving the Astral Plane.
+~
+0 12 2
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 808
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 809
+D2
+The astral gate leads back to your world.
+~
+gate~
+1063 800 806
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 810
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 811
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 812
+E
+gate~
+From here the pearly-colored gate seems very small and insubstantial.
+Through its bars you can see the astral guardian, protecting Despair from the
+perils of the Astral Plane.
+~
+S
+#808
+Exploring the Astral Plane~
+You find yourself floating in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is very disorienting, and it is difficult to maintain your 
+bearings and sense of direction.
+~
+0 8 2
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 813
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 814
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 812
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 807
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 810
+S
+#809
+Exploring the Astral Plane~
+You find yourself floating in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is very disorienting, and it is difficult to maintain your 
+bearings and sense of direction.
+~
+0 8 2
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 814
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 816
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 810
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 811
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 807
+S
+#810
+Exploring the Astral Plane~
+You find yourself floating in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is very disorienting, and it is difficult to maintain your 
+bearings and sense of direction.
+~
+0 8 2
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 813
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 815
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 809
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 808
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 807
+S
+#811
+Exploring the Astral Plane~
+You find yourself floating in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is very disorienting, and it is difficult to maintain your 
+bearings and sense of direction.
+~
+0 8 2
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 812
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 816
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 807
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 817
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 809
+S
+#812
+Exploring the Astral Plane~
+You find yourself floating in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is very disorienting, and it is difficult to maintain your 
+bearings and sense of direction.
+~
+0 8 2
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 807
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 817
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 815
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 811
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 808
+S
+#813
+Roaming the Astral Plane~
+You find yourself floating in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is very disorienting.  The astral field lies in all
+directions.
+~
+0 8 2
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 808
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 818
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 810
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 814
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 820
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 815
+S
+#814
+Roaming the Astral Plane~
+You find yourself floating in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is very disorienting.  The vast expanse of the astral
+field lies in all directions.
+~
+0 8 2
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 817
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 818
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 808
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 819
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 813
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 809
+S
+#815
+Roaming the Astral Plane~
+You find yourself floating in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is disorienting, yet your instincts say you are
+nearing what you seek.  All exits lead off into the astral field.
+~
+0 8 2
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 813
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 822
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 810
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 820
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 816
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 812
+S
+#816
+Roaming the Astral Plane~
+You find yourself floating in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is disorienting, yet your instincts say you are nearing
+what you seek.  All exits lead off into the astral field.
+~
+0 8 2
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 811
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 809
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 815
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 821
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 817
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 819
+S
+#817
+Roaming the Astral Plane~
+You find yourself floating in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is disorienting, yet your instincts say you are nearing
+what you seek.  All exits lead off into the astral plane.
+~
+0 8 2
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 822
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 812
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 811
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 821
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 816
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 814
+S
+#818
+Wandering the Astral Plane~
+You find yourself floating in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is highly disorienting.  Nearby you see a large silvery
+strand of light.  All but one exit leads off into the astral field.
+~
+0 8 2
+D0
+You see a tangible strand of silvery light.
+~
+~
+0 -1 836
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 809
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 813
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 833
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 814
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 819
+S
+#819
+Wandering the Astral Plane~
+You find yourself floating in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is highly disorienting.  Nearby you see a large silvery
+strand of light.  All but one exit leads off into the astral field.
+~
+0 8 2
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 814
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 834
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 818
+D3
+You see a tangible strand of silvery light.
+~
+~
+0 -1 838
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 816
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 810
+S
+#820
+Wandering the Astral Plane~
+You find yourself floating in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is highly disorienting.  Nearby you see a large silvery
+strand of light.  All but one exit leads off into the astral field.
+~
+0 8 2
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 835
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 821
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 815
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 811
+D4
+You see a tangible strand of silvery light.
+~
+~
+0 -1 840
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 813
+S
+#821
+Wandering the Astral Plane~
+You find yourself floating in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is highly disorienting.  Nearby you see a large silvery
+strand of light.  All but one exit leads off into the astral field.
+~
+0 8 2
+D0
+You see a tangible strand of silvery light.
+~
+~
+0 -1 842
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 812
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 820
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 833
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 816
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 817
+S
+#822
+Wandering the Astral Plane~
+You find yourself floating in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is highly disorienting.  Nearby you see a large silvery
+strand of light.  All but one exit leads off into the astral field.
+~
+0 8 2
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 817
+D1
+You see a tangible strand of silvery light.
+~
+~
+0 -1 844
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 834
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 815
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 812
+S
+#823
+Travelling the Astral Plane~
+You find yourself floating in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is extremely disorienting.  Nearby you see a large silvery
+strand of light.  All but one exit leads off into the astral field.
+~
+0 8 2
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 832
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 824
+D2
+You see a tangible strand of silvery light.
+~
+~
+0 -1 837
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 826
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 835
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 828
+S
+#824
+Travelling the Astral Plane~
+You find yourself floating in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is extremely disorienting.  Nearby you see a large silvery
+strand of light.  All but one exit leads off into the astral field.
+~
+0 8 2
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 829
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 830
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 833
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 823
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 825
+D5
+You see a tangible strand of silvery light.
+~
+~
+0 -1 839
+S
+#825
+Travelling the Astral Plane~
+You find yourself floating in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is extremely disorienting.  Nearby you see a large silvery
+strand of light.  All but one exit leads off into the astral field.
+~
+0 8 2
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 827
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 828
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 830
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 834
+D4
+You see a tangible strand of silvery light.
+~
+~
+0 -1 841
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 824
+S
+#826
+Travelling the Astral Plane~
+You find yourself floating in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is extremely disorienting.  Nearby you see a large silvery
+strand of light.  All but one exit leads off into the astral field.
+~
+0 8 2
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 829
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 831
+D2
+You see a tangible strand of silvery light.
+~
+~
+0 -1 843
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 827
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 835
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 823
+S
+#827
+Travelling the Astral Plane~
+You find yourself floating in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is extremely disorienting.  Nearby you see a large silvery
+strand of light.  All but one exit leads off into the astral field.
+~
+0 8 2
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 833
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 832
+D2
+You see a tangible strand of silvery light.
+~
+~
+0 -1 844
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 826
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 831
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 825
+S
+#828
+Traversing the Astral Plane~
+You find yourself deep within in a dark field filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is extremely disorienting, and you are having trouble 
+keeping your sense of direction.  All exits lead off into the astral field.
+~
+0 8 2
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 825
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 834
+D2
+The astral field leads off into the depths.
+~
+~
+0 -1 847
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 809
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 823
+D5
+The astral field leads off into the depths.
+~
+~
+0 -1 845
+S
+#829
+Traversing the Astral Plane~
+You find yourself deep within in a dark field filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is extremely disorienting, and you are having trouble 
+keeping your sense of direction.  All exits lead off into the astral field.
+~
+0 8 2
+D0
+The astral field leads off into the depths.
+~
+~
+0 -1 849
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 835
+D2
+The astral field leads off into the depths.
+~
+~
+0 -1 846
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 824
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 830
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 826
+S
+#830
+Traversing the Astral Plane~
+You find yourself deep within in a dark field filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is extremely disorienting, and you are having trouble 
+keeping your sense of direction.  All exits lead off into the astral field.
+~
+0 8 2
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 829
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 824
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 833
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 825
+D4
+The astral field leads off into the depths.
+~
+~
+0 -1 845
+D5
+The astral field leads off into the depths.
+~
+~
+0 -1 847
+S
+#831
+Traversing the Astral Plane~
+You find yourself deep within in a dark field filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is extremely disorienting, and you are having trouble 
+keeping your sense of direction.  All exits lead off into the astral field.
+~
+0 8 2
+D0
+The astral field leads off into the depths.
+~
+~
+0 -1 846
+D1
+The astral field leads off into the depths.
+~
+~
+0 -1 848
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 827
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 826
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 834
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 832
+S
+#832
+Traversing the Astral Plane~
+You find yourself deep within in a dark field filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is extremely disorienting, and you are having trouble 
+keeping your sense of direction.  All exits lead off into the astral field.
+~
+0 8 2
+D0
+The astral field leads off into the depths.
+~
+~
+0 -1 849
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 827
+D2
+The astral field leads off into the depths.
+~
+~
+0 -1 848
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 823
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 835
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 831
+S
+#833
+Lost in the Astral Plane~
+You find yourself in in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is incredibly disorienting, and you are having trouble 
+keeping your senses straight.  All exits lead off into the astral field.
+~
+0 8 2
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 821
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 824
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 818
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 830
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 827
+S
+#834
+Lost in the Astral Plane~
+You find yourself in in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is incredibly disorienting, and you are having trouble 
+keeping your senses straight.  All exits lead off into the astral plane.
+~
+0 8 2
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 828
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 822
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 831
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 825
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 819
+S
+#835
+Lost in the Astral Plane~
+You find yourself in in a field of blackness, filled with tiny tendrils
+of silvery light and insubstantial shining motes of dust.  The weightlessness
+of this environment is incredibly disorienting, and you are having trouble 
+keeping your senses straight.  All exits lead off into the astral field.
+~
+0 8 2
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 823
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 820
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 829
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 832
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 826
+S
+#836
+Walking the Silvery Strand~
+You are standing atop a silvery strand of light that twists and turns
+through the astral field.
+~
+0 8 2
+D2
+The strand of light twists and turns out of sight.
+~
+~
+0 -1 837
+D5
+You see the infinite expanse of the astral field.
+~
+~
+0 -1 818
+S
+#837
+Walking the Silvery Strand~
+You are standing atop a silvery strand of light that twists and turns
+through the astral field.
+~
+0 8 2
+D4
+You see the infinite expanse of the astral field.
+~
+~
+0 -1 823
+D5
+The strand of light twists and turns out of sight.
+~
+~
+0 -1 836
+S
+#838
+Walking the Silvery Strand~
+You are standing atop a silvery strand of light that twists and turns
+through the astral field.
+~
+0 8 2
+D3
+You see the infinite expanse of the astral field.
+~
+~
+0 -1 819
+D5
+The strand of light twists and turns out of sight.
+~
+~
+0 -1 839
+S
+#839
+Walking the Silvery Strand~
+You are standing atop a silvery strand of light that twists and turns
+through the astral field.
+~
+0 8 2
+D3
+The strand of light twists and turns out of sight.
+~
+~
+0 -1 838
+D5
+You see the infinite expanse of the astral field.
+~
+~
+0 -1 824
+S
+#840
+Walking the Silvery Strand~
+You are standing atop a silvery strand of light that twists and turns
+through the astral field.
+~
+0 8 2
+D4
+You see the infinite expanse of the astral field.
+~
+~
+0 -1 820
+D5
+The strand of light twists and turns out of sight.
+~
+~
+0 -1 841
+S
+#841
+Walking the Silvery Strand~
+You are standing atop a silvery strand of light that twists and turns
+through the astral field.
+~
+0 8 2
+D2
+You see the infinite expanse of the astral field.
+~
+~
+0 -1 825
+D4
+The strand of light twists and turns out of sight.
+~
+~
+0 -1 840
+S
+#842
+Walking the Silvery Strand~
+You are standing atop a silvery strand of light that twists and turns
+through the astral field.
+~
+0 8 2
+D4
+You see the infinite expanse of the astral field.
+~
+~
+0 -1 821
+D5
+The strand of light twists and turns out of sight.
+~
+~
+0 -1 843
+S
+#843
+Walking the Silvery Strand~
+You are standing atop a silvery strand of light that twists and turns
+through the astral field.
+~
+0 8 2
+D0
+The strand of light twists and turns out of sight.
+~
+~
+0 -1 842
+D3
+You see the infinite expanse of the astral field.
+~
+~
+0 -1 826
+S
+#844
+Walking the Silvery Strand~
+You are standing atop a silvery strand of light that twists and turns
+through the astral field.
+~
+0 8 2
+D1
+You see the infinite expanse of the astral field.
+~
+~
+0 -1 822
+D2
+You see the endless expanse of the astral field.
+~
+~
+0 -1 827
+S
+#845
+Deep Within the Astral Plane~
+You have travelled deep inside the astral field.  Here the fabric of the
+field has become twisted and warped due to the proximity of another plane of
+existence.  Some of the tendrils of light that line the astral field have been
+warped and twisted into portals to other worlds.  However, all but one of these
+appears to be sealed by powerful magics.
+~
+0 8 2
+D0
+The astral field leads on into the depths.
+~
+~
+0 -1 846
+D1
+The astral field leads on into infinity.
+~
+~
+0 -1 830
+D3
+The astral field leads on into the depths.
+~
+~
+0 -1 849
+D4
+Through the nexial link you can see a stony keep.
+~
+~
+0 -1 850
+D5
+The astral field leads on into infinity.
+~
+~
+0 -1 828
+S
+#846
+Deep Within the Astral Plane~
+You have travelled deep inside the astral field.  Here the fabric of the
+field has become twisted and warped due to the proximity of another plane of
+existence.  Some of the tendrils of light that line the astral field have been
+warped and twisted into portals to other worlds.  However, these appear to be
+forever sealed by powerful magics.
+~
+0 8 2
+D0
+The astral field leads on into infinity.
+~
+~
+0 -1 833
+D2
+The astral field leads on into the depths.
+~
+~
+0 -1 845
+D3
+The astral field leads on into the depths.
+~
+~
+0 -1 847
+D4
+The astral field leads on into infinity.
+~
+~
+0 -1 829
+D5
+The astral field leads on into infinity.
+~
+~
+0 -1 831
+S
+#847
+Deep Within the Astral Plane~
+You have travelled deep inside the astral field.  Here the fabric of the
+field has become twisted and warped due to the proximity of another plane of
+existence.  Some of the tendrils of light that line the astral field have been
+warped and twisted into portals to other worlds.  However, these appear to be
+forever sealed by powerful magics.
+~
+0 8 2
+D0
+The astral field leads on into infinity.
+~
+~
+0 -1 834
+D1
+The astral field leads on into the depths.
+~
+~
+0 -1 846
+D2
+The astral field leads on into infinity.
+~
+~
+0 -1 830
+D3
+The astral field leads on into infinity.
+~
+~
+0 -1 828
+D5
+The astral field leads on into the depths.
+~
+~
+0 -1 848
+S
+#848
+Deep Within the Astral Plane~
+You have travelled deep inside the astral field.  Here the fabric of the
+field has become twisted and warped due to the proximity of another plane of
+existence.  Some of the tendrils of light that line the astral field have been
+warped and twisted into portals to other worlds.  However these appear to be
+sealed forever by powerful magics.
+~
+0 8 2
+D0
+The astral field leads on into infinity.
+~
+~
+0 -1 835
+D1
+The astral field leads on into infinity.
+~
+~
+0 -1 831
+D2
+The astral field leads on into the depths.
+~
+~
+0 -1 849
+D4
+The astral field leads on into the depths.
+~
+~
+0 -1 847
+D5
+The astral field leads on into infinity.
+~
+~
+0 -1 832
+S
+#849
+Deep Within the Astral Plane~
+You have travelled deep inside the astral field.  Here the fabric of the
+field has become twisted and warped due to the proximity of another plane of
+existence.  Some of the tendrils of light that line the astral field have been
+warped and twisted into portals to other worlds.  However, these appear to be
+forever sealed by powerful magics.
+~
+0 8 2
+D0
+The astral field leads on into the depths.
+~
+~
+0 -1 848
+D1
+The astral field leads on into the depths.
+~
+~
+0 -1 845
+D2
+The astral field leads on into the depths.
+~
+~
+0 -1 832
+D3
+The astral field leads on into infinity.
+~
+~
+0 -1 829
+S
+#850
+Inside the Githyanki Keep~
+You are standing just inside a nexial portal that leads into the
+Astral Plane.  It seems that you have found the lair of the Githyanki,
+the once-human followers of Lady Gith.  Ahead of you stands a steel door
+leading into the keep hewn from stone.
+~
+0 12 0
+D0
+You see a rusty steel door which leads into the keep.
+~
+steel~
+3 -1 851
+D5
+Below you is the nexial portal that leads into the astral plane.
+~
+~
+0 -1 845
+E
+steel~
+The door is made from a set of rusting steel plates set deep into the stone.
+~
+S
+#851
+A guard station~
+This is a small building just inside the keep.  Doors lead out to the east
+and west.  Some small weapons hang on hooks on the walls, for use in defense
+of the keep.  Doors stand in all directions save north.
+~
+0 8 0
+D1
+You see an iron door which leads out onto a grey stone road.
+~
+door iron~
+3 -1 861
+D2
+You see a rusty steel door which leads out to the nexial link.
+~
+steel~
+3 -1 850
+D3
+You see an iron door which leads out onto a grey stone road.
+~
+door iron~
+3 -1 852
+E
+steel~
+The door is made from a set of rusting steel plates set deep into the stone.
+~
+E
+door iron~
+The door is made from a set of iron plates set deep into the stone.
+~
+S
+#852
+A grey road~
+The road beneath your feet is of plain grey cobblestone.  A dull red
+sun hangs in the orange sky above your head, strangely still.  You hear
+none of the sounds you would commonly associate with a normal city.  The
+cobblestone road turns to the north, while to the east is a strong iron door.
+~
+0 8 1
+D0
+The grey cobblestones continue.
+~
+~
+0 -1 853
+D1
+You see an iron door which leads into a small stone building set into the wall
+of the keep.
+~
+door iron~
+3 -1 851
+E
+door iron~
+The door is made from a set of iron plates set deep into the stone.
+~
+S
+#853
+A grey road~
+The road beneath your feet is of plain grey cobblestone.  A dull red sun
+hangs in the orange sky above your head, strangely still.  You hear none
+of the sounds you would commonly associate with a normal city.  The 
+cobblestone road continues to the north and south, while doors to the east
+and west allow you to enter two stone buildings.
+~
+0 8 1
+D0
+The grey cobblestones continue.
+~
+~
+0 -1 854
+D1
+You see a small stone building with a wooden door.
+~
+door wooden~
+3 -1 862
+D2
+The grey cobblestones continue.
+~
+~
+0 -1 852
+D3
+An iron door blocks your entrance into a large stone building.
+~
+door iron~
+3 -1 869
+E
+door wooden~
+The door is thick, made from a knotted and twisted greyish wood.
+~
+E
+door iron~
+The door is fashioned from many iron plates and set deep into the stone wall.
+~
+S
+#854
+A grey road~
+The road beneath your feet is of plain grey cobblestone.  A dull red sun
+hangs in the orange sky above your head, strangely still.  You hear none
+of the sounds you would commonly associate with a normal city.  The
+cobblestone road extends to the east and south.
+~
+0 8 1
+D1
+The grey cobblestones continue.
+~
+~
+0 -1 855
+D2
+The grey cobblestones continue.
+~
+~
+0 -1 853
+S
+#855
+A grey road~
+The road beneath your feet is of plain grey cobblestone.  A dull red sun
+hangs in the orange sky above your head, strangely still.  You hear none
+of the sounds you would commonly associate with a normal city.  The 
+cobblestone extends to the east and west, while two double doors to the
+north allow you to enter an enormous building.
+~
+0 8 1
+D0
+Looming before you is a forbidding pair of metal doors.
+~
+doors metal~
+3 -1 874
+D1
+The grey cobblestones continue.
+~
+~
+0 -1 856
+D3
+The grey cobblestones continue.
+~
+~
+0 -1 854
+E
+doors metal~
+The doors are formed from a silvery substance that feels very hard yet almost
+slippery to the touch.  They are covered in images in bas-relief, depicting
+scenes of combat between humans and strange tentacle-mouthed humanoids.
+~
+S
+#856
+A grey road~
+The ground beneath your feet is of plain grey cobblestone.  A dull red sun
+hangs in the orange sky above your head, strangely still.  You hear none
+of the sounds you would commonly associate with a normal city.  The
+cobblestone road ranges to the east and west, while a door to the south
+leads into a tall stone building.
+~
+0 8 1
+D1
+The grey cobblestones continue.
+~
+~
+0 -1 857
+D2
+You see a tall stone building with a wooden door.
+~
+door wooden~
+3 -1 864
+D3
+The grey cobblestones continue.
+~
+~
+0 -1 855
+E
+door wooden~
+The door is thick, made from a knotted and twisted greyish wood.
+~
+S
+#857
+A grey road~
+The ground beneath your feet is of plain grey cobblestone.  A dull red sun
+hangs in the orange sky above your head, strangely still.  You hear none
+of the sounds you would commonly associate with a normal city.  The
+cobblestone road lies to the south and west, while a door to the north leads
+into a tall stone building.
+~
+0 8 1
+D0
+You see a tall stone building with a wooden door.
+~
+door wooden~
+3 -1 873
+D2
+The grey cobblestones continue.
+~
+~
+0 -1 858
+D3
+The grey cobblestones continue.
+~
+~
+0 -1 856
+E
+door wooden~
+The door is thick, made from a knotted and twisted greyish wood.
+~
+S
+#858
+A grey road~
+The ground beneath your feet is of plain grey cobblestone.  A dull red sun
+hangs in the orange sky above your head, strangely still.  You hear none 
+of the sounds you would commonly associate with a normal city.  The
+cobblestone road lies to the north and south, while a door is set in a large
+stone building to the east.
+~
+0 8 1
+D0
+The grey cobblestones continue.
+~
+~
+0 -1 857
+D1
+An iron door blocks your entrance into a large stone building.
+~
+door iron~
+3 -1 867
+D2
+The grey cobblestones continue.
+~
+~
+0 -1 859
+E
+door iron~
+The door is made from many hammered iron plates, set deep into the stone wall.
+~
+S
+#859
+A grey road~
+The road beneath your feet is of plain grey cobblestone.  A dull red sun
+hangs in the orange sky above your head, strangely still.  You hear none
+of the sounds you would commonly associate with a normal city.  The
+cobblestone road continues to the north and south.
+~
+0 8 1
+D0
+The grey cobblestones continue.
+~
+~
+0 -1 858
+D2
+The grey cobblestones continue.
+~
+~
+0 -1 860
+S
+#860
+A grey road~
+The road beneath your feet is of plain grey cobblestone.  A dull red sun
+hangs in the orange sky above your head, strangely still.  You hear none
+of the sounds you would commonly associate with a normal city.  The
+cobblestone road lies to the north and west, while to the east is a door
+which leads into a large stone building.
+~
+0 8 1
+D0
+The grey cobblestones continue.
+~
+~
+0 -1 859
+D1
+An iron door blocks your entrance into a large stone building.
+~
+door iron~
+3 -1 865
+D3
+The grey cobblestones continue.
+~
+~
+0 -1 861
+E
+door iron~
+The door is made from many hammered iron plates, set deep into the stone wall.
+~
+S
+#861
+A grey road~
+The road beneath your feet is of plain grey cobblestone.  A dull red sun
+hangs in the orange sky above your head, strangely still.  You hear none
+of the sounds you would commonly associate with a normal city.  The
+cobblestone road stretches eastward, while doors to the north and west
+allow entrance into two stone buildings.
+~
+0 8 1
+D0
+You see a small stone building with a wooden door.
+~
+door wooden~
+3 -1 863
+D1
+The grey cobblestones continue.
+~
+~
+0 -1 860
+D3
+You see an iron door which leads into a small stone building set into the wall
+of the keep.
+~
+door iron~
+3 -1 851
+E
+door wooden~
+The door is thick, made from a knotted and twisted greyish wood.
+~
+E
+door iron~
+The door is made from a set of iron plates set deep into the stone.
+~
+S
+#862
+A small building~
+You have stepped inside a dimly lit building, which apparently serves as
+living quarters for several githyanki gish.  The walls are heavy stone blocks, 
+covered with panels of strangely knotted and twisted wood.  A couple of candles
+burn dimly in sconces here and there.
+~
+0 8 0
+D3
+The wooden door leads back out onto the grey cobblestone road.
+~
+door wooden~
+3 -1 853
+E
+door wooden~
+The door is thick, made from a knotted and twisted greyish wood.
+~
+S
+#863
+A small building~
+You have stepped inside a dimly lit building, which apparently serves as
+living quarters for several githyanki gish.  The walls are heavy stone blocks, 
+covered with panels of strangely knotted and twisted wood.  A couple of candles
+burn dimly in sconces here and there.
+~
+0 8 0
+D2
+The wooden door leads back out onto the grey cobblestone road.
+~
+door wooden~
+3 -1 861
+E
+door wooden~
+The door is thick, made from a knotted and twisted greyish wood.
+~
+S
+#864
+A large dwelling~
+You have stepped inside a dimly lit building with vaulted ceilings and high
+windows.  The walls are heavy stone blocks that rise tens of feet above your
+head, covered with panels of strangely knotted and twisted wood.  On the floor
+are charcoal stencils of pentagrams and various other ominous sigils.
+~
+0 8 0
+D0
+The wooden door leads back out onto the grey cobblestone road.
+~
+door wooden~
+3 -1 856
+E
+door wooden~
+The door is thick, made from a knotted and twisted greyish wood.
+~
+S
+#865
+The Githyanki Weaponry~
+You have entered a large chamber full of weapons in various states of
+completion.  Strange glowing blocks of silvery metal are being pounded and
+rolled out into deadly razor-sharp knives, daggers and swords.  The sounds 
+of hammering and fierce waves of heat emerge from the archway to the north.
+To the west is an iron door which leads back to the sole road of the githyanki 
+keep.
+~
+0 8 0
+D0
+You see a massive forgeroom, lit by a white-hot furnace.
+~
+~
+0 -1 866
+D3
+The iron door leads back out onto the grey cobblestone road.
+~
+door iron~
+3 -1 860
+E
+door iron~
+The door is made from many hammered iron plates, set deep into the stone wall.
+~
+S
+#866
+The Forge~
+In the center of the room is a massive furnace which emits great gouts of
+heat and a strange smell which comes from the melting of the silvery metal used
+by the githyanki.  A large trough of icy water stands to the west, used for 
+quenching hot metal.  Archways lie to the north and south, while the door to
+the furnace lies to the east.
+~
+0 8 0
+D0
+You see the armoury.
+~
+~
+0 -1 867
+D1
+Through the grille in the furnace door you see only flames.
+~
+door furnace~
+3 -1 868
+D2
+You see the weaponry.
+~
+~
+0 -1 865
+E
+door furnace~
+The entire furnace is glowing white-hot to the touch.
+The furnace door looks too hot to even attempt to open.
+~
+S
+#867
+The Githyanki Armoury~
+You have entered a large chamber filled with suits of armor in various
+states of completion.  In this chamber the hard steels of the githyanki are
+shaped into ornately fashioned suits of mail.  Sounds of hammering and
+waves of heat emerge from the archway to the south, while a door to the
+west leads back out to the cobblestone road.
+~
+0 8 0
+D2
+You see a massive forgeroom, lit by a white-hot furnace.
+~
+~
+0 -1 866
+D3
+The iron door leads back out onto the grey cobblestone road.
+~
+door iron~
+3 -1 858
+E
+door iron~
+The door is made from many hammered iron plates, set deep into the stone wall.
+~
+S
+#868
+Inside the furnace~
+You gasp for breath and choke on toxic sulphur and brimstone.  The sweat
+on your forehead is instantly vaporized by the flames that surround you.  You
+begin to feel faint and dizzy from the heat...
+~
+0 2097160 0
+D3
+The flames blind you and obscure your vision.
+~
+door furnace~
+3 -1 866
+E
+e east~
+The flames blind you and obscure your vision.
+~
+S
+#869
+A guard station~
+You are standing in a small, fairly empty building that serves as the prison
+for the keep.  The building is small because the githyanki do not make a habit 
+of taking prisoners and those that they do capture do not last long.  The
+cells lie to the west, while the grey cobblestone road lies beyond a door
+to the east.
+~
+0 8 0
+D1
+You see an iron door which leads back out onto the grey cobblestone road.
+~
+door iron~
+3 -1 853
+D3
+You see the cellblock.
+~
+~
+0 -1 870
+E
+door iron~
+The door is fashioned from many iron plates and set deep into the stone wall.
+~
+S
+#870
+The cellblock~
+A torch firmly held in a sconce on the western wall illuminates this dim
+corridor.  Recently used whips, manacles and chains hang on the walls, soaked
+with many different types of blood.  Cell doors stand to the north and south,
+while the guard station lies to the east.
+~
+0 8 0
+D0
+You see a small cell.
+~
+door cell~
+3 -1 871
+D1
+You see the guard station.
+~
+~
+0 -1 869
+D2
+You see a small cell.
+~
+door cell~
+3 -1 872
+E
+door cell~
+The cell door is wooden and about 4' high, with a slot in the bottom to pass
+food underneath to the prisoner.
+~
+S
+#871
+A cramped cell~
+You are in a tiny, dank cell.  The chill air lashes at your flesh and
+you wonder how long the githyanki expect the cell's occupant to
+survive.  The only exit is back through the door to the south.
+~
+0 8 0
+D2
+You see the cellblock.
+~
+door cell~
+3 -1 870
+E
+door cell~
+The cell door is wooden and about 4' high, with a slot in the bottom to pass
+food underneath to the prisoner.
+~
+S
+#872
+A tiny cell~
+You are in a tiny, dank cell.  The chill air lashes at your flesh and
+you wonder how long the githyanki expect the cell's occupant to
+survive.  The only exit is back through the door to the north.
+~
+0 8 0
+D0
+You see the cellblock.
+~
+door cell~
+3 -1 870
+E
+door cell~
+The cell door is wooden and about 4' high, with a slot in the bottom to pass
+food underneath to the prisoner.
+~
+S
+#873
+A large dwelling~
+You have stepped inside a dimly lit building with vaulted ceilings and high
+windows.  The walls are heavy stone blocks that rise tens of feet above your
+head, covered with panels of strangely knotted and twisted wood.  On the floor
+are charcoal stencils of pentagrams and various other ominous sigils.
+~
+0 8 0
+D2
+The wooden door leads back out onto the grey cobblestone road.
+~
+door wooden~
+3 -1 857
+E
+door wooden~
+The door is thick, made from a knotted and twisted greyish wood.
+~
+S
+#874
+South End of the Hall~
+This is a massive stone hall, lit by flaming blue stones set into the walls.
+Massive suits of armor line the walls, holding weapons fashioned from a strange
+silvery metal.  The great hall continues to the north and ends in a pair
+of huge metal doors to the south.
+~
+0 8 0
+D0
+The great hall continues to the north.
+~
+~
+0 -1 875
+D2
+The metal doors lead out onto the grey cobblestone road.
+~
+doors metal~
+3 -1 855
+E
+armor suits~
+The suits of armor are very intricately and ornately fashioned splint mail.
+~
+E
+weapons~
+Massive pole arms, spears, mighty swords, all kinds of death-dealing devices.
+~
+E
+doors metal~
+The doors are formed from a silvery substance that feels very hard yet almost
+slippery to the touch.  They are covered in images in bas-relief, depicting
+scenes of combat between humans and strange tentacle-mouthed humanoids.
+~
+S
+#875
+North End of the Hall~
+This is a massive stone hall, lit by flaming blue stones set into the walls.
+Massive suits of armor line the walls, holding weapons fashioned from a strange
+silvery metal.  The great hall continues to the south, while thick mists
+to the north prevent further passage.
+~
+0 8 0
+D0
+You think you can see some steps leading up to an altar...
+~
+mist door~
+3 -1 876
+D2
+The great hall continues to the south.
+~
+~
+0 -1 874
+E
+armor suits~
+The suits of armor are very intricately and ornately fashioned splint mail.
+~
+E
+weapons~
+Massive pole arms, spears, mighty swords, all kinds of death-dealing devices.
+~
+E
+arch archway door~
+The archway is shrouded in a strange black mist that obscures your vision.
+~
+S
+#876
+The Altar Chamber~
+Your eyes have trouble adjusting to the dim lighting.  All around you are
+statues of githyanki turned towards the altar which stands at the top of a
+short flight of steps to the north.
+~
+0 9 0
+D0
+The steps lead north and up to a massive sacrificial altar.
+~
+~
+0 -1 877
+D2
+You think you can see the hall.
+~
+mist door~
+3 -1 875
+E
+arch archway door~
+The archway is shrouded in a strange black mist that obscures your vision.
+~
+S
+#877
+Before the Altar~
+You have climbed the mighty steps of the altar chamber and stand before a
+huge altar used to pay tribute to Lady Gith, the long-dead ruler of the
+githyanki.  The altar is covered in blood and radiates an unspeakable
+power that is absorbed by the horrible presence which stands before you.
+~
+0 3145737 0
+D2
+The steps lie to the south, leading back down to the altar chamber floor.
+~
+~
+0 -1 876
+E
+altar~
+The altar is a huge sacrificial altar covered in bloodstains.
+~
+E
+blood bloodstains stains~
+The stains of blood run down off the altar towards your feet, oozing quietly.
+~
+E
+hole holes~
+The holes have passed countless amounts of blood down below the altar.
+~
+S
+#878
+A Gateway to the Underworld~
+You step through the tiny hole in the altar, and stand before a swirling
+field of blackness.  Through the field you can hear the howls of lost souls
+and long-dead beings.
+~
+0 2097161 1
+D5
+You look down into the field of blackness, and feel a tangible wave of evil wash
+over you.  Stepping into the field would be a bad idea.
+~
+gateway~
+1031 824 879
+E
+blood~
+The blood drips from above your head and falls through the field...
+~
+E
+field gateway~
+The field pulses and feeds on the blood dripping from above.
+
+A tangible wave of hatred washes over you, striking fear into your very soul.
+~
+S
+#879
+Utter Darkness and Despair~
+A heavy darkness weighs upon this vast territory, reducing your vision to
+mere feet.  Flittering shapes seem to emerge from the blackness then return
+to the shadows in fear of your light.  Though there is no apparent danger,
+waves of fear pass through your body and you remain on your guard...
+~
+0 2105357 9
+S
+#880
+Entrance to Limbo~
+~
+0 1073741824 1
+D3
+~
+~
+0 -1 881
+S
+#881
+Door to Githzerai Keep~
+~
+0 1073741824 1
+D1
+~
+~
+0 -1 880
+D7
+~
+~
+0 -1 882
+D9
+~
+~
+0 -1 898
+S
+#882
+Path Skirting Keep~
+~
+0 1073741824 1
+D0
+~
+~
+0 -1 883
+D8
+~
+~
+0 -1 881
+S
+#883
+path~
+~
+0 1073741824 1
+D2
+~
+~
+0 -1 882
+D7
+~
+~
+0 -1 884
+S
+#884
+path~
+~
+0 1073741824 1
+D7
+~
+~
+0 -1 885
+D8
+~
+~
+0 -1 883
+S
+#885
+path~
+~
+0 1073741824 1
+D3
+~
+~
+0 -1 886
+D8
+~
+~
+0 -1 884
+S
+#886
+path~
+~
+0 1073741824 1
+D1
+~
+~
+0 -1 885
+D9
+~
+~
+0 -1 887
+S
+#887
+path~
+~
+0 1073741824 1
+D6
+~
+~
+0 -1 886
+D9
+~
+~
+0 -1 888
+S
+#888
+path~
+~
+0 1073741824 1
+D2
+~
+~
+0 -1 889
+D6
+~
+~
+0 -1 887
+S
+#889
+path~
+~
+0 1073741824 1
+D0
+~
+~
+0 -1 888
+D9
+~
+~
+0 -1 890
+S
+#890
+path~
+~
+0 1073741824 1
+D6
+~
+~
+0 -1 889
+D8
+~
+~
+0 -1 891
+S
+#891
+path~
+~
+0 1073741824 1
+D2
+~
+~
+0 -1 892
+D7
+~
+~
+0 -1 890
+S
+#892
+path~
+~
+0 1073741824 1
+D0
+~
+~
+0 -1 891
+D8
+~
+~
+0 -1 893
+S
+#893
+path~
+~
+0 1073741824 1
+D7
+~
+~
+0 -1 892
+D8
+~
+~
+0 -1 894
+S
+#894
+path~
+~
+0 1073741824 1
+D1
+~
+~
+0 -1 895
+D7
+~
+~
+0 -1 893
+S
+#895
+path~
+~
+0 1073741824 1
+D3
+~
+~
+0 -1 894
+D6
+~
+~
+0 -1 896
+S
+#896
+path~
+~
+0 1073741824 1
+D6
+~
+~
+0 -1 897
+D9
+~
+~
+0 -1 895
+S
+#897
+path~
+~
+0 1073741824 1
+D0
+~
+~
+0 -1 898
+D9
+~
+~
+0 -1 896
+S
+#898
+path~
+~
+0 1073741824 1
+D2
+~
+~
+0 -1 897
+D6
+~
+~
+0 -1 881
+S
+#899
+Floating in a void~
+~
+0 1073741828 1
+S
+#0
+
+
+#RESETS
+R 0 808 6
+R 0 809 6
+R 0 810 6
+R 0 811 6
+R 0 812 6
+R 0 813 6
+R 0 814 6
+R 0 815 6
+R 0 816 6
+R 0 817 6
+R 0 818 6
+R 0 819 6
+R 0 820 6
+R 0 821 6
+R 0 822 6
+R 0 823 6
+R 0 824 6
+R 0 825 6
+R 0 826 6
+R 0 827 6
+R 0 828 6
+R 0 829 6
+R 0 830 6
+R 0 831 6
+R 0 832 6
+R 0 833 6
+R 0 834 6
+R 0 835 6
+R 0 836 6
+R 0 837 6
+R 0 838 6
+R 0 839 6
+R 0 840 6
+R 0 841 6
+R 0 842 6
+R 0 843 6
+R 0 844 6
+M 0 800 1 806
+E 0 800 0 16
+G 1 826 1
+D 0 806 0 2
+D 0 807 2 2
+M 0 801 2 833
+G 0 804 0
+M 0 801 2 834
+G 0 804 0
+M 0 802 1 846
+G 0 805 0
+M 0 803 4 820
+G 0 814 0
+M 0 803 4 824
+G 0 814 0
+M 0 803 4 826
+G 0 814 0
+M 0 803 4 830
+G 0 814 0
+M 0 804 10 813
+M 0 805 8 818
+E 0 807 0 16
+M 0 805 8 820
+E 0 807 0 16
+M 0 805 8 822
+E 0 807 0 16
+M 0 805 8 824
+E 0 807 0 16
+M 0 806 6 823
+E 0 809 0 16
+E 0 815 0 5
+M 0 806 6 827
+E 0 809 0 16
+E 0 815 0 5
+M 0 808 3 830
+E 0 809 0 16
+E 0 815 0 5
+E 0 816 0 7
+E 0 817 0 10
+M 0 810 6 829
+E 0 806 0 16
+M 0 810 6 831
+E 0 806 0 16
+M 0 815 3 845
+G 0 821 0
+M 0 815 3 847
+G 0 821 0
+M 0 815 3 849
+G 0 821 0
+D 0 850 0 1
+D 0 851 2 1
+D 0 851 1 1
+D 0 851 3 1
+D 0 852 1 1
+D 0 853 1 1
+D 0 853 3 1
+D 0 855 0 1
+D 0 856 2 1
+D 0 857 0 1
+D 0 858 1 1
+D 0 860 1 1
+D 0 861 0 1
+D 0 861 3 1
+D 0 862 3 1
+D 0 863 2 1
+D 0 864 0 1
+D 0 873 2 1
+D 0 865 3 1
+D 0 866 1 1
+D 0 867 3 1
+D 0 868 3 1
+D 0 869 1 1
+D 0 870 0 1
+D 0 870 2 1
+D 0 871 2 1
+D 0 872 0 1
+D 0 874 2 1
+D 0 875 0 1
+D 0 876 2 1
+D 0 878 5 2
+M 0 807 8 851
+E 0 808 0 16
+E 0 815 0 5
+M 0 807 8 851
+E 0 808 0 16
+E 0 815 0 5
+M 0 807 8 865
+E 0 808 0 16
+E 0 815 0 5
+M 0 807 8 865
+E 0 808 0 16
+E 0 815 0 5
+M 0 807 8 867
+E 0 808 0 16
+E 0 815 0 5
+M 0 807 8 867
+E 0 808 0 16
+E 0 815 0 5
+M 0 807 8 869
+E 0 808 0 16
+E 0 815 0 5
+M 0 807 8 869
+E 0 808 0 16
+E 0 815 0 5
+M 0 808 3 855
+E 0 809 0 16
+E 0 815 0 5
+E 0 816 0 7
+E 0 817 0 10
+M 0 811 6 853
+E 0 806 0 16
+M 0 811 6 859
+E 0 806 0 16
+M 0 811 6 862
+E 0 806 0 16
+M 0 811 6 863
+E 0 806 0 16
+M 0 811 6 862
+E 0 806 0 16
+G 0 822 0
+M 0 811 6 863
+E 0 806 0 16
+G 0 822 0
+M 0 812 4 864
+E 0 810 0 16
+G 0 803 0
+M 0 812 4 873
+E 0 810 0 16
+G 0 803 0
+M 0 812 4 874
+E 0 810 0 16
+G 0 803 0
+M 0 812 4 874
+E 0 810 0 16
+G 0 803 0
+M 0 816 1 872
+M 0 817 1 871
+M 0 818 1 868
+E 0 813 0 0
+M 0 819 6 868
+M 0 819 6 868
+M 0 819 6 868
+M 0 819 6 868
+M 0 819 6 868
+M 0 819 6 868
+M 0 809 2 876
+E 0 809 0 16
+E 0 815 0 5
+E 0 816 0 7
+E 0 817 0 10
+E 0 818 0 9
+M 0 809 2 876
+E 0 809 0 16
+E 0 815 0 5
+E 0 816 0 7
+E 0 817 0 10
+E 0 818 0 9
+M 0 813 1 877
+E 0 811 0 16
+G 1 824 1
+G 0 802 0
+M 0 814 1 879
+E 0 812 0 16
+E 0 819 0 5
+G 0 825 0
+S
+
+
+#SHOPS
+0
+
+
+#REPAIRS
+0
+
+
+#SPECIALS
+M  802 spec_cast_mage
+M  805 spec_thief
+M  810 spec_cast_mage
+M  811 spec_cast_mage
+M  812 spec_cast_mage
+M  813 spec_cast_undead
+M  815 spec_cast_undead
+M  817 spec_cast_mage
+M  818 spec_cast_mage
+M  819 spec_breath_fire
+S
+
+
+#$

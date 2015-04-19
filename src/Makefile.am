@@ -79,7 +79,7 @@ endif
 # lib/libsmaug-act.so (shared lib) #
 libsmaug_act_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
 libsmaug_act_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_act_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL) -version-info 2:0:0 
+libsmaug_act_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
 
 libsmaug_act_la_SOURCES = \
 act_comm.c act_info.c act_move.c act_obj.c act_wiz.c fight.c misc.c 
@@ -87,7 +87,7 @@ act_comm.c act_info.c act_move.c act_obj.c act_wiz.c fight.c misc.c
 # lib/libsmaug-player.so (shared lib) #
 libsmaug_player_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
 libsmaug_player_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_player_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL) -version-info 2:0:0 
+libsmaug_player_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
 
 libsmaug_player_la_SOURCES = \
 player.c polymorph.c update.c save.c ident.c ban.c 
@@ -95,7 +95,7 @@ player.c polymorph.c update.c save.c ident.c ban.c
 # lib/libsmaug-mudprog.so (shared lib) #
 libsmaug_mudprog_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
 libsmaug_mudprog_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_mudprog_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL) -version-info 2:0:0 
+libsmaug_mudprog_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
 
 libsmaug_mudprog_la_SOURCES = \
 mud_comm.c mud_prog.c
@@ -104,7 +104,7 @@ mud_comm.c mud_prog.c
 if WEBSRV
 libsmaug_websrv_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
 libsmaug_websrv_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_websrv_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL) -version-info 2:0:0 
+libsmaug_websrv_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
 
 libsmaug_websrv_la_SOURCES = websrv.c
 endif
@@ -112,7 +112,7 @@ endif
 # lib/libsmaug-info.so (shared lib) #
 libsmaug_info_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
 libsmaug_info_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_info_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL) -version-info 2:0:0 
+libsmaug_info_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
 
 libsmaug_info_la_SOURCES = \
 boards.c comments.c hint.c news.c requests.c 
@@ -120,7 +120,7 @@ boards.c comments.c hint.c news.c requests.c
 # lib/libsmaug-realm.so (shared lib) #
 libsmaug_realm_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
 libsmaug_realm_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_realm_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL) -version-info 2:0:0 
+libsmaug_realm_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
 
 libsmaug_realm_la_SOURCES = \
 adminlist.c bank.c build.c clans.c deity.c grub.c house.c \
@@ -135,7 +135,7 @@ smaug_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
 smaug_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
 
 smaug_SOURCES = smaug.c \
-const.c colorize.c db.c handler.c hashstr.c \
+i18n.c const.c colorize.c db.c handler.c hashstr.c \
 imm_host.c interp.c win32srv.c sha256.c
 
 if ENABLE_HOTBOOT
@@ -155,7 +155,7 @@ if ENABLE_DNS_RESOLV
 
 libsmaug_dns_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
 libsmaug_dns_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_dns_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL) -version-info 2:0:0 
+libsmaug_dns_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
 
 libsmaug_dns_la_SOURCES = libdns.c
 
@@ -187,3 +187,4 @@ endif
 if ENABLE_DNS_RESOLV
 include_HEADERS += libdns.h
 endif
+

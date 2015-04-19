@@ -73,7 +73,7 @@ do_editnews (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch) || !IS_IMMORTAL (ch))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 

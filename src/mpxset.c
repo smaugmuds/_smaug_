@@ -70,7 +70,7 @@ do_mpmset (CHAR_DATA * ch, char *argument)
   /* A desc means switched.. too many loopholes if we allow that.. */
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM) || ch->desc)
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -1052,7 +1052,7 @@ do_mposet (CHAR_DATA * ch, char *argument)
   /* A desc means switched.. too many loopholes if we allow that.. */
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM) || ch->desc)
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 

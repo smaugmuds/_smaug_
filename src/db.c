@@ -717,7 +717,7 @@ boot_db (void)
 	if (strArea[0] == '$')
 	  break;
 
-	sprintf (strAreaPath, "%s%s", AREA_DIR, strArea);
+	sprintf (strAreaPath, "%s%s/%s", AREA_DIR, SMAUGlocale, strArea);
 
 	load_area_file (last_area, strAreaPath);
 	/*load_area_file( last_area, strArea ); */

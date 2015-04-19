@@ -996,13 +996,13 @@ do_assist (CHAR_DATA * ch, char *argument)
 
   if (!ch->pcdata->council)
     {
-      ch_printf (ch, "Huh?\n\r");
+      ch_printf (ch, _("Huh?\n"));
       return;
     }
 
   if (str_cmp (ch->pcdata->council->name, "Newbie Council"))
     {
-      ch_printf (ch, "Huh?\n\r");
+      ch_printf (ch, _("Huh?\n"));
       return;
     }
 

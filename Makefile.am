@@ -43,7 +43,7 @@ ARCH = `getconf LONG_BIT`
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = src etc bin po
+SUBDIRS = etc bin src po
 
 EXTRA_DIST = config.rpath m4/ChangeLog autogen.sh data tools \
 	doc etc src man db README.md LICENSE m4 libtool bin autom4te.cache \
@@ -81,7 +81,7 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
 man_MANS = man/smaug.1 man/smaugd.1
 
-CLEANDEVELFILES = compile configure depcomp src/smaug.h src/*.la \
+CLEANDEVELFILES = compile configure depcomp src/smaug.h src/*.la ar-lib \
 	autom4te.cache config.guess config.sub install-sh missing src/.libs \
 	config.status ltmain.sh depcomp README COPYING NEWS po/*.gmo \
 	src/smaug src/smaug-dns Doxyfile po/POTFILES po/stamp-po m4 *.m4 \
@@ -150,7 +150,7 @@ devdistclean: distclean-local distclean-doc
 	@rm -rfv $(CLEANDEVELFILES) $(CLEANBUILDFILES); \
 	echo "=== distclean-local done ==="
 
-install-data-hook: install-doc
+install-data-hook:
 	@echo "Installing <@PACKAGE@> data files ..."; \
 	mkdir -pv $(sharedstatedir)/@PACKAGE@; \
 	cp -rvf data/* $(sharedstatedir)/@PACKAGE@; \

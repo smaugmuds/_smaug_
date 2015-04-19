@@ -103,7 +103,7 @@ void failed_casting (struct skill_type *skill, CHAR_DATA * ch,
 void
 skill_notfound (CHAR_DATA * ch, char *argument)
 {
-  send_to_char ("Huh?\n\r", ch);
+  send_to_char (_("Huh?\n"), ch);
   return;
 }
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smaug 2.0.0\n"
 "Report-Msgid-Bugs-To: <@burzumishi>\n"
-"POT-Creation-Date: 2015-04-15 21:17+0200\n"
+"POT-Creation-Date: 2015-04-18 22:20+0200\n"
 "PO-Revision-Date: 2015-04-06 22:12+0200\n"
 "Last-Translator: root <root@siriux.home>\n"
 "Language-Team: Galician\n"
@@ -16,6 +16,49 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/boards.c:805 src/build.c:999 src/build.c:1005 src/clans.c:853
+#: src/clans.c:863 src/clans.c:925 src/clans.c:940 src/clans.c:1097
+#: src/clans.c:1107 src/clans.c:1167 src/clans.c:1182 src/clans.c:1340
+#: src/clans.c:1350 src/clans.c:1411 src/clans.c:1747 src/clans.c:1902
+#: src/clans.c:1982 src/clans.c:2318 src/clans.c:2345 src/clans.c:2357
+#: src/clans.c:2383 src/clans.c:2945 src/clans.c:2965 src/clans.c:2979
+#: src/deity.c:396 src/deity.c:942 src/deity.c:1044 src/interp.c:760
+#: src/liquids.c:735 src/smaug.c:3577 src/act_comm.c:893 src/act_comm.c:905
+#: src/act_comm.c:913 src/act_comm.c:928 src/act_comm.c:946 src/act_comm.c:953
+#: src/act_comm.c:965 src/act_comm.c:971 src/act_comm.c:983 src/act_comm.c:990
+#: src/act_comm.c:1002 src/act_comm.c:1015 src/act_comm.c:1027
+#: src/act_comm.c:1041 src/act_comm.c:1281 src/act_comm.c:1296
+#: src/act_comm.c:1310 src/act_comm.c:1324 src/act_comm.c:1336
+#: src/act_comm.c:1341 src/act_comm.c:1353 src/act_comm.c:1366
+#: src/act_comm.c:2377 src/act_comm.c:2641 src/act_comm.c:3139
+#: src/act_comm.c:3300 src/act_comm.c:3306 src/act_comm.c:4355
+#: src/act_comm.c:4367 src/act_comm.c:4379 src/act_wiz.c:3531
+#: src/act_wiz.c:3641 src/act_wiz.c:3717 src/act_wiz.c:3839 src/act_wiz.c:4531
+#: src/act_wiz.c:10450 src/act_wiz.c:11108 src/act_wiz.c:11839
+#: src/act_wiz.c:12108 src/act_wiz.c:12267 src/act_wiz.c:12425
+#: src/act_wiz.c:12483 src/act_wiz.c:12567 src/act_obj.c:3572
+#: src/mud_comm.c:282 src/mud_comm.c:332 src/mud_comm.c:382 src/mud_comm.c:463
+#: src/mud_comm.c:505 src/mud_comm.c:553 src/mud_comm.c:603 src/mud_comm.c:636
+#: src/mud_comm.c:677 src/mud_comm.c:716 src/mud_comm.c:749 src/mud_comm.c:782
+#: src/mud_comm.c:815 src/mud_comm.c:850 src/mud_comm.c:885 src/mud_comm.c:961
+#: src/mud_comm.c:1062 src/mud_comm.c:1148 src/mud_comm.c:1214
+#: src/mud_comm.c:1272 src/mud_comm.c:1318 src/mud_comm.c:1362
+#: src/mud_comm.c:1508 src/mud_comm.c:1667 src/mud_comm.c:1753
+#: src/mud_comm.c:1806 src/mud_comm.c:1868 src/mud_comm.c:1926
+#: src/mud_comm.c:1973 src/mud_comm.c:2011 src/mud_comm.c:2059
+#: src/mud_comm.c:2246 src/mud_comm.c:2328 src/mud_comm.c:2403
+#: src/mud_comm.c:2478 src/mud_comm.c:2507 src/mud_comm.c:2564
+#: src/mud_comm.c:2645 src/mud_comm.c:2731 src/mud_comm.c:2765
+#: src/mud_comm.c:2836 src/mud_comm.c:2857 src/mud_comm.c:2885
+#: src/mud_comm.c:2932 src/mud_comm.c:3106 src/mud_comm.c:3137
+#: src/mud_comm.c:3167 src/mud_comm.c:3218 src/mud_comm.c:3271
+#: src/mud_comm.c:3321 src/mud_comm.c:3615 src/mud_comm.c:3647 src/mpxset.c:73
+#: src/mpxset.c:1055 src/news.c:76 src/player.c:3411 src/player.c:3466
+#: src/player.c:3689 src/skills.c:106 src/variables.c:227 src/variables.c:311
+#: src/variables.c:369 src/variables.c:472
+msgid "Huh?\n"
+msgstr "Cómo?\n"
 
 #: src/smaug.c:305
 #, c-format
@@ -283,18 +326,6 @@ msgstr "Ti %s '%s'\n"
 #, c-format
 msgid "%s: %s\r\n"
 msgstr "%s: %s\r\n"
-
-#: src/act_comm.c:893 src/act_comm.c:905 src/act_comm.c:913 src/act_comm.c:928
-#: src/act_comm.c:946 src/act_comm.c:953 src/act_comm.c:965 src/act_comm.c:971
-#: src/act_comm.c:983 src/act_comm.c:990 src/act_comm.c:1002
-#: src/act_comm.c:1015 src/act_comm.c:1027 src/act_comm.c:1041
-#: src/act_comm.c:1281 src/act_comm.c:1296 src/act_comm.c:1310
-#: src/act_comm.c:1324 src/act_comm.c:1336 src/act_comm.c:1341
-#: src/act_comm.c:1353 src/act_comm.c:1366 src/act_comm.c:2377
-#: src/act_comm.c:2641 src/act_comm.c:3139 src/act_comm.c:3306
-#: src/act_comm.c:4355 src/act_comm.c:4367 src/act_comm.c:4379
-msgid "Huh?\n"
-msgstr "Cómo?\n"
 
 #: src/act_comm.c:1082 src/act_comm.c:1409 src/act_info.c:4761
 msgid "You can't do that here.\n"
@@ -611,7 +642,7 @@ msgstr ""
 
 #: src/act_info.c:246
 msgid "your gravestone"
-msgstr ""
+msgstr "a túa tumba"
 
 #: src/act_info.c:248
 msgid "the long lost boots of Ranger Thoric"
@@ -631,7 +662,7 @@ msgstr ""
 
 #: src/act_info.c:256
 msgid "the answer"
-msgstr ""
+msgstr "a resposta"
 
 #: src/act_info.c:258
 msgid "the key to life, the universe and everything"
@@ -724,11 +755,11 @@ msgstr ""
 
 #: src/act_info.c:368 src/act_info.c:407 src/act_info.c:540
 msgid "Nothing.\n"
-msgstr ""
+msgstr "Nada.\n"
 
 #: src/act_info.c:632
 msgid "&P[(Link Dead)] "
-msgstr ""
+msgstr "&P[(Enlace Rematado)] "
 
 #: src/act_info.c:634
 msgid "(Switched) "
@@ -754,11 +785,11 @@ msgstr "&G&r(&wEntidade Suprema&G&r)&P "
 
 #: src/act_info.c:665
 msgid "&G&r(&wInfinite&G&r)&P "
-msgstr ""
+msgstr "&G&r(&wInfinito&G&r)&P "
 
 #: src/act_info.c:668
 msgid "&G&r(&wEternal&G&r)&P "
-msgstr ""
+msgstr "&G&r(&wEterno&G&r)&P "
 
 #: src/act_info.c:671
 msgid "&G&r(&wAncient&G&r)&P "
@@ -806,7 +837,7 @@ msgstr ""
 
 #: src/act_info.c:704
 msgid "&G(&wImmortal&G)&P "
-msgstr ""
+msgstr "&G(&wInmortal&G)&P "
 
 #: src/act_info.c:708
 msgid "&G(&wDemi Goddess&G)&P "
@@ -838,15 +869,15 @@ msgstr ""
 
 #: src/act_info.c:744
 msgid "&P&W<&PNew Player Advisor&W>&P "
-msgstr ""
+msgstr "&P&W<&PAdvertencia Novos Xogadores&W>&P "
 
 #: src/act_info.c:752
 msgid "&P(&wUnclanned&P) "
-msgstr ""
+msgstr "&P(&wSin Clan&P) "
 
 #: src/act_info.c:760
 msgid "(Hide) "
-msgstr ""
+msgstr "(Oculto) "
 
 #: src/act_info.c:762
 msgid "(Translucent) "
@@ -890,11 +921,11 @@ msgstr ""
 
 #: src/act_info.c:791
 msgid "(Mount) "
-msgstr ""
+msgstr "(Montando) "
 
 #: src/act_info.c:793
 msgid "(Writing) "
-msgstr ""
+msgstr "(Escribindo) "
 
 #: src/act_info.c:795
 msgid "(Morphed) "
@@ -914,7 +945,7 @@ msgstr ""
 
 #: src/act_info.c:849
 msgid " is in a deep trance."
-msgstr ""
+msgstr " está nun trance profundo."
 
 #: src/act_info.c:851
 msgid " is searching the area for something."
@@ -946,7 +977,7 @@ msgstr ""
 
 #: src/act_info.c:875
 msgid " is sleeping nearby."
-msgstr ""
+msgstr " está dormindo cerca."
 
 #: src/act_info.c:877
 msgid " is deep in slumber here."
@@ -998,7 +1029,7 @@ msgstr ""
 
 #: src/act_info.c:917 src/act_info.c:925
 msgid " stance."
-msgstr ""
+msgstr " estancia."
 
 #: src/act_info.c:920
 msgid " is hovering here."
@@ -1046,27 +1077,27 @@ msgstr "TÍ!"
 
 #: src/act_info.c:997
 msgid "$n looks at you."
-msgstr ""
+msgstr "$n mirate."
 
 #: src/act_info.c:999
 msgid "$n looks at $N."
-msgstr ""
+msgstr "$n mira a $N."
 
 #: src/act_info.c:1001
 msgid "$n looks at $mself."
-msgstr ""
+msgstr "$n mira a $mself."
 
 #: src/act_info.c:1016
 msgid "You see nothing special about $M."
-msgstr ""
+msgstr "Non ves nada especial en $M."
 
 #: src/act_info.c:1019
 msgid "$E isn't much to look at..."
-msgstr ""
+msgstr "$E non ten demasiado que mirar ..."
 
 #: src/act_info.c:1022
 msgid "You're not much to look at..."
-msgstr ""
+msgstr "Non tes demasiado que mirar ..."
 
 #: src/act_info.c:1029
 #, c-format
@@ -1075,14 +1106,17 @@ msgid ""
 "\r%s is in a %s fighting stance.\n"
 "\r"
 msgstr ""
+"\n"
+"\r%s está loitando nunha estancia %s.\n"
+"\r"
 
 #: src/act_info.c:1047
 msgid "$N is using:"
-msgstr ""
+msgstr "$N está usando:"
 
 #: src/act_info.c:1049
 msgid "You are using:"
-msgstr ""
+msgstr "Estas usando:"
 
 #: src/act_info.c:1071
 #, c-format
@@ -1090,6 +1124,8 @@ msgid ""
 "\n"
 "Mobile #%d '%s' "
 msgstr ""
+"\n"
+"Móbil #%d '%s' "
 
 #: src/act_info.c:1075
 #, c-format
@@ -1105,7 +1141,7 @@ msgstr ""
 
 #: src/act_info.c:1128
 msgid "The red form of a living creature is here.\n"
-msgstr ""
+msgstr "A forma vermella dunha criatura viva está aquí.\n"
 
 #: src/act_info.c:1148
 msgid "You can't see a thing!\n"
@@ -1113,7 +1149,7 @@ msgstr "Non podes ver nada!\n"
 
 #: src/act_info.c:1222
 msgid "You can't see anything but stars!\n"
-msgstr ""
+msgstr "Únicamente podes ver estrelas!\n"
 
 #: src/act_info.c:1228
 msgid "You can't see anything, you're sleeping!\n"
@@ -1145,7 +1181,7 @@ msgstr ""
 
 #: src/act_info.c:1824
 msgid " has a few bruises.\n"
-msgstr ""
+msgstr " ten algunhas rabuñadas.\n"
 
 #: src/act_info.c:1826
 msgid " has some cuts.\n"
@@ -1157,7 +1193,7 @@ msgstr " ten feridas severas.\n"
 
 #: src/act_info.c:1830
 msgid " has many nasty wounds.\n"
-msgstr " ten moitas feridas moi feas.\n"
+msgstr " ten moitas feridas devastadoras.\n"
 
 #: src/act_info.c:1832
 msgid " is bleeding freely.\n"
@@ -1193,19 +1229,19 @@ msgstr ""
 
 #: src/act_info.c:1850
 msgid " have a few bruises.\n"
-msgstr " ten algunhas rabuñadas.\n"
+msgstr " teñen algunhas rabuñadas.\n"
 
 #: src/act_info.c:1852
 msgid " have some cuts.\n"
-msgstr " ten algúns cortes.\n"
+msgstr " teñen algúns cortes.\n"
 
 #: src/act_info.c:1854
 msgid " have several wounds.\n"
-msgstr ""
+msgstr " teñen feridas serveras.\n"
 
 #: src/act_info.c:1856
 msgid " have many nasty wounds.\n"
-msgstr ""
+msgstr " teñen moitas feridas devastadoras.\n"
 
 #: src/act_info.c:1858
 msgid " are bleeding freely.\n"
@@ -1299,36 +1335,36 @@ msgstr "Nos teus soños, or what?\n"
 
 #: src/act_info.c:4768
 msgid "$n tells you 'You must earn some more practice sessions.'"
-msgstr ""
+msgstr "$n diche, 'Deberías aforrar unhas cantas sesións de práctica.'"
 
 #: src/act_info.c:4786
 msgid "$n tells you 'You're not ready to learn that yet...'"
-msgstr ""
+msgstr "$n diche, 'Aínda non estás preparado para aprender iso ...'"
 
 #: src/act_info.c:4793
 msgid "$n tells you 'I do not know how to teach that.'"
-msgstr ""
+msgstr "$n diche, 'Non sei como ensinar iso.'"
 
 #: src/act_info.c:4807
 msgid "$n tells you, 'I know not know how to teach that.'"
-msgstr ""
+msgstr "$n diche, 'Non sei como ensinar iso.'"
 
 #: src/act_info.c:4835
 msgid "$n tells you 'That is only for members of guilds...'"
-msgstr ""
+msgstr "$n diche, 'Iso é só para membros de irmandades ....'"
 
 #: src/act_info.c:4842
 msgid "$n tells you 'Only deadlies may use that skill ...'"
-msgstr ""
+msgstr "$n diche, 'Só os mortais deberían utilizar esa habilidade ...'"
 
 #: src/act_info.c:4862
 #, c-format
 msgid "$n tells you, 'I've taught you everything I can about %s.'"
-msgstr ""
+msgstr "$n diche, 'Conteiche todo canto sei sobre %s.'"
 
 #: src/act_info.c:4866
 msgid "$n tells you, 'You'll have to practice it on your own now...'"
-msgstr ""
+msgstr "$n diche. 'Agora tes que practicar por tí mesmo ...'"
 
 #: src/act_info.c:4873
 msgid "You practice $T."
@@ -1340,27 +1376,27 @@ msgstr "$n practica $T."
 
 #: src/act_info.c:4881
 msgid "$n tells you. 'You'll have to practice it on your own now...'"
-msgstr ""
+msgstr "$n diche. 'Agora tes que practicar por tí mesmo ...'"
 
 #: src/act_info.c:5882
 msgid "You are no longer afk.\n"
-msgstr ""
+msgstr "Xa non estás retirado do teclado.\n"
 
 #: src/act_info.c:5884
 msgid "$n is no longer afk."
-msgstr ""
+msgstr "$n xa non está retirado do teclado."
 
 #: src/act_info.c:5889
 msgid "You are now afk.\n"
-msgstr ""
+msgstr "Retíraste do teclado.\n"
 
 #: src/act_info.c:5891
 msgid "$n is now afk."
-msgstr ""
+msgstr "$n retírase do teclado."
 
 #: src/act_info.c:6051
 msgid "You must input the name of an online character.\n"
-msgstr ""
+msgstr "Debes introducir o nome dunha persoaxe conectada.\n"
 
 #: src/act_info.c:6060
 msgid "No such character online.\n"
@@ -1379,6 +1415,10 @@ msgstr "--{%s}-- por %s\n"
 #, c-format
 msgid "Compiled on %s at %s.\n"
 msgstr "Compilado en %s ás %s.\n"
+
+#: src/player.c:1072 src/player.c:1091
+msgid "Compass is now off.\n"
+msgstr "A brúxula está desactivada.\n"
 
 #~ msgid "greeting"
 #~ msgstr "benvida"

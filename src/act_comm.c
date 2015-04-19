@@ -3297,7 +3297,7 @@ do_lead (CHAR_DATA * ch, char *argument)
 
   if (!ch->pcdata->council)
     {
-      ch_printf (ch, "Huh?");
+      ch_printf (ch, _("Huh?\n"));
       return;
     }
 

@@ -757,7 +757,7 @@ first place.  Whaddya gonna do? */
 	      move_char (ch, pexit, 0);
 	      return;
 	    }
-	  send_to_char ("Huh?\n\r", ch);
+	  send_to_char (_("Huh?\n"), ch);
 	}
       return;
     }

@@ -1069,7 +1069,7 @@ do_compass (CHAR_DATA * ch, char *argument)
       if (xIS_SET (ch->act, PLR_COMPASS))
 	{
 	  xREMOVE_BIT (ch->act, PLR_COMPASS);
-	  send_to_char ("Compass is now off.\n\r", ch);
+	  send_to_char (_("Compass is now off.\n"), ch);
 	  return;
 	}
       else
@@ -1088,7 +1088,7 @@ do_compass (CHAR_DATA * ch, char *argument)
   if ((strcmp (arg, "off") == 0) || (strcmp (arg, "OFF") == 0))
     {
       xREMOVE_BIT (ch->act, PLR_COMPASS);
-      send_to_char ("Compass is now off.\n\r", ch);
+      send_to_char (_("Compass is now off.\n"), ch);
       return;
     }
 }
@@ -3408,7 +3408,7 @@ do_statreport (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -3463,7 +3463,7 @@ do_stat (CHAR_DATA * ch, char *argument)
 {
   if (IS_NPC (ch))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
 
@@ -3686,7 +3686,7 @@ do_favor (CHAR_DATA * ch, char *argument)
 
   if (IS_NPC (ch))
     {
-      send_to_char ("Huh?\n\r", ch);
+      send_to_char (_("Huh?\n"), ch);
       return;
     }
   set_char_color (AT_GREEN, ch);

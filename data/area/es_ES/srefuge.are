@@ -1,0 +1,4503 @@
+#AREA   Shattered Refuge~
+
+
+
+#AUTHOR Seccunda~
+
+#RANGES
+5 20 0 60
+$
+
+#RESETMSG The earth rumbles with the after-affects of another experiment gone awry...~
+
+#FLAGS
+0 10
+
+#ECONOMY 0 22706892
+
+#MOBILES
+#1500
+child gnome~
+a gnome child~
+A gnome child is here, deep in thought.
+~
+The little tyke looks so innocent sitting here studying. You almost want
+to pick him up and hug him.
+~
+3 4194856 600 C
+7 18 7 3d7+70 2d4+0
+300 400
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+38 3 0 0 1 1 1
+0 0 1709 0 0 9 64 2
+> rand_prog 5~
+ponder
+~
+|
+#1501
+woman gnome~
+a gnome woman~
+A gnome woman is standing here, trying to look beautiful.
+~
+The woman is short and gnarled, but acts like a woman several times her beauty.
+She's starting to look pretty attractive to you ...
+~
+1 0 600 C
+10 16 5 5d10+100 1d8+0
+500 700
+8 8 2
+18 13 13 13 13 13 13
+0 0 0 0 0
+38 3 0 0 1 1 1
+0 0 1775 2 0 0 64 2
+#1502
+man gnome~
+a gnome man~
+A gnome man is walking here, on his way to work.
+~
+This is a prime example of a gnome.  He looks short and weak, but at the
+same time an intelligent creature who could outsmart you.
+~
+1 4194856 500 C
+12 15 4 1d12+100 1d8+1
+450 900
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 0 2 0 0 64 2
+> rand_prog 5~
+sing
+~
+> rand_prog 2~
+shake $r
+~
+|
+#1503
+scientist gnome~
+a gnome scientist~
+A scientist wanders around deep in thought.
+~
+You see a gnome who is lost deep into some invention that he is about
+to make.  His hair is white, but he looks fairly strong.
+~
+1 4194856 500 C
+12 14 4 5d10+100 1d8+3
+1000 1300
+8 8 1
+18 13 13 13 13 13 13
+0 0 0 0 0
+38 3 0 0 1 1 1
+0 0 1775 0 0 0 64 2
+#1504
+gnome assistant~
+an assistant~
+An assistant scientist is here, juggling beakers and vials.
+~
+This is a well trained gnome.  He might not have a lot of strength but
+he makes up for it with his scientific skills.
+~
+1 0 400 C
+10 13 3 5d5+90 1d7+2
+100 2000
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+38 3 0 0 1 1 1
+0 0 1775 2 0 1 64 2
+> rand_prog 3~
+emote catches a vial just as it falls loose from his hands.
+sigh
+say If only we could create extra limbs!
+~
+|
+#1505
+chief gnome~
+the chief gnome~
+A powerful looking gnome stands here wearing ornate clothes.
+~
+The Chief looks like he could whap you hard.  He looks not only powerful
+but wise and resourceful.  You better not mess with him.
+~
+3 0 550 C
+15 6 -1 5d10+200 1d15+2
+8000 15000
+8 8 1
+18 13 13 13 13 13 13
+0 0 0 0 0
+38 3 0 0 1 1 2
+0 0 1775 0 0 0 1073741888 524290
+> rand_prog 10~
+wield electrum
+~
+|
+#1507
+troll large bridge bridgetrolla~
+a large troll~
+A large troll stands here, guarding the bridge.
+~
+The small troll is a short and stocky beast with a human-like face
+but with the eyes and fangs of a wild beast.
+~
+1073741831 4194856 -900 C
+20 12 3 1d50+350 2d5+1
+200 2000
+8 8 1
+16 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 1312495 0 0 0 2 2
+> all_greet_prog 100~
+say Who goes there?
+mpechoat $n The troll says 'No one crosses my bridge without paying!
+mpechoat $n The fee is 500 in gold! Only by my death may you pass for free!
+mpechoat $n The troll pushes you backwards.
+~
+> bribe_prog 500~
+if isfight($n)
+say I am no fool! You now must pass over my dead body!
+else
+smile $n
+mpechoat $n You are wise not to try me in battle, for I would eat your corpse!
+mpechoaround $n $n leaves over the bridge to the west.
+mpschoaround $n The large troll tucks away his new gold.
+mpechoat $n The troll moves and you walk west across the bridge.
+mptransfer $n 1547
+mpjunk coins
+endif
+~
+|
+#1508
+mouse field~
+a field mouse~
+A small mouse runs across your foot.
+~
+The Mouse is a cute little creature.
+~
+5 0 0 C
+5 19 9 1d5+50 1d4+0
+0 100
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+77 3 0 0 512 513 0
+0 0 67117 0 0 0 0 2
+#1509
+rat small~
+a rat~
+A small rat shrieks and runs around.
+~
+The rat is a little evil creature that deserves death.
+~
+5 0 -200 C
+6 19 8 1d1+66 1d5+1
+0 200
+8 8 1
+18 13 13 13 13 13 13
+0 0 0 0 0
+77 3 0 0 512 513 1
+0 0 329349 0 0 8 0 2
+#1510
+rat large~
+a large rat~
+A large rat runs up to you and nibbles on your boots.
+~
+You have the urge to kill this vile creature.
+~
+5 0 -200 C
+8 17 6 1d1+88 1d8+0
+0 400
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+77 3 0 0 512 513 1
+0 0 329261 0 0 8 0 2
+#1511
+rat giant~
+a giant rat~
+A giant rat growls at you and prepares to attack.
+~
+This rat has grown up to be the size of an average dog.
+~
+37 0 -200 C
+10 15 4 1d1+111 1d8+1
+0 800
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+77 3 0 0 512 513 1
+0 0 263853 0 0 8 0 2
+#1512
+troll~
+the troll~
+A giant troll lumbers around.
+~
+You see before you a huge mass of living flesh.  You cringe in fear as
+he lifts his powerful arm to bludgeon you.
+~
+35 0 -800 C
+14 7 0 3d5+160 2d8+1
+100 10000
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 65 65 0
+0 0 1775 0 0 0 2 524290
+#1513
+bat black~
+a black bat~
+A black bat hangs from the ceiling.
+~
+The bat is a grotesque little creature with large wings and fangs.
+~
+33 4719144 -500 C
+5 16 5 3d4+70 1d8+0
+1 1000
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+23 3 0 0 513 513 0
+0 0 34349 0 0 0 0 2
+#1514
+gnome scientist traitor~
+the traitor~
+A gnome scientist wanders about the room, nervous at your intrusion.
+~
+This gnome won't meet your eyes at all. He is different from the rest found
+here, he is shifty and secretive. He moves across the room, seeming to stop
+always over the same place on the floor. 
+~
+3 4194856 -700 C
+12 14 3 4d12+110 1d8+3
+696 2300
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+38 3 0 0 1 1 0
+0 0 1775 2 0 0 64 2
+#1515
+bat fire~
+the fire bat~
+The fire bat flames brightly and prepares to attack.
+~
+You see a huge flame which resembles the shape of a bat.  The creature
+hangs from the ceiling and bites at you.
+~
+37 8 -900 C
+12 9 2 1d10+60 3d5+0
+6000 6000
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 0 0 0 0 64 2
+#1516
+guard hobgoblin~
+the hobgoblin guard~
+The hobgoblin guard attacks first, thinks later.
+~
+This is an extra large, extra ugly goblin like creature.  He grins evilly
+as he attempts to brain you.
+~
+35 4194856 -700 C
+10 15 4 2d15+100 1d8+1
+75 1000
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+43 3 0 0 16384 16385 1
+0 0 1775 0 0 0 64 524290
+> rand_prog 5~
+get fungus helmet
+mpecho The hobgoblin munches on a nasty looking piece of fungus.
+put fungus helmet
+~
+|
+#1517
+soldier hobgoblin~
+the hobgoblin soldier~
+A hobgoblin soldier stands here.
+~
+This is just a low life hobgoblin, who couldn't make it to the ranks
+of the elite guards.  He looks pissed.
+~
+35 4194856 -600 C
+7 18 7 1d7+70 1d7+0
+50 300
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+43 3 0 0 16384 16385 1
+0 0 1775 0 0 0 64 524290
+> rand_prog 2~
+grunt
+~
+> rand_prog 1~
+drool
+~
+|
+#1518
+bodyguard hobgoblin guard~
+the hobgoblin bodyguard~
+A hobgoblin bodyguard guards the king with his life.
+~
+This is one of the elite hobgoblin guards.  He stands tall for his short
+stature.  He grins a toothy grin as he prepares to attack.
+~
+3 4194856 -500 C
+10 14 4 2d15+105 1d7+2
+100 2000
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+43 3 0 0 1 1 1
+0 0 1775 0 0 0 64 3
+#1519
+king hobgoblin~
+the king of the hobgoblins~
+There is a great king here, sitting in his throne.
+~
+The king is a silly looking hobgoblin whose muscles bulge out of his robes,
+destroying the sophisticated effect he was trying to create.
+~
+3 4194856 -500 C
+18 9 2 5d20+150 2d7+1
+500 6000
+6 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+43 3 0 0 16385 16385 2
+0 0 1775 0 0 0 1073741888 524291
+#1520
+miner hobgoblin~
+a hobgoblin miner~
+A hobgoblin miner stands here looking for gold.
+~
+The miner is totally covered in dust.
+~
+5 0 -400 C
+5 16 5 1d12+60 1d8+0
+700 500
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+43 3 0 0 16384 16384 1
+0 0 1773 0 0 0 64 2
+> rand_prog 5~
+grumble
+~
+> rand_prog 2~
+curse
+~
+|
+#1521
+treasurer hobgoblin tt~
+the treasurer~
+A treasurer is here counting out money.
+~
+The hobgoblin treasurer is an old goblin with glasses.  It appears that he
+can only see a couple feet in front of him.
+~
+7 4194856 -200 C
+13 11 2 3d15+115 2d6+1
+5000 2500
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 1775 0 0 0 2359296 2
+#1522
+prisoner gnome~
+a gnome prisoner~
+A gnome prisoner is here resting in the straw.
+~
+The prisoner is just barely alive.
+~
+7 4194856 1000 C
+6 17 8 5d3+50 2d3+1
+0 50
+5 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+38 3 0 0 1 1 1
+0 0 1775 0 0 0 0 0
+> rand_prog 2~
+sulk
+~
+|
+#1523
+prisoner human~
+a human prisoner~
+A human prisoner is here resting in the straw.
+~
+The prisoner is just barely alive.
+~
+7 0 100 C
+5 17 8 3d5+35 2d3+1
+0 50
+5 8 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 1
+0 0 1775 0 0 0 0 0
+> rand_prog 3~
+groan
+~
+|
+#1524
+man old hermit~
+the hermit~
+An old man wanders about this underground home.
+~
+This man is very old, and appears to love his solitude. This home
+though underground, is fairly well kept. The cluttered items are
+from years and years of collecting.
+~
+5 0 -10 C
+12 16 5 5d10+120 1d8+0
+2500 600
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 1
+0 0 263205 0 0 0 2 2
+#1526
+cook hobgoblin~
+the cook~
+A hobgoblin cook stands here, harvesting fungus.
+~
+This cook is a dirty and fat hobgoblin. She burps as and farts as she
+goes about her work.
+~
+3 4194856 -500 C
+15 14 4 150d1+1 1d7+1
+26 900
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+43 3 0 0 16384 16385 0
+0 0 1775 0 0 0 32 2
+> rand_prog 4~
+burp
+~
+> rand_prog 2~
+fart
+~
+|
+#1527
+gnome guard~
+a gnome guard~
+A particularly mean looking gnome guards the path north.
+~
+This is a well trained gnome.  He might not have a lot of strength but
+he makes up for it with his weapons skill.
+~
+3 0 500 C
+13 13 3 2d6+120 3d3+2
+1500 2000
+8 8 1
+18 13 13 13 13 13 13
+0 0 0 0 0
+38 3 0 0 1 1 1
+0 0 1775 0 0 0 64 524290
+> death_prog 100~
+if level($n) == 50
+  mpecho The savagery of the attack leaves the guard's inventory in scraps.
+  mpjunk all.fizz
+endif
+~
+|
+#1528
+tester mobbie~
+a newly created tester mobbie~
+Some god abandoned a newly created tester mobbie here.
+~
+~
+1073741825 0 0 S
+1 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+> speech_prog xxxxx~
+n
+s
+~
+|
+#1529
+canary cc~
+a canary~
+A bright yellow canary rests upon her perch here.
+~
+This bright yellow canary looks quite at home here. Obviously the pet
+of the person who lives here, it is well cared for.
+~
+3 0 0 C
+5 0 0 1d1+40 1d1+2
+0 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 0 0 0 0 0 2
+#1530
+gnome receptionist woman~
+the receptionist~
+A gnome woman is here, busy filing notes.
+~
+This woman merely looks up at your intrusion, and then returns to her
+filing. She is about the oldest female Gnome you have yet run across, 
+perhaps the wife of the Chief.
+~
+3 4194856 500 C
+13 14 4 3d13+130 1d13+0
+1000 1300
+8 8 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+38 3 0 0 400641 400641 1
+0 0 1775 2 0 0 64 2
+> rand_prog 4~
+say Filing, filing, and more filing. Must they keep notes on everything?
+mpecho You hear the parchments crumple as the reception continues to file.
+~
+> rand_prog 8~
+grumble
+say I shall never keep up with this paperwork.
+~
+|
+#1531
+gnome assistant~
+an assistant~
+An assistant scientist is here, juggling beakers and vials.
+~
+This is a well trained gnome.  He might not have a lot of strength but
+he makes up for it with his scientific skills.
+~
+1 0 500 C
+10 13 3 5d5+90 1d7+2
+100 2000
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+38 3 0 0 400641 400641 1
+0 0 1775 2 0 1 64 2
+> rand_prog 3~
+whistle
+~
+> rand_prog 3~
+smile
+~
+|
+#1532
+scientist gnome~
+a gnome scientist~
+A scientist wanders around deep in thought.
+~
+You see a gnome who is lost deep into some invention that he is about
+to make.  His hair is white, but he looks fairly strong.
+~
+1 4194856 500 C
+12 14 4 5d10+100 1d8+3
+1000 1300
+8 8 1
+18 13 13 13 13 13 13
+0 0 0 0 0
+38 3 0 0 400641 400641 1
+0 0 1775 0 0 0 64 2
+> rand_prog 3~
+emote scratches his head in deep thought.
+say Ah yes, that has to be it.
+~
+|
+#1533
+child gnome~
+a gnome child~
+A gnome child is here, tossing around a toy boomerang.
+~
+This little tyke looks so innocent, playing here with his toys. You
+almost want to join in the play.
+~
+5 4194856 600 C
+8 18 7 3d7+80 1d6+2
+300 400
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+38 3 0 0 400945 400945 1
+0 0 1709 0 0 9 64 2
+#1534
+teacher woman gnome~
+the teacher~
+An old gnome woman stands here, teaching the class.
+~
+The woman is short and gnarled, and she looks ancient! She is busy teaching
+the children about physics it appears.
+~
+3 4194856 600 C
+10 16 5 5d10+100 1d8+0
+500 700
+8 8 2
+18 13 13 13 13 13 13
+0 0 0 0 0
+38 3 0 0 400945 400945 1
+0 0 1775 2 0 0 64 2
+> rand_prog 3~
+snap
+~
+> rand_prog 2~
+say Even at your young age, you should be planning future creations.
+~
+|
+#1535
+teacher man gnome~
+the teacher~
+This teacher commands attention from his students merely by his presence.
+~
+This is a prime example of a gnome.  He looks short and weak, but at the
+same time an intelligent creature who could outsmart you.
+~
+1073741827 4194856 500 C
+6 15 4 1d12+100 1d8+1
+450 900
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+38 3 0 0 400945 400945 0
+0 0 0 2 0 0 64 2
+> rand_prog 5~
+emote points to a few items on a table.
+say To create is the goal of all our lives. To die creating is a blessing.
+~
+|
+#1536
+child gnome~
+a gnome child~
+A gnome child is here, tossing around a toy boomerang.
+~
+This little tyke looks so innocent, playing here with his toys. You
+almost want to join in the play.
+~
+5 4194856 600 C
+8 18 7 3d7+80 1d6+2
+300 400
+8 8 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+38 3 0 0 401009 401009 1
+0 0 1709 0 0 9 64 2
+> rand_prog 5~
+giggle
+~
+> rand_prog 2~
+wink $r
+~
+|
+#1537
+child gnome~
+a gnome child~
+A gnome child is here, skipping rocks.
+~
+This little tyke looks so innocent, playing here with his rocks. You
+almost want to join in the play.
+~
+1 0 500 C
+6 0 0 2d6+60 1d4+2
+0 0
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+38 3 0 0 401009 401009 0
+0 0 1775 0 0 1 64 2
+> rand_prog 5~
+smile $r
+~
+> rand_prog 2~
+bounce
+~
+|
+#1538
+woman gnome~
+a gnome woman~
+A gnome woman is standing here, trying to look beautiful.
+~
+The woman is short and gnarled, but acts like a woman several times her beauty.
+She's starting to look pretty attractive to you ...
+~
+1 0 600 C
+10 16 5 5d10+100 1d8+0
+500 700
+8 8 2
+18 13 13 13 13 13 13
+0 0 0 0 0
+38 3 0 0 401009 401009 1
+0 0 1775 2 0 0 64 2
+#1539
+patch darkness shadow~
+an infant shadow~
+A whispy, indistinct patch of darkness shifts amongst the shadows here.
+~
+This is a shadow, a baby one at that.  You have heard tales of
+their existence, but have never met a person who has seen one
+an lived.  This shadow is already almost the size of the room,
+it seems to move and mold around you.
+~
+3 4194856 0 C
+15 0 0 2d30+150 2d7+0
+0 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 0 0 0 0 2048 2
+> death_prog 100~
+mpecho Thank you $n, you have freed me from this prison.
+mpecho The shadow becomes clear, then is gone!
+mpgoto 199
+~
+> rand_prog 3~
+mpecho You feel an odd chill run down your spine.
+say One day my darkness will not be contained in this small room.
+~
+|
+#1545
+troll large bridge bridgetrolla~
+a large troll~
+A large troll stands here, guarding the bridge.
+~
+The small troll is a short and stocky beast with a human-like face
+but with the eyes and fangs of a wild beast.
+~
+7 4194856 -900 C
+20 12 3 1d50+350 5d3+4
+200 2000
+8 8 1
+16 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 1312495 0 3072 0 2 2
+> all_greet_prog 100~
+say Who goes there?
+mpechoat $n The troll says 'No one crosses my bridge without paying!
+mpechoat $n The fee is 500 in gold! Only by my death may you pass for free!
+mpechoat $n The troll pushes you backwards.
+~
+> fight_prog 100~
+if isnpc($n)
+ mer $n The troll sneers in contempt and takes a mighty swing.
+ mpdamage $n 30000
+endif
+~
+> bribe_prog 500~
+if isfight($n)
+say I am no fool! You now must pass over my dead body!
+else
+smile $n
+mpechoat $n You are wise not to try me in battle, for I would eat your corpse!
+mpecho The air ripples over the bridge, causing the missing section to appear.
+mpechoaround $n $n leaves over the bridge to the east.
+mpechoaround $n The large troll tucks away his new gold.
+mpechoat $n The troll moves and you walk east across the bridge.
+mpechoat $n The air ripples behind you, obscuring the bridge again.
+mpechoaround $n The air ripples behind $n, obscuring the bridge again.
+mptransfer $n 1547
+put coins basket
+endif
+~
+> death_prog 100~
+mpecho The troll falls to the ground, mortally hit.
+mpecho Gasping, he says, "This ends nothing. I will have final victory."
+mpecho With a shudder, the troll expires in death.
+mpoload 1546 1
+~
+|
+#1546
+troll large bridge bridgetrollb~
+a large troll~
+A large troll stands here, guarding the bridge.
+~
+The small troll is a short and stocky beast with a human-like face
+but with the eyes and fangs of a wild beast.
+~
+7 4194856 -900 C
+20 12 3 1d50+350 5d3+4
+200 2000
+8 8 1
+16 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 1312495 0 3072 0 2 2
+> all_greet_prog 100~
+say Who goes there?
+mpechoat $n The troll says 'No one crosses my bridge without paying!
+mpechoat $n The fee is 500 in gold! Only by my death may you pass for free!
+mpechoat $n The troll pushes you backwards.
+~
+> fight_prog 100~
+if isnpc($n)
+ mer $n The troll sneers in contempt and takes a mighty swing.
+ mpdamage $n 30000
+endif
+~
+> bribe_prog 500~
+if isfight($n)
+say I am no fool! You now must pass over my dead body!
+else
+smile $n
+mpechoat $n You are wise not to try me in battle, for I would eat your corpse!
+mpecho The air ripples over the bridge, causing the missing section to appear.
+mpechoaround $n $n leaves over the bridge to the west.
+mpechoat $n The troll moves and you walk west across the bridge.
+mpechoat $n The air ripples behind you, obscuring the bridge again.
+mpechoaround $n The air ripples behind $n, obscuring the bridge again.
+mptransfer $n 1546
+put coins basket
+endif
+~
+> death_prog 100~
+mpecho The troll falls to the ground, mortally hit.
+mpecho Gasping, he says, "This ends nothing. I will have final victory."
+mpecho With a shudder, the troll expires in death.
+mpoload 1547 1
+~
+|
+#1547
+snake adder~
+the adder~
+An adder snake slithers through the grass, hunting rodents for food.
+~
+This snake is about two feet long, a velvety black with shiny zigzag
+markings along its length. He appears to be watching your every move.
+~
+1 4194856 -400 C
+6 0 25 2d5+55 1d4+2
+0 0
+8 8 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 66561 0 0 0 64 2
+> fight_prog 33~
+mpechoat $n The snake strikes and bites you! Ouch that hurt.
+mpechoaround $n The snake bit $n, and it looked painful!
+mpdamage $n 3
+~
+|
+#1548
+guard hobgoblin~
+the hobgoblin guard~
+The hobgoblin guard attacks first, thinks later.
+~
+This is an extra large, extra ugly goblin like creature.  He grins evilly
+as he attempts to brain you.
+~
+35 4194856 -700 C
+10 15 4 2d15+100 1d8+1
+75 1000
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+43 3 0 0 399855 399854 0
+0 0 1775 0 0 0 0 524290
+> rand_prog 2~
+burp
+~
+> rand_prog 1~
+grope self
+~
+|
+#1549
+guard hobgoblin~
+the hobgoblin guard~
+The hobgoblin guard attacks first, thinks later.
+~
+This is an extra large, extra ugly goblin like creature.  He grins evilly
+as he attempts to brain you.
+~
+33 4194856 -700 C
+10 15 4 2d15+100 1d8+1
+75 1000
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+43 3 0 0 400031 400030 1
+0 0 1775 0 0 0 64 2
+#1550
+hobgoblin tinker~
+a tinker~
+A hobgoblin is here, tinkering on an odd invention.
+~
+You see a hobgoblin who is trying so hard to concentrate, so much as
+not to notice your intrusion. The projects here are far less complex
+than those the Gnomes were working on. Even though this is obviously
+a smarter specimen than the average hobgoblin, he really does not
+appear too intelligent.
+~
+3 4194856 -700 C
+12 14 4 5d10+100 1d8+3
+1000 1300
+8 8 1
+18 13 13 13 13 13 13
+0 0 0 0 0
+43 3 0 0 400031 400030 1
+0 0 1775 0 0 0 64 2
+> rand_prog 5~
+fart
+mpecho The tinker scratches a scab on his behind. 
+mpecho Examining his finger, he licks it clean and goes back to work.
+~
+|
+#1551
+miner hobgoblin~
+a hobgoblin miner~
+A hobgoblin miner walks around here, barely doing any actual work.
+~
+The miner is totally covered in dust.
+~
+7 0 -400 C
+5 16 5 1d12+60 1d8+0
+700 500
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+43 3 0 0 400031 400030 1
+0 0 1773 0 0 0 64 2
+#1552
+guard hobgoblin~
+the hobgoblin guard~
+The hobgoblin guard attacks first, thinks later.
+~
+This is an extra large, extra ugly goblin like creature.  He grins evilly
+as he attempts to brain you.
+~
+3 4194856 -700 C
+10 15 4 2d15+100 1d8+1
+75 1000
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+43 3 0 0 400031 400030 1
+0 0 1775 0 0 0 64 524290
+#1565
+new mob~
+a newly created new mob~
+Some god abandoned a newly created new mob here.
+~
+~
+1073741825 0 0 S
+1 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+#1566
+child gnome~
+a gnome child~
+A gnome child is here, deep in thought.
+~
+The little tyke looks so innocent sitting here studying. You almost want
+to pick him up and hug him.
+~
+3 4194856 600 C
+7 18 7 3d7+70 2d4+0
+300 400
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+38 3 0 0 400641 400641 1
+0 0 1709 0 0 9 64 2
+> rand_prog 3~
+nod teacher
+~
+|
+#1599
+aset spacer mob~
+a newly created new mob~
+Some god abandoned a newly created new mob here.
+~
+~
+1073741825 0 0 S
+1 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+#0
+
+
+#OBJECTS
+#1500
+key bloody~
+a bloody key~
+A bloody key is stuck to the floor.~
+~
+18 0 1
+2 0 0 0
+1 1000 100
+#1501
+key dirty~
+a dirty key~
+A dirty key lies here.~
+~
+18 0 1
+2 0 0 0
+1 1050 105
+#1502
+boomerang~
+a boomerang~
+A toy boomerang wants to be picked up.~
+~
+5 262144 8193
+0 2 4 7
+5 5 0
+#1503
+staff gnarled~
+a gnarled staff~
+A gnarled staff is here.~
+~
+5 0 8193
+0 1 9 7
+15 600 60
+#1504
+sword gnome~
+a gnome sword~
+A gnome sword catches your eye.~
+~
+5 0 8193
+0 3 3 3
+15 4000 400
+E
+gnome sword~
+This weapon was not made to withstand very many battles. It is more for
+show then to actually be drawn on a fight.
+~
+#1505
+shield studded~
+a studded shield~
+A studded wooden shield lies here.~
+~
+9 0 513
+4 0 0 0
+16 3000 300
+#1506
+potion bloody~
+a bloody potion~
+A bloody potion lies here.~
+~
+10 0 1
+15 15 15 39
+22 1500 150
+#1507
+cloak bloody~
+a bloody cloak~
+A bloody cloak lies in a corner.~
+~
+9 64 5
+4 0 0 0
+15 2000 200
+A
+17 -5
+A
+13 5
+A
+25 -1
+#1508
+ring bat~
+a bat ring~
+A ring in the shape of a bat lies here.~
+~
+9 64 3
+3 0 0 0
+2 2500 250
+A
+14 15
+#1509
+necklace bead~
+a bead necklace~
+A string of beads is here.~
+~
+9 0 5
+3 0 0 0
+8 4000 400
+A
+18 2
+#1510
+sword electrum~
+an electrum sword~
+An electrum sword lies here.~
+~
+5 65 8193
+0 4 3 3
+20 100000 10000
+#1511
+basket wicker~
+a wicker basket~
+A wicker basket sits here.~
+~
+15 0 16385
+150 0 -1 0
+5 45 4
+#1512
+peanuts~
+some peanuts~
+Some peanuts lie here.~
+~
+19 262144 1
+16 0 0 0
+9 25 2
+#1513
+grain~
+some grain~
+There is some grain here.~
+~
+19 0 1
+15 0 0 0
+8 22 2
+#1514
+skiff~
+a skiff~
+A small skiff is here.~
+~
+22 0 1
+0 0 0 0
+24 1500 150
+#1515
+boots gnome~
+a pair of gnome boots~
+You notice a pair of gnomish boots.~
+~
+9 0 65
+4 0 0 0
+12 12000 1200
+A
+14 40
+#1516
+coins~
+a pile of coins~
+A pile of coins.~
+~
+20 0 1
+1000 0 0 0
+1 1 0
+#1517
+coins~
+a pile of coins~
+A pile of coins.~
+~
+20 0 1
+5000 0 0 0
+1 1 0
+#1518
+coins~
+a pile of coins~
+A pile of coins.~
+~
+20 0 1
+100000 0 0 0
+1 1 0
+#1519
+shield stone~
+a stone shield~
+A stone slab lies here.~
+~
+9 0 513
+4 0 0 0
+35 9000 900
+A
+1 2
+#1520
+mail heavy banded~
+heavy banded mail~
+A large suit of heavy banded mail is here~
+~
+9 0 9
+6 0 0 0
+30 35000 3500
+#1521
+club large~
+a large club~
+A large club sits here.~
+~
+5 0 8193
+0 4 3 7
+22 20000 2000
+#1522
+banana~
+a banana~
+There is a banana here.~
+~
+19 0 1
+6 0 0 0
+5 9 0
+#1523
+life potion~
+a potion of life healing~
+A potion of life healing has left here.~
+~
+10 129 1
+32 28 3 81
+1 1 0
+#1524
+lever~
+a lever inside the object~
+A small lever rests within the object along the wall.~
+~
+37 33554432 0
+0 0 0 0
+0 0 0
+E
+lever~
+This tiny lever seems to be made of some shiny red material. Slick
+to the touch, you have never seen anything quite like it.
+~
+> use_prog 100~
+mpecho As the lever is moved, a strange voice fills the room.
+mpecho "Working late again are we boss? You really should get more rest.
+mpecho I'll save you the walk again. Next time go home earlier."
+mpechoat $n You feel as if you were being pulled in every direction at once.
+mpecho A strange mist envelops the area about the object.
+mpechoat $n Everything fades from view, only to be replaced by another view.
+mpechoaround $n $n disappears from view within the mists.
+mpechoaround $n When the mist clears, only the object remains.
+mptransfer $n 1534
+mppurge lever
+mpoload 1524
+~
+|
+#1525
+object~
+object~
+A large, strange object hums quietly here.~
+~
+13 0 0
+0 0 0 0
+0 0 0
+E
+object~
+Looking like an ornate box with fluted tubes sticking out at odd angles,
+this quietly humming object is strange indeed. A small door is situated
+on the front panel, demanding further examination.
+~
+E
+door~
+Small gears and springs abound inside this object. A whirring and humming
+flows forth like waves off the ocean. As you check inside, your fingers 
+run over something. You can't seem to quite find it though. Some more
+careful searching would seem to be required if you want to solve this.
+~
+#1526
+Box~
+The box~
+A sturdy box rests securely on the ground here.~
+~
+15 0 0
+1 5 0 0
+0 0 0
+E
+box~
+Large and sturdy, this box is made of solid iron. Careful examination
+shows almost seemless joints. If not for the handle, the door would be
+impossible to find. Either designed to protect something valuable, or
+to protect others from something dangerous, this box is a wonder in
+strength and design.
+~
+#1527
+packet~
+an odd slick packet~
+An odd slick packet rests in a special cradle here.~
+~
+13 0 1
+0 0 0 0
+0 0 0
+E
+packet~
+Made of some shiny slick material, this dark colored object has been
+tightly sealed. Great care seems to have been taken to protect it.
+It rests comfortably in a specially designed clamp.
+~
+> get_prog 100~
+mpechoat $n You feel a sudden flash of heat flow through your hands.
+mpechoat $n You are knocked backwards by a small explosion.
+mpechoaround $n $n is knocked backwards by a small explosion.
+mpdamage $n 30
+mpechoat $n Gingerly, you put the packet back before it sets off again.
+mpechoaround $n $n gently returns the packet back, with a worried expression.
+mpforce $n put packet box
+mpforce $n close box
+~
+|
+#1528
+crack~
+a crack in the wall~
+A small crack in the wall has been found here.~
+~
+15 33554432 0
+10 0 0 0
+0 0 0
+E
+crack~
+After careful searching, you find a small crack in the northern wall.
+Though natural seeming, it would appear someone has taken advantage of
+its presence.
+~
+#1529
+quill black light~
+a small quill~
+A small, oddly shaped black quill lies on the ground here.~
+~
+1 1025 16385
+0 0 7200 0
+1 0 0
+E
+quill~
+Made of some black crystaline material, this quill is oddly shaped indeed.
+No feathers are attached. The tip of the quill is not the standard sharp
+dipping tip. It is, instead, a sort of rounded off tube. The other end of
+the quill is a cut piece of clear crystal. The quill looks dry and unused.
+~
+A
+3 1
+A
+14 30
+A
+27 256
+> get_prog 100~
+mpechoat $n A small flash of light sparks forth as you touch the pen.
+mpechoaround $n A small flash of light sparks forth as $n touches the pen.
+~
+> use_prog 100~
+mpechoat $n You wince as the pen tip springs out pricking your hand.
+mpechoaround $n $n winces as the pen tip pricks $s hand.
+mpechoat $n A small amount of your blood is drawn up into the pen.
+mpechoat $n The pen lights with a spectral fire, fed by your blood.
+mpechoaround $n The pen lights with a spectral fire as blood courses inside.
+mpdamage $n 10
+~
+|
+#1530
+statue stone granite plaque~
+a stone plaque~
+A large gnome carved from granite stands here, holding a bronze plaque.~
+~
+12 0 0
+0 0 0 0
+0 0 0
+E
+granite~
+As you gaze upon this large piece of granite, you see a tall plaque
+of burnished bronze. Many names are inscribed upon it's surface.
+~
+E
+plaque~
+The bronze plaque stands several feet high and  wide. Every inch of its
+surface is covered with names.  The title at the top says, "Our fallen
+heroes".  Knowing a little of gnomish culture, you realize this is the
+list of those scientists who have died in experiments.  The highest
+honour a gnome can have is to die young while inventing something
+stupendous.
+~
+E
+stone gnome carved~
+As you gaze upon this large piece of granite, you see a tall plaque
+of burnished bronze. Many names are inscribed upon it's surface.
+~
+E
+statue~
+As you gaze upon this large piece of granite, you see a tall plaque
+of burnished bronze.  Many names are inscribed upon its surface.
+~
+#1531
+Oaken shelf shelves~
+a tall oak shelf~
+A tall oaken shelf stands here.~
+~
+15 0 0
+20 0 0 0
+0 0 0
+E
+shelf shelves~
+Hand made, from pieces of locally cut oak, these shelves show the
+pride and caring of a relatively gifted amateur.  Each piece has
+been hand carved, obviously using whatever tools the owner had on
+hand.  No matter the tools used, the effort has resulted in a
+beautiful piece of work.
+~
+#1532
+battered vellum scroll~
+a battered scroll~
+A weathered vellum scroll rests here.~
+~
+2 0 1
+25 59 3 34
+0 0 0
+E
+scroll~
+This battered length of vellum has a faded, arcane script upon it.
+Examining the script is difficult, but you can make out the following:
+This will recant all magiks upon thee, replacing it with the blessings
+and protections of thy Gods.
+~
+> get_prog 100~
+mpechoat $n A spectral voice echoes in your mind.
+mpechoat $n "If you choose to keep me, take note:
+mpechoat $n I am for your use only. Do not recite this upon another.
+mpechoat $n The results will be unpredictable, and may gain the
+mpechoat $n unwanted attention of the Immortals."
+~
+|
+#1533
+fungus glob~
+an odd fungus~
+A glob of strangely glowing fungus pulses on the ground.~
+$n pinch$q $s nose as $e gag$q down this fuzzy fungoid lump.~
+19 0 1
+5 0 0 0
+3 0 0
+> sac_prog 75~
+mpecho A layer of scum is left on the floor where the fungus had lain.
+mpecho As you watch, the scum flows together, reforming into a lozenge.
+mpoload 1534
+mpat $n drop losenge
+~
+|
+#1534
+fungoid losenge~
+a fungoid losenge~
+A slimy little losenge sticks to the floor here.~
+$n hold$q back a gag as $e slip$q the losenge down $s throat~
+26 0 1
+20 77 205 208
+5 550 55
+#1535
+sword electrum~
+an electrum sword~
+An electrum sword lies here.~
+~
+5 65 8193
+0 4 3 3
+20 100000 10000
+A
+12 25
+A
+13 15
+A
+18 3
+#1536
+reading glasses~
+a pair of reading glasses~
+A pair of wire rimmed glasses lie here, complete with thick lenses~
+~
+9 524353 131073
+6 9 0 0
+4 0 0
+A
+4 1
+A
+3 2
+#1537
+beaker glowing liquid~
+a glowing beaker of liquid~
+A beaker full of a glowing liquid sits here, brewing and boilding.~
+~
+10 65 1
+20 3 15 81
+0 0 0
+#1538
+grey ratty labcoat~
+a ratty grey labcoat~
+A pile of ratty grey material lies here in a heap.~
+~
+9 0 1025
+2 4 0 0
+3 1200 120
+A
+2 1
+A
+3 1
+#1539
+round flat stone rock~
+a rounded, flat stone~
+A oddly glowing rock lies here.~
+~
+3 65 16385
+15 1 1 66
+5 300 30
+#1540
+apron plaid cotton~
+a plaid cotton apron~
+An old pile of plaid cotton lies here, dotted with stains.~
+~
+9 0 2049
+1 3 0 0
+3 0 0
+E
+apron~
+This apron is not warn for fashion. There are several large stains
+mingled with the green and blue plaid.
+~
+A
+1 1
+#1541
+handkerchief cotton~
+a plaid cotton handkerchief~
+A cotton handkerchief lays here, crumpled in a ball.~
+~
+9 0 17
+2 2 0 0
+1 100 10
+E
+cotton handkerchief~
+This handkerchief is very beautiful, made of a fine cotton weave. The
+blue and green plaid compliments your coloring.
+~
+A
+25 1
+#1542
+vial fizz~
+a vial of fizz~
+A fizzing vial was left here.~
+~
+10 0 1
+15 15 15 39
+22 1500 150
+#1543
+cloak plaid cotton~
+a tattered plaid cloak~
+A frayed cotton plaid cloak lies here in a heap.~
+~
+9 64 5
+4 0 0 0
+15 2000 200
+A
+17 -5
+A
+13 5
+A
+25 -1
+#1544
+fur robe~
+a patchwork fur robe~
+An odd pile of bits of fur resembling a robe lies here in disarray.~
+~
+9 8421969 1025
+2 4 0 0
+8 15000 1500
+E
+fur robe~
+This robe will serve you well, unless a vampire or thief.  The smell of
+it would drive a vampire mad and would cause a thief to be detected.
+~
+A
+13 10
+A
+12 10
+A
+18 1
+A
+19 1
+#1545
+sceptre~
+a gnarled sceptre~
+A huge gnarled sceptre encrusted with shards of raw crystal rests here.~
+~
+5 84 8193
+0 0 0 8
+7 14200 1420
+E
+sceptre~
+This sceptre looks like an enlarged spiked mace blending with a club.
+The crystal shards piercing from the end look sharp and dangerous.
+~
+A
+19 3
+A
+18 3
+A
+2 1
+#1546
+disk~
+A golden disk~
+A dusky golden disk rests on the ground here.~
+~
+13 0 1
+0 0 0 0
+1 500 50
+E
+disk~
+Made of some soft golden material, this is a strange object indeed.  Odd
+runes and arcane symbols swirl about the surface in a hypnotic pattern.
+As you look upon it, a strange impression comes upon your mind.
+~
+> get_prog 100~
+if inroom($n) == 1546
+ if ispc($n)
+  mpforce $n look disk
+  mea $n A spectral voice fills your mind.
+  mea $n "You have defeated my master, winning free passage.
+  mea $n However, be warned. He is not gone forever.
+  mea $n When next you come this way, you will face his challenge again."
+  mpe The air ripples over the bridge, causing the missing section to appear.
+  mea $n A strange force pushes you across the bridge.
+  mer $n A strange force pushes you across the bridge.
+  mpe The air ripples over the bridge obscuring things again.
+  mea $n The disk glows red hot, causing you to drop it from your fingers.
+  mptransfer all 1547
+  mpat 1547 mpforce $n drop disk
+  mpe The disk crumbles to dust on the ground.
+  mpat 1547 mppurge disk
+ else
+  mpforce $n drop disk
+  mpe The disk crumbles to dust on the ground.
+  mppurge disk
+ endif
+endif
+~
+|
+#1547
+disk~
+A golden disk~
+A dusky golden disk rests on the ground here.~
+~
+13 0 1
+0 0 0 0
+1 500 50
+E
+disk~
+Made of some soft golden material, this is a strange object indeed.  Odd
+runes and arcane symbols swirl about the surface in a hypnotic pattern.
+As you look upon it, a strange impression comes upon your mind.
+ 
+~
+> get_prog 100~
+if inroom($n) == 1547
+ if ispc($n)
+  mpforce $n look disk
+  mea $n A spectral voice fills your mind.
+  mea $n "You have defeated my master, winning free passage.
+  mea $n However, be warned. He is not gone forever.
+  mea $n When next you come this way, you will face his challenge again."
+  mpe The air ripples over the bridge, causing the missing section to appear.
+  mea $n A strange force pushes you across the bridge.
+  mer $n A strange force pushes you across the bridge.
+  mpe The air ripples over the bridge obscuring things again.
+  mea $n The disk glows red hot, causing you to drop it from your fingers.
+  mptransfer all 1546
+  mpat 1546 mpforce $n drop disk
+  mpe The disk crumbles to dust on the ground.
+  mpat 1546 mppurge disk
+ else
+  mpforce $n drop disk
+  mpe The disk crumbles to dust on the ground.
+  mppurge disk
+ endif
+endif
+~
+|
+#1548
+helmet~
+a grime covered helmet~
+This is a grime covered helmet, dented and battered.~
+~
+15 0 17
+20 0 0 0
+4 1234 123
+A
+17 -7
+A
+25 -1
+A
+31 2
+#1550
+aset spacer object~
+a newly created aset spacer object~
+Some god dropped a newly created aset spacer object here.~
+~
+13 1073741824 0
+0 0 0 0
+0 0 0
+#1573
+foul spring pool~
+a foul spring and pool~
+A foul smelling spring trickles down to a small pool here.~
+~
+25 0 0
+0 0 0 1
+0 0 0
+E
+spring~
+A small crack in the wall of the cave has let a stream of water 
+trickle in to fall to the cave floor. Foul smelling, it has the
+look of something that has been influenced by the evil about it.
+~
+E
+foul~
+A small crack in the wall of the cave has let a stream of water
+trickle in to fall to the cave floor. Foul smelling, it has the
+look of something that has been influenced by the evil about it.
+~
+E
+pool~
+Small in size, this pool is murky and fetid. You wonder how
+anyone could possibly want to drink from this. However, as 
+this seems to be the only source of water for the hobgoblins,
+they obviously have no compunctions about drinking the water.
+~
+> use_prog 100~
+if isnpc($n)
+  mpecho $n gags and coughs as $e stumbles screaming from the spring!
+  mppurge $n
+else
+  mpechoat $n The water flows like a glob of putrid slime down your throat.
+  mpechoat $n Gagging and coughing, you wonder if that was really smart.
+  mpechoaround $n $n gags and coughs as $e stumbles away from the spring.
+  mpdamage $n 10
+  mpechoat $n You wince as the water falls like a lead ball into your stomach.
+  mpechoaround $n $n winces in pain and turns a little green around the gills.
+endif
+~
+|
+#1597
+mining shovel~
+a dirty shovel~
+A dirty mining shovel has been left here on the ground.~
+~
+59 0 16385
+0 0 0 0
+5 1200 120
+E
+shovel~
+This shovel looks like it would be good for mining and digging.
+~
+A
+5 1
+#1598
+sign signpost~
+a signpost~
+A strange glowing sign is imbedded in the earth by the roadside.~
+~
+12 0 0
+0 0 0 0
+0 0 0
+E
+sign~
+Ages ago, in a far off place, there existed a great nation of gnomes.
+Builders, tinkers, scientists, they created great and wondrous things.
+With their inventive minds and quirky sense of humor, they made their
+lands into a marvel of sight and delight.  Travellers, coming to this
+land would, oft-times be baffled by the odd and sometimes mysterious
+inventions that abounded.
+ 
+During their expansions, the gnomes at one time came upon a tribe of
+hobgoblins.  Slovenly and somewhat dull, the hobgoblins still somehow
+won the hearts of the gnomes.  Taking them in, the gnomes began trying
+to better the lot of the hobgoblins by teaching them the many ways of
+building and invention.  The hobgoblins took a great interest in these
+things and strove to make the skills their own.  Cunning and sneaky
+though they are, the hobgoblins nonetheless lacked the intelligence to
+truly grasp the finer points of what the gnomes were teaching.
+ 
+Finally, one day, the hobgoblins came to decide that the gnomes must
+be hiding some vital knowledge from them - that the gnomes just wanted
+control over them.  This they could understand, it being their nature
+to understand things from this point of view.  They rebelled.  Taking
+up arms, they attacked and tried to overthrow their benefactors.  The
+resulting war shattered the gnome nation, driving pockets of gnomes
+to the far reaches of the realms.
+(A glowing line appears here, stating "LOOK sign2" for further details)
+~
+E
+sign2~
+To the east is a small gnome village.  A fragment of the once great
+nation of gnomes.  Quiet and peaceful, they have made their home here
+in an attempt to find rest at last.  However, a recent development has
+shattered that dream.  An advance group of hobgoblins has set up camp
+in the caves further to the east.  They are extending the system of
+caves there to make space for the rest of their tribe, which is
+still some months away.
+ 
+Contact has only recently been made between the hobgoblins and the
+gnomes here.  An unsteady peace currently exists, but may end at any
+moment.  Several gnomes have already gone missing.
+ 
+Explore here cautiously, there are many things to discover.  Remember
+to use the LOOK comand often.  You never know what you may find.
+ 
+This area is designed for levels 5 through 20 approximately.
+ 
+Written by:
+ 
+Witherin Seccunda-DethBlayde, the Badger
+Brittany Seccunda-DethBlayde, Godmother of the Realms
+~
+#1599
+aset spacer object~
+a newly created aset spacer object~
+Some god dropped a newly created aset spacer object here.~
+~
+13 1073741824 0
+0 0 0 0
+0 0 0
+#0
+
+
+#ROOMS
+#1500
+The chief guard~
+Large slabs of granite have been haphazardly assembled into a huge desk
+of sorts.  Several pieces of rusted weaponry occupy places of honour 
+behind the desk.  A large, thick slab of granite forms a door to the north.
+~
+0 0 13
+D0
+The king's chamber
+~
+Door granite~
+3 -1 1576
+D2
+A guard room
+~
+~
+0 -1 1575
+S
+#1501
+A bend in the trail~
+The trail widens here, becoming more a roadway than a mere simple
+path. Signs of civilization begin to assail your senses.  The road
+continues to the east, while the path fades into the trees off to
+the north.
+~
+0 4 3
+D1
+The path continues
+~
+~
+0 -1 1502
+D7
+The trail meanders off into the forest...
+~
+~
+0 -1 3588
+E
+signature~
+The area to the east is populated with two distinct groups.
+Gnomes, who are tinkerers, scientists, cheerful, meticulous,
+and good natured, occupy the village just to the east. The
+Hobgoblins, who are sneaky, coniving, envious, slovenly, and
+have an evil temperment, have been mining and extending their
+influence within caves further to the east. A long standing
+rivalry has existed between these two societies. To date, it
+remains unresolved.
+ 
+The level range for this area is from level 5 to approximately
+level 20. Use caution and care when exploring. Make use of the
+LOOK command to find many hidden details of these two groups.
+ 
+Area rewritten by:
+Witherin Seccunda-DethBlayde, the Badger
+Brittany Seccunda-DethBlayde, Godmother of the Realms
+Rewrite Completed: Tuesday May 7, 1996
+~
+S
+#1502
+A distant sound~
+It is so quiet and peaceful here that you find it difficult to resist
+the urge to just sit back against a tree and relax for a while. The
+only sound that breaks the peace is a soft hint of metal upon metal.
+The pathway splits here. Continuing east and west, with a trail leading
+off to the north.
+~
+0 4 3
+D0
+Another pathway
+~
+~
+0 -1 1503
+D1
+A forest pathway
+~
+~
+0 -1 1520
+D3
+A bend in the trail
+~
+~
+0 -1 1501
+S
+#1503
+Breaks in the trees~
+The pathway continues to the north and south. Breaks in the trees to
+the east and west show buildings of an odd design. Large and squat, 
+they seem quite sturdily built. Low in height, their creators must not
+be altogether too tall.
+~
+0 0 3
+D0
+The trail continues
+~
+~
+0 -1 1510
+D1
+A squat building
+~
+~
+0 -1 1506
+D2
+Connecting to another pathway
+~
+~
+0 -1 1502
+D3
+A squat building
+~
+~
+0 -1 1505
+S
+#1504
+Storage~
+Tiny and overflowing, this room contains oddments of every sort and stripe.
+Small, carefully labelled boxes line the walls.  One set of shelves is
+dedicated to loose items.  Each one is carefully tagged.
+~
+0 8 0
+D1
+The lab
+~
+~
+0 -1 1505
+E
+items~
+Much of what you see here is difficult, if not impossible to
+identify. Being able to read the labels does not help matters. One
+particularly strange item has the tag of:  Bodntronic socket whittle.
+~
+E
+loose~
+Much of what you see here is difficult, if not impossible to
+identify. Being able to read the labels does not help matters. One
+particularly strange item has the tag of:  Bodntronic socket whittle.
+~
+E
+boxes~
+Meticulous in the extreme, whoever is in charge of this room has
+taken great care to miss nothing. As you scan through the items, 
+you open up a box of nails. Not only is the box labelled, but each and
+every nail has it's own tiny tag stating simply: Nail, quantity = 1.
+~
+S
+#1505
+A small lab~
+The moment you walk through this door, your ears are assaulted with a
+cacophony of sound. Hundreds of small devices litter the tables around
+the lab. Ticking, clicking, scraping, scrunching, you wonder how anyone
+can possibly get any work done in such a racket.
+~
+0 8 0
+D1
+A quiet trail
+~
+~
+0 -1 1503
+D3
+A storage room
+~
+~
+0 -1 1504
+S
+#1506
+A small lab~
+As you walk through the doors, an unnatural quiet envelops you. The
+sounds outside disappear as suddenly as if a knife had cut through them.
+As your ears adjust to the quiet, you begin to realize that it's not
+totally silent. A low, almost inaudible hum permeates the room. As
+you focus on it, you see it comes from a strange object set along
+the south wall.
+~
+0 8 0
+D1
+A storage room
+~
+~
+0 -1 1507
+D3
+A quiet trail
+~
+~
+0 -1 1503
+S
+#1507
+Gears galore~
+This storage room is chock full of every gear and spring imaginable.
+Racks and racks of them. From the teak to oak, from brass to gold, 
+they seem to be made of a myriad of materials. Each and every one
+has been carefully labelled and placed.
+~
+0 8 0
+D3
+The lab
+~
+~
+0 -1 1506
+S
+#1508
+Careful storage~
+A blast, like a wall of air washes over you as you enter this room. Crisp
+and somewhat sterile, it is a welcome relief from the smells that assailed
+you in the other room. Hundreds of tiny white boxes line the shelves here,
+each one meticulously labeled.
+~
+0 8 0
+D1
+A aweful smell
+~
+~
+0 -1 1509
+S
+#1509
+Bubbling beakers~
+The smell in this place is awful, so much so that you can almost feel
+your hair curling up on  end. Beakers and decanters bubble and steam.
+One table is covered with small dishes, each containing a different
+mix of multicolored powder.
+~
+0 8 0
+D1
+~
+~
+0 -1 1510
+D3
+Careful storage
+~
+~
+0 -1 1508
+S
+#1510
+End of the path~
+You've reached the end of the path. Through breaks in the trees, you 
+can see three buildings. To the east and west are more of the squat
+buildings that you noticed earlier. To the north however, there is
+a much nicer building. Smaller than the others, it is grander in 
+design.
+~
+0 0 3
+D0
+A bright building
+~
+~
+0 -1 1513
+D1
+A squat building
+~
+~
+0 -1 1511
+D2
+The path continues
+~
+~
+0 -1 1503
+D3
+A squat building
+~
+~
+0 -1 1509
+S
+#1511
+A strange garden~
+This building seems to be an odd mix of indoor garden and mechanical
+laboratory. Rows of hanging plants are being constantly looked over,
+primped, and fed, by strange pieces of machinery. Little floating
+balls hover and float along the pathways. Their tiny arms extending,
+tweeking, and hiding away again. You find you have to keep your head
+low, lest you run afoul of the strange objects.
+~
+0 8 0
+D1
+The storage room
+~
+~
+0 -1 1512
+D3
+The path begins
+~
+~
+0 -1 1510
+S
+#1512
+Cluttered storage~
+The best way to describe this room is organized chaos. Things are stacked
+everywhere. Pots are stacked on top of boxes of metal casings. Pouches of
+soil are laid alongside intricate tools of the finest workmanship. The
+clutter comes from a lack of space, rather than a general disorderly
+nature. You can gather this by the fact that everything has a label, and
+that while cluttered, all items seem to have been placed with care.
+~
+0 8 0
+D3
+A garden lab
+~
+~
+0 -1 1511
+S
+#1513
+A large office~
+Obviously the office of the chief Gnome, it is well appointed in 
+elegant, if tiny, furniture. Several large paintings adorn the walls.
+One table along the western wall holds several odd objects. The floor 
+is done in a complex parquet pattern.
+~
+0 8 0
+D0
+The chief's lab
+~
+~
+0 -1 1514
+D2
+The path begins
+~
+~
+0 -1 1510
+D5
+A dank, dark place
+~
+trapdoor trap~
+2055 1501 1515
+E
+paintings~
+The paintings show displays of strange and fantastical inventions. One in
+particular shows a metal ball flying over the tip of a mountain, barely
+clearing it. Beside the painting is a schematic showing the interior of 
+the ball, and the Gnome travellor gently wedged into the padding.
+~
+E
+objects~
+Tiny and intricate, these objects show an exquisite attention to 
+detail. One in particular looks like some mad spider with long 
+delicate legs that end in tiny blades. A schematic beside the spider
+shows a demonstration of it peeling an apple.
+~
+E
+floor~
+Done in a beautiful parquet pattern, the tiny blocks of wood form a
+convoluted pattern of swirls and whorls. They draw your eyes to them,
+pulling you in. There seems to be something strange about the design.
+Something that tugs at your mind.
+~
+E
+pattern~
+Done in a beautiful parquet pattern, the tiny blocks of wood form a
+convoluted pattern of swirls and whorls. They draw your eyes to them,
+pulling you in. There seems to be something strange about the design.
+Something that tugs at your mind.
+~
+E
+parquet~
+Done in a beautiful parquet pattern, the tiny blocks of wood form a
+convoluted pattern of swirls and whorls. They draw your eyes to them,
+pulling you in. There seems to be something strange about the design.
+Something that tugs at your mind.
+~
+E
+table~
+The table has several objects placed with care upon it. Tiny and
+intricate, these objects show an exquisite attention to detail.
+One in particular looks like some mad spider with long delicate
+legs that end in tiny blades. A schematic beside the spider shows
+a demonstration of it peeling an apple.
+~
+E
+painting~
+All these paintings show displays of strange and fantastical inventions.
+One in particular shows a metal ball flying over the tip of a mountain,
+barely clearing it. Beside the painting is a schematic showing the
+interior of the ball, and the Gnome travellor gently wedged into the
+padding.
+~
+S
+#1514
+The chief's lab~
+The room is divided into two distinct sections. One side has a large
+basin made of a solid piece of malachite. Resting in the basin is a
+convoluted construct of cut crystal.  Fully 30 feet in diameter, this
+object resembles a world shattered and remade. A tiny section of the 
+room has been set aside for a small table. 
+~
+0 8 0
+D2
+Back to the office
+~
+~
+0 -1 1513
+E
+construct~
+Smooth on the outside, the cracks and fissures running through its 
+depths show this to be a fragile object. While appearing to have been 
+dropped from some great height and then carefully reconstructed, a
+closer examination tells a different tale. Each piece seems to have
+been specifically constructed to its shape. Baffled, you have no idea
+what this things function might be.
+~
+E
+crystal~
+Smooth on the outside, the cracks and fissures running through its
+depths show this to be a fragile object. While appearing to have been
+dropped from some great height and then carefully reconstructed, a
+closer examination tells a different tale. Each piece seems to have
+been specifically constructed to its shape. Baffled, you have no idea
+what this things function might be.
+~
+E
+table~
+Tiny tools of the most exquisite detail are carefully arrayed on the
+table. A small box of ebony rests upon the table, open to your view.
+Inside, you can see miniscule figurines of exacting detail. As you
+reach out to pick one up, a sharp shock tingles your finger tips. Some
+protective field prevents you from touching anything on the table.
+~
+S
+#1515
+A dank cellar~
+You find yourself in a dark, dank cellar.  The wooden walls here show
+signs of rot along the edges.  Traces of spider webs tangle in the
+corners of the ceiling.  Either this room see little traffic, or the
+gnomes have less concern for such places than they do for their labs.
+~
+0 8 0
+D0
+~
+wall~
+1035 -1 1519
+D1
+A secure lab
+~
+~
+0 -1 1516
+D2
+A secure lab
+~
+~
+0 -1 1517
+D3
+A secure lab
+~
+~
+0 -1 1518
+D4
+An ornate office
+~
+trapdoor trap~
+3 -1 1513
+E
+wall~
+You see a crack in the wall here, almost as if it will open to your touch.
+~
+E
+walls~
+On all sides are doors save north, this is a sturdy looking wall. You can
+see scrappings on the floor, like maybe the wall moves.
+~
+S
+#1516
+A dark, cold lab~
+For some reason, light has difficulty penetrating this room. It is 
+more than the mere fact of dark walls and no light source. Something
+in the very air seems to draw and pull at the light. As you move
+through the room. you notice small tables with tiny, intricate tools
+upon them. One table has a small, brightly glowing disk upon it.
+~
+0 8 0
+D3
+The cellar entrance
+~
+~
+0 -1 1515
+E
+disk~
+As you move towards the disk to examine it further, the disk seems
+to darken for an instant. With a sudden buzzing in the air, the disk
+flares in a brilliant flash of light. Wincing in pain, you attempt
+to pick up the object. The heat as it touches your skin though, causes
+you to quickly drop it and move back.
+~
+S
+#1517
+A brightly lit lab~
+Clean and stark, this room has a cold, sterile feel to it.  The walls are
+of a light, grey granite, with a brushed metal floor.  A large, bare metal
+table occupies the southern wall.  An alcove inset into the eastern wall 
+contains a glass enclosed object.
+~
+0 8 0
+D0
+Back to the darkness of the main cellar
+~
+~
+0 -1 1515
+E
+stream~
+The stream is pretty small, but it looks too cold to swim.
+~
+E
+glass~
+As you peer inside the glass enclosure, you see a small, roughly oval
+shaped object. Made of many materials, and done in intricate detail, 
+this is an amazing construct. Somehow, it reminds you of something.
+As you look at it once again, you realize what it is. It is some kind
+of mechanical model of a heart. Amazing. You wonder why it is so
+carefully protected.
+~
+E
+object~
+As you peer inside the glass enclosure, you see a small, roughly oval
+shaped object. Made of many materials, and done in intricate detail,
+this is an amazing construct. Somehow, it reminds you of something.
+As you look at it once again, you realize what it is. It is some kind
+of mechanical model of a heart. Amazing. You wonder why it is so
+carefully protected.
+~
+S
+#1518
+A large, private lab~
+Although meticulously cleaned, the walls of this room have seen much abuse.
+Cracks and fissures, scarring and charring, all show the signs of violence
+done in great measure.  Faint traces of some magical powder can be seen
+imbedded into the face of the walls.
+~
+0 8 0
+D1
+A dank cellar
+~
+~
+0 -1 1515
+D2
+~
+~
+2099211 -1 1515
+E
+powder~
+Dusty traces of some faint red powder can been seen on the walls. 
+Closer inspection shows that the powder has been imbedded into the 
+wall face, as if it struck the wall with incredible force. There is
+a dim magical glow emanating from the powder.
+~
+S
+#1519
+A secret lab~
+This room is small and somewhat musty.  While living up to the usual Gnomish
+standard of a clean lab, this place still has the air of disuse.  As you gaze
+about you, you wonder if maybe they had forgotten its existance.  The tables
+are bare and clean.  Looking about you, a small glint of light catches your 
+eye.
+~
+0 8 0
+D2
+A dank cellar
+~
+wall~
+1035 -1 1515
+E
+light~
+As you look towards the light that caught your eye, it disappears.
+For some reason your eyes linger upon that part of the room. Patient
+waiting, however, does not cause the light to reappear. Mayhap this
+puzzle requires a more detailed search.
+~
+E
+glint~
+As you look towards the light that caught your eye, it disappears.
+For some reason your eyes linger upon that part of the room. Patient
+waiting, however, does not cause the light to reappear. Mayhap this
+puzzle requires a more detailed search.
+~
+> leave_prog 100~
+mppurge crack
+mpoload 1528
+mpoload 1529 6
+put quill crack
+~
+|
+S
+#1520
+Forest pathway~
+As you walk along the trail the forest wraps itself about you. The
+trees overhead relegating overhead light to thin beams. The sounds
+of the forest are all about you.
+~
+0 0 3
+D1
+A less travelled path
+~
+~
+0 -1 1537
+D2
+A thinning in the trees
+~
+~
+0 -1 1521
+D3
+A quiet pathway
+~
+~
+0 -1 1502
+S
+#1521
+A thinning in the trees~
+The trees thin out here and more buildings are beginning to pop up. It
+would appear that you are moving into a small village. Small buildings
+are visible to the east and west. The path continues to the north and 
+south.
+~
+0 0 3
+D0
+Deeper into the forest
+~
+~
+0 -1 1520
+D1
+A small building
+~
+~
+0 -1 1523
+D2
+The path opens up
+~
+~
+0 -1 1527
+D3
+A small building
+~
+~
+0 -1 1522
+S
+#1522
+A small classroom~
+This classroom is set up in an open style.  Small desks are set in a
+semicircle about the room.  Toys litter the floor like yesterday's
+castoffs.  A table at the far wall occupies a place of importance.
+Several puzzle toys rest upon this table.  Simple drawings of gears,
+levers and the like line the walls.
+~
+0 12 0
+D1
+A forest pathway
+~
+~
+0 -1 1521
+E
+table puzzles~
+There are several puzzles arrayed upon the table. They seem quite
+complex in detail. Looking at them, you marvel at their intricacy
+and complexity. 
+~
+E
+drawings~
+Simple in their aspect, these drawing nonetheless give one a 
+complete understanding of how each item works and what its 
+purpose may be.
+~
+E
+desks~
+The desks are simple affairs made of pine. Designed more as a chair
+with a writing surface attached, they are effective in their simplicity.
+~
+S
+#1523
+A large classroom~
+This classroom is much larger than the one across the path. Designed
+for the older children, much more space has been set aside for
+experiments, studies, and the histories. Huge tables contain myriad
+gears, joints, springs and such. A large painting along the eastern
+wall depicts a carving of a large gnome, resting in the center of town.
+~
+0 12 0
+D3
+A forest pathway
+~
+~
+0 -1 1521
+E
+gears joints springs~
+All of these items have a larger than life feel to them. Made of some
+resilient slick substance, they are colored in bright pastel tones.
+~
+E
+painting~
+The painting depicts the center of the village. A tall figure of a 
+gnome carved in granite. An image of a plaque can be seen at the base.
+~
+S
+#1524
+An austere abode~
+Everything here is crisp, clean and orderly.  So much so that it reaches
+the point of severity.  Not one thing is out of place.  Not one soft line.
+Whoever lives here is just too focused for their own good.
+~
+0 8 0
+D2
+On to the road
+~
+~
+0 -1 1526
+S
+#1525
+A draggle-tailed jumble~
+Littered with the detritus of a lifetime of collecting, you can hardly move
+as you look about this hut.  Definitely the home of a pack-rat extraordinaire,
+there seems to be at least one of each and every useless item you've ever run
+across in your life.
+~
+0 1073741832 0
+D1
+On to the road
+~
+~
+0 -1 1526
+S
+#1526
+A small cul-de-sac~
+The road ends here in a small cul-de-sac. Three small huts are found
+to the north, west, and south. Quaint in design, they look like they
+have seen a lot of use.
+~
+0 0 3
+D0
+A small hut
+~
+~
+0 -1 1524
+D1
+The road splits
+~
+~
+0 -1 1527
+D2
+A small hut
+~
+~
+0 -1 1530
+D3
+A small hut
+~
+~
+0 -1 1525
+S
+#1527
+The path widens~
+Everything is wide and open here. The path opens up to a true road,
+and splits to the west and south. A small hut can be seen off to
+the east. Several other buildings can be seen on in the distance
+along both splits in the road.
+~
+0 0 3
+D0
+The trail continues
+~
+~
+0 -1 1521
+D1
+A small hut
+~
+~
+0 -1 1528
+D2
+The road continues
+~
+~
+0 -1 1532
+D3
+The road continues
+~
+~
+0 -1 1526
+S
+#1528
+Pandemonium~
+Toys, clothes and baby bottles all litter the floor of this room.  Children
+in abundance must reside here.  Judging by the chaos present, the parents are
+having difficulty dealing with them.  Possibly their work is interfering.
+~
+0 8 0
+D3
+Back to the road
+~
+~
+0 -1 1527
+S
+#1529
+Workshop~
+More a workshop than a home, this gnome obviously prefers to stay at home
+to work than to work in the labs. Several tables line the walls of this
+large hut. A leather chair with small wheels attached to it rests near
+one table. Something odd strikes you about the physical make up of the
+room. Something in the way the furniture is arranged. You can't quite put
+your finger on it.
+~
+0 12 0
+D2
+On to the road
+~
+~
+0 -1 1533
+D5
+A shimmering portal beckons to you
+~
+trap floor trapdoor~
+3016715 -1 1585
+E
+floor~
+As you scan about the room, your eyes alight on the floor. Careful
+examination shows a thin outline in the floor. Almost as if there 
+were a hidden door of some kind.
+~
+E
+furniture~
+The furniture seems artfully placed to leave a space open near the 
+center of the room, without broadly pointing out that fact. Careful
+examination shows a thin outline in the floor. Almost as if there
+were a hidden door of some kind.
+~
+E
+chair~
+Fine leather has been further softened through a great deal of use.
+This chair has been set with wheels attached to give it the ability
+to move back and forth between the various tables.
+~
+> leave_prog 100~
+close floor
+~
+|
+S
+#1530
+Green thumb~
+Plants abound in this bright, airy home. More a structure of glass than
+a hut with windows, this home was built with plants in mind. The smell 
+of saffron mixes with that of other spices and flowers to produce a 
+heady blend. You could spend hours in here, just relaxing, and enjoying
+the feel of this place.
+~
+0 8 0
+D0
+On to the road
+~
+~
+0 -1 1526
+E
+spices~
+The spices are spread about the entire dwelling, intermixed with
+the flowers to give the room a nice balanced feel.
+~
+E
+flowers~
+The flowers are spread about the entire dwelling, intermixed with
+the spices to give the room a nice balanced feel.
+~
+S
+#1531
+An ill kept home~
+Barren and bereft of most furnishings, this place has the bare minimum
+one would need for basic comforts. The bed, the single chair, the almost
+empty shelves show a home that is either not in use, or is the home
+of a workaholic.
+~
+0 8 0
+D1
+Onto the road
+~
+~
+0 -1 1532
+E
+bed shelves chair~
+All the furnishings here are basic in the extreme and look to have
+little or no regular use.
+~
+S
+#1532
+A bend in the road~
+The road bends around a gentle curve, continuing to the east and 
+north. Two more huts can be seen to the south and west. The road looks
+to be well travelled. Several pot holes can be seen along sections of
+the roadway.
+~
+0 0 3
+D0
+A split in the road
+~
+~
+0 -1 1527
+D1
+A small cul-de-sac lies to the east.
+~
+~
+0 -1 1533
+D2
+To the south is a startling smell.  A small house stands in that direction.
+~
+~
+0 -1 1535
+D3
+To the west is a small, unkept home.
+~
+~
+0 -1 1531
+S
+#1533
+A small cul-de-sac~
+The road ends here in a small cul-de-sac. Three small huts are found
+to the north, east, and south. Quaint in design, they look like they
+have seen a lot of use.
+~
+0 0 3
+D0
+A small hut
+~
+~
+0 -1 1529
+D1
+A small hut
+~
+~
+0 -1 1534
+D2
+A small hut
+~
+~
+0 -1 1536
+D3
+A bend in the road
+~
+~
+0 -1 1532
+S
+#1534
+A well kept home~
+For a small hut, this place has remarkable class and quality in its
+furnishings. All betoken comfort and relaxation. Gazing about the room,
+you get the definite impression that the owner of this house takes as
+much effort in relaxing as he does in working.
+~
+0 8 0
+D3
+On to the road
+~
+~
+0 -1 1533
+S
+#1535
+A sloven hut~
+Half finished plates of food compete on an equal footing with patches of
+dust and the odd spider web. Everything about this place is unkempt.
+Whoever owns this home has no respect for their own abode. It makes you
+wonder if the inventions this gnome creates are any better cared for.
+~
+0 8 0
+D0
+Onto the road
+~
+~
+0 -1 1532
+S
+#1536
+Light and color~
+A sea of glass and crystal greet your eyes as you walk into this
+small hut. Carvings, lanterns, slats of stained glass, dinnerwear,
+all litter the room in a display of organized clutter. One table
+shows miniature gears, and even springs made of glass. You marvel
+at the talent that such a display represents.
+~
+0 8 0
+D0
+On to the road
+~
+~
+0 -1 1533
+E
+glass crystal~
+Almost everything in this room is made of glass or crystal. What is 
+not purely made of these substances, has accents and major portions
+of the two.
+~
+E
+carvings~
+The carvings run the range from sharp edged samples of cut crystal 
+to the soft smooth tones of colored glass. Focussed mainly on images
+of fantastic mythical creatures, the carvings run the gamut from
+pixies to dragons.
+~
+E
+lanterns stained~
+Much of the stained glass is displayed in lanterns, hanging from the
+ceiling, resting upon the tables, attached to the walls. Other examples
+are still unfinished, and lie about in neat stacks in and around the
+furnishings. The myriad colors shining forth from the lamps lend a
+sparkling rainbowed hue to the room.
+~
+E
+dinnerwear~
+Hand blown, these are some of the finest examples of the crafters
+art you have ever seen. Artful use of colors lend each plate and
+dish its own unique stamp.
+~
+E
+table gears springs~
+This table holds the most interesting items. Tiny, intricate examples
+of gears, joints and springs are carefully arrayed on the table's
+surface. As you examine these, some of which at smaller than your
+thumbnail, you sigh in wonder at the skill used to create such
+items.
+~
+S
+#1537
+The road less travelled~
+The trees wrap about you like a warm blanket. The trail is little
+more than a broken line in the foliage. You can barely make it out
+as you move along. The trail wends its way to the west and southeast.
+~
+0 0 3
+D3
+A wider path
+~
+~
+0 -1 1520
+D8
+A bend in the trail
+~
+~
+0 -1 1538
+S
+#1538
+A thin trail~
+The trail is so thin here, you almost lose sight of the path altogether.
+Ferns and small bushes push their way onto the path, obscuring the trail
+further.
+~
+0 0 3
+D1
+A thin trail
+~
+~
+0 -1 1539
+D7
+A thin trail
+~
+~
+0 -1 1537
+S
+#1539
+The trail ends~
+The trails comes to an end here, the foliage opening up onto grassy
+fields. The trees reluctantly giving way to open skies and a cooling
+breeze. While the trail was beautiful, it was also cloying. You breath
+better knowing it is behind you.
+~
+0 4 3
+D1
+Open fields
+~
+~
+0 -1 1540
+D3
+A thinning trail
+~
+~
+0 -1 1538
+S
+#1540
+An overgrown field~
+A sea of amber and teal greet your eyes as you stride through this
+overgrown field. The grasses wave and swirl about you, like children
+capering to a song on the wind.
+~
+0 0 2
+D1
+Walking the fields
+~
+~
+0 -1 1541
+D2
+Walking the fields
+~
+~
+0 -1 1542
+D3
+A thin trail through the trees
+~
+~
+0 -1 1539
+S
+#1541
+A field by the river~
+This field wends its way down to the river's edge. Grasses slowly changing
+over to reeds and cattails. The river itself is a gentle, wide band of
+gurgling depths and dark mysteries. It is too active and too deep to cross
+here. The northeast is covered in a thick reed forest, that seems to block
+all passage in that direction.
+~
+0 0 2
+D2
+Along to river bank
+~
+~
+0 -1 1543
+D3
+Back towards to path
+~
+~
+0 -1 1540
+S
+#1542
+A sea of clover~
+The entire field is covered with the speckling of tiny white flowers.
+The gentle scent of clover fills your nostrils as you stroll along the
+path. The soft buzzing of bees tickles at your ears as you see them
+flitter about, alighting upon flower after flower.
+~
+0 0 2
+D0
+Entrance to the field
+~
+~
+0 -1 1540
+D1
+A riverside path
+~
+~
+0 -1 1543
+S
+#1543
+Skirting the river edge~
+The trail winds much closer to the river here. The gurgling and shushing
+sounds of the rivers flow washing over you like a breath of fresh air.
+Cattails rule the land in this area of the fields. The sway of their
+bulbous heads adding to the unique concert of sound.
+~
+0 0 2
+D0
+Following along the river
+~
+~
+0 -1 1541
+D2
+Before a small hill
+~
+~
+0 -1 1544
+D3
+An overgrown field
+~
+~
+0 -1 1542
+S
+#1544
+The bottom of a small hill~
+The river wanders about the eastern edge of a small hill here.  As you
+peer about, you see the pathway wending its way up towards the top.  
+Looking further on, you think you can just make out the makings of a
+bridge.
+~
+0 0 2
+D0
+Back along the river
+~
+~
+0 -1 1543
+D4
+Walking up a hill
+~
+~
+65536 -1 1545
+S
+#1545
+The hillside~
+Oddly, the verdant vegetation fades away as you climb the hill.  It is 
+almost as if some malignant presence was nearby.  As if something, or
+someone, were stifling the growth.
+~
+0 0 2
+D0
+At the bridge
+~
+~
+0 -1 1546
+D5
+Back to the bottom of the hill
+~
+~
+65536 -1 1544
+S
+#1546
+A bridge over the river~
+A large wooden bridge spans the river here.  A section in the middle seems
+to be missing for some reason though.  As you look carefully at the bridge,
+the edge of the missing section seems to shift and flow.  Almost as if the
+missing piece were magically obscured in some form or another.
+~
+0 1048580 2
+D2
+Back down the side of the hill
+~
+~
+0 -1 1545
+S
+#1547
+A bridge over the river~
+A large wooden bridge spans the river here. A section in the middle
+seems to be missing for some reason though. As you look carefully at
+the bridge, the edge of the missing section seems to shift and flow.
+Almost as if the missing piece were magically obscured in some form
+or other.
+~
+0 1048580 2
+D2
+Back down the side of the hill
+~
+~
+0 -1 1548
+S
+#1548
+The hillside~
+Oddly, the verdant vegetation fades away as you climb the hill. It
+is almost as if some malignant presence was nearby. As if something,
+or someone, were stifling the growth.
+~
+0 4 2
+D0
+At the bridge
+~
+~
+0 -1 1547
+D5
+Back to the bottom of the hill
+~
+~
+65536 -1 1549
+S
+#1549
+The bottom of a small hill~
+The river wanders about the western edge of a small hill here.  As you
+peer about, you see the pathway wending its way up towards the top. 
+Looking further on, you think you can just make out the makings of 
+bridge.
+~
+0 4 3
+D1
+Moving away from the river
+~
+~
+0 -1 1550
+D4
+Walking up a hill
+~
+~
+65536 -1 1548
+S
+#1550
+A dark path~
+The open field about the hill is barely visible through the trees.
+Somehow, the forest seems darker on this side of the river. A feeling
+of hushed expectation permeates the trees. 
+~
+0 4 3
+D3
+Towards a hill
+~
+~
+0 -1 1549
+D6
+The trees surround you
+~
+~
+0 -1 1551
+S
+#1551
+A darkened path~
+The trees overhang the pathway.  Cloying and musty, the trees seem twisted,
+almost diseased.  It's as if some presence nearby were affecting them.
+Slowly, inexorably changing them with its dark influence.
+~
+0 4 3
+D4
+A wide plateau
+~
+~
+65536 -1 1552
+D9
+A break in the trees
+~
+~
+0 -1 1550
+S
+#1552
+A wide plateau~
+The path crests up onto a wide plateau. Trees still dot the area,
+but are more widespread than at lower altitudes. The path continues
+to the east along the crest of the hill. Off to the south, across
+a bend in the river, you can make out oily streams of smoke winding
+up from the forest.
+~
+0 4 3
+D1
+The plateau continues
+~
+~
+0 -1 1553
+D5
+A darkened path
+~
+~
+65536 -1 1551
+S
+#1553
+A wide plateau~
+The plateau continues here to the east and west. Wide, but shallow, its
+edge is a precipitous drop to the river below. On the northern face of
+the hill, a dark cave opening can be seen.
+~
+0 0 3
+D0
+A dark cave
+~
+~
+0 -1 1554
+D1
+The plateau ends
+~
+~
+0 -1 1557
+D3
+The plateau continues
+~
+~
+0 -1 1552
+S
+#1554
+A dark cavern~
+Dark but airy, this cavern appears to be well used. Debris has been
+carefully accumulated and placed in a pile near the entrance. A
+gentle winding decline leads down deeper into the cavern.
+~
+0 8 0
+D2
+A wide plateau
+~
+~
+0 -1 1553
+D5
+A narrow decline
+~
+~
+65536 -1 1555
+S
+#1555
+A quiet home~
+An organized jumble meets your eyes as you scan about this home. A
+lifetime of nicknacks line the shelves and stand in unsteady piles
+along the floor. Quiet and comfortable, this place has the feel 
+of great use and solitude.
+~
+0 8 0
+D3
+A comfortable bed
+~
+~
+0 -1 1556
+D4
+Up to the cave entrance
+~
+~
+65536 -1 1554
+E
+shelves nicknacks piles~
+As your eyes scan over the posessions arrayed throughout the
+room, you see that the collection runs the gamut from a childs
+dusty old toy to several tomes richly tooled in new leather.
+More a collection of memories than an assortment of items, the
+objects reflect a great and deep soul.
+~
+S
+#1556
+A comfortable bedchamber~
+Free of the detritus of the previous room, this chamber is nonetheless
+well packed. Shelves of books line both the north and south walls. A
+small bed has been gently squeezed in between the shelves, giving the
+owner a place to sleep and to ponder the wisdoms held within these tomes.
+~
+0 8 0
+D1
+A quiet home
+~
+~
+0 -1 1555
+S
+#1557
+An abrupt end~
+The plateau comes to an abrupt end here. The edge has been sheered off,
+leaving a thin bridge of land trailing down to the forest below. Looking
+down, you see the cause of the destruction. Long years of erosion has 
+caused the river to break through the hill, turning this portion of hill 
+into a thin, tricky bridge.
+~
+0 4 3
+D3
+The plateau continues
+~
+~
+0 -1 1553
+D8
+A gentle grade
+~
+~
+0 -1 1558
+S
+#1558
+A sharp decline~
+The hill drops sharply here, extending over the river toward the
+forest below. Sharp rocks and slick sections of sandy ground make
+the path difficult to traverse.
+~
+0 4 3
+D5
+A dark path
+~
+~
+0 -1 1559
+D7
+The beginnings of a long plateau
+~
+~
+0 -1 1557
+S
+#1559
+A break in the path~
+The pathway splits in three directions here. One path extends up a
+precarious climb along the edge of a hill over the river. The other 
+two paths are lost in gloom to the east and west.
+~
+0 4 3
+D1
+Lost in the shadows
+~
+~
+0 -1 1560
+D3
+Near the rivers edge
+~
+~
+0 -1 1561
+D4
+A difficult path
+~
+~
+0 -1 1558
+S
+#1560
+A dark pathway~
+The gloom of the pathway darkens perceptively as it moves within the shadow
+of a large hill.  The path ends just to the south, where a dark cave entrance
+can be seen.  Looking more closely, you can just make out a narrow pathway
+climbing up the hill alongside the cave entrance.
+~
+0 4 3
+D2
+A dark end
+~
+~
+0 -1 1578
+D3
+A split in the path
+~
+~
+0 -1 1559
+S
+#1561
+Near the river edge~
+The gloom of this darkened path is broken momentarily as the path wends
+past the river.  A break in the trees allows a welcome wash of clean air
+to enter onto the pathway.  A path can be seen winding up a hill on the
+other side of the river.
+~
+0 4 3
+D1
+A split in the trail
+~
+~
+0 -1 1559
+D9
+Further into the gloom
+~
+~
+0 -1 1562
+S
+#1562
+Enveloped in gloom~
+The trees overhang the path like dark souls waiting upon ill luck to
+bring them their next victim. Long trailers of moss hang from the
+branches distorting their already bent and twisted forms. The bushes
+along the trail seem to reach towards you as you wend your way through.
+Looking southward, the trail can be seen ending in a dark cave entrance.
+~
+0 4 3
+D2
+A dank cavern
+~
+~
+0 -1 1563
+D6
+A break in the trees
+~
+~
+0 -1 1561
+S
+#1563
+A dark cave~
+Covered in a slimy sweat, those rough hewn walls close in about you like
+a wet blanket.  Rotting garbage litters the ground, adding a distinct odor
+to the cave.  Holding your nose against the smell and decay, you wonder if
+you should explore deeper.
+~
+0 8 13
+D0
+The beginnings of a gloomy pathway
+~
+~
+0 -1 1562
+D1
+A dank passage
+~
+~
+0 -1 1564
+D9
+A dank passage
+~
+~
+0 -1 1568
+S
+#1564
+A dank passage~
+Dank, putrid air hangs heavily along this passage.  Offal and waste splatter
+the walls in in a random patterning of decay and abandon.  Whoever lives here
+has no respect for the homes or themselves.
+~
+0 8 13
+D0
+A dusty home
+~
+~
+0 -1 1565
+D1
+A rancid pile
+~
+~
+0 -1 1566
+D2
+A tiny home
+~
+~
+0 -1 1567
+D3
+A way out
+~
+~
+0 -1 1563
+S
+#1565
+Dust and decay~
+A cloud of dust rises at your entrance, obscuring the room momentarily,
+and sending you into a coughing fit. Old, ratty piles of furs dot the
+floor of this home. The layers of dust show that this home has not been
+used in quite some time.
+~
+0 8 13
+D2
+A dank passageway
+~
+~
+0 -1 1564
+S
+#1566
+A rancid pile~
+A huge pile of offal and bones occupies almost this entire chamber.
+Fumes and colorful gases can be seen rising up from this putrescense,
+causing your eyes to water. A strange fungus grows along the walls
+of this room.
+~
+0 12 13
+D3
+A dank passage
+~
+~
+0 -1 1564
+> entry_prog 100~
+if race ($n) == half-ogre
+or race ($n) == half-orc
+or race ($n) == half-troll
+or isnpc ($n)
+mpechoat $n There's a foul stench here, but you seem able to handle it.
+else
+mpechoat $n There's a foul stench here, causing you to gag and choke.
+mpechoaround $n $n coughs and gags at the stench in the room.
+mpdamage $n 5
+mpechoat $n Your lungs hurt a bit from the coughing.
+mpechoat $n Hopefully there's no permanent damage.
+endif
+~
+|
+S
+#1567
+A tiny home~
+Tiny and cramped, this is home to several individuals. At least a
+dozen rotting piles of furs line the floor, leaving little room to
+maneuver. A small pile of rotting food takes up the southeast corner.
+~
+0 8 13
+D0
+A dank passageway
+~
+~
+0 -1 1564
+S
+#1568
+A dank passage~
+Dank, putrid air hangs heavily along this passage.  Offal and waste splatter
+the walls in a random patterning of decay and abandon.  Whoever lives here
+has no respect for their homes or themselves.
+~
+0 8 13
+D0
+A bend in the passage
+~
+~
+0 -1 1570
+D2
+Bones everywhere
+~
+~
+0 -1 1569
+D6
+A way out
+~
+~
+0 -1 1563
+S
+#1569
+A home of bones~
+Bones litter the floor here forming piles and heaps about the room.  Like
+the forgotten castoffs of a child, these bones are the remains of many a
+forgotten meal.  Like all other hobgoblin homes, this one has never been
+cleaned.
+~
+0 8 13
+D0
+A dank passage
+~
+~
+0 -1 1568
+S
+#1570
+A turn in the passageway~
+The passage turns here, moving in to the west and south.  As with other 
+sections of this tunnel, garbage lines the walls like the putrid remains
+of some ghastly parade.
+~
+0 8 13
+D0
+An empty space
+~
+~
+0 -1 1571
+D2
+A dank passageway
+~
+~
+0 -1 1568
+D3
+The end of the tunnel
+~
+~
+0 -1 1572
+S
+#1571
+An empty space~
+A layer of dust, inches thick, sheets the ground here.  Huge cobwebs cover
+the corners, lending this room a more rounded look.  Judging by the amount
+of dust and the state of decay amongst the bits and pieces of garbage, this
+room has not seen use in quite some time.
+~
+0 8 13
+D2
+A bend in the passage
+~
+~
+0 -1 1570
+S
+#1572
+The end of the tunnel~
+The passageway comes to an end here. Three chambers can be seen leading
+off to the north, south and west. The chamber to the west seems much 
+larger than any others you have seen so far. The sound of grunts and
+shuffling feet can be heard to the west.
+~
+0 8 13
+D0
+A polluted spring
+~
+~
+0 -1 1573
+D1
+A bend in the passage
+~
+~
+0 -1 1570
+D2
+A reasonably neat chamber
+~
+~
+0 -1 1574
+D3
+The guard room
+~
+~
+0 -1 1575
+S
+#1573
+A foul spring~
+A small pool of water rests along the northern wall of this small
+chamber. The source of the water is a spring bubbling forth from
+a crack in the north wall. Another crack in the floor seems to
+siphon off the excess water. This seems to be the main source of
+water for the hobgoblins.
+~
+0 8 13
+D2
+The beginnings of a passageway
+~
+~
+0 -1 1572
+S
+#1574
+Almost neat~
+While cluttered and cramped, this room looks almost neat compared to
+others found within these passageways.  The piles of furs look almost
+nice enough to sleep on.  No hint of rot or putrescence can be found.
+This must be the home of a truly remarkable hobgoblin.
+~
+0 8 13
+D0
+The beginnings of a passageway
+~
+~
+0 -1 1572
+S
+#1575
+The guard room~
+Several rancid piles of fur dot the floor in this chamber.  Rusted pieces
+of weaponry and rotting armor line the walls in a sad imitation of military
+order.  Whatever chambers lie to the north are obviously important enough
+to have warranted a guard chamber here.
+~
+0 12 13
+D0
+The chief guard
+~
+~
+0 -1 1500
+D1
+The beginnings of a passageway
+~
+~
+0 -1 1572
+S
+#1576
+The King's chamber~
+Large, almost fresh hides and furs hang along the walls of this huge chamber.
+As you look at them, there is barely a hint of rot about them.  A tall throne
+of roughly cut granite stands at the end of the chamber.  Several torches 
+along the walls give this chamber a brighter look than any other chamber you
+have found. There is a large throne blocking the travel west.
+~
+0 12 13
+D2
+The chief guard
+~
+Door granite~
+3 -1 1500
+D3
+~
+throne~
+2098223 1500 1577
+E
+throne~
+There is a huge, stone throne here, blocking travel to the west.
+~
+S
+#1577
+The treasure room~
+This is the treasure room of the hobgoblins. Not much is actually
+here. Sneaky and nasty as hobgoblins are, they lack the resources
+to have much of an effect on those around them. A large pile of
+gold rests on the ground here, along with other small trinkets.
+~
+0 12 13
+D1
+The king's chamber
+~
+throne door~
+35 -1 1576
+S
+#1578
+An end to a dark path~
+The pathway ends here at the edge of a steep hill.  A large cave mouth
+opens up into murky darkness.  Strange sounds can be heard from within
+its depths.  A thin trail can be leading off up the hill alongside the
+cave mouth.  While a difficult climb, it looks as if it can be made.
+~
+0 4 3
+D0
+A dark passage
+~
+~
+0 -1 1560
+D1
+A murky cavern
+~
+~
+0 -1 1581
+D4
+A difficult climb
+~
+~
+128 -1 1579
+S
+#1579
+A precarious climb~
+The trail wends its way along the edge of the hill, climbing at a 
+steep angle towards crest of the hill. Thin and rocky, traversing
+this trail is careful going. Looking out about you, you find you
+are just above the trees. Dark and gloomy, they do not look inviting
+at all. The hill above you is barren and scarred, giving you pause
+as to which direction is more or less appealing.
+~
+0 4 3
+D4
+A desolate guard post
+~
+~
+128 -1 1580
+D5
+A dark and murky forest
+~
+~
+128 -1 1578
+S
+#1580
+A desolate guard post~
+As you climb up the last few feet, you come upon a desolate spot.
+A small lean-to has been built here as a measure of protection
+against the elements. But, beyond that, there is nothing here to
+make a body feel welcome or safe. This is where the hobgoblins keep
+a watch post. From here, they can scan across the entire forest, 
+keeping an eye on the pesky gnomes with whom they reluctantly share
+this area.
+~
+0 4 3
+D5
+A precarious descent
+~
+~
+128 -1 1579
+S
+#1581
+Strange echos~
+Walking into this cavern, you quickly find yourself enveloped in
+gloom. Your footfalls echo off the walls, reverberating all about
+you like the trundling of some spectral army. The cave is larger
+than it first appeared, and extends much further off to the east.
+~
+0 9 13
+D1
+The cave continues
+~
+~
+0 -1 1582
+D3
+The beginnings of a forest pathway
+~
+~
+0 -1 1578
+S
+#1582
+A darkened turn~
+You can barely make out the fact that this cave turns here moving off
+to the west and north. The echos persist and cause you to turn about 
+in confusion. It is more than simply the sound of your shuffling feet.
+Other sounds can barely be heard amongst the jumble. Searching about,
+you see a passageway leading off to the west.
+~
+0 9 13
+D0
+The cave continues
+~
+~
+0 -1 1593
+D1
+A dank passage
+~
+~
+0 -1 1583
+D3
+The cave continues
+~
+~
+0 -1 1581
+S
+#1583
+A dank passageway~
+Rough hewn walls curve to meet a muddy floor in this damp passageway.
+Cut from the raw stone, this passage still shows the marks of the 
+simple tools used in its shaping. The passageway splits to the north 
+and southeast. A large dark cavern can be seen to the west.
+~
+0 13 13
+D0
+The passageway continues
+~
+~
+0 -1 1584
+D3
+A huge dark cavern
+~
+~
+0 -1 1582
+D8
+A small guard room
+~
+~
+0 -1 1587
+S
+#1584
+The end of a dank passageway~
+The passage ends here with a door to the east. Looking at the door, 
+you notice that it is a cell door, made of green hardwood and strips 
+of bark. Strangely though, there is no lock on the door, and no
+guard post has been established here.
+~
+0 13 13
+D1
+An odd cell
+~
+~
+3 -1 1585
+D2
+The passageway continues
+~
+~
+0 -1 1583
+E
+door~
+The door at first glance appears to be very fragile. Simply made of
+long pieces of green hardwood and strips of bark, it is cunningly
+made. A careful examination shows it to be quite sturdy.
+~
+S
+#1585
+A cell of a different ilk~
+As cells go, this one is quite well appointed. An actual bed, four
+posters and all, has been set within. A fine oak table and three
+chairs take up the southeast corner. Several neat piles of notes 
+rest atop the desk. There is even a nice throw rug upon the floor
+here. The pristine nature of this cell, and its distance from the
+rest of the cells makes you wonder about its occupant.
+~
+0 13 13
+D3
+The beginnings of a passageway
+~
+~
+3 -1 1584
+D5
+A shimmering portal beckons to you
+~
+floor trap door~
+3016715 -1 1529
+E
+rug~
+Strangely patterned, this rug depicts some sort of abstract scene
+involving gears, struts and other mechanical esoterica. As you
+look at it, wondering at the taste of its owner, you realize
+there is something unusual in its placement. Looking further,
+you catch the unmistakeable signs of a hidden trap door.
+~
+S
+#1586
+A storage room~
+This is a small storage room that has been set aside for the mining
+equipment being used to clear out this area.  The room seems to be
+set up in a temporary state.  The north wall shows signs of recent
+work to continue the passages further northward.
+~
+0 13 13
+D2
+A passageway begins
+~
+~
+0 -1 1597
+S
+#1587
+A guard post~
+A rough, careworn table with two small stools takes up the center
+of this room. Oily guttering torches add an indistinct weavy light
+to the chamber. A narrow entryway leads to another guard room to
+the east. Two doors made of strips of green hardwood and strands of
+bark block entry to the cells on the north and south walls.
+~
+0 9 13
+D0
+A barred door
+~
+~
+3 -1 1591
+D1
+~
+~
+0 -1 1588
+D2
+A barred door
+~
+~
+3 -1 1592
+D7
+The dank passage
+~
+~
+0 -1 1583
+E
+doors~
+The doors at first glance appear to be very fragile. Simply made of 
+long pieces of green hardwood and strips of bark, they are cunningly
+made. A careful examination shows them to be quite sturdy.
+~
+E
+door~
+The door at first glance appears to be very fragile. Simply made of
+long pieces of green hardwood and strips of bark, it is cunningly
+made. A careful examination shows it to be quite sturdy.
+~
+S
+#1588
+A guard room~
+One rickety stool occupies this otherwise barren room. Resting against
+the eastern wall, it has obviously seen extensive use. Two more cells
+can be seen to the north and south. The only exit available is back to
+the west.
+~
+0 9 13
+D0
+A barred door
+~
+~
+3 -1 1589
+D2
+A barred door
+~
+~
+3 -1 1590
+D3
+Another guard room
+~
+~
+0 -1 1587
+E
+door~
+The door at first glance appears to be very fragile. Simply made of
+long pieces of green hardwood and strips of bark, it is cunningly
+made. A careful examination shows it to be quite sturdy.
+~
+E
+doors~
+The doors at first glance appear to be very fragile. Simply made of
+long pieces of green hardwood and strips of bark, they are cunningly
+made. A careful examination shows them to be quite sturdy.
+~
+S
+#1589
+An empty cell~
+Barren and empty, this cell is not currently in use. The level of dust
+within the room shows that it has been unused for quite some time. The
+only evidence of the previous occupant are a few bits of rotted straw,
+and some odd scratchings on the walls.
+~
+0 9 13
+D2
+A guard room
+~
+~
+3 -1 1588
+E
+scratchings~
+Looking carefully at the walls, you can barely make out some strange
+writings. They seem to be portions of arcane symbols and formulae.
+Unfortunately, wear and tear on the walls has obscured portions of
+the writings.
+~
+S
+#1590
+A well kept cell~
+There is little within this room to make one feel homey. A mildewed
+pile of straw acts as a bed, while a simple stool and small table
+make up the rest of the furnishings. Remarkeably, although every
+item within the room is suffering from the effects or dampness and
+rot, the room is quite neat. Whichever poor soul has been forced to
+make this his home has taken great care to keep the place liveable.
+~
+0 9 13
+D0
+A guard room
+~
+~
+3 -1 1588
+S
+#1591
+A dark cell~
+There's an unusual darkness to this cell.  Your light seems to fight
+against the gloom, pushing it back with effort.  As you struggle to
+look about through the murky darkness, you see that the cell is
+otherwise unremarkable.  The standard musty straw bed and small stool
+being the only furnishings.
+~
+0 9 13
+D2
+A dirty guard room
+~
+~
+3 -1 1587
+S
+#1592
+A cluttered cell~
+This cell is filled with odd bits and pieces. Wooden gears compete
+with springs and odd sections of metal and wood. Boxes line the
+walls, leaving little space for the straw pallet along the south
+wall. The room is otherwise bare of furnishings.
+~
+0 9 13
+D0
+A dusty guard room
+~
+~
+3 -1 1587
+S
+#1593
+A sharp end~
+The cavern comes to a sharp abrupt end here.  Some shifting of the
+earth as some point has caused a shaft of rock to spike down here,
+bringing the ceiling from towering darkness to something visible
+and reachable.  Off to the north, a small passageway can be seen.
+It appears to have been cut straight out of the rock face.  Rough
+and careworn, it is not a natural occurence.
+~
+0 9 13
+D0
+A dank passage
+~
+~
+0 -1 1594
+D2
+The cave continues
+~
+~
+0 -1 1582
+S
+#1594
+A dank passageway~
+Rough cut from the surrounding stone, this passageway looks fairly 
+new. Dust and small bits of stone along the walls give evidence to
+the recent work. Given the untidy nature of hobgoblins though, it
+is difficult to tell if has been days or weeks since the work was
+done.
+~
+0 9 13
+D1
+A conference room
+~
+~
+0 -1 1596
+D2
+A huge dark cavern
+~
+~
+0 -1 1593
+D3
+An assembly room
+~
+~
+0 -1 1595
+D6
+The passage continues
+~
+~
+0 -1 1597
+S
+#1595
+An assembly room~
+Boxes and cartons line the walls of this cramped room. Several odd
+mechanical assemblages are arrayed about the three tables in this 
+chamber. Judging by the manacles and chains extending from the walls,
+whoever works here is a reluctant participant, at best.
+~
+0 9 13
+D1
+A dank passageway
+~
+~
+0 -1 1594
+E
+boxes~
+The boxes are full of odd bits and pieces. Everything from gears and
+springs to sections of metal and wood panels.
+~
+E
+cartons~
+The cartons are full of odd bits and pieces. Everything from gears and
+springs to sections of metal and wood panels.
+~
+E
+assemblages~
+Odd in the extreme, these conglomerations are a strange mixture of
+gears, springs, buttons, and panels. Looking them over and over,
+you find you still canoot fathom what their use or purpose may be.
+~
+E
+chains~
+Rusted, but well cared for, these chains have seen recent use. By 
+the size of the manacles, you would guess the victim to be roughly 
+man sized, although the actual race cannot be determined from so
+little evidence.
+~
+E
+manacles~
+Rusted, but well cared for, these manacles have seen recent use.
+By the size of them, you would guess the victim to be roughly
+man sized, although the actual race cannot be determined from
+so little evidence.
+~
+S
+#1596
+A conference room~
+This room is clean and well kept. Fine oak desks, arrayed about
+the room, are covered with neat stacks of paper. Several long 
+sheets have been strategically placed about the room. Each 
+sheet depicting diagrams, notes, and formulae of an unusual 
+nature. As the oddity of such a room as this flashes through
+your mind, your eyes fall upon the manacles and chains bolted
+to the walls. Mayhap, this room has a place within these caves
+after all.
+~
+0 9 13
+D3
+A dank passageway
+~
+~
+0 -1 1594
+E
+manacles~
+Rusted, but well cared for, these manacles have seen recent use.
+By the size of them, you would guess the victim to be roughly
+gnome sized, although the actual race cannot be determined from
+so little evidence.
+~
+E
+chains~
+Rusted, but well cared for, these chains have seen recent use. By
+the size of the manacles, you would guess the victim to be roughly
+gnome sized, although the actual race cannot be determined from
+so little evidence.
+~
+E
+stacks~
+Riffling through the stacks, you find they are full of incomprehensible
+diagrams, formulae and the odd bit of arcane symbology. Try as you might,
+you cannot make out what any of it means. 
+~
+E
+paper~
+Riffling through the stacks, you find they are full of incomprehensible
+diagrams, formulae and the odd bit of arcane symbology. Try as you might,
+you cannot make out what any of it means.
+~
+E
+Sheets~
+Huge diagrams are scrawled over the sheets. Minor notations and 
+additions have been made here and there. However, no matter how 
+clear the diagrams are, you cannot fathom their purpose, or what,
+if any, fantastic devices may be the end result.
+~
+E
+oak~
+While made of the finest material, as you look closer, you see that
+the desks have sufered some damage along the way. It is almost as if
+they had travelled far to get here and were worse the wear for their
+journeying.
+~
+E
+desks~
+While made of the finest material, as you look closer, you see that
+the desks have sufered some damage along the way. It is almost as if
+they had travelled far to get here and were worse the wear for their
+journeying.
+~
+S
+#1597
+An end to the passage~
+The passageway comes to an end here.  The walls are even more raw than
+further down the passageway.  This is definately recent work.  Chunks
+and bits of stone and rubble litter the floor all about.  An almost
+completed entryway to the north shows the most recent work.
+~
+0 9 13
+D0
+A storage room
+~
+~
+0 -1 1586
+D1
+A decrepit lab
+~
+~
+0 -1 1599
+D3
+A foul stench
+~
+~
+0 -1 1598
+D9
+The passage continues
+~
+~
+0 -1 1594
+E
+rubble~
+Looking at the rubble, you can see the markings from the tools used
+to chip away at the surrounding stone. WHoever has been doing this 
+work is strong indeed. The length of some marks upon the wall show
+a great deal of force behind the blows.
+~
+E
+stone~
+Looking at the rubble, you can see the markings from the tools used
+to chip away at the surrounding stone. WHoever has been doing this
+work is strong indeed. The length of some marks upon the wall show
+a great deal of force behind the blows.
+~
+S
+#1598
+A foul stench~
+The air is thick here with the residue of many a failed experiment.
+Beakers and bottles litter the floor and the single table. Rotting
+ingredients and dried remains cake the table in an exotic patterning.
+Several half filled bottles are stacked in one corner in the table.
+Evidence of the last batch of experiments.
+~
+0 9 13
+D1
+A dank passageway
+~
+~
+0 -1 1597
+E
+beakers bottles~
+Caked, crusted, cracked, crazed, every one of these containers has
+seen the use and abuse of many a failed experiment. As your eyes
+scan over them, you cannot find even one that is clean and pristine.
+~
+E
+table~
+Rickety in the extreme, this table looks to be on its last legs. The
+scarring and caking of its surface adds to its aged appearance.
+~
+> entry_prog 100~
+if race ($n) == half-ogre
+or race ($n) == half-orc
+or race ($n) == half-troll
+or isnpc ($n)
+mpechoat $n There's a foul stench here, but you seem able to handle it.
+else
+mpechoat $n There's a foul stench here, causing you to gag and choke.
+mpechoaround $n $n coughs and gags at the stench in the room.
+mpdamage $n 5
+mpechoat $n Your lungs hurt a bit from the coughing.
+mpechoat $n Hopefully there's no permanent damage.
+endif
+~
+|
+S
+#1599
+A decrepit lab~
+As labs go, this is a sad example. One rickety table occupies the
+eastern wall. Stacks of junk and oddments litter the floor. Scrawlings
+on the wall show sad attempts at design work. Several smashed pieces
+of machinery lie on the table, like half forgotten toys.
+~
+0 9 13
+D3
+A dank passageway
+~
+~
+0 -1 1597
+E
+junk oddments stacks~
+Piled high about the room, these piles are a sad mix of poorly
+constructed bits of machinery, and pieces of rotting food. It
+would seem the hobgoblins take as much care of their experiments
+as they do of their homes.
+~
+E
+scrawlings~
+While at first glance these scrawlings look like diagrams and
+arcana notations, closer examination shows it to seem more the
+playful scratchings of a group of children.
+~
+E
+smashed pieces machinery~
+Looking at the pieces littered over the table, it is difficult to see
+how any of it could possibly have once been something worthwile.  While
+relatively complex in spots, the mechanisms are badly assembled with
+poor parts.
+~
+E
+table~
+Rickety in the extreme, this table looks to be on its last legs.
+The stacks of junk seem to be pushed against the legs, as if
+offering support to them.
+~
+S
+#0
+
+
+#RESETS
+M 0 1517 7 1500
+M 0 1517 7 1500
+M 0 1517 7 1500
+M 0 1517 7 1500
+M 0 1517 7 1500
+M 0 1517 7 1500
+M 0 1517 7 1500
+D 0 1500 0 1
+O 1 1598 1 1501
+M 0 1527 2 1502
+E 1 1504 2 16
+E 1 1505 2 11
+G 1 1542 2
+E 1 1543 2 3
+M 0 1527 2 1502
+G 1 1542 2
+E 1 1543 2 3
+E 1 1504 2 16
+E 1 1505 2 11
+M 0 1504 2 1505
+G 1 1537 4
+M 0 1532 2 1505
+E 1 1511 4 17
+M 0 1504 2 1506
+G 1 1537 4
+O 1 1525 1 1506
+O 1 1524 1 1506
+M 0 1532 2 1507
+E 1 1511 4 17
+M 0 1503 2 1508
+E 1 1511 4 17
+M 0 1531 2 1510
+G 1 1537 4
+M 0 1531 2 1511
+G 1 1537 4
+M 0 1503 2 1511
+E 1 1511 4 17
+M 0 1530 1 1513
+G 1 1501 1
+E 1 1536 2 20
+D 0 1513 5 2
+M 0 1505 1 1514
+E 1 1508 1 1
+E 1 1509 1 3
+E 1 1535 1 16
+M 0 1510 2 1515
+M 0 1511 1 1515
+D 0 1515 0 1
+D 0 1515 4 1
+M 0 1509 3 1516
+M 0 1510 2 1517
+M 0 1509 3 1518
+M 0 1509 3 1518
+O 1 1526 1 1518
+P 1 1527 1 1526
+D 0 1518 2 1
+O 1 1528 1 1519
+P 1 1529 1 1528
+D 0 1519 2 1
+M 0 1537 5 1520
+E 1 1539 5 17
+M 0 1537 5 1520
+E 1 1539 5 17
+M 0 1502 4 1521
+E 1 1515 4 8
+M 0 1502 4 1521
+E 1 1515 4 8
+M 0 1534 1 1522
+E 1 1536 2 20
+M 0 1535 1 1523
+E 1 1503 1 16
+M 0 1538 4 1525
+E 1 1541 4 6
+M 0 1538 4 1525
+E 1 1541 4 6
+M 0 1536 3 1527
+E 1 1502 6 16
+O 1 1530 1 1527
+M 0 1538 4 1528
+E 1 1541 4 6
+M 0 1538 4 1528
+E 1 1541 4 6
+M 0 1514 1 1529
+E 1 1538 1 12
+D 0 1529 5 1
+M 0 1536 3 1531
+E 1 1502 6 16
+M 0 1536 3 1531
+E 1 1502 6 16
+M 0 1533 3 1532
+E 1 1502 6 16
+M 0 1502 4 1532
+E 1 1515 4 8
+M 0 1502 4 1532
+E 1 1515 4 8
+M 0 1533 3 1534
+E 1 1502 6 16
+M 0 1533 3 1534
+E 1 1502 6 16
+M 0 1501 3 1535
+E 1 1540 3 13
+M 0 1501 3 1535
+E 1 1540 3 13
+M 0 1501 3 1536
+E 1 1540 3 13
+M 0 1537 5 1537
+E 1 1539 5 17
+M 0 1537 5 1538
+E 1 1539 5 17
+M 0 1537 5 1538
+E 1 1539 5 17
+M 0 1508 4 1540
+G 1 1512 2
+M 0 1508 4 1540
+G 1 1512 2
+M 0 1547 2 1541
+M 0 1508 4 1543
+G 1 1513 2
+M 0 1508 4 1543
+G 1 1513 2
+M 0 1545 1 1546
+M 0 1546 1 1547
+M 0 1547 2 1550
+M 0 1524 1 1555
+M 0 1529 1 1556
+O 1 1531 1 1556
+P 1 1532 1 1531
+M 0 1513 3 1563
+M 0 1513 3 1563
+M 0 1513 3 1563
+M 0 1520 6 1563
+E 1 1597 1 17
+M 0 1520 6 1564
+M 0 1526 1 1566
+G 1 1534 1
+O 1 1533 2 1566
+M 0 1520 6 1568
+M 0 1520 6 1570
+E 1 1597 1 17
+M 0 1520 6 1570
+E 1 1597 1 17
+M 0 1520 6 1570
+O 1 1573 1 1573
+M 0 1548 5 1575
+E 1 1521 10 16
+M 0 1548 5 1575
+E 1 1521 10 16
+M 0 1548 5 1575
+E 1 1521 10 16
+M 0 1548 5 1575
+E 1 1521 10 16
+M 0 1548 5 1575
+E 1 1521 10 16
+M 0 1519 1 1576
+G 1 1500 1
+E 1 1544 1 12
+E 1 1545 2 16
+M 0 1518 2 1576
+E 1 1520 3 5
+E 1 1521 10 16
+M 0 1518 2 1576
+E 1 1520 3 5
+E 1 1521 10 16
+D 0 1576 2 1
+D 0 1576 3 2
+M 0 1521 1 1577
+G 1 1523 2
+O 1 1518 2 1577
+D 0 1577 1 1
+M 0 1516 2 1580
+E 1 1521 10 16
+E 1 1519 3 11
+E 1 1548 3 6
+G 1 1533 2
+M 0 1516 2 1580
+E 1 1521 10 16
+E 1 1519 3 11
+E 1 1548 3 6
+G 1 1533 1516
+M 0 1515 4 1581
+M 0 1515 4 1581
+D 0 1584 1 1
+D 0 1585 3 1
+D 0 1585 5 1
+M 0 1551 2 1586
+M 0 1549 4 1587
+M 0 1549 4 1587
+D 0 1587 0 1
+D 0 1587 2 1
+M 0 1549 4 1588
+M 0 1549 4 1588
+D 0 1588 0 1
+D 0 1588 2 1
+D 0 1589 2 1
+M 0 1522 3 1590
+M 0 1522 3 1590
+M 0 1522 3 1590
+D 0 1590 0 1
+M 0 1539 1 1591
+D 0 1591 2 1
+M 0 1523 4 1592
+M 0 1523 4 1592
+M 0 1523 4 1592
+M 0 1523 4 1592
+D 0 1592 0 1
+M 0 1515 4 1594
+M 0 1515 4 1594
+M 0 1551 2 1595
+M 0 1550 3 1598
+M 0 1550 3 1599
+M 0 1550 3 1599
+M 0 1552 1 1584
+E 1 1521 1552 16
+M 0 1500 2 1522
+M 0 1500 2 1522
+M 0 1566 3 1523
+M 0 1566 3 1523
+M 0 1566 3 1523
+S
+
+
+#SHOPS
+0
+
+
+#REPAIRS
+0
+
+
+#SPECIALS
+M  1511 spec_poison
+S
+
+
+#$

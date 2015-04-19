@@ -1,0 +1,3354 @@
+#AREA   Dragon Exports~
+
+
+
+#AUTHOR Sandman~
+
+#RANGES
+5 25 0 60
+$
+
+#RESETMSG A hollow chant can be heard from somewhere far below...~
+
+#FLAGS
+0
+
+#ECONOMY 0 6672836
+
+#MOBILES
+#9800
+Kylara cult receptionist~
+Kylara~
+The Dragon Exports receptionist greets you with a smile.
+~
+Kylara is a woman of average beauty, but her smile is warming and genuine.
+It is her job to keep the doors to the Dragon Exports building closed and
+locked to all who do not know the cult's password.
+~
+3 4194984 0 C
+4 17 6 1d0+9999 1d4+3
+100 400
+8 8 2
+15 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 1767 1056768 3072 0 64 2
+> all_greet_prog 100~
+if level($n) >= 51
+else
+if isnpc($n)
+say We do not allow your type in here $n!
+mpforce $n south
+else
+if isgood($n)
+smile $n
+mpechoat $n Kylara says 'You may find this place distasteful. However,
+mpechoat $n if you know the password, I shall unlock the door for you.'
+else
+mpechoat $n Kylara says 'Ah yes, you are exactly the type they look for here.
+mpechoat $n If you know the password, I shall unlock the door for you.'
+endif
+endif
+endif
+~
+> speech_prog p worship dragons~
+if ispc($n)
+mpechoat $n Kylara smiles at you.
+mpechoat $n Kylara says 'Enjoy your stay in Dragon Exports.'
+mpechoaround $n $n leaves north.
+mpechoat $n Kylara helps you through the Dragon Exports front door.
+mptransfer 0.$n 9851
+mpat 0.$n mpechoat $n Kylara closes the door behind you.
+else
+endif
+~
+> death_prog 100~
+if rand(33)
+mpoload 9825 1
+mpecho Kylara gasps as the life drains from her body.
+mpecho as she falls the the ground, a key is dropped from her hand.
+drop key
+else
+cackle
+say Now you cannot pass, I take the door key with me into my next life!
+mpecho Kylara takes a last glance at the painting on the west wall.
+endif
+~
+|
+#9801
+minor priest~
+the minor priest~
+A minor priest of the Dragon Cult scuffles along.
+~
+The minor priest seems preoccupied with his worship, so that he barely
+realizes you are here.  He almost seems to be in a trance of some sort.
+~
+65 8 -100 C
+12 17 0 1d4+250 2d5+7
+100 400
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 1 0 0 1 1 0
+3 0 1775 0 0 0 96 2
+#9802
+robed priest~
+the robed priest~
+A robed priest of the Dragon Cult seems startled by your presence.
+~
+Thie priest is not someone you want to mess with.  He is wearing
+thick ornate robes and wields a sharp dagger.  His eyes have a look
+of craziness to them, like this man lives in a world of his own.
+~
+97 48 -200 C
+14 17 0 1d4+300 1d4+12
+100 400
+8 8 1
+15 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 2 0 0 0 0 1 0
+#9803
+S'goral draconian knight~
+S'goral~
+A Draconian Knight stands here formidably.
+~
+While human seeming, subtle signs give you another indication. A slight
+green tinge to the skin, combined with a hint of vestigial scales, show
+this creature to have more of a reptilian origin. His sole purpose in
+life it to kill the people who pass here without an invitation.
+~
+67 696 -400 C
+16 17 -20 1d4+400 2d5+15
+100 400
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+31 3 0 0 1 1 0
+4 0 132839 1 2048 8 32 2
+> all_greet_prog 100~
+if isnpc($n)
+or isimmort($n)
+else
+mpechoat $n The Draconian Knight leaps in an angry attack!
+mpechoat $n This will teach you to enter sacred grounds without an invitation!
+  c magic $n
+endif
+~
+|
+#9804
+Cosira high priestess mistress~
+Mistress Cosira~
+The High Priestess of the Dragon Cult is infuriated by your intrusion!
+~
+This woman is beautiful, with a haunting strangeness to her. Her form
+is that of a well endowed human female, but you can tell she is not
+actually human. A slight green tinge to the skin, combined with a hint
+of vestigial scales, show this woman to have more of a reptilian origin.
+~
+67 8376 -600 C
+18 17 -25 1d4+400 5d4+8
+100 400
+8 8 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+31 0 0 0 1 1 0
+4 0 1767 1 2048 0 1 2
+> rand_prog 20~
+close n
+close e
+~
+> all_greet_prog 100~
+if isnpc($n)
+or isimmort($n)
+else
+  c dragonskin
+  cackle
+  c flamestrike $n
+endif
+~
+|
+#9805
+Prilla virgin sacrifice~
+Prilla~
+A virgin is here, weeping over her pending death.
+~
+This innocent, beautiful girl is waiting for some brave, 
+handsome warrior to save her.
+~
+3 512 0 C
+5 17 6 1d5+50 1d4+3
+100 400
+8 8 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+4 5 0 0 8 9 0
+0 0 1767 0 0 0 0 0
+> death_prog 100~
+scream
+~
+> all_greet_prog 100~
+if isnpc($n)
+else
+  grovel
+endif
+~
+> rand_prog 6~
+sniff
+~
+> rand_prog 4~
+say Please let me go! Please! I am only 14, I am too young to die!
+~
+> rand_prog 2~
+cry
+~
+> act_prog ~
+~
+|
+#9806
+dragon wyrmling~
+the Black Dragon Wyrmling~
+A Black Dragon Wyrmling is here, moving to feed on you...
+~
+The Black Dragon Wyrmling is the center of this obscure Dragon Cult.
+It is viciuos and has a nasty bite, so you better be ready!
+~
+39 648 -1000 C
+25 -15 -12 10d20+600 3d10+12
+50000 1000000
+8 8 1
+18 13 13 13 13 13 13
+0 0 0 0 0
+31 2 0 0 1 1 0
+4 2 66599 65 2048 0 0 2
+> fight_prog 33~
+if isaffected($i) == blind
+  , squints its eyes, looking for a target.
+else
+  mea 0.$r The Wyrmling takes a deep breath and breathes fire onto you!
+  mer 0.$r The Wyrmling takes a deep breath and breathes fire onto $r!
+  mpdamage $n 30
+endif
+~
+|
+#9807
+minor priest~
+the minor priest~
+A minor priest of the Dragon Cult is here, tending to the call of nature.
+~
+The minor priest seems preoccupied.
+~
+67 8200 -100 C
+12 17 0 1d4+9 1d4+3
+100 400
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 0 0 2048 0 0 2
+> all_greet_prog 100~
+blush $n
+mpechoat $n The minor priest says 'You should learn to knock first!'
+mpechoat $n The priest makes himself presentable.
+~
+> act_prog ~
+~
+|
+#9808
+fanatic monk~
+a fanatic monk~
+A fanatic monk raves about the day of the great black death!
+~
+A sincere, if looney, monk ... he wears a look of utter terror.
+~
+1 8 0 C
+6 17 6 1d4+60 1d4+10
+100 400
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 2
+0 0 0 0 2048 0 0 2
+> rand_prog 6~
+, falls to the ground and sobs.
+say I saw it!  Them!  Above the astral plane!
+say The dark mages were right, the time is near!
+, buries his face in his hands.
+mpasound Not far away, an odd monk can be seen sobbing.
+~
+|
+#9809
+Belesdan director~
+Belesdan~
+Belesdan, the head merchandiser, greets you with a smarmy smile.
+~
+Belesdan strikes you as a fast talking, slick deal maker. His smile is
+not quite genuine, but draws you in all the same. His eyes are always
+darting about, making sure he is not missing a thing. At first look
+he appeared human, until you notice his almost too skinny build and
+pointed ears. His elven features are tamed well by his human blood.
+~
+71 552 -1000 C
+7 17 6 1d20+60 1d4+3
+100 400
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+9 2 0 0 3 3 0
+0 0 1767 0 2048 0 32 10
+> rand_prog 5~
+close east
+~
+> all_greet_prog 100~
+if name($n) == Gemma coordinator
+say Oh, hello Gemma dear. How is everything today?
+mpecho Belesdan tries hard to look busy, and fails miserably.
+blush Gemma
+else
+if name($n) == Moretta
+say Moretta, can you please be a little more careful with my things.
+say I mean really, do you not know how to do your work properly?
+nudge moretta
+else
+if isnpc($n)
+glare $n
+say You do not belong in here.
+mpforce $n west
+else
+if isimmort($n)
+grovel $n
+say Immortals are always welcome here. How may I serve you, $n?
+else
+say Ah, a mere mortal.  What is your business here, $n?
+mpechoat $n I hope you understand, Dragon Exports is by invitation only.
+mpechoat $n I suggest you visit Fandarel about your needs.
+endif
+endif
+endif
+endif
+~
+> act_prog p you feel cold to your bones.~
+if name($n) == Gemma coordinator
+grovel Gemma
+say I can not help myself, your beauty overtakes my senses.
+say I will try harder. If only you were not so fetching in that dress.
+sigh gemma
+else
+growl $n
+endif
+~
+> act_prog p frowns at what you did.~
+if name($n) == Moretta
+say Watch your attitude wench, or you will find yourself out of a job.
+say Only by MY grace do you even remain, such a high horse you ride.
+grin $n
+else
+glare $n
+endif
+~
+|
+#9810
+Moretta~
+Moretta~
+Moretta wanders about here, keeping everything neat and tidy.
+~
+Moretta is the maid of this fine institution.  She is sort of mousey
+and quiet, like she is afraid of her own shadow.  She never seems to
+stop working, as if by sheer will she can clean the evil out of this
+place.  She barely glances at you, then goes back to scrubbing.
+~
+69 520 200 C
+12 17 6 5d15+120 1d4+3
+100 400
+8 8 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 1767 0 0 0 64 2
+> rand_prog 5~
+mpecho Moretta kneels and begins to scrub the floor.
+~
+> rand_prog 2~
+mpecho Moretta stands on her tip-toes, trying to clean the ceiling.
+~
+> act_prog p spanks you playfully.  OUCH!~
+if name($n) == Jerint sales director
+growl jerint
+say If not for me, this place would crumble about your very ears!
+mpecho Moretta arranges the items on the shelves as she dusts.
+say I'll be leaving now, try not to be so messy, Jerint.
+poke jerint
+else
+say Hey now, do I look like that type o'girl to ya?
+endif
+~
+> act_prog p smiles at you.~
+if name($n) == Jerint sales director
+say Good! I hope it bruised you. Stop giving me such grief!
+wave jerint
+east
+south
+else
+nod $n
+endif
+~
+> act_prog p nudges you.~
+if name($n) == Belesdan director
+say You know I am always careful with things, even if they are yours.
+frown $n
+else
+say Hey now, don't go pushing me around.
+endif
+~
+> act_prog p Better keep your distance.~
+if name($n) == Belesdan director
+say Go ahead and fire me, you worthless pile of meat.
+say No one can equal my loyalty or dedication, and I could use the vacation!
+smirk belesdan
+west
+else
+stare $n
+say I just love a friendly flirt!
+wink $n
+endif
+~
+> act_prog p stares at you, fuming with rage!~
+if name($n) == Fandarel boss
+say Oh, pardon me. I thought you were alone.
+frown
+else
+shiver $n
+endif
+~
+> act_prog p you.  Have a good journey.~
+if name($n) == Fandarel boss
+say Very well, sir.
+grumble
+south
+else
+smile $n
+say Good bye to you $n.
+endif
+~
+|
+#9811
+Gemma coordinator~
+Gemma~
+Gemma, the office coordinator, bustles around the office.
+~
+Gemma looks very busy. She runs around the office to make sure everything
+runs well.  She might be attractive if she weren't so work oriented.  Her
+boss, Fandarel, keeps her more busy than necessary, probably for personal
+reasons.
+~
+65 520 -1000 C
+14 17 0 5d20+190 1d15+4
+100 400
+8 8 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 1767 0 2048 0 96 2
+> rand_prog 5~
+mpecho Gemma rustles some papers in an attempt to put them in order.
+~
+> rand_prog 2~
+sigh
+say I really wish Fandarel would be more organized.
+~
+> act_prog p smiles at you.~
+if name($n) == Jerint sales director
+chuckle
+say Ah, Jerint, you know Fandarel would fire me if I ever slowed.
+wink $n
+else
+smile $n
+endif
+~
+> act_prog p waves goodbye to you.  Have a good journey.~
+if name($n) == Jerint sales director
+say Good day to you too, Jerint.
+wave jerint
+east
+else
+smile $n
+say Have a good journey $n.
+endif
+ 
+~
+> act_prog p Such an effect on people!~
+if name($n) == Belesdan director
+say Belesdan, I have asked you several times not to call me dear.
+glare Belesdan
+else
+say Oh, sorry $n, I did not mean to embarass you.
+endif
+~
+> act_prog p Touching, huh?~
+if name($n) == Belesdan director
+say I am not going to take this from you, Belesdan.
+say I get it enough from your Uncle Fandarel.  Cad must be a family trait.
+snarl Belesdan
+west
+else
+endif
+~
+> act_prog p winks suggestively at you.~
+if name($n) == Fandarel boss
+groan
+say Please, Fandarel, I want to keep our relationship professional.
+say I came by to see if you had any new papers that require processing.
+smile $n
+else
+blush $n
+endif
+~
+> act_prog p whistles at the sight of you.~
+if name($n) == Fandarel boss
+mpecho Gemma stands up quickly, and straightens her dress.
+gasp fandarel
+say Good day, Mr. Fandarel.
+south
+else
+blush $n
+endif
+~
+|
+#9812
+Fandarel boss~
+Fandarel~
+Fandarel sits here, smoking a pipe and looking important.
+~
+Fandarel is good at being bossy, but makes for an awful person to work
+for.  He basically sits around in his office all  day. He does take time
+out to yell at those working under him, and to take a break in Gemma's
+office.  He seems awful interested in watching her work, maybe hoping
+to get a look up her skirt.
+~
+67 520 -500 C
+12 17 -10 1d4+300 1d4+11
+100 400
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 1767 0 0 0 32 2
+> all_greet_prog 100~
+if name($n) == Gemma coordinator
+say Hello, Gemma, babe. You are sure candy to to the eyes.
+wink gemma
+else
+if name($n) == Moretta
+growl
+say Moretta, if I have told you once, I have told you a hundred times...
+say Do not come in here unless I am alone.
+fume Moretta
+else
+if isnpc($n)
+else
+if sex($n) == 2
+lick
+say Hello $n. Would you care to join me for a coffee?
+wink $n
+else
+shake $n
+say Hello $n. Do you have business here in Dragon Cult?
+endif
+endif
+endif
+endif
+~
+> act_prog p smiles at you.~
+if name($n) == Gemma coordinator
+say Well yes, Gemma, I have a few items for you.
+mpecho Fandarel holds out a few papers, but drops them as Gemma grabs for them.
+say Oh dear, clumsy me. Please get those for me.
+mpecho Gemma bends down and begins to collect the scattered papers.
+whistle gemma
+else
+grin $n
+endif
+~
+> act_prog frowns.~
+if name($n) == Moretta
+say Well, get about your work and be quick about it. I will not wait all day.
+mpecho Moretta dusts the desk quickly, then empties the ashtray.
+say Thats enough for now girl. You can finish after this meeting is done.
+wave Moretta
+else
+say Hrmph, don't be frowning in here.
+endif
+~
+> rand_prog 2~
+mpoload 9865 7
+mpoload 9866 7
+fill pipe nip
+tamp pipe
+light pipe
+smoke pipe
+empty pipe
+mpjunk pipe
+ 
+~
+> death_prog 100~
+mpoload 9865 10
+mpoload 9866 10
+mpoload 9866 10
+~
+|
+#9813
+Wilam torturer~
+Wilam~
+Wilam, the Cult Torturer, is ready to inflict great pain upon you.
+~
+This is one of the most handsome men you have ever seen. His hair is
+a fiery red, shoulder length and wavy. His face has the ruged chiseled
+look. His muscles are well defined, but not overly large. You can not
+believe someone like this could torture people...  that is until he
+smiles. There is an odd twist to his mouth, something dark and flickering
+behind the eyes. A calculating madness lurks deep within that disturbing
+smile. Resisting the urge to shiver, you pull your eyes away.
+~
+71 4194824 -1000 C
+12 17 -30 20d10+500 1d7+5
+100 400
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+4 0 1767 9 3072 2 64 2
+> rand_prog 6~
+close door
+close secret
+lock door
+lock secret
+mpjunk all
+~
+> rand_prog 2~
+if isnpc($r)
+growl
+else
+grin $r
+endif
+~
+> rand_prog 1~
+cackle
+say No one leaves this room as long as I live and breathe!
+~
+> death_prog 100~
+mpecho Wilam drops a hunk of metal on the ground.
+mpecho Wilam kicks the key, and it skitters across the floor, out of sight.
+~
+> all_greet_prog 100~
+close door
+lock door
+close secret
+lock secret
+mpechoat $n Wilam says 'Welcome to my chamber of torture.. How may I hurt you?'
+~
+> act_prog ~
+~
+|
+#9814
+Jerint sales director~
+Jerint~
+The Portable Dragon's vendor eyes you from bottom to top as you enter.
+~
+First thing you notice about this man is his eyes, as they scan you from
+bottom to top, they are a vivid steel grey color, full of witty intellect
+and genuine warmth.  Exuding an aura of confidence, this is a man that
+is completely comfortable in his masculinity.  His face is that of an
+older gentleman, slightly wrinkled from many years of laughter and sun.
+He sports a full head of salt and pepper hair and a handlebar mustache
+with more salt than pepper.  His face breaks into a friendly smile at 
+your appraisal.
+~
+67 8872 750 C
+15 17 0 5d10+150 1d8+4
+100 400
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 1 0 0 1 1 0
+0 0 1767 0 3072 1 624 15
+> all_greet_prog 100~
+if name($n) == Gemma coordinator
+say Stop your fretting, Gemma, it will give you wrinkles. Go take a break!
+smile gemma
+else
+if name($n) == Moretta
+say Woman, you clean this place so a man can not feel comfortable!
+say Ever heard "dirty enough to be happy, clean enough to be healthy"?
+spank Moretta
+else
+if isnpc($n)
+force $n east
+else
+if isimmort($n)
+say Hello $n, pleasure to serve those of the Immortal ranks!
+else
+say Welcome to my shop $n. What may I interest you in today?
+endif
+endif
+endif
+endif
+~
+> act_prog p winks suggestively at you.~
+if name($n) == Gemma coordinator
+sigh
+say You may be right there, lass, sad to say.
+say Maybe he shall lighten his mood as he gains years.
+say Ah well, have a good day, Gemma!
+wave Gemma
+else
+say My, you are a flirt, $n!
+endif
+~
+> act_prog p pokes you in the ribs.~
+if name($n) == Moretta
+say Ouch! Wench, that tickles. Now get outta here and bug someone else.
+smile Moretta
+else
+poke $n
+endif
+~
+|
+#9815
+zombie zmee~
+the zombie~
+The decayed remains of a hapless Dragonslayer.
+~
+This zombie is pretty fresh.  Not much of the flesh has begun to rot
+off. This used to be a strong Dragonslayer, and chances are he carried
+a lot of that strength into his undeath.
+~
+99 136 -1000 C
+15 17 6 10d10+150 1d7+7
+100 400
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+3 0 1767 0 0 0 0 0
+> death_prog 100~
+mpoload 9893 1
+mpecho The Zombie yells 'Master! Help me.'
+mpecho The Zombie falls to the ground, in a pile of rotting flesh.
+~
+|
+#9816
+Adrathom lich priest~
+Adrathom~
+The Lich Priest glares at you through dead eyes.
+~
+This is the living corpse of a once powerfull priest of the cult.  In his
+quest for power he learned the ways of the mage and made himself a 
+monstrocity.  He is a creature to be reckoned with, and unless the
+gods are in your favor he will probably kill you.
+~
+99 33554608 -1000 C
+37 17 -75 10d30+750 5d4+12
+100 400
+8 8 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+67 0 0 0 1 1 0
+4 0 1063 1048576 2099200 0 65 2
+#9817
+G'narish old monk~
+G'narish~
+An old, dangerous looking monk is here attempting to sell you candy.
+~
+This monk is so old, he looks as if he should be long dead and buried.
+His face is a series of wrinkles, blurring all his features.  His
+breath is awful, and as you look closer, you can see why.  His teeth
+are rotten and his tongue is a disgusting black.
+~
+3 4202664 -200 C
+20 17 -300 1d1+10000 10d5+10
+100 400
+8 8 1
+13 13 13 16 13 13 13
+0 0 0 0 -3
+36 1 0 0 1 1 3
+3 0 955 0 11312 0 603980369 418
+> rand_prog 25~
+if goldamt($i) > 50000
+mpat 5475 drop 40000 coins
+mpat 5475 mppurge coins
+endif
+~
+> rand_prog 5~
+, runs a blackened tongue over his rotting teeth, then grins.
+~
+|
+#9863
+priest~
+the robed priest~
+A trusted priest of the Dragon Cult wanders here, deep in worship.
+~
+Thie priest is not someone you want to mess with.  He is wearing
+thick ornate robes and wields a sharp dagger.  His eyes have a look
+of craziness to them, like this man lives in a world of his own.
+~
+65 48 -200 C
+14 17 0 1d4+300 1d4+12
+100 400
+8 8 1
+15 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 0 0 0 0 1 0
+#9899
+spacer mob~
+a newly created spacer mob~
+Some god abandoned a newly created spacer mob here.
+~
+~
+1073741825 0 0 S
+1 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+#0
+
+
+#OBJECTS
+#9810
+altar~
+a newly created altar~
+Some god dropped a newly created altar here.~
+~
+13 1073741824 0
+0 0 0 0
+0 0 0
+#9825
+black key~
+a black key~
+You see a very important key here!~
+~
+18 0 1
+0 0 0 0
+1 0 0
+#9826
+primitive key~
+a primitive key~
+You see a primitive key here!~
+~
+18 0 1
+0 0 0 0
+1 0 0
+#9827
+skull key~
+a skull key~
+You see a skull key here!~
+~
+18 0 1
+0 0 0 0
+1 0 0
+#9828
+bone sword~
+a bone sword~
+A sharp piece of bone lays here.~
+~
+5 512 8193
+0 0 0 1
+40 4000 400
+A
+1 2
+A
+2 2
+A
+3 -1
+A
+19 1
+A
+18 1
+#9829
+skull helm dragon~
+a helm made from a dragon's skull~
+The skull of a dragon lies here.~
+~
+9 1 17
+0 0 0 0
+15 4000 400
+A
+3 -1
+A
+5 2
+#9830
+dark robes~
+some dark robes~
+Some dark robes lay here.~
+~
+9 0 9
+0 0 0 0
+5 1000 100
+A
+12 30
+#9831
+black pen~
+a black pen~
+A black pen catches your eye.~
+~
+5 0 8193
+0 0 0 11
+8 300 30
+#9832
+evil black dagger~
+an evil looking black dagger~
+A black dagger is here radiating evil.~
+~
+5 16 8193
+0 0 0 11
+10 300 30
+A
+19 3
+A
+18 2
+#9833
+black staff~
+a black staff~
+A long, blackened stick is here.~
+~
+5 8388624 8193
+0 0 0 7
+10 300 30
+A
+18 3
+A
+3 1
+#9834
+heap scales black dragonscale robes~
+dragonscale robes~
+You see a shimering black heap of scales.~
+~
+9 2640 9
+0 0 0 0
+20 5000 500
+A
+12 50
+A
+3 3
+A
+4 3
+A
+13 25
+#9835
+ornate robes~
+ornate robes~
+You see a pile of finely woven cloth.~
+~
+9 0 9
+0 0 0 0
+20 5000 500
+A
+3 1
+A
+4 1
+#9836
+white dress torn~
+a torn white dress~
+A once pretty dress is lying here with holes torn in it.~
+~
+9 0 9
+0 0 0 0
+5 10 1
+#9837
+rusty key~
+a rusty key~
+A hunk of metal is on the ground.~
+~
+18 33554432 1
+0 0 0 0
+1 0 0
+#9838
+cheap plaid pants pair~
+a pair of cheap plaid pants~
+Some really ugly pants are on the ground here.~
+~
+9 0 33
+0 0 0 0
+5 1000 100
+A
+25 -4
+#9839
+donut~
+a donut~
+There is a jelly filled donut here.~
+~
+19 0 1
+100 0 0 0
+1 0 0
+#9840
+coffee~
+a cup of coffee~
+There is a piping hot cup of coffee here~
+~
+17 0 1
+15 15 12 0
+1 0 0
+#9841
+dragon candy~
+dragon candy~
+A piece of Dragon candy.~
+~
+26 0 1
+0 4 27 -1
+1 200 20
+#9842
+zombie candy~
+zombie candy~
+A piece of Zombie candy.~
+~
+26 0 1
+0 4 2 17
+1 320 32
+#9843
+lich candy~
+lich candy~
+A piece of Lich candy.~
+~
+26 0 1
+0 33 -1 -1
+1 50 5
+#9844
+vampire candy~
+vampire candy~
+A piece of Vampire candy.~
+~
+26 0 1
+0 25 25 25
+1 100 10
+#9845
+beholder candy~
+beholder candy~
+A piece of Beholder candy.~
+~
+26 0 1
+0 44 19 20
+1 1000 100
+#9846
+ogre candy~
+ogre candy~
+A piece of Ogre candy.~
+~
+26 0 1
+1 39 66 -1
+1 2000 200
+#9847
+troll candy~
+troll candy~
+A piece of Troll candy.~
+~
+26 0 1
+0 16 16 -1
+1 1500 150
+#9848
+death candy~
+death candy~
+A piece of Death candy.~
+~
+26 0 1
+0 36 66 67
+1 15000 1500
+#9849
+emerald stone~
+an emerald stone~
+A dark green stone lies here forgotten~
+~
+8 1 16385
+0 0 0 0
+16960 0 0
+A
+1 2
+A
+2 2
+A
+3 2
+A
+4 2
+A
+5 2
+A
+12 50
+A
+13 50
+A
+17 15
+A
+18 15
+A
+19 15
+#9850
+brochure~
+a brochure~
+A sharp looking flyer flutters here in the breeze.~
+~
+13 4224 16385
+0 0 0 0
+1 0 0
+E
+brochure~
+The brochure reads:
+ ____________________________________
+ | C U L T  O F  T H E  D R A G O N |
+ |                                  |
+ | Join today and you too can share |
+ | in the many benefits of a cult.  |
+ | Advantages like:                 |
+ |   - never having a heating bill! |
+ |     (dragons, heat, get it?)     |
+ |   - attractive robes!            |
+ |   - virgin sacrifices!           |
+ |   - sophisticated hairstyle!     |
+ |                                  |
+ | Remember - vote 'no' on prop.13, |
+ |  a Darkhaven ban on Dragon Cult  |
+ |             activity!            |
+ |       If you feel like we do     |
+ |       kill the Duke, TODAY!      |
+ |__________________________________|
+ 
+~
+#9851
+glowing caution sign~
+a brightly glowing sign of caution~
+A new, brightly glowing caution sign beckons to you.~
+~
+12 3 0
+0 0 0 0
+0 0 0
+E
+glowing sign caution~
+This area has been updated to take advantage of special functions and
+capabilites found in the Realms, as well as to challenge the relative
+strength of low level characters.  The area is easily accessible, and
+provides excellent equipment for those who come prepared.  Those who
+are not should seek adventure elsewhere.
+~
+#9852
+ornate robes~
+ornate robes~
+You see a pile of finely woven cloth.~
+~
+9 1 5
+0 0 0 0
+7 5000 500
+A
+3 1
+A
+4 1
+#9855
+statue~
+a statues of a dragon~
+A pure gold dragon statue stands in the center of the room.~
+~
+13 0 0
+0 0 0 0
+0 0 0
+E
+statue~
+This statue is made from gold, molded into the shape of a majestic
+dragon. The detail is extraordinary.  You can make out each scale
+and curve of the body.  The mouth is pulled back in a snarl, showing
+a mouth full of sharp teeth.
+~
+#9860
+brown dragon staff~
+a brown dragon staff~
+Here lies a staff carved in a dark brown wood in the shape of a dragon.~
+~
+4 262209 16385
+40 1 1 227
+15 10000 1000
+#9861
+golden dragon statuette~
+a golden dragon statuette~
+A golden statuette, carved into the shape of a dragon, lies here.~
+~
+9 66 16385
+5 7 0 0
+12 75000 7500
+A
+31 2
+A
+3 1
+A
+12 20
+#9862
+red dragon wand~
+a red dragon wand~
+A red wand with the grip carved into the shape of a dragon.~
+~
+3 65 16385
+20 1 1 212
+10 95000 9500
+#9863
+black dragon potion~
+a black dragon potion~
+A black liquid, inside a dragon shaped flask, lies here bubbling.~
+~
+10 195 1
+30 59 3 1
+20 111111 11111
+#9864
+leaky quill~
+a leaky quill~
+A battered quill lies here, leaking ink everywhere.~
+~
+5 67 8193
+0 0 0 11
+8 300 30
+A
+25 -1
+A
+13 4
+A
+19 2
+A
+18 3
+> use_prog 100~
+mpechoat $n As you wield this quill, ink splashes on your armour.
+mpechoat $n You become less attractive to those around you.
+mpechoaround $n $n splashes ink on $s armour, making $m look messy.
+~
+|
+#9865
+meerschaum dragon pipe~
+a meerschaum dragon pipe~
+Here lies a pipe bowl, carved from white meerschaum, in the shape of a dragon.~
+~
+30 1 1
+90 0 0 0
+5 12500 1250
+E
+pipe~
+This pipe is made from a white clay, called meerschaum.  It is carved
+into the shape of a dragon head caught in mid-growl.
+~
+#9866
+dragon nip herb~
+a pinch of dragon nip herb~
+A brown herb lies here in a small pile.~
+~
+32 262144 1
+30 30 0 0
+3 1100 110
+#9892
+Dragon candy~
+dragon candy~
+A piece of Dragon candy.~
+~
+26 0 1
+5 227 85 -1
+1 450 45
+#9893
+rusty key~
+a rusty key~
+A hunk of metal is on the ground.~
+~
+18 0 1
+0 0 0 0
+1 0 0
+#9899
+spacerobj~
+a newly created spacerobj~
+Some god dropped a newly created spacerobj here.~
+~
+13 1073741824 0
+0 0 0 0
+0 0 0
+#0
+
+
+#ROOMS
+#9810
+Winter Altar~
+~
+0 1073741833 0
+D2
+~
+~
+0 -1 9833
+D8
+~
+~
+0 -1 9834
+S
+#9811
+The Winter Pit~
+~
+0 1073741833 0
+D2
+~
+~
+0 -1 9895
+S
+#9812
+A dark cell~
+~
+0 1073741833 0
+D1
+~
+~
+3 -1 9813
+S
+#9813
+North Mage Route~
+~
+0 1073741833 0
+D1
+~
+~
+0 -1 9814
+D2
+~
+~
+0 -1 9836
+D3
+~
+~
+3 -1 9812
+S
+#9814
+North Mage Route~
+~
+0 1073741833 0
+D1
+~
+~
+3 -1 9815
+D3
+~
+~
+0 -1 9813
+S
+#9815
+Spring~
+~
+0 1073741833 0
+D1
+~
+~
+0 -1 9816
+D3
+~
+~
+3 -1 9814
+S
+#9816
+Spring Altar~
+~
+0 1073741833 0
+D3
+~
+~
+0 -1 9815
+D9
+~
+~
+0 -1 9838
+S
+#9817
+The Spring Pit~
+~
+0 1073741833 0
+D2
+~
+~
+0 -1 9897
+S
+#9818
+A dark cell~
+~
+0 1073741833 0
+D2
+~
+~
+3 -1 9819
+S
+#9819
+East Mage Route~
+~
+0 1073741833 0
+D0
+~
+~
+3 -1 9818
+D2
+~
+~
+0 -1 9820
+D3
+~
+~
+0 -1 9840
+S
+#9820
+East Mage Route~
+~
+0 1073741833 0
+D0
+~
+~
+0 -1 9819
+D2
+~
+~
+3 -1 9821
+S
+#9821
+Summer~
+~
+0 1073741833 0
+D0
+~
+~
+3 -1 9820
+D2
+~
+~
+0 -1 9822
+S
+#9822
+Summer Altar~
+~
+0 1073741833 0
+D0
+~
+~
+0 -1 9821
+D3
+~
+~
+0 -1 9823
+D7
+~
+~
+0 -1 9842
+S
+#9823
+The Summer Pit~
+~
+0 1073741833 0
+D0
+~
+~
+0 -1 9897
+D1
+~
+~
+0 -1 9822
+D3
+~
+~
+3 -1 9824
+S
+#9824
+A dark cell~
+~
+0 1073741833 0
+D1
+~
+~
+3 -1 9823
+D3
+~
+~
+3 -1 9825
+S
+#9825
+South Mage Route~
+~
+0 1073741833 0
+D0
+~
+~
+0 -1 9844
+D1
+~
+~
+3 -1 9824
+D3
+~
+~
+0 -1 9826
+S
+#9826
+South Mage Route~
+~
+0 1073741833 0
+D1
+~
+~
+0 -1 9825
+D3
+~
+~
+3 -1 9827
+S
+#9827
+Autumn~
+~
+0 1073741833 0
+D1
+~
+~
+3 -1 9826
+D3
+~
+~
+0 -1 9828
+S
+#9828
+Autumn Altar~
+~
+0 1073741833 0
+D1
+~
+~
+0 -1 9827
+D6
+~
+~
+0 -1 9846
+S
+#9829
+The Autumn Pit~
+~
+0 9 0
+D0
+~
+~
+0 -1 9895
+S
+#9830
+A dark cell~
+~
+0 1073741833 0
+D0
+~
+~
+3 -1 9831
+D2
+~
+~
+3 -1 9829
+S
+#9831
+West Mage Route~
+~
+0 1073741833 0
+D0
+~
+~
+0 -1 9832
+D1
+~
+~
+0 -1 9848
+D2
+~
+~
+3 -1 9830
+S
+#9832
+West Mage Route~
+~
+0 1073741833 0
+D0
+~
+~
+3 -1 9833
+D2
+~
+~
+0 -1 9831
+S
+#9833
+Winter~
+~
+0 1073741833 0
+D0
+~
+~
+0 -1 9810
+D2
+~
+~
+3 -1 9832
+S
+#9834
+Winter Attendant~
+~
+0 1073741833 0
+D7
+~
+~
+0 -1 9810
+D8
+~
+~
+0 -1 9835
+S
+#9835
+Winter Liar~
+~
+0 1073741833 0
+D5
+~
+~
+0 -1 9811
+D7
+~
+~
+0 -1 9834
+S
+#9836
+North Mage Route~
+~
+0 1073741833 0
+D0
+~
+~
+0 -1 9813
+D2
+~
+~
+0 -1 9837
+S
+#9837
+North Mage Route~
+~
+0 1073741833 0
+D0
+~
+~
+0 -1 9836
+D2
+~
+~
+0 -1 9891
+S
+#9838
+Spring Attendant~
+~
+0 1073741833 0
+D6
+~
+~
+0 -1 9816
+D9
+~
+~
+0 -1 9839
+S
+#9839
+Spring Liar~
+~
+0 1073741833 0
+D5
+~
+~
+0 -1 9817
+D6
+~
+~
+0 -1 9838
+S
+#9840
+East Mage Route~
+~
+0 1073741833 0
+D1
+~
+~
+0 -1 9819
+D3
+~
+~
+0 -1 9841
+S
+#9841
+East Mage Route~
+~
+0 1073741833 0
+D1
+~
+~
+0 -1 9840
+D3
+~
+~
+0 -1 9891
+S
+#9842
+Summer Attendant~
+~
+0 1073741833 0
+D7
+~
+~
+0 -1 9843
+D8
+~
+~
+0 -1 9822
+S
+#9843
+Summer Liar~
+~
+0 1073741833 0
+D5
+~
+~
+0 -1 9823
+D8
+~
+~
+0 -1 9842
+S
+#9844
+South Mage Route~
+~
+0 1073741833 0
+D0
+~
+~
+0 -1 9845
+D2
+~
+~
+0 -1 9825
+S
+#9845
+South Mage Route~
+~
+0 1073741833 0
+D0
+~
+~
+0 -1 9891
+D2
+~
+~
+0 -1 9844
+S
+#9846
+Autumn Attendant~
+~
+0 1073741833 0
+D6
+~
+~
+0 -1 9847
+D9
+~
+~
+0 -1 9828
+S
+#9847
+Autumn Liar~
+~
+0 1073741833 0
+D5
+~
+~
+0 -1 9829
+D9
+~
+~
+0 -1 9846
+S
+#9848
+West Mage Route~
+~
+0 1073741833 0
+D1
+~
+~
+0 -1 9849
+D3
+~
+~
+0 -1 9831
+S
+#9849
+West Mage Route~
+~
+0 1073741833 0
+D1
+~
+~
+0 -1 9891
+D3
+~
+~
+0 -1 9848
+S
+#9850
+Dragon Exports front desk~
+You have entered a very orderly office.  The room is painted in a light
+gold with a few sparse paintings on the east wall and a massive painting
+on the west wall.  In the center of the room is a carved desk, impressive
+in stature and design.  A few potted plants stand sentry along the north
+wall, framing a door that blocks travel deeper into this building.  A
+small, golden plaque is attached to the north wall.
+~
+0 13 3
+D0
+A door leads into the temple.
+~
+door~
+39 9825 9851
+D2
+To the south is Law Avenue, of the town of Darkhaven.
+~
+~
+0 -1 21019
+E
+west~
+A massive picture adorns the west wall, barely allowing the light
+gold from the walls to be seen.  The painting is done in oils,
+giving a sheen to the subject it presents to you.  It is a massive
+dragon, larger then any you have seen in your adventures.  The
+beast looks to stand about 40 feet from ground to nose tip and the
+beasts body is about 300 feet long based by the the buildings in
+the background.  At his feet are several men, all kneeling, and a
+female dressed in white.  You think the artist captured a virgin
+sacrifice on this canvas.  On the lower frame is a small brass
+plate reading:  'worship dragons'
+~
+E
+walls~
+The walls here a well cleaned and painted a light gold.  On the 'east'
+you see several small pictures and one massive picture on the 'west'.
+~
+E
+wall~
+The walls here a well cleaned and painted a light gold.  On the 'east'
+you see several small pictures and one massive picture on the 'west'.
+A small, golden plaque is attached to the north wall.
+~
+E
+east paintings~
+On the east wall there are five small paintings.  Each painting features
+one dragon with a detailed background.  The pictures are arranged with
+one in the center and the other four positioned around it.  The center
+picture is that of a wyrmling, named because it looks like a serpent
+with wings.  The painting at 2'oclock is of a smallish brown dragon in
+a background of budding trees and new grasses of early spring.  The
+painting at 4'oclock is that of a golden colored dragon basking in the
+bright sun of mid-summer.  The painting at 8'oclock is a large red dragon
+surrounded by falling leaves of the autumn season.  The final picture,
+placed at 10'oclock to the wyrmling, represents a huge dragon of the
+deepest black perched on a snow-covered cliffside.
+~
+E
+w~
+A massive picture adorns the west wall, barely allowing the light
+gold from the walls to be seen.  The painting is done in oils,
+giving a sheen to the subject it presents to you.  It is a massive
+dragon, larger then any you have seen in your adventures.  The
+beast looks to stand about 40 feet from ground to nose tip and the
+beasts body is about 300 feet long based by the the buildings in
+the background.  At his feet are several men, all kneeling, and a
+female dressed in white.  You think the artist captured a virgin
+sacrifice on this canvas.  On the lower frame is a small brass
+plate reading:  'worship dragons'
+~
+E
+e~
+On the east wall there are five small paintings.  Each painting features
+one dragon with a detailed background.  The pictures are arranged with
+one in the center and the other four positioned around it.  The center
+picture is that of a wyrmling, named because it looks like a serpent
+with wings.  The painting at 2'oclock is of a smallish brown dragon in
+a background of budding trees and new grasses of early spring.  The
+painting at 4'oclock is that of a golden colored dragon basking in the
+bright sun of mid-summer.  The painting at 8'oclock is a large red dragon
+surrounded by falling leaves of the autumn season.  The final picture,
+placed at 10'oclock to the wyrmling, represents a huge dragon of the
+deepest black perched on a snow-covered cliffside.
+~
+E
+painting~
+A massive picture adorns the west wall, barely allowing the light
+blue from the walls to be seen.  The painting is done in oils,
+giving a sheen to the subject it presents to you.  It is a massive
+dragon, larger then any you have seen in your adventures.  The
+beast looks to stand about 40 feet from ground to nose tip and the
+beasts body is about 300 feet long based by the the buildings in
+the background.  At his feet are several men, all kneeling, and a
+female dressed in white.  You think the artist captured a virgin
+sacrifice on this canvas.  On the lower frame is a small brass
+plate reading:  'worship dragons'
+~
+E
+potted plants~
+On each side of the northern door are several potted plants.  Each plant
+is a different variety of a miniature tree.  The green they add to this
+room tames the otherwise antiseptic office.
+~
+E
+desk~
+This desk looks like it was built to last several lifetimes.  It is
+about six feet wide and three feet tall.  The wood is a mahogany,
+carved and stained to a gorgeous finish.  The thing looks to weigh
+at least a hundred pounds.  As you look it over, you wonder if it
+was built in this room, because it does not appear to be able to fit
+through either doorway here.
+~
+E
+plaque~
+This dragon exports has had a major renovation recently, and there are
+plans to add another section soon.  Please let me know if you like the
+changes or have suggestions for the upcoming addition.  Enjoy your time
+adventuring amongst those who worship dragons.
+ 
+Brittany Seccunda-DethBlayde, Godmother
+July 30, 1996
+~
+S
+#9851
+A dimly lit corridor~
+It takes a few moments for your eyes to adjust to the sudden darkness
+of this hallway.  The room is completely bare of color and decor.  The
+emptiness appears purposeful, a ruse to make the building appear bland
+enough to deter potential adventurers.
+~
+0 13 0
+D0
+The Corridor continues North.
+~
+~
+0 -1 9852
+D2
+A door leads into the Reception Area.
+~
+door~
+3 9825 9850
+S
+#9852
+Dragon Hall Foyer~
+This is the formal foyer for the Dragon Exports office.  The room is a
+stark contrast to the hallway leading into it.  The walls are painted
+in a flat gold color.  There are two paintings on the east wall and two
+paintings on the west wall.  To the north is an open doorway, leading
+to a brightly lit room.  South is the hallway leading back toward the
+reception area.
+~
+0 13 0
+D0
+You see an office.
+~
+~
+0 -1 9853
+D2
+You see a corridor.
+~
+~
+0 -1 9851
+E
+walls~
+The walls have intricate paintings of dragons upon them.  You see none of
+the good dragons in the paintings though, they are all of famous evil
+dragons. Those like Tiamat and Shimmergloom.
+~
+E
+walls paintings~
+Four separate paintings adorn the walls here.  Two on the east wall
+and two on the west.  All four painting feature infamous dragons, 
+in various forms of celebration.
+~
+E
+wall~
+The walls have intricate paintings of dragons upon them.  You see none of
+the good dragons in the paintings though, they are all of famous evil
+dragons. Those like Tiamat and Shimmergloom.
+~
+S
+#9853
+The Front Office~
+You have reached the front office of the Dragon Exports.  The decor here
+is somewhat gaudy compared to the parts of the building you have seen so
+far.  The walls maintain the flat golden hue, but the knick knacks are
+more overblown.  Bigger and brighter seems to be the theme here.  The
+variety of colors and styles almost turns your stomach.
+~
+0 9 0
+D1
+There is a door to the east, with a sign reading: Caution -- Do not enter!
+~
+door~
+3 -1 9880
+D2
+You see Dragon Hall.
+~
+~
+0 -1 9852
+D3
+You see the waiting room.
+~
+~
+0 -1 9871
+D5
+There is a trapdoor leading down.
+~
+trapdoor~
+3 -1 9854
+E
+plaque~
+The Dragon Cult Temple was created by Sandman,
+late one night, when he should have been studying
+for finals.  12/13/93
+ 
+Dragon Cult Temple revised & expanded 
+Spring Break '94 by Sandman when he
+should have been his paper.
+~
+E
+brochure~
+____________________________________
+      | C U L T  O F  T H E  D R A G O N |
+      |                                  |
+      | Join today and you too can share |
+      | in the many benefits a cult      |
+      | member can have.                 |
+      | advantages like:                 |
+      |   - never having a heating bill  |
+      |   - those cool robes             |
+      |   - free virgin sacrifice        | 
+      |     tickets!                     |
+      |   - a cool haircut               |
+      |                                  |
+      | For all this and more call       |
+      | 1-800-FOR-DRGN                   |
+      |                                  |
+      | Remember: vote no on 13          |
+      | Citizens of Darkhaven ban on     |
+      | Draconian activity.  If you      |
+      | feel like we do, Kill the Duke   |
+      | TODAY!                           |
+      |__________________________________|         
+~
+E
+door east~
+There is a door to the east, with a sign reading: Caution -- Do not enter!
+~
+S
+#9854
+A five-way intersection~
+You stand at a wide intersection of hallways.  There are exits to the
+north, south, east, and west.  Above you, you can see the outlines of
+a trap door.  From the south you notice a bright glow, catching your
+attention.
+~
+0 9 0
+D0
+There is an exit.
+~
+~
+0 -1 9856
+D1
+A hallway leads east.
+~
+~
+0 -1 9857
+D2
+You see a bright light.
+~
+~
+0 -1 9855
+D3
+You see a hallway.
+~
+~
+0 -1 9859
+D4
+As you look up you can see a trapdoor.
+~
+trapdoor~
+16777219 -1 9853
+S
+#9855
+The Candlelit Shrine~
+The light in this place is overwhelming.  Candles completely cover
+the walls, making this place hot as well as bright.  This place is
+a place of worship, and the idol is a golden dragon statue.
+~
+0 8 0
+D0
+You see the intersection.
+~
+~
+0 -1 9854
+S
+#9856
+The Tapestry Room~
+The walls of this room are covered with tapestries depicting various dragon
+scenes.  Befitting the theme seen throughout this building, there are five
+distinct tapestries - two to the north, two to the south, and one large
+tapestry to the east.  As you begin to look them over in detail, you see
+the east tapestry begin to move.  This may not be the best places to hang
+around.
+~
+0 9 0
+D1
+A beautiful tapestry of a wyrmling covers a passageway to the east.
+~
+tapestry~
+1027 -1 9886
+D2
+You see the intersection.
+~
+~
+0 -1 9854
+E
+w west~
+The two tapestries on the west wall feature an early spring and
+a summer scene.  The spring tapestry is a portrait of a smallish
+brown dragon, perched on a hillside.  The trees around him are just
+beginning to bud with new leaves and the grass has that bright, new
+growth, green.  The dragon looks very prideful, sitting upright, it's
+tail twisted in several loops, crossing the front of his hind legs.
+His eyes are an orange color and seem to follow as you move.  His 
+wings are touching above his back, somewhat flexed in case he needs
+to take off for a quick flight.  Even in this relaxed, prancing state
+this dragon is an impressive desplay of strength.
+The summer tapestry is strikingly different.  It catches a majestic
+golden dragon in mid flight.  It's wings spread far wider than this
+tapestry can hold.  In the background, you can see it is summertime,
+the sun out in full heat.  It looks hot, and the dragon appears to
+enjoy it immensely.  The dragon flies, eyes closed, far above the
+grassy hills.  His tail whipped up behind him, like a scorpion.  He
+looks as if nothing could break his utter contentment of flight.
+~
+E
+n north~
+The two tapestries on the north wall feature an autumn and winter
+scene. The autumn tapestry is a portrait of a mammoth red dragon.
+He is deep in a forest, surrounded by gorgeous leaves of vivid
+colors of fall.  His is sitting on his hind legs, his tail wrapped
+around them.  His front legs are perched lightly on his tail, allowing
+his to stand taller than if he were on all fours.  His chest appears
+puffed up, like he is trying to look even more large then he already
+is. He definitely makes a magestic statement, even in this medium.
+The winter tapestry is so well done, it appears that your fingers would
+freeze upon touching it.  It lacks much in the way of color, just the
+stark white of frozen winter and the deepest black of the immense
+dragon perching on the iced cliff.  The harsh contrast of the dragons
+coloring to the background is shocking, stealing the more exact
+deletes of it's being.
+~
+E
+walls wall tapestry tapestries~
+The walls have several tapestries, to get a better look at them,
+try 'look north', 'look west', and 'look east'.
+~
+E
+e east~
+A large tapestry covers the entire eastern wall.  The tapestry portrays
+a dragon wyrmling, feasting on a virgin sacrifice.  The tapestry appears
+to be shielding an opening in the wall.
+~
+S
+#9857
+An ordinary hallway.~
+This is a small hallway, leading away from the more busy parts of the
+temple area.  The walls here are deprived of color and decor.  Only
+the doors have any color.  One door leads off the the east and the
+other to the north.
+~
+0 9 0
+D0
+You see a small store.
+~
+~
+3 -1 9892
+D1
+You see a door.
+~
+door~
+3 -1 9858
+D3
+You see the intersection.
+~
+~
+0 -1 9854
+S
+#9858
+The lavatory~
+A horrible stench assaults your nostrils as you enter this room.  The
+presence of defecation and urine is heavy in the air.  While appearing
+to come from the much abused toilet, the scent could in fact be sourced
+to several places within this putrid room.  You allow the strange and
+powerfully mystic writings on the walls to draw your attention from the
+awful smell.
+~
+0 9 0
+D3
+You see a door.
+~
+door~
+3 -1 9857
+S
+#9859
+A hallway~
+This portion of the hallway is lit by a strange glow that seems to be
+rising from the floor.  It's as if the stones had an internal light,
+making them radiate this faint lambency.  No matter how closely you
+peer into the flooring, you cannot locate the source of this power.
+~
+0 8 0
+D1
+You see the intersection.
+~
+~
+0 -1 9854
+D3
+You see a bend in the hallway.
+~
+~
+0 -1 9860
+E
+floor stones flooring~
+The stones covering the floor are glowing with an undefined power.
+~
+S
+#9860
+Bend in the hallway~
+You have come to a bend in the hallway of this strange place.  The
+room is dark and dismal, devoid of all light and color.  The walls
+look as if they have never experienced a cleaning, and the floors
+are scuffed from the passing of many feet over time.
+~
+0 9 0
+D0
+Its too far to make out.
+~
+~
+0 -1 9861
+D1
+You see a hallway.
+~
+~
+0 -1 9859
+S
+#9861
+A place of worship~
+This darkened room is where the minor priests celebrate the passing
+of vows and rituals, prerequisites to being allowed to descend deeper
+into the temple.  On the floor are patterns, drawings, and recordings
+of the rites performed here.  Worked into the patterning on the floor
+is an image of a door, a seeming trapdoor leading to the heart of the
+temple.
+~
+0 9 0
+D0
+You see a staircase.
+~
+~
+0 -1 9894
+D2
+You still can run back to the hallway.
+~
+~
+0 -1 9860
+D5
+A trapdoor leads deeper into the Dragon cult temple.
+~
+trapdoor~
+3 -1 9862
+E
+floor~
+Drawn and scratched into the floor are hundreds of patterns, drawings,
+and recordings of rituals preformed here.  The overall theme seems to
+be that of dragons and sacrifice.  The whole place feels dark and evil.
+You see a trapdoor in the middle of the room, but are you brave or
+foolish enough to descend where it leads?
+~
+E
+trapdoor door~
+This is a heavy wooden door, leading down into the temple.
+~
+E
+patterns drawings recordings~
+Drawn and scratched into the floor are hundreds of patterns, drawings,
+and recordings of rituals preformed here.  The overall theme seems to
+be that of dragons and sacrifice.  The whole place feels dark and evil.
+You see a trapdoor in the middle of the room, but are you brave or
+foolish enough to descend where it leads?
+~
+S
+#9862
+Dark Room~
+The darkness is everpresent here.  The light you have barely breaks through
+its tight grip.  Above is a small ladder, leading up to the minor priests'
+section of the temple.  To the south is a circular room.
+~
+0 9 0
+D2
+It's too dark to see anything.
+~
+~
+0 -1 9863
+D4
+You see a trapdoor.
+~
+trapdoor~
+3 -1 9861
+E
+ladder~
+This small ladder looks like it will support your weight, but not
+much else.  It will take you to the upper levels of the temple.
+~
+S
+#9863
+The Inner Circle~
+Dark and foreboding, this place of worship has a penetrating evil about
+it. The priests barely maintain human form, as if turning into the very
+dragons they so devotedly worship.  The walls are splashed with a maroon
+red, that you can imagine used to be blood.  The room is a half circle,
+the south wall being a perfect curve.  In the center of the room is a
+long, rectangular table, painted blood red.  Attached to each corner is
+thick leather straps.  The leather appears to be used for restaints.
+~
+0 9 0
+D0
+It's very dark.
+~
+~
+0 -1 9862
+D1
+You see a room.
+~
+~
+0 -1 9864
+D3
+You see a corridor.
+~
+~
+16777216 -1 9865
+E
+walls~
+The walls are a dark, chiselled rock, bare except for splashings of
+long dried blood.  The south wall is carved like a half moon, making
+the whole room appear roundish.
+~
+E
+table~
+This table is large enough to lay out a full grown man.  The leather straps
+at each corner look strong enough to tie down a bull.  This table looks to
+be used for sacrifices.
+~
+E
+wall s south~
+The south wall is carved like a half moon, making the whole room
+appear roundish.  The walls are a dark, chiselled rock, bare
+except for splashings of long dried blood.
+~
+S
+#9864
+Priest Quarters~
+The Priests of the Dragon Cult sleep here.  The room is very neat and tidy,
+except for one large tile on the floor with dirt around the edges.  The
+only way out is west.
+~
+0 9 0
+D3
+You see the inner circle.
+~
+~
+0 -1 9863
+D5
+A small stairway leads down into a pit, deep under the ground.
+~
+tile~
+16777219 -1 9888
+E
+tile~
+This heavy tile appears to be placed directly over a hole in the ground.
+~
+S
+#9865
+A foreboding corridor~
+A cold chill soaks through your garments as you enter this room.  You
+hear echos of soft weeping resounding through this darkened corridor.
+A small cell lies to the north.  The hall continues east and west.
+~
+0 9 0
+D0
+There is a cell door here.
+~
+cell~
+7 9826 9866
+D1
+You see the inner circle.
+~
+~
+0 -1 9863
+D3
+It's not a safe place to go.
+~
+~
+0 -1 9867
+S
+#9866
+The Virgins' Cell~
+This dark, damp place is apparently where the Virgin Sacrifices are kept.
+This room's size alone is enough to impose the feeling of impending doom
+that the virgins that are forced to wait here must feel.  The mortar walls
+show scratch marks along the seems, where countless maidens have tried
+to claw their way to freedom.  One corner has straw packed in what must
+be the excrement of the one waiting now.
+~
+0 9 0
+D2
+You see a cell door.
+~
+cell~
+7 -1 9865
+D4
+Back to the glowing room.
+~
+trapdoor~
+65667 3 9873
+S
+#9867
+An even more forboding corridor...~
+You're really getting somewhere now.  This you can tell by the knots
+forming in your stomach.  Exits open to the east and, if you really
+wish to continue, to the west.
+~
+0 9 0
+D1
+It's the hallway you just came from.
+~
+~
+0 -1 9865
+D3
+The chamber of a powerful being.
+~
+door~
+1027 -1 9868
+S
+#9868
+The Chamber of the High Priestess~
+This is the bed chamber of Mistress Cosira, the High Priestess of the
+Dragon cult.  Being caught in here could cause you serious trouble.  A
+huge bed occupies the southern part of the room.  The room is lit by
+candle light, as hundreds of candles flicker in holders along the walls.
+It is rumored that his priestess beds the dragons, and that she is perhaps
+herself half dragon.
+~
+0 9 0
+D0
+A foul stench floats in from the north.
+~
+~
+1027 -1 9869
+D1
+The forboding hallway isn't NEARLY as forboding as what lies beyond it.
+~
+door~
+1027 -1 9867
+E
+bed~
+This bed is by far larger than any you have seen before.  It is very
+possibly large enough to sleep a full grown dragon.
+~
+E
+walls candles~
+The wall is covered in candle holders, each housing a lit candle.
+~
+S
+#9869
+A foul smelling hallway~
+Stench assults your senses as you enter this room.  Putrid wafts of
+stale air surround you, making you think of death and decay.  Your
+eyes begin to accept the darkness of the room, yet water in response
+to the awful scent.  Along the walls are skeletal remains of humanoid
+figures, posed in bizarre positions.  A single altar sits in the middle
+of the room, covered in a dried liquid you can only assume was once
+blood. You must get out of this gruesome place!  There are two doors
+leading from this room, once back to the south and a wide door leading
+to the north.
+~
+0 9 0
+D0
+A huge steel door.
+~
+door~
+1031 9827 9870
+D2
+You see the room in which the High Priestess resides.
+~
+~
+1027 -1 9868
+S
+#9870
+Chamber of the Wyrmling~
+You feel eyes on you the instant you enter this room.  As you fall silent,
+you can hear the rumbling breathing of a large beast.  In the north corner
+is a huge creature, looking at you like you're going to be its next meal.
+It's then that you notice the gnawed bones and large piles of dragon feces
+littering the ground.  You give a shudder of revulsion as you absorb the
+state of this place.  You suddenly feel you should leave, and soon.
+~
+0 9 0
+D2
+A huge steel door, probably meant to keep the Wyrmling in.
+~
+door~
+3 9826 9869
+S
+#9871
+A Waiting Room~
+This room is filled with chairs, coffee tables and parchments.  You may
+sit and rest here until your appointment.  The office has a number of
+employees about, doing their jobs.  The front office is to the east and
+the workshops, the Portable Dragon, and the main offices can be found
+to the north.
+~
+0 9 0
+D0
+Heading deeper into the building.
+~
+~
+0 -1 9872
+D1
+You see the front office.
+~
+~
+0 -1 9853
+D3
+You see an evil glow.
+~
+door~
+3 -1 9873
+S
+#9872
+Dragon Exports central hall~
+This room is all a bustle with employees and visitors to the Dragon
+Exports.  Most here are in transit from one section of the office to
+another, as this is the middle hallway.  West is where the fruits
+their labor are sold, the Portable Dragon.  North is the Gemma's
+office, she is the export coordinator, though you will usually find
+her running about elsewhere.  East is the main workshop, where the
+creations are made to supply to the shop.  This is quite an active
+export business, for all its outward attempts to remain unnoticed
+by the Darkhaven population.
+~
+0 9 0
+D0
+You see a hallway in the office.
+~
+~
+0 -1 9874
+D1
+You see the main workshop.
+~
+~
+0 -1 9878
+D2
+You see the waiting room.
+~
+~
+0 -1 9871
+D3
+The Portable Dragon shop.
+~
+~
+0 -1 9879
+S
+#9873
+A strange, glowing room...~
+The door snaps shut and you are left standing, locked in a small, tight,
+glowing room ... it does not look like there is any way out, so you may
+as well lie down on the rug that covers the floor.
+~
+0 9 0
+D1
+~
+door~
+2100271 9850 9871
+D5
+A dark, damp cell.
+~
+trapdoor~
+3 -1 9866
+E
+rug~
+It's pretty big rug, but it isn't nailed down or anything....
+Hey, you think there could be something under it?
+~
+E
+under~
+Yep you found it, a trapdoor....
+~
+E
+floor~
+It's pretty big rug, but it isn't nailed down or anything....
+Hey, you think there could be something under it?
+~
+S
+#9874
+A hallway in the office~
+This is a basic hallway, free from any furnishing or decoration,
+save one large painting on the east wall.  This hall sees much less
+traffic than the one south, as only Gemma's office and an odd door
+can be accessed from this direction.
+~
+0 9 0
+D0
+You see a staircase.
+~
+~
+3 -1 9893
+D2
+You see the central hall on the Dragon Cult building.
+~
+~
+0 -1 9872
+D3
+You see Gemma's office to the west.
+~
+~
+0 -1 9875
+E
+door~
+This is a door made of a thick metal, unlike anything else so far
+witnessed in this building.  The door leaves north from here.
+~
+E
+painting east wall~
+This is a large painting of an adult Wyrmling dragon.  It is a
+immense serpent with fleshy wings and a pointed head.  He looks
+fierce and deadly, even through this portrait.
+~
+S
+#9875
+Gemma's office~
+This office is very clean, almost too clean for the amount of work
+Gemma does around here.  This office is painted an off white and
+the doorframe and windows are trimmed in a dark brown.  Both windows
+are on the western wall, facing out to Vertic Avenue of the town of
+Darkhaven. There is a desk placed directly under one of the windows,
+allowing the person sitting there to gaze about the town as they
+work.  The windows sure add a brightness and goodness to the room,
+wiping out the tinge of darkness and evil felt throughout the rest
+of the building.
+~
+0 9 0
+D1
+You see a hallway in the office.
+~
+~
+0 -1 9874
+E
+windows window~
+You can look out upon the town of Darkhaven, on the Vertic Avenue.
+Many towns people and avdenturers can be seen going about their
+business, not noticing you at all.
+~
+E
+wall west western w~
+The walls here are painted an off white and the windows trimmed in
+a dark brown.  Below one of the two windows is a large desk.  As
+you gaze out the windows, you see the Vertic Avenue of Darkhaven.
+~
+E
+desk~
+This is an average desk, in size and structure.  The top is free
+from clutter.  Everything appears to be kept neatly filed in the
+drawers.
+~
+S
+#9876
+Fandarel's office~
+Fandarel's office is the epitome of disarray.  There are parchments,
+ashtrays, and coffee cups littering his desk.  It's amazing that any
+work could be accomplished amongst this disaster.  Actually, by the
+look of things, you doubt he really does any work around here.  Back
+to the south you can see the workshop, and can hear the people as they
+work and talk.
+~
+0 9 0
+D2
+You see a large workshop directly south if this office.
+~
+~
+0 -1 9878
+E
+desk~
+This desk is in shambles, stained and littered.  It's amazing that any
+work can be done amongst the garbage here.
+~
+S
+#9877
+A small break room~
+This room sees a lot less activity than would be expected from a business
+this large.  Fandarel prefers his workers to break at their workstation
+rather than spend the extra two minutes walking between rooms.  On lunch
+break, the workers prefer to leave the building to get away from their
+employer's dark mood and fits of ill temper.
+~
+0 9 0
+D2
+The supply room.
+~
+~
+0 -1 9882
+S
+#9878
+A large workshop~
+This room, though oddly placed, is well equiped for crafting the
+items sold at the shop.  The entire south wall is workbenches and
+stools, broken up into individual work sections by short wooden
+dividers.  As you peer north, you realize that the main boss has
+designed the workshop directly south of his office, he can watch
+the progress without leaving his desk.  To the east is the storage
+and supply room.
+~
+0 9 0
+D0
+Fandarel office lies to the north.
+~
+~
+0 -1 9876
+D1
+The supply room.
+~
+~
+0 -1 9882
+D3
+Dragon Cult central hall is west from here.
+~
+~
+0 -1 9872
+E
+workbenches~
+This is one long counter, about four feet high, divided into 
+several work stations.  It is not fancy, but looks very sturdy
+and likely to withstand several years of use.
+~
+S
+#9879
+The Portable Dragon~
+This shop appears to be the central point of this organization.  A place
+to sell the items crafted in the attached workshops.  All items are dragon
+related, in shape or spell, as a way to worship these enormous, fantastical
+beasts.  There are four separate shelves attached to the back wall.  Each
+is dedicated to a certain color of dragon items, rather than particular
+style of dragon.  The only furnishing here is a counter and a tall stool
+for the shopkeeper.  The counter is somewhat cluttered with parchments
+and various items.
+~
+0 3145737 0
+D1
+You see the entranceway to the office.
+~
+~
+0 -1 9872
+E
+shelves~
+There are four shelves here, each heavily ladden with dragon items.
+Each shelf is dedicated to one particular dragon color.  The first 
+shelf has many dragon styles carved into brown staves.  The next 
+shelf has several types of golden dragon statuettes, each a silent
+tribute the the beast they liken.  The third shelf is full of red
+wands, each with a grip carved into the form of a dragon.  The last
+shelf is stacked full of black potions, held in magical, dragon
+shaped flasks.  They definitely worship dragons here.  Nothing but
+tributes to these fantastical beasts are sold here.
+~
+E
+counter~
+This counter is nothing fancy, but sturdy and well used.  The wood is
+a strong oak, built to last through many years of service.  The top
+is somewhat stained with liquid rings, probably from the coffee cups
+littering it currently.  A few pieces of parchment clutter the middle
+in a haphazard pile. 
+~
+E
+stool~
+This stool looks rickety.  You would not sit on it.  In fact, you
+are in fear of breathing, should the breeze from your exhale knock
+the shopkeeper to the floor in a heap.
+~
+S
+#9880
+A back hallway~
+This hallway is used by the employees to bypass the busier parts
+of the building.  It is bare from any decor, except the same flat
+gold paint on the walls of the entrance hall and the front office.
+You wonder again at the caution posted on the door that lead here, 
+as nothing dangerous appears to be lurking here.  The hallway leads
+further north and there is a door to the west, leading back to the
+front office.
+~
+0 9 0
+D0
+The hallway ends.
+~
+~
+0 -1 9881
+D3
+You see an open door leading to the front office.
+~
+door~
+3 -1 9853
+S
+#9881
+End of the hallway~
+This hallway is completely bare.  You can not understand the reason for
+the cautions on the doors leading here.  The hallway continues south and
+there is a door leading west.  There is also a closed door to the north.
+~
+0 13 0
+D0
+A dark room, you can not even make out the floor.
+~
+door~
+3 -1 9887
+D2
+The beginning of the back hallway.
+~
+~
+0 -1 9880
+D3
+You see a door.
+~
+door~
+3 -1 9882
+E
+door~
+There is a door to the north, with a sign reading: 
+Caution -- Do not enter!
+~
+S
+#9882
+Storage and supplies~
+This room is stacked with several shelves ladden with raw materials
+used in the creation of Dragon Exports crafts.  Many types of woods,
+herbs, liquids, and clays line the shelves.  There are even a few
+items you have never seen before, and are not sure you would want
+to touch.  North from here is the employee breakroom.  There is a
+closed door to the east.  You can leave to the west back to the
+workshop.
+~
+0 9 0
+D0
+You see the break room.
+~
+~
+0 -1 9877
+D1
+You see a door, with a sign that says: Do not enter.
+~
+door~
+3 -1 9881
+D3
+You see the middle of the office.
+~
+~
+0 -1 9878
+E
+door east~
+There is a door to the east, with a sign reading: Caution -- Do not enter!
+~
+S
+#9883
+The dungeon~
+You now find yourself at the bottom of a long, dark, vertical tunnel.
+More than fifty feet above is the Dragon Cult's export business.  As
+you peer about the room, it becomes obvious what a farse this business
+really is.  You begin to wonder what they are hiding to go to such
+extremes in disguising their true purpose here.  To the west is a door,
+possibly offering the chance to discover just what secrets these walls
+truly hold.
+~
+0 9 0
+D3
+You see a big rusty iron door.
+~
+door~
+39 9893 9884
+S
+#9884
+The torture chamber~
+All sorts of horrible devices, implements of pain, are strewn about the
+room.  A decomposing corpse rots on a rack in the south corner.  This
+room holds nothing but pain and torture for those unlucky enough to find
+it.  You will want to leave here, as quickly, and hopefully painlessly,
+as you possibly can.  There are two exits out of here, one to the north
+and one to the east, but they are both locked!  You must find the key.
+~
+0 3145737 0
+D0
+~
+secret~
+1063 9837 9886
+D1
+You see a big rusty iron door.
+~
+door~
+1063 9837 9883
+> death_prog 100~
+if name($n) == Wilam torturer
+mpoload 9837 1
+drop key
+else
+endif
+~
+|
+S
+#9885
+Sliding down the tunnel~
+You're falling down...  You manage to stop your fall about midway
+down this long drop in the tunnel.  You look up to where you were, 
+and see you dropped a good twenty-five feet.  The sides are far too
+slick here to make your way back up.  Now, do you let go and fall
+the last twenty feet to the bottom?  It appears you have no choice.
+~
+0 3153929 0
+D4
+~
+~
+65664 -1 9887
+D5
+The tunnel ends at a dark dungeon.
+~
+~
+0 -1 9883
+S
+#9886
+A secret passageway~
+This is a dark, damp passageway, with spiders and cob webs all around.
+Excluding all the twists and turns it takes, there appears to be one
+way out.  To the west you can see the backside of a huge tapestry, 
+it hides this passageway from those who might happen into that room.
+You also notice worn scratches in the floor, before the panelled wall
+to the south.  It looks like a great weight was dragged through the
+crack between the wall and the floor.
+~
+0 13 0
+D2
+As the panels move aside, you see a chamber behind the wall.
+~
+wall panel paneling~
+1059 9886 9884
+D3
+You see the room to the front of the tapestry.
+~
+tapestry~
+1027 -1 9856
+E
+wall panel panelling~
+The panelled wall seems oddly out of place here, like it is more
+for purpose of disguise than decor.  As you look closer, you see
+a small handle, maybe it opens the wall?
+~
+E
+tapestry~
+The colors on this tapestry are dull and fragmentary.  The picture
+on the front is indistinguishable from here.  You can move the
+tapestry and pass into the next room.
+~
+S
+#9887
+A Downward Tunnel~
+This looks like a large air vent, leading from deep in the
+ground to well above your head.  Looking up, you can see the
+tunnel closes to a small hole about five feet up.  Below, you
+can see the tunnel disappear into a bottomless darkness.  To
+continue further downward would be to flirt with death. There
+is a definite stench flowing through this room, the miasmas
+of death and decay.  Whatever is down there may not like your
+presence, perhaps you should head back to the hallway to the
+south.
+~
+0 16777225 0
+D2
+Sliding down the vertical tunnel, into the darkness.
+~
+~
+3 -1 9881
+D5
+sliding down the vertical tunnel.
+~
+~
+0 -1 9885
+S
+#9888
+Deeper into the pit~
+A great evil seems to radiates from the earth below.  The darkness is
+not only visual, but has a distinct presence.  This staircase leads
+away from the Priests Quarters, to the deepest parts of the Cultists
+Temple. The stairs are sturdy, but seem to not welcome your intrusion.
+~
+0 9 0
+D4
+Above you is the sleeping quarters of the Cultist Priests.
+~
+tile door trapdoor trap~
+3 -1 9864
+D5
+You see a spiral staircase leading down, deep into the ground.
+~
+~
+0 -1 9889
+S
+#9889
+A darkened landing~
+You have reached a landing on the staircase.  To the east is a small
+doorway, leading away from the stairwell.  In the middle of the floor
+is a gaping whole, leading to the bottom of the pit.  You can see
+movement below, but have trouble finding the cause.  Should you explore
+below, investigate to the east, or return to relative safety above?
+~
+0 9 0
+D1
+There is an intersting alcove to the east.  It is well lit, a relief from this darkness.
+~
+door~
+3 -1 9890
+D4
+The stairway leads up from this pit, to the safety of the Priests.
+~
+~
+0 -1 9888
+D5
+Below you is the bottom of this deep pit.
+~
+~
+0 -1 9891
+S
+#9890
+A dark alcove~
+This darkened alcove appears to be used as a changing room.  There
+is a spigot in the upper southeast corner, dripping a steady flow of
+water.  This looks like a place for bathing.  On the eastern wall are
+several hooks, holding various articles of clothing.
+~
+0 9 0
+D3
+To the west is a landing of a staircase, leading back to the upper temple.
+~
+door~
+3 -1 9889
+E
+wall~
+The wall is plain, without paint or polish.  Attached in several places
+are hooks, used for hanging clothes.
+~
+E
+spigot~
+This water faucet streams a steady flow of fresh water, allowing 
+the opportunity to wash.
+~
+S
+#9891
+The bottom of the pit~
+You are surrounded by corpses in various stages of decay.  A coldness
+sinks into your spine as you realize the full magnitude of what you've
+stumbled upon.  This is the home of Adrathom, a powerful lich, and he
+does not look pleased at your intrusion.
+~
+0 9 0
+D4
+It is too dark to see.
+~
+~
+0 -1 9889
+S
+#9892
+Cultic Candies~
+This backroom is where the cultists keep and sell their candies.  Each
+candy is a secret brew of magical ingredients.  You should be cautious
+of eating anything you buy here, as the place does not look clean.  The
+walls are covered in a thick layer of dust, and so is the shopkeeper!
+~
+0 13 0
+D2
+You see the hallway.
+~
+~
+3 -1 9857
+S
+#9893
+Top of the staircase~
+This is a staircase that leads downward, into a darkness that is
+not only seen, but felt.  The walls change from the painted walls
+of the office area to a dark stone surface.  Whatever is below,
+they do not want to make you feel too welcome.
+~
+0 13 0
+D2
+You see a hallway in the office.
+~
+~
+3 -1 9874
+D5
+You see the bottom of the staircase.
+~
+~
+0 -1 9894
+S
+#9894
+Bottom of the staircase~
+As you stand at the bottom of this staircase, you wonder why anyone
+would want to be down here.  The darkness is so dense as to have an
+almost physical presence.  The result is oppressive.  The cold, harsh
+stone walls seem to close in on you as you listen to the mezmerizing
+chants coming from the south.
+~
+0 13 0
+D2
+It is to blurred to see anything of note.
+~
+~
+0 -1 9861
+D4
+You see the top of the staircase.
+~
+~
+0 -1 9893
+S
+#9895
+The deepest pit~
+~
+0 1073741833 0
+D0
+~
+~
+0 -1 9811
+D1
+~
+~
+0 -1 9896
+D2
+~
+~
+0 -1 9829
+S
+#9896
+The fire pit~
+~
+0 1073741833 0
+D0
+~
+~
+0 -1 9898
+D1
+~
+~
+0 -1 9897
+D3
+~
+~
+0 -1 9895
+S
+#9897
+The deepest pit~
+~
+0 1073741833 0
+D0
+~
+~
+0 -1 9817
+D2
+~
+~
+0 -1 9823
+D3
+~
+~
+0 -1 9896
+S
+#9898
+The Passage to the pits~
+~
+0 9 0
+D2
+~
+~
+0 -1 9896
+D4
+~
+~
+0 -1 9899
+S
+#9899
+The servants passage~
+~
+0 9 0
+D2
+~
+~
+0 -1 9890
+D5
+~
+~
+0 -1 9898
+S
+#0
+
+
+#RESETS
+D 0 9812 1 1
+D 0 9813 3 1
+D 0 9814 1 1
+D 0 9815 3 1
+D 0 9818 2 1
+D 0 9819 0 1
+D 0 9820 2 1
+D 0 9821 0 1
+D 0 9823 3 1
+D 0 9824 1 1
+D 0 9824 3 1
+D 0 9825 1 1
+D 0 9826 3 1
+D 0 9827 1 1
+D 0 9830 0 1
+D 0 9830 2 1
+D 0 9831 2 1
+D 0 9832 0 1
+D 0 9833 2 1
+M 0 9802 4 9849
+E 1 9832 6 16
+E 1 9852 4 3
+M 0 9800 1 9850
+D 0 9850 0 2
+D 0 9851 2 1
+M 0 9809 1 9853
+E 1 9838 2 7
+E 1 9864 2 16
+D 0 9853 1 1
+D 0 9853 5 1
+M 0 9802 4 9854
+E 1 9832 6 16
+E 1 9835 4 5
+D 0 9854 4 1
+M 0 9801 7 9855
+E 1 9830 8 5
+O 1 9855 1 9855
+M 0 9801 7 9856
+E 1 9830 8 5
+E 1 9833 6 16
+M 0 9801 7 9856
+E 1 9830 8 5
+E 1 9833 6 16
+D 0 9856 1 1
+D 0 9857 0 1
+D 0 9857 1 1
+M 0 9807 1 9858
+D 0 9858 3 1
+M 0 9801 7 9860
+E 1 9830 8 5
+E 1 9833 6 16
+M 0 9801 7 9860
+E 1 9830 8 5
+E 1 9833 6 16
+M 0 9801 7 9860
+E 1 9830 8 5
+E 1 9833 6 16
+M 0 9802 4 9861
+E 1 9832 6 16
+E 1 9852 4 3
+M 0 9801 7 9861
+E 1 9830 8 5
+D 0 9861 5 1
+D 0 9862 4 1
+M 0 9863 2 9863
+E 1 9835 4 3
+E 1 9832 6 16
+M 0 9863 2 9863
+E 1 9835 4 3
+E 1 9832 6 16
+M 0 9802 4 9864
+E 1 9852 4 3
+D 0 9864 5 1
+M 0 9803 1 9865
+G 1 9826 1
+E 1 9828 1 16
+E 1 9829 1 6
+D 0 9865 0 2
+M 0 9805 1 9866
+E 1 9836 1 5
+D 0 9866 2 2
+D 0 9866 4 1
+D 0 9867 3 1
+M 0 9804 1 9868
+G 1 9827 1
+E 1 9834 1 5
+D 0 9868 0 1
+D 0 9868 1 1
+D 0 9869 0 2
+D 0 9869 2 1
+M 0 9806 1 9870
+D 0 9870 2 1
+D 0 9871 3 1
+M 0 9811 1 9872
+D 0 9873 1 2
+D 0 9873 5 1
+D 0 9874 0 1
+M 0 9812 1 9876
+M 0 9814 1 9879
+G 1 9860 1
+G 1 9861 1
+G 1 9862 1
+G 1 9863 1
+D 0 9880 3 1
+D 0 9881 0 1
+D 0 9881 3 1
+M 0 9810 1 9882
+D 0 9882 1 1
+M 0 9815 1 9883
+D 0 9883 3 2
+M 0 9813 1 9884
+G 1 9837 1
+D 0 9884 0 2
+D 0 9884 1 2
+D 0 9886 2 1
+D 0 9886 3 1
+D 0 9887 2 1
+D 0 9888 4 1
+D 0 9889 1 1
+D 0 9890 3 1
+M 0 9816 1 9891
+M 0 9817 1 9892
+G 1 9892 3
+G 1 9842 1
+G 1 9843 1
+G 1 9844 1
+G 1 9845 1
+G 1 9846 1
+G 1 9847 1
+G 1 9848 1
+D 0 9892 2 1
+D 0 9893 2 1
+S
+
+
+#SHOPS
+ 9814    0  0  0  0  0   120  90         0 23    ; Jerint
+ 9817   26  0  0  0  0   205 200         0 23    ; G'narish
+0
+
+
+#REPAIRS
+0
+
+
+#SPECIALS
+M  9804 spec_cast_mage
+M  9806 spec_thief
+M  9809 spec_thief
+M  9814 spec_cast_cleric
+M  9817 spec_fido
+S
+
+
+#$

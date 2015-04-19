@@ -1,2 +1,0 @@
-cd src
-ls *.cpp | awk -v ORS="\n" '{print $0" \\"}'

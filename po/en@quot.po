@@ -29,8 +29,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smaug 2.0.0\n"
 "Report-Msgid-Bugs-To: <@burzumishi>\n"
-"POT-Creation-Date: 2015-04-15 21:17+0200\n"
-"PO-Revision-Date: 2015-04-15 21:17+0200\n"
+"POT-Creation-Date: 2015-04-18 22:20+0200\n"
+"PO-Revision-Date: 2015-04-18 22:20+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: en@quot\n"
@@ -38,6 +38,49 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/boards.c:805 src/build.c:999 src/build.c:1005 src/clans.c:853
+#: src/clans.c:863 src/clans.c:925 src/clans.c:940 src/clans.c:1097
+#: src/clans.c:1107 src/clans.c:1167 src/clans.c:1182 src/clans.c:1340
+#: src/clans.c:1350 src/clans.c:1411 src/clans.c:1747 src/clans.c:1902
+#: src/clans.c:1982 src/clans.c:2318 src/clans.c:2345 src/clans.c:2357
+#: src/clans.c:2383 src/clans.c:2945 src/clans.c:2965 src/clans.c:2979
+#: src/deity.c:396 src/deity.c:942 src/deity.c:1044 src/interp.c:760
+#: src/liquids.c:735 src/smaug.c:3577 src/act_comm.c:893 src/act_comm.c:905
+#: src/act_comm.c:913 src/act_comm.c:928 src/act_comm.c:946 src/act_comm.c:953
+#: src/act_comm.c:965 src/act_comm.c:971 src/act_comm.c:983 src/act_comm.c:990
+#: src/act_comm.c:1002 src/act_comm.c:1015 src/act_comm.c:1027
+#: src/act_comm.c:1041 src/act_comm.c:1281 src/act_comm.c:1296
+#: src/act_comm.c:1310 src/act_comm.c:1324 src/act_comm.c:1336
+#: src/act_comm.c:1341 src/act_comm.c:1353 src/act_comm.c:1366
+#: src/act_comm.c:2377 src/act_comm.c:2641 src/act_comm.c:3139
+#: src/act_comm.c:3300 src/act_comm.c:3306 src/act_comm.c:4355
+#: src/act_comm.c:4367 src/act_comm.c:4379 src/act_wiz.c:3531
+#: src/act_wiz.c:3641 src/act_wiz.c:3717 src/act_wiz.c:3839 src/act_wiz.c:4531
+#: src/act_wiz.c:10450 src/act_wiz.c:11108 src/act_wiz.c:11839
+#: src/act_wiz.c:12108 src/act_wiz.c:12267 src/act_wiz.c:12425
+#: src/act_wiz.c:12483 src/act_wiz.c:12567 src/act_obj.c:3572
+#: src/mud_comm.c:282 src/mud_comm.c:332 src/mud_comm.c:382 src/mud_comm.c:463
+#: src/mud_comm.c:505 src/mud_comm.c:553 src/mud_comm.c:603 src/mud_comm.c:636
+#: src/mud_comm.c:677 src/mud_comm.c:716 src/mud_comm.c:749 src/mud_comm.c:782
+#: src/mud_comm.c:815 src/mud_comm.c:850 src/mud_comm.c:885 src/mud_comm.c:961
+#: src/mud_comm.c:1062 src/mud_comm.c:1148 src/mud_comm.c:1214
+#: src/mud_comm.c:1272 src/mud_comm.c:1318 src/mud_comm.c:1362
+#: src/mud_comm.c:1508 src/mud_comm.c:1667 src/mud_comm.c:1753
+#: src/mud_comm.c:1806 src/mud_comm.c:1868 src/mud_comm.c:1926
+#: src/mud_comm.c:1973 src/mud_comm.c:2011 src/mud_comm.c:2059
+#: src/mud_comm.c:2246 src/mud_comm.c:2328 src/mud_comm.c:2403
+#: src/mud_comm.c:2478 src/mud_comm.c:2507 src/mud_comm.c:2564
+#: src/mud_comm.c:2645 src/mud_comm.c:2731 src/mud_comm.c:2765
+#: src/mud_comm.c:2836 src/mud_comm.c:2857 src/mud_comm.c:2885
+#: src/mud_comm.c:2932 src/mud_comm.c:3106 src/mud_comm.c:3137
+#: src/mud_comm.c:3167 src/mud_comm.c:3218 src/mud_comm.c:3271
+#: src/mud_comm.c:3321 src/mud_comm.c:3615 src/mud_comm.c:3647 src/mpxset.c:73
+#: src/mpxset.c:1055 src/news.c:76 src/player.c:3411 src/player.c:3466
+#: src/player.c:3689 src/skills.c:106 src/variables.c:227 src/variables.c:311
+#: src/variables.c:369 src/variables.c:472
+msgid "Huh?\n"
+msgstr "Huh?\n"
 
 #: src/smaug.c:305
 #, c-format
@@ -305,18 +348,6 @@ msgstr "You %s ‘%s’\n"
 #, c-format
 msgid "%s: %s\r\n"
 msgstr "%s: %s\r\n"
-
-#: src/act_comm.c:893 src/act_comm.c:905 src/act_comm.c:913 src/act_comm.c:928
-#: src/act_comm.c:946 src/act_comm.c:953 src/act_comm.c:965 src/act_comm.c:971
-#: src/act_comm.c:983 src/act_comm.c:990 src/act_comm.c:1002
-#: src/act_comm.c:1015 src/act_comm.c:1027 src/act_comm.c:1041
-#: src/act_comm.c:1281 src/act_comm.c:1296 src/act_comm.c:1310
-#: src/act_comm.c:1324 src/act_comm.c:1336 src/act_comm.c:1341
-#: src/act_comm.c:1353 src/act_comm.c:1366 src/act_comm.c:2377
-#: src/act_comm.c:2641 src/act_comm.c:3139 src/act_comm.c:3306
-#: src/act_comm.c:4355 src/act_comm.c:4367 src/act_comm.c:4379
-msgid "Huh?\n"
-msgstr "Huh?\n"
 
 #: src/act_comm.c:1082 src/act_comm.c:1409 src/act_info.c:4761
 msgid "You can't do that here.\n"
@@ -1409,3 +1440,7 @@ msgstr "--{%s}-- by %s\n"
 #, c-format
 msgid "Compiled on %s at %s.\n"
 msgstr "Compiled on %s at %s.\n"
+
+#: src/player.c:1072 src/player.c:1091
+msgid "Compass is now off.\n"
+msgstr "Compass is now off.\n"
