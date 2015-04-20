@@ -48,8 +48,8 @@ const sh_int movement_loss[SECT_MAX] = {
 };
 
 char *const dir_name[] = {
-  "north", "east", "south", "west", "up", "down",
-  "northeast", "northwest", "southeast", "southwest", "somewhere"
+  ___("north"), ___("east"), ___("south"), ___("west"), ___("up"), ___("down"),
+  ___("northeast"), ___("northwest"), ___("southeast"), ___("southwest"), ___("somewhere")
 };
 
 const int trap_door[] = {

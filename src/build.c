@@ -214,9 +214,9 @@ char *const plr_flags[] = {
 };
 
 char *const trap_flags[] = {
-  "room", "obj", "enter", "leave", "open", "close", "get", "put", "pick",
-  "unlock", "north", "south", "east", "west", "up", "down", "examine",
-  "northeast", "northwest", "southeast", "southwest", "r6", "r7", "r8",
+  ___("room"), ___("obj"), ___("enter"), ___("leave"), ___("open"), ___("close"), ___("get"), ___("put"), ___("pick"),
+  ___("unlock"), ___("north"), ___("south"), ___("east"), ___("west"), ___("up"), ___("down"), ___("examine"),
+  ___("northeast"), ___("northwest"), ___("southeast"), ___("southwest"), "r6", "r7", "r8",
   "r9", "r10", "r11", "r12", "r13", "r14", "r15"
 };
 
@@ -243,11 +243,11 @@ char *const ris_flags[] = {
 };
 
 char *const trig_flags[] = {
-  "up", "unlock", "lock", "d_north", "d_south", "d_east", "d_west", "d_up",
-  "d_down", "door", "container", "open", "close", "passage", "oload", "mload",
-  "teleport", "teleportall", "teleportplus", "death", "cast", "fakeblade",
-  "rand4", "rand6", "trapdoor", "anotherroom", "usedial", "absolutevnum",
-  "showroomdesc", "autoreturn", "r2", "r3"
+  ___("up"), ___("unlock"), ___("lock"), ___("d_north"), ___("d_south"), ___("d_east"), ___("d_west"), ___("d_up"),
+  ___("d_down"), ___("door"), ___("container"), ___("open"), ___("close"), ___("passage"), ___("oload"), ___("mload"),
+  ___("teleport"), ___("teleportall"), ___("teleportplus"), ___("death"), ___("cast"), ___("fakeblade"),
+  "rand4", "rand6", ___("trapdoor"), ___("anotherroom"), ___("usedial"), ___("absolutevnum"),
+  ___("showroomdesc"), ___("autoreturn"), "r2", "r3"
 };
 
 char *const part_flags[] = {
@@ -10499,14 +10499,14 @@ do_findexit (CHAR_DATA * ch, char *argument)
   AREA_DATA *tarea;
 
   static char *dir_text[] =
-    { "n", "e", "s", "w", "u", "d", "ne", "nw", "se", "sw", "?" };
+    { ___("n"), ___("e"), ___("s"), ___("w"), ___("u"), ___("d"), ___("ne"), ___("nw"), ___("se"), ___("sw"), "?" };
 
   set_pager_color (AT_PLAIN, ch);
 
   if (IS_NPC (ch) || get_trust (ch) < LEVEL_CREATOR || !ch->pcdata
       || (!ch->pcdata->area && get_trust (ch) < LEVEL_GREATER))
     {
-      send_to_char_color ("&YYou don't have an assigned area.\n\r", ch);
+      send_to_char_color (_("&YYou don't have an assigned area.\n"), ch);
       return;
     }
 
@@ -10546,7 +10546,7 @@ do_findexit (CHAR_DATA * ch, char *argument)
 	  if ((l_range < tarea->low_r_vnum || h_range > tarea->hi_r_vnum)
 	      && get_trust (ch) < LEVEL_GREATER)
 	    {
-	      send_to_char_color ("&YThat is out of your vnum range.\n\r",
+	      send_to_char_color (_("&YThat is out of your vnum range.\n"),
 				  ch);
 	      return;
 	    }
@@ -10570,11 +10570,11 @@ do_findexit (CHAR_DATA * ch, char *argument)
 		  {
 		    if (pexit->to_room->vnum == exvnum)
 		      pager_printf (ch,
-				    "%5d) Direction: %-2s.  Key: %d Flags: %d Keywords: %s.\n\r",
+				    _("%5d) Direction: %-2s.  Key: %d Flags: %d Keywords: %s.\n"),
 				    room->vnum, dir_text[pexit->vdir],
 				    pexit->key, pexit->exit_info,
 				    pexit->keyword[0] !=
-				    '\0' ? pexit->keyword : "(none)");
+				    '\0' ? pexit->keyword : _("(none)"));
 		  }
 	      }
 	  }
@@ -10586,7 +10586,7 @@ void
 do_alinks (CHAR_DATA * ch, char *argument)
 {
   static char *dirs[] =
-    { "n", "e", "s", "w", "u", "d", "ne", "nw", "se", "sw", "--" };
+    { ___("n"), ___("e"), ___("s"), ___("w"), ___("u"), ___("d"), ___("ne"), ___("nw"), ___("se"), ___("sw"), "--" };
   char buf[MAX_INPUT_LENGTH];
   AREA_DATA *area;
   ROOM_INDEX_DATA *room;
@@ -10688,7 +10688,7 @@ do_alinks (CHAR_DATA * ch, char *argument)
 			ch_printf (ch, " - %s",
 				   flag_string (exit->exit_info, ex_flags));
 		      if (exit->key > 0)
-			ch_printf (ch, " key:%d", exit->key);
+			ch_printf (ch, _(" key:%d"), exit->key);
 		      send_to_char ("\r\n", ch);
 		    }
 		  else
@@ -10714,7 +10714,7 @@ do_alinks (CHAR_DATA * ch, char *argument)
 	send_to_char ("\r\n", ch);
     }
   if (acount)
-    ch_printf (ch, "Processed %d area(s).\r\n", acount);
+    ch_printf (ch, _("Processed %d area(s).\n"), acount);
   else
-    send_to_char ("No areas found with the supplied name.\r\n", ch);
+    send_to_char (_("No areas found with the supplied name.\n"), ch);
 }

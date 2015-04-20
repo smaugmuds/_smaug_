@@ -138,7 +138,7 @@ do_dnd (CHAR_DATA * ch, char *argument)
 	send_to_char ("Your 'do not disturb' flag is now on.\n\r", ch);
       }
   else
-    send_to_char ("huh?\n\r", ch);
+    send_to_char (_("Huh?\n"), ch);
 }
 
 /*
@@ -164,7 +164,7 @@ do_watch (CHAR_DATA * ch, char *argument)
 
   if (arg[0] == '\0' || !str_cmp (arg, "help"))
     {
-      send_to_pager ("Syntax Examples:\n\r", ch);
+      send_to_pager (_("Syntax Examples:\n"), ch);
       /*
        * Only IMP+ can see all the watches. The rest can just see their own.
        */
@@ -247,8 +247,7 @@ do_watch (CHAR_DATA * ch, char *argument)
 
       if (arg2[0] == '\0')
 	{
-	  send_to_pager
-	    ("Sorry. You must specify a starting line number.\n\r", ch);
+	  send_to_pager (_("Sorry. You must specify a starting line number.\n"), ch);
 	  return;
 	}
 
@@ -346,7 +345,7 @@ do_watch (CHAR_DATA * ch, char *argument)
 		UNLINK (pw, first_watch, last_watch, next, prev);
 		DISPOSE (pw);
 		save_watchlist ();
-		send_to_pager ("Deleted.\n\r", ch);
+		send_to_pager (_("Deleted.\n"), ch);
 		return;
 	      }
       send_to_pager ("Sorry. I found nothing to delete.\n\r", ch);
@@ -477,7 +476,7 @@ do_watch (CHAR_DATA * ch, char *argument)
 
       if (!found)
 	{
-	  send_to_pager ("No such command exists.\n\r", ch);
+	  send_to_pager (_("No such command exists.\n"), ch);
 	  return;
 	}
       else
@@ -528,8 +527,8 @@ do_setvault (CHAR_DATA * ch, char *argument)
     {
       ROOM_INDEX_DATA *room;
 
-      pager_printf_color (ch, "&W%6s | %-40.40s | Area name\n\r", "VNUM",
-			  "Room Name");
+      pager_printf_color (ch, _("&W%6s | %-40.40s | Area name\n"), "VNUM",
+			  _("Room Name"));
       for (vault = first_vault; vault; vault = vault->next)
 	{
 	  if ((room = get_room_index (vault->vnum)) == NULL)
@@ -543,7 +542,7 @@ do_setvault (CHAR_DATA * ch, char *argument)
   if (!str_cmp (arg1, "save") && get_trust (ch) > LEVEL_GREATER)
     {
       save_vault_list ();
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -558,7 +557,7 @@ do_setvault (CHAR_DATA * ch, char *argument)
 	      CREATE (vault, VAULT_DATA, 1);
 	      vault->vnum = rnum;
 	      sort_vaults (vault);
-	      ch_printf (ch, "Donation room created.\n\r");
+	      ch_printf (ch, _("Donation room created.\n"));
 	      return;
 	    }
 	  if (!str_cmp (arg2, "delete"))
@@ -583,7 +582,7 @@ do_setvault (CHAR_DATA * ch, char *argument)
     }
 
   set_char_color (AT_IMMORT, ch);
-  ch_printf (ch, "Syntax:\n\r");
+  ch_printf (ch, _("Syntax:\n"));
   ch_printf (ch,
 	     "  setvault show - lists the rooms currently set to save donations\n\r");
   ch_printf (ch,
@@ -765,19 +764,19 @@ do_authorize (CHAR_DATA * ch, char *argument)
   if (arg1[0] == '\0')
     {
       send_to_char
-	("Usage:  authorize <player> <yes|name|immsim|mobsim|swear|plain|unpronu|no/deny>\n\r",
+	(_("Usage:  authorize <player> <yes|name|immsim|mobsim|swear|plain|unpronu|no/deny>\n"),
 	 ch);
-      send_to_char ("Pending authorizations:\n\r", ch);
-      send_to_char (" Chosen Character Name\n\r", ch);
+      send_to_char (_("Pending authorizations:\n"), ch);
+      send_to_char (_(" Chosen Character Name\n"), ch);
       send_to_char ("---------------------------------------------\n\r", ch);
       for (d = first_descriptor; d; d = d->next)
 	if ((victim = d->character) != NULL && IS_WAITING_FOR_AUTH (victim))
-	  ch_printf (ch, " %s@%s new %s %s (%s)...\n\r",
+	  ch_printf (ch, _(" %s@%s new %s %s (%s)...\n"),
 		     victim->name,
 		     victim->desc->host,
 		     race_table[victim->race]->race_name,
 		     class_table[victim->class]->who_name,
-		     IS_PKILL (victim) ? "Deadly" : "Peaceful");
+		     IS_PKILL (victim) ? _("Deadly") : _("Peaceful"));
       return;
     }
 
@@ -792,16 +791,16 @@ do_authorize (CHAR_DATA * ch, char *argument)
       if (victim->pcdata->authed_by)
 	STRFREE (victim->pcdata->authed_by);
       victim->pcdata->authed_by = QUICKLINK (ch->name);
-      sprintf (buf, "%s: authorized", victim->name);
+      sprintf (buf, _("%s: authorized"), victim->name);
       to_channel (buf, CHANNEL_AUTH, "Auth", LEVEL_NEOPHYTE);
 
-      ch_printf (ch, "You have authorized %s.\n\r", victim->name);
+      ch_printf (ch, _("You have authorized %s.\n"), victim->name);
 
       /* Below sends a message to player when name is accepted - Brittany */
       ch_printf_color (victim,
-		       "\n\r&GThe MUD Administrators have accepted the name %s.\n\r"
-		       "You are authorized to enter the Realms at the end of "
-		       "this area.\n\r", victim->name);
+		       _("\n&GThe MUD Administrators have accepted the name %s.\n")
+		       _("You are authorized to enter the Realms at the end of ")
+		       _("this area.\n"), victim->name);
       return;
     }
 
@@ -934,7 +933,7 @@ do_bamfout (CHAR_DATA * ch, char *argument)
       smash_tilde (argument);
       DISPOSE (ch->pcdata->bamfout);
       ch->pcdata->bamfout = str_dup (argument);
-      send_to_char_color ("&YBamfout set.\n\r", ch);
+      send_to_char_color (_("&YBamfout set.\n"), ch);
     }
   return;
 }
@@ -949,8 +948,8 @@ do_rank (CHAR_DATA * ch, char *argument)
     return;
   if (!argument || argument[0] == '\0')
     {
-      send_to_char ("Usage:  rank <string>.\n\r", ch);
-      send_to_char ("   or:  rank none.\n\r", ch);
+      send_to_char (_("Usage:  rank <string>.\n"), ch);
+      send_to_char (_("   or:  rank none.\n\r"), ch);
       return;
     }
   smash_tilde (argument);
@@ -1084,7 +1083,7 @@ do_deny (CHAR_DATA * ch, char *argument)
   one_argument (argument, arg);
   if (arg[0] == '\0')
     {
-      send_to_char ("Deny whom?\n\r", ch);
+      send_to_char (_("Deny whom?\n"), ch);
       return;
     }
   if ((victim = get_char_world (ch, arg)) == NULL)
@@ -1328,7 +1327,7 @@ echo_to_all (sh_int AT_COLOR, char *argument, sh_int tar)
 void
 do_ech (CHAR_DATA * ch, char *argument)
 {
-  send_to_char_color ("&YIf you want to echo something, use 'echo'.\n\r", ch);
+  send_to_char_color (_("&YIf you want to echo something, use 'echo'.\n"), ch);
   return;
 }
 

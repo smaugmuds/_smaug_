@@ -300,7 +300,7 @@ save_char_obj (CHAR_DATA * ch)
 	  if (ferr)
 	    {
 	      perror (strsave);
-	      bug ("Error writing temp file for %s -- not copying", strsave);
+	      bug (_("Error writing temp file for %s -- not copying"), strsave);
 	    }
 	  else
 	    rename (TEMP_FILE, strsave);
@@ -937,12 +937,12 @@ load_char_obj (DESCRIPTOR_DATA * d, char *name, bool preload)
 	{
 	  sprintf (strsave, "%s%c/%s", BACKUP_DIR, tolower (name[0]),
 		   capitalize (name));
-	  send_to_char ("Restoring your backup player file...", ch);
+	  send_to_char (_("Restoring your backup player file..."), ch);
 	}
       else
 	{
-	  sprintf (buf, "%s player data for: %s (%dK)",
-		   preload ? "Preloading" : "Loading", ch->pcdata->filename,
+	  sprintf (buf, _("%s player data for: %s (%dK)"),
+		   preload ? _("Preloading") : _("Loading"), ch->pcdata->filename,
 		   (int) fst.st_size / 1024);
 	  log_string_plus (buf, LOG_COMM, LEVEL_GREATER);
 	}
@@ -974,7 +974,7 @@ load_char_obj (DESCRIPTOR_DATA * d, char *name, bool preload)
 
 	  if (letter != '#')
 	    {
-	      bug ("Load_char_obj: # not found.", 0);
+	      bug (_("Load_char_obj: # not found."), 0);
 	      bug (name, 0);
 	      break;
 	    }
@@ -1020,7 +1020,7 @@ load_char_obj (DESCRIPTOR_DATA * d, char *name, bool preload)
 	    break;
 	  else
 	    {
-	      bug ("Load_char_obj: bad section.", 0);
+	      bug (_("Load_char_obj: bad section."), 0);
 	      bug (name, 0);
 	      break;
 	    }
