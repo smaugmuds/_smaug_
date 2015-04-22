@@ -2790,15 +2790,15 @@ msgstr "Está bloqueada.\n"
 
 #: src/act_move.c:1614
 msgid "$n opens the $d."
-msgstr "$n abre o $d."
+msgstr "$n abre a $d."
 
 #: src/act_move.c:1616
 msgid "You open the $d."
-msgstr "Abres o $T."
+msgstr "Abres a $d."
 
 #: src/act_move.c:1625
 msgid "The $d opens."
-msgstr "O $d ábrese."
+msgstr "A $d ábrese."
 
 #: src/act_move.c:1640 src/act_move.c:1738
 #, c-format
@@ -2808,7 +2808,7 @@ msgstr "%s non é un contedor.\n"
 #: src/act_move.c:1646
 #, c-format
 msgid "%s is already open.\n"
-msgstr "%s xa está aberto.\n"
+msgstr "%s xa está aberta.\n"
 
 #: src/act_move.c:1652 src/act_move.c:1750
 #, c-format
@@ -2830,11 +2830,11 @@ msgstr "$n abre $p."
 
 #: src/act_move.c:1709
 msgid "It's already closed.\n"
-msgstr "Xa está fechado.\n"
+msgstr "Xa está fechada.\n"
 
 #: src/act_move.c:1712
 msgid "$n closes the $d."
-msgstr "$n fecha o $d."
+msgstr "$n fecha a $d."
 
 #: src/act_move.c:1713
 msgid "You close the $d."
@@ -2842,12 +2842,12 @@ msgstr "Fechas $d."
 
 #: src/act_move.c:1724
 msgid "The $d closes."
-msgstr "O $d féchase."
+msgstr "A $d féchase."
 
 #: src/act_move.c:1744
 #, c-format
 msgid "%s is already closed.\n"
-msgstr "%s xa está fechado.\n"
+msgstr "%s xa está fechada.\n"
 
 #: src/act_move.c:1756
 msgid "You close $p."
