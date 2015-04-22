@@ -1180,7 +1180,7 @@ load_mobiles (AREA_DATA * tarea, FILE * fp)
 	  else
 	    {
 	      pMobIndex = get_mob_index (vnum);
-	      sprintf (buf, "Cleaning mobile: %d", vnum);
+	      sprintf (buf, _("Cleaning mobile: %d"), vnum);
 	      log_string_plus (buf, LOG_BUILD, sysdata.log_level);
 	      clean_mob (pMobIndex);
 	      oldmob = TRUE;
@@ -1326,7 +1326,7 @@ load_mobiles (AREA_DATA * tarea, FILE * fp)
 
       if (letter != 'S' && letter != 'C' && letter != 'V')
 	{
-	  bug ("Load_mobiles: vnum %d: letter '%c' not S or C.", vnum,
+	  bug (_("Load_mobiles: vnum %d: letter '%c' not S or C."), vnum,
 	       letter);
 	  shutdown_mud ("bad mob data");
 	  exit (1);
@@ -1543,7 +1543,7 @@ load_objects (AREA_DATA * tarea, FILE * fp)
 	  else
 	    {
 	      pObjIndex = get_obj_index (vnum);
-	      sprintf (buf, "Cleaning object: %d", vnum);
+	      sprintf (buf, _("Cleaning object: %d"), vnum);
 	      log_string_plus (buf, LOG_BUILD, sysdata.log_level);
 	      clean_obj (pObjIndex);
 	      oldobj = TRUE;
@@ -1760,7 +1760,7 @@ load_resets (AREA_DATA * tarea, FILE * fp)
 	  /*
 	   * Clean out the old resets
 	   */
-	  sprintf (buf, "Cleaning resets: %s", tarea->name);
+	  sprintf (buf, _("Cleaning resets: %s"), tarea->name);
 	  log_string_plus (buf, LOG_BUILD, sysdata.log_level);
 	  clean_resets (tarea);
 	}
@@ -1799,16 +1799,16 @@ load_resets (AREA_DATA * tarea, FILE * fp)
 	default:
 	  bug ("Load_resets: bad command '%c'.", letter);
 	  if (fBootDb)
-	    boot_log ("Load_resets: %s (%d) bad command '%c'.",
+	    boot_log (_("Load_resets: %s (%d) bad command '%c'."),
 		      tarea->filename, count, letter);
 	  return;
 
 	case 'M':
 	  if (get_mob_index (arg1) == NULL && fBootDb)
-	    boot_log ("Load_resets: %s (%d) 'M': mobile %d doesn't exist.",
+	    boot_log (_("Load_resets: %s (%d) 'M': mobile %d doesn't exist."),
 		      tarea->filename, count, arg1);
 	  if (get_room_index (arg3) == NULL && fBootDb)
-	    boot_log ("Load_resets: %s (%d) 'M': room %d doesn't exist.",
+	    boot_log (_("Load_resets: %s (%d) 'M': room %d doesn't exist."),
 		      tarea->filename, count, arg3);
 	  break;
 
@@ -2033,14 +2033,14 @@ load_rooms (AREA_DATA * tarea, FILE * fp)
 	{
 	  if (tmpBootDb)
 	    {
-	      bug ("Load_rooms: vnum %d duplicated.", vnum);
+	      bug (_("Load_rooms: vnum %d duplicated."), vnum);
 	      shutdown_mud ("duplicate vnum");
 	      exit (1);
 	    }
 	  else
 	    {
 	      pRoomIndex = get_room_index (vnum);
-	      sprintf (buf, "Cleaning room: %d", vnum);
+	      sprintf (buf, _("Cleaning room: %d"), vnum);
 	      log_string_plus (buf, LOG_BUILD, sysdata.log_level);
 	      clean_room (pRoomIndex);
 	      oldroom = TRUE;
@@ -6758,7 +6758,7 @@ show_vnums (CHAR_DATA * ch, int low, int high, bool proto, bool shownl,
 		    IS_SET (pArea->status, AREA_LOADED) ? loadst : notloadst);
       count++;
     }
-  pager_printf (ch, "Areas listed: %d  Loaded: %d\n\r", count, loaded);
+  pager_printf (ch, _("Areas listed: %d  Loaded: %d\n"), count, loaded);
   return;
 }
 

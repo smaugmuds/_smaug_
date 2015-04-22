@@ -110,7 +110,7 @@ do_house (CHAR_DATA * ch, char *argument)
     {
       set_char_color (AT_GREEN, ch);
 
-      send_to_char ("Syntax:\n\r", ch);
+      send_to_char (_("Syntax:\n"), ch);
       send_to_char (" house <argument>\n\r", ch);
       send_to_char ("Where the argument is one of:\n\r", ch);
       send_to_char (" name <Desired Title of Room>\n\r desc\n\r", ch);
@@ -641,7 +641,7 @@ do_accessories (CHAR_DATA * ch, char *argument)
 
   if (!arg || arg[0] == '\0')
     {
-      send_to_char ("Syntax:\n\r", ch);
+      send_to_char (_("Syntax:\n"), ch);
       send_to_char ("  accessories <argument>\n\r", ch);
       send_to_char ("\n\rWhere <argument> is one of:\n\r", ch);
       send_to_char ("  list\n\r", ch);
@@ -921,7 +921,7 @@ do_accessories (CHAR_DATA * ch, char *argument)
 
       ch->gold -= acc->price;
       fwrite_house (home);
-      send_to_char ("Ok.\n\r", ch);
+      send_to_char (_("Ok.\n"), ch);
       return;
     }
 
@@ -1003,7 +1003,7 @@ do_accessories (CHAR_DATA * ch, char *argument)
       acc->mob = FALSE;
       DISPOSE (acc);
       save_accessories ();
-      send_to_char ("Ok.\n\r", ch);
+      send_to_char (_("Ok.\n"), ch);
       return;
     }
 
@@ -1017,7 +1017,7 @@ do_accessories (CHAR_DATA * ch, char *argument)
 
       acc->price = atoi (argument);
       save_accessories ();
-      send_to_char ("Ok.\n\r", ch);
+      send_to_char (_("Ok.\n"), ch);
       return;
     }
 
@@ -1111,7 +1111,7 @@ do_homebuy (CHAR_DATA * ch, char *argument)
 
   if (!str_cmp (arg, "syntax"))
     {
-      send_to_char ("Syntax:\n\r", ch);
+      send_to_char (_("Syntax:\n"), ch);
       send_to_char (" homebuy <argument>\n\r", ch);
       send_to_char ("Where the argument is one of:\n\r", ch);
       send_to_char (" list\n\r", ch);
@@ -1963,8 +1963,8 @@ load_homedata ()
 
   if ((fpList = fopen (list, "r")) == NULL)
     {
-      log_string ("Cannot open house.lst for reading. Home loading aborted.");
-      shutdown_mud ("No house.lst");
+      log_string (_("Cannot open house.lst for reading. Home loading aborted."));
+      shutdown_mud (_("No house.lst"));
       exit (1);
     }
 
@@ -1977,7 +1977,7 @@ load_homedata ()
 
       if (!load_house_file (filename))
 	{
-	  sprintf (buf, "Cannot load house file: %s", filename);
+	  sprintf (buf, _("Cannot load house file: %s"), filename);
 	  bug (buf, 0);
 	}
 
@@ -2093,7 +2093,7 @@ update_house_list ()
 
   if ((fpout = fopen (filename, "w")) == NULL)
     {
-      bug ("FATAL: cannot open house.lst for writing!\n\r", 0);
+      bug (_("FATAL: cannot open house.lst for writing!\n"), 0);
       return;
     }
 
@@ -2243,7 +2243,7 @@ load_accessories ()
   if ((fp = fopen (ACCESSORIES_FILE, "r")) == NULL)
     {
       boot_log
-	("Cannot open homeaccessories.dat. Aborting loadup of accessories data.");
+	(_("Cannot open homeaccessories.dat. Aborting loadup of accessories data."));
       return;
     }
 

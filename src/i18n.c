@@ -55,20 +55,14 @@ int
 i18n_getlocale (void)
 {
 	SMAUGlocale = getenv("LANG");
-
-	if (SMAUGlocale == NULL) {
-			return NULL;
-	} else {
-		  return SMAUGlocale;
-	}
 }
 
 int
 i18n_display_locale (void)
 {
-	SMAUGlocale = getenv("LANG");
+	i18n_getlocale();
 
-	if (SMAUGlocale == NULL) {
+	if (!SMAUGlocale) {
 		  sprintf(log_buf, "Environment variable <LANG> is not set!\n");
 		  log_string ( log_buf );
 	} else {

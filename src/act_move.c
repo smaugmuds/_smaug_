@@ -552,7 +552,7 @@ will_fall (CHAR_DATA * ch, int fall)
 	  return TRUE;
 	}
       set_char_color (AT_FALLING, ch);
-      send_to_char ("You're falling down...\n\r", ch);
+      send_to_char (_("You're falling down...\n"), ch);
       move_char (ch, get_exit (ch->in_room, DIR_DOWN), ++fall);
       return TRUE;
     }
@@ -774,7 +774,7 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 	     "You stare around trying to make sense of things through your drunken stupor.",
 	     ch, NULL, NULL, TO_CHAR);
       else
-	send_to_char ("Alas, you cannot go that way.\n\r", ch);
+	send_to_char (_("Alas, you cannot go that way.\n"), ch);
       return rNONE;
     }
 
@@ -788,7 +788,7 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
   if (IS_SET (pexit->exit_info, EX_WINDOW)
       && !IS_SET (pexit->exit_info, EX_ISDOOR))
     {
-      send_to_char ("Alas, you cannot go that way.\n\r", ch);
+      send_to_char (_("Alas, you cannot go that way.\n"), ch);
       return rNONE;
     }
 
@@ -801,7 +801,7 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
   if (IS_SET (pexit->exit_info, EX_NOMOB)
       && IS_NPC (ch) && !xIS_SET (ch->act, ACT_PET))
     {
-      act (AT_PLAIN, "Mobs can't enter there.", ch, NULL, NULL, TO_CHAR);
+      act (AT_PLAIN, _("Mobs can't enter there."), ch, NULL, NULL, TO_CHAR);
       return rNONE;
     }
 
@@ -820,7 +820,7 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 		   NULL, pexit->keyword, TO_CHAR);
 	    }
 	  else
-	    act (AT_PLAIN, "The $d is closed.", ch, NULL, pexit->keyword,
+	    act (AT_PLAIN, _("The $d is closed."), ch, NULL, pexit->keyword,
 		 TO_CHAR);
 	}
       else
@@ -829,7 +829,7 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 	    send_to_char ("You stagger around in your drunken state.\n\r",
 			  ch);
 	  else
-	    send_to_char ("Alas, you cannot go that way.\n\r", ch);
+	    send_to_char (_("Alas, you cannot go that way.\n"), ch);
 	}
 
       return rNONE;
@@ -840,7 +840,7 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
    */
   if (distance > 1)
     if ((to_room = generate_exit (in_room, &pexit)) == NULL)
-      send_to_char ("Alas, you cannot go that way.\n\r", ch);
+      send_to_char (_("Alas, you cannot go that way.\n"), ch);
 
   if (!fall
       && IS_AFFECTED (ch, AFF_CHARM)
@@ -852,14 +852,14 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 
   if (room_is_private (to_room))
     {
-      send_to_char ("That room is private right now.\n\r", ch);
+      send_to_char (_("That room is private right now.\n"), ch);
       return rNONE;
     }
 
   if (IS_NPC (ch) && xIS_SET (to_room->room_flags, ROOM_NO_MOB)
       && !xIS_SET (ch->act, ACT_PET))
     {
-      act (AT_PLAIN, "Mobs can't enter there.", ch, NULL, NULL, TO_CHAR);
+      act (AT_PLAIN, _("Mobs can't enter there."), ch, NULL, NULL, TO_CHAR);
       return rNONE;
     }
 
@@ -949,12 +949,12 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 	{
 	  if (ch->mount && !IS_AFFECTED (ch->mount, AFF_FLYING))
 	    {
-	      send_to_char ("Your mount can't fly.\n\r", ch);
+	      send_to_char (_("Your mount can't fly.\n"), ch);
 	      return rNONE;
 	    }
 	  if (!ch->mount && !IS_AFFECTED (ch, AFF_FLYING))
 	    {
-	      send_to_char ("You'd need to fly to go there.\n\r", ch);
+	      send_to_char (_("You'd need to fly to go there.\n"), ch);
 	      return rNONE;
 	    }
 	}
@@ -1036,7 +1036,7 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 	  switch (ch->mount->position)
 	    {
 	    case POS_DEAD:
-	      send_to_char ("Your mount is dead!\n\r", ch);
+	      send_to_char (_("Your mount is dead!\n"), ch);
 	      return rNONE;
 	      break;
 
@@ -1093,7 +1093,7 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 	    move = 1;
 	  if (ch->move < move)
 	    {
-	      send_to_char ("You are too exhausted.\n\r", ch);
+	      send_to_char (_("You are too exhausted.\n"), ch);
 	      return rNONE;
 	    }
 	}
@@ -1327,7 +1327,7 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 	  if (fch != ch		/* loop room bug fix here by Thoric */
 	      && fch->master == ch && fch->position == POS_STANDING)
 	    {
-	      act (AT_ACTION, "You follow $N.", fch, NULL, ch, TO_CHAR);
+	      act (AT_ACTION, _("You follow $N."), fch, NULL, ch, TO_CHAR);
 	      move_char (fch, pexit, 0);
 	    }
 	}
@@ -1363,14 +1363,14 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 	  || (ch->mount && !IS_AFFECTED (ch->mount, AFF_FLOATING)))
 	{
 	  set_char_color (AT_HURT, ch);
-	  send_to_char ("OUCH! You hit the ground!\n\r", ch);
+	  send_to_char (_("OUCH! You hit the ground!\n"), ch);
 	  WAIT_STATE (ch, 20);
 	  retcode = damage (ch, ch, 20 * fall, TYPE_UNDEFINED);
 	}
       else
 	{
 	  set_char_color (AT_MAGIC, ch);
-	  send_to_char ("You lightly float down to the ground.\n\r", ch);
+	  send_to_char (_("You lightly float down to the ground.\n"), ch);
 	}
     }
   return retcode;
@@ -1464,25 +1464,25 @@ find_door (CHAR_DATA * ch, char *arg, bool quiet)
     return NULL;
 
   pexit = NULL;
-  if (!str_cmp (arg, "n") || !str_cmp (arg, "north"))
+  if (!str_cmp (arg, _("n")) || !str_cmp (arg, _("north")))
     door = 0;
-  else if (!str_cmp (arg, "e") || !str_cmp (arg, "east"))
+  else if (!str_cmp (arg, _("e")) || !str_cmp (arg, _("east")))
     door = 1;
-  else if (!str_cmp (arg, "s") || !str_cmp (arg, "south"))
+  else if (!str_cmp (arg, _("s")) || !str_cmp (arg, _("south")))
     door = 2;
-  else if (!str_cmp (arg, "w") || !str_cmp (arg, "west"))
+  else if (!str_cmp (arg, _("w")) || !str_cmp (arg, _("west")))
     door = 3;
-  else if (!str_cmp (arg, "u") || !str_cmp (arg, "up"))
+  else if (!str_cmp (arg, _("u")) || !str_cmp (arg, _("up")))
     door = 4;
-  else if (!str_cmp (arg, "d") || !str_cmp (arg, "down"))
+  else if (!str_cmp (arg, _("d")) || !str_cmp (arg, _("down")))
     door = 5;
-  else if (!str_cmp (arg, "ne") || !str_cmp (arg, "northeast"))
+  else if (!str_cmp (arg, _("ne")) || !str_cmp (arg, _("northeast")))
     door = 6;
-  else if (!str_cmp (arg, "nw") || !str_cmp (arg, "northwest"))
+  else if (!str_cmp (arg, _("nw")) || !str_cmp (arg, _("northwest")))
     door = 7;
-  else if (!str_cmp (arg, "se") || !str_cmp (arg, "southeast"))
+  else if (!str_cmp (arg, _("se")) || !str_cmp (arg, _("southeast")))
     door = 8;
-  else if (!str_cmp (arg, "sw") || !str_cmp (arg, "southwest"))
+  else if (!str_cmp (arg, _("sw")) || !str_cmp (arg, _("southwest")))
     door = 9;
   else
     {
@@ -1493,14 +1493,14 @@ find_door (CHAR_DATA * ch, char *arg, bool quiet)
 	    return pexit;
 	}
       if (!quiet)
-	act (AT_PLAIN, "You see no $T here.", ch, NULL, arg, TO_CHAR);
+	act (AT_PLAIN, _("You see no $T here."), ch, NULL, arg, TO_CHAR);
       return NULL;
     }
 
   if ((pexit = get_exit (ch->in_room, door)) == NULL)
     {
       if (!quiet)
-	act (AT_PLAIN, "You see no $T here.", ch, NULL, arg, TO_CHAR);
+	act (AT_PLAIN, _("You see no $T here."), ch, NULL, arg, TO_CHAR);
       return NULL;
     }
 
@@ -1509,13 +1509,13 @@ find_door (CHAR_DATA * ch, char *arg, bool quiet)
 
   if (IS_SET (pexit->exit_info, EX_SECRET))
     {
-      act (AT_PLAIN, "You see no $T here.", ch, NULL, arg, TO_CHAR);
+      act (AT_PLAIN, _("You see no $T here."), ch, NULL, arg, TO_CHAR);
       return NULL;
     }
 
   if (!IS_SET (pexit->exit_info, EX_ISDOOR))
     {
-      send_to_char ("You can't do that.\n\r", ch);
+      send_to_char (_("You can't do that.\n"), ch);
       return NULL;
     }
 
@@ -1577,43 +1577,43 @@ do_open (CHAR_DATA * ch, char *argument)
       if (IS_SET (pexit->exit_info, EX_SECRET)
 	  && pexit->keyword && !nifty_is_name (arg, pexit->keyword))
 	{
-	  ch_printf (ch, "You see no %s here.\n\r", arg);
+	  ch_printf (ch, _("You see no %s here.\n"), arg);
 	  return;
 	}
       if (!IS_SET (pexit->exit_info, EX_ISDOOR)
 	  || IS_SET (pexit->exit_info, EX_DIG))
 	{
-	  send_to_char ("You can't do that.\n\r", ch);
+	  send_to_char (_("You can't do that.\n"), ch);
 	  return;
 	}
       if (!IS_SET (pexit->exit_info, EX_CLOSED))
 	{
-	  send_to_char ("It's already open.\n\r", ch);
+	  send_to_char (_("It's already open.\n"), ch);
 	  return;
 	}
       if (IS_SET (pexit->exit_info, EX_LOCKED)
 	  && IS_SET (pexit->exit_info, EX_BOLTED))
 	{
-	  send_to_char ("The bolts locked.\n\r", ch);
+	  send_to_char (_("The bolts locked.\n"), ch);
 	  return;
 	}
       if (IS_SET (pexit->exit_info, EX_BOLTED))
 	{
-	  send_to_char ("It's bolted.\n\r", ch);
+	  send_to_char (_("It's bolted.\n"), ch);
 	  return;
 	}
       if (IS_SET (pexit->exit_info, EX_LOCKED))
 	{
-	  send_to_char ("It's locked.\n\r", ch);
+	  send_to_char (_("It's locked.\n"), ch);
 	  return;
 	}
 
       if (!IS_SET (pexit->exit_info, EX_SECRET)
 	  || (pexit->keyword && nifty_is_name (arg, pexit->keyword)))
 	{
-	  act (AT_ACTION, "$n opens the $d.", ch, NULL, pexit->keyword,
+	  act (AT_ACTION, _("$n opens the $d."), ch, NULL, pexit->keyword,
 	       TO_ROOM);
-	  act (AT_ACTION, "You open the $d.", ch, NULL, pexit->keyword,
+	  act (AT_ACTION, _("You open the $d."), ch, NULL, pexit->keyword,
 	       TO_CHAR);
 	  if ((pexit_rev = pexit->rexit) != NULL
 	      && pexit_rev->to_room == ch->in_room)
@@ -1622,7 +1622,7 @@ do_open (CHAR_DATA * ch, char *argument)
 
 	      for (rch = pexit->to_room->first_person; rch;
 		   rch = rch->next_in_room)
-		act (AT_ACTION, "The $d opens.", rch, NULL,
+		act (AT_ACTION, _("The $d opens."), rch, NULL,
 		     pexit_rev->keyword, TO_CHAR);
 	    }
 	  remove_bexit_flag (pexit, EX_CLOSED);
@@ -1637,36 +1637,36 @@ do_open (CHAR_DATA * ch, char *argument)
       /* 'open object' */
       if (obj->item_type != ITEM_CONTAINER)
 	{
-	  ch_printf (ch, "%s is not a container.\n\r",
+	  ch_printf (ch, _("%s is not a container.\n"),
 		     capitalize (obj->short_descr));
 	  return;
 	}
       if (!IS_SET (obj->value[1], CONT_CLOSED))
 	{
-	  ch_printf (ch, "%s is already open.\n\r",
+	  ch_printf (ch, _("%s is already open.\n"),
 		     capitalize (obj->short_descr));
 	  return;
 	}
       if (!IS_SET (obj->value[1], CONT_CLOSEABLE))
 	{
-	  ch_printf (ch, "%s cannot be opened or closed.\n\r",
+	  ch_printf (ch, _("%s cannot be opened or closed.\n"),
 		     capitalize (obj->short_descr));
 	  return;
 	}
       if (IS_SET (obj->value[1], CONT_LOCKED))
 	{
-	  ch_printf (ch, "%s is locked.\n\r", capitalize (obj->short_descr));
+	  ch_printf (ch, _("%s is locked.\n"), capitalize (obj->short_descr));
 	  return;
 	}
 
       REMOVE_BIT (obj->value[1], CONT_CLOSED);
-      act (AT_ACTION, "You open $p.", ch, obj, NULL, TO_CHAR);
-      act (AT_ACTION, "$n opens $p.", ch, obj, NULL, TO_ROOM);
+      act (AT_ACTION, _("You open $p."), ch, obj, NULL, TO_CHAR);
+      act (AT_ACTION, _("$n opens $p."), ch, obj, NULL, TO_ROOM);
       check_for_trap (ch, obj, TRAP_OPEN);
       return;
     }
 
-  ch_printf (ch, "You see no %s here.\n\r", arg);
+  ch_printf (ch, _("You see no %s here.\n"), arg);
   return;
 }
 
@@ -1696,21 +1696,21 @@ do_close (CHAR_DATA * ch, char *argument)
       if (IS_SET (pexit->exit_info, EX_SECRET)
 	  && pexit->keyword && !nifty_is_name (arg, pexit->keyword))
 	{
-	  ch_printf (ch, "You see no %s here.\n\r", arg);
+	  ch_printf (ch, _("You see no %s here.\n"), arg);
 	  return;
 	}
       if (!IS_SET (pexit->exit_info, EX_ISDOOR))
 	{
-	  send_to_char ("You can't do that.\n\r", ch);
+	  send_to_char (_("You can't do that.\n"), ch);
 	  return;
 	}
       if (IS_SET (pexit->exit_info, EX_CLOSED))
 	{
-	  send_to_char ("It's already closed.\n\r", ch);
+	  send_to_char (_("It's already closed.\n"), ch);
 	  return;
 	}
-      act (AT_ACTION, "$n closes the $d.", ch, NULL, pexit->keyword, TO_ROOM);
-      act (AT_ACTION, "You close the $d.", ch, NULL, pexit->keyword, TO_CHAR);
+      act (AT_ACTION, _("$n closes the $d."), ch, NULL, pexit->keyword, TO_ROOM);
+      act (AT_ACTION, _("You close the $d."), ch, NULL, pexit->keyword, TO_CHAR);
 
       /* close the other side */
       if ((pexit_rev = pexit->rexit) != NULL
@@ -1721,7 +1721,7 @@ do_close (CHAR_DATA * ch, char *argument)
 	  SET_BIT (pexit_rev->exit_info, EX_CLOSED);
 	  for (rch = pexit->to_room->first_person; rch;
 	       rch = rch->next_in_room)
-	    act (AT_ACTION, "The $d closes.", rch, NULL, pexit_rev->keyword,
+	    act (AT_ACTION, _("The $d closes."), rch, NULL, pexit_rev->keyword,
 		 TO_CHAR);
 	}
       set_bexit_flag (pexit, EX_CLOSED);
@@ -1735,31 +1735,31 @@ do_close (CHAR_DATA * ch, char *argument)
       /* 'close object' */
       if (obj->item_type != ITEM_CONTAINER)
 	{
-	  ch_printf (ch, "%s is not a container.\n\r",
+	  ch_printf (ch, _("%s is not a container.\n"),
 		     capitalize (obj->short_descr));
 	  return;
 	}
       if (IS_SET (obj->value[1], CONT_CLOSED))
 	{
-	  ch_printf (ch, "%s is already closed.\n\r",
+	  ch_printf (ch, _("%s is already closed.\n"),
 		     capitalize (obj->short_descr));
 	  return;
 	}
       if (!IS_SET (obj->value[1], CONT_CLOSEABLE))
 	{
-	  ch_printf (ch, "%s cannot be opened or closed.\n\r",
+	  ch_printf (ch, _("%s cannot be opened or closed.\n"),
 		     capitalize (obj->short_descr));
 	  return;
 	}
 
       SET_BIT (obj->value[1], CONT_CLOSED);
-      act (AT_ACTION, "You close $p.", ch, obj, NULL, TO_CHAR);
-      act (AT_ACTION, "$n closes $p.", ch, obj, NULL, TO_ROOM);
+      act (AT_ACTION, _("You close $p."), ch, obj, NULL, TO_CHAR);
+      act (AT_ACTION, _("$n closes $p."), ch, obj, NULL, TO_ROOM);
       check_for_trap (ch, obj, TRAP_CLOSE);
       return;
     }
 
-  ch_printf (ch, "You see no %s here.\n\r", arg);
+  ch_printf (ch, _("You see no %s here.\n"), arg);
   return;
 }
 
@@ -1805,7 +1805,7 @@ do_lock (CHAR_DATA * ch, char *argument)
 
   if (arg[0] == '\0')
     {
-      send_to_char ("Lock what?\n\r", ch);
+      send_to_char (_("Lock what?\n"), ch);
       return;
     }
 
@@ -1816,42 +1816,42 @@ do_lock (CHAR_DATA * ch, char *argument)
       if (IS_SET (pexit->exit_info, EX_SECRET)	/* added */
 	  && pexit->keyword && !nifty_is_name (arg, pexit->keyword))
 	{
-	  ch_printf (ch, "You see no %s here.\n\r", arg);
+	  ch_printf (ch, _("You see no %s here.\n"), arg);
 	  return;
 	}
       if (!IS_SET (pexit->exit_info, EX_ISDOOR))
 	{
-	  send_to_char ("You can't do that.\n\r", ch);
+	  send_to_char (_("You can't do that.\n"), ch);
 	  return;
 	}
       if (!IS_SET (pexit->exit_info, EX_CLOSED))
 	{
-	  send_to_char ("It's not closed.\n\r", ch);
+	  send_to_char (_("It's not closed.\n"), ch);
 	  return;
 	}
       if (pexit->key < 0)
 	{
-	  send_to_char ("It can't be locked.\n\r", ch);
+	  send_to_char (_("It can't be locked.\n"), ch);
 	  return;
 	}
       if ((key = has_key (ch, pexit->key)) == NULL)
 	{
-	  send_to_char ("You lack the key.\n\r", ch);
+	  send_to_char (_("You lack the key.\n"), ch);
 	  return;
 	}
       if (IS_SET (pexit->exit_info, EX_LOCKED))
 	{
-	  send_to_char ("It's already locked.\n\r", ch);
+	  send_to_char (_("It's already locked.\n"), ch);
 	  return;
 	}
 
       if (!IS_SET (pexit->exit_info, EX_SECRET)
 	  || (pexit->keyword && nifty_is_name (arg, pexit->keyword)))
 	{
-	  send_to_char ("*Click*\n\r", ch);
+	  send_to_char (_("*Click*\n"), ch);
 	  count = key->count;
 	  key->count = 1;
-	  act (AT_ACTION, "$n locks the $d with $p.", ch, key, pexit->keyword,
+	  act (AT_ACTION, _("$n locks the $d with $p."), ch, key, pexit->keyword,
 	       TO_ROOM);
 	  key->count = count;
 	  set_bexit_flag (pexit, EX_LOCKED);
@@ -1864,40 +1864,40 @@ do_lock (CHAR_DATA * ch, char *argument)
       /* 'lock object' */
       if (obj->item_type != ITEM_CONTAINER)
 	{
-	  send_to_char ("That's not a container.\n\r", ch);
+	  send_to_char (_("That's not a container.\n"), ch);
 	  return;
 	}
       if (!IS_SET (obj->value[1], CONT_CLOSED))
 	{
-	  send_to_char ("It's not closed.\n\r", ch);
+	  send_to_char (_("It's not closed.\n"), ch);
 	  return;
 	}
       if (obj->value[2] < 0)
 	{
-	  send_to_char ("It can't be locked.\n\r", ch);
+	  send_to_char (_("It can't be locked.\n"), ch);
 	  return;
 	}
       if ((key = has_key (ch, obj->value[2])) == NULL)
 	{
-	  send_to_char ("You lack the key.\n\r", ch);
+	  send_to_char (_("You lack the key.\n"), ch);
 	  return;
 	}
       if (IS_SET (obj->value[1], CONT_LOCKED))
 	{
-	  send_to_char ("It's already locked.\n\r", ch);
+	  send_to_char (_("It's already locked.\n"), ch);
 	  return;
 	}
 
       SET_BIT (obj->value[1], CONT_LOCKED);
-      send_to_char ("*Click*\n\r", ch);
+      send_to_char (_("*Click*\n"), ch);
       count = key->count;
       key->count = 1;
-      act (AT_ACTION, "$n locks $p with $P.", ch, obj, key, TO_ROOM);
+      act (AT_ACTION, _("$n locks $p with $P."), ch, obj, key, TO_ROOM);
       key->count = count;
       return;
     }
 
-  ch_printf (ch, "You see no %s here.\n\r", arg);
+  ch_printf (ch, _("You see no %s here.\n"), arg);
   return;
 }
 
@@ -1926,42 +1926,42 @@ do_unlock (CHAR_DATA * ch, char *argument)
       if (IS_SET (pexit->exit_info, EX_SECRET)	/* added */
 	  && pexit->keyword && !nifty_is_name (arg, pexit->keyword))
 	{
-	  ch_printf (ch, "You see no %s here.\n\r", arg);
+	  ch_printf (ch, _("You see no %s here.\n"), arg);
 	  return;
 	}
       if (!IS_SET (pexit->exit_info, EX_ISDOOR))
 	{
-	  send_to_char ("You can't do that.\n\r", ch);
+	  send_to_char (_("You can't do that.\n"), ch);
 	  return;
 	}
       if (!IS_SET (pexit->exit_info, EX_CLOSED))
 	{
-	  send_to_char ("It's not closed.\n\r", ch);
+	  send_to_char (_("It's not closed.\n"), ch);
 	  return;
 	}
       if (pexit->key < 0)
 	{
-	  send_to_char ("It can't be unlocked.\n\r", ch);
+	  send_to_char (_("It's already locked.\n"), ch);
 	  return;
 	}
       if ((key = has_key (ch, pexit->key)) == NULL)
 	{
-	  send_to_char ("You lack the key.\n\r", ch);
+	  send_to_char (_("You lack the key.\n"), ch);
 	  return;
 	}
       if (!IS_SET (pexit->exit_info, EX_LOCKED))
 	{
-	  send_to_char ("It's already unlocked.\n\r", ch);
+	  send_to_char (_("It's already unlocked.\n"), ch);
 	  return;
 	}
 
       if (!IS_SET (pexit->exit_info, EX_SECRET)
 	  || (pexit->keyword && nifty_is_name (arg, pexit->keyword)))
 	{
-	  send_to_char ("*Click*\n\r", ch);
+	  send_to_char (_("*Click*\n"), ch);
 	  count = key->count;
 	  key->count = 1;
-	  act (AT_ACTION, "$n unlocks the $d with $p.", ch, key,
+	  act (AT_ACTION, _("$n unlocks the $d with $p."), ch, key,
 	       pexit->keyword, TO_ROOM);
 	  key->count = count;
 	  if (IS_SET (pexit->exit_info, EX_EATKEY))
@@ -1979,35 +1979,35 @@ do_unlock (CHAR_DATA * ch, char *argument)
       /* 'unlock object' */
       if (obj->item_type != ITEM_CONTAINER)
 	{
-	  send_to_char ("That's not a container.\n\r", ch);
+	  send_to_char (_("That's not a container.\n"), ch);
 	  return;
 	}
       if (!IS_SET (obj->value[1], CONT_CLOSED))
 	{
-	  send_to_char ("It's not closed.\n\r", ch);
+	  send_to_char (_("It's not closed.\n"), ch);
 	  return;
 	}
       if (obj->value[2] < 0)
 	{
-	  send_to_char ("It can't be unlocked.\n\r", ch);
+	  send_to_char (_("It's already locked.\n"), ch);
 	  return;
 	}
       if ((key = has_key (ch, obj->value[2])) == NULL)
 	{
-	  send_to_char ("You lack the key.\n\r", ch);
+	  send_to_char (_("You lack the key.\n"), ch);
 	  return;
 	}
       if (!IS_SET (obj->value[1], CONT_LOCKED))
 	{
-	  send_to_char ("It's already unlocked.\n\r", ch);
+	  send_to_char (_("It's already unlocked.\n"), ch);
 	  return;
 	}
 
       REMOVE_BIT (obj->value[1], CONT_LOCKED);
-      send_to_char ("*Click*\n\r", ch);
+      send_to_char (_("*Click*\n"), ch);
       count = key->count;
       key->count = 1;
-      act (AT_ACTION, "$n unlocks $p with $P.", ch, obj, key, TO_ROOM);
+      act (AT_ACTION, _("$n unlocks $p with $P."), ch, obj, key, TO_ROOM);
       key->count = count;
       if (IS_SET (obj->value[1], CONT_EATKEY))
 	{
@@ -2017,7 +2017,7 @@ do_unlock (CHAR_DATA * ch, char *argument)
       return;
     }
 
-  ch_printf (ch, "You see no %s here.\n\r", arg);
+  ch_printf (ch, _("You see no %s here.\n"), arg);
   return;
 }
 
@@ -2031,7 +2031,7 @@ do_bashdoor (CHAR_DATA * ch, char *argument)
   if (!IS_NPC (ch)
       && ch->level < skill_table[gsn_bashdoor]->skill_level[ch->class])
     {
-      send_to_char ("You're not enough of a warrior to bash doors!\n\r", ch);
+      send_to_char (_("You're not enough of a warrior to bash doors!\n"), ch);
       return;
     }
 
@@ -2045,7 +2045,7 @@ do_bashdoor (CHAR_DATA * ch, char *argument)
 
   if (ch->fighting)
     {
-      send_to_char ("You can't break off your fight.\n\r", ch);
+      send_to_char (_("You can't break off your fight.\n"), ch);
       return;
     }
 
@@ -2058,7 +2058,7 @@ do_bashdoor (CHAR_DATA * ch, char *argument)
 
       if (!IS_SET (pexit->exit_info, EX_CLOSED))
 	{
-	  send_to_char ("Calm down.  It is already open.\n\r", ch);
+	  send_to_char (_("Calm down.  It is already open.\n"), ch);
 	  return;
 	}
 
@@ -2084,9 +2084,9 @@ do_bashdoor (CHAR_DATA * ch, char *argument)
 	    REMOVE_BIT (pexit->exit_info, EX_LOCKED);
 	  SET_BIT (pexit->exit_info, EX_BASHED);
 
-	  act (AT_SKILL, "Crash!  You bashed open the $d!", ch, NULL, keyword,
+	  act (AT_SKILL, _("Crash!  You bashed open the $d!"), ch, NULL, keyword,
 	       TO_CHAR);
-	  act (AT_SKILL, "$n bashes open the $d!", ch, NULL, keyword,
+	  act (AT_SKILL, _("$n bashes open the $d!"), ch, NULL, keyword,
 	       TO_ROOM);
 	  learn_from_success (ch, gsn_bashdoor);
 
@@ -2103,7 +2103,7 @@ do_bashdoor (CHAR_DATA * ch, char *argument)
 
 	      for (rch = to_room->first_person; rch; rch = rch->next_in_room)
 		{
-		  act (AT_SKILL, "The $d crashes open!",
+		  act (AT_SKILL, _("The $d crashes open!"),
 		       rch, NULL, pexit_rev->keyword, TO_CHAR);
 		}
 	    }
@@ -2155,7 +2155,7 @@ do_stand (CHAR_DATA * ch, char *argument)
     case POS_SLEEPING:
       if (IS_AFFECTED (ch, AFF_SLEEP))
 	{
-	  send_to_char ("You can't seem to wake up!\n\r", ch);
+	  send_to_char (_("You can't seem to wake up!\n"), ch);
 	  return;
 	}
 
@@ -2177,7 +2177,7 @@ do_stand (CHAR_DATA * ch, char *argument)
       break;
 
     case POS_STANDING:
-      send_to_char ("You are already standing.\n\r", ch);
+      send_to_char (_("You are already standing.\n"), ch);
       break;
 
     case POS_FIGHTING:
@@ -2185,7 +2185,7 @@ do_stand (CHAR_DATA * ch, char *argument)
     case POS_DEFENSIVE:
     case POS_AGGRESSIVE:
     case POS_BERSERK:
-      send_to_char ("You are already fighting!\n\r", ch);
+      send_to_char (_("You are already fighting!\n"), ch);
       break;
     }
 
@@ -2201,7 +2201,7 @@ do_sit (CHAR_DATA * ch, char *argument)
     case POS_SLEEPING:
       if (IS_AFFECTED (ch, AFF_SLEEP))
 	{
-	  send_to_char ("You can't seem to wake up!\n\r", ch);
+	  send_to_char (_("You can't seem to wake up!\n"), ch);
 	  return;
 	}
 
@@ -2225,7 +2225,7 @@ do_sit (CHAR_DATA * ch, char *argument)
       ch->position = POS_SITTING;
       break;
     case POS_SITTING:
-      send_to_char ("You are already sitting.\n\r", ch);
+      send_to_char (_("You are already sitting.\n"), ch);
       return;
 
     case POS_FIGHTING:
@@ -2233,10 +2233,10 @@ do_sit (CHAR_DATA * ch, char *argument)
     case POS_DEFENSIVE:
     case POS_AGGRESSIVE:
     case POS_BERSERK:
-      send_to_char ("You are busy fighting!\n\r", ch);
+      send_to_char (_("You are busy fighting!\n"), ch);
       return;
     case POS_MOUNTED:
-      send_to_char ("You are already sitting - on your mount.\n\r", ch);
+      send_to_char (_("You are already sitting - on your mount.\n"), ch);
       return;
     }
 
@@ -2252,7 +2252,7 @@ do_rest (CHAR_DATA * ch, char *argument)
     case POS_SLEEPING:
       if (IS_AFFECTED (ch, AFF_SLEEP))
 	{
-	  send_to_char ("You can't seem to wake up!\n\r", ch);
+	  send_to_char (_("You can't seem to wake up!\n"), ch);
 	  return;
 	}
 
@@ -2262,7 +2262,7 @@ do_rest (CHAR_DATA * ch, char *argument)
       break;
 
     case POS_RESTING:
-      send_to_char ("You are already resting.\n\r", ch);
+      send_to_char (_("You are already resting.\n"), ch);
       return;
 
     case POS_STANDING:
@@ -2285,10 +2285,10 @@ do_rest (CHAR_DATA * ch, char *argument)
     case POS_DEFENSIVE:
     case POS_AGGRESSIVE:
     case POS_BERSERK:
-      send_to_char ("You are busy fighting!\n\r", ch);
+      send_to_char (_("You are busy fighting!\n"), ch);
       return;
     case POS_MOUNTED:
-      send_to_char ("You'd better dismount first.\n\r", ch);
+      send_to_char (_("You'd better dismount first.\n"), ch);
       return;
     }
 
@@ -2303,7 +2303,7 @@ do_sleep (CHAR_DATA * ch, char *argument)
   switch (ch->position)
     {
     case POS_SLEEPING:
-      send_to_char ("You are already sleeping.\n\r", ch);
+      send_to_char (_("You are already sleeping.\n"), ch);
       return;
 
     case POS_RESTING:
@@ -2354,8 +2354,8 @@ do_sleep (CHAR_DATA * ch, char *argument)
 	}
       if (ch->stance > STANCE_NONE)
 	do_stance (ch, "");
-      send_to_char ("You collapse into a deep sleep.\n\r", ch);
-      act (AT_ACTION, "$n collapses into a deep sleep.", ch, NULL, NULL,
+      send_to_char (_("You collapse into a deep sleep.\n"), ch);
+      act (AT_ACTION, _("$n collapses into a deep sleep."), ch, NULL, NULL,
 	   TO_ROOM);
       ch->position = POS_SLEEPING;
       break;
@@ -2365,10 +2365,10 @@ do_sleep (CHAR_DATA * ch, char *argument)
     case POS_DEFENSIVE:
     case POS_AGGRESSIVE:
     case POS_BERSERK:
-      send_to_char ("You are busy fighting!\n\r", ch);
+      send_to_char (_("You are busy fighting!\n"), ch);
       return;
     case POS_MOUNTED:
-      send_to_char ("You really should dismount first.\n\r", ch);
+      send_to_char (_("You really should dismount first.\n"), ch);
       return;
     }
 
@@ -2399,7 +2399,7 @@ do_wake (CHAR_DATA * ch, char *argument)
 
   if ((victim = get_char_room (ch, arg)) == NULL)
     {
-      send_to_char ("They aren't here.\n\r", ch);
+      send_to_char (_("They aren't here.\n"), ch);
       return;
     }
 
@@ -2415,9 +2415,9 @@ do_wake (CHAR_DATA * ch, char *argument)
       return;
     }
 
-  act (AT_ACTION, "You wake $M.", ch, NULL, victim, TO_CHAR);
+  act (AT_ACTION, _("You wake $M."), ch, NULL, victim, TO_CHAR);
   victim->position = POS_STANDING;
-  act (AT_ACTION, "$n wakes you.", ch, NULL, victim, TO_VICT);
+  act (AT_ACTION, _("$n wakes you."), ch, NULL, victim, TO_VICT);
   do_look (victim, "auto");
   return;
 }
@@ -2444,8 +2444,8 @@ teleportch (CHAR_DATA * ch, ROOM_INDEX_DATA * room, bool show)
       act (AT_DEAD, "$n falls prey to a terrible death!", ch, NULL, NULL,
 	   TO_ROOM);
       set_char_color (AT_DEAD, ch);
-      send_to_char ("Oopsie... you're dead!\n\r", ch);
-      sprintf (buf, "%s hit a DEATH TRAP in room %d!",
+      send_to_char (_("Oopsie... you're dead!\n"), ch);
+      sprintf (buf, _("%s hit a DEATH TRAP in room %d!"),
 	       ch->name, ch->in_room->vnum);
       log_string (buf);
       to_channel (buf, CHANNEL_DEATH, "Death", LEVEL_IMMORTAL);
@@ -2516,7 +2516,7 @@ do_climb (CHAR_DATA * ch, char *argument)
 	    move_char (ch, pexit, 0);
 	    return;
 	  }
-      send_to_char ("You cannot climb here.\n\r", ch);
+      send_to_char (_("You cannot climb here.\n"), ch);
       return;
     }
 
@@ -2526,7 +2526,7 @@ do_climb (CHAR_DATA * ch, char *argument)
       move_char (ch, pexit, 0);
       return;
     }
-  send_to_char ("You cannot climb there.\n\r", ch);
+  send_to_char (_("You cannot climb there.\n"), ch);
   return;
 }
 
@@ -2557,7 +2557,7 @@ do_enter (CHAR_DATA * ch, char *argument)
 	      move_char (ch, pexit, 0);
 	      return;
 	    }
-      send_to_char ("You cannot find an entrance here.\n\r", ch);
+      send_to_char (_("You cannot find an entrance here.\n"), ch);
       return;
     }
 
@@ -2567,7 +2567,7 @@ do_enter (CHAR_DATA * ch, char *argument)
       move_char (ch, pexit, 0);
       return;
     }
-  send_to_char ("You cannot enter that.\n\r", ch);
+  send_to_char (_("You cannot enter that.\n"), ch);
   return;
 }
 
@@ -2597,7 +2597,7 @@ do_leave (CHAR_DATA * ch, char *argument)
 	      move_char (ch, pexit, 0);
 	      return;
 	    }
-      send_to_char ("You cannot find an exit here.\n\r", ch);
+      send_to_char (_("You cannot find an exit here.\n"), ch);
       return;
     }
 
@@ -2607,7 +2607,7 @@ do_leave (CHAR_DATA * ch, char *argument)
       move_char (ch, pexit, 0);
       return;
     }
-  send_to_char ("You cannot leave that way.\n\r", ch);
+  send_to_char (_("You cannot leave that way.\n"), ch);
   return;
 }
 
@@ -3010,7 +3010,7 @@ do_bolt (CHAR_DATA * ch, char *argument)
 
   if (arg[0] == '\0')
     {
-      send_to_char ("Bolt what?\n\r", ch);
+      send_to_char (_("Bolt what?\n"), ch);
       return;
     }
 
@@ -3019,41 +3019,41 @@ do_bolt (CHAR_DATA * ch, char *argument)
       if (IS_SET (pexit->exit_info, EX_SECRET)
 	  && pexit->keyword && !nifty_is_name (arg, pexit->keyword))
 	{
-	  ch_printf (ch, "You see no %s here.\n\r", arg);
+	  ch_printf (ch, _("You see no %s here.\n"), arg);
 	  return;
 	}
       if (!IS_SET (pexit->exit_info, EX_ISDOOR))
 	{
-	  send_to_char ("You can't do that.\n\r", ch);
+	  send_to_char (_("You can't do that.\n"), ch);
 	  return;
 	}
       if (!IS_SET (pexit->exit_info, EX_CLOSED))
 	{
-	  send_to_char ("It's not closed.\n\r", ch);
+	  send_to_char (_("It's not closed.\n"), ch);
 	  return;
 	}
       if (!IS_SET (pexit->exit_info, EX_ISBOLT))
 	{
-	  send_to_char ("You don't see a bolt.\n\r", ch);
+	  send_to_char (_("You don't see a bolt.\n"), ch);
 	  return;
 	}
       if (IS_SET (pexit->exit_info, EX_BOLTED))
 	{
-	  send_to_char ("It's already bolted.\n\r", ch);
+	  send_to_char (_("It's already bolted.\n"), ch);
 	  return;
 	}
 
       if (!IS_SET (pexit->exit_info, EX_SECRET)
 	  || (pexit->keyword && nifty_is_name (arg, pexit->keyword)))
 	{
-	  send_to_char ("*Clunk*\n\r", ch);
-	  act (AT_ACTION, "$n bolts the $d.", ch, NULL, pexit->keyword,
+	  send_to_char (_("*Clunk*\n"), ch);
+	  act (AT_ACTION, _("$n bolts the $d."), ch, NULL, pexit->keyword,
 	       TO_ROOM);
 	  set_bexit_flag (pexit, EX_BOLTED);
 	  return;
 	}
     }
-  ch_printf (ch, "You see no %s here.\n\r", arg);
+  ch_printf (ch, _("You see no %s here.\n"), arg);
   return;
 }
 
@@ -3071,7 +3071,7 @@ do_unbolt (CHAR_DATA * ch, char *argument)
 
   if (arg[0] == '\0')
     {
-      send_to_char ("Unbolt what?\n\r", ch);
+      send_to_char (_("Unbolt what?\n"), ch);
       return;
     }
 
@@ -3080,40 +3080,40 @@ do_unbolt (CHAR_DATA * ch, char *argument)
       if (IS_SET (pexit->exit_info, EX_SECRET)
 	  && pexit->keyword && !nifty_is_name (arg, pexit->keyword))
 	{
-	  ch_printf (ch, "You see no %s here.\n\r", arg);
+	  ch_printf (ch, _("You see no %s here.\n"), arg);
 	  return;
 	}
       if (!IS_SET (pexit->exit_info, EX_ISDOOR))
 	{
-	  send_to_char ("You can't do that.\n\r", ch);
+	  send_to_char (_("You can't do that.\n"), ch);
 	  return;
 	}
       if (!IS_SET (pexit->exit_info, EX_CLOSED))
 	{
-	  send_to_char ("It's not closed.\n\r", ch);
+	  send_to_char (_("It's not closed.\n"), ch);
 	  return;
 	}
       if (!IS_SET (pexit->exit_info, EX_ISBOLT))
 	{
-	  send_to_char ("You don't see a bolt.\n\r", ch);
+	  send_to_char (_("You don't see a bolt.\n"), ch);
 	  return;
 	}
       if (!IS_SET (pexit->exit_info, EX_BOLTED))
 	{
-	  send_to_char ("It's already unbolted.\n\r", ch);
+	  send_to_char (_("It's already unbolted.\n"), ch);
 	  return;
 	}
 
       if (!IS_SET (pexit->exit_info, EX_SECRET)
 	  || (pexit->keyword && nifty_is_name (arg, pexit->keyword)))
 	{
-	  send_to_char ("*Clunk*\n\r", ch);
-	  act (AT_ACTION, "$n unbolts the $d.", ch, NULL, pexit->keyword,
+	  send_to_char (_("*Clunk*\n"), ch);
+	  act (AT_ACTION, _("$n unbolts the $d."), ch, NULL, pexit->keyword,
 	       TO_ROOM);
 	  remove_bexit_flag (pexit, EX_BOLTED);
 	  return;
 	}
     }
-  ch_printf (ch, "You see no %s here.\n\r", arg);
+  ch_printf (ch, _("You see no %s here.\n"), arg);
   return;
 }

@@ -97,7 +97,7 @@ add_to_adminlist (char *name, int level)
   ADMINENT *admin;
 
 #ifdef DEBUG
-  log_string ("Adding to adminlist...");
+  log_string (_("Adding to adminlist..."));
 #endif
 
   CREATE (admin, ADMINENT, 1);
@@ -152,7 +152,7 @@ make_adminlist ()
 
   if ((dp = opendir (GOD_DIR)) == NULL)
     {
-      bug ("Error opening the god directory", 0);
+      bug (_("Error opening the god directory"), 0);
       return;
     }
 
@@ -183,11 +183,11 @@ make_adminlist ()
 
   if ((wfp = fopen (ADMINLIST_FILE, "a")) == NULL)
     {
-      bug ("Error opening the Adminlist file", 0);
+      bug (_("Error opening the Adminlist file"), 0);
       return;
     }
 
-  sprintf (buf, "%s Administrative Council List", sysdata.mud_name);
+  sprintf (buf, _("%s Administrative Council List"), sysdata.mud_name);
   toadminfile (buf, wfp);
   toadminfile (" ", wfp);
   for (admin = first_admin; admin; admin = admin->next)

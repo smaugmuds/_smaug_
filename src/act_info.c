@@ -1919,7 +1919,7 @@ do_glance (CHAR_DATA * ch, char *argument)
 
   if ((victim = get_char_room (ch, arg1)) == NULL)
     {
-      send_to_char ("They're not here.\n\r", ch);
+      send_to_char (_("They're not here.\n"), ch);
       return;
     }
   else
@@ -3717,13 +3717,13 @@ do_who (CHAR_DATA * ch, char *argument)
 
   if (!ch)
     {
-      fprintf (whoout, "%d player%s.\n\r", nMatch, nMatch == 1 ? "" : "s");
+      fprintf (whoout, _("%d player%s.\n\r"), nMatch, nMatch == 1 ? "" : "s");
       fclose (whoout);
       return;
     }
 
   set_char_color (AT_YELLOW, ch);
-  ch_printf (ch, "%d player%s.\n\r", nMatch, nMatch == 1 ? "" : "s");
+  ch_printf (ch, _("%d player%s.\n\r"), nMatch, nMatch == 1 ? "" : "s");
   return;
 }
 
@@ -4332,13 +4332,13 @@ do_cwho (CHAR_DATA * ch, char *argument)
 
   if (!ch)
     {
-      fprintf (whoout, "%d player%s.\n\r", nMatch, nMatch == 1 ? "" : "s");
+      fprintf (whoout, _("%d player%s.\n"), nMatch, nMatch == 1 ? "" : "s");
       fclose (whoout);
       return;
     }
 
   set_char_color (AT_NOTE, ch);
-  ch_printf (ch, "%d player%s.\n\r", nMatch, nMatch == 1 ? "" : "s");
+  ch_printf (ch, _("%d player%s.\n"), nMatch, nMatch == 1 ? "" : "s");
   return;
 }
 
@@ -4458,7 +4458,7 @@ do_where (CHAR_DATA * ch, char *argument)
       && IS_SET (victim->pcdata->flags, PCFLAG_DND)
       && get_trust (ch) < get_trust (victim))
     {
-      pager_printf_color (ch, "&GYou didn't find any %s.\n\r",
+      pager_printf_color (ch, _("&GYou didn't find any %s.\n"),
 			  capitalize (argument));
       return;
     }
@@ -4470,7 +4470,7 @@ do_where (CHAR_DATA * ch, char *argument)
 
   if (arg[0] == '\0' || PK_WHERE)
     {
-      pager_printf_color (ch, "\n\r&G&gPlayers near you in %s:\n\r",
+      pager_printf_color (ch, _("\n&G&gPlayers near you in %s:\n"),
 			  ch->in_room->area->name);
       found = FALSE;
       for (d = first_descriptor; d; d = d->next)
@@ -4507,7 +4507,7 @@ do_where (CHAR_DATA * ch, char *argument)
 		    }
 		  else
 		    {
-		      send_to_pager_color ("&W(Immortal)\t\t", ch);
+		      send_to_pager_color (_("&W(Immortal)\t\t"), ch);
 		    }
 		}
 	      else if (CAN_PKILL (victim)
@@ -4520,7 +4520,7 @@ do_where (CHAR_DATA * ch, char *argument)
 				      victim->pcdata->clan->badge);
 		}
 	      else if (CAN_PKILL (victim))
-		send_to_pager_color ("&W(Unclanned)\t\t", ch);
+		send_to_pager_color (_("&W(Unclanned)\t\t"), ch);
 	      else
 		send_to_pager ("\t\t\t", ch);
 	      pager_printf_color (ch, "&g| &w%s&w\n\r",
@@ -4528,7 +4528,7 @@ do_where (CHAR_DATA * ch, char *argument)
 	    }
 	}
       if (!found)
-	send_to_char_color ("&GNone\n\r", ch);
+	send_to_char_color (_("&GNone\n"), ch);
     }
   else
     {
@@ -4546,13 +4546,13 @@ do_where (CHAR_DATA * ch, char *argument)
 	      && can_see (ch, victim) && is_name (arg, victim->name))
 	    {
 	      found = TRUE;
-	      pager_printf_color (ch, "&g| &G%s is currently at &w%s&w\n\r",
+	      pager_printf_color (ch, _("&g| &G%s is currently at &w%s&w\n"),
 				  PERS (victim, ch), victim->in_room->name);
 	      break;
 	    }
 	}
       if (!found)
-	pager_printf_color (ch, "You didn't find any %s.\n\r",
+	pager_printf_color (ch, _("You didn't find any %s.\n"),
 			    capitalize (argument));
     }
   return;
@@ -4576,7 +4576,7 @@ do_consider (CHAR_DATA * ch, char *argument)
 
   if ((victim = get_char_room (ch, arg)) == NULL)
     {
-      send_to_char ("They're not here.\n\r", ch);
+      send_to_char (_("They're not here.\n"), ch);
       return;
     }
   if (victim == ch)
@@ -4923,7 +4923,7 @@ do_wimpy (CHAR_DATA * ch, char *argument)
       return;
     }
   ch->wimpy = wimpy;
-  ch_printf (ch, "Wimpy set to %d hit points.\n\r", wimpy);
+  ch_printf (ch, _("Wimpy set to %d hit points.\n"), wimpy);
   return;
 }
 
@@ -4992,8 +4992,8 @@ do_password (CHAR_DATA * ch, char *argument)
 
   if (arg1[0] == '\0' || arg2[0] == '\0')
     {
-      send_to_char ("Syntax: password <new> <again>.\n\r", ch);
-      send_to_char ("Syntax: password <new> <again>.\n\r", ch);
+      send_to_char (_("Syntax: password <new> <again>.\n"), ch);
+      send_to_char (_("Syntax: password <new> <again>.\n"), ch);
       return;
     }
 
@@ -5009,12 +5009,12 @@ do_password (CHAR_DATA * ch, char *argument)
 /* This should stop all the mistyped password problems --Shaddai */
   if (strcmp (arg1, arg2))
     {
-      send_to_char ("Passwords don't match try again.\n\r", ch);
+      send_to_char (_("Passwords don't match try again.\n"), ch);
       return;
     }
   if (strlen (arg2) < 5)
     {
-      send_to_char ("New password must be at least five characters long.\n\r",
+      send_to_char (_("New password must be at least five characters long.\n"),
 		    ch);
       return;
     }
@@ -5027,7 +5027,7 @@ do_password (CHAR_DATA * ch, char *argument)
     {
       if (*p == '~')
 	{
-	  send_to_char ("New password not acceptable, try again.\n\r", ch);
+	  send_to_char (_("New password not acceptable, try again.\n"), ch);
 	  return;
 	}
     }
@@ -5037,13 +5037,13 @@ do_password (CHAR_DATA * ch, char *argument)
   if (IS_SET (sysdata.save_flags, SV_PASSCHG))
     save_char_obj (ch);
   if (ch->desc && ch->desc->host[0] != '\0')
-    sprintf (log_buf, "%s changing password from site %s\n", ch->name,
+    sprintf (log_buf, _("%s changing password from site %s\n"), ch->name,
 	     ch->desc->host);
   else
-    sprintf (log_buf, "%s changing thier password with no descriptor!",
+    sprintf (log_buf, _("%s changing thier password with no descriptor!"),
 	     ch->name);
   log_string (log_buf);
-  send_to_char ("Ok.\n\r", ch);
+  send_to_char (_("Ok.\n"), ch);
   return;
 }
 
@@ -5115,7 +5115,7 @@ do_commands (CHAR_DATA * ch, char *argument)
       if (col % 6 != 0)
 	send_to_pager ("\n\r", ch);
       if (!found)
-	ch_printf (ch, "No command found under %s.\n\r", argument);
+	ch_printf (ch, _("No command found under %s.\n"), argument);
     }
   return;
 }
@@ -5405,7 +5405,7 @@ do_channels (CHAR_DATA * ch, char *argument)
 	  xSET_BIT (ch->deaf, bit);
 	}
 
-      send_to_char ("Ok.\n\r", ch);
+      send_to_char (_("Ok.\n"), ch);
     }
 
   return;
@@ -5451,10 +5451,10 @@ do_config (CHAR_DATA * ch, char *argument)
   if (arg[0] == '\0')
     {
       set_char_color (AT_DGREEN, ch);
-      send_to_char ("\n\rConfigurations ", ch);
+      send_to_char (_("\nConfigurations "), ch);
       set_char_color (AT_GREEN, ch);
       send_to_char
-	("(use 'config +/- <keyword>' to toggle, see 'help config')\n\r\n\r",
+	(_("(use 'config +/- <keyword>' to toggle, see 'help config')\n\n"),
 	 ch);
       set_char_color (AT_DGREEN, ch);
       send_to_char ("Display:   ", ch);
@@ -5520,13 +5520,13 @@ do_config (CHAR_DATA * ch, char *argument)
 		 : "[-] beckon");
 
       set_char_color (AT_DGREEN, ch);
-      send_to_char ("\n\r\n\rSettings:  ", ch);
+      send_to_char (_("\n\nSettings:  "), ch);
       set_char_color (AT_GREY, ch);
       ch_printf_color (ch, "Pager Length (%d)    Wimpy (&W%d&w)   Hints (%s)",
 		       ch->pcdata->pagerlen,
 		       ch->wimpy,
 		       IS_SET (ch->pcdata->flags, PCFLAG_HINTS)
-		       ? "ON" : "off");
+		       ? _("ON") : _("off"));
 
       if (IS_IMMORTAL (ch))
 	{
@@ -5577,7 +5577,7 @@ do_config (CHAR_DATA * ch, char *argument)
 	fSet = FALSE;
       else
 	{
-	  send_to_char ("Config -option or +option?\n\r", ch);
+	  send_to_char (_("Config -option or +option?\n"), ch);
 	  return;
 	}
 
@@ -5631,7 +5631,7 @@ do_config (CHAR_DATA * ch, char *argument)
 	    xSET_BIT (ch->act, bit);
 	  else
 	    xREMOVE_BIT (ch->act, bit);
-	  send_to_char ("Ok.\n\r", ch);
+	  send_to_char (_("Ok.\n"), ch);
 	  return;
 	}
       else
@@ -5658,7 +5658,7 @@ do_config (CHAR_DATA * ch, char *argument)
 	    bit = PCFLAG_HIGHGAG;
 	  else
 	    {
-	      send_to_char ("Config which option?\n\r", ch);
+	      send_to_char (_("Config which option?\n"), ch);
 	      return;
 	    }
 	  if (bit)
@@ -5676,7 +5676,7 @@ do_config (CHAR_DATA * ch, char *argument)
 	      else
 		REMOVE_BIT (ch->pcdata->flags, bit);
 
-	      send_to_char ("Ok.\n\r", ch);
+	      send_to_char (_("Ok.\n"), ch);
 	      return;
 	    }
 	}
@@ -5972,7 +5972,7 @@ do_slist (CHAR_DATA * ch, char *argument)
 	      if (!lFound)
 		{
 		  lFound = 1;
-		  pager_printf (ch, "Level %d\n\r", i);
+		  pager_printf (ch, _("Level %d\n"), i);
 		}
 	      switch (skill_table[sn]->minimum_position)
 		{
@@ -6440,7 +6440,7 @@ do_ignore (CHAR_DATA * ch, char *argument)
 	  if (!ch->reply)
 	    {
 	      set_char_color (AT_IGNORE, ch);
-	      ch_printf (ch, "They're not here.\n\r");
+	      ch_printf (ch, _("They're not here.\n"));
 	      return;
 	    }
 	  else
@@ -6498,7 +6498,7 @@ do_ignore (CHAR_DATA * ch, char *argument)
 	  LINK (new, ch->pcdata->first_ignored,
 		ch->pcdata->last_ignored, next, prev);
 	  set_char_color (AT_IGNORE, ch);
-	  ch_printf (ch, "You now ignore %s.\n\r", new->name);
+	  ch_printf (ch, _("You now ignore %s.\n\r"), new->name);
 	  return;
 	}
       else

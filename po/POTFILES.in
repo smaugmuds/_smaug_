@@ -1,11 +1,13 @@
 # List of source files which contain translatable strings.
 src/mud.h
+src/adminlist.c
 src/boards.c
 src/build.c
 src/clans.c
 src/comments.c
 src/deity.c
 src/interp.c
+src/house.c
 src/liquids.c
 src/smaug.c
 src/db.c
