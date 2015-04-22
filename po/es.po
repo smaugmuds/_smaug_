@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smaug 2.0.0\n"
 "Report-Msgid-Bugs-To: <@burzumishi>\n"
-"POT-Creation-Date: 2015-04-22 14:50+0200\n"
+"POT-Creation-Date: 2015-04-22 23:31+0200\n"
 "PO-Revision-Date: 2015-04-05 23:55+0200\n"
 "Last-Translator: Antonio Cao <antoniocao000@gmail.com>\n"
 "Language-Team: español <es@li.org>\n"
@@ -636,17 +636,16 @@ msgid "Cleaning room: %d"
 msgstr ""
 
 #: src/db.c:2692
-msgid ""
-"You hear some squeaking sounds...\n"
-"\r"
+#, fuzzy
+msgid "You hear some squeaking sounds...\n"
 msgstr "Escuchas unos chasquidos ..."
 
 #: src/db.c:2713
-#, c-format
-msgid "Resetting: %s\n"
+#, fuzzy, c-format
+msgid "Resetting area: %s"
 msgstr "Reseteando: %s\n"
 
-#: src/db.c:6761
+#: src/db.c:6764
 #, c-format
 msgid "Areas listed: %d  Loaded: %d\n"
 msgstr ""
@@ -727,8 +726,8 @@ msgid "say"
 msgstr ""
 
 #: src/act_comm.c:855
-#, c-format
-msgid "%s: %s\r\n"
+#, fuzzy, c-format
+msgid "%s: %s\n"
 msgstr "%s: %s\r\n"
 
 #: src/act_comm.c:1090
@@ -1799,8 +1798,7 @@ msgstr ""
 #, c-format
 msgid ""
 "\n"
-"\r%s is in a %s fighting stance.\n"
-"\r"
+"%s is in a %s fighting stance.\n"
 msgstr ""
 
 #: src/act_info.c:1047
@@ -2011,14 +2009,8 @@ msgstr ""
 msgid "&G&gImmortals should also check &G'&gimmnews&G'&g.\n"
 msgstr ""
 
-#: src/act_info.c:3720 src/act_info.c:3726
-#, c-format
-msgid ""
-"%d player%s.\n"
-"\r"
-msgstr ""
-
-#: src/act_info.c:4335 src/act_info.c:4341
+#: src/act_info.c:3720 src/act_info.c:3726 src/act_info.c:4335
+#: src/act_info.c:4341
 #, c-format
 msgid "%d player%s.\n"
 msgstr ""
@@ -2222,11 +2214,9 @@ msgid "That's not a player!\n"
 msgstr ""
 
 #: src/act_info.c:6501
-#, c-format
-msgid ""
-"You now ignore %s.\n"
-"\r"
-msgstr ""
+#, fuzzy, c-format
+msgid "You now ignore %s.\n"
+msgstr "No puedes hacer eso aquí.\n"
 
 #: src/act_info.c:6544
 #, c-format
@@ -2364,9 +2354,7 @@ msgid "Usage:  rank <string>.\n"
 msgstr ""
 
 #: src/act_wiz.c:952
-msgid ""
-"   or:  rank none.\n"
-"\r"
+msgid "   or:  rank none.\n"
 msgstr ""
 
 #: src/act_wiz.c:986 src/act_wiz.c:1096 src/act_wiz.c:1257 src/act_wiz.c:4477
@@ -3393,6 +3381,21 @@ msgstr ""
 msgid "GOLD : %-13s    Move: %-5d of %5d   Mdeaths: %-5.5d    AutoSac (%c)\n"
 msgstr ""
 
+#: src/player.c:706
+#, c-format
+msgid "Area Loaded [%s]\n"
+msgstr ""
+
+#: src/player.c:708 src/player.c:1605 src/player.c:2410 src/player.c:2412
+#: src/player.c:2414 src/player.c:2416
+msgid "yes"
+msgstr ""
+
+#: src/player.c:708 src/player.c:1605 src/player.c:2410 src/player.c:2412
+#: src/player.c:2414 src/player.c:2416
+msgid "no"
+msgstr ""
+
 #: src/player.c:783
 #, fuzzy, c-format
 msgid "| You are%s\n"
@@ -3810,11 +3813,9 @@ msgstr ""
 msgid "Morphed as (%d) %s with a timer of %d.\n"
 msgstr ""
 
-#: src/player.c:1470
+#: src/player.c:1470 src/player.c:2014
 #, c-format
-msgid ""
-"You are morphed into a %s.\n"
-"\r"
+msgid "You are morphed into a %s.\n"
 msgstr ""
 
 #: src/player.c:1482
@@ -3886,14 +3887,6 @@ msgstr ""
 #: src/player.c:1603
 #, c-format
 msgid "&GArea Loaded &g[&w%s&g]\n"
-msgstr ""
-
-#: src/player.c:1605
-msgid "yes"
-msgstr ""
-
-#: src/player.c:1605
-msgid "no"
 msgstr ""
 
 #: src/player.c:1617
@@ -4023,11 +4016,6 @@ msgstr ""
 msgid "&GYou are bestowed with the command(s): &Y%s\n"
 msgstr ""
 
-#: src/player.c:2014
-#, c-format
-msgid "You are morphed into a %s.\n"
-msgstr ""
-
 #: src/player.c:2026
 #, c-format
 msgid ""
@@ -4077,7 +4065,7 @@ msgstr ""
 #, c-format
 msgid ""
 "You are %s%s.\n"
-"\rLevel %d, %d years old (%d hours).\n"
+"Level %d, %d years old (%d hours).\n"
 msgstr ""
 
 #: src/player.c:2370
@@ -4207,8 +4195,8 @@ msgstr ""
 msgid ""
 "\n"
 "&GExperience required, levels &W%d &Gto &W%d&G:\n"
-"\r&g______________________________________________\n"
-"\r\n"
+"&g______________________________________________\n"
+"\n"
 msgstr ""
 
 #: src/player.c:2653

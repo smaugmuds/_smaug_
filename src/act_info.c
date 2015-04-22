@@ -1026,7 +1026,7 @@ show_char_to_char_1 (CHAR_DATA * victim, CHAR_DATA * ch)
   /* Show stance they are in if someone looks at them.  SHADDAI */
   if (victim->stance > STANCE_NORMAL)
     {
-      ch_printf (ch, _("\n\r%s is in a %s fighting stance.\n\r"),
+      ch_printf (ch, _("\n%s is in a %s fighting stance.\n"),
 		 capitalize (PERS (victim, ch)),
 		 get_stance_name (victim->stance));
     }
@@ -1570,7 +1570,7 @@ do_look (CHAR_DATA * ch, char *argument)
 	{
 	  if ((IS_SET (pexit->exit_info, EX_SECRET)
 	       || IS_SET (pexit->exit_info, EX_DIG)) && door != -1)
-	    send_to_char ("Nothing special there.\n\r", ch);
+	    send_to_char ("Nothing special there.\nplayer\r", ch);
 	  else
 	    {
 	      if (pexit->keyword[strlen (pexit->keyword) - 1] == 's'
@@ -3717,13 +3717,13 @@ do_who (CHAR_DATA * ch, char *argument)
 
   if (!ch)
     {
-      fprintf (whoout, _("%d player%s.\n\r"), nMatch, nMatch == 1 ? "" : "s");
+      fprintf (whoout, _("%d player%s.\n"), nMatch, nMatch == 1 ? "" : "s");
       fclose (whoout);
       return;
     }
 
   set_char_color (AT_YELLOW, ch);
-  ch_printf (ch, _("%d player%s.\n\r"), nMatch, nMatch == 1 ? "" : "s");
+  ch_printf (ch, _("%d player%s.\n"), nMatch, nMatch == 1 ? "" : "s");
   return;
 }
 
@@ -6498,7 +6498,7 @@ do_ignore (CHAR_DATA * ch, char *argument)
 	  LINK (new, ch->pcdata->first_ignored,
 		ch->pcdata->last_ignored, next, prev);
 	  set_char_color (AT_IGNORE, ch);
-	  ch_printf (ch, _("You now ignore %s.\n\r"), new->name);
+	  ch_printf (ch, _("You now ignore %s.\n"), new->name);
 	  return;
 	}
       else

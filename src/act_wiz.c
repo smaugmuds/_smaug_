@@ -949,7 +949,7 @@ do_rank (CHAR_DATA * ch, char *argument)
   if (!argument || argument[0] == '\0')
     {
       send_to_char (_("Usage:  rank <string>.\n"), ch);
-      send_to_char (_("   or:  rank none.\n\r"), ch);
+      send_to_char (_("   or:  rank none.\n"), ch);
       return;
     }
   smash_tilde (argument);

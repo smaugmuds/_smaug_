@@ -852,7 +852,7 @@ to_channel (const char *argument, int channel, const char *verb, sh_int level)
   if (!first_descriptor || argument[0] == '\0')
     return;
 
-  sprintf ( buf, _("%s: %s\r\n"), _(verb), _(argument) );
+  sprintf ( buf, _("%s: %s\n"), _(verb), _(argument) );
 
   for (d = first_descriptor; d; d = d->next)
     {

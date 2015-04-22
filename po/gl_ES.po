@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smaug 2.0.0\n"
 "Report-Msgid-Bugs-To: <@burzumishi>\n"
-"POT-Creation-Date: 2015-04-22 14:50+0200\n"
+"POT-Creation-Date: 2015-04-22 23:31+0200\n"
 "PO-Revision-Date: 2015-04-06 22:12+0200\n"
 "Last-Translator: root <root@siriux.home>\n"
 "Language-Team: Galician\n"
@@ -18,9 +18,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/adminlist.c:100
-#, fuzzy
 msgid "Adding to adminlist..."
-msgstr "Cargando listado de baúles ..."
+msgstr "Engadindo a listado de administradores ..."
 
 #: src/adminlist.c:155
 msgid "Error opening the god directory"
@@ -638,19 +637,15 @@ msgid "Cleaning room: %d"
 msgstr "Limpando estancia: %d"
 
 #: src/db.c:2692
-msgid ""
-"You hear some squeaking sounds...\n"
-"\r"
-msgstr ""
-"Escoitanse uns chascarridos ...\n"
-"\r"
+msgid "You hear some squeaking sounds...\n"
+msgstr "Escoitanse uns chascarridos ...\n"
 
 #: src/db.c:2713
 #, c-format
-msgid "Resetting: %s\n"
-msgstr "Reseteando: %s\n"
+msgid "Resetting area: %s"
+msgstr "Reseteando área: %s"
 
-#: src/db.c:6761
+#: src/db.c:6764
 #, c-format
 msgid "Areas listed: %d  Loaded: %d\n"
 msgstr "Áreas listadas: %d  Cargadas: %d\n"
@@ -731,8 +726,8 @@ msgstr "decir"
 
 #: src/act_comm.c:855
 #, c-format
-msgid "%s: %s\r\n"
-msgstr "%s: %s\r\n"
+msgid "%s: %s\n"
+msgstr "%s: %s\n"
 
 #: src/act_comm.c:1090
 msgid "What do you want to say, and to whom?\n"
@@ -1794,12 +1789,10 @@ msgstr "Non tes demasiado que mirar ..."
 #, c-format
 msgid ""
 "\n"
-"\r%s is in a %s fighting stance.\n"
-"\r"
+"%s is in a %s fighting stance.\n"
 msgstr ""
 "\n"
-"\r%s está loitando nunha estancia %s.\n"
-"\r"
+"%s está loitando nunha estancia %s.\n"
 
 #: src/act_info.c:1047
 msgid "$N is using:"
@@ -2013,16 +2006,8 @@ msgstr "&G&g... teclea &G'&gnews&G'&g para poñerte ao día.\n"
 msgid "&G&gImmortals should also check &G'&gimmnews&G'&g.\n"
 msgstr "&G&gOs Inmortals tamén deben comprobar &G'&gimmnews&G'&g.\n"
 
-#: src/act_info.c:3720 src/act_info.c:3726
-#, c-format
-msgid ""
-"%d player%s.\n"
-"\r"
-msgstr ""
-"%d xogador%s.\n"
-"\r"
-
-#: src/act_info.c:4335 src/act_info.c:4341
+#: src/act_info.c:3720 src/act_info.c:3726 src/act_info.c:4335
+#: src/act_info.c:4341
 #, c-format
 msgid "%d player%s.\n"
 msgstr "%d xogador%s.\n"
@@ -2196,7 +2181,6 @@ msgid "off"
 msgstr "desactivado"
 
 #: src/act_info.c:5580
-#, fuzzy
 msgid "Config -option or +option?\n"
 msgstr "Config -opción ou +opción?\n"
 
@@ -2239,12 +2223,8 @@ msgstr "Iso non é un xogador!\n"
 
 #: src/act_info.c:6501
 #, c-format
-msgid ""
-"You now ignore %s.\n"
-"\r"
-msgstr ""
-"Agora ignoras a %s.\n"
-"\r"
+msgid "You now ignore %s.\n"
+msgstr "Agora ignoras a %s.\n"
 
 #: src/act_info.c:6544
 #, c-format
@@ -2387,12 +2367,8 @@ msgid "Usage:  rank <string>.\n"
 msgstr "Uso:  rank <string>.\n"
 
 #: src/act_wiz.c:952
-msgid ""
-"   or:  rank none.\n"
-"\r"
-msgstr ""
-"   or:  rank ningún.\n"
-"\r"
+msgid "   or:  rank none.\n"
+msgstr "   or:  rank ningún.\n"
 
 #: src/act_wiz.c:986 src/act_wiz.c:1096 src/act_wiz.c:1257 src/act_wiz.c:4477
 #: src/act_wiz.c:4561 src/act_wiz.c:5128 src/act_wiz.c:5181 src/act_wiz.c:5231
@@ -3128,7 +3104,7 @@ msgstr "non\n"
 #: src/player.c:265
 #, c-format
 msgid "INT  : %2.2d(%2.2d)                               Time:   %s"
-msgstr "INT  : %2.2d(%2.2d)                               Tempo:   %s"
+msgstr "INT  : %2.2d(%2.2d)                              Tempo:   %s"
 
 #: src/player.c:270
 #, c-format
@@ -3391,6 +3367,21 @@ msgstr ""
 msgid "GOLD : %-13s    Move: %-5d of %5d   Mdeaths: %-5.5d    AutoSac (%c)\n"
 msgstr "OURO : %-13s    Movi: %-5d of %5d   Mdeaths: %-5.5d    AutoSac (%c)\n"
 
+#: src/player.c:706
+#, c-format
+msgid "Area Loaded [%s]\n"
+msgstr "Área Cargada [%s]\n"
+
+#: src/player.c:708 src/player.c:1605 src/player.c:2410 src/player.c:2412
+#: src/player.c:2414 src/player.c:2416
+msgid "yes"
+msgstr "si"
+
+#: src/player.c:708 src/player.c:1605 src/player.c:2410 src/player.c:2412
+#: src/player.c:2414 src/player.c:2416
+msgid "no"
+msgstr "non"
+
 #: src/player.c:783
 #, c-format
 msgid "| You are%s\n"
@@ -3585,13 +3576,14 @@ msgstr ""
 msgid ""
 "&GSTR  : &w%2.2d&g(&W%2.2d&g)                               &gSaved:  &w%s"
 msgstr ""
+"&GFOR  : &w%2.2d&g(&W%2.2d&g)                             &gGardado:  &w%s"
 
 #: src/player.c:1155
 #, c-format
 msgid ""
 "&GINT  : &w%2.2d&g(&W%2.2d&g)                               &gTime:   &w%s"
 msgstr ""
-"&GINT  : &w%2.2d&g(&W%2.2d&g)                               &gTempo:   &w%s"
+"&GINT  : &w%2.2d&g(&W%2.2d&g)                              &gTempo:   &w%s"
 
 #: src/player.c:1192
 #, c-format
@@ -3821,14 +3813,10 @@ msgstr ""
 msgid "Morphed as (%d) %s with a timer of %d.\n"
 msgstr "Transformado en (%d) %s con un tempo de %d.\n"
 
-#: src/player.c:1470
+#: src/player.c:1470 src/player.c:2014
 #, c-format
-msgid ""
-"You are morphed into a %s.\n"
-"\r"
-msgstr ""
-"Estás transformado en un %s.\n"
-"\r"
+msgid "You are morphed into a %s.\n"
+msgstr "Estás transformado en un %s.\n"
 
 #: src/player.c:1482
 #, c-format
@@ -3901,14 +3889,6 @@ msgstr ""
 msgid "&GArea Loaded &g[&w%s&g]\n"
 msgstr "&GArea Cargada &g[&w%s&g]\n"
 
-#: src/player.c:1605
-msgid "yes"
-msgstr "si"
-
-#: src/player.c:1605
-msgid "no"
-msgstr "non"
-
 #: src/player.c:1617
 msgid "&GAFFECT DATA:                            "
 msgstr "&GDATOS AFECCIÓNS:                        "
@@ -3930,28 +3910,28 @@ msgstr "&gANOS : &W%-6d      &gClase: &W%-11.11s       &gLog In: %s"
 msgid ""
 "&GSTR  : &W%2.2d&g(&w%2.2d&g)&G    HitRoll: &R%-4d               &gSaved: %s"
 msgstr ""
-"&GFOR  : &W%2.2d&g(&w%2.2d&g)&G    HitRoll: &R%-4d               &gGardado: "
-"%s"
+"&GFOR  : &W%2.2d&g(&w%2.2d&g)&G    HitRoll: &R%-4d             &gGardado: %s"
 
 #: src/player.c:1698
 #, c-format
 msgid ""
 "&GINT  : &W%2.2d&g(&w%2.2d&g)&G    DamRoll: &R%-4d                &gTime: %s"
 msgstr ""
+"&GINT  : &W%2.2d&g(&w%2.2d&g)&G    DamRoll: &R%-4d               &gTempo: %s"
 
 #: src/player.c:1705
 #, c-format
 msgid ""
 "&GSTR  : &W%2.2d&g(&w%2.2d&g)&G                               Saved:  %s"
 msgstr ""
-"&GFOR  : &W%2.2d&g(&w%2.2d&g)&G                               Gardado:  %s"
+"&GFOR  : &W%2.2d&g(&w%2.2d&g)&G                             Gardado:  %s"
 
 #: src/player.c:1710
 #, c-format
 msgid ""
 "&GINT  : &W%2.2d&g(&w%2.2d&g)&G                               Time:   %s"
 msgstr ""
-"&GINT  : &W%2.2d&g(&w%2.2d&g)&G                               Tempo:   %s"
+"&GINT  : &W%2.2d&g(&w%2.2d&g)&G                              Tempo:   %s"
 
 #: src/player.c:1747
 #, c-format
@@ -4043,11 +4023,6 @@ msgstr ""
 msgid "&GYou are bestowed with the command(s): &Y%s\n"
 msgstr ""
 
-#: src/player.c:2014
-#, c-format
-msgid "You are morphed into a %s.\n"
-msgstr "Estás transformado en un %s.\n"
-
 #: src/player.c:2026
 #, c-format
 msgid ""
@@ -4097,10 +4072,10 @@ msgstr "Descoñecido"
 #, c-format
 msgid ""
 "You are %s%s.\n"
-"\rLevel %d, %d years old (%d hours).\n"
+"Level %d, %d years old (%d hours).\n"
 msgstr ""
 "Eres %s%s.\n"
-"\rNivel %d, con %d anos de idade (%d hours).\n"
+"Nivel %d, con %d anos de idade (%d hours).\n"
 
 #: src/player.c:2370
 #, c-format
@@ -4226,8 +4201,8 @@ msgstr ""
 msgid ""
 "\n"
 "&GExperience required, levels &W%d &Gto &W%d&G:\n"
-"\r&g______________________________________________\n"
-"\r\n"
+"&g______________________________________________\n"
+"\n"
 msgstr ""
 
 #: src/player.c:2653

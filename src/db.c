@@ -2689,7 +2689,7 @@ area_update (void)
 	  if (pArea->resetmsg)
 	    sprintf (buf, "%s\n\r", pArea->resetmsg);
 	  else
-	    strcpy (buf, _("You hear some squeaking sounds...\n\r") );
+	    strcpy (buf, _("You hear some squeaking sounds...\n") );
 	  for (pch = first_char; pch; pch = pch->next)
 	    {
 	      if (!IS_NPC (pch)
@@ -2710,7 +2710,10 @@ area_update (void)
 	{
 	  ROOM_INDEX_DATA *pRoomIndex;
 
-	  fprintf (stderr, _("Resetting: %s\n"), pArea->filename);
+		sprintf( log_buf, _("Resetting area: %s"), pArea->filename );
+		log_string ( _(log_buf) );
+
+	  //fprintf (stderr, _("Resetting: %s\n"), pArea->filename);
 	  reset_area (pArea);
 	  if (reset_age == -1)
 	    pArea->age = -1;

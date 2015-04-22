@@ -29,8 +29,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smaug 2.0.0\n"
 "Report-Msgid-Bugs-To: <@burzumishi>\n"
-"POT-Creation-Date: 2015-04-22 14:50+0200\n"
-"PO-Revision-Date: 2015-04-22 14:50+0200\n"
+"POT-Creation-Date: 2015-04-22 23:31+0200\n"
+"PO-Revision-Date: 2015-04-22 23:31+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: en@quot\n"
@@ -656,19 +656,15 @@ msgid "Cleaning room: %d"
 msgstr "Cleaning room: %d"
 
 #: src/db.c:2692
-msgid ""
-"You hear some squeaking sounds...\n"
-"\r"
-msgstr ""
-"You hear some squeaking sounds...\n"
-"\r"
+msgid "You hear some squeaking sounds...\n"
+msgstr "You hear some squeaking sounds...\n"
 
 #: src/db.c:2713
 #, c-format
-msgid "Resetting: %s\n"
-msgstr "Resetting: %s\n"
+msgid "Resetting area: %s"
+msgstr "Resetting area: %s"
 
-#: src/db.c:6761
+#: src/db.c:6764
 #, c-format
 msgid "Areas listed: %d  Loaded: %d\n"
 msgstr "Areas listed: %d  Loaded: %d\n"
@@ -749,8 +745,8 @@ msgstr "say"
 
 #: src/act_comm.c:855
 #, c-format
-msgid "%s: %s\r\n"
-msgstr "%s: %s\r\n"
+msgid "%s: %s\n"
+msgstr "%s: %s\n"
 
 #: src/act_comm.c:1090
 msgid "What do you want to say, and to whom?\n"
@@ -1821,12 +1817,10 @@ msgstr "You're not much to look at..."
 #, c-format
 msgid ""
 "\n"
-"\r%s is in a %s fighting stance.\n"
-"\r"
+"%s is in a %s fighting stance.\n"
 msgstr ""
 "\n"
-"\r%s is in a %s fighting stance.\n"
-"\r"
+"%s is in a %s fighting stance.\n"
 
 #: src/act_info.c:1047
 msgid "$N is using:"
@@ -2042,16 +2036,8 @@ msgstr "&G&g... type &G'&gnews&G'&g for recent updates.\n"
 msgid "&G&gImmortals should also check &G'&gimmnews&G'&g.\n"
 msgstr "&G&gImmortals should also check &G'&gimmnews&G'&g.\n"
 
-#: src/act_info.c:3720 src/act_info.c:3726
-#, c-format
-msgid ""
-"%d player%s.\n"
-"\r"
-msgstr ""
-"%d player%s.\n"
-"\r"
-
-#: src/act_info.c:4335 src/act_info.c:4341
+#: src/act_info.c:3720 src/act_info.c:3726 src/act_info.c:4335
+#: src/act_info.c:4341
 #, c-format
 msgid "%d player%s.\n"
 msgstr "%d player%s.\n"
@@ -2267,12 +2253,8 @@ msgstr "That's not a player!\n"
 
 #: src/act_info.c:6501
 #, c-format
-msgid ""
-"You now ignore %s.\n"
-"\r"
-msgstr ""
-"You now ignore %s.\n"
-"\r"
+msgid "You now ignore %s.\n"
+msgstr "You now ignore %s.\n"
 
 #: src/act_info.c:6544
 #, c-format
@@ -2415,12 +2397,8 @@ msgid "Usage:  rank <string>.\n"
 msgstr "Usage:  rank <string>.\n"
 
 #: src/act_wiz.c:952
-msgid ""
-"   or:  rank none.\n"
-"\r"
-msgstr ""
-"   or:  rank none.\n"
-"\r"
+msgid "   or:  rank none.\n"
+msgstr "   or:  rank none.\n"
 
 #: src/act_wiz.c:986 src/act_wiz.c:1096 src/act_wiz.c:1257 src/act_wiz.c:4477
 #: src/act_wiz.c:4561 src/act_wiz.c:5128 src/act_wiz.c:5181 src/act_wiz.c:5231
@@ -3423,6 +3401,21 @@ msgstr ""
 msgid "GOLD : %-13s    Move: %-5d of %5d   Mdeaths: %-5.5d    AutoSac (%c)\n"
 msgstr "GOLD : %-13s    Move: %-5d of %5d   Mdeaths: %-5.5d    AutoSac (%c)\n"
 
+#: src/player.c:706
+#, c-format
+msgid "Area Loaded [%s]\n"
+msgstr "Area Loaded [%s]\n"
+
+#: src/player.c:708 src/player.c:1605 src/player.c:2410 src/player.c:2412
+#: src/player.c:2414 src/player.c:2416
+msgid "yes"
+msgstr "yes"
+
+#: src/player.c:708 src/player.c:1605 src/player.c:2410 src/player.c:2412
+#: src/player.c:2414 src/player.c:2416
+msgid "no"
+msgstr "no"
+
 #: src/player.c:783
 #, c-format
 msgid "| You are%s\n"
@@ -3864,14 +3857,10 @@ msgstr "You are bestowed with the command(s): %s.\n"
 msgid "Morphed as (%d) %s with a timer of %d.\n"
 msgstr "Morphed as (%d) %s with a timer of %d.\n"
 
-#: src/player.c:1470
+#: src/player.c:1470 src/player.c:2014
 #, c-format
-msgid ""
-"You are morphed into a %s.\n"
-"\r"
-msgstr ""
-"You are morphed into a %s.\n"
-"\r"
+msgid "You are morphed into a %s.\n"
+msgstr "You are morphed into a %s.\n"
 
 #: src/player.c:1482
 #, c-format
@@ -3953,14 +3942,6 @@ msgstr ""
 #, c-format
 msgid "&GArea Loaded &g[&w%s&g]\n"
 msgstr "&GArea Loaded &g[&w%s&g]\n"
-
-#: src/player.c:1605
-msgid "yes"
-msgstr "yes"
-
-#: src/player.c:1605
-msgid "no"
-msgstr "no"
 
 #: src/player.c:1617
 msgid "&GAFFECT DATA:                            "
@@ -4112,11 +4093,6 @@ msgstr ""
 msgid "&GYou are bestowed with the command(s): &Y%s\n"
 msgstr "&GYou are bestowed with the command(s): &Y%s\n"
 
-#: src/player.c:2014
-#, c-format
-msgid "You are morphed into a %s.\n"
-msgstr "You are morphed into a %s.\n"
-
 #: src/player.c:2026
 #, c-format
 msgid ""
@@ -4174,10 +4150,10 @@ msgstr "Unknown"
 #, c-format
 msgid ""
 "You are %s%s.\n"
-"\rLevel %d, %d years old (%d hours).\n"
+"Level %d, %d years old (%d hours).\n"
 msgstr ""
 "You are %s%s.\n"
-"\rLevel %d, %d years old (%d hours).\n"
+"Level %d, %d years old (%d hours).\n"
 
 #: src/player.c:2370
 #, c-format
@@ -4305,13 +4281,13 @@ msgstr ""
 msgid ""
 "\n"
 "&GExperience required, levels &W%d &Gto &W%d&G:\n"
-"\r&g______________________________________________\n"
-"\r\n"
+"&g______________________________________________\n"
+"\n"
 msgstr ""
 "\n"
 "&GExperience required, levels &W%d &Gto &W%d&G:\n"
-"\r&g______________________________________________\n"
-"\r\n"
+"&g______________________________________________\n"
+"\n"
 
 #: src/player.c:2653
 #, c-format

@@ -703,9 +703,9 @@ do_score (CHAR_DATA * ch, char *argument)
 			ch->pcdata->area->hi_o_vnum,
 			ch->pcdata->area->low_m_vnum,
 			ch->pcdata->area->hi_m_vnum);
-	  pager_printf (ch, "Area Loaded [%s]\n\r",
+	  pager_printf (ch, _("Area Loaded [%s]\n"),
 			(IS_SET (ch->pcdata->area->status, AREA_LOADED)) ?
-			"yes" : "no");
+			_("yes") : _("no"));
 	}
     }
   if (ch->first_affect)
@@ -1467,7 +1467,7 @@ do_score (CHAR_DATA * ch, char *argument)
 		      ch->morph->morph->vnum, ch->morph->morph->short_desc,
 		      ch->morph->timer);
       else
-	pager_printf (ch, _("You are morphed into a %s.\n\r"),
+	pager_printf (ch, _("You are morphed into a %s.\n"),
 		      ch->morph->morph->short_desc);
       send_to_pager_color
 	("&g----------------------------------------------------------------------------\n\r",
@@ -2358,7 +2358,7 @@ do_oldscore (CHAR_DATA * ch, char *argument)
 
   set_pager_color (AT_SCORE, ch);
   pager_printf (ch,
-		_("You are %s%s.\n\rLevel %d, %d years old (%d hours).\n"),
+		_("You are %s%s.\nLevel %d, %d years old (%d hours).\n"),
 		ch->name,
 		IS_NPC (ch) ? "" : ch->pcdata->title,
 		ch->level, get_age (ch), (get_age (ch) - 17) * 2);
@@ -2407,13 +2407,13 @@ do_oldscore (CHAR_DATA * ch, char *argument)
   pager_printf (ch,
 		_("Autoexit: %s   Autoloot: %s   Autosac: %s   Autogold: %s\n"),
 		(!IS_NPC (ch)
-		 && xIS_SET (ch->act, PLR_AUTOEXIT)) ? "yes" : "no",
+		 && xIS_SET (ch->act, PLR_AUTOEXIT)) ? _("yes") : _("no"),
 		(!IS_NPC (ch)
-		 && xIS_SET (ch->act, PLR_AUTOLOOT)) ? "yes" : "no",
+		 && xIS_SET (ch->act, PLR_AUTOLOOT)) ? _("yes") : _("no"),
 		(!IS_NPC (ch)
-		 && xIS_SET (ch->act, PLR_AUTOSAC)) ? "yes" : "no",
+		 && xIS_SET (ch->act, PLR_AUTOSAC)) ? _("yes") : _("no"),
 		(!IS_NPC (ch)
-		 && xIS_SET (ch->act, PLR_AUTOGOLD)) ? "yes" : "no");
+		 && xIS_SET (ch->act, PLR_AUTOGOLD)) ? _("yes") : _("no"));
 
   pager_printf (ch, _("Wimpy set to %d hit points.\n"), ch->wimpy);
 
@@ -2648,7 +2648,7 @@ do_level (CHAR_DATA * ch, char *argument)
   hilvl = URANGE (ch->level, ch->level + 5, MAX_LEVEL);
   set_char_color (AT_GREEN, ch);
   ch_printf_color (ch,
-		   _("\n&GExperience required, levels &W%d &Gto &W%d&G:\n\r&g______________________________________________\n\r\n"),
+		   _("\n&GExperience required, levels &W%d &Gto &W%d&G:\n&g______________________________________________\n\n"),
 		   lowlvl, hilvl);
   sprintf (buf, _("&W exp  (Current: %12s)"), num_punct (ch->exp));
   sprintf (buf2, _("&W exp  (Needed:  &G%12s&W)"),
