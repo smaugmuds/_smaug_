@@ -23,19 +23,16 @@
     |                                                                     |
     |                              README                                 |
     |_____________________________________________________________________|
-    |                                                                     |
-    |                           --(SMAUG)--                               |
-    |_____________________________________________________________________|
    //                                                                     \\
-  [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
+  [|  SMAUG 1.4 � 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
   [|                                                                       |]
-  [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-  [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
+  [|  Merc 2.1 Diku Mud improvments � 1992-1993 Michael Chastain, Michael  |]
+  [|  Quan, and Mitchell Tse. Original Diku Mud � 1990-1991 by Sebastian   |]
   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
   [|  Nyboe. Win32 port Nick Gammon.                                       |]
   [|                                                                       |]
-  [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+  [|  SMAUG 2.0 � 2014-2015 Antonio Cao (@burzumishi)                      |]
    \\_____________________________________________________________________//
 
 ```
@@ -48,7 +45,7 @@
 
 **SMAUG 1.8b**, is an fixed **SMAUG 1.4a** which is a heavily modified derivative of the **Merc 2.1** distribution. **SMAUG 1.4a** is close to six times the size of **Merc 2.1**, and has major changes to the inner workings of the code, hence making porting of code from other Diku-derivatives non-trivial to the non-coder. Due to the ability to edit most everything online, you will most likely find the online help pages more informative. **SMAUG** is the base code that runs the popular **Realms of Despair** MUD. Through the years it has been tweaked, modified, and enhanced to become one of the most feature packed branches of the **MERC** family of codebases. 
 
-**SMAUG** is a derivative of **Merc Diku Mud** is a **Diku Mud** with many enhancements and contributions. It was written in 1990 and 1991 by **Sebastian Hammer**, **Tom Madsen**, **Katja Nyboe**, **Michael Seifert**, and **Hans Henrik StÃŠrfeldt** at **DIKU** _(Datalogisk Institut KÃžbenhavns Universitet) at the department of computer science at the University of Copenhagen in Copenhagen, Denmark_. Commonly referred to as simply **"Diku"**, the game was greatly inspired by **AberMUD**, though **Diku** became one of the first multi-usergames to become popular as a freely-available program for its gameplay and similarity to **Dungeons & Dragons**.
+**SMAUG** is a derivative of **Merc Diku Mud** is a **Diku Mud** with many enhancements and contributions. It was written in 1990 and 1991 by **Sebastian Hammer**, **Tom Madsen**, **Katja Nyboe**, **Michael Seifert**, and **Hans Henrik Stærfeldt** at **DIKU** _(Datalogisk Institut Københavns Universitet) at the department of computer science at the University of Copenhagen in Copenhagen, Denmark_. Commonly referred to as simply **"Diku"**, the game was greatly inspired by **AberMUD**, though **Diku** became one of the first multi-usergames to become popular as a freely-available program for its gameplay and similarity to **Dungeons & Dragons**.
 
 **AberMUD** was the first popular open source MUD. It was named after the town _Aberystwyth_, in which it was written. The first version was written in **B** by **Alan Cox**, **Richard Acott**, **Jim Finnis**,and **Leon Thrane** based at **University of Wales**, _Aberystwyth_ for an old **Honeywell** mainframe and opened in 1987.
 
@@ -57,7 +54,7 @@
 
 **--{SMAUG}--** version **2.0** is HERE! With many bugfixes as well as important and useful new code and build features.
 
- * **[--{SMAUG 2.0}-- Release] (https://github.com/smaugmuds/_smaug_/releases/tag/2.0) ¡Launch!**
+ * **[--{SMAUG 2.0}-- Release] (https://github.com/smaugmuds/_smaug_/releases/tag/2.0) �Launch!**
 
 #### Contents of the Release
 
