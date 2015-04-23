@@ -128,7 +128,7 @@ msgstr "sur"
 
 #: src/build.c:218 src/act_move.c:51 src/act_move.c:1469
 msgid "east"
-msgstr "este"
+msgstr "leste"
 
 #: src/build.c:218 src/act_move.c:51 src/act_move.c:1473
 msgid "west"
@@ -148,7 +148,7 @@ msgstr "examinar"
 
 #: src/build.c:219 src/act_move.c:52 src/act_move.c:1479
 msgid "northeast"
-msgstr "noreste"
+msgstr "norleste"
 
 #: src/build.c:219 src/act_move.c:52 src/act_move.c:1481
 msgid "northwest"
@@ -156,11 +156,11 @@ msgstr "noroeste"
 
 #: src/build.c:219 src/act_move.c:52 src/act_move.c:1483
 msgid "southeast"
-msgstr "sudeste"
+msgstr "surleste"
 
 #: src/build.c:219 src/act_move.c:52 src/act_move.c:1485
 msgid "southwest"
-msgstr "sudoeste"
+msgstr "suroeste"
 
 #: src/build.c:246
 msgid "lock"
@@ -176,7 +176,7 @@ msgstr "d_sur"
 
 #: src/build.c:246
 msgid "d_east"
-msgstr "d_este"
+msgstr "d_leste"
 
 #: src/build.c:246
 msgid "d_west"
@@ -264,7 +264,7 @@ msgstr "n"
 
 #: src/build.c:10502 src/build.c:10589 src/act_wiz.c:1834 src/act_move.c:1469
 msgid "e"
-msgstr "e"
+msgstr "l"
 
 #: src/build.c:10502 src/build.c:10589 src/act_wiz.c:1834 src/act_move.c:1471
 msgid "s"
@@ -284,7 +284,7 @@ msgstr "ab"
 
 #: src/build.c:10502 src/build.c:10589 src/act_wiz.c:1834 src/act_move.c:1479
 msgid "ne"
-msgstr "ne"
+msgstr "nl"
 
 #: src/build.c:10502 src/build.c:10589 src/act_wiz.c:1834 src/act_move.c:1481
 msgid "nw"
@@ -292,7 +292,7 @@ msgstr "no"
 
 #: src/build.c:10502 src/build.c:10589 src/act_wiz.c:1834 src/act_move.c:1483
 msgid "se"
-msgstr "se"
+msgstr "sl"
 
 #: src/build.c:10502 src/build.c:10589 src/act_wiz.c:1834 src/act_move.c:1485
 msgid "sw"
@@ -2232,38 +2232,37 @@ msgstr ""
 #: src/act_info.c:6074 src/act_info.c:6082 src/act_info.c:6136
 #: src/act_info.c:6144 src/act_info.c:6149 src/act_info.c:6171
 #: src/act_info.c:6242
-#, fuzzy
 msgid "He"
-msgstr "e"
+msgstr "Él"
 
 #: src/act_info.c:6075 src/act_info.c:6083 src/act_info.c:6137
 #: src/act_info.c:6145 src/act_info.c:6150 src/act_info.c:6172
 #: src/act_info.c:6243
 msgid "She"
-msgstr ""
+msgstr "Ela"
 
 #: src/act_info.c:6075 src/act_info.c:6083 src/act_info.c:6137
 #: src/act_info.c:6145 src/act_info.c:6150 src/act_info.c:6172
 #: src/act_info.c:6243
 msgid "It"
-msgstr ""
+msgstr "Elo"
 
 #: src/act_info.c:6076
 msgid "male"
-msgstr ""
+msgstr "home"
 
 #: src/act_info.c:6077
 msgid "female"
-msgstr ""
+msgstr "muller"
 
 #: src/act_info.c:6077
 msgid "neutral"
-msgstr ""
+msgstr "neutro"
 
 #: src/act_info.c:6081
-#, fuzzy, c-format
+#, c-format
 msgid " %s is a %sdeadly player"
-msgstr "%s xa está aberta.\n"
+msgstr "%s é un %sxogador mortal.\n"
 
 #: src/act_info.c:6093
 msgid ", and is Deity of "
@@ -2354,23 +2353,21 @@ msgid " %s holds a seat on:  %s\n"
 msgstr ""
 
 #: src/act_info.c:6155
-#, fuzzy, c-format
+#, c-format
 msgid " %s has accumulated %d glory in %s lifetime.\n"
-msgstr "| Acumulache %d puntos de aventura.\n"
+msgstr " %s acumulou %d gloria na %s súa vida.\n"
 
 #: src/act_info.c:6158
-#, fuzzy
 msgid "his"
-msgstr "é"
+msgstr "él"
 
 #: src/act_info.c:6159
 msgid "her"
-msgstr ""
+msgstr "ela"
 
 #: src/act_info.c:6159
-#, fuzzy
 msgid "its"
-msgstr "é"
+msgstr "elo"
 
 #: src/act_info.c:6162
 #, c-format
@@ -2378,18 +2375,16 @@ msgid " %s has %d honour and %s holds the rank of: %s\n"
 msgstr ""
 
 #: src/act_info.c:6165
-#, fuzzy
 msgid "he"
-msgstr "e"
+msgstr "él"
 
 #: src/act_info.c:6166
-#, fuzzy
 msgid "she"
-msgstr "se"
+msgstr "ela"
 
 #: src/act_info.c:6166
 msgid "it"
-msgstr ""
+msgstr "elo"
 
 #: src/act_info.c:6170
 #, c-format
@@ -2402,17 +2397,16 @@ msgid " %s homepage can be found at %s\n"
 msgstr ""
 
 #: src/act_info.c:6177 src/act_info.c:6183 src/act_info.c:6189
-#, fuzzy
 msgid "His"
-msgstr "é"
+msgstr "él"
 
 #: src/act_info.c:6178 src/act_info.c:6184 src/act_info.c:6190
 msgid "Her"
-msgstr ""
+msgstr "ela"
 
 #: src/act_info.c:6178 src/act_info.c:6184 src/act_info.c:6190
 msgid "Its"
-msgstr ""
+msgstr "elo"
 
 #: src/act_info.c:6182
 #, c-format
@@ -2420,14 +2414,13 @@ msgid " %s email is: %s\n"
 msgstr ""
 
 #: src/act_info.c:6202
-#, fuzzy
 msgid "Info for immortals:\n"
-msgstr "Sínteste inmortal.\n"
+msgstr "Información para inmortais.\n"
 
 #: src/act_info.c:6299
 #, c-format
 msgid "%s's IP info: %s "
-msgstr ""
+msgstr "Información IP de %s: %s "
 
 #: src/act_info.c:6308
 #, c-format
@@ -2435,11 +2428,12 @@ msgid ""
 "%s's most recent IP: %s \n"
 " "
 msgstr ""
+"A IP máis recente de %s: %s \n"
+" "
 
 #: src/act_info.c:6422
-#, fuzzy
 msgid "You now ignore no one.\n"
-msgstr "Agora ignoras a %s.\n"
+msgstr "Agora non ignoras a ninguén.\n"
 
 #: src/act_info.c:6501
 #, c-format
@@ -2937,52 +2931,44 @@ msgid "somewhere"
 msgstr "algures"
 
 #: src/act_move.c:420
-#, fuzzy
 msgid "the south"
-msgstr "sur"
+msgstr "o sur"
 
 #: src/act_move.c:422
-#, fuzzy
 msgid "the west"
-msgstr "o %s"
+msgstr "o oeste"
 
 #: src/act_move.c:424
-#, fuzzy
 msgid "the north"
-msgstr "norte"
+msgstr "o norte"
 
 #: src/act_move.c:426
-#, fuzzy
 msgid "the east"
-msgstr "o %s"
+msgstr "o leste"
 
 #: src/act_move.c:428
 msgid "below"
-msgstr ""
+msgstr "abaixo"
 
 #: src/act_move.c:430
 msgid "above"
-msgstr ""
+msgstr "arriba"
 
 #: src/act_move.c:432
-#, fuzzy
 msgid "the southwest"
-msgstr "sudoeste"
+msgstr "o suroeste"
 
 #: src/act_move.c:434
-#, fuzzy
 msgid "the southeast"
-msgstr "sudeste"
+msgstr "o surleste"
 
 #: src/act_move.c:436
-#, fuzzy
 msgid "the northwest"
-msgstr "noroeste"
+msgstr "o noroeste"
 
 #: src/act_move.c:438
-#, fuzzy
 msgid "the northeast"
-msgstr "noreste"
+msgstr "o norleste"
 
 #: src/act_move.c:547
 #, c-format
@@ -3003,9 +2989,8 @@ msgid "Alas, you cannot go that way.\n"
 msgstr "Compi, non podes ir en esa dirección.\n"
 
 #: src/act_move.c:797
-#, fuzzy
 msgid "Mobs can't use portals."
-msgstr "Os móbiles non poden pertencer a unha Orde.\n"
+msgstr "Os móbiles non poden usar portais.\n"
 
 #: src/act_move.c:804 src/act_move.c:862
 msgid "Mobs can't enter there."
@@ -3016,27 +3001,28 @@ msgid "The $d is closed."
 msgstr "A $d está fechada."
 
 #: src/act_move.c:881
-#, fuzzy
 msgid "A voice in your mind says, 'You are nearly ready to go that way...'\n"
-msgstr "$n diche, 'Aínda non estás preparado para aprender iso ...'"
+msgstr "Unha voz na túa mente diche, 'Estás casi preparado para ir por ese camiño ...'"
 
 #: src/act_move.c:886
 msgid ""
 "A voice in your mind says, 'Soon you shall be ready to travel down this "
 "path... soon.'\n"
 msgstr ""
+"Unha voz na túa mente diche, 'Estarás preparado para viaxar por "
+"ese camiño ... preto.'.\n"
 
 #: src/act_move.c:891
-#, fuzzy
 msgid ""
 "A voice in your mind says, 'You are not ready to go down that path... "
 "yet.'.\n"
-msgstr "$n diche, 'Aínda non estás preparado para aprender iso ...'"
+msgstr ""
+"Unha voz na túa mente diche, 'Non estás preparado para ir por ese camiño... "
+"ainda.'.\n"
 
 #: src/act_move.c:896
-#, fuzzy
 msgid "A voice in your mind says, 'You are not ready to go down that path.'.\n"
-msgstr "$n diche, 'Aínda non estás preparado para aprender iso ...'"
+msgstr "Unha voz na túa mente diche, 'Non estás preparado para ir por ese camiño.'.\n"
 
 #: src/act_move.c:905
 msgid ""
@@ -3058,14 +3044,12 @@ msgid "You'd need to fly to go there.\n"
 msgstr "Precisas voar para chegar alí.\n"
 
 #: src/act_move.c:981
-#, fuzzy
 msgid "Your mount would drown!\n"
-msgstr "A túa montura está morta!\n"
+msgstr "A túa montura podería afogar!\n"
 
 #: src/act_move.c:983
-#, fuzzy
 msgid "You'd need a boat to go there.\n"
-msgstr "Precisas voar para chegar alí.\n"
+msgstr "Precisas unha embarcación para chegar alí.\n"
 
 #: src/act_move.c:1006
 msgid "You start to climb... but lose your grip and fall!\n"
@@ -3076,9 +3060,8 @@ msgid "OUCH! You hit the ground!\n"
 msgstr "OUCH! Golpeache o chao!\n"
 
 #: src/act_move.c:1029
-#, fuzzy
 msgid "You can't climb.\n"
-msgstr "Non podes escalar aquí.\n"
+msgstr "Non podes escalar.\n"
 
 #: src/act_move.c:1039
 msgid "Your mount is dead!\n"
@@ -3093,24 +3076,20 @@ msgid "Your mount is too stunned to do that.\n"
 msgstr ""
 
 #: src/act_move.c:1056
-#, fuzzy
 msgid "Your mount is sleeping.\n"
-msgstr "A túa montura está morta!\n"
+msgstr "A túa montura está dormindo!\n"
 
 #: src/act_move.c:1061
-#, fuzzy
 msgid "Your mount is resting.\n"
-msgstr "A cabesa nun paraaa!\n"
+msgstr "A túa montura está descansando!\n"
 
 #: src/act_move.c:1066
-#, fuzzy
 msgid "Your mount is sitting down.\n"
-msgstr "A túa montura está morta!\n"
+msgstr "A túa montura está sentada!\n"
 
 #: src/act_move.c:1080
-#, fuzzy
 msgid "Your mount is too exhausted.\n"
-msgstr "Estás demasiado cansado.\n"
+msgstr "A túa montura está demasiado cansada.\n"
 
 #: src/act_move.c:1096
 msgid "You are too exhausted.\n"
@@ -3121,9 +3100,8 @@ msgid "There is no room for both you and your mount there.\n"
 msgstr ""
 
 #: src/act_move.c:1124
-#, fuzzy
 msgid "There is no room for you there.\n"
-msgstr "Non están aquí.\n"
+msgstr "Non tes espacio ahí.\n"
 
 #: src/act_move.c:1268
 msgid "You feel uncomfortable being in this strange land...\n"
@@ -3159,9 +3137,8 @@ msgid "You see no $T here."
 msgstr "Non ves ningún $T aquí."
 
 #: src/act_move.c:1568
-#, fuzzy
 msgid "Open what?\n"
-msgstr "%s qué?\n"
+msgstr "Abrir qué?\n"
 
 #: src/act_move.c:1580 src/act_move.c:1669 src/act_move.c:1699
 #: src/act_move.c:1762 src/act_move.c:1819 src/act_move.c:1900
@@ -3228,9 +3205,8 @@ msgid "$n opens $p."
 msgstr "$n abre $p."
 
 #: src/act_move.c:1687
-#, fuzzy
 msgid "Close what?\n"
-msgstr "%s qué?\n"
+msgstr "Fechar qué?\n"
 
 #: src/act_move.c:1709
 msgid "It's already closed.\n"
@@ -3302,9 +3278,8 @@ msgid "$n locks $p with $P."
 msgstr "$n bloquea $p con $P."
 
 #: src/act_move.c:1918
-#, fuzzy
 msgid "Unlock what?\n"
-msgstr "Bloquear qué?\n"
+msgstr "Desbloquear qué?\n"
 
 #: src/act_move.c:1954 src/act_move.c:2002
 msgid "It's already unlocked.\n"
@@ -3323,9 +3298,8 @@ msgid "You're not enough of a warrior to bash doors!\n"
 msgstr "Non eres guerreiro dabondo para derrubar portas!\n"
 
 #: src/act_move.c:2042
-#, fuzzy
 msgid "Bash what?\n"
-msgstr "%s qué?\n"
+msgstr "Derrubar qué?\n"
 
 #: src/act_move.c:2048
 msgid "You can't break off your fight.\n"
@@ -3376,33 +3350,28 @@ msgid "You are already fighting!\n"
 msgstr "Xa estás loitando.\n"
 
 #: src/act_move.c:2208
-#, fuzzy
 msgid "You wake and sit up.\n"
-msgstr "Estás en pé.\n"
+msgstr "Incorpóraste e séntaste.\n"
 
 #: src/act_move.c:2209
-#, fuzzy
 msgid "$n wakes and sits up."
-msgstr "$n levántate."
+msgstr "$n incorpórase e séntase."
 
 #: src/act_move.c:2214
-#, fuzzy
 msgid "You stop resting and sit up.\n"
-msgstr "Estás descansando.\n"
+msgstr "Deixas de descansar e séntaste.\n"
 
 #: src/act_move.c:2215
 msgid "$n stops resting and sits up."
-msgstr ""
+msgstr "$n deixa de descansar e séntase."
 
 #: src/act_move.c:2223
-#, fuzzy
 msgid "You sit down.\n"
-msgstr "Estás caendo ...\n"
+msgstr "Séntaste.\n"
 
 #: src/act_move.c:2224
-#, fuzzy
 msgid "$n sits down."
-msgstr "$n deixa de seguirte."
+msgstr "$n séntase."
 
 #: src/act_move.c:2228
 msgid "You are already sitting.\n"
@@ -3417,9 +3386,8 @@ msgid "You are already sitting - on your mount.\n"
 msgstr "Xa estás sentado - na túa montura.\n"
 
 #: src/act_move.c:2259
-#, fuzzy
 msgid "You rouse from your slumber.\n"
-msgstr "Estás sumido nun profundo sono.\n"
+msgstr "Reincorpóraste dun profundo sono.\n"
 
 #: src/act_move.c:2260
 msgid "$n rouses from $s slumber."
@@ -3430,23 +3398,20 @@ msgid "You are already resting.\n"
 msgstr "Xa estás descansando.\n"
 
 #: src/act_move.c:2271
-#, fuzzy
 msgid "You sprawl out haphazardly.\n"
-msgstr " está desperezandose por ahí."
+msgstr "Desperézaste como un oso."
 
 #: src/act_move.c:2272
-#, fuzzy
 msgid "$n sprawls out haphazardly."
-msgstr " está desperezandose por ahí."
+msgstr "$n desperézase como un oso."
 
 #: src/act_move.c:2277
 msgid "You lie back and sprawl out to rest.\n"
 msgstr ""
 
 #: src/act_move.c:2278
-#, fuzzy
 msgid "$n lies back and sprawls out to rest."
-msgstr " está desperezandose por ahí."
+msgstr "$n deitase e desperézase para descansar."
 
 #: src/act_move.c:2291
 msgid "You'd better dismount first.\n"
@@ -3457,9 +3422,8 @@ msgid "You are already sleeping.\n"
 msgstr "Xa estás dormindo.\n"
 
 #: src/act_move.c:2314
-#, fuzzy
 msgid "You just can't seem to calm yourself down enough to sleep.\n"
-msgstr "Non podes establecer a túa páxina de inicio.\n"
+msgstr "Non parece que podas calmarte o suficiente para dormir.\n"
 
 #: src/act_move.c:2317
 msgid ""
@@ -3543,9 +3507,8 @@ msgid "$n unbolts the $d."
 msgstr ""
 
 #: src/act_move.c:441
-#, fuzzy
 msgid "<unknown>"
-msgstr "Descoñecido"
+msgstr "<descoñecido>"
 
 #: src/player.c:226
 #, c-format
