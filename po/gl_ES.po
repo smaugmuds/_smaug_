@@ -2262,7 +2262,7 @@ msgstr "neutro"
 #: src/act_info.c:6081
 #, c-format
 msgid " %s is a %sdeadly player"
-msgstr "%s é un %sxogador mortal.\n"
+msgstr "%s é un %sxogador mortal."
 
 #: src/act_info.c:6093
 msgid ", and is Deity of "
@@ -2990,7 +2990,7 @@ msgstr "Compi, non podes ir en esa dirección.\n"
 
 #: src/act_move.c:797
 msgid "Mobs can't use portals."
-msgstr "Os móbiles non poden usar portais.\n"
+msgstr "Os móbiles non poden usar portais."
 
 #: src/act_move.c:804 src/act_move.c:862
 msgid "Mobs can't enter there."
@@ -3002,7 +3002,7 @@ msgstr "A $d está fechada."
 
 #: src/act_move.c:881
 msgid "A voice in your mind says, 'You are nearly ready to go that way...'\n"
-msgstr "Unha voz na túa mente diche, 'Estás casi preparado para ir por ese camiño ...'"
+msgstr "Unha voz na túa mente diche, 'Estás casi preparado para ir por ese camiño ...'\n"
 
 #: src/act_move.c:886
 msgid ""
@@ -3399,7 +3399,7 @@ msgstr "Xa estás descansando.\n"
 
 #: src/act_move.c:2271
 msgid "You sprawl out haphazardly.\n"
-msgstr "Desperézaste como un oso."
+msgstr "Desperézaste como un oso.\n"
 
 #: src/act_move.c:2272
 msgid "$n sprawls out haphazardly."
