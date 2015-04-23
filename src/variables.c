@@ -252,7 +252,7 @@ do_mptag (CHAR_DATA * ch, char *argument)
 
   if ((victim = get_char_room (ch, arg1)) == NULL)
     {
-      send_to_char ("They aren't here.\n\r", ch);
+      send_to_char (_("They aren't here.\n"), ch);
       return;
     }
 
@@ -323,7 +323,7 @@ do_mprmtag (CHAR_DATA * ch, char *argument)
 
   if ((victim = get_char_room (ch, arg1)) == NULL)
     {
-      send_to_char ("They aren't here.\n\r", ch);
+      send_to_char (_("They aren't here.\n"), ch);
       return;
     }
 
@@ -398,7 +398,7 @@ do_mpflag (CHAR_DATA * ch, char *argument)
 
   if ((victim = get_char_room (ch, arg1)) == NULL)
     {
-      send_to_char ("They aren't here.\n\r", ch);
+      send_to_char (_("They aren't here.\n"), ch);
       return;
     }
 
@@ -485,7 +485,7 @@ do_mprmflag (CHAR_DATA * ch, char *argument)
 
   if ((victim = get_char_room (ch, arg1)) == NULL)
     {
-      send_to_char ("They aren't here.\n\r", ch);
+      send_to_char (_("They aren't here.\n"), ch);
       return;
     }
 

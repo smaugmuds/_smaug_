@@ -294,7 +294,7 @@ void do_fill( CHAR_DATA *ch, char *argument )
 		||   (get_real_obj_weight(source) + get_real_obj_weight(obj)/obj->count)
 		    > obj->value[0] )
 		{
-		    send_to_char( "You can't do that.\n\r", ch );
+		    send_to_char( _("You can't do that.\n"), ch );
 		    return;
 		}
 		separate_obj( obj );
@@ -309,7 +309,7 @@ void do_fill( CHAR_DATA *ch, char *argument )
 	    case ITEM_CORPSE_PC:
 		if ( IS_NPC(ch) )
 		{
-		    send_to_char( "You can't do that.\n\r", ch );
+		    send_to_char( _("You can't do that.\n"), ch );
 		    return;
 		}
                 if ( IS_OBJ_STAT( source, ITEM_CLANCORPSE )
