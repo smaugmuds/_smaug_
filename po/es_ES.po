@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smaug 2.0.0\n"
 "Report-Msgid-Bugs-To: <@burzumishi>\n"
-"POT-Creation-Date: 2015-04-22 23:31+0200\n"
+"POT-Creation-Date: 2015-04-23 12:38+0200\n"
 "PO-Revision-Date: 2015-04-05 23:55+0200\n"
 "Last-Translator: Antonio Cao <antoniocao000@gmail.com>\n"
 "Language-Team: español <es@li.org>\n"
@@ -73,7 +73,7 @@ msgstr ""
 #: src/mud_comm.c:3137 src/mud_comm.c:3167 src/mud_comm.c:3218
 #: src/mud_comm.c:3271 src/mud_comm.c:3321 src/mud_comm.c:3615
 #: src/mud_comm.c:3647 src/mpxset.c:73 src/mpxset.c:1055 src/news.c:76
-#: src/player.c:3411 src/player.c:3466 src/player.c:3689 src/skills.c:106
+#: src/player.c:3414 src/player.c:3469 src/player.c:3692 src/skills.c:106
 #: src/variables.c:227 src/variables.c:311 src/variables.c:369
 #: src/variables.c:472
 msgid "Huh?\n"
@@ -1447,8 +1447,8 @@ msgstr ""
 msgid "Whoa!!!"
 msgstr ""
 
-#: src/act_info.c:368 src/act_info.c:407 src/act_info.c:540 src/player.c:2905
-#: src/player.c:2957
+#: src/act_info.c:368 src/act_info.c:407 src/act_info.c:540 src/player.c:2908
+#: src/player.c:2960
 msgid "Nothing.\n"
 msgstr ""
 
@@ -1906,7 +1906,7 @@ msgstr ""
 msgid " is DYING.\n"
 msgstr ""
 
-#: src/act_info.c:1844 src/player.c:2821
+#: src/act_info.c:1844 src/player.c:2824
 msgid "You"
 msgstr ""
 
@@ -1955,8 +1955,8 @@ msgid " are DYING.\n"
 msgstr ""
 
 #: src/act_info.c:1922 src/act_info.c:4579 src/act_info.c:6443
-#: src/act_wiz.c:4913 src/act_wiz.c:6572 src/player.c:2814 src/player.c:2840
-#: src/player.c:2923
+#: src/act_wiz.c:4913 src/act_wiz.c:6572 src/player.c:2817 src/player.c:2843
+#: src/player.c:2926
 msgid "They're not here.\n"
 msgstr ""
 
@@ -2109,7 +2109,7 @@ msgstr ""
 msgid "$n tells you. 'You'll have to practice it on your own now...'"
 msgstr ""
 
-#: src/act_info.c:4926 src/player.c:2418
+#: src/act_info.c:4926 src/player.c:2421
 #, c-format
 msgid "Wimpy set to %d hit points.\n"
 msgstr ""
@@ -2212,6 +2212,219 @@ msgstr ""
 #: src/act_info.c:6066
 msgid "That's not a player!\n"
 msgstr ""
+
+#: src/act_info.c:6072
+#, c-format
+msgid ""
+"\n"
+"'%s%s.'\n"
+" %s is a %s level %d %s %s, %d years of age.\n"
+msgstr ""
+
+#: src/act_info.c:6074 src/act_info.c:6082 src/act_info.c:6136
+#: src/act_info.c:6144 src/act_info.c:6149 src/act_info.c:6171
+#: src/act_info.c:6242
+msgid "He"
+msgstr ""
+
+#: src/act_info.c:6075 src/act_info.c:6083 src/act_info.c:6137
+#: src/act_info.c:6145 src/act_info.c:6150 src/act_info.c:6172
+#: src/act_info.c:6243
+msgid "She"
+msgstr ""
+
+#: src/act_info.c:6075 src/act_info.c:6083 src/act_info.c:6137
+#: src/act_info.c:6145 src/act_info.c:6150 src/act_info.c:6172
+#: src/act_info.c:6243
+msgid "It"
+msgstr ""
+
+#: src/act_info.c:6076
+msgid "male"
+msgstr ""
+
+#: src/act_info.c:6077
+msgid "female"
+msgstr ""
+
+#: src/act_info.c:6077
+msgid "neutral"
+msgstr ""
+
+#: src/act_info.c:6081
+#, c-format
+msgid " %s is a %sdeadly player"
+msgstr ""
+
+#: src/act_info.c:6093
+msgid ", and is Deity of "
+msgstr ""
+
+#: src/act_info.c:6095
+msgid ", and is Leader of "
+msgstr ""
+
+#: src/act_info.c:6097
+msgid ", and is Number One of "
+msgstr ""
+
+#: src/act_info.c:6099
+msgid ", and is Number Two of "
+msgstr ""
+
+#: src/act_info.c:6101
+msgid ", and belongs to Clan "
+msgstr ""
+
+#: src/act_info.c:6105
+msgid ", and is Deity of the Order of "
+msgstr ""
+
+#: src/act_info.c:6107
+msgid ", and is Leader of the Order of "
+msgstr ""
+
+#: src/act_info.c:6109
+msgid ", and is Number One of the Order of "
+msgstr ""
+
+#: src/act_info.c:6111
+msgid ", and is Number Two of the Order of "
+msgstr ""
+
+#: src/act_info.c:6113
+msgid ", and belongs to the Order of "
+msgstr ""
+
+#: src/act_info.c:6117
+#, c-format
+msgid ", and is the %s of the "
+msgstr ""
+
+#: src/act_info.c:6119
+msgid "Guildmistress"
+msgstr ""
+
+#: src/act_info.c:6119
+msgid "Guildmaster"
+msgstr ""
+
+#: src/act_info.c:6121
+msgid ", and is First of the "
+msgstr ""
+
+#: src/act_info.c:6123
+msgid ", and is Second of the "
+msgstr ""
+
+#: src/act_info.c:6125
+msgid ", and belongs to the "
+msgstr ""
+
+#: src/act_info.c:6135
+#, c-format
+msgid " %s is the %s of:  %s\n"
+msgstr ""
+
+#: src/act_info.c:6139
+msgid "Head"
+msgstr ""
+
+#: src/act_info.c:6139
+msgid "Co-Head"
+msgstr ""
+
+#: src/act_info.c:6143
+#, c-format
+msgid " %s is the Co-Head of:  %s\n"
+msgstr ""
+
+#: src/act_info.c:6148
+#, c-format
+msgid " %s holds a seat on:  %s\n"
+msgstr ""
+
+#: src/act_info.c:6155
+#, c-format
+msgid " %s has accumulated %d glory in %s lifetime.\n"
+msgstr ""
+
+#: src/act_info.c:6158
+msgid "his"
+msgstr ""
+
+#: src/act_info.c:6159
+msgid "her"
+msgstr ""
+
+#: src/act_info.c:6159
+msgid "its"
+msgstr ""
+
+#: src/act_info.c:6162
+#, c-format
+msgid " %s has %d honour and %s holds the rank of: %s\n"
+msgstr ""
+
+#: src/act_info.c:6165
+msgid "he"
+msgstr ""
+
+#: src/act_info.c:6166
+msgid "she"
+msgstr ""
+
+#: src/act_info.c:6166
+msgid "it"
+msgstr ""
+
+#: src/act_info.c:6170
+#, c-format
+msgid " %s has found succor in the deity %s.\n"
+msgstr ""
+
+#: src/act_info.c:6176
+#, c-format
+msgid " %s homepage can be found at %s\n"
+msgstr ""
+
+#: src/act_info.c:6177 src/act_info.c:6183 src/act_info.c:6189
+msgid "His"
+msgstr ""
+
+#: src/act_info.c:6178 src/act_info.c:6184 src/act_info.c:6190
+msgid "Her"
+msgstr ""
+
+#: src/act_info.c:6178 src/act_info.c:6184 src/act_info.c:6190
+msgid "Its"
+msgstr ""
+
+#: src/act_info.c:6182
+#, c-format
+msgid " %s email is: %s\n"
+msgstr ""
+
+#: src/act_info.c:6202
+msgid "Info for immortals:\n"
+msgstr ""
+
+#: src/act_info.c:6299
+#, c-format
+msgid "%s's IP info: %s "
+msgstr ""
+
+#: src/act_info.c:6308
+#, c-format
+msgid ""
+"%s's most recent IP: %s \n"
+" "
+msgstr ""
+
+#: src/act_info.c:6422
+#, fuzzy
+msgid "You now ignore no one.\n"
+msgstr "No puedes hacer eso aquí.\n"
 
 #: src/act_info.c:6501
 #, fuzzy, c-format
@@ -2703,17 +2916,72 @@ msgstr ""
 msgid "That name does not exist.\n"
 msgstr ""
 
-#: src/act_move.c:52
+#: src/act_move.c:52 src/act_move.c:418
 msgid "somewhere"
+msgstr ""
+
+#: src/act_move.c:420
+msgid "the south"
+msgstr ""
+
+#: src/act_move.c:422
+msgid "the west"
+msgstr ""
+
+#: src/act_move.c:424
+msgid "the north"
+msgstr ""
+
+#: src/act_move.c:426
+msgid "the east"
+msgstr ""
+
+#: src/act_move.c:428
+msgid "below"
+msgstr ""
+
+#: src/act_move.c:430
+msgid "above"
+msgstr ""
+
+#: src/act_move.c:432
+msgid "the southwest"
+msgstr ""
+
+#: src/act_move.c:434
+msgid "the southeast"
+msgstr ""
+
+#: src/act_move.c:436
+msgid "the northwest"
+msgstr ""
+
+#: src/act_move.c:438
+msgid "the northeast"
+msgstr ""
+
+#: src/act_move.c:547
+#, c-format
+msgid "Falling (in a loop?) more than 80 rooms: vnum %d"
 msgstr ""
 
 #: src/act_move.c:555
 msgid "You're falling down...\n"
 msgstr ""
 
+#: src/act_move.c:700
+#, c-format
+msgid "move_char: %s to door %d"
+msgstr ""
+
 #: src/act_move.c:777 src/act_move.c:791 src/act_move.c:832 src/act_move.c:843
 #, fuzzy
 msgid "Alas, you cannot go that way.\n"
+msgstr "No puedes hacer eso aquí.\n"
+
+#: src/act_move.c:797
+#, fuzzy
+msgid "Mobs can't use portals."
 msgstr "No puedes hacer eso aquí.\n"
 
 #: src/act_move.c:804 src/act_move.c:862
@@ -2723,6 +2991,37 @@ msgstr "No puedes hacer eso aquí.\n"
 
 #: src/act_move.c:823
 msgid "The $d is closed."
+msgstr ""
+
+#: src/act_move.c:881
+msgid "A voice in your mind says, 'You are nearly ready to go that way...'\n"
+msgstr ""
+
+#: src/act_move.c:886
+msgid ""
+"A voice in your mind says, 'Soon you shall be ready to travel down this "
+"path... soon.'\n"
+msgstr ""
+
+#: src/act_move.c:891
+msgid ""
+"A voice in your mind says, 'You are not ready to go down that path... "
+"yet.'.\n"
+msgstr ""
+
+#: src/act_move.c:896
+msgid "A voice in your mind says, 'You are not ready to go down that path.'.\n"
+msgstr ""
+
+#: src/act_move.c:905
+msgid ""
+"A voice in your mind says, 'There is nothing more for you down that path.'\n"
+msgstr ""
+
+#: src/act_move.c:941
+msgid ""
+"\n"
+"A godly force forbids deadly characters from entering that area...\n"
 msgstr ""
 
 #: src/act_move.c:952
@@ -2735,21 +3034,96 @@ msgstr "No puedes %s.\n"
 msgid "You'd need to fly to go there.\n"
 msgstr "No puedes hacer eso aquí.\n"
 
+#: src/act_move.c:981
+msgid "Your mount would drown!\n"
+msgstr ""
+
+#: src/act_move.c:983
+#, fuzzy
+msgid "You'd need a boat to go there.\n"
+msgstr "No puedes hacer eso aquí.\n"
+
+#: src/act_move.c:1006
+msgid "You start to climb... but lose your grip and fall!\n"
+msgstr ""
+
+#: src/act_move.c:1015 src/act_move.c:1366
+msgid "OUCH! You hit the ground!\n"
+msgstr ""
+
+#: src/act_move.c:1029
+#, fuzzy
+msgid "You can't climb.\n"
+msgstr "No puedes hacer eso aquí.\n"
+
 #: src/act_move.c:1039
 msgid "Your mount is dead!\n"
 msgstr ""
+
+#: src/act_move.c:1045
+msgid "Your mount is hurt far too badly to move.\n"
+msgstr ""
+
+#: src/act_move.c:1051
+msgid "Your mount is too stunned to do that.\n"
+msgstr ""
+
+#: src/act_move.c:1056
+#, fuzzy
+msgid "Your mount is sleeping.\n"
+msgstr "No puedes %s.\n"
+
+#: src/act_move.c:1061
+#, fuzzy
+msgid "Your mount is resting.\n"
+msgstr "No puedes %s.\n"
+
+#: src/act_move.c:1066
+#, fuzzy
+msgid "Your mount is sitting down.\n"
+msgstr "No puedes %s.\n"
+
+#: src/act_move.c:1080
+#, fuzzy
+msgid "Your mount is too exhausted.\n"
+msgstr "No puedes %s.\n"
 
 #: src/act_move.c:1096
 #, fuzzy
 msgid "You are too exhausted.\n"
 msgstr "No puedes %s.\n"
 
-#: src/act_move.c:1330
-msgid "You follow $N."
+#: src/act_move.c:1121
+msgid "There is no room for both you and your mount there.\n"
 msgstr ""
 
-#: src/act_move.c:1366
-msgid "OUCH! You hit the ground!\n"
+#: src/act_move.c:1124
+msgid "There is no room for you there.\n"
+msgstr ""
+
+#: src/act_move.c:1268
+msgid "You feel uncomfortable being in this strange land...\n"
+msgstr ""
+
+#: src/act_move.c:1274
+msgid "You feel there is not much to gain visiting this place...\n"
+msgstr ""
+
+#: src/act_move.c:1296
+msgid "$n falls prey to a terrible death!"
+msgstr ""
+
+#: src/act_move.c:1299 src/act_move.c:2447
+msgid "Oopsie... you're dead!\n"
+msgstr ""
+
+#: src/act_move.c:1300 src/act_move.c:2448
+#, c-format
+msgid "%s hit a DEATH TRAP in room %d!"
+msgstr ""
+
+#: src/act_move.c:1330
+msgid "You follow $N."
 msgstr ""
 
 #: src/act_move.c:1373
@@ -2760,6 +3134,11 @@ msgstr ""
 #, fuzzy
 msgid "You see no $T here."
 msgstr "No puedes hacer eso aquí.\n"
+
+#: src/act_move.c:1568
+#, fuzzy
+msgid "Open what?\n"
+msgstr "%s qué?\n"
 
 #: src/act_move.c:1580 src/act_move.c:1669 src/act_move.c:1699
 #: src/act_move.c:1762 src/act_move.c:1819 src/act_move.c:1900
@@ -2825,6 +3204,11 @@ msgstr "Dices '$T'"
 #: src/act_move.c:1664
 msgid "$n opens $p."
 msgstr ""
+
+#: src/act_move.c:1687
+#, fuzzy
+msgid "Close what?\n"
+msgstr "%s qué?\n"
 
 #: src/act_move.c:1709
 msgid "It's already closed.\n"
@@ -2897,6 +3281,11 @@ msgstr ""
 msgid "$n locks $p with $P."
 msgstr ""
 
+#: src/act_move.c:1918
+#, fuzzy
+msgid "Unlock what?\n"
+msgstr "%s qué?\n"
+
 #: src/act_move.c:1954 src/act_move.c:2002
 msgid "It's already unlocked.\n"
 msgstr ""
@@ -2912,6 +3301,11 @@ msgstr ""
 #: src/act_move.c:2034
 msgid "You're not enough of a warrior to bash doors!\n"
 msgstr ""
+
+#: src/act_move.c:2042
+#, fuzzy
+msgid "Bash what?\n"
+msgstr "%s qué?\n"
 
 #: src/act_move.c:2048
 #, fuzzy
@@ -2934,6 +3328,22 @@ msgstr ""
 msgid "The $d crashes open!"
 msgstr ""
 
+#: src/act_move.c:2116
+msgid "WHAAAAM!!!  You bash against the $d, but it doesn't budge."
+msgstr ""
+
+#: src/act_move.c:2119
+msgid "WHAAAAM!!!  $n bashes against the $d, but it holds strong."
+msgstr ""
+
+#: src/act_move.c:2128
+msgid "WHAAAAM!!!  You bash against the wall, but it doesn't budge."
+msgstr ""
+
+#: src/act_move.c:2131
+msgid "WHAAAAM!!!  $n bashes against the wall, but it holds strong."
+msgstr ""
+
 #: src/act_move.c:2158 src/act_move.c:2204 src/act_move.c:2255
 #, fuzzy
 msgid "You can't seem to wake up!\n"
@@ -2949,6 +3359,34 @@ msgstr "No puedes %s.\n"
 msgid "You are already fighting!\n"
 msgstr "No puedes %s.\n"
 
+#: src/act_move.c:2208
+#, fuzzy
+msgid "You wake and sit up.\n"
+msgstr "No puedes %s.\n"
+
+#: src/act_move.c:2209
+#, fuzzy
+msgid "$n wakes and sits up."
+msgstr "$n te dice, '$t'"
+
+#: src/act_move.c:2214
+#, fuzzy
+msgid "You stop resting and sit up.\n"
+msgstr "No puedes %s.\n"
+
+#: src/act_move.c:2215
+msgid "$n stops resting and sits up."
+msgstr ""
+
+#: src/act_move.c:2223
+#, fuzzy
+msgid "You sit down.\n"
+msgstr "No puedes %s.\n"
+
+#: src/act_move.c:2224
+msgid "$n sits down."
+msgstr ""
+
 #: src/act_move.c:2228
 #, fuzzy
 msgid "You are already sitting.\n"
@@ -2963,10 +3401,34 @@ msgstr "No puedes %s.\n"
 msgid "You are already sitting - on your mount.\n"
 msgstr ""
 
+#: src/act_move.c:2259
+msgid "You rouse from your slumber.\n"
+msgstr ""
+
+#: src/act_move.c:2260
+msgid "$n rouses from $s slumber."
+msgstr ""
+
 #: src/act_move.c:2265
 #, fuzzy
 msgid "You are already resting.\n"
 msgstr "No puedes %s.\n"
+
+#: src/act_move.c:2271
+msgid "You sprawl out haphazardly.\n"
+msgstr ""
+
+#: src/act_move.c:2272
+msgid "$n sprawls out haphazardly."
+msgstr ""
+
+#: src/act_move.c:2277
+msgid "You lie back and sprawl out to rest.\n"
+msgstr ""
+
+#: src/act_move.c:2278
+msgid "$n lies back and sprawls out to rest."
+msgstr ""
 
 #: src/act_move.c:2291
 msgid "You'd better dismount first.\n"
@@ -2976,6 +3438,16 @@ msgstr ""
 #, fuzzy
 msgid "You are already sleeping.\n"
 msgstr "No puedes %s.\n"
+
+#: src/act_move.c:2314
+#, fuzzy
+msgid "You just can't seem to calm yourself down enough to sleep.\n"
+msgstr "No puedes hacer eso aquí.\n"
+
+#: src/act_move.c:2317
+msgid ""
+"$n closes $s eyes for a few moments, but just can't seem to go to sleep."
+msgstr ""
 
 #: src/act_move.c:2357
 msgid "You collapse into a deep sleep.\n"
@@ -2998,15 +3470,6 @@ msgstr "Dices '$T'"
 #, fuzzy
 msgid "$n wakes you."
 msgstr "$n te dice, '$t'"
-
-#: src/act_move.c:2447
-msgid "Oopsie... you're dead!\n"
-msgstr ""
-
-#: src/act_move.c:2448
-#, c-format
-msgid "%s hit a DEATH TRAP in room %d!"
-msgstr ""
 
 #: src/act_move.c:2519
 #, fuzzy
@@ -3073,6 +3536,10 @@ msgstr ""
 msgid "$n unbolts the $d."
 msgstr ""
 
+#: src/act_move.c:441
+msgid "<unknown>"
+msgstr ""
+
 #: src/player.c:226
 #, c-format
 msgid ""
@@ -3080,7 +3547,7 @@ msgid ""
 "Score for %s%s.\n"
 msgstr ""
 
-#: src/player.c:229 src/player.c:792 src/player.c:1674 src/player.c:2367
+#: src/player.c:229 src/player.c:793 src/player.c:1676 src/player.c:2370
 #, c-format
 msgid "You are trusted at level %d.\n"
 msgstr ""
@@ -3100,7 +3567,8 @@ msgstr ""
 msgid "STR  : %2.2d(%2.2d)      HitRoll: %-4d            Saved:  %s"
 msgstr ""
 
-#: src/player.c:250 src/player.c:822 src/player.c:1140 src/player.c:1695
+#: src/player.c:250 src/player.c:263 src/player.c:823 src/player.c:1141
+#: src/player.c:1154 src/player.c:1697 src/player.c:1710
 msgid "no save this session\n"
 msgstr ""
 
@@ -3114,1083 +3582,1079 @@ msgstr ""
 msgid "STR  : %2.2d(%2.2d)                               Saved:  %s"
 msgstr ""
 
-#: src/player.c:262
-msgid "no\n"
-msgstr ""
-
-#: src/player.c:265
+#: src/player.c:266
 #, c-format
 msgid "INT  : %2.2d(%2.2d)                               Time:   %s"
 msgstr ""
 
-#: src/player.c:270
+#: src/player.c:271
 #, c-format
 msgid "the rags of a beggar"
 msgstr ""
 
-#: src/player.c:272
+#: src/player.c:273
 #, c-format
 msgid "improper for adventure"
 msgstr ""
 
-#: src/player.c:274
+#: src/player.c:275
 #, c-format
 msgid "shabby and threadbare"
 msgstr ""
 
-#: src/player.c:276
+#: src/player.c:277
 #, c-format
 msgid "of poor quality"
 msgstr ""
 
-#: src/player.c:278
+#: src/player.c:279
 #, c-format
 msgid "scant protection"
 msgstr ""
 
-#: src/player.c:280
+#: src/player.c:281
 #, c-format
 msgid "that of a knave"
 msgstr ""
 
-#: src/player.c:282
+#: src/player.c:283
 #, c-format
 msgid "moderately crafted"
 msgstr ""
 
-#: src/player.c:284
+#: src/player.c:285
 #, c-format
 msgid "well crafted"
 msgstr ""
 
-#: src/player.c:286
+#: src/player.c:287
 #, c-format
 msgid "the envy of squires"
 msgstr ""
 
-#: src/player.c:288
+#: src/player.c:289
 #, c-format
 msgid "excellently crafted"
 msgstr ""
 
-#: src/player.c:290
+#: src/player.c:291
 #, c-format
 msgid "the envy of knights"
 msgstr ""
 
-#: src/player.c:292
+#: src/player.c:293
 #, c-format
 msgid "the envy of barons"
 msgstr ""
 
-#: src/player.c:294
+#: src/player.c:295
 #, c-format
 msgid "the envy of dukes"
 msgstr ""
 
-#: src/player.c:296
+#: src/player.c:297
 #, c-format
 msgid "the envy of emperors"
 msgstr ""
 
-#: src/player.c:298
+#: src/player.c:299
 #, c-format
 msgid "that of an avatar"
 msgstr ""
 
-#: src/player.c:300
+#: src/player.c:301
 #, c-format
 msgid "WIS  : %2.2d(%2.2d)      Armor: %4.4d, %s\n"
 msgstr ""
 
-#: src/player.c:303
+#: src/player.c:304
 #, c-format
 msgid "WIS  : %2.2d(%2.2d)      Armor: %s \n"
 msgstr ""
 
-#: src/player.c:326
+#: src/player.c:327
 #, c-format
 msgid ""
 "DEX  : %2.2d(%2.2d)      Align: %-20.20s    Items: %5.5d   (max %5.5d)\n"
 msgstr ""
 
-#: src/player.c:331
+#: src/player.c:332
 #, c-format
 msgid ""
 "DEX  : %2.2d(%2.2d)      Align: %+4.4d, %-14.14s   Items: %5.5d   (max "
 "%5.5d)\n"
 msgstr ""
 
-#: src/player.c:338 src/player.c:1231
+#: src/player.c:339 src/player.c:1233
 #, c-format
 msgid "slowly decomposing"
 msgstr ""
 
-#: src/player.c:341 src/player.c:1234
+#: src/player.c:342 src/player.c:1236
 #, c-format
 msgid "mortally wounded"
 msgstr ""
 
-#: src/player.c:344 src/player.c:1237
+#: src/player.c:345 src/player.c:1239
 #, c-format
 msgid "incapacitated"
 msgstr ""
 
-#: src/player.c:347 src/player.c:1240
+#: src/player.c:348 src/player.c:1242
 #, c-format
 msgid "stunned"
 msgstr ""
 
-#: src/player.c:350 src/player.c:1243
+#: src/player.c:351 src/player.c:1245
 #, c-format
 msgid "sleeping"
 msgstr ""
 
-#: src/player.c:353 src/player.c:1246
+#: src/player.c:354 src/player.c:1248
 #, fuzzy, c-format
 msgid "resting"
 msgstr "bienvenida"
 
-#: src/player.c:356 src/player.c:1249
+#: src/player.c:357 src/player.c:1251
 #, c-format
 msgid "standing"
 msgstr ""
 
-#: src/player.c:359 src/player.c:1252
+#: src/player.c:360 src/player.c:1254
 #, fuzzy, c-format
 msgid "fighting"
 msgstr "bienvenida"
 
-#: src/player.c:362 src/player.c:1255
+#: src/player.c:363 src/player.c:1257
 #, c-format
 msgid "fighting (evasive)"
 msgstr ""
 
-#: src/player.c:365 src/player.c:1258
+#: src/player.c:366 src/player.c:1260
 #, c-format
 msgid "fighting (defensive)"
 msgstr ""
 
-#: src/player.c:368 src/player.c:1261
+#: src/player.c:369 src/player.c:1263
 #, c-format
 msgid "fighting (aggressive)"
 msgstr ""
 
-#: src/player.c:371 src/player.c:1264
+#: src/player.c:372 src/player.c:1266
 #, c-format
 msgid "fighting (berserk)"
 msgstr ""
 
-#: src/player.c:374 src/player.c:1267
+#: src/player.c:375 src/player.c:1269
 #, c-format
 msgid "mounted"
 msgstr ""
 
-#: src/player.c:377 src/player.c:1270
+#: src/player.c:378 src/player.c:1272
 #, c-format
 msgid "sitting"
 msgstr ""
 
-#: src/player.c:381
+#: src/player.c:382
 #, c-format
 msgid "CON  : %2.2d(%2.2d)      Pos'n: %-21.21s  Weight: %5.5d (max %7.7d)\n"
 msgstr ""
 
-#: src/player.c:389
+#: src/player.c:390
 #, c-format
 msgid "CHA  : %2.2d(%2.2d)      Wimpy: %-5d     \n"
 msgstr ""
 
-#: src/player.c:392
+#: src/player.c:393
 #, c-format
 msgid "LCK  : %2.2d(%2.2d)      "
 msgstr ""
 
-#: src/player.c:398 src/player.c:1292
+#: src/player.c:399 src/player.c:1294
 #, c-format
 msgid "evasive"
 msgstr ""
 
-#: src/player.c:401 src/player.c:1295
+#: src/player.c:402 src/player.c:1297
 #, c-format
 msgid "defensive"
 msgstr ""
 
-#: src/player.c:404 src/player.c:1298
+#: src/player.c:405 src/player.c:1300
 #, c-format
 msgid "aggressive"
 msgstr ""
 
-#: src/player.c:407 src/player.c:1301
+#: src/player.c:408 src/player.c:1303
 #, c-format
 msgid "berserk"
 msgstr ""
 
-#: src/player.c:410 src/player.c:1304
+#: src/player.c:411 src/player.c:1306
 #, c-format
 msgid "standard"
 msgstr ""
 
-#: src/player.c:413
+#: src/player.c:414
 #, c-format
 msgid "Style: %-10.10s\n"
 msgstr ""
 
-#: src/player.c:415
+#: src/player.c:416
 #, c-format
 msgid "Honour: %3.3d        Rank: %s\n"
 msgstr ""
 
-#: src/player.c:419
+#: src/player.c:420
 #, c-format
 msgid "Glory: %4.4d(%4.4d)  Stance: %s\n"
 msgstr ""
 
-#: src/player.c:423
+#: src/player.c:424
 #, c-format
 msgid "Glory: %4.4d(%4.4d)\n"
 msgstr ""
 
-#: src/player.c:428
+#: src/player.c:429
 #, c-format
 msgid ""
 "PRACT: %3.3d         Hitpoints: %-5d of %5d   Pager: (%c) %3d    "
 "AutoExit(%c)\n"
 msgstr ""
 
-#: src/player.c:437
+#: src/player.c:438
 #, c-format
 msgid ""
 "XP   : %-9d       Blood: %-5d of %5d   MKills:  %-5.5d    AutoLoot(%c)\n"
 msgstr ""
 
-#: src/player.c:444
+#: src/player.c:445
 #, c-format
 msgid ""
 "XP   : %-9d                               MKills:  %-5.5d    AutoLoot(%c)\n"
 msgstr ""
 
-#: src/player.c:450
+#: src/player.c:451
 #, c-format
 msgid ""
 "XP   : %-9d        Mana: %-5d of %5d   MKills:  %-5.5d    AutoLoot(%c)\n"
 msgstr ""
 
-#: src/player.c:455
+#: src/player.c:456
 #, c-format
 msgid "GOLD : %-13s    Move: %-5d of %5d   Mdeaths: %-5.5d    AutoSac (%c)\n"
 msgstr ""
 
-#: src/player.c:706
+#: src/player.c:707
 #, c-format
 msgid "Area Loaded [%s]\n"
 msgstr ""
 
-#: src/player.c:708 src/player.c:1605 src/player.c:2410 src/player.c:2412
-#: src/player.c:2414 src/player.c:2416
+#: src/player.c:709 src/player.c:1607 src/player.c:2413 src/player.c:2415
+#: src/player.c:2417 src/player.c:2419
 msgid "yes"
 msgstr ""
 
-#: src/player.c:708 src/player.c:1605 src/player.c:2410 src/player.c:2412
-#: src/player.c:2414 src/player.c:2416
+#: src/player.c:709 src/player.c:1607 src/player.c:2413 src/player.c:2415
+#: src/player.c:2417 src/player.c:2419
 msgid "no"
 msgstr ""
 
-#: src/player.c:783
+#: src/player.c:784
 #, fuzzy, c-format
 msgid "| You are%s\n"
 msgstr "No puedes %s.\n"
 
-#: src/player.c:784
+#: src/player.c:785
 msgid ", the mobile."
 msgstr ""
 
-#: src/player.c:787
+#: src/player.c:788
 #, c-format
 msgid "| You are level %d, and are %d years old.\n"
 msgstr ""
 
-#: src/player.c:796
+#: src/player.c:797
 #, fuzzy, c-format
 msgid "| You are a %s %s %s\n"
 msgstr "Tú %s '%s'\n"
 
-#: src/player.c:797
+#: src/player.c:798
 msgid "Sexless"
 msgstr ""
 
-#: src/player.c:797
+#: src/player.c:798
 msgid "Male"
 msgstr ""
 
-#: src/player.c:799
+#: src/player.c:800
 msgid "mobile"
 msgstr ""
 
-#: src/player.c:802
+#: src/player.c:803
 #, c-format
 msgid "| You have %d practices.\n"
 msgstr ""
 
-#: src/player.c:806
+#: src/player.c:807
 #, c-format
 msgid "| Carrying %d/%d items at %d/10 pounds.\n"
 msgstr ""
 
-#: src/player.c:812
+#: src/player.c:813
 #, c-format
 msgid "| %d/%dHPs, %d/%dMana, %d/%dMoves.\n"
 msgstr ""
 
-#: src/player.c:819
+#: src/player.c:820
 #, c-format
 msgid "| Hitroll: %d   Damroll: %d   Saved:  %d\n"
 msgstr ""
 
-#: src/player.c:825
+#: src/player.c:826
 #, c-format
 msgid "|    Str: %d(%d)    |         {D-=ARMOR={D-\n"
 msgstr ""
 
-#: src/player.c:858
+#: src/player.c:859
 #, c-format
 msgid "|    Int: %d(%d)\n"
 msgstr ""
 
-#: src/player.c:859
+#: src/player.c:860
 #, c-format
 msgid "|    Wis: %d(%d)\n"
 msgstr ""
 
-#: src/player.c:860
+#: src/player.c:861
 #, c-format
 msgid "|    Dex: %d(%d)\n"
 msgstr ""
 
-#: src/player.c:861
+#: src/player.c:862
 #, c-format
 msgid "|    Con: %d(%d)\n"
 msgstr ""
 
-#: src/player.c:865
+#: src/player.c:866
 #, c-format
 msgid "| You have %ld gold and your bank balance is %ld coins.\n"
 msgstr ""
 
-#: src/player.c:869
+#: src/player.c:870
 #, c-format
 msgid "| You have scored %ld exp.\n"
 msgstr ""
 
-#: src/player.c:875
+#: src/player.c:876
 #, c-format
 msgid "| Wimpy set to %d hit points.\n"
 msgstr ""
 
-#: src/player.c:878
+#: src/player.c:879
 msgid "| You are "
 msgstr ""
 
-#: src/player.c:891
+#: src/player.c:892
 #, c-format
 msgid "   Alignment: %d\n"
 msgstr ""
 
-#: src/player.c:897
+#: src/player.c:898
 #, c-format
 msgid "| You have %d quest point.\n"
 msgstr ""
 
-#: src/player.c:899
+#: src/player.c:900
 #, c-format
 msgid "| You have %d quest points.\n"
 msgstr ""
 
-#: src/player.c:904
+#: src/player.c:905
 #, c-format
 msgid "| You have accumulated %d quest point.\n"
 msgstr ""
 
-#: src/player.c:906
+#: src/player.c:907
 #, c-format
 msgid "| You have accumulated %d quest points.\n"
 msgstr ""
 
-#: src/player.c:912
+#: src/player.c:913
 msgid "| Holy Light: "
 msgstr ""
 
-#: src/player.c:914
+#: src/player.c:915
 msgid "On"
 msgstr ""
 
-#: src/player.c:916
+#: src/player.c:917
 msgid "Off"
 msgstr ""
 
-#: src/player.c:920
+#: src/player.c:921
 #, c-format
 msgid "  Wizi %d"
 msgstr ""
 
-#: src/player.c:933
+#: src/player.c:934
 msgid "Affect Data:                            "
 msgstr ""
 
-#: src/player.c:1072 src/player.c:1091
+#: src/player.c:1073 src/player.c:1092
 msgid "Compass is now off.\n"
 msgstr ""
 
-#: src/player.c:1116
+#: src/player.c:1117
 #, c-format
 msgid ""
 "\n"
 "&GScore for %s%s.\n"
 msgstr ""
 
-#: src/player.c:1119
+#: src/player.c:1120
 #, c-format
 msgid "&GYou are trusted at level &Y%d.\n"
 msgstr ""
 
-#: src/player.c:1125
+#: src/player.c:1126
 #, c-format
 msgid ""
 "&GLEVEL: &w%-3d         &GRace : &w%-10.10s        &gPlayed: &w%d hours\n"
 msgstr ""
 
-#: src/player.c:1130
+#: src/player.c:1131
 #, c-format
 msgid "&GYEARS: &w%-6d      &GClass: &w%-11.11s       &gLog In: &w%s"
 msgstr ""
 
-#: src/player.c:1137
+#: src/player.c:1138
 #, c-format
 msgid ""
 "&GSTR  : &w%2.2d&g(&W%2.2d&g)      &GHitRoll: &R%-4d            &gSaved:  &w"
 "%s"
 msgstr ""
 
-#: src/player.c:1143
+#: src/player.c:1144
 #, c-format
 msgid ""
 "&GINT  : &w%2.2d&g(&W%2.2d&g)      &GDamRoll: &R%-4d            &gTime:   &w"
 "%s"
 msgstr ""
 
-#: src/player.c:1150
+#: src/player.c:1151
 #, c-format
 msgid ""
 "&GSTR  : &w%2.2d&g(&W%2.2d&g)                               &gSaved:  &w%s"
 msgstr ""
 
-#: src/player.c:1155
+#: src/player.c:1157
 #, c-format
 msgid ""
 "&GINT  : &w%2.2d&g(&W%2.2d&g)                               &gTime:   &w%s"
 msgstr ""
 
-#: src/player.c:1192
+#: src/player.c:1194
 #, c-format
 msgid "&GWIS  : &w%2.2d&g(&W%2.2d&g)      &GArmor: &w%4.4d, %s\n"
 msgstr ""
 
-#: src/player.c:1196
+#: src/player.c:1198
 #, c-format
 msgid "&GWIS  : &w%2.2d&g(&W%2.2d&g)      &WArmor: &w%s \n"
 msgstr ""
 
-#: src/player.c:1219
+#: src/player.c:1221
 #, c-format
 msgid ""
 "&GDEX  : &w%2.2d&g(&W%2.2d&g)      &GAlign: &w%-20.20s    &GItems: &W%5.5d   "
 "&g(&wmax %5.5d&g)\n"
 msgstr ""
 
-#: src/player.c:1224
+#: src/player.c:1226
 #, c-format
 msgid ""
 "&GDEX  : &w%2.2d&g(&W%2.2d&g)      &GAlign: &w%+4.4d, %-14.14s   &GItems: &W"
 "%5.5d   &g(&wmax %5.5d&g)\n"
 msgstr ""
 
-#: src/player.c:1274
+#: src/player.c:1276
 #, c-format
 msgid ""
 "&GCON  : &w%2.2d&g(&W%2.2d&g)      &GPos'n: &w%-21.21s  &GWeight: &W%5.5d "
 "&g(&wmax %7.7d&g)\n"
 msgstr ""
 
-#: src/player.c:1283
+#: src/player.c:1285
 #, c-format
 msgid "&GCHA  : &w%2.2d&g(&W%2.2d&g)      &GWimpy: &Y%-5d     \n"
 msgstr ""
 
-#: src/player.c:1286
+#: src/player.c:1288
 #, c-format
 msgid "&GLCK  : &w%2.2d&g(&W%2.2d&g)      "
 msgstr ""
 
-#: src/player.c:1307
+#: src/player.c:1309
 #, c-format
 msgid "&GStyle: &W%-10.10s\n"
 msgstr ""
 
-#: src/player.c:1309
+#: src/player.c:1311
 #, c-format
 msgid "&GHonour: &w%3.3d        &GRank: &w%s\n"
 msgstr ""
 
-#: src/player.c:1313
+#: src/player.c:1315
 #, c-format
 msgid "&GGlory: &w%4.4d&g(&W%4.4d&g)  &GStance: &W%s\n"
 msgstr ""
 
-#: src/player.c:1317
+#: src/player.c:1319
 #, c-format
 msgid "&GGlory: &w%4.4d&g(&W%4.4d&g)\n"
 msgstr ""
 
-#: src/player.c:1322
+#: src/player.c:1324
 #, c-format
 msgid ""
 "&GPRACT: &w%3.3d         &GHitpoints: &W%-5d &gof &W%5d   &GPager: &g(&w"
 "%c&g) &w%3d    &GAutoExit&g(&w%c&g)\n"
 msgstr ""
 
-#: src/player.c:1331
+#: src/player.c:1333
 #, c-format
 msgid ""
 "&GXP   : &w%-9d       &GBlood: &R%-5d &Gof &R%5d   &GMKills:  &w%-5.5d    "
 "&GAutoLoot&g(&w%c&g)\n"
 msgstr ""
 
-#: src/player.c:1338
+#: src/player.c:1340
 #, c-format
 msgid ""
 "&GXP   : &w%-9d                               &GMKills:  &w%-5.5d    "
 "&GAutoLoot&g(&w%c&g)\n"
 msgstr ""
 
-#: src/player.c:1344
+#: src/player.c:1346
 #, c-format
 msgid ""
 "&GXP   : &w%-9d        &GMana: &C%-5d &Gof &C%5d   &GMKills:  &w%-5.5d    "
 "&GAutoLoot&g(&w%c&g)\n"
 msgstr ""
 
-#: src/player.c:1349
+#: src/player.c:1351
 #, c-format
 msgid ""
 "&GGOLD : &Y%-13s    &GMove: &w%-5d &Gof &w%5d   &GMdeaths: &w%-5.5d    "
 "&GAutoSac &g(&w%c&g)\n"
 msgstr ""
 
-#: src/player.c:1356 src/player.c:1900
+#: src/player.c:1358 src/player.c:1903
 msgid "You are drunk.\n"
 msgstr ""
 
-#: src/player.c:1358 src/player.c:1902
+#: src/player.c:1360 src/player.c:1905
 msgid "You are in danger of dehydrating.\n"
 msgstr ""
 
-#: src/player.c:1360 src/player.c:1904
+#: src/player.c:1362 src/player.c:1907
 msgid "You are starving to death.\n"
 msgstr ""
 
-#: src/player.c:1365
+#: src/player.c:1367
 msgid "You're completely messed up!\n"
 msgstr ""
 
-#: src/player.c:1368
+#: src/player.c:1370
 msgid "You're barely conscious.\n"
 msgstr ""
 
-#: src/player.c:1371
+#: src/player.c:1373
 msgid "You can barely keep your eyes open.\n"
 msgstr ""
 
-#: src/player.c:1374
+#: src/player.c:1376
 msgid "You're extremely drowsy.\n"
 msgstr ""
 
-#: src/player.c:1377
+#: src/player.c:1379
 msgid "You feel very unmotivated.\n"
 msgstr ""
 
-#: src/player.c:1380
+#: src/player.c:1382
 msgid "You feel sedated.\n"
 msgstr ""
 
-#: src/player.c:1383
+#: src/player.c:1385
 msgid "You feel sleepy.\n"
 msgstr ""
 
-#: src/player.c:1386
+#: src/player.c:1388
 msgid "You feel tired.\n"
 msgstr ""
 
-#: src/player.c:1389
+#: src/player.c:1391
 msgid "You could use a rest.\n"
 msgstr ""
 
-#: src/player.c:1392
+#: src/player.c:1394
 msgid "You feel a little under the weather.\n"
 msgstr ""
 
-#: src/player.c:1395
+#: src/player.c:1397
 msgid "You feel fine.\n"
 msgstr ""
 
-#: src/player.c:1398
+#: src/player.c:1400
 msgid "You feel great.\n"
 msgstr ""
 
-#: src/player.c:1401
+#: src/player.c:1403
 msgid "You feel energetic.\n"
 msgstr ""
 
-#: src/player.c:1404
+#: src/player.c:1406
 msgid "Your mind is racing.\n"
 msgstr ""
 
-#: src/player.c:1407
+#: src/player.c:1409
 #, fuzzy
 msgid "You can't think straight.\n"
 msgstr "No puedes %s.\n"
 
-#: src/player.c:1410
+#: src/player.c:1412
 msgid "Your mind is going 100 miles an hour.\n"
 msgstr ""
 
-#: src/player.c:1413
+#: src/player.c:1415
 msgid "You're high as a kite.\n"
 msgstr ""
 
-#: src/player.c:1416
+#: src/player.c:1418
 msgid "Your mind and body are slipping apart.\n"
 msgstr ""
 
-#: src/player.c:1419
+#: src/player.c:1421
 msgid "Reality is slipping away.\n"
 msgstr ""
 
-#: src/player.c:1422
+#: src/player.c:1424
 msgid "You have no idea what is real, and what is not.\n"
 msgstr ""
 
-#: src/player.c:1426
+#: src/player.c:1428
 msgid "You feel immortal.\n"
 msgstr ""
 
-#: src/player.c:1429
+#: src/player.c:1431
 msgid "You are a Supreme Entity.\n"
 msgstr ""
 
-#: src/player.c:1433
+#: src/player.c:1435
 msgid "Your sleep is filled with strange and vivid dreams.\n"
 msgstr ""
 
-#: src/player.c:1436
+#: src/player.c:1438
 msgid "Your sleep is uneasy.\n"
 msgstr ""
 
-#: src/player.c:1438
+#: src/player.c:1440
 msgid "You are deep in a much needed sleep.\n"
 msgstr ""
 
-#: src/player.c:1440
+#: src/player.c:1442
 msgid "You are in deep slumber.\n"
 msgstr ""
 
-#: src/player.c:1457
+#: src/player.c:1459
 #, c-format
 msgid "You are bestowed with the command(s): %s.\n"
 msgstr ""
 
-#: src/player.c:1466 src/player.c:2010
+#: src/player.c:1468 src/player.c:2013
 #, c-format
 msgid "Morphed as (%d) %s with a timer of %d.\n"
 msgstr ""
 
-#: src/player.c:1470 src/player.c:2014
+#: src/player.c:1472 src/player.c:2017
 #, c-format
 msgid "You are morphed into a %s.\n"
 msgstr ""
 
-#: src/player.c:1482
+#: src/player.c:1484
 #, c-format
 msgid ""
 "&GPKILL DATA:  Pkills &g(&w%3.3d&g)     &GIllegal Pkills &g(&w%3.3d&g)     "
 "&GPdeaths &g(&w%3.3d&g)\n"
 msgstr ""
 
-#: src/player.c:1493
+#: src/player.c:1495
 #, c-format
 msgid ""
 "&GCLAN STATS:  &w%-14.14s  &GClan AvPkills : &w%-5d  &GClan NonAvpkills : &w"
 "%-5d\n"
 msgstr ""
 
-#: src/player.c:1501
+#: src/player.c:1503
 #, c-format
 msgid ""
 "                             &GClan AvPdeaths: &w%-5d  &GClan NonAvpdeaths: "
 "&w%-5d\n"
 msgstr ""
 
-#: src/player.c:1548
+#: src/player.c:1550
 #, c-format
 msgid "&GDeity:  &w%-20s  &GFavor: &w%s\n"
 msgstr ""
 
-#: src/player.c:1557
+#: src/player.c:1559
 #, c-format
 msgid "&GOrder:  &w%-20s  &GOrder Mkills:  &w%-6d   &GOrder MDeaths:  &w%-6d\n"
 msgstr ""
 
-#: src/player.c:1567
+#: src/player.c:1569
 #, c-format
 msgid "&GGuild:  &w%-20s  &GGuild Mkills:  &w%-6d   &GGuild MDeaths:  &w%-6d\n"
 msgstr ""
 
-#: src/player.c:1578
+#: src/player.c:1580
 #, c-format
 msgid "&GIMMORTAL DATA:  Wizinvis &g[&w%s&g]  &GWizlevel &g(&w%d&g)\n"
 msgstr ""
 
-#: src/player.c:1582
+#: src/player.c:1584
 #, c-format
 msgid "&GBamfin:  &W%s %s\n"
 msgstr ""
 
-#: src/player.c:1585
+#: src/player.c:1587
 msgid "appears in a swirling mist."
 msgstr ""
 
-#: src/player.c:1586
+#: src/player.c:1588
 #, c-format
 msgid "&GBamfout: &W%s %s\n"
 msgstr ""
 
-#: src/player.c:1589
+#: src/player.c:1591
 msgid "leaves in a swirling mist."
 msgstr ""
 
-#: src/player.c:1596
+#: src/player.c:1598
 #, c-format
 msgid ""
 "&GVnums:   Room &g(&w%-5.5d - %-5.5d&g)   &GObject &g(&w%-5.5d - %-5.5d&g)   "
 "&GMob &g(&w%-5.5d - %-5.5d&g)\n"
 msgstr ""
 
-#: src/player.c:1603
+#: src/player.c:1605
 #, c-format
 msgid "&GArea Loaded &g[&w%s&g]\n"
 msgstr ""
 
-#: src/player.c:1617
+#: src/player.c:1619
 msgid "&GAFFECT DATA:                            "
 msgstr ""
 
-#: src/player.c:1681
+#: src/player.c:1683
 #, c-format
 msgid ""
 "&gLevel: &W%-3d         &gRace : &W%-10.10s        &gPlayed: &W%d &ghours\n"
 msgstr ""
 
-#: src/player.c:1685
+#: src/player.c:1687
 #, c-format
 msgid "&gYears: &W%-6d      &gClass: &W%-11.11s       &gLog In: %s"
 msgstr ""
 
-#: src/player.c:1692
+#: src/player.c:1694
 #, c-format
 msgid ""
 "&GSTR  : &W%2.2d&g(&w%2.2d&g)&G    HitRoll: &R%-4d               &gSaved: %s"
 msgstr ""
 
-#: src/player.c:1698
+#: src/player.c:1700
 #, c-format
 msgid ""
 "&GINT  : &W%2.2d&g(&w%2.2d&g)&G    DamRoll: &R%-4d                &gTime: %s"
 msgstr ""
 
-#: src/player.c:1705
+#: src/player.c:1707
 #, c-format
 msgid ""
 "&GSTR  : &W%2.2d&g(&w%2.2d&g)&G                               Saved:  %s"
 msgstr ""
 
-#: src/player.c:1710
+#: src/player.c:1713
 #, c-format
 msgid ""
 "&GINT  : &W%2.2d&g(&w%2.2d&g)&G                               Time:   %s"
 msgstr ""
 
-#: src/player.c:1747
+#: src/player.c:1750
 #, c-format
 msgid "&GWIS  : &W%2.2d&g(&w%2.2d&g)&G      Armor: &O%-d; %s\n"
 msgstr ""
 
-#: src/player.c:1751
+#: src/player.c:1754
 #, c-format
 msgid "&GWIS  : &W%2.2d&g(&w%2.2d&g)&G      Armor: &O%s \n"
 msgstr ""
 
-#: src/player.c:1774
+#: src/player.c:1777
 #, c-format
 msgid ""
 "&GDEX  : &W%2.2d&g(&w%2.2d&g)&G      Align: &W%-20.20s    &GItems:  &W%d "
 "(max %d)\n"
 msgstr ""
 
-#: src/player.c:1779
+#: src/player.c:1782
 #, c-format
 msgid ""
 "&GDEX  : &W%2.2d&g(&w%2.2d&g)&G      Align: &W%4d; %-14.14s   &GItems:  &W%d "
 "&g(&wmax %d&g)\n"
 msgstr ""
 
-#: src/player.c:1829
+#: src/player.c:1832
 #, c-format
 msgid ""
 "&GCON  : &W%2.2d&g(&w%2.2d&g)&G      Pos'n: &W%-21.21s  &GWeight: &W%d "
 "&g(&wmax %d&g)\n"
 msgstr ""
 
-#: src/player.c:1838
+#: src/player.c:1841
 #, c-format
 msgid "&GCHA  : &W%2.2d&g(&w%2.2d&g)&G      Wimpy: &Y%-5d      "
 msgstr ""
 
-#: src/player.c:1860
+#: src/player.c:1863
 #, c-format
 msgid ""
 "\n"
 "&GLCK  : &W%2.2d&g(&w%2.2d&g)&G      Style: &W%-10.10s\n"
 msgstr ""
 
-#: src/player.c:1863
+#: src/player.c:1866
 #, c-format
 msgid "&GGlory: &W%d&g/&w%d\n"
 msgstr ""
 
-#: src/player.c:1867
+#: src/player.c:1870
 #, c-format
 msgid ""
 "&GPRACT: &W%3d         &GHitpoints: &Y%-5d &Gof &Y%5d   &GPager: &G(&W%c&g) "
 "&W%3d    &GAutoExit&g(&W%c&g)\n"
 msgstr ""
 
-#: src/player.c:1876
+#: src/player.c:1879
 #, c-format
 msgid ""
 "&GEXP  : &P%-9d       &GBlood: &R%-5d &Gof &R%5d   &GMKills:  &W%5d    "
 "&GAutoLoot&g(&W%c&g)\n"
 msgstr ""
 
-#: src/player.c:1883
+#: src/player.c:1886
 #, c-format
 msgid ""
 "&GEXP  : &P%-9d                               &GMKills:  &W%5d    "
 "&GAutoLoot&g(&W%c&g)\n"
 msgstr ""
 
-#: src/player.c:1889
+#: src/player.c:1892
 #, c-format
 msgid ""
 "&GEXP  : &P%-9d        &GMana: &B%-5d &Gof &B%5d   &GMKills:  &W%5d    "
 "&GAutoLoot&g(&W%c&g)\n"
 msgstr ""
 
-#: src/player.c:1894
+#: src/player.c:1897
 #, c-format
 msgid ""
 "&GGOLD : &Y%-13s    &GMove: &O%-5d &Gof &O%5d   &GMdeaths: &W%5d    "
 "&GAutoSac &g(&W%c&g)\n"
 msgstr ""
 
-#: src/player.c:2001
+#: src/player.c:2004
 #, c-format
 msgid "&GYou are bestowed with the command(s): &Y%s\n"
 msgstr ""
 
-#: src/player.c:2026
+#: src/player.c:2029
 #, c-format
 msgid ""
 "&GPKILL DATA:  Pkills (&W%d&G)     Illegal Pkills (&W%d&G)     Pdeaths (&W"
 "%d&G)\n"
 msgstr ""
 
-#: src/player.c:2037
+#: src/player.c:2040
 #, c-format
 msgid ""
 "&GCLAN STATS:  &W%-14.14s  &GClan AvPkills : &W%-5d  &GClan NonAvpkills : &W"
 "%-5d\n"
 msgstr ""
 
-#: src/player.c:2045
+#: src/player.c:2048
 #, c-format
 msgid ""
 "&G                             Clan AvPdeaths: &W%-5d  &GClan NonAvpdeaths: "
 "&W%-5d\n"
 msgstr ""
 
-#: src/player.c:2092
+#: src/player.c:2095
 #, c-format
 msgid "&GDeity:  &W%-20s &GFavor:  &W%s&G\n"
 msgstr ""
 
-#: src/player.c:2101
+#: src/player.c:2104
 #, c-format
 msgid "&GOrder:  &W%-20s  &GOrder Mkills:  &W%-6d   &GOrder MDeaths:  &W%-6d\n"
 msgstr ""
 
-#: src/player.c:2111
+#: src/player.c:2114
 #, c-format
 msgid "&GGuild:  &W%-20s  &GGuild Mkills:  &W%-6d   &GGuild MDeaths:  &W%-6d\n"
 msgstr ""
 
-#: src/player.c:2328
+#: src/player.c:2331
 #, c-format
 msgid "Affect_location_name: unknown location %d."
 msgstr ""
 
-#: src/player.c:2339 src/player.c:2350
+#: src/player.c:2342 src/player.c:2353
 msgid "Unknown"
 msgstr ""
 
-#: src/player.c:2361
+#: src/player.c:2364
 #, c-format
 msgid ""
 "You are %s%s.\n"
 "Level %d, %d years old (%d hours).\n"
 msgstr ""
 
-#: src/player.c:2370
+#: src/player.c:2373
 #, c-format
 msgid "You are mobinvis at level %d.\n"
 msgstr ""
 
-#: src/player.c:2374
+#: src/player.c:2377
 #, c-format
 msgid "You have %d/%d hit, %d/%d blood level, %d/%d moves, %d practices.\n"
 msgstr ""
 
-#: src/player.c:2380
+#: src/player.c:2383
 #, c-format
 msgid "You have %d/%d hit, %d/%d mana, %d/%d moves, %d practices.\n"
 msgstr ""
 
-#: src/player.c:2386
+#: src/player.c:2389
 #, c-format
 msgid "You are carrying %d/%d items with weight %d/%d kg.\n"
 msgstr ""
 
-#: src/player.c:2391
+#: src/player.c:2394
 #, c-format
 msgid "Str: %d  Int: %d  Wis: %d  Dex: %d  Con: %d  Cha: %d  Lck: %d.\n"
 msgstr ""
 
-#: src/player.c:2399
+#: src/player.c:2402
 #, c-format
 msgid "You have scored %s exp, and have "
 msgstr ""
 
-#: src/player.c:2400
+#: src/player.c:2403
 #, c-format
 msgid "%s gold coins.\n"
 msgstr ""
 
-#: src/player.c:2404
+#: src/player.c:2407
 #, c-format
 msgid "You have achieved %d glory during your life, and currently have %d.\n"
 msgstr ""
 
-#: src/player.c:2408
+#: src/player.c:2411
 #, c-format
 msgid "Autoexit: %s   Autoloot: %s   Autosac: %s   Autogold: %s\n"
 msgstr ""
 
-#: src/player.c:2504
+#: src/player.c:2507
 msgid "You are DEAD!!\n"
 msgstr ""
 
-#: src/player.c:2507
+#: src/player.c:2510
 msgid "You are mortally wounded.\n"
 msgstr ""
 
-#: src/player.c:2510
+#: src/player.c:2513
 msgid "You are incapacitated.\n"
 msgstr ""
 
-#: src/player.c:2513
+#: src/player.c:2516
 msgid "You are stunned.\n"
 msgstr ""
 
-#: src/player.c:2516
+#: src/player.c:2519
 #, fuzzy
 msgid "You are sleeping.\n"
 msgstr "No puedes %s.\n"
 
-#: src/player.c:2519
+#: src/player.c:2522
 #, fuzzy
 msgid "You are resting.\n"
 msgstr "No puedes %s.\n"
 
-#: src/player.c:2522
+#: src/player.c:2525
 msgid "You are standing.\n"
 msgstr ""
 
-#: src/player.c:2525
+#: src/player.c:2528
 msgid "You are fighting.\n"
 msgstr ""
 
-#: src/player.c:2528
+#: src/player.c:2531
 msgid "Mounted.\n"
 msgstr ""
 
-#: src/player.c:2531
+#: src/player.c:2534
 msgid "Being shoved.\n"
 msgstr ""
 
-#: src/player.c:2534
+#: src/player.c:2537
 msgid "Being dragged.\n"
 msgstr ""
 
-#: src/player.c:2541 src/player.c:2574
+#: src/player.c:2544 src/player.c:2577
 #, fuzzy
 msgid "You are "
 msgstr "Dices '$T'"
 
-#: src/player.c:2594
+#: src/player.c:2597
 #, c-format
 msgid "Stance:    %s \n"
 msgstr ""
 
-#: src/player.c:2599
+#: src/player.c:2602
 msgid "You are affected by:\n"
 msgstr ""
 
-#: src/player.c:2603
+#: src/player.c:2606
 #, c-format
 msgid "Spell: '%s'"
 msgstr ""
 
-#: src/player.c:2607
+#: src/player.c:2610
 #, c-format
 msgid " modifies %s by %d for %d rounds"
 msgstr ""
 
-#: src/player.c:2617
+#: src/player.c:2620
 #, c-format
 msgid ""
 "\n"
 "WizInvis level: %d   WizInvis is %s\n"
 msgstr ""
 
-#: src/player.c:2651
+#: src/player.c:2654
 #, c-format
 msgid ""
 "\n"
@@ -4199,121 +4663,121 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/player.c:2653
+#: src/player.c:2656
 #, c-format
 msgid "&W exp  (Current: %12s)"
 msgstr ""
 
-#: src/player.c:2654
+#: src/player.c:2657
 #, c-format
 msgid "&W exp  (Needed:  &G%12s&W)"
 msgstr ""
 
-#: src/player.c:2680
+#: src/player.c:2683
 msgid "You have no deity from which to seek such assistance...\n"
 msgstr ""
 
-#: src/player.c:2691
+#: src/player.c:2694
 #, c-format
 msgid "the corpse of %s"
 msgstr ""
 
-#: src/player.c:2726
+#: src/player.c:2729
 msgid "by"
 msgstr ""
 
-#: src/player.c:2820
+#: src/player.c:2823
 #, c-format
 msgid "&R%s %s carrying:\n"
 msgstr ""
 
-#: src/player.c:2822
+#: src/player.c:2825
 msgid "is"
 msgstr ""
 
-#: src/player.c:2822
+#: src/player.c:2825
 msgid "are"
 msgstr ""
 
-#: src/player.c:2843 src/player.c:2926
+#: src/player.c:2846 src/player.c:2929
 msgid "$n is using:"
 msgstr ""
 
-#: src/player.c:2848 src/player.c:2931 src/player.c:2974
+#: src/player.c:2851 src/player.c:2934 src/player.c:2977
 msgid "You are using:\n"
 msgstr ""
 
-#: src/player.c:2899 src/player.c:2951 src/player.c:3009
+#: src/player.c:2902 src/player.c:2954 src/player.c:3012
 msgid "something.\n"
 msgstr ""
 
-#: src/player.c:2959
+#: src/player.c:2962
 msgid "&g(type 'garb' for a list of all wear locations)\n"
 msgstr ""
 
-#: src/player.c:3024 src/player.c:3031 src/player.c:3036
+#: src/player.c:3027 src/player.c:3034 src/player.c:3039
 msgid "[nothing] \n"
 msgstr ""
 
-#: src/player.c:3049
+#: src/player.c:3052
 msgid "Set_title: NPC."
 msgstr ""
 
-#: src/player.c:3079
+#: src/player.c:3082
 msgid "The Gods prohibit you from changing your title.\n"
 msgstr ""
 
-#: src/player.c:3086
+#: src/player.c:3089
 msgid "Change your title to what?\n"
 msgstr ""
 
-#: src/player.c:3096
+#: src/player.c:3099
 msgid "Your new title has been set.\n"
 msgstr ""
 
-#: src/player.c:3109 src/player.c:3149
+#: src/player.c:3112 src/player.c:3152
 msgid "Sorry... you must be at least level 5 to do that.\n"
 msgstr ""
 
-#: src/player.c:3120
+#: src/player.c:3123
 #, c-format
 msgid "Your email is: %s\n"
 msgstr ""
 
-#: src/player.c:3129
+#: src/player.c:3132
 msgid "Email cleared.\n"
 msgstr ""
 
-#: src/player.c:3136
+#: src/player.c:3139
 msgid "Email set.\n"
 msgstr ""
 
-#: src/player.c:3160
+#: src/player.c:3163
 #, c-format
 msgid "Your icq is: %s\n"
 msgstr ""
 
-#: src/player.c:3169
+#: src/player.c:3172
 msgid "ICQ cleared.\n"
 msgstr ""
 
-#: src/player.c:3177
+#: src/player.c:3180
 msgid "ICQ set.\n"
 msgstr ""
 
-#: src/player.c:3668
+#: src/player.c:3671
 msgid "You don't feel like throwing your life away just yet....\n"
 msgstr ""
 
-#: src/player.c:3673
+#: src/player.c:3676
 msgid "$n is DEAD!!"
 msgstr ""
 
-#: src/player.c:3674
+#: src/player.c:3677
 msgid "You have been KILLED!!\n"
 msgstr ""
 
-#: src/player.c:3730
+#: src/player.c:3733
 #, c-format
 msgid "%s considers you to be %s.\n"
 msgstr ""

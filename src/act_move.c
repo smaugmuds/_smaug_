@@ -415,30 +415,30 @@ rev_exit (sh_int vdir)
   switch (vdir)
     {
     default:
-      return "somewhere";
+      return _("somewhere");
     case 0:
-      return "the south";
+      return _("the south");
     case 1:
-      return "the west";
+      return _("the west");
     case 2:
-      return "the north";
+      return _("the north");
     case 3:
-      return "the east";
+      return _("the east");
     case 4:
-      return "below";
+      return _("below");
     case 5:
-      return "above";
+      return _("above");
     case 6:
-      return "the southwest";
+      return _("the southwest");
     case 7:
-      return "the southeast";
+      return _("the southeast");
     case 8:
-      return "the northwest";
+      return _("the northwest");
     case 9:
-      return "the northeast";
+      return _("the northeast");
     }
 
-  return "<unknown>";
+  return _("<unknown>");
 }
 
 /*
@@ -544,7 +544,7 @@ will_fall (CHAR_DATA * ch, int fall)
     {
       if (fall > 80)
 	{
-	  bug ("Falling (in a loop?) more than 80 rooms: vnum %d",
+	  bug (_("Falling (in a loop?) more than 80 rooms: vnum %d"),
 	       ch->in_room->vnum);
 	  char_from_room (ch);
 	  char_to_room (ch, get_room_index (ROOM_VNUM_TEMPLE));
@@ -697,7 +697,7 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 #ifdef DEBUG
   if (pexit)
     {
-      sprintf (buf, "move_char: %s to door %d", ch->name, pexit->vdir);
+      sprintf (buf, _("move_char: %s to door %d"), ch->name, pexit->vdir);
       log_string (buf);
     }
 #endif
@@ -794,7 +794,7 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 
   if (IS_SET (pexit->exit_info, EX_PORTAL) && IS_NPC (ch))
     {
-      act (AT_PLAIN, "Mobs can't use portals.", ch, NULL, NULL, TO_CHAR);
+      act (AT_PLAIN, _("Mobs can't use portals."), ch, NULL, NULL, TO_CHAR);
       return rNONE;
     }
 
@@ -878,22 +878,22 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 	    {
 	    case 1:
 	      send_to_char
-		("A voice in your mind says, 'You are nearly ready to go that way...'\n\r",
+		(_("A voice in your mind says, 'You are nearly ready to go that way...'\n"),
 		 ch);
 	      break;
 	    case 2:
 	      send_to_char
-		("A voice in your mind says, 'Soon you shall be ready to travel down this path... soon.'\n\r",
+		(_("A voice in your mind says, 'Soon you shall be ready to travel down this path... soon.'\n"),
 		 ch);
 	      break;
 	    case 3:
 	      send_to_char
-		("A voice in your mind says, 'You are not ready to go down that path... yet.'.\n\r",
+		(_("A voice in your mind says, 'You are not ready to go down that path... yet.'.\n"),
 		 ch);
 	      break;
 	    default:
 	      send_to_char
-		("A voice in your mind says, 'You are not ready to go down that path.'.\n\r",
+		(_("A voice in your mind says, 'You are not ready to go down that path.'.\n"),
 		 ch);
 	    }
 	  return rNONE;
@@ -902,7 +902,7 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 	{
 	  set_char_color (AT_TELL, ch);
 	  send_to_char
-	    ("A voice in your mind says, 'There is nothing more for you down that path.'\n\r",
+	    (_("A voice in your mind says, 'There is nothing more for you down that path.'\n"),
 	     ch);
 	  return rNONE;
 	}
@@ -938,7 +938,7 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 	{
 	  set_char_color (AT_MAGIC, ch);
 	  send_to_char
-	    ("\n\rA godly force forbids deadly characters from entering that area...\n\r",
+	    (_("\nA godly force forbids deadly characters from entering that area...\n"),
 	     ch);
 	  return rNONE;
 	}
@@ -978,9 +978,9 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 	      else
 		{
 		  if (ch->mount)
-		    send_to_char ("Your mount would drown!\n\r", ch);
+		    send_to_char (_("Your mount would drown!\n"), ch);
 		  else
-		    send_to_char ("You'd need a boat to go there.\n\r", ch);
+		    send_to_char (_("You'd need a boat to go there.\n"), ch);
 		  return rNONE;
 		}
 	    }
@@ -1003,7 +1003,7 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 		  || ch->mental_state < -90)
 		{
 		  send_to_char
-		    ("You start to climb... but lose your grip and fall!\n\r",
+		    (_("You start to climb... but lose your grip and fall!\n"),
 		     ch);
 		  learn_from_failure (ch, gsn_climb);
 		  if (pexit->vdir == DIR_DOWN)
@@ -1012,7 +1012,7 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 		      return retcode;
 		    }
 		  set_char_color (AT_HURT, ch);
-		  send_to_char ("OUCH! You hit the ground!\n\r", ch);
+		  send_to_char (_("OUCH! You hit the ground!\n"), ch);
 		  WAIT_STATE (ch, 20);
 		  retcode = damage (ch, ch, (pexit->vdir == DIR_UP ? 10 : 5),
 				    TYPE_UNDEFINED);
@@ -1026,7 +1026,7 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 
 	  if (!found)
 	    {
-	      send_to_char ("You can't climb.\n\r", ch);
+	      send_to_char (_("You can't climb.\n"), ch);
 	      return rNONE;
 	    }
 	}
@@ -1042,28 +1042,28 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 
 	    case POS_MORTAL:
 	    case POS_INCAP:
-	      send_to_char ("Your mount is hurt far too badly to move.\n\r",
+	      send_to_char (_("Your mount is hurt far too badly to move.\n"),
 			    ch);
 	      return rNONE;
 	      break;
 
 	    case POS_STUNNED:
-	      send_to_char ("Your mount is too stunned to do that.\n\r", ch);
+	      send_to_char (_("Your mount is too stunned to do that.\n"), ch);
 	      return rNONE;
 	      break;
 
 	    case POS_SLEEPING:
-	      send_to_char ("Your mount is sleeping.\n\r", ch);
+	      send_to_char (_("Your mount is sleeping.\n"), ch);
 	      return rNONE;
 	      break;
 
 	    case POS_RESTING:
-	      send_to_char ("Your mount is resting.\n\r", ch);
+	      send_to_char (_("Your mount is resting.\n"), ch);
 	      return rNONE;
 	      break;
 
 	    case POS_SITTING:
-	      send_to_char ("Your mount is sitting down.\n\r", ch);
+	      send_to_char (_("Your mount is sitting down.\n"), ch);
 	      return rNONE;
 	      break;
 
@@ -1077,7 +1077,7 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 	    move = 1;
 	  if (ch->mount->move < move)
 	    {
-	      send_to_char ("Your mount is too exhausted.\n\r", ch);
+	      send_to_char (_("Your mount is too exhausted.\n"), ch);
 	      return rNONE;
 	    }
 	}
@@ -1118,10 +1118,10 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 	  {
 	    if (ch->mount && count == to_room->tunnel)
 	      send_to_char
-		("There is no room for both you and your mount there.\n\r",
+		(_("There is no room for both you and your mount there.\n"),
 		 ch);
 	    else
-	      send_to_char ("There is no room for you there.\n\r", ch);
+	      send_to_char (_("There is no room for you there.\n"), ch);
 	    return rNONE;
 	  }
     }
@@ -1132,17 +1132,17 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
       && (IS_NPC (ch) || !xIS_SET (ch->act, PLR_WIZINVIS)))
     {
       if (fall)
-	txt = "falls";
+	      txt = "falls";
       else if (!txt)
 	{
 	  if (ch->mount)
 	    {
 	      if (IS_AFFECTED (ch->mount, AFF_FLOATING))
-		txt = "floats";
+		      txt = "floats";
 	      else if (IS_AFFECTED (ch->mount, AFF_FLYING))
-		txt = "flies";
+		      txt = "flies";
 	      else
-		txt = "rides";
+		      txt = "rides";
 	    }
 	  else
 	    {
@@ -1161,9 +1161,9 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 		    txt = "flies";
 		}
 	      else if (ch->position == POS_SHOVE)
-		txt = "is shoved";
+		      txt = "is shoved";
 	      else if (ch->position == POS_DRAG)
-		txt = "is dragged";
+		      txt = "is dragged";
 	      else
 		{
 		  if (drunk)
@@ -1208,7 +1208,7 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
       && (IS_NPC (ch) || !xIS_SET (ch->act, PLR_WIZINVIS)))
     {
       if (fall)
-	txt = "falls";
+	      txt = "falls";
       else if (ch->mount)
 	{
 	  if (IS_AFFECTED (ch->mount, AFF_FLOATING))
@@ -1223,16 +1223,16 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 	  if (IS_AFFECTED (ch, AFF_FLOATING))
 	    {
 	      if (drunk)
-		txt = "floats in unsteadily";
+		      txt = "floats in unsteadily";
 	      else
-		txt = "floats in";
+		      txt = "floats in";
 	    }
 	  else if (IS_AFFECTED (ch, AFF_FLYING))
 	    {
 	      if (drunk)
-		txt = "flies in shakily";
+		      txt = "flies in shakily";
 	      else
-		txt = "flies in";
+		      txt = "flies in";
 	    }
 	  else if (ch->position == POS_SHOVE)
 	    txt = "is shoved in";
@@ -1265,13 +1265,13 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 	{
 	  set_char_color (AT_MAGIC, ch);
 	  send_to_char
-	    ("You feel uncomfortable being in this strange land...\n\r", ch);
+	    (_("You feel uncomfortable being in this strange land...\n"), ch);
 	}
       else if (ch->level > to_room->area->hi_soft_range)
 	{
 	  set_char_color (AT_MAGIC, ch);
 	  send_to_char
-	    ("You feel there is not much to gain visiting this place...\n\r",
+	    (_("You feel there is not much to gain visiting this place...\n"),
 	     ch);
 	}
     }
@@ -1293,11 +1293,11 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
    */
   if (xIS_SET (ch->in_room->room_flags, ROOM_DEATH) && !IS_IMMORTAL (ch))
     {
-      act (AT_DEAD, "$n falls prey to a terrible death!", ch, NULL, NULL,
+      act (AT_DEAD, _("$n falls prey to a terrible death!"), ch, NULL, NULL,
 	   TO_ROOM);
       set_char_color (AT_DEAD, ch);
-      send_to_char ("Oopsie... you're dead!\n\r", ch);
-      sprintf (buf, "%s hit a DEATH TRAP in room %d!",
+      send_to_char (_("Oopsie... you're dead!\n"), ch);
+      sprintf (buf, _("%s hit a DEATH TRAP in room %d!"),
 	       ch->name, ch->in_room->vnum);
       log_string (buf);
       to_channel (buf, CHANNEL_DEATH, "Death", LEVEL_IMMORTAL);
@@ -1565,7 +1565,7 @@ do_open (CHAR_DATA * ch, char *argument)
 
   if (arg[0] == '\0')
     {
-      send_to_char ("Open what?\n\r", ch);
+      send_to_char (_("Open what?\n"), ch);
       return;
     }
 
@@ -1684,7 +1684,7 @@ do_close (CHAR_DATA * ch, char *argument)
 
   if (arg[0] == '\0')
     {
-      send_to_char ("Close what?\n\r", ch);
+      send_to_char (_("Close what?\n"), ch);
       return;
     }
 
@@ -1915,7 +1915,7 @@ do_unlock (CHAR_DATA * ch, char *argument)
 
   if (arg[0] == '\0')
     {
-      send_to_char ("Unlock what?\n\r", ch);
+      send_to_char (_("Unlock what?\n"), ch);
       return;
     }
 
@@ -2039,7 +2039,7 @@ do_bashdoor (CHAR_DATA * ch, char *argument)
 
   if (arg[0] == '\0')
     {
-      send_to_char ("Bash what?\n\r", ch);
+      send_to_char (_("Bash what?\n"), ch);
       return;
     }
 
@@ -2113,10 +2113,10 @@ do_bashdoor (CHAR_DATA * ch, char *argument)
       else
 	{
 	  act (AT_SKILL,
-	       "WHAAAAM!!!  You bash against the $d, but it doesn't budge.",
+	       _("WHAAAAM!!!  You bash against the $d, but it doesn't budge."),
 	       ch, NULL, keyword, TO_CHAR);
 	  act (AT_SKILL,
-	       "WHAAAAM!!!  $n bashes against the $d, but it holds strong.",
+	       _("WHAAAAM!!!  $n bashes against the $d, but it holds strong."),
 	       ch, NULL, keyword, TO_ROOM);
 	  damage (ch, ch, (ch->max_hit / 20) + 10, gsn_bashdoor);
 	  learn_from_failure (ch, gsn_bashdoor);
@@ -2125,10 +2125,10 @@ do_bashdoor (CHAR_DATA * ch, char *argument)
   else
     {
       act (AT_SKILL,
-	   "WHAAAAM!!!  You bash against the wall, but it doesn't budge.", ch,
+	   _("WHAAAAM!!!  You bash against the wall, but it doesn't budge."), ch,
 	   NULL, NULL, TO_CHAR);
       act (AT_SKILL,
-	   "WHAAAAM!!!  $n bashes against the wall, but it holds strong.", ch,
+	   _("WHAAAAM!!!  $n bashes against the wall, but it holds strong."), ch,
 	   NULL, NULL, TO_ROOM);
       damage (ch, ch, (ch->max_hit / 20) + 10, gsn_bashdoor);
       learn_from_failure (ch, gsn_bashdoor);
@@ -2205,14 +2205,14 @@ do_sit (CHAR_DATA * ch, char *argument)
 	  return;
 	}
 
-      send_to_char ("You wake and sit up.\n\r", ch);
-      act (AT_ACTION, "$n wakes and sits up.", ch, NULL, NULL, TO_ROOM);
+      send_to_char (_("You wake and sit up.\n"), ch);
+      act (AT_ACTION, _("$n wakes and sits up."), ch, NULL, NULL, TO_ROOM);
       ch->position = POS_SITTING;
       break;
 
     case POS_RESTING:
-      send_to_char ("You stop resting and sit up.\n\r", ch);
-      act (AT_ACTION, "$n stops resting and sits up.", ch, NULL, NULL,
+      send_to_char (_("You stop resting and sit up.\n"), ch);
+      act (AT_ACTION, _("$n stops resting and sits up."), ch, NULL, NULL,
 	   TO_ROOM);
       ch->position = POS_SITTING;
       break;
@@ -2220,8 +2220,8 @@ do_sit (CHAR_DATA * ch, char *argument)
     case POS_STANDING:
       if (ch->stance > STANCE_NONE)
 	do_stance (ch, "");
-      send_to_char ("You sit down.\n\r", ch);
-      act (AT_ACTION, "$n sits down.", ch, NULL, NULL, TO_ROOM);
+      send_to_char (_("You sit down.\n"), ch);
+      act (AT_ACTION, _("$n sits down."), ch, NULL, NULL, TO_ROOM);
       ch->position = POS_SITTING;
       break;
     case POS_SITTING:
@@ -2256,8 +2256,8 @@ do_rest (CHAR_DATA * ch, char *argument)
 	  return;
 	}
 
-      send_to_char ("You rouse from your slumber.\n\r", ch);
-      act (AT_ACTION, "$n rouses from $s slumber.", ch, NULL, NULL, TO_ROOM);
+      send_to_char (_("You rouse from your slumber.\n"), ch);
+      act (AT_ACTION, _("$n rouses from $s slumber."), ch, NULL, NULL, TO_ROOM);
       ch->position = POS_RESTING;
       break;
 
@@ -2268,14 +2268,14 @@ do_rest (CHAR_DATA * ch, char *argument)
     case POS_STANDING:
       if (ch->stance > STANCE_NONE)
 	do_stance (ch, "");
-      send_to_char ("You sprawl out haphazardly.\n\r", ch);
-      act (AT_ACTION, "$n sprawls out haphazardly.", ch, NULL, NULL, TO_ROOM);
+      send_to_char (_("You sprawl out haphazardly.\n"), ch);
+      act (AT_ACTION, _("$n sprawls out haphazardly."), ch, NULL, NULL, TO_ROOM);
       ch->position = POS_RESTING;
       break;
 
     case POS_SITTING:
-      send_to_char ("You lie back and sprawl out to rest.\n\r", ch);
-      act (AT_ACTION, "$n lies back and sprawls out to rest.", ch, NULL, NULL,
+      send_to_char (_("You lie back and sprawl out to rest.\n"), ch);
+      act (AT_ACTION, _("$n lies back and sprawls out to rest."), ch, NULL, NULL,
 	   TO_ROOM);
       ch->position = POS_RESTING;
       break;
@@ -2311,10 +2311,10 @@ do_sleep (CHAR_DATA * ch, char *argument)
 	  && (number_percent () + 10) < ch->mental_state)
 	{
 	  send_to_char
-	    ("You just can't seem to calm yourself down enough to sleep.\n\r",
+	    (_("You just can't seem to calm yourself down enough to sleep.\n"),
 	     ch);
 	  act (AT_ACTION,
-	       "$n closes $s eyes for a few moments, but just can't seem to go to sleep.",
+	       _("$n closes $s eyes for a few moments, but just can't seem to go to sleep."),
 	       ch, NULL, NULL, TO_ROOM);
 	  return;
 	}

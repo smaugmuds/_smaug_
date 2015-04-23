@@ -259,7 +259,8 @@ do_score (CHAR_DATA * ch, char *argument)
       pager_printf (ch,
 		    _("STR  : %2.2d(%2.2d)                               Saved:  %s"),
 		    get_curr_str (ch), ch->perm_str,
-		    ch->save_time ? ctime (&(ch->save_time)) : _("no\n"));
+		    ch->save_time ? ctime (&(ch->save_time)) :
+		    _("no save this session\n"));
 
       pager_printf (ch,
 		    _("INT  : %2.2d(%2.2d)                               Time:   %s"),
@@ -1149,7 +1150,8 @@ do_score (CHAR_DATA * ch, char *argument)
       pager_printf_color (ch,
 			  _("&GSTR  : &w%2.2d&g(&W%2.2d&g)                               &gSaved:  &w%s"),
 			  get_curr_str (ch), ch->perm_str,
-			  ch->save_time ? ctime (&(ch->save_time)) : "no\n");
+			  ch->save_time ? ctime (&(ch->save_time)) :
+			  _("no save this session\n"));
 
       pager_printf_color (ch,
 			  _("&GINT  : &w%2.2d&g(&W%2.2d&g)                               &gTime:   &w%s"),
@@ -1704,7 +1706,8 @@ do_altscore (CHAR_DATA * ch, char *argument)
       pager_printf_color (ch,
 			  _("&GSTR  : &W%2.2d&g(&w%2.2d&g)&G                               Saved:  %s"),
 			  get_curr_str (ch), ch->perm_str,
-			  ch->save_time ? ctime (&(ch->save_time)) : "no\n");
+			  ch->save_time ? ctime (&(ch->save_time)) :
+			  _("no save this session\n"));
 
       pager_printf_color (ch,
 			  _("&GINT  : &W%2.2d&g(&w%2.2d&g)&G                               Time:   %s"),

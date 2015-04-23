@@ -6069,18 +6069,18 @@ do_whois (CHAR_DATA * ch, char *argument)
 
   set_pager_color (AT_GREY, ch);
   pager_printf (ch,
-		"\n\r'%s%s.'\n\r %s is a %s level %d %s %s, %d years of age.\n\r",
+		_("\n'%s%s.'\n %s is a %s level %d %s %s, %d years of age.\n"),
 		victim->name, victim->pcdata->title,
-		victim->sex == SEX_MALE ? "He" : victim->sex ==
-		SEX_FEMALE ? "She" : "It",
-		victim->sex == SEX_MALE ? "male" : victim->sex ==
-		SEX_FEMALE ? "female" : "neutral", victim->level,
+		victim->sex == SEX_MALE ? _("He") : victim->sex ==
+		SEX_FEMALE ? _("She") : _("It"),
+		victim->sex == SEX_MALE ? _("male") : victim->sex ==
+		SEX_FEMALE ? _("female") : _("neutral"), victim->level,
 		capitalize (race_table[victim->race]->race_name),
 		class_table[victim->class]->who_name, get_age (victim));
 
-  pager_printf_color (ch, " %s is a %sdeadly player",
-		      victim->sex == SEX_MALE ? "He" :
-		      victim->sex == SEX_FEMALE ? "She" : "It",
+  pager_printf_color (ch, _(" %s is a %sdeadly player"),
+		      victim->sex == SEX_MALE ? _("He") :
+		      victim->sex == SEX_FEMALE ? _("She") : _("It"),
 		      IS_SET (victim->pcdata->flags,
 			      PCFLAG_DEADLY) ? "" : "non-");
 
@@ -6090,39 +6090,39 @@ do_whois (CHAR_DATA * ch, char *argument)
 	{
 	default:
 	  if (!str_cmp (victim->name, pclan->deity))
-	    send_to_pager (", and is Deity of ", ch);
+	    send_to_pager (_(", and is Deity of "), ch);
 	  else if (!str_cmp (victim->name, pclan->leader))
-	    send_to_pager (", and is Leader of ", ch);
+	    send_to_pager (_(", and is Leader of "), ch);
 	  else if (!str_cmp (victim->name, pclan->number1))
-	    send_to_pager (", and is Number One of ", ch);
+	    send_to_pager (_(", and is Number One of "), ch);
 	  else if (!str_cmp (victim->name, pclan->number2))
-	    send_to_pager (", and is Number Two of ", ch);
+	    send_to_pager (_(", and is Number Two of "), ch);
 	  else
-	    send_to_pager (", and belongs to Clan ", ch);
+	    send_to_pager (_(", and belongs to Clan "), ch);
 	  break;
 	case CLAN_ORDER:
 	  if (!str_cmp (victim->name, pclan->deity))
-	    send_to_pager (", and is Deity of the Order of ", ch);
+	    send_to_pager (_(", and is Deity of the Order of "), ch);
 	  else if (!str_cmp (victim->name, pclan->leader))
-	    send_to_pager (", and is Leader of the Order of ", ch);
+	    send_to_pager (_(", and is Leader of the Order of "), ch);
 	  else if (!str_cmp (victim->name, pclan->number1))
-	    send_to_pager (", and is Number One of the Order of ", ch);
+	    send_to_pager (_(", and is Number One of the Order of "), ch);
 	  else if (!str_cmp (victim->name, pclan->number2))
-	    send_to_pager (", and is Number Two of the Order of ", ch);
+	    send_to_pager (_(", and is Number Two of the Order of "), ch);
 	  else
-	    send_to_pager (", and belongs to the Order of ", ch);
+	    send_to_pager (_(", and belongs to the Order of "), ch);
 	  break;
 	case CLAN_GUILD:
 	  if (!str_cmp (victim->name, pclan->leader))
-	    pager_printf (ch, ", and is the %s of the ",
+	    pager_printf (ch, _(", and is the %s of the "),
 			  victim->sex ==
-			  SEX_FEMALE ? "Guildmistress" : "Guildmaster");
+			  SEX_FEMALE ? _("Guildmistress") : _("Guildmaster"));
 	  else if (!str_cmp (victim->name, pclan->number1))
-	    send_to_pager (", and is First of the ", ch);
+	    send_to_pager (_(", and is First of the "), ch);
 	  else if (!str_cmp (victim->name, pclan->number2))
-	    send_to_pager (", and is Second of the ", ch);
+	    send_to_pager (_(", and is Second of the "), ch);
 	  else
-	    send_to_pager (", and belongs to the ", ch);
+	    send_to_pager (_(", and belongs to the "), ch);
 	  break;
 	}
       send_to_pager (pclan->name, ch);
@@ -6132,62 +6132,62 @@ do_whois (CHAR_DATA * ch, char *argument)
   if (victim->pcdata->council)
     {
       if (!str_cmp (victim->name, victim->pcdata->council->head))
-	pager_printf (ch, " %s is the %s of:  %s\n\r",
-		      victim->sex == SEX_MALE ? "He" :
-		      victim->sex == SEX_FEMALE ? "She" : "It",
+	pager_printf (ch, _(" %s is the %s of:  %s\n"),
+		      victim->sex == SEX_MALE ? _("He") :
+		      victim->sex == SEX_FEMALE ? _("She") : _("It"),
 		      victim->pcdata->council->head2 ==
-		      NULL ? "Head" : "Co-Head",
+		      NULL ? _("Head") : _("Co-Head"),
 		      victim->pcdata->council->name);
       else if (victim->pcdata->council->head2
 	       && !str_cmp (victim->name, victim->pcdata->council->head2))
-	pager_printf (ch, " %s is the Co-Head of:  %s\n\r",
-		      victim->sex == SEX_MALE ? "He" : victim->sex ==
-		      SEX_FEMALE ? "She" : "It",
+	pager_printf (ch, _(" %s is the Co-Head of:  %s\n"),
+		      victim->sex == SEX_MALE ? _("He") : victim->sex ==
+		      SEX_FEMALE ? _("She") : _("It"),
 		      victim->pcdata->council->name);
       else
-	pager_printf (ch, " %s holds a seat on:  %s\n\r",
-		      victim->sex == SEX_MALE ? "He" :
-		      victim->sex == SEX_FEMALE ? "She" : "It",
+	pager_printf (ch, _(" %s holds a seat on:  %s\n"),
+		      victim->sex == SEX_MALE ? _("He") :
+		      victim->sex == SEX_FEMALE ? _("She") : _("It"),
 		      victim->pcdata->council->name);
     }
 
 
-  pager_printf (ch, " %s has accumulated %d glory in %s lifetime.\n\r",
+  pager_printf (ch, _(" %s has accumulated %d glory in %s lifetime.\n"),
 		victim->name,
 		victim->pcdata->quest_accum,
-		victim->sex == SEX_MALE ? "his" :
-		victim->sex == SEX_FEMALE ? "her" : "its");
+		victim->sex == SEX_MALE ? _("his") :
+		victim->sex == SEX_FEMALE ? _("her") : _("its"));
 
   if (victim->level >= 50)
-    pager_printf (ch, " %s has %d honour and %s holds the rank of: %s\n\r",
+    pager_printf (ch, _(" %s has %d honour and %s holds the rank of: %s\n"),
 		  victim->name,
 		  victim->pcdata->honour,
-		  victim->sex == SEX_MALE ? "he" :
-		  victim->sex == SEX_FEMALE ? "she" : "it",
+		  victim->sex == SEX_MALE ? _("he") :
+		  victim->sex == SEX_FEMALE ? _("she") : _("it"),
 		  get_honour (victim));
 
   if (victim->pcdata->deity)
-    pager_printf (ch, " %s has found succor in the deity %s.\n\r",
-		  victim->sex == SEX_MALE ? "He" :
-		  victim->sex == SEX_FEMALE ? "She" : "It",
+    pager_printf (ch, _(" %s has found succor in the deity %s.\n"),
+		  victim->sex == SEX_MALE ? _("He") :
+		  victim->sex == SEX_FEMALE ? _("She") : _("It"),
 		  victim->pcdata->deity->name);
 
   if (victim->pcdata->homepage && victim->pcdata->homepage[0] != '\0')
-    pager_printf (ch, " %s homepage can be found at %s\n\r",
-		  victim->sex == SEX_MALE ? "His" :
-		  victim->sex == SEX_FEMALE ? "Her" : "Its",
+    pager_printf (ch, _(" %s homepage can be found at %s\n"),
+		  victim->sex == SEX_MALE ? _("His") :
+		  victim->sex == SEX_FEMALE ? _("Her") : _("Its"),
 		  show_tilde (victim->pcdata->homepage));
 
   if (victim->pcdata->email && victim->pcdata->email[0] != '\0')
-    pager_printf (ch, " %s email is: %s\n\r",
-		  victim->sex == SEX_MALE ? "His" :
-		  victim->sex == SEX_FEMALE ? "Her" : "Its",
+    pager_printf (ch, _(" %s email is: %s\n"),
+		  victim->sex == SEX_MALE ? _("His") :
+		  victim->sex == SEX_FEMALE ? _("Her") : _("Its"),
 		  show_tilde (victim->pcdata->email));
 
   if (victim->pcdata->icq && victim->pcdata->icq[0] != '\0')
     pager_printf (ch, " %s icq is %s\n\r",
-		  victim->sex == SEX_MALE ? "His" :
-		  victim->sex == SEX_FEMALE ? "Her" : "Its",
+		  victim->sex == SEX_MALE ? _("His") :
+		  victim->sex == SEX_FEMALE ? _("Her") : _("Its"),
 		  show_tilde (victim->pcdata->icq));
 
   if (victim->pcdata->bio && victim->pcdata->bio[0] != '\0')
@@ -6199,7 +6199,7 @@ do_whois (CHAR_DATA * ch, char *argument)
   if (IS_IMMORTAL (ch))
     {
       send_to_pager ("-------------------\n\r", ch);
-      send_to_pager ("Info for immortals:\n\r", ch);
+      send_to_pager (_("Info for immortals:\n"), ch);
 
       if (get_trust (ch) > LEVEL_GOD)
 	{
@@ -6239,8 +6239,8 @@ do_whois (CHAR_DATA * ch, char *argument)
       if (victim->pcdata->release_date != 0)
 	pager_printf (ch,
 		      "%s was helled by %s, and will be released on %24.24s.\n\r",
-		      victim->sex == SEX_MALE ? "He" : victim->sex ==
-		      SEX_FEMALE ? "She" : "It", victim->pcdata->helled_by,
+		      victim->sex == SEX_MALE ? _("He") : victim->sex ==
+		      SEX_FEMALE ? _("She") : _("It"), victim->pcdata->helled_by,
 		      ctime (&victim->pcdata->release_date));
 
       if (get_trust (victim) < get_trust (ch))
@@ -6296,7 +6296,7 @@ do_whois (CHAR_DATA * ch, char *argument)
       set_char_color (AT_GREEN, ch);
       if (victim->desc && victim->desc->host[0] != '\0')	/* added by Gorog */
 	{
-	  sprintf (buf2, "%s's IP info: %s ", victim->name,
+	  sprintf (buf2, _("%s's IP info: %s "), victim->name,
 		   victim->desc->host);
 	  if (get_trust (ch) >= LEVEL_GOD)
 	    strcat (buf2, victim->desc->user);
@@ -6305,7 +6305,7 @@ do_whois (CHAR_DATA * ch, char *argument)
 	}
       else if (victim->pcdata->recent_site)
 	{
-	  sprintf (buf2, "%s's most recent IP: %s \n\r ", victim->name,
+	  sprintf (buf2, _("%s's most recent IP: %s \n "), victim->name,
 		   victim->pcdata->recent_site);
 	  send_to_pager (buf2, ch);
 	}
@@ -6419,7 +6419,7 @@ do_ignore (CHAR_DATA * ch, char *argument)
 	}
 
       set_char_color (AT_IGNORE, ch);
-      ch_printf (ch, "You now ignore no one.\n\r");
+      ch_printf (ch, _("You now ignore no one.\n"));
 
       return;
     }
