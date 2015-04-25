@@ -1101,7 +1101,7 @@ load_helps (AREA_DATA * tarea, FILE * fp)
 	  continue;
 	}
 
-      if (!str_cmp (pHelp->keyword, "greeting"))
+      if (!str_cmp (pHelp->keyword, _("greeting")))
 	help_greeting = pHelp->text;
       add_help (pHelp);
     }
@@ -6337,7 +6337,7 @@ load_area_file (AREA_DATA * tarea, char *filename)
 	  sort_area (tarea, FALSE);
 	}
       fprintf (stderr,
-	       "%-14s: Rooms: %5d - %-5d Objs: %5d - %-5d Mobs: %5d - %d\n",
+	       _("%-14s: Rooms: %5d - %-5d Objs: %5d - %-5d Mobs: %5d - %d\n"),
 	       tarea->filename, tarea->low_r_vnum, tarea->hi_r_vnum,
 	       tarea->low_o_vnum, tarea->hi_o_vnum, tarea->low_m_vnum,
 	       tarea->hi_m_vnum);

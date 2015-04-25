@@ -33,7 +33,7 @@
 #    \\_____________________________________________________________________//
 
 SVdir = $(sysconfdir)/init.d
-SV_SCRIPTS = smaugd
+SV_SCRIPTS = smaugd smaugd-httpd
 
 CLEANFILES = $(SV_SCRIPTS) *~
 
@@ -61,5 +61,9 @@ do_subst = sed -e 's,[@]sharedstatedir[@],$(sharedstatedir),g' \
 smaugd: smaugd.in Makefile
 	$(do_subst) < $(srcdir)/smaugd.in > smaugd; \
 	chmod +x smaugd;
+
+smaugd-httpd: smaugd-httpd.in Makefile
+	$(do_subst) < $(srcdir)/smaugd-httpd.in > smaugd-httpd; \
+	chmod +x smaugd-httpd;
 
 all-local: smaugd

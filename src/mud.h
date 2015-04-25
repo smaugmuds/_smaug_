@@ -4916,26 +4916,26 @@ char *sha256_crypt args ((const char *key, const char *salt));
 #define NULL_FILE	"/dev/null"	/* To reserve one stream        */
 #endif
 
-#define AREA_DIR				RUNDIR		"area/"			     	/* Area files     	    				*/
-#define PLAYER_DIR			RUNDIR		"player/"					/* Player files     	  				*/
-#define BACKUP_DIR			RUNDIR		"player/backup/"	/* Backup Player files  				*/
-#define GOD_DIR					RUNDIR		"gods/"						/* God Info Dir         				*/
-#define BOARD_DIR				RUNDIR		"boards/"					/* Board data dir               */
-#define CLAN_DIR				RUNDIR		"clans/"					/* Clan data dir                */
-#define COUNCIL_DIR 		RUNDIR		"councils/"				/* Council data dir             */
-#define DEITY_DIR				RUNDIR		"deity/"					/* Deity data dir               */
-#define BUILD_DIR  			RUNDIR		"building/"				/* Online building save dir     */
-#define SYSTEM_DIR			RUNDIR		"system/"					/* Main system files            */
-#define PROG_DIR				RUNDIR		"mudprogs/"				/* MUDProg files                */
-#define CORPSE_DIR			RUNDIR		"corpses/"				/* Corpses                      */
-#define	CLASS_DIR				RUNDIR		"classes/"				/* Classes                      */
-#define	RACE_DIR				RUNDIR		"races/"					/* Races                        */
-#define WATCH_DIR				RUNDIR		"watch/"					/* Imm watch files --Gorog      */
-#define VAULT_DIR				RUNDIR		"vault/"					/* storage vaults								*/
-#define HOUSE_DIR       RUNDIR 		"houses/"					/* Location of housing directory */
+#define AREA_DIR		RUNDIR		"area/"		     	/* Area files    	*/
+#define PLAYER_DIR		RUNDIR		"player/"		/* Player files     	*/
+#define BACKUP_DIR		RUNDIR		"player/backup/"	/* Backup Player files 	*/
+#define GOD_DIR			RUNDIR		"gods/"			/* God Info Dir        	*/
+#define BOARD_DIR		RUNDIR		"boards/"		/* Board data dir       */
+#define CLAN_DIR		RUNDIR		"clans/"		/* Clan data dir        */
+#define COUNCIL_DIR 		RUNDIR		"councils/"	/* Council data dir             */
+#define DEITY_DIR		RUNDIR		"deity/"	/* Deity data dir               */
+#define BUILD_DIR  		RUNDIR		"building/"	/* Online building save dir     */
+#define SYSTEM_DIR		RUNDIR		"system/"	/* Main system files            */
+#define PROG_DIR		RUNDIR		"mudprogs/"	/* MUDProg files                */
+#define CORPSE_DIR		RUNDIR		"corpses/"	/* Corpses                      */
+#define	CLASS_DIR		RUNDIR		"classes/"	/* Classes                      */
+#define	RACE_DIR		RUNDIR		"races/"	/* Races                        */
+#define WATCH_DIR		RUNDIR		"watch/"	/* Imm watch files --Gorog      */
+#define VAULT_DIR		RUNDIR		"vault/"	/* storage vaults								*/
+#define HOUSE_DIR      		RUNDIR		"houses/"		/* Location of housing directory */
 
 #ifdef NEWCOLORS
-#define COLOR_DIR				RUNDIR 		"color/"	/* New color files */
+#define COLOR_DIR		RUNDIR 		"color/"	/* New color files */
 #endif
 
 /*
@@ -4944,88 +4944,87 @@ char *sha256_crypt args ((const char *key, const char *salt));
  * in this directory is the name of the immortal who requested the watch
  */
 
-#define AREA_LIST				AREA_DIR 		"area.lst"	/* List of areas                */
-#define WATCH_LIST  			   				"watch.lst"	/* List of watches              */
-#define BAN_LIST        						"ban.lst"	/* List of bans                 */
-#define RESERVED_LIST								"reserved.lst"	/* List of reserved names       */
-#define NOAUCTION_LIST							"noauction.lst"	/* list of vnums not to allow auction to */
-#define CLAN_LIST										"clan.lst"	/* List of clans                */
-#define COUNCIL_LIST								"council.lst"	/* List of councils             */
-#define GUILD_LIST      						"guild.lst"	/* List of guilds               */
-#define GOD_LIST										"gods.lst"	/* List of gods                 */
-#define DEITY_LIST			DEITY_DIR 	"deity.lst"	/* List of deities              */
-#define	CLASS_LIST									"class.lst"	/* List of classes              */
-#define	RACE_LIST										"race.lst"	/* List of races                */
-#define VAULT_LIST      						"vault.lst"	/* list of storage vaults */
+#define AREA_LIST		AREA_DIR 	"area.lst"	/* List of areas                */
+#define WATCH_LIST  			   	"watch.lst"	/* List of watches              */
+#define BAN_LIST        			"ban.lst"	/* List of bans                 */
+#define RESERVED_LIST				"reserved.lst"	/* List of reserved names       */
+#define NOAUCTION_LIST				"noauction.lst"	/* list of vnums not to allow auction to */
+#define CLAN_LIST				"clan.lst"	/* List of clans                */
+#define COUNCIL_LIST				"council.lst"	/* List of councils             */
+#define GUILD_LIST      			"guild.lst"	/* List of guilds               */
+#define GOD_LIST				"gods.lst"	/* List of gods                 */
+#define DEITY_LIST		DEITY_DIR 	"deity.lst"	/* List of deities              */
+#define	CLASS_LIST				"class.lst"	/* List of classes              */
+#define	RACE_LIST				"race.lst"	/* List of races                */
+#define VAULT_LIST      			"vault.lst"	/* list of storage vaults */
 
-#define SHUTDOWN_FILE		LOGDIR 			"shutdown.log"	/* For 'shutdown'        */
-#define BOOTLOG_FILE		LOGDIR 			"boot.log"	/* Boot up error file    */
-#define BUG_FILE				LOGDIR 			"bugs.log"	/* For bug( )          */
-#define PBUG_FILE				LOGDIR 			"pbugs.log"	/* For 'bug' command   */
-#define LOG_FILE				LOGDIR 			"talk.log"	/* For talking in logged rooms */
-#define NOHELP_FILE			LOGDIR 			"nohelp.log"	/* For tracking help files that don't exist */
-#define MOBLOG_FILE			LOGDIR 			"mob.log"	/* For mplog messages  */
-#define CUTLINK_FILE		LOGDIR 			"cutlink.log"	/* Info on cut/dropped links while in combat */
-#define CHARCOUNT_FILE	LOGDIR 			"ccount.tmp"	/* Counting, temp */
-#define USAGE_FILE			LOGDIR 			"usage.log"	/* How many people are online every half hour */
+#define SHUTDOWN_FILE		LOGDIR 		"shutdown.log"	/* For 'shutdown'        */
+#define BOOTLOG_FILE		LOGDIR 		"boot.log"	/* Boot up error file    */
+#define BUG_FILE		LOGDIR 		"bugs.log"	/* For bug( )          */
+#define PBUG_FILE		LOGDIR 		"pbugs.log"	/* For 'bug' command   */
+#define LOG_FILE		LOGDIR		"talk.log"	/* For talking in logged rooms */
+#define NOHELP_FILE		LOGDIR 		"nohelp.log"	/* For tracking help files that don't exist */
+#define MOBLOG_FILE		LOGDIR		"mob.log"	/* For mplog messages  */
+#define CUTLINK_FILE		LOGDIR 		"cutlink.log"	/* Info on cut/dropped links while in combat */
+#define CHARCOUNT_FILE		LOGDIR 		"ccount.tmp"	/* Counting, temp */
+#define USAGE_FILE		LOGDIR 		"usage.log"	/* How many people are online every half hour */
 																										/* Trying to determine best reboot time */
 
-#define TEMP_FILE				PLAYER_DIR 	"charsave.tmp"	/* More char save protect */
+#define TEMP_FILE		PLAYER_DIR 	"charsave.tmp"	/* More char save protect */
 
-#define IMM_HOST_FILE 	SYSTEM_DIR 	"immortal.host"	/* For stoping hackers */
+#define IMM_HOST_FILE 		SYSTEM_DIR 	"immortal.host"	/* For stoping hackers */
 
-#define LOGIN_MSG										"login.msg"	/* List of login msgs           */
+#define LOGIN_MSG				"login.msg"	/* List of login msgs           */
 
-#define RIPSCREEN_FILE	SYSTEM_DIR 	"mudrip.rip"
+#define RIPSCREEN_FILE		SYSTEM_DIR 	"mudrip.rip"
 #define RIPTITLE_FILE		SYSTEM_DIR 	"mudtitle.rip"
-#define ANSITITLE_FILE	SYSTEM_DIR 	"mudtitle.ans"
+#define ANSITITLE_FILE		SYSTEM_DIR 	"mudtitle.ans"
 #define ASCTITLE_FILE		SYSTEM_DIR 	"mudtitle.asc"
 
-#define HINT_FILE       SYSTEM_DIR 	"hints.dat"	/* For Hints */
-#define IDEA_FILE				SYSTEM_DIR 	"ideas.dat"	/* For 'idea'            */
-#define TYPO_FILE				SYSTEM_DIR 	"typos.dat"	/* For 'typo'            */
-#define FIXED_FILE			SYSTEM_DIR 	"fixed.dat"	/* For 'fixed' command */
+#define HINT_FILE       	SYSTEM_DIR 	"hints.dat"	/* For Hints */
+#define IDEA_FILE		SYSTEM_DIR 	"ideas.dat"	/* For 'idea'            */
+#define TYPO_FILE		SYSTEM_DIR 	"typos.dat"	/* For 'typo'            */
+#define FIXED_FILE		SYSTEM_DIR 	"fixed.dat"	/* For 'fixed' command */
 #define HINTSUB_FILE		SYSTEM_DIR 	"hintsub.dat"	/* For hint suggestions */
-#define CHANGE_FILE			SYSTEM_DIR 	"changes.dat"	/* For add_change      */
+#define CHANGE_FILE		SYSTEM_DIR 	"changes.dat"	/* For add_change      */
 #define IMMNEWS_FILE		SYSTEM_DIR 	"immnews.dat"	/* For add_imm_news    */
 
-#define NEWS_FILE 									"news.dat"
-#define NEWS_INCLUDE_FILE 					"news.inc"
+#define NEWS_FILE 				"news.dat"
+#define NEWS_INCLUDE_FILE 			"news.inc"
 
-#define MORPH_FILE     							"morph.dat"	/* For morph data */
-#define BOARD_FILE									"boards.dat"	/* For bulletin boards   */
+#define MORPH_FILE     				"morph.dat"	/* For morph data */
+#define BOARD_FILE				"boards.dat"	/* For bulletin boards   */
 
-#define RETIREDLIST_FILE SYSTEM_DIR "retiredlist.dat"	/* Retiredlist     */
+#define RETIREDLIST_FILE 	SYSTEM_DIR "retiredlist.dat"	/* Retiredlist     */
 #define WIZLIST_FILE		SYSTEM_DIR 	"wizlist.dat"	/* Wizlist               */
-#define WHO_FILE				SYSTEM_DIR 	"who.dat"	/* Who output file       */
-#define WEBWHO_FILE			SYSTEM_DIR 	"webwho.dat"	/* WWW Who output file */
+#define WHO_FILE		SYSTEM_DIR 	"who.dat"	/* Who output file       */
+#define WEBWHO_FILE		SYSTEM_DIR 	"webwho.dat"	/* WWW Who output file */
 #define REQUEST_PIPE		SYSTEM_DIR 	"requests.dat"	/* Request FIFO        */
 
-#define PLEVEL_FILE			SYSTEM_DIR 	"plevel.dat"	/* Char level info */
-#define SKILL_FILE			SYSTEM_DIR 	"skills.dat"	/* Skill table   */
-#define HERB_FILE				SYSTEM_DIR 	"herbs.dat"	/* Herb table            */
-#define TONGUE_FILE			SYSTEM_DIR	"tongues.dat"	/* Tongue tables         */
-#define SOCIAL_FILE			SYSTEM_DIR 	"socials.dat"	/* Socials               */
-#define COMMAND_FILE		SYSTEM_DIR 	"commands.dat"	/* Commands              */
+#define PLEVEL_FILE		SYSTEM_DIR 	"plevel.dat"	/* Char level info */
+#define SKILL_FILE			 	"skills.dat"	/* Skill table   */
+#define HERB_FILE		SYSTEM_DIR 	"herbs.dat"	/* Herb table            */
+#define TONGUE_FILE		SYSTEM_DIR	"tongues.dat"	/* Tongue tables         */
+#define SOCIAL_FILE			 	"socials.dat"	/* Socials               */
+#define COMMAND_FILE			 	"commands.dat"	/* Commands              */
 #define OINVOKE_FILE		SYSTEM_DIR 	"oinvoke.dat"	/* Obvious */
 #define ECONOMY_FILE		SYSTEM_DIR 	"economy.dat"	/* Gold looted, value of used potions/pills  */
 #define PROJECTS_FILE		SYSTEM_DIR 	"projects.dat"	/* For projects  */
-#define PLANE_FILE			SYSTEM_DIR 	"planes.dat"	/* For planes          */
-#define COLOR_FILE			SYSTEM_DIR 	"colors.dat"	/* User-definable color */
+#define PLANE_FILE		SYSTEM_DIR 	"planes.dat"	/* For planes          */
+#define COLOR_FILE		SYSTEM_DIR 	"colors.dat"	/* User-definable color */
 #define MEMBERS_FILE		SYSTEM_DIR 	"members.dat"	/* Store the members lists */
-#define STANCE_FILE     SYSTEM_DIR 	"stances.dat"
+#define STANCE_FILE     	SYSTEM_DIR 	"stances.dat"
 
-
-#define HOUSE_LIST      	     			"house.lst"	/* Location of housing list for loadup of houses */
-#define HOMEBUY_FILE    HOUSE_DIR 	"homebuy.dat"	/* Location of automated housing auction file */
-#define ACCESSORIES_FILE  HOUSE_DIR "homeaccessories.dat"	/* Location of house accessories file */
+#define HOUSE_LIST           			"house.lst"	/* Location of housing list for loadup of houses */
+#define HOMEBUY_FILE    	HOUSE_DIR 	"homebuy.dat"	/* Location of automated housing auction file */
+#define ACCESSORIES_FILE  	HOUSE_DIR 	"homeaccessories.dat"	/* Location of house accessories file */
 
 #ifdef ENABLE_HOTBOOT
-#define EXE_FILE 				BINDIR 		"/" PACKAGE   /* Location for server executable binary file */
+#define EXE_FILE 		BINDIR 		"/" PACKAGE   /* Location for server executable binary file */
 
 #define HOTBOOT_FILE 		SYSTEM_DIR 	"copyover.dat"  /* for hotboots */
-#define HOTBOOT_DIR  		RUNDIR 			"hotboot/"   /* For storing objects across hotboots */
-#define MOB_FILE		 								"mobs.dat"  /* For storing mobs across hotboots */
+#define HOTBOOT_DIR  		RUNDIR 		"hotboot/"   /* For storing objects across hotboots */
+#define MOB_FILE		 		"mobs.dat"  /* For storing mobs across hotboots */
 #endif
 
 /*

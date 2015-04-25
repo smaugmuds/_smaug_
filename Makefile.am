@@ -83,8 +83,8 @@ man_MANS = man/smaug.1 man/smaugd.1
 
 CLEANDEVELFILES = compile configure depcomp src/smaug.h src/*.la ar-lib \
 	autom4te.cache config.guess config.sub install-sh missing src/.libs \
-	config.status ltmain.sh depcomp README COPYING NEWS po/*.gmo \
-	src/smaug src/smaug-dns Doxyfile po/POTFILES po/stamp-po m4 *.m4 \
+	config.status ltmain.sh depcomp README COPYING NEWS po/*.gmo m4 *.m4 \
+	src/smaug src/smaug-dns src/smaug-httpd Doxyfile po/POTFILES po/stamp-po \
 	AUTHORS ChangeLog INSTALL config.lt libtool src/.deps src/*.o src/*.lo \
 	`find $(srcdir) -iname "Makefile.in"` \
 	`find $(srcdir) -iname "*~"`

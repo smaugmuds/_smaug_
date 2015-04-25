@@ -969,7 +969,7 @@ stop_editing (CHAR_DATA * ch)
   set_char_color (AT_PLAIN, ch);
   DISPOSE (ch->editor);
   ch->editor = NULL;
-  send_to_char ("Done.\n\r", ch);
+  send_to_char (_("Done.\n"), ch);
   ch->dest_buf = NULL;
   ch->spare_ptr = NULL;
   ch->substate = SUB_NONE;
@@ -2253,7 +2253,7 @@ do_mset (CHAR_DATA * ch, char *argument)
       STRFREE (victim->pcdata->deity_name);
       victim->pcdata->deity_name = QUICKLINK (deity->name);
       victim->pcdata->deity = deity;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -2787,7 +2787,7 @@ do_mset (CHAR_DATA * ch, char *argument)
       victim->position = value;
       if (IS_NPC (victim) && xIS_SET (victim->act, ACT_PROTOTYPE))
 	victim->pIndexData->position = victim->position;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -2808,7 +2808,7 @@ do_mset (CHAR_DATA * ch, char *argument)
       victim->defposition = value;
       if (IS_NPC (victim) && xIS_SET (victim->act, ACT_PROTOTYPE))
 	victim->pIndexData->defposition = victim->defposition;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -2876,7 +2876,7 @@ do_mset (CHAR_DATA * ch, char *argument)
 	}
       if (IS_NPC (victim) && xIS_SET (victim->act, ACT_PROTOTYPE))
 	victim->pIndexData->hitnodice = value;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -2896,7 +2896,7 @@ do_mset (CHAR_DATA * ch, char *argument)
 	}
       if (IS_NPC (victim) && xIS_SET (victim->act, ACT_PROTOTYPE))
 	victim->pIndexData->hitsizedice = value;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -2916,7 +2916,7 @@ do_mset (CHAR_DATA * ch, char *argument)
 	}
       if (IS_NPC (victim) && xIS_SET (victim->act, ACT_PROTOTYPE))
 	victim->pIndexData->hitplus = value;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -2936,7 +2936,7 @@ do_mset (CHAR_DATA * ch, char *argument)
 	}
       if (IS_NPC (victim) && xIS_SET (victim->act, ACT_PROTOTYPE))
 	victim->pIndexData->damnodice = value;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
   if (!str_cmp (arg2, "stance"))
@@ -2956,7 +2956,7 @@ do_mset (CHAR_DATA * ch, char *argument)
 	  return;
 	}
       victim->pIndexData->stances[0] = value;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -2976,7 +2976,7 @@ do_mset (CHAR_DATA * ch, char *argument)
 	}
       if (IS_NPC (victim) && xIS_SET (victim->act, ACT_PROTOTYPE))
 	victim->pIndexData->damsizedice = value;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -2997,7 +2997,7 @@ do_mset (CHAR_DATA * ch, char *argument)
 
       if (IS_NPC (victim) && xIS_SET (victim->act, ACT_PROTOTYPE))
 	victim->pIndexData->damplus = value;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
 
     }
@@ -3147,7 +3147,7 @@ do_mset (CHAR_DATA * ch, char *argument)
 	}
       else if (xIS_SET (victim->act, ACT_PROTOTYPE))
 	victim->pIndexData->speaks = victim->speaks;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -3186,7 +3186,7 @@ do_mset (CHAR_DATA * ch, char *argument)
 	}
       if (IS_NPC (victim) && xIS_SET (victim->act, ACT_PROTOTYPE))
 	victim->pIndexData->speaking = victim->speaking;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
   {				/*  Stance names must be at the end but before t
@@ -3205,7 +3205,7 @@ do_mset (CHAR_DATA * ch, char *argument)
 		return;
 	      }
 	    victim->pIndexData->stances[temp_num] = value;
-	    send_to_char ("Done.\n\r", ch);
+	    send_to_char (_("Done.\n"), ch);
 	    return;
 	  }
 	else
@@ -3224,7 +3224,7 @@ do_mset (CHAR_DATA * ch, char *argument)
 		return;
 	      }
 	    ch->pcdata->stances[temp_num] = value;
-	    send_to_char ("Done.\n\r", ch);
+	    send_to_char (_("Done.\n"), ch);
 	    return;
 	  }
       }				/* End of If statement */
@@ -3846,7 +3846,7 @@ do_oset (CHAR_DATA * ch, char *argument)
       else
 	LINK (paf, obj->first_affect, obj->last_affect, next, prev);
       ++top_affect;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -4893,7 +4893,7 @@ do_rloop (CHAR_DATA * ch, char *argument)
 
   char_from_room (ch);
   char_to_room (ch, original);
-  send_to_char ("Done.\n\r", ch);
+  send_to_char (_("Done.\n"), ch);
   return;
 }
 
@@ -5085,7 +5085,7 @@ do_redit (CHAR_DATA * ch, char *argument)
 	  return;
 	}
       location->tunnel = URANGE (0, atoi (argument), 1000);
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -5154,7 +5154,7 @@ do_redit (CHAR_DATA * ch, char *argument)
       paf->next = NULL;
       LINK (paf, location->first_affect, location->last_affect, next, prev);
       ++top_affect;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -5288,7 +5288,7 @@ do_redit (CHAR_DATA * ch, char *argument)
 	  return;
 	}
       location->tele_delay = atoi (argument);
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -5301,7 +5301,7 @@ do_redit (CHAR_DATA * ch, char *argument)
 	  return;
 	}
       location->tele_vnum = atoi (argument);
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -5320,7 +5320,7 @@ do_redit (CHAR_DATA * ch, char *argument)
 	  send_to_char ("Out of range.\n\r", ch);
 	}
       else
-	send_to_char ("Done.\n\r", ch);
+	send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -5352,7 +5352,7 @@ do_redit (CHAR_DATA * ch, char *argument)
 	  return;
 	}
       xit->key = value;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -5384,7 +5384,7 @@ do_redit (CHAR_DATA * ch, char *argument)
 	}
       STRFREE (xit->keyword);
       xit->keyword = STRALLOC (argument);
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -5785,7 +5785,7 @@ do_redit (CHAR_DATA * ch, char *argument)
 	      xit->keyword = STRALLOC (argument);
 	    }
 	}
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -5904,7 +5904,7 @@ do_redit (CHAR_DATA * ch, char *argument)
 	  else
 	    {
 	      xit->pulltype = pt;
-	      send_to_char ("Done.\n\r", ch);
+	      send_to_char (_("Done.\n"), ch);
 	      return;
 	    }
 	}
@@ -5937,7 +5937,7 @@ do_redit (CHAR_DATA * ch, char *argument)
       if (xit)
 	{
 	  xit->pull = URANGE (-100, atoi (argument), 100);
-	  send_to_char ("Done.\n\r", ch);
+	  send_to_char (_("Done.\n"), ch);
 	  return;
 	}
       send_to_char
@@ -5969,7 +5969,7 @@ do_redit (CHAR_DATA * ch, char *argument)
       if (xit)
 	{
 	  xit->pull = URANGE (-100, -(atoi (argument)), 100);
-	  send_to_char ("Done.\n\r", ch);
+	  send_to_char (_("Done.\n"), ch);
 	  return;
 	}
       send_to_char
@@ -6001,7 +6001,7 @@ do_redit (CHAR_DATA * ch, char *argument)
       if (xit)
 	{
 	  xit->distance = URANGE (1, atoi (argument), 50);
-	  send_to_char ("Done.\n\r", ch);
+	  send_to_char (_("Done.\n"), ch);
 	  return;
 	}
       send_to_char
@@ -6038,7 +6038,7 @@ do_redit (CHAR_DATA * ch, char *argument)
 	      sprintf (buf, "%s\n\r", argument);
 	      xit->description = STRALLOC (buf);
 	    }
-	  send_to_char ("Done.\n\r", ch);
+	  send_to_char (_("Done.\n"), ch);
 	  return;
 	}
       send_to_char
@@ -7425,7 +7425,7 @@ do_savearea (CHAR_DATA * ch, char *argument)
   send_to_char ("Saving area...\n\r", ch);
   fold_area (tarea, filename, FALSE);
   set_char_color (AT_IMMORT, ch);
-  send_to_char ("Done.\n\r", ch);
+  send_to_char (_("Done.\n"), ch);
 }
 
 void
@@ -7495,7 +7495,7 @@ do_loadarea (CHAR_DATA * ch, char *argument)
       reset_area (tarea);
       tarea->nplayer = tmp;
     }
-  send_to_char ("Done.\n\r", ch);
+  send_to_char (_("Done.\n"), ch);
 }
 
 /*
@@ -7549,7 +7549,7 @@ do_foldarea (CHAR_DATA * ch, char *argument)
 	  send_to_char ("Folding area...\n\r", ch);
 	  fold_area (tarea, tarea->filename, FALSE);
 	  set_char_color (AT_IMMORT, ch);
-	  send_to_char ("Done.\n\r", ch);
+	  send_to_char (_("Done.\n"), ch);
 	  return;
 	}
     }
@@ -7649,7 +7649,7 @@ do_installarea (CHAR_DATA * ch, char *argument)
 	  sprintf (buf, "%s%s.installed", BUILD_DIR, tarea->filename);
 	  sprintf (arg, "%s%s", BUILD_DIR, tarea->filename);
 	  rename (arg, buf);
-	  send_to_char ("Done.\n\r", ch);
+	  send_to_char (_("Done.\n"), ch);
 	  return;
 	}
     }
@@ -8069,7 +8069,7 @@ do_aset (CHAR_DATA * ch, char *argument)
     {
       DISPOSE (tarea->name);
       tarea->name = str_dup (argument);
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -8078,7 +8078,7 @@ do_aset (CHAR_DATA * ch, char *argument)
       if (tarea->credits);
       STRFREE (tarea->credits);
       tarea->credits = str_dup (argument);
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -8088,63 +8088,63 @@ do_aset (CHAR_DATA * ch, char *argument)
       DISPOSE (tarea->filename);
       tarea->filename = str_dup (argument);
       write_area_list ();
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
   if (!str_cmp (arg2, "low_economy"))
     {
       tarea->low_economy = vnum;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
   if (!str_cmp (arg2, "high_economy"))
     {
       tarea->high_economy = vnum;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
   if (!str_cmp (arg2, "low_room"))
     {
       tarea->low_r_vnum = vnum;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
   if (!str_cmp (arg2, "hi_room"))
     {
       tarea->hi_r_vnum = vnum;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
   if (!str_cmp (arg2, "low_obj"))
     {
       tarea->low_o_vnum = vnum;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
   if (!str_cmp (arg2, "hi_obj"))
     {
       tarea->hi_o_vnum = vnum;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
   if (!str_cmp (arg2, "low_mob"))
     {
       tarea->low_m_vnum = vnum;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
   if (!str_cmp (arg2, "hi_mob"))
     {
       tarea->hi_m_vnum = vnum;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -8157,7 +8157,7 @@ do_aset (CHAR_DATA * ch, char *argument)
 	}
 
       tarea->low_soft_range = vnum;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -8170,7 +8170,7 @@ do_aset (CHAR_DATA * ch, char *argument)
 	}
 
       tarea->hi_soft_range = vnum;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -8183,7 +8183,7 @@ do_aset (CHAR_DATA * ch, char *argument)
 	}
 
       tarea->low_hard_range = vnum;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -8196,7 +8196,7 @@ do_aset (CHAR_DATA * ch, char *argument)
 	}
 
       tarea->hi_hard_range = vnum;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -8204,7 +8204,7 @@ do_aset (CHAR_DATA * ch, char *argument)
     {
       STRFREE (tarea->author);
       tarea->author = STRALLOC (argument);
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 
@@ -8214,14 +8214,14 @@ do_aset (CHAR_DATA * ch, char *argument)
 	DISPOSE (tarea->resetmsg);
       if (str_cmp (argument, "clear"))
 	tarea->resetmsg = str_dup (argument);
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }				/* Rennard */
 
   if (!str_cmp (arg2, "resetfreq"))
     {
       tarea->reset_frequency = vnum;
-      send_to_char ("Done.\n\r", ch);
+      send_to_char (_("Done.\n"), ch);
       return;
     }
 

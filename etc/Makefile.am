@@ -35,7 +35,7 @@
 SUBDIRS = init.d
 
 etcdir = $(sysconfdir)/$(PACKAGE)
-etc_DATA = smaugd.conf
+etc_DATA = smaugd.conf httpd.conf
 
 CLEANFILES = $(etc_DATA) *~
 
@@ -63,4 +63,7 @@ do_subst = sed -e 's,[@]sharedstatedir[@],$(sharedstatedir),g' \
 smaugd.conf: smaugd.conf.in Makefile
 	$(do_subst) < $(srcdir)/smaugd.conf.in > smaugd.conf
 
-all-local: smaugd.conf
+httpd.conf: httpd.conf.in Makefile
+	$(do_subst) < $(srcdir)/httpd.conf.in > httpd.conf
+
+all-local: smaugd.conf httpd.conf

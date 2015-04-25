@@ -1,0 +1,7 @@
+# --{@PACKAGE@}-- Mongoose web server configuration file.
+
+document_root                 @sharedstatedir@/@PACKAGE@/web
+
+listening_port                8080
+access_log_file               @localstatedir@/log/@PACKAGE@/@PACKAGE@_httpd_access.log
+

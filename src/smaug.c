@@ -312,13 +312,6 @@ main (int argc, char **argv)
   boot_db ();
 #endif
 
-#ifndef WIN32
-#ifdef WEBSRV
-  log_string ( _("Initializing Web Server") );
-	init_web(WEB_PORT);
-#endif
-#endif
-
   log_string ( _("Initializing MUD Socket") );
 #ifdef ENABLE_HOTBOOT
   if( !fCopyOver )  /* We have already the port if copyover'ed */
@@ -351,12 +344,6 @@ main (int argc, char **argv)
 #endif
 
   game_loop ();
-
-#ifndef WIN32
-#ifdef WEBSRV
-	shutdown_web();
-#endif
-#endif
 
   closesocket (control);
   closesocket (control2);
@@ -722,15 +709,6 @@ game_loop ()
        * Autonomous game motion.
        */
       update_handler ();
-
-#ifndef WIN32
-#ifdef WEBSRV
-      /*
-       * Handle web server requests
-       */
-			handle_web();
-#endif
-#endif
 
       /*
        * Check REQUESTS pipe
@@ -1812,7 +1790,7 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 	  if (d->newstate != 0)
 	    {
 	      write_to_buffer (d,
-			       "That name is already taken.  Please choose another: ",
+			       _("That name is already taken.  Please choose another: "),
 			       0);
 	      d->connected = CON_GET_NAME;
 	      d->character->desc = NULL;
@@ -1821,7 +1799,7 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 	      return;
 	    }
 	  /* Old player */
-	  write_to_buffer (d, "Password: ", 0);
+	  write_to_buffer (d, _("Password: "), 0);
 	  write_to_buffer (d, echo_off_str, 0);
 	  d->connected = CON_GET_OLD_PASSWORD;
 	  return;
@@ -1859,7 +1837,7 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 
       if (strcmp (sha256_crypt (argument, ch->pcdata->pwd), ch->pcdata->pwd))
 	{
-	  write_to_buffer (d, "Wrong password.\n\r", 0);
+	  write_to_buffer (d, _("Wrong password.\n"), 0);
 	  /* clear descriptor pointer to get rid of bug message in log */
 	  d->character->desc = NULL;
 	  close_socket (d, FALSE);
@@ -1908,7 +1886,7 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 
       sprintf (buf2, "%s , %s", ch->pcdata->filename, d->host);
       append_to_file (CHARCOUNT_FILE, buf2);
-      sprintf (log_buf, "%s@%s(%s) has connected. (INRoom %d)",
+      sprintf (log_buf, _("%s@%s(%s) has connected. (INRoom %d)"),
 	       ch->pcdata->filename,
 	       d->host, d->user, (ch->in_room ? ch->in_room->vnum : -1));
 
@@ -2022,7 +2000,8 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 	}
 
       ch_printf_color (ch, "\n\r\n\r\n\r\n\r\n\r\n\r\n\r");
-      ch_printf_color (ch, "&G&gRealms of Despair greets you, &G%s ...\n\r",
+      ch_printf_color (ch, "&G&g%s greets you, &G%s ...\n\r",
+		       sysdata.mud_name,
 		       capitalize (ch->name));
       ch_printf_color (ch,
 		       "&gPlease continue and choose your gender, class and race.\n\r");
@@ -2228,7 +2207,7 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
       {
 	char motdbuf[MAX_STRING_LENGTH];
 
-	sprintf (motdbuf, "\n\rWelcome to %s...\n\r", sysdata.mud_name);
+	sprintf (motdbuf, _("\nWelcome to %s...\n"), sysdata.mud_name);
 	write_to_buffer (d, motdbuf, 0);
       }
       add_char (ch);
@@ -2468,14 +2447,14 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 	act (AT_ACTION, class_table[ch->class]->login_other, ch, NULL, NULL,
 	     TO_CANSEE);
       else
-	act (AT_ACTION, "$n has entered the game.", ch, NULL, NULL,
+	act (AT_ACTION, _("$n has entered the game."), ch, NULL, NULL,
 	     TO_CANSEE);
 
       if (ch->pcdata->pet)
 	{
-	  act (AT_ACTION, "$n returns to $s master from the Void.",
+	  act (AT_ACTION, _("$n returns to $s master from the Void."),
 	       ch->pcdata->pet, NULL, ch, TO_NOTVICT);
-	  act (AT_ACTION, "$N returns with you to the realms.",
+	  act (AT_ACTION, _("$N returns with you to the realms."),
 	       ch, NULL, ch->pcdata->pet, TO_CHAR);
 	}
       do_look (ch, "auto");
@@ -2621,7 +2600,7 @@ check_reconnect (DESCRIPTOR_DATA * d, char *name, bool fConn)
 	{
 	  if (fConn && ch->switched)
 	    {
-	      write_to_buffer (d, "Already playing.\n\rName: ", 0);
+	      write_to_buffer (d, _("Already playing.\nName: "), 0);
 	      d->connected = CON_GET_NAME;
 	      if (d->character)
 		{
@@ -2650,7 +2629,7 @@ check_reconnect (DESCRIPTOR_DATA * d, char *name, bool fConn)
 	      if (class_table[ch->class]->reconnect)
 		ch_printf (ch, "%s\n\r", class_table[ch->class]->reconnect);
 	      else
-		send_to_char ("Reconnecting.\n\r", ch);
+		send_to_char (_("Reconnecting.\n"), ch);
 	      rprog_login_trigger (ch);
 	      mprog_login_trigger (ch);
 	      do_look (ch, "auto");
@@ -2659,9 +2638,9 @@ check_reconnect (DESCRIPTOR_DATA * d, char *name, bool fConn)
 		act (AT_ACTION, class_table[ch->class]->reconnect_other, ch,
 		     NULL, NULL, TO_CANSEE);
 	      else
-		act (AT_ACTION, "$n has reconnected.", ch, NULL, NULL,
+		act (AT_ACTION, _("$n has reconnected."), ch, NULL, NULL,
 		     TO_CANSEE);
-	      sprintf (log_buf, "%s@%s(%s) reconnected. (INRoom %d)",
+	      sprintf (log_buf, _("%s@%s(%s) reconnected. (INRoom %d)"),
 		       ch->pcdata->filename, d->host, d->user,
 		       (ch->in_room ? ch->in_room->vnum : -1));
 	      log_string_plus (log_buf, LOG_COMM,
@@ -2707,7 +2686,7 @@ check_playing (DESCRIPTOR_DATA * d, char *name, bool kick)
 	      write_to_buffer (d,
 			       "That character is already connected - try again.\n\r",
 			       0);
-	      sprintf (log_buf, "%s already connected.",
+	      sprintf (log_buf, _("%s already connected."),
 		       ch->pcdata->filename);
 	      log_string_plus (log_buf, LOG_COMM, sysdata.log_level);
 	      return BERR;
@@ -2730,13 +2709,13 @@ check_playing (DESCRIPTOR_DATA * d, char *name, bool kick)
 	  if (ch->switched)
 	    do_return (ch->switched, "");
 	  ch->switched = NULL;
-	  send_to_char ("Reconnecting.\n\r", ch);
+	  send_to_char (_("Reconnecting.\n"), ch);
 	  do_look (ch, "auto");
 	  check_loginmsg (ch);
-	  act (AT_ACTION, "$n has reconnected, kicking off old link.",
+	  act (AT_ACTION, _("$n has reconnected, kicking off old link."),
 	       ch, NULL, NULL, TO_CANSEE);
 	  sprintf (log_buf,
-		   "%s@%s reconnected, kicking off old link. (INRoom %d)",
+		   _("%s@%s reconnected, kicking off old link. (INRoom %d)"),
 		   ch->pcdata->filename, d->host,
 		   (ch->in_room ? ch->in_room->vnum : -1));
 	  log_string_plus (log_buf, LOG_COMM,
@@ -2789,7 +2768,7 @@ stop_idling (CHAR_DATA * ch)
   /* Void triggers by Edmond */
   rprog_void_trigger (ch);
   mprog_void_trigger (ch);
-  act (AT_ACTION, "$n has returned from the void.", ch, NULL, NULL, TO_ROOM);
+  act (AT_ACTION, _("$n has returned from the void."), ch, NULL, NULL, TO_ROOM);
   return;
 }
 
@@ -2886,7 +2865,7 @@ write_to_pager (DESCRIPTOR_DATA * d, const char *txt, int length)
 	  DISPOSE (d->pagebuf);
 	  d->pagesize = MAX_STRING_LENGTH;
 	  // Move bug call here to avoid infinite loops.  Compliments of Daltorak -- Alty
-	  bug ("Pager overflow (%s).  Ignoring.\n\r",
+	  bug (_("Pager overflow (%s).  Ignoring.\n"),
 	       d->character ? d->character->name : "???");
 	  return;
 	}

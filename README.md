@@ -67,7 +67,7 @@
 	- etc/init.d:       smaugd Init Scripts.
 	- doc:              Documentation.
 	- man:              Man Pages.
-	- data/area:        Realm Area files.
+	- data/area/LC_ALL: Realm Area files.
 	- data/backup:      Backup Player files (initially empty).
 	- data/boards:      Boards files.
 	- data/building:    Building System files.

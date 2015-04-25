@@ -24,5 +24,7 @@ src/news.c
 src/player.c
 src/skills.c
 src/save.c
+src/tables.c
 src/update.c
 src/variables.c
+data/system/commands.dat

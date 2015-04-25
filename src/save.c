@@ -1759,7 +1759,7 @@ fread_char (CHAR_DATA * ch, FILE * fp, bool preload)
 	      if (!preload)
 		{
 		  ch->pcdata->prev_site = STRALLOC (fread_word (fp));
-		  sprintf (buf, "Last connected from: %s\n\r",
+		  sprintf (buf, _("Last connected from: %s\n"),
 			   ch->pcdata->prev_site);
 		  send_to_char (buf, ch);
 		}
@@ -2483,16 +2483,16 @@ do_last (CHAR_DATA * ch, char *argument)
       return;
     }
   if ((vch = load_player (arg)) == NULL)
-    sprintf (buf, "%s was not found.\n\r", arg);
+    sprintf (buf, _("%s was not found.\n"), arg);
   else
     {
       strcpy (name, capitalize (arg));
       sprintf (buf, "%s%c/%s", PLAYER_DIR, tolower (arg[0]), name);
       if (stat (buf, &fst) != -1)
 	{
-	  sprintf (buf, "%s last logged from %s on: %s\r", name,
+	  sprintf (buf, _("%s last logged from %s on: %s"), name,
 		   vch->pcdata->prev_site ? vch->
-		   pcdata->prev_site : "(Link-Dead)", ctime (&fst.st_mtime));
+		   pcdata->prev_site : _("(Link-Dead)"), ctime (&fst.st_mtime));
 	  if (!vch->desc)
 	    {
 	      if (sysdata.save_pets && vch->pcdata && vch->pcdata->pet)
@@ -2501,7 +2501,7 @@ do_last (CHAR_DATA * ch, char *argument)
 	    }
 	}
       else
-	sprintf (buf, "%s was not found.\n\r", name);
+	sprintf (buf, _("%s was not found.\n"), name);
     }
   send_to_char (buf, ch);
 }

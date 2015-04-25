@@ -4109,7 +4109,11 @@ load_skill_table ()
 {
   FILE *fp;
 
-  if ((fp = fopen (SKILL_FILE, "r")) != NULL)
+  char strSKLFilePath[MAX_INPUT_LENGTH];
+
+  sprintf(strSKLFilePath, "%s%s/%s", SYSTEM_DIR, SMAUGlocale, SKILL_FILE);
+
+  if ((fp = fopen (strSKLFilePath, "r")) != NULL)
     {
       top_sn = 0;
       for (;;)
@@ -4296,8 +4300,11 @@ void
 load_socials ()
 {
   FILE *fp;
+  char strSOCFilePath[MAX_INPUT_LENGTH];
 
-  if ((fp = fopen (SOCIAL_FILE, "r")) != NULL)
+  sprintf (strSOCFilePath, "%s%s/%s", SYSTEM_DIR, SMAUGlocale, SOCIAL_FILE);
+
+  if ((fp = fopen (strSOCFilePath, "r")) != NULL)
     {
       top_sn = 0;
       for (;;)
@@ -4466,7 +4473,11 @@ load_commands ()
 {
   FILE *fp;
 
-  if ((fp = fopen (COMMAND_FILE, "r")) != NULL)
+  char strCMDFilePath[MAX_INPUT_LENGTH];
+
+  sprintf (strCMDFilePath, "%s%s/%s", SYSTEM_DIR, SMAUGlocale, COMMAND_FILE);
+
+  if ((fp = fopen (strCMDFilePath, "r")) != NULL)
     {
       top_sn = 0;
       for (;;)
@@ -4700,13 +4711,13 @@ load_vaults ()
 
       if (!fread_storage (rnum, filename))
 	{
-	  sprintf (buf, "Cannot load vault file: %s", filename);
+	  sprintf (buf, _("Cannot load vault file: %s"), filename);
 	  bug (buf, 0);
 	}
     }
 
   fclose (fpList);
-  log_string (" Done vaults ");
+  log_string (_(" Done vaults "));
   fpReserve = fopen (NULL_FILE, "r");
   return;
 }

@@ -47,7 +47,7 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 # SOLARIS_LINK = -lnsl -lsocket
 
 CLEANFILES = *~ *.o *.lo *.la *.a *.so smaug.h \
-smaug$(EXEEXT) smaug-dns$(EXEEXT) stamp-h1
+smaug$(EXEEXT) smaug-dns$(EXEEXT) smaug-httpd$(EXEEXT) stamp-h1
 
 # Build binaries #
 
@@ -59,6 +59,11 @@ if ENABLE_DNS_RESOLV
 bin_PROGRAMS += smaug-dns$(EXEEXT)
 endif
 
+# bin/smaug-httpd #
+if HTTPD
+bin_PROGRAMS += smaug-httpd$(EXEEXT)
+endif
+
 # Build Shared libraries #
 
 # lib/libsmaug-*.la (static libs) #
@@ -66,12 +71,12 @@ noinst_LTLIBRARIES = \
 libsmaug-act.la libsmaug-player.la libsmaug-mudprog.la \
 libsmaug-info.la libsmaug-realm.la
 
-# lib/libsmaug-websrv.la (static lib) #
-if WEBSRV
-noinst_LTLIBRARIES += libsmaug-websrv.la
+# lib/libsmaug-httpd.la (static lib) #
+if HTTPD
+noinst_LTLIBRARIES += libsmaug-httpd.la
 endif
 
-# lib/libsmaug-websrv.la (static lib) #
+# lib/libsmaug-dns.la (static lib) #
 if ENABLE_DNS_RESOLV
 noinst_LTLIBRARIES += libsmaug-dns.la
 endif
@@ -99,15 +104,6 @@ libsmaug_mudprog_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
 
 libsmaug_mudprog_la_SOURCES = \
 mud_comm.c mud_prog.c
-
-# lib/libsmaug-websrv.so (shared lib) #
-if WEBSRV
-libsmaug_websrv_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_websrv_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_websrv_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
-
-libsmaug_websrv_la_SOURCES = websrv.c
-endif
 
 # lib/libsmaug-info.so (shared lib) #
 libsmaug_info_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
@@ -146,8 +142,24 @@ smaug_LDADD = \
 libsmaug-act.la libsmaug-player.la libsmaug-mudprog.la \
 libsmaug-info.la libsmaug-realm.la
 
-if WEBSRV
-smaug_LDADD += libsmaug-websrv.la
+if HTTPD
+# libsmaug-httpd #
+
+libsmaug_httpd_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
+libsmaug_httpd_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
+libsmaug_httpd_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
+
+libsmaug_httpd_la_SOURCES = mongoose.c
+
+# bin/smaug-httpd #
+
+smaug_httpd_CXXFLAGS = -g -O0 -Wl,-rpath $(SOLARIS_FLAG) -I../.. -pthread -DMONGOOSE_ENABLE_THREADS -DNS_ENABLE_SSL -lssl
+smaug_httpd_CFLAGS = -g -O0 -Wl,-rpath $(SOLARIS_FLAG) -I../.. -pthread -DMONGOOSE_ENABLE_THREADS -DNS_ENABLE_SSL -lssl
+smaug_httpd_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
+
+smaug_httpd_SOURCES = httpd.c
+
+smaug_httpd_LDADD = libsmaug-httpd.la
 endif
 
 if ENABLE_DNS_RESOLV
@@ -176,8 +188,8 @@ include_HEADERS = \
 smaug.h mud.h bank.h bet.h hint.h i18n.h house.h liquids.h \
 news.h sha256.h gettext.h 
 
-if WEBSRV
-include_HEADERS += websrv.h
+if HTTPD
+include_HEADERS += mongoose.h
 endif
 
 if ENABLE_HOTBOOT

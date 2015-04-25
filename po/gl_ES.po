@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smaug 2.0.0\n"
 "Report-Msgid-Bugs-To: <@burzumishi>\n"
-"POT-Creation-Date: 2015-04-23 12:38+0200\n"
+"POT-Creation-Date: 2015-04-25 01:10+0200\n"
 "PO-Revision-Date: 2015-04-06 22:12+0200\n"
 "Last-Translator: root <root@siriux.home>\n"
 "Language-Team: Galician\n"
@@ -41,7 +41,7 @@ msgstr "%s Listado Administrativo de Concilios"
 #: src/clans.c:1982 src/clans.c:2318 src/clans.c:2345 src/clans.c:2357
 #: src/clans.c:2383 src/clans.c:2945 src/clans.c:2965 src/clans.c:2979
 #: src/deity.c:396 src/deity.c:942 src/deity.c:1044 src/interp.c:760
-#: src/liquids.c:735 src/smaug.c:3574 src/act_comm.c:893 src/act_comm.c:905
+#: src/liquids.c:735 src/smaug.c:3575 src/act_comm.c:893 src/act_comm.c:905
 #: src/act_comm.c:913 src/act_comm.c:928 src/act_comm.c:946 src/act_comm.c:953
 #: src/act_comm.c:965 src/act_comm.c:971 src/act_comm.c:983 src/act_comm.c:990
 #: src/act_comm.c:1002 src/act_comm.c:1015 src/act_comm.c:1027
@@ -258,6 +258,48 @@ msgstr ""
 msgid "autoreturn"
 msgstr ""
 
+#: src/build.c:972 src/build.c:2256 src/build.c:2790 src/build.c:2811
+#: src/build.c:2879 src/build.c:2899 src/build.c:2919 src/build.c:2939
+#: src/build.c:2959 src/build.c:2979 src/build.c:3000 src/build.c:3150
+#: src/build.c:3189 src/build.c:3208 src/build.c:3227 src/build.c:3849
+#: src/build.c:4896 src/build.c:5088 src/build.c:5157 src/build.c:5291
+#: src/build.c:5304 src/build.c:5323 src/build.c:5355 src/build.c:5387
+#: src/build.c:5788 src/build.c:5907 src/build.c:5940 src/build.c:5972
+#: src/build.c:6004 src/build.c:6041 src/build.c:7428 src/build.c:7498
+#: src/build.c:7552 src/build.c:7652 src/build.c:8072 src/build.c:8081
+#: src/build.c:8091 src/build.c:8098 src/build.c:8105 src/build.c:8112
+#: src/build.c:8119 src/build.c:8126 src/build.c:8133 src/build.c:8140
+#: src/build.c:8147 src/build.c:8160 src/build.c:8173 src/build.c:8186
+#: src/build.c:8199 src/build.c:8207 src/build.c:8217 src/build.c:8224
+#: src/act_wiz.c:545 src/act_wiz.c:1817 src/act_wiz.c:4091 src/act_wiz.c:6158
+#: src/act_wiz.c:6223 src/act_wiz.c:6271 src/act_wiz.c:6546 src/act_wiz.c:6588
+#: src/act_wiz.c:6784 src/act_wiz.c:6804 src/act_wiz.c:6863 src/act_wiz.c:8382
+#: src/act_wiz.c:8793 src/act_wiz.c:8802 src/act_wiz.c:8811 src/act_wiz.c:8820
+#: src/act_wiz.c:8829 src/act_wiz.c:8838 src/act_wiz.c:8847 src/act_wiz.c:8872
+#: src/act_wiz.c:9178 src/act_wiz.c:9192 src/act_wiz.c:9205 src/act_wiz.c:9218
+#: src/act_wiz.c:9238 src/act_wiz.c:9263 src/act_wiz.c:9513 src/act_wiz.c:9527
+#: src/act_wiz.c:9538 src/act_wiz.c:9549 src/act_wiz.c:9560 src/act_wiz.c:9571
+#: src/act_wiz.c:9582 src/act_wiz.c:9593 src/act_wiz.c:9607 src/act_wiz.c:9629
+#: src/act_wiz.c:9650 src/act_wiz.c:9671 src/act_wiz.c:9684 src/act_wiz.c:9698
+#: src/act_wiz.c:9705 src/act_wiz.c:9711 src/act_wiz.c:9717 src/act_wiz.c:9723
+#: src/act_wiz.c:9729 src/act_wiz.c:9735 src/act_wiz.c:9744 src/act_wiz.c:9750
+#: src/act_wiz.c:9949 src/act_wiz.c:9961 src/act_wiz.c:9968 src/act_wiz.c:9974
+#: src/act_wiz.c:9982 src/act_wiz.c:9988 src/act_wiz.c:9994
+#: src/act_wiz.c:10000 src/act_wiz.c:10006 src/act_wiz.c:10012
+#: src/act_wiz.c:10018 src/act_wiz.c:10038 src/act_wiz.c:10059
+#: src/act_wiz.c:10080 src/act_wiz.c:10086 src/act_wiz.c:10097
+#: src/act_wiz.c:10109 src/act_wiz.c:10116 src/act_wiz.c:10166
+#: src/act_wiz.c:10172 src/act_wiz.c:10178 src/act_wiz.c:10184
+#: src/act_wiz.c:10190 src/act_wiz.c:10196 src/act_wiz.c:10202
+#: src/act_wiz.c:10208 src/act_wiz.c:10214 src/act_wiz.c:10220
+#: src/act_wiz.c:10226 src/act_wiz.c:10232 src/act_wiz.c:10238
+#: src/act_wiz.c:10245 src/act_wiz.c:10251 src/act_wiz.c:10257
+#: src/act_wiz.c:10265 src/act_wiz.c:10271 src/act_wiz.c:10421
+#: src/act_wiz.c:11598 src/act_wiz.c:12455 src/act_wiz.c:12466
+#: src/act_wiz.c:12551
+msgid "Done.\n"
+msgstr "Feito.\n"
+
 #: src/build.c:10502 src/build.c:10589 src/act_wiz.c:1834 src/act_move.c:1467
 msgid "n"
 msgstr "n"
@@ -398,6 +440,88 @@ msgstr "%s escoitando con dirección %s no puerto %d."
 #: src/smaug.c:389
 msgid "Normal termination of game."
 msgstr "Finalización normal do xogo."
+
+#: src/smaug.c:1815
+msgid "That name is already taken.  Please choose another: "
+msgstr ""
+
+#: src/smaug.c:1824
+msgid "Password: "
+msgstr "Contrasinal: "
+
+#: src/smaug.c:1862
+msgid "Wrong password.\n"
+msgstr ""
+
+#: src/smaug.c:1911
+#, c-format
+msgid "%s@%s(%s) has connected. (INRoom %d)"
+msgstr "%s@%s(%s) conectado. (Estancia %d)"
+
+#: src/smaug.c:2232
+#, c-format
+msgid ""
+"\n"
+"Welcome to %s...\n"
+msgstr ""
+"\n"
+"Benvido a %s ...\n"
+
+#: src/smaug.c:2472
+msgid "$n has entered the game."
+msgstr "$n entrou no xogo."
+
+#: src/smaug.c:2477
+msgid "$n returns to $s master from the Void."
+msgstr "$n regresa a $s dende o vacío."
+
+#: src/smaug.c:2479
+msgid "$N returns with you to the realms."
+msgstr "$N regresa contigo aos reinos."
+
+#: src/smaug.c:2625
+msgid ""
+"Already playing.\n"
+"Name: "
+msgstr ""
+"Xa está xogando.\n"
+"Nome: "
+
+#: src/smaug.c:2654 src/smaug.c:2734
+msgid "Reconnecting.\n"
+msgstr "Reconectando.\n"
+
+#: src/smaug.c:2663
+msgid "$n has reconnected."
+msgstr "$n reconectouse."
+
+#: src/smaug.c:2665
+#, c-format
+msgid "%s@%s(%s) reconnected. (INRoom %d)"
+msgstr "%s@%s(%s) reconectado. (Estancia %d)"
+
+#: src/smaug.c:2711
+#, c-format
+msgid "%s already connected."
+msgstr "%s xa está conectado."
+
+#: src/smaug.c:2737
+msgid "$n has reconnected, kicking off old link."
+msgstr "$n reconectado, eliminando enlace antigo."
+
+#: src/smaug.c:2740
+#, c-format
+msgid "%s@%s reconnected, kicking off old link. (INRoom %d)"
+msgstr "%s@%s reconectado, eliminando enlace antigo. (Estancia %d)"
+
+#: src/smaug.c:2793
+msgid "$n has returned from the void."
+msgstr "$n regresa do vacío."
+
+#: src/smaug.c:2890
+#, c-format
+msgid "Pager overflow (%s).  Ignoring.\n"
+msgstr "Paginador SobreCargado (%s).  Ignorando.\n"
 
 #: src/db.c:368
 msgid "((----------------[ Boot Database ]----------------))"
@@ -590,6 +714,10 @@ msgstr "Cargando mensaxes de entrada ..."
 #: src/db.c:815
 msgid "Loading Colors ..."
 msgstr "Cargando cores da interface ..."
+
+#: src/db.c:1104
+msgid "greeting"
+msgstr "benvida"
 
 #: src/db.c:1183
 #, c-format
@@ -869,7 +997,8 @@ msgstr "Dís '$T'"
 #: src/act_wiz.c:5449 src/act_wiz.c:5491 src/act_wiz.c:5538 src/act_wiz.c:5586
 #: src/act_wiz.c:5635 src/act_wiz.c:5687 src/act_wiz.c:5735 src/act_wiz.c:5966
 #: src/act_wiz.c:6756 src/act_wiz.c:6824 src/act_wiz.c:8180 src/act_wiz.c:8551
-#: src/act_move.c:2402
+#: src/act_move.c:2402 src/variables.c:255 src/variables.c:326
+#: src/variables.c:401 src/variables.c:488
 msgid "They aren't here.\n"
 msgstr "Non están aquí.\n"
 
@@ -980,8 +1109,8 @@ msgid ""
 "envelops your body... When you come to, things are not as they were.\n"
 "\n"
 msgstr ""
-"Os teus sentidos comezan a diluirse nunha néboa mística que envolve o teu\n"
-"corpo ... Percátaste de que, as cousas xa non son como eran ...\n"
+"Os teus sentidos comezan a desvaecerse nunha mística néboa que envolve\n"
+"o teu corpo ... Percátaste de que, as cousas xa non son como eran ...\n"
 "\n"
 
 #: src/act_comm.c:2850
@@ -2475,35 +2604,6 @@ msgstr "&W%6s | %-40.40s | Nome Area\n"
 msgid "Room Name"
 msgstr "Nome Estancia"
 
-#: src/act_wiz.c:545 src/act_wiz.c:1817 src/act_wiz.c:4091 src/act_wiz.c:6158
-#: src/act_wiz.c:6223 src/act_wiz.c:6271 src/act_wiz.c:6546 src/act_wiz.c:6588
-#: src/act_wiz.c:6784 src/act_wiz.c:6804 src/act_wiz.c:6863 src/act_wiz.c:8382
-#: src/act_wiz.c:8793 src/act_wiz.c:8802 src/act_wiz.c:8811 src/act_wiz.c:8820
-#: src/act_wiz.c:8829 src/act_wiz.c:8838 src/act_wiz.c:8847 src/act_wiz.c:8872
-#: src/act_wiz.c:9178 src/act_wiz.c:9192 src/act_wiz.c:9205 src/act_wiz.c:9218
-#: src/act_wiz.c:9238 src/act_wiz.c:9263 src/act_wiz.c:9513 src/act_wiz.c:9527
-#: src/act_wiz.c:9538 src/act_wiz.c:9549 src/act_wiz.c:9560 src/act_wiz.c:9571
-#: src/act_wiz.c:9582 src/act_wiz.c:9593 src/act_wiz.c:9607 src/act_wiz.c:9629
-#: src/act_wiz.c:9650 src/act_wiz.c:9671 src/act_wiz.c:9684 src/act_wiz.c:9698
-#: src/act_wiz.c:9705 src/act_wiz.c:9711 src/act_wiz.c:9717 src/act_wiz.c:9723
-#: src/act_wiz.c:9729 src/act_wiz.c:9735 src/act_wiz.c:9744 src/act_wiz.c:9750
-#: src/act_wiz.c:9949 src/act_wiz.c:9961 src/act_wiz.c:9968 src/act_wiz.c:9974
-#: src/act_wiz.c:9982 src/act_wiz.c:9988 src/act_wiz.c:9994
-#: src/act_wiz.c:10000 src/act_wiz.c:10006 src/act_wiz.c:10012
-#: src/act_wiz.c:10018 src/act_wiz.c:10038 src/act_wiz.c:10059
-#: src/act_wiz.c:10080 src/act_wiz.c:10086 src/act_wiz.c:10097
-#: src/act_wiz.c:10109 src/act_wiz.c:10116 src/act_wiz.c:10166
-#: src/act_wiz.c:10172 src/act_wiz.c:10178 src/act_wiz.c:10184
-#: src/act_wiz.c:10190 src/act_wiz.c:10196 src/act_wiz.c:10202
-#: src/act_wiz.c:10208 src/act_wiz.c:10214 src/act_wiz.c:10220
-#: src/act_wiz.c:10226 src/act_wiz.c:10232 src/act_wiz.c:10238
-#: src/act_wiz.c:10245 src/act_wiz.c:10251 src/act_wiz.c:10257
-#: src/act_wiz.c:10265 src/act_wiz.c:10271 src/act_wiz.c:10421
-#: src/act_wiz.c:11598 src/act_wiz.c:12455 src/act_wiz.c:12466
-#: src/act_wiz.c:12551
-msgid "Done.\n"
-msgstr "Feito.\n"
-
 #: src/act_wiz.c:560
 msgid "Donation room created.\n"
 msgstr "Sala de Doacións creada.\n"
@@ -2970,6 +3070,10 @@ msgstr "o noroeste"
 msgid "the northeast"
 msgstr "o norleste"
 
+#: src/act_move.c:441
+msgid "<unknown>"
+msgstr "<descoñecido>"
+
 #: src/act_move.c:547
 #, c-format
 msgid "Falling (in a loop?) more than 80 rooms: vnum %d"
@@ -3002,15 +3106,17 @@ msgstr "A $d está fechada."
 
 #: src/act_move.c:881
 msgid "A voice in your mind says, 'You are nearly ready to go that way...'\n"
-msgstr "Unha voz na túa mente diche, 'Estás casi preparado para ir por ese camiño ...'\n"
+msgstr ""
+"Unha voz na túa mente diche, 'Estás casi preparado para ir por ese "
+"camiño ...'\n"
 
 #: src/act_move.c:886
 msgid ""
 "A voice in your mind says, 'Soon you shall be ready to travel down this "
 "path... soon.'\n"
 msgstr ""
-"Unha voz na túa mente diche, 'Estarás preparado para viaxar por "
-"ese camiño ... preto.'.\n"
+"Unha voz na túa mente diche, 'Estarás preparado para viaxar por ese "
+"camiño ... preto.'.\n"
 
 #: src/act_move.c:891
 msgid ""
@@ -3022,7 +3128,8 @@ msgstr ""
 
 #: src/act_move.c:896
 msgid "A voice in your mind says, 'You are not ready to go down that path.'.\n"
-msgstr "Unha voz na túa mente diche, 'Non estás preparado para ir por ese camiño.'.\n"
+msgstr ""
+"Unha voz na túa mente diche, 'Non estás preparado para ir por ese camiño.'.\n"
 
 #: src/act_move.c:905
 msgid ""
@@ -3506,10 +3613,6 @@ msgstr ""
 msgid "$n unbolts the $d."
 msgstr ""
 
-#: src/act_move.c:441
-msgid "<unknown>"
-msgstr "<descoñecido>"
-
 #: src/player.c:226
 #, c-format
 msgid ""
@@ -3790,11 +3893,11 @@ msgstr "Gloria: %4.4d(%4.4d)\n"
 #: src/player.c:429
 #, c-format
 msgid ""
-"PRACT: %3.3d         Hitpoints: %-5d of %5d   Pager: (%c) %3d    "
-"AutoExit(%c)\n"
+"PRACT: %3.3d         Hitpoints: %-5d of %5d   Pager: (%c) %3d    AutoExit"
+"(%c)\n"
 msgstr ""
-"PRACT: %3.3d         Hitpoints: %-5d of %5d   Pager: (%c) %3d    "
-"AutoSair(%c)\n"
+"PRACT: %3.3d         Hitpoints: %-5d of %5d   Pager: (%c) %3d    AutoSair"
+"(%c)\n"
 
 #: src/player.c:438
 #, c-format
@@ -4065,8 +4168,8 @@ msgstr ""
 #: src/player.c:1276
 #, c-format
 msgid ""
-"&GCON  : &w%2.2d&g(&W%2.2d&g)      &GPos'n: &w%-21.21s  &GWeight: &W%5.5d "
-"&g(&wmax %7.7d&g)\n"
+"&GCON  : &w%2.2d&g(&W%2.2d&g)      &GPos'n: &w%-21.21s  &GWeight: &W%5.5d &g"
+"(&wmax %7.7d&g)\n"
 msgstr ""
 
 #: src/player.c:1285
@@ -4413,8 +4516,8 @@ msgstr ""
 #: src/player.c:1832
 #, c-format
 msgid ""
-"&GCON  : &W%2.2d&g(&w%2.2d&g)&G      Pos'n: &W%-21.21s  &GWeight: &W%d "
-"&g(&wmax %d&g)\n"
+"&GCON  : &W%2.2d&g(&w%2.2d&g)&G      Pos'n: &W%-21.21s  &GWeight: &W%d &g"
+"(&wmax %d&g)\n"
 msgstr ""
 
 #: src/player.c:1841
@@ -4806,6 +4909,34 @@ msgstr "Load_char_obj: # Non encontrado."
 #: src/save.c:1023
 msgid "Load_char_obj: bad section."
 msgstr "Load_char_obj: sección incorrecta."
+
+#: src/save.c:1762
+#, c-format
+msgid "Last connected from: %s\n"
+msgstr "Última conexión dende: %s\n"
+
+#: src/save.c:2486 src/save.c:2504
+#, c-format
+msgid "%s was not found.\n"
+msgstr "%s non foi encontrado.\n"
+
+#: src/save.c:2493
+#, c-format
+msgid "%s last logged from %s on: %s"
+msgstr "%s último acceso dende %s en: %s"
+
+#: src/save.c:2495
+msgid "(Link-Dead)"
+msgstr "(Enlace-Morto)"
+
+#: src/tables.c:4703
+#, c-format
+msgid "Cannot load vault file: %s"
+msgstr "Non se pode cargar o ficheiro de baúles: %s"
+
+#: src/tables.c:4709
+msgid " Done vaults "
+msgstr " cargado de baúles feito."
 
 #~ msgid "no\n"
 #~ msgstr "non\n"

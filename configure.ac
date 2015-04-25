@@ -507,8 +507,8 @@ fi
 # Enable Banking Support (-DBANK_INSTALLED) #
 AC_ARG_ENABLE(bank,
               AC_HELP_STRING([--enable-bank],
-                             [enable Banking Support @<:@default=yes@:>@]),
-              [], [enable_bank=yes])
+                             [enable Banking Support @<:@default=no@:>@]),
+              [], [enable_bank=no])
 if test "$enable_bank" = "yes"; then
 		AC_DEFINE([BANK_INSTALLED], [], [Banking Support])
 fi
@@ -516,8 +516,8 @@ fi
 # Enable Marriage Support (-DMARRIAGE) #
 AC_ARG_ENABLE(marry,
               AC_HELP_STRING([--enable-marry],
-                             [enable Marriage Support @<:@default=yes@:>@]),
-              [], [enable_marry=yes])
+                             [enable Marriage Support @<:@default=no@:>@]),
+              [], [enable_marry=no])
 if test "$enable_marry" = "yes"; then
 		AC_DEFINE([MARRIAGE], [], [Marriage Support])
 fi
@@ -541,16 +541,16 @@ if test "$enable_hotboot" = "yes"; then
 fi
 AM_CONDITIONAL([ENABLE_HOTBOOT], [test "$enable_hotboot" = "yes"])
 
-# Enable Web Server (-DWEBSRV)
-AC_ARG_ENABLE(websrv,
-              AC_HELP_STRING([--enable-websrv],
-                             [enable Integrated Web Server (Listen on port [:8080]) @<:@default=yes@:>@]),
-              [], [enable_websrv=yes])
-if test "$enable_websrv" = "yes"; then
-		AC_DEFINE([WEBSRV], [], [Integrated Web Server])
-		AC_DEFINE([WEB_PORT], [8080], [Integrated Web Server Port])
+# Enable Web Server (-DHTTPD)
+AC_ARG_ENABLE(httpd,
+              AC_HELP_STRING([--enable-httpd],
+                             [enable Mongoose Web Server (Listen on port [:8080]) @<:@default=yes@:>@]),
+              [], [enable_httpd=yes])
+if test "$enable_httpd" = "yes"; then
+		AC_DEFINE([HTTPD], [], [Mongoose Web Server])
+		AC_DEFINE([WEB_PORT], [8080], [Mongoose Web Server Port])
 fi
-AM_CONDITIONAL([WEBSRV], [test "$enable_websrv" = "yes"])
+AM_CONDITIONAL([HTTPD], [test "$enable_httpd" = "yes"])
 
 # Enable DNS Resolver Support (-DENABLE_DNS_RESOLV) #
 AC_ARG_ENABLE(dns,
@@ -608,7 +608,7 @@ Configured --{SMAUG}-- MUD Server extra features:
  * Marry:               <$enable_marry>
  * Player Bleeding:     <$enable_bleeding>
  * DNS Resolver:        <$enable_dns>
- * Web Server:          <$enable_websrv>
+ * Web Server:          <$enable_httpd>
  * HotBoot:             <$enable_hotboot>
 ])
 AC_MSG_RESULT([Well done! \"configure\" complete, now type \"make\"!])

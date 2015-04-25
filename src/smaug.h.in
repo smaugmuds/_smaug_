@@ -60,11 +60,11 @@
 /* Define to 1 if you have the `bzero' function. */
 #undef HAVE_BZERO
 
-/* Define to 1 if you have the Mac OS X function CFLocaleCopyCurrent in the
+/* Define to 1 if you have the MacOS X function CFLocaleCopyCurrent in the
    CoreFoundation framework. */
 #undef HAVE_CFLOCALECOPYCURRENT
 
-/* Define to 1 if you have the Mac OS X function CFPreferencesCopyAppValue in
+/* Define to 1 if you have the MacOS X function CFPreferencesCopyAppValue in
    the CoreFoundation framework. */
 #undef HAVE_CFPREFERENCESCOPYAPPVALUE
 
@@ -365,6 +365,9 @@
 /* Housing Support */
 #undef HOUSING_CODE
 
+/* Mongoose Web Server */
+#undef HTTPD
+
 /* Liquids & Mixtures System */
 #undef LIQUIDSYSTEM
 
@@ -386,6 +389,9 @@
 
 /* Disable Password Encryption Support */
 #undef NOCRYPT
+
+/* Define to 1 if your C compiler doesn't accept -c and -o together. */
+#undef NO_MINUS_C_MINUS_O
 
 /* Name of package */
 #undef PACKAGE
@@ -450,10 +456,7 @@
 /* Version number of package */
 #undef VERSION
 
-/* Integrated Web Server */
-#undef WEBSRV
-
-/* Integrated Web Server Port */
+/* Mongoose Web Server Port */
 #undef WEB_PORT
 
 /* Define if using the dmalloc debugging malloc package */

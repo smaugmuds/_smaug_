@@ -1,3 +1,5 @@
+#!@ENV@ @BASH@
+
 #                     R E A L M S    O F    D E S P A I R  !
 #   ___________________________________________________________________________
 #  //            /                                                            \\
@@ -16,7 +18,7 @@
 #     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
 #     |_____________________________________________________________________|
 #     |                                                                     |
-#     |                       -*- Service Config -*-                        |
+#     |                       -*- Service Init -*-                          |
 #     |_____________________________________________________________________|
 #    //                                                                     \\
 #   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
@@ -30,36 +32,69 @@
 #   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
 #    \\_____________________________________________________________________//
 
-@PACKAGE@=@PACKAGE@
-VERSION=@VERSION@
+source @sysconfdir@/@PACKAGE@/@PACKAGE@d.conf
 
-NAME=@PACKAGE@
-DESC="@DESCRIPTION@"
+true=0;
+false=1;
 
-USER=@USER@
-GROUP=@GROUP@
+test -x $BINDIR/$HTTPD || exit $false;
 
-HOST=localhost
-PORT=4000
+set -e;
 
-PATH=/sbin:/bin:/usr/sbin:/usr/bin:@bindir@
-BINDIR=@bindir@
-INITD=@sysconfdir@/init.d
+start_daemon() {
+	if test ! -f "$HTTPD_PIDFILE"; then
+		($SU $USER -c $BINDIR/$HTTPD &>>$HTTPD_LOGFILE &) &
+	fi;
 
-SU="su"
+	until	pidof $HTTPD > $HTTPD_PIDFILE; do
+		sleep 2;
+	done;
 
-EXEC=$NAME
-HTTPD=@PACKAGE@-httpd
-DNS=@PACKAGE@-dns
-MONITOR=@PACKAGE@-monitor
-DAEMON=@PACKAGE@d
+	echo -n "$HTTPD ($(cat $HTTPD_PIDFILE)) ... ";
+}
 
-RUNDIR=@localstatedir@/run
-EXEC_PIDFILE=$RUNDIR/@PACKAGE@.pid
-MONITOR_PIDFILE=$RUNDIR/@PACKAGE@-monitor.pid
-HTTPD_PIDFILE=$RUNDIR/@PACKAGE@-httpd.pid
+stop_daemon() {
+	if test -f "$HTTPD_PIDFILE"; then
+		if test -f "/proc/$(cat $HTTPD_PIDFILE)/status"; then
+			kill -9 $(cat $HTTPD_PIDFILE) &>/dev/null;
+		fi;
 
-LOGDIR=@localstatedir@/log/@PACKAGE@
-EXEC_LOGFILE=$LOGDIR/@PACKAGE@.log
-MONITOR_LOGFILE=$LOGDIR/@PACKAGE@-monitor.log
-HTTPD_LOGFILE=$LOGDIR/@PACKAGE@-httpd.log
+		$SU $USER -c "rm -f $HTTPD_PIDFILE";
+	fi;
+
+	echo -n "$HTTPD (Stopped) ... ";
+}
+
+status_daemon() {
+	if test -f "$HTTPD_PIDFILE"; then
+		echo -n "$HTTPD ($(cat $HTTPD_PIDFILE)) ... ";
+	else
+		echo -n "$HTTPD (Stopped) ... ";
+	fi;
+}
+
+case $1 in
+  start) echo -n "Starting HTTPD $DESC ... ";
+         start_daemon;
+				 echo "done.";
+	;;
+  stop) echo -n "Stopping HTTPD $DESC ... ";
+        stop_daemon;
+			  echo "done.";
+	;;
+	status) echo -n "Status HTTPD $DESC ... ";
+					status_daemon;
+				  echo "done.";
+	;;
+  restart) echo -n "Restarting HTTPD $DESC ... ";
+        	 stop_daemon;
+					 sleep 2;
+					 start_daemon;
+					 echo "done.";
+	;;
+  *) echo "Usage: $0 {start|stop|restart|status}" >&2;
+		 exit $false;
+	;;
+esac;
+
+exit $true;
