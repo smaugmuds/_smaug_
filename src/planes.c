@@ -45,7 +45,7 @@ do_plist (CHAR_DATA * ch, char *argument)
 {
   PLANE_DATA *p;
 
-  send_to_char ("Planes:\n\r-------\n\r", ch);
+  send_to_char (_("Planes:\n-------\n"), ch);
   for (p = first_plane; p; p = p->next)
     ch_printf (ch, "%s\n\r", p->name);
   return;
@@ -63,7 +63,7 @@ do_pstat (CHAR_DATA * ch, char *argument)
       send_to_char ("Stat which plane?\n\r", ch);
       return;
     }
-  ch_printf (ch, "Name: %s\n\r", p->name);
+  ch_printf (ch, _("Name: %s\n"), p->name);
   return;
 }
 
@@ -232,7 +232,7 @@ load_planes (void)
   if (!(fpArea = fopen (PLANE_FILE, "r")))
     {
       perror (PLANE_FILE);
-      bug ("load_planes: can't open plane file for read.");
+      bug (_("load_planes: can't open plane file for read."));
       return;
     }
   strcpy (strArea, PLANE_FILE);

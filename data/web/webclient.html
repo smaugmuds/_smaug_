@@ -22,7 +22,7 @@ THE SOFTWARE.
 --> 
 <html> 
 <head> 
-<title>-- { XSMAUG } --</title> 
+<title>--{ SMAUG II }--</title> 
 <script type="text/javascript" src="js/jquery.min.js"></script> 
 <link rel="stylesheet" href="css/style.css"/>
 </head> 
@@ -31,8 +31,8 @@ THE SOFTWARE.
 <div id="wrapper">
 
 	<header>
-		<h1><a href="http://smaugmuds.github.io/xsmaug">-- { XSMAUG } --</a></h1>
-		<h3>Ne[X]t Generation of [S]imulated [M]edieval [A]dventure Multi-[U]ser [G]ame</h3>
+		<h1><a href="http://smaugmuds.github.io/smaug">--{ SMAUG II }--</a></h1>
+		<h3>--{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--</h3>
 	</header>
 
     <div id="navbar">
@@ -40,9 +40,7 @@ THE SOFTWARE.
       <ul class="side-nav">
         <li><a href="index.html">Home</a></li>
         <li><a href="downloads.html">Downloads</a></li>
-        <!--
-        <li><a href="webclient.html">Play Online</a></li>
-        -->
+        <li><a href="webclient.html">Play</a></li>
         <li><a href="muds.html">MUDs</a></li>
         <li><a href="support.html">Support</a></li>
         <li><a href="authors.html">Authors</a></li>
@@ -51,11 +49,21 @@ THE SOFTWARE.
 
     </div>
 
-    <div id="console"></div> 
+    <div id="console">
 
-    <div id="footer>
-	<p><em><strong>XSMAUG</strong> &copy; 2014</em></p>
-    </div>
+			<applet CODEBASE="."
+					ARCHIVE="jta26.jar"
+					CODE="de.mud.jta.Applet"
+					NAME="Appletas"
+					style="width: 590px; height: 440px; float: left;">
+					<param name="config" value="smaug.conf">
+			</applet>
+
+		</div> 
+
+		<footer>
+			<p><em><strong>--{ SMAUG II }--</strong> &copy; 2014-2015 by Antonio Cao (@burzumishi)</em></p>
+		</footer>
 
 </div>
 

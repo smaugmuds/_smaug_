@@ -1,4 +1,4 @@
-#AREA   Spectral Gate~
+#AREA   Entrada Espectral~
 
 
 
@@ -17,9 +17,9 @@ $
 
 #MOBILES
 #100
-Samylla receptionist woman~
+Samylla recepcionista muller~
 Samylla~
-The Realms of Despair hostess is here to greet you.
+A anfitriona dos Reinos da Desesperación está aquí para darche benvida.
 ~
 This is a woman, that is obvious, yet she does not quite fit what you
 are used to a female looking like.  You can not place what it is at
@@ -40,32 +40,32 @@ world have you stepped into?
 0 0 0 0 0
 0 4 0 0 1 1 0
 0 0 0 0 0 0 0 0
-> act_prog p arrives from above.~
+> act_prog p chega dende abaixo.~
 smile $n
-say Welcome to the Realms of Despair reception chamber, $n.
+say Benvid@ á cámara de recepción dos Reinos da Desesperación, $n.
 say You have yet to enter the actual game, but will soon...
 mpechoat $n Please take the time to read everything you see along the way.
 mpechoat $n - use Newbiechat to speak to the Immortals for assistance:
 mpechoat $n - type "new <message>" to use the channel.
-mpechoat $n Please, look around -- just type 'look <object>'.  (look bust)
+mpechoat $n Please, look around -- just type 'mirar <obxeto>'.  (mirar bust)
 ~
-> act_prog p arrives from the north.~
-say Welcome back, $n.
+> act_prog p chega dende o norte..~
+say Benvid@ de novo, $n.
 say Perhaps you come to look around some more?
 mpechoat $n I hope you viewed the various tapestries at the top of the stairs.
 mpechoat $n They give you a brief look in all directions of our Realms.
 ~
-> act_prog p flys in from above.~
+> act_prog p chega voando dende arriba.~
 smile $n
-say Welcome to the Realms of Despair reception chamber, $n.
+say Benvid@ á cámara de recepción dos Reinos da Desesperación, $n.
 say You have yet to enter the actual game, but will soon...
 mpechoat $n Please take the time to read everything you see along the way.
 mpechoat $n - use Newbiechat to speak to the Immortals for assistance:
 mpechoat $n - type "new <message>" to use the channel.
 mpechoat $n Please, look around -- just type 'look <object>'.  (look bust)
 ~
-> act_prog p flys in from the north.~
-say Welcome back, $n.
+> act_prog p chega voando dende o norte..~
+say Benvid@ de novo, $n.
 say Perhaps you come to look around some more?
 mpechoat $n I hope you viewed the various tapestries at the top of the stairs.
 mpechoat $n They give you a brief look in all directions of our Realms.
@@ -73,7 +73,7 @@ mpechoat $n They give you a brief look in all directions of our Realms.
 > all_greet_prog 100~
 if race($n) == Halfling
 smile $n
-say Welcome to the Realms of Despair reception chamber, $n.
+say Benvid@ á cámara de recepción dos Reinos da Desesperación, $n.
 say You have yet to enter the actual game, but will soon...
 mpechoat $n Please take the time to read everything you see along the way.
 mpechoat $n - use Newbiechat to speak to the Immortals for assistance:
@@ -95,27 +95,27 @@ An Act Mob is here, but can not be seen by Pre-Auths.
 1 0 0 0d0+0 0d0+0
 0 0
 8 8 0
-> act_prog p has entered the game.~
+> act_prog p entrou no xogo.~
 mpoload 10311 1
 give eye 0.$n
-mpforce 0.$n wear eye
+mpforce 0.$n vestir eye
 mpoload 123 1
 give burlap 0.$n
-mea $n A burlap sack is delivered into your hands, type LOOK SACK to use.
+mea $n A burlap sack is delivered into your hands, type MIRAR SACK to use.
 mea $n Familiar, yet somehow different, your being has changed...
 ~
-> act_prog p arrives from below.~
+> act_prog p chega dende abaixo.~
 mpechoat $n Your eyes are quickly drawn to the tapestries.
-mpforce 0.$n look tapestries
+mpforce 0.$n mirar tapestries
 ~
-> act_prog p flys in from below.~
+> act_prog p chega voando dende abaixo.~
 mpechoat $n Your eyes are quickly drawn to the tapestries.
-mpforce 0.$n look tapestries
+mpforce 0.$n mirar tapestries
 ~
 > all_greet_prog 100~
 if race($n) == Halfling
 mpechoat $n Your eyes are quickly drawn to the tapestries.
-mpforce 0.$n look tapestries
+mpforce 0.$n mirar tapestries
 endif
 ~
 |
@@ -140,24 +140,24 @@ quite a striking picture.
 0 0 0 0 0
 2 5 0 0 5 5 0
 0 0 0 0 0 0 0 0
-> act_prog p from the south.~
+> act_prog p dende o sur.~
 bow $n
-  say You appear to be a visitor, $n.
-  mpechoat $n - Type "look <item>" or "look <name>" to see things here.
-  mpechoat $n - Type 'eq' to check your equipment (items you are wearing).
-  mpechoat $n ... to see your unused belongings, type 'inventory' or 'i'
-  mpechoat $n ... to display your statistics sheet, type 'score' or 'ol'
-  say Type 'look tree'...
+  say Parece que eres un visitante, $n.
+  mpechoat $n - Teclea "mirar <item>" or "mirar <nome>" to see things here.
+  mpechoat $n - Teclea 'eq' to check your equipment (items you are wearing).
+  mpechoat $n ... to see your unused belongings, type 'inventario' or 'i'
+  mpechoat $n ... to display your statistics sheet, type 'puntuacion' or 'ol'
+  say Teclea 'mirar tree'...
 ~
 > all_greet_prog 100~
 if race($n) == halfling
 bow $n
 say You appear to be a visitor, $n.
-mpechoat $n - Type "look <item>" or "look <name>" to see things here.
-mpechoat $n - Type 'eq' to check your equipment (items you are wearing).
-mpechoat $n ... to see your unused belongings, type 'inventory' or 'i'
-mpechoat $n ... to display your statistics sheet, type 'score' or 'ol'
-say Type 'look tree'...
+mpechoat $n - Teclea "mirar <item>" or "mirar <nome>" to see things here.
+mpechoat $n - Teclea 'eq' to check your equipment (items you are wearing).
+mpechoat $n ... to see your unused belongings, type 'inventario' or 'i'
+mpechoat $n ... to display your statistics sheet, type 'puntuacion' or 'ol'
+say Teclea 'mirar tree'...
 endif
 ~
 |
@@ -234,42 +234,42 @@ An Act Mob is here, but can not be seen by Pre-Auths.
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 0 0 0 0 0 0
-> act_prog P arrives from the west.~
+> act_prog P chega dende o oeste.~
 mpoload 113 1
 mpoload 114 1
-mpat 120 give armour Quercusi
-mpat 120 give golden Quercusi
+mpat 120 dar armour Quercusi
+mpat 120 dar golden Quercusi
 mpoload 116 1
 mpoload 117 1
 mpat 123 mppurge
-mpat 123 drop box
-mpat 123 put token box
-mpat 123 close box
+mpat 123 deixar box
+mpat 123 poñer token box
+mpat 123 fechar box
 ~
-> act_prog p flys in from the west.~
+> act_prog p chega voando dende o oeste.~
 mpoload 113 1
 mpoload 114 1
-mpat 120 give armour Quercusi
-mpat 120 give golden Quercusi
+mpat 120 dar armour Quercusi
+mpat 120 dar golden Quercusi
 mpoload 116 1
 mpoload 117 1
 mpat 123 mppurge
-mpat 123 drop box
-mpat 123 put token box
-mpat 123 close box
+mpat 123 deixar box
+mpat 123 poñer token box
+mpat 123 fechar box
 ~
 > all_greet_prog 100~
 if race($n) == Halfling
 mpoload 113 1
 mpoload 114 1
-mpat 120 give armour Quercusi
-mpat 120 give golden Quercusi
+mpat 120 dar armour Quercusi
+mpat 120 dar golden Quercusi
 mpoload 116 1
 mpoload 117 1
 mpat 123 mppurge
-mpat 123 drop box
-mpat 123 put token box
-mpat 123 close box
+mpat 123 deixar box
+mpat 123 poñer token box
+mpat 123 fechar box
 else
 endif
 ~
@@ -278,7 +278,7 @@ mpat 199 drop all
 ~
 |
 #106
-Quercusi Q man~
+Quercusi Q home~
 Quercusi~
 A wise man is here, rocking himself on a beautiful chair.
 ~
@@ -296,8 +296,8 @@ be in top physical shape, and his eyes sparkle with wit and wisdom.
 0 0 0 0 0 0 0 0
 > all_greet_prog 100~
 smile $n
-say Hello, $n, welcome to my home.
-mpechoat $n Do you have the following items?
+say Hola, $n, benvido ao meu fogar.
+mpechoat $n Levas os seguites obxetos?
 mpechoat $n ... a weapon from a chest in a tree.
 mpechoat $n ... a Shield of Scales from the dragon hatchling in the cave.
 mpechoat $n ... a ring from the end of your chosen path.
@@ -308,12 +308,12 @@ if ispkill($n)
 else
   mpechoat $n if you would like to return to choose the Deadly path, simply
 endif
-mpechoat $n give me your ring (type 'give ring man').
+mpechoat $n dar me your ring (type 'dar ring home').
 ~
-> act_prog p leaves north.~
+> act_prog p vaise cara o norte.~
 mpat 119 mpecho $I leans out the door...
-mpat 119 give key $n
-mpat 119 give armour $n
+mpat 119 dar key $n
+mpat 119 dar armour $n
 mpat 119 mpechoat $n Good luck in your adventures, $n...
 close door
 ~
@@ -321,7 +321,7 @@ close door
 mpechoat $n I shall now return you to Xouwasi at the tree.
 mpechoaround $n $n disappears in a magical flash.
 mptransfer 0.$n 103
-mpat 103 mpforce 0.$n south
+mpat 103 mpforce 0.$n sur
 mpjunk lightring
 ~
 > act_prog p flys north.~
@@ -335,33 +335,33 @@ close door
 mpechoat $n I shall now return you to Xouwasi at the tree.
 mpechoaround $n $n disappears in a magical flash.
 mptransfer 0.$n 103
-mpat 103 mpforce 0.$n south
+mpat 103 mpforce 0.$n sur
 mpjunk shadowring
 ~
 > rand_prog 2~
-mpat 199 drop all
-mpat 199 get armour
-mpat 199 get armour
-mpat 199 get key
-mpat 199 get key
-mpat 199 get key
-mpat 199 get key
-mpat 199 get armour
-mpat 199 get armour
+mpat 199 deixar all
+mpat 199 coller armour
+mpat 199 coller armour
+mpat 199 coller key
+mpat 199 coller key
+mpat 199 coller key
+mpat 199 coller key
+mpat 199 coller armour
+mpat 199 coller armour
 mpat 199 mppurge
 ~
 > leave_prog 100~
 if race($n) == Halfling
-give key $n
-give armour $n
+dar key $n
+dar armour $n
 mpechoat $n Good luck in your adventures, $n...
 else
 endif
 ~
 > act_prog p floats north.~
 mpat 119 mpecho $I leans out the door...
-mpat 119 give key $n
-mpat 119 give armour $n
+mpat 119 dar key $n
+mpat 119 dar armour $n
 mpat 119 mpechoat $n Good luck in your adventures, $n...
 close door
 ~
@@ -379,7 +379,7 @@ An Act Mob is here, but can not be seen by Pre-Auths.
 > act_prog p pulls a rope.~
 mpechoat $n High overhead you hear a large bell thunder in response.
 mpechoaround $n High overhead, a large bell thunders in response.
-mpechoat $n If nothing happens, type LOOK ROPE, and pull again in 30 seconds.
+mpechoat $n If nothing happens, type MIRAR ROPE, and pull again in 30 seconds.
 mpapplyb $n
 push rope
 ~
@@ -434,22 +434,22 @@ or class ($n) == Vampire
 or class ($n) == Augurer
   mpoload 125 1
   put 'menacing granitic blade' chest
-  mpforce $n get granitic chest
-  mpforce $n wield granitic
+  mpforce $n coller granitic chest
+  mpforce $n soster granitic
 else
 if class ($n) == Cleric
 or class ($n) == Druid
   mpoload 126 1
   put 'adamantium mace' chest
-  mpforce $n get adamantium chest
-  mpforce $n wield mace
+  mpforce $n coller adamantium chest
+  mpforce $n soster mace
 else
 if class ($n) == Warrior
 or class ($n) == Ranger
   mpoload 127 1
   put 'heavy broadsword broad sword' chest
-  mpforce $n get broadsword chest
-  mpforce $n wield broadsword
+  mpforce $n coller broadsword chest
+  mpforce $n soster broadsword
 endif
 endif
 endif
@@ -509,9 +509,9 @@ A
 A
 18 1
 #108
-snakemeat snake meat~
-a piece of meat~
-A piece of meat from a snake~
+carneserpe serpe carne~
+unha peza de carne~
+Unha peza de carne de unha serpe.~
 ~
 19 262144 1
 25 0 0 0
@@ -621,7 +621,7 @@ If your name has been approved, you will be sent into the actual game.
 If you receive a message stating your name has been denied by the Immortals,
 you must choose a NEW, original medieval name.  To do this, you type:
  
-"name <newname>"                 For example:  name Tsythia
+"nome <newname>"                 For example:  nome Tsythia
  
 Then pull the rope to announce your new name to the Immortals.  Give them
 about 30 seconds to approve or deny the new name.  If you have not gotten
@@ -713,7 +713,7 @@ should be made aware of:
 2) Thou shalt not spam, use profanity, harass, nor make either lewd
    or racial comments on any channel, nor to any other player.
 
-Also, often review HELP RULES PKILL for rule changes that affect you.
+Also, often review AXUDA RULES PKILL for rule changes that affect you.
 ~
 #123
 sack burlap~
@@ -819,7 +819,7 @@ To the right of the path, a plaque is imbedded in a boulder.  (look plaque)~
 E
 boulder~
 This is an average boulder, grey and craggy.  It appears to be here
-merely to frame the plaque.  Type LOOK PLAQUE to read what is says.
+merely to frame the plaque.  Type MIRAR PLAQUE to read what is says.
 ~
 E
 golden plaque~
@@ -838,7 +838,7 @@ of the game world> that are found in the rooms.
  
 Should you have any questions or comments, please feel free to talk to an
 Immortal over newbiechat or via tells.  Type WHO IMM to see which Immortals
-are currently available.  Also, type HELP NEWBIE for detailed help created
+are currently available.  Also, type AXUDA NEWBIE for detailed help created
 for players new to the game.
 
 Happy Adventuring! -- The Administrators
@@ -884,7 +884,8 @@ An opening in the tree, leading back to the path.~
 spiral staircase~
 a staircase~
 A spiral staircase leads down from center of the room, with an inscribed
-golden plaque attached to its banister.  [look plaque]~
+
+golden plaque attached to its banister.  [look plaque]~
 ~
 12 0 0
 0 0 0 0
@@ -958,7 +959,7 @@ As you peer closer at this tapestry, you find it is not a tapestry at all,
 but a window which looks out upon an strange and darkened land.  You begin
 to examine each separately, enjoying the view each affords.  Nine separate
 windows are here, one above you and one in each of the eight directions.
-LOOK North, East, South, West, Northeast, Southeast, Southwest, Northwest.
+MIRAR North, East, South, West, Northeast, Southeast, Southwest, Northwest.
 Perhaps you should have a brief peek at this new world.
 ~
 E
@@ -998,7 +999,7 @@ As you peer closer at this tapestry, you find it is not a tapestry at all,
 but a window which looks out upon an strange and darkened land.  You begin
 to examine each separately, enjoying the view each affords.  Nine separate
 windows are here, one above you and one in each of the eight directions.
-LOOK North, East, South, West, Northeast, Southeast, Southwest, Northwest.
+MIRAR North, East, South, West, Northeast, Southeast, Southwest, Northwest.
 Perhaps you should have a brief peek at this new world.
 ~
 E
@@ -1007,7 +1008,7 @@ As you peer closer at this tapestry, you find it is not a tapestry at all,
 but a window which looks out upon an strange and darkened land.  You begin
 to examine each separately, enjoying the view each affords.  Nine separate
 windows are here, one above you and one in each of the eight directions.
-LOOK North, East, South, West, Northeast, Southeast, Southwest, Northwest.
+MIRAR North, East, South, West, Northeast, Southeast, Southwest, Northwest.
 Perhaps you should have a brief peek at this new world.
 ~
 E
@@ -1189,7 +1190,7 @@ deadly.  As a deadly character you will be the potential victim all other
 pkillers within FIVE levels (higher or lower) of your own.  You do not have
 to decide to become pkill at this moment; you may embark upon that path at
 any time in the future by requesting Immortal assistance, or by joining a
-clan.  Both 'HELP RULES PKILL' and 'HELP RULES ASSIST' contain information
+clan.  Both 'AXUDA RULES PKILL' and 'AXUDA RULES ASSIST' contain information
 important to pkill players.  The gods forbid peaceful players to give much
 in the way of assistance to pkillers.
  
@@ -1215,9 +1216,9 @@ mpechoat $n 'who deadly' once you reach level 5 and 18 years of age.
 mpechoat $n You will now be transferred to your chosen path...
 mpechoaround $n $n choses the path of shadows, disappearing into the darkness.
 mptransfer 0.$n 107
-mpat 107 mpforce 0.$n look
+mpat 107 mpforce 0.$n mirar
 mpat 107 mpforce 0.$n config +autoloot
-mpat 107 mpforce 0.$n config +autogold
+mpat 107 mpforce 0.$n config +autoouro
 else
 mpechoat $n You have already chosen your path...
 mptransfer $n 21001
@@ -1230,17 +1231,17 @@ mpechoat $n You have chosen the way of light, and are not a deadly character.
 mpechoat $n You will now be transferred to your chosen path.
 mpechoaround $n $n has chosen the path of light, and disappears!
 mptransfer 0.$n 105
-mpat 105 mpforce 0.$n look
+mpat 105 mpforce 0.$n mirar
 mpat 105 mpforce 0.$n config +autoloot
-mpat 105 mpforce 0.$n config +autogold
+mpat 105 mpforce 0.$n config +autoouro
 else
 mpechoat $n You have already chosen your path...
 mptransfer $n 21001
 endif
 ~
 > rand_prog 33~
-mpechoat $r Your eyes are drawn to the boulder, and you LOOK PLAQUE.
-mpforce $r look plaque
+mpechoat $r Your eyes are drawn to the boulder, and you MIRAR PLAQUE.
+mpforce $r mirar plaque
 ~
 |
 S
@@ -1298,7 +1299,7 @@ Before you is an adventure, are you ready to embrace it?
 0 -1 106
 > leave_prog 100~
 mpechoat $n Your eyes read over the sign as you pass it by.  It reads:
-mpforce 0.$n look sign
+mpforce 0.$n mirar sign
 ~
 |
 S
@@ -1321,9 +1322,9 @@ c refresh $n
 mpoload 106 1
 drop ring
 mpechoat $n You bend down and pick up the piece of metal from the ground.
-mpforce 0.$n get lightring
+mpforce 0.$n coller lightring
 mpechoaround $n $n reaches down and picks something up.
-mpforce 0.$n look ring
+mpforce 0.$n mirar ring
 mpapply $n
 ~
 |
@@ -1342,7 +1343,7 @@ Before you is an adventure, are you ready to embrace it?
 0 -1 108
 > leave_prog 100~
 mpechoat $n Your eyes read over the sign as you pass it by. It reads:
-mpforce 0.$n look sign
+mpforce 0.$n mirar sign
 ~
 |
 S
@@ -1365,9 +1366,9 @@ c refresh $n
 mpoload 107 1
 drop ring
 mpechoat $n You bend down and pick up the piece of metal from the ground.
-mpforce 0.$n get shadowring
+mpforce 0.$n coller shadowring
 mpechoaround $n $n reaches down and picks something up.
-mpforce 0.$n look ring
+mpforce 0.$n mirar ring
 mpapply $n
 ~
 |
@@ -1492,7 +1493,7 @@ The base of a hill meets the trail to the west.
 ~
 0 -1 113
 > leave_prog 100~
-mpforce 0.$n get bucket
+mpforce 0.$n coller bucket
 ~
 |
 S
@@ -1688,13 +1689,13 @@ E
 cabin~
 This cabin looks like it melds with the surrounding hillside, a
 pleasant mix of wood and stone making this attractive home. The
-door is closed, but unlocked. You can OPEN DOOR and go inside.
+door is closed, but unlocked. You can ABRIR DOOR and go inside.
 ~
 E
 door~
 This door is made of a solid wood. It looks more to keep the weather
 at bay than to prevent entry, the door is closed but unlocked. You
-may OPEN DOOR to enter.
+may ABRIR DOOR to enter.
 ~
 > leave_prog 100~
 if isimmort($n)
@@ -1755,9 +1756,9 @@ mpecho The wooden chair creaks as it rocks back and forth over the floorboards.
 > leave_prog 100~
 if race($n) == Halfling
 mpforce q emote leans out the door...
-mpforce q give key $n
-mpforce q give armour $n
-mpforce q mpechoat $n Good luck in your adventures, $n...
+mpforce q dar key $n
+mpforce q dar armour $n
+mpforce q mpechoat $n Boa sorte nas túas aventuras, $n...
 close door
 else
 endif
@@ -1787,8 +1788,8 @@ It would clearly take a large key to unlock this gate.  Maybe the resident
 of the cabin southwest of here has it.
 ~
 > rand_prog 40~
-mpechoat $r Your eyes are drawn to a scribed sign on the gate, and LOOK GATE.
-mpforce $r look gate
+mpechoat $r Your eyes are drawn to a scribed sign on the gate, and MIRAR GATE.
+mpforce $r mirar gate
 ~
 |
 S
@@ -1806,7 +1807,7 @@ gate~
 > act_prog p pulls a rope.~
 mpechoat $n High overhead you hear a large bell thunder in response.
 mpechoaround $n High overhead, a large bell thunders in response.
-mpechoat $n If nothing happens, type LOOK ROPE, and pull again in 30 seconds.
+mpechoat $n If nothing happens, type MIRAR ROPE, and pull again in 30 seconds.
 mpapplyb $n
 push rope
 ~
@@ -1833,7 +1834,7 @@ mpat Quercusi mpforce Quercusi close trapdoor
 |
 S
 #199
-Floating in a void~
+Flotando no vacío~
 ~
 0 4 1
 S

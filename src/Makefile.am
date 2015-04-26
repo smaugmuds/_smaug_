@@ -95,7 +95,7 @@ libsmaug_player_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
 libsmaug_player_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
 
 libsmaug_player_la_SOURCES = \
-player.c polymorph.c update.c save.c ident.c ban.c 
+player.c polymorph.c update.c save.c ban.c 
 
 # lib/libsmaug-mudprog.so (shared lib) #
 libsmaug_mudprog_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
@@ -132,7 +132,7 @@ smaug_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
 
 smaug_SOURCES = smaug.c \
 i18n.c const.c colorize.c db.c handler.c hashstr.c \
-imm_host.c interp.c win32srv.c sha256.c
+ident.c imm_host.c interp.c win32srv.c sha256.c
 
 if ENABLE_HOTBOOT
 smaug_SOURCES += hotboot.c

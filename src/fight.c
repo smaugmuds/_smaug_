@@ -330,7 +330,7 @@ violence_update (void)
 	  bug ("Short-cutting here", 0);
 	  ch->prev = NULL;
 	  gch_prev = NULL;
-	  do_shout (ch, "Thoric says, 'Prepare for the worst!'");
+	  do_shout (ch, _("Thoric says, 'Prepare for the worst!'"));
 	}
 
       /*
@@ -492,8 +492,8 @@ violence_update (void)
 						if (!IS_NPC(ch) && ch->pcdata->condition[COND_BLEEDING] > 0 && number_range(1,4) == 1)
 						{
 							damage(ch, ch, ch->pcdata->condition[COND_BLEEDING], TYPE_UNDEFINED);
-							act( AT_BLOOD, "You're losing blood...", ch, NULL, NULL, TO_CHAR);
-							act( AT_BLOOD, "$n is losing blood...", ch, NULL, NULL, TO_ROOM);
+							act( AT_BLOOD, _("You're losing blood..."), ch, NULL, NULL, TO_CHAR);
+							act( AT_BLOOD, _("$n is losing blood..."), ch, NULL, NULL, TO_ROOM);
 						}
 					}
 #else
@@ -512,10 +512,10 @@ violence_update (void)
       if (!str_cmp (ch->name, "zednakk"))
 	{
 	  act (AT_DGREEN,
-	       "$N rips your head clean from your shoulders.  As your spinal cord dangles limply in the breeze, the old adage echoes in your dying thoughts 'Be careful what you wish for!'",
+	       _("$N rips your head clean from your shoulders.  As your spinal cord dangles limply in the breeze, the old adage echoes in your dying thoughts 'Be careful what you wish for!'"),
 	       ch, NULL, victim, TO_CHAR);
 	  act (AT_DGREEN,
-	       "Spurts of thick green sarcasm erupt from Zednakk as his head is sliced clean from his shoulders.",
+	       _("Spurts of thick green sarcasm erupt from Zednakk as his head is sliced clean from his shoulders."),
 	       ch, NULL, victim, TO_NOTVICT);
 	  do_mp_slay (victim, "zednakk");
 	  if (char_died (ch) || char_died (victim))

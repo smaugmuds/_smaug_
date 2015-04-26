@@ -136,15 +136,15 @@ char *const room_sents[SECT_MAX][25] = {
    "an oasis far in the distance"},
 
   {
-   "nothing unusual", "nothing unusual", "nothing unusual",
-   "nothing unusual", "nothing unusual", "nothing unusual",
-   "nothing unusual", "nothing unusual", "nothing unusual",
-   "nothing unusual", "nothing unusual", "nothing unusual",
-   "nothing unusual", "nothing unusual", "nothing unusual",
-   "nothing unusual", "nothing unusual", "nothing unusual",
-   "nothing unusual", "nothing unusual", "nothing unusual",
-   "nothing unusual", "nothing unusual", "nothing unusual",
-   "nothing unusual",
+   ___("nothing unusual"), ___("nothing unusual"), ___("nothing unusual"),
+   ___("nothing unusual"), ___("nothing unusual"), ___("nothing unusual"),
+   ___("nothing unusual"), ___("nothing unusual"), ___("nothing unusual"),
+   ___("nothing unusual"), ___("nothing unusual"), ___("nothing unusual"),
+   ___("nothing unusual"), ___("nothing unusual"), ___("nothing unusual"),
+   ___("nothing unusual"), ___("nothing unusual"), ___("nothing unusual"),
+   ___("nothing unusual"), ___("nothing unusual"), ___("nothing unusual"),
+   ___("nothing unusual"), ___("nothing unusual"), ___("nothing unusual"),
+   ___("nothing unusual"),
    },
 
   {
@@ -248,15 +248,15 @@ decorate_room (ROOM_INDEX_DATA * room)
   int iRand, len;
   int previous[8];
   int sector = room->sector_type;
-  char *pre = "You notice ", *post = ".";
+  char *pre = ___("You notice "), *post = ".";
 
   if (room->name)
     STRFREE (room->name);
   if (room->description)
     STRFREE (room->description);
 
-  room->name = STRALLOC ("In a virtual room");
-  room->description = STRALLOC ("You're on a pathway.\n\r");
+  room->name = STRALLOC (_("In a virtual room"));
+  room->description = STRALLOC (_("You're on a pathway.\n"));
 
   return;			/* Return with above till I can figure out what is
 				 * wrong with it. --Shaddai
@@ -291,20 +291,20 @@ decorate_room (ROOM_INDEX_DATA * room)
 	      switch (number_range (1, 2 * (iRand == nRand - 1) ? 1 : 2))
 		{
 		case 1:
-		  pre = "You notice ";
+		  pre = ___("You notice ");
 		  post = ".";
 		  break;
 		case 2:
-		  pre = "You see ";
+		  pre = ___("You see ");
 		  post = ".";
 		  break;
 		case 3:
-		  pre = "You see ";
-		  post = ", and ";
+		  pre = ___("You see ");
+		  post = ___(", and ");
 		  break;
 		case 4:
-		  pre = "You notice ";
-		  post = ", and ";
+		  pre = ___("You notice ");
+		  post = ___(", and ");
 		  break;
 		}
 	      sprintf (buf2, "%s%s%s", pre, room_sents[sector][x], post);
@@ -315,20 +315,20 @@ decorate_room (ROOM_INDEX_DATA * room)
 		switch (number_range (0, 3))
 		  {
 		  case 0:
-		    pre = "you notice ";
+		    pre = ___("you notice ");
 		    post = ".";
 		    break;
 		  case 1:
-		    pre = "you see ";
-		    post = ", and ";
+		    pre = ___("you see ");
+		    post = ___(", and ");
 		    break;
 		  case 2:
-		    pre = "you see ";
+		    pre = ___("you see ");
 		    post = ".";
 		    break;
 		  case 3:
-		    pre = "over yonder ";
-		    post = ", and ";
+		    pre = ___("over yonder ");
+		    post = ___(", and ");
 		    break;
 		  }
 	      else
@@ -340,15 +340,15 @@ decorate_room (ROOM_INDEX_DATA * room)
 		    break;
 		  case 1:
 		    pre = "";
-		    post = " not too far away.";
+		    post = ___(" not too far away.");
 		    break;
 		  case 2:
 		    pre = "";
-		    post = ", and ";
+		    post = ___(", and ");
 		    break;
 		  case 3:
 		    pre = "";
-		    post = " nearby.";
+		    post = ___(" nearby.");
 		    break;
 		  }
 	      sprintf (buf2, "%s%s%s", pre, room_sents[sector][x], post);
@@ -452,7 +452,7 @@ get_exit (ROOM_INDEX_DATA * room, sh_int dir)
 
   if (!room)
     {
-      bug ("Get_exit: NULL room", 0);
+      bug (_("Get_exit: NULL room"), 0);
       return NULL;
     }
 
@@ -472,7 +472,7 @@ get_exit_to (ROOM_INDEX_DATA * room, sh_int dir, int vnum)
 
   if (!room)
     {
-      bug ("Get_exit: NULL room", 0);
+      bug (_("Get_exit: NULL room"), 0);
       return NULL;
     }
 
@@ -493,7 +493,7 @@ get_exit_num (ROOM_INDEX_DATA * room, sh_int count)
 
   if (!room)
     {
-      bug ("Get_exit: NULL room", 0);
+      bug (_("Get_exit: NULL room"), 0);
       return NULL;
     }
 
@@ -1464,25 +1464,25 @@ find_door (CHAR_DATA * ch, char *arg, bool quiet)
     return NULL;
 
   pexit = NULL;
-  if (!str_cmp (arg, _("n")) || !str_cmp (arg, _("north")))
+  if (!str_cmp (_(arg), _("n")) || !str_cmp (_(arg), _("north")))
     door = 0;
-  else if (!str_cmp (arg, _("e")) || !str_cmp (arg, _("east")))
+  else if (!str_cmp (_(arg), _("e")) || !str_cmp (_(arg), _("east")))
     door = 1;
-  else if (!str_cmp (arg, _("s")) || !str_cmp (arg, _("south")))
+  else if (!str_cmp (_(arg), _("s")) || !str_cmp (_(arg), _("south")))
     door = 2;
-  else if (!str_cmp (arg, _("w")) || !str_cmp (arg, _("west")))
+  else if (!str_cmp (_(arg), _("w")) || !str_cmp (_(arg), _("west")))
     door = 3;
-  else if (!str_cmp (arg, _("u")) || !str_cmp (arg, _("up")))
+  else if (!str_cmp (_(arg), _("u")) || !str_cmp (_(arg), _("up")))
     door = 4;
-  else if (!str_cmp (arg, _("d")) || !str_cmp (arg, _("down")))
+  else if (!str_cmp (_(arg), _("d")) || !str_cmp (_(arg), _("down")))
     door = 5;
-  else if (!str_cmp (arg, _("ne")) || !str_cmp (arg, _("northeast")))
+  else if (!str_cmp (_(arg), _("ne")) || !str_cmp (_(arg), _("northeast")))
     door = 6;
-  else if (!str_cmp (arg, _("nw")) || !str_cmp (arg, _("northwest")))
+  else if (!str_cmp (_(arg), _("nw")) || !str_cmp (_(arg), _("northwest")))
     door = 7;
-  else if (!str_cmp (arg, _("se")) || !str_cmp (arg, _("southeast")))
+  else if (!str_cmp (_(arg), _("se")) || !str_cmp (_(arg), _("southeast")))
     door = 8;
-  else if (!str_cmp (arg, _("sw")) || !str_cmp (arg, _("southwest")))
+  else if (!str_cmp (_(arg), _("sw")) || !str_cmp (_(arg), _("southwest")))
     door = 9;
   else
     {

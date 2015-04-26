@@ -5,8 +5,11 @@ src/boards.c
 src/build.c
 src/clans.c
 src/comments.c
+src/const.c
 src/deity.c
+src/fight.c
 src/interp.c
+src/handler.c
 src/house.c
 src/liquids.c
 src/smaug.c
@@ -17,6 +20,7 @@ src/act_info.c
 src/act_wiz.c
 src/act_move.c
 src/act_obj.c
+src/misc.c
 src/mud_prog.c
 src/mud_comm.c
 src/mpxset.c
@@ -27,4 +31,3 @@ src/save.c
 src/tables.c
 src/update.c
 src/variables.c
-data/system/commands.dat

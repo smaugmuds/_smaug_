@@ -74,77 +74,77 @@ check_pos (CHAR_DATA * ch, sh_int position)
       switch (ch->position)
 	{
 	case POS_DEAD:
-	  send_to_char ("A little difficult to do when you are DEAD...\n\r",
+	  send_to_char (_("A little difficult to do when you are DEAD...\n"),
 			ch);
 	  break;
 
 	case POS_MORTAL:
 	case POS_INCAP:
-	  send_to_char ("You are hurt far too bad for that.\n\r", ch);
+	  send_to_char (_("You are hurt far too bad for that.\n"), ch);
 	  break;
 
 	case POS_STUNNED:
-	  send_to_char ("You are too stunned to do that.\n\r", ch);
+	  send_to_char (_("You are too stunned to do that.\n"), ch);
 	  break;
 
 	case POS_SLEEPING:
-	  send_to_char ("In your dreams, or what?\n\r", ch);
+	  send_to_char (_("In your dreams, or what?\n"), ch);
 	  break;
 
 	case POS_RESTING:
-	  send_to_char ("Nah... You feel too relaxed...\n\r", ch);
+	  send_to_char (_("Nah... You feel too relaxed...\n"), ch);
 	  break;
 
 	case POS_SITTING:
-	  send_to_char ("You can't do that sitting down.\n\r", ch);
+	  send_to_char (_("You can't do that sitting down.\n"), ch);
 	  break;
 
 	case POS_FIGHTING:
 	  if (position <= POS_EVASIVE)
 	    {
 	      send_to_char
-		("This fighting style is too demanding for that!\n\r", ch);
+		(_("This fighting style is too demanding for that!\n"), ch);
 	    }
 	  else
 	    {
-	      send_to_char ("No way!  You are still fighting!\n\r", ch);
+	      send_to_char (_("No way!  You are still fighting!\n"), ch);
 	    }
 	  break;
 	case POS_DEFENSIVE:
 	  if (position <= POS_EVASIVE)
 	    {
 	      send_to_char
-		("This fighting style is too demanding for that!\n\r", ch);
+		(_("This fighting style is too demanding for that!\n"), ch);
 	    }
 	  else
 	    {
-	      send_to_char ("No way!  You are still fighting!\n\r", ch);
+	      send_to_char (_("No way!  You are still fighting!\n"), ch);
 	    }
 	  break;
 	case POS_AGGRESSIVE:
 	  if (position <= POS_EVASIVE)
 	    {
 	      send_to_char
-		("This fighting style is too demanding for that!\n\r", ch);
+		(_("This fighting style is too demanding for that!\n"), ch);
 	    }
 	  else
 	    {
-	      send_to_char ("No way!  You are still fighting!\n\r", ch);
+	      send_to_char (_("No way!  You are still fighting!\n"), ch);
 	    }
 	  break;
 	case POS_BERSERK:
 	  if (position <= POS_EVASIVE)
 	    {
 	      send_to_char
-		("This fighting style is too demanding for that!\n\r", ch);
+		(_("This fighting style is too demanding for that!\n"), ch);
 	    }
 	  else
 	    {
-	      send_to_char ("No way!  You are still fighting!\n\r", ch);
+	      send_to_char (_("No way!  You are still fighting!\n"), ch);
 	    }
 	  break;
 	case POS_EVASIVE:
-	  send_to_char ("No way!  You are still fighting!\n\r", ch);
+	  send_to_char (_("No way!  You are still fighting!\n"), ch);
 	  break;
 
 	}
@@ -167,12 +167,12 @@ valid_watch (char *logline)
   char c = logline[0];
 
   if (len == 1
-      && (c == 'l' || c == 'n' || c == 's' || c == 'e' || c == 'w' || c == 'u'
-	  || c == 'd'))
+      && (c == ___('l') || c == ___('n') || c == ___('s') || c == ___('e') || c == ___('w') || c == ___('u')
+	  || c == ___('d')))
     return FALSE;
-  if (len == 2 && c == 'n' && (logline[1] == 'e' || logline[1] == 'w'))
+  if (len == 2 && c == ___('n') && (logline[1] == ___('e') || logline[1] == ___('w')))
     return FALSE;
-  if (len == 2 && c == 's' && (logline[1] == 'e' || logline[1] == 'w'))
+  if (len == 2 && c == ___('s') && (logline[1] == ___('e') || logline[1] == ___('w')))
     return FALSE;
 
   return TRUE;
@@ -748,10 +748,10 @@ first place.  Whaddya gonna do? */
 		      || IS_SET (pexit->exit_info, EX_NOPASSDOOR)))
 		{
 		  if (!IS_SET (pexit->exit_info, EX_SECRET))
-		    act (AT_PLAIN, "The $d is closed.", ch, NULL,
+		    act (AT_PLAIN, _("The $d is closed."), ch, NULL,
 			 pexit->keyword, TO_CHAR);
 		  else
-		    send_to_char ("You cannot do that here.\n\r", ch);
+		    send_to_char (_("You cannot do that here.\n"), ch);
 		  return;
 		}
 	      move_char (ch, pexit, 0);
@@ -902,7 +902,7 @@ check_social (CHAR_DATA * ch, char *command, char *argument)
       return TRUE;
 
     case POS_STUNNED:
-      send_to_char ("You are too stunned to do that.\n\r", ch);
+      send_to_char (_("You are too stunned to do that.\n"), ch);
       return TRUE;
 
     case POS_SLEEPING:
@@ -912,7 +912,7 @@ check_social (CHAR_DATA * ch, char *command, char *argument)
        */
       if (!str_cmp (social->name, "snore"))
 	break;
-      send_to_char ("In your dreams, or what?\n\r", ch);
+      send_to_char (_("In your dreams, or what?\n"), ch);
       return TRUE;
 
     }

@@ -1160,25 +1160,25 @@ get_door (char *arg)
 {
   int door;
 
-  if (!str_cmp (arg, "n") || !str_cmp (arg, "north"))
+  if (!str_cmp (_(arg), _("n")) || !str_cmp (_(arg), _("north")))
     door = 0;
-  else if (!str_cmp (arg, "e") || !str_cmp (arg, "east"))
+  else if (!str_cmp (_(arg), _("e")) || !str_cmp (_(arg), _("east")))
     door = 1;
-  else if (!str_cmp (arg, "s") || !str_cmp (arg, "south"))
+  else if (!str_cmp (_(arg), _("s")) || !str_cmp (_(arg), _("south")))
     door = 2;
-  else if (!str_cmp (arg, "w") || !str_cmp (arg, "west"))
+  else if (!str_cmp (_(arg), _("w")) || !str_cmp (_(arg), _("west")))
     door = 3;
-  else if (!str_cmp (arg, "u") || !str_cmp (arg, "up"))
+  else if (!str_cmp (_(arg), _("u")) || !str_cmp (_(arg), _("up")))
     door = 4;
-  else if (!str_cmp (arg, "d") || !str_cmp (arg, "down"))
+  else if (!str_cmp (_(arg), _("d")) || !str_cmp (_(arg), _("down")))
     door = 5;
-  else if (!str_cmp (arg, "ne") || !str_cmp (arg, "northeast"))
+  else if (!str_cmp (_(arg), _("ne")) || !str_cmp (_(arg), _("northeast")))
     door = 6;
-  else if (!str_cmp (arg, "nw") || !str_cmp (arg, "northwest"))
+  else if (!str_cmp (_(arg), _("nw")) || !str_cmp (_(arg), _("northwest")))
     door = 7;
-  else if (!str_cmp (arg, "se") || !str_cmp (arg, "southeast"))
+  else if (!str_cmp (_(arg), _("se")) || !str_cmp (_(arg), _("southeast")))
     door = 8;
-  else if (!str_cmp (arg, "sw") || !str_cmp (arg, "southwest"))
+  else if (!str_cmp (_(arg), _("sw")) || !str_cmp (_(arg), _("southwest")))
     door = 9;
   else
     door = -1;
@@ -1296,25 +1296,25 @@ do_look (CHAR_DATA * ch, char *argument)
 		  if (IS_SET (pexit->exit_info, EX_LOCKED))
 		    exitcolor = "&r";
 		  if (pexit->vdir == DIR_NORTH)
-		    sprintf (dir_n, "%sN", exitcolor);
+		    sprintf (dir_n, _("%sN"), exitcolor);
 		  if (pexit->vdir == DIR_EAST)
-		    sprintf (dir_e, "%sE", exitcolor);
+		    sprintf (dir_e, _("%sE"), exitcolor);
 		  if (pexit->vdir == DIR_SOUTH)
-		    sprintf (dir_s, "%sS", exitcolor);
+		    sprintf (dir_s, _("%sS"), exitcolor);
 		  if (pexit->vdir == DIR_WEST)
-		    sprintf (dir_w, "%sW", exitcolor);
+		    sprintf (dir_w, _("%sW"), exitcolor);
 		  if (pexit->vdir == DIR_UP)
-		    sprintf (dir_u, "%sU", exitcolor);
+		    sprintf (dir_u, _("%sU"), exitcolor);
 		  if (pexit->vdir == DIR_DOWN)
-		    sprintf (dir_d, "%sD", exitcolor);
+		    sprintf (dir_d, _("%sD"), exitcolor);
 		  if (pexit->vdir == DIR_NORTHEAST)
-		    sprintf (dir_ne, "%sNE", exitcolor);
+		    sprintf (dir_ne, _("%sNE"), exitcolor);
 		  if (pexit->vdir == DIR_NORTHWEST)
-		    sprintf (dir_nw, "%sNW", exitcolor);
+		    sprintf (dir_nw, _("%sNW"), exitcolor);
 		  if (pexit->vdir == DIR_SOUTHEAST)
-		    sprintf (dir_se, "%sSE", exitcolor);
+		    sprintf (dir_se, _("%sSE"), exitcolor);
 		  if (pexit->vdir == DIR_SOUTHWEST)
-		    sprintf (dir_sw, "%sSW", exitcolor);
+		    sprintf (dir_sw, _("%sSW"), exitcolor);
 		}
 	    }
 
@@ -1329,7 +1329,7 @@ do_look (CHAR_DATA * ch, char *argument)
 	  ch_printf_color (ch, "        %s ", dir_nw);
 	  strcat (dir_n, "  ");
 	  ch_printf_color (ch, "  %s", dir_n);
-	  ch_printf_color (ch, "   %s\n\r", dir_ne);
+	  ch_printf_color (ch, "   %s\n", dir_ne);
 	  send_to_char_color
 	    ("&z------------------------------------------------------- ",
 	     ch);
@@ -1342,7 +1342,7 @@ do_look (CHAR_DATA * ch, char *argument)
 	  send_to_char_color ("&z-", ch);
 	  ch_printf_color (ch, "%s", dir_d);
 	  send_to_char_color ("&z ", ch);
-	  ch_printf_color (ch, "%s\n\r", dir_e);
+	  ch_printf_color (ch, "%s\n", dir_e);
 	  send_to_char
 	    ("                                                        ", ch);
 	  strcat (dir_sw, "  ");
@@ -1425,24 +1425,24 @@ do_look (CHAR_DATA * ch, char *argument)
       /* 'look under' */
       if (arg2[0] == '\0')
 	{
-	  send_to_char ("Look beneath what?\n\r", ch);
+	  send_to_char (_("Look beneath what?\n"), ch);
 	  return;
 	}
 
       if ((obj = get_obj_here (ch, arg2)) == NULL)
 	{
-	  send_to_char ("You do not see that here.\n\r", ch);
+	  send_to_char (_("You do not see that here.\n"), ch);
 	  return;
 	}
       if (!CAN_WEAR (obj, ITEM_TAKE)
 	  && ch->level < sysdata.level_getobjnotake)
 	{
-	  send_to_char ("You can't seem to get a grip on it.\n\r", ch);
+	  send_to_char (_("You can't seem to get a grip on it.\n"), ch);
 	  return;
 	}
       if (ch->carry_weight + obj->weight > can_carry_w (ch))
 	{
-	  send_to_char ("It's too heavy for you to look under.\n\r", ch);
+	  send_to_char (_("It's too heavy for you to look under.\n"), ch);
 	  return;
 	}
       count = obj->count;
@@ -1455,7 +1455,7 @@ do_look (CHAR_DATA * ch, char *argument)
       if (IS_OBJ_STAT (obj, ITEM_COVERING))
 	show_list_to_char (obj->first_content, ch, TRUE, TRUE);
       else
-	send_to_char ("Nothing.\n\r", ch);
+	send_to_char (_("Nothing.\n"), ch);
       if (doexaprog)
 	oprog_examine_trigger (ch, obj);
       return;
@@ -1468,26 +1468,26 @@ do_look (CHAR_DATA * ch, char *argument)
       /* 'look in' */
       if (arg2[0] == '\0')
 	{
-	  send_to_char ("Look in what?\n\r", ch);
+	  send_to_char (_("Look in what?\n"), ch);
 	  return;
 	}
 
       if ((obj = get_obj_here (ch, arg2)) == NULL)
 	{
-	  send_to_char ("You do not see that here.\n\r", ch);
+	  send_to_char (_("You do not see that here.\n"), ch);
 	  return;
 	}
 
       switch (obj->item_type)
 	{
 	default:
-	  send_to_char ("That is not a container.\n\r", ch);
+	  send_to_char (_("That is not a container.\n"), ch);
 	  break;
 
 	case ITEM_DRINK_CON:
 	  if (obj->value[1] <= 0)
 	    {
-	      send_to_char ("It is empty.\n\r", ch);
+	      send_to_char (_("It is empty.\n"), ch);
 	      if (doexaprog)
 		oprog_examine_trigger (ch, obj);
 	      break;
@@ -1536,7 +1536,7 @@ do_look (CHAR_DATA * ch, char *argument)
 	case ITEM_CORPSE_PC:
 	  if (IS_SET (obj->value[1], CONT_CLOSED))
 	    {
-	      send_to_char ("It is closed.\n\r", ch);
+	      send_to_char (_("It is closed.\n"), ch);
 	      break;
 	    }
 
@@ -1576,10 +1576,10 @@ do_look (CHAR_DATA * ch, char *argument)
 	      if (pexit->keyword[strlen (pexit->keyword) - 1] == 's'
 		  || (pexit->keyword[strlen (pexit->keyword) - 1] == '\''
 		      && pexit->keyword[strlen (pexit->keyword) - 2] == 's'))
-		act (AT_RED, "The $d are closed.", ch, NULL, pexit->keyword,
+		act (AT_RED, _("The $d are closed."), ch, NULL, pexit->keyword,
 		     TO_CHAR);
 	      else
-		act (AT_RED, "The $d is closed.", ch, NULL, pexit->keyword,
+		act (AT_RED, _("The $d is closed."), ch, NULL, pexit->keyword,
 		     TO_CHAR);
 	    }
 	  return;
@@ -1599,7 +1599,7 @@ do_look (CHAR_DATA * ch, char *argument)
       if (pexit->description && pexit->description[0] != '\0')
 	send_to_char (pexit->description, ch);
       else
-	send_to_char ("Nothing special there.\n\r", ch);
+	send_to_char (_("Nothing special there.\n"), ch);
 
       /*
        * Ability to look into the next room                   -Thoric
@@ -1655,7 +1655,7 @@ do_look (CHAR_DATA * ch, char *argument)
     }
   else if (door != -1)
     {
-      send_to_char ("Nothing special there.\n\r", ch);
+      send_to_char (_("Nothing special there.\n"), ch);
       return;
     }
 
@@ -1702,7 +1702,7 @@ do_look (CHAR_DATA * ch, char *argument)
 	      if (!pdesc)
 		pdesc = get_extra_descr (obj->name, obj->first_extradesc);
 	      if (!pdesc)
-		send_to_char_color ("You see nothing special.\r\n", ch);
+		send_to_char_color (_("You see nothing special.\n"), ch);
 	      else
 		send_to_char_color (pdesc, ch);
 	      if (obj->item_type == ITEM_PUDDLE)
@@ -1752,7 +1752,7 @@ do_look (CHAR_DATA * ch, char *argument)
 	      if (!pdesc)
 		pdesc = get_extra_descr (obj->name, obj->first_extradesc);
 	      if (!pdesc)
-		send_to_char ("You see nothing special.\r\n", ch);
+		send_to_char (_("You see nothing special.\n"), ch);
 	      else
 		send_to_char_color (pdesc, ch);
 	      if (obj->item_type == ITEM_PUDDLE)
@@ -1768,7 +1768,7 @@ do_look (CHAR_DATA * ch, char *argument)
 	}
     }
 
-  send_to_char ("You do not see that here.\n\r", ch);
+  send_to_char (_("You do not see that here.\n"), ch);
   return;
 }
 
@@ -1783,7 +1783,7 @@ show_race_line (CHAR_DATA * ch, CHAR_DATA * victim)
     {
       feet = victim->height / 12;
       inches = victim->height % 12;
-      sprintf (buf, "%s is %d'%d\" and weighs %d pounds.\n\r",
+      sprintf (buf, _("%s is %d'%d\" and weighs %d pounds.\n"),
 	       PERS (victim, ch), feet, inches, victim->weight);
       send_to_char (buf, ch);
       return;
@@ -1792,7 +1792,7 @@ show_race_line (CHAR_DATA * ch, CHAR_DATA * victim)
     {
       feet = victim->height / 12;
       inches = victim->height % 12;
-      sprintf (buf, "You are %d'%d\" and weigh %d pounds.\n\r", feet, inches,
+      sprintf (buf, _("You are %d'%d\" and weigh %d pounds.\n"), feet, inches,
 	       victim->weight);
       send_to_char (buf, ch);
       return;
@@ -2249,7 +2249,7 @@ do_exits (CHAR_DATA * ch, char *argument)
     return;
 
   set_char_color (AT_EXITS, ch);
-  ch_printf_color (ch, "%s", fAuto ? "Exits: " : "Obvious exits:\n\r");
+  ch_printf_color (ch, "%s", fAuto ? _("Exits: ") : _("Obvious exits:\n"));
   found = FALSE;
   for (pexit = ch->in_room->first_exit; pexit; pexit = pexit->next)
     {
@@ -2272,28 +2272,28 @@ do_exits (CHAR_DATA * ch, char *argument)
 			  || pexit->keyword[0] == '\0'))
 		    {
 		      strcat (buf, "[");
-		      strcat (buf, dir_name[pexit->vdir]);
+		      strcat (buf, _(dir_name[pexit->vdir]));
 		      strcat (buf, "] ");
 		    }
 		}
 	      else
 		{
-		  strcat (buf, dir_name[pexit->vdir]);
+		  strcat (buf, _(dir_name[pexit->vdir]));
 		  strcat (buf, " ");
 		}
 	    }
 	  else
 	    {
 	      sprintf (buf + strlen (buf), "%-5s - %s\n\r",
-		       capitalize (dir_name[pexit->vdir]),
+		       capitalize (_(dir_name[pexit->vdir])),
 		       room_is_dark (pexit->to_room)
-		       ? "Too dark to tell" : pexit->to_room->name);
+		       ? _("Too dark to tell") : pexit->to_room->name);
 	    }
 	}
     }
 
   if (!found)
-    strcat (buf, fAuto ? "none\n\r" : "None\n\r");
+    strcat (buf, fAuto ? _("none\n") : _("None\n"));
   else if (fAuto)
     strcat (buf, "\n\r");
   send_to_char_color (buf, ch);
@@ -2349,34 +2349,6 @@ do_time (CHAR_DATA * ch, char *argument)
 
   return;
 }
-
-/*
-void do_weather( CHAR_DATA *ch, char *argument )
-{
-    static char * const sky_look[4] =
-    {
-	"cloudless",
-	"cloudy",
-	"rainy",
-	"lit by flashes of lightning"
-    };
-
-    if ( !IS_OUTSIDE(ch) )
-    {
-	send_to_char( "You can't see the sky from here.\n\r", ch );
-	return;
-    }
-
-    set_char_color( AT_BLUE, ch );
-    ch_printf( ch, "The sky is %s and %s.\n\r",
-	sky_look[weather_info.sky],
-	weather_info.change >= 0
-	? "a warm southerly breeze blows"
-	: "a cold northern gust blows"
-	);
-    return;
-}
-*/
 
 /*
  * Produce a description of the weather based on area weather using
@@ -2693,21 +2665,6 @@ do_changes (CHAR_DATA * ch, char *argument)
   return;
 }
 
-/*  Replaced with extended news snippet
-void do_news( CHAR_DATA *ch, char *argument )
-{
-
-    if ( IS_NPC( ch ) )
-	return;
-    send_to_char_color( "\n\r&gNews of the Realms ...\n\r", ch );
-    show_file( ch, NEWS_FILE );
-    send_to_char_color( "&G&g... type &G'&gchanges&G'&g for other or older updates.\n\r", ch );
-    if ( IS_IMMORTAL( ch ) )
-	send_to_char_color( "&G&gImmortals should also check &G'&gimmnews&G'&g.\n\r", ch );
-    return;
-}
-*/
-
 
 extern char *help_greeting;	/* so we can edit the greeting online */
 
@@ -2721,7 +2678,7 @@ do_hedit (CHAR_DATA * ch, char *argument)
 
   if (!ch->desc)
     {
-      send_to_char ("You have no descriptor.\n\r", ch);
+      send_to_char (_("You have no descriptor.\n"), ch);
       return;
     }
 

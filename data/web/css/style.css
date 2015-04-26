@@ -1,5 +1,5 @@
 body {
-	background: #000 url(../img/xsmaug.jpg) no-repeat center;
+	background: #000 url(../img/smaug.jpg) no-repeat center;
 	font-family: courier, monospace;
 	font-size: 14px;
 	color: #eee;
@@ -17,15 +17,22 @@ header {
 	margin-left: 20px;
 }
 
+footer {
+	float: right !important;
+	/* display: block; */
+	position: relative;
+	/* padding: 5px; */
+}
+
 #console {
 	/* background-color: #000; */
-	display: block;
+	/* display: block; */
 	float: right !important;
-	position: relative; 
+	/* position: relative; */
 	color: #eee;
 	width: 80%;
-	height: 475px;
-	max-height: 500px;
+	height: 465px;
+	max-height: 485px;
 	margin-right: 20px;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -61,7 +68,7 @@ a {
 	margin-top:0;
 	margin-bottom:0;
 	height: 625px;
-	max-height: 650px;
+	max-height: 640px;
 	background-color: rgba(0, 0, 0, 0.5);
 	-webkit-border-bottom-right-radius: 10px;
 	-webkit-border-bottom-left-radius: 10px;
@@ -101,11 +108,6 @@ a {
       padding: 0;
       list-style: none;
       border-top-color: white;
-}
-
-#footer {
-	float: right;
-	padding: 5px;
 }
 
 a:hover{cursor:pointer;}

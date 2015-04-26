@@ -75,11 +75,11 @@ OBJ_DATA *gobj_prev;
 CHAR_DATA *timechar;
 
 char *corpse_descs[] = {
-  "The corpse of %s is in the last stages of decay.",
-  "The corpse of %s is crawling with vermin.",
-  "The corpse of %s fills the air with a foul stench.",
-  "The corpse of %s is buzzing with flies.",
-  "The corpse of %s lies here."
+  ___("The corpse of %s is in the last stages of decay."),
+  ___("The corpse of %s is crawling with vermin."),
+  ___("The corpse of %s fills the air with a foul stench."),
+  ___("The corpse of %s is buzzing with flies."),
+  ___("The corpse of %s lies here.")
 };
 
 extern int top_exit;
@@ -98,7 +98,7 @@ advance_level (CHAR_DATA * ch)
   int add_move;
   int add_prac;
 
-  sprintf (buf, "the %s",
+  sprintf (buf, _("the %s"),
 	   title_table[ch->class][ch->level][ch->sex == SEX_FEMALE ? 1 : 0]);
   set_title (ch, buf);
 
@@ -124,7 +124,7 @@ advance_level (CHAR_DATA * ch)
       add_mana = add_mana + add_mana * .3;
       add_move = add_move + add_move * .3;
       add_hp += 1;		/* bitch at blod if you don't like this :) */
-      sprintf (buf, "Gravoc's Pandect steels your sinews.\n\r");
+      sprintf (buf, _("Gravoc's Pandect steels your sinews.\n"));
     }
 
   ch->max_hit += add_hp;
@@ -140,7 +140,7 @@ advance_level (CHAR_DATA * ch)
     {
       DESCRIPTOR_DATA *d;
 
-      sprintf (buf, "%s has attained the rank of Avatar!", ch->name);
+      sprintf (buf, _("%s has attained the rank of Avatar!"), ch->name);
       for (d = first_descriptor; d; d = d->next)
 	if (d->connected == CON_PLAYING && d->character != ch)
 	  {
@@ -156,13 +156,13 @@ advance_level (CHAR_DATA * ch)
     {
       if (IS_VAMPIRE (ch))
 	sprintf (buf,
-		 "Your gain is: %d/%d hp, %d/%d bp, %d/%d mv %d/%d prac.\n\r",
+		 _("Your gain is: %d/%d hp, %d/%d bp, %d/%d mv %d/%d prac.\n"),
 		 add_hp, ch->max_hit,
 		 1, ch->level + 10,
 		 add_move, ch->max_move, add_prac, ch->practice);
       else
 	sprintf (buf,
-		 "Your gain is: %d/%d hp, %d/%d mana, %d/%d mv %d/%d prac.\n\r",
+		 _("Your gain is: %d/%d hp, %d/%d mana, %d/%d mv %d/%d prac.\n"),
 		 add_hp, ch->max_hit,
 		 add_mana, ch->max_mana,
 		 add_move, ch->max_move, add_prac, ch->practice);
@@ -227,23 +227,23 @@ gain_exp (CHAR_DATA * ch, int gain)
     {
       if (ch->level <= 15)
 	{
-	  sprintf (buf, "The Favor of Gravoc fosters your learning.\n\r");
+	  sprintf (buf, _("The Favor of Gravoc fosters your learning.\n"));
 	  modgain *= 2.75;
 	}
       if (ch->level <= 25 && ch->level >= 16)
 	{
-	  sprintf (buf, "The Hand of Gravoc hastens your learning.\n\r");
+	  sprintf (buf, _("The Hand of Gravoc hastens your learning.\n"));
 	  modgain *= 2.5;
 	}
       if (ch->level <= 35 && ch->level >= 26)
 	{
-	  sprintf (buf, "The Cunning of Gravoc succors your learning.\n\r");
+	  sprintf (buf, _("The Cunning of Gravoc succors your learning.\n"));
 	  modgain *= 2.25;
 	}
       if (ch->level <= 49 && ch->level >= 36)
 	{
 	  sprintf (buf,
-		   "The Patronage of Gravoc reinforces your learning.\n\r");
+		   _("The Patronage of Gravoc reinforces your learning.\n"));
 	  modgain *= 2.0;
 	}
       send_to_char (buf, ch);
@@ -263,7 +263,7 @@ gain_exp (CHAR_DATA * ch, int gain)
       if (ch->exp + modgain < exp_level (ch, ch->level))
 	{
 	  modgain = exp_level (ch, ch->level) - ch->exp;
-	  sprintf (buf, "Gravoc's Pandect protects your insight.\n\r");
+	  sprintf (buf, _("Gravoc's Pandect protects your insight.\n"));
 	}
     }
 
@@ -283,7 +283,7 @@ gain_exp (CHAR_DATA * ch, int gain)
   if (NOT_AUTHED (ch) && ch->exp >= exp_level (ch, ch->level + 1))
     {
       send_to_char
-	("You can not ascend to a higher level until you are authorized.\n\r",
+	(_("You can not ascend to a higher level until you are authorized.\n"),
 	 ch);
       ch->exp = (exp_level (ch, (ch->level + 1)) - 1);
       return;
@@ -292,7 +292,7 @@ gain_exp (CHAR_DATA * ch, int gain)
   while (ch->level < LEVEL_AVATAR && ch->exp >= exp_level (ch, ch->level + 1))
     {
       set_char_color (AT_WHITE + AT_BLINK, ch);
-      ch_printf (ch, "You have now obtained experience level %d!\n\r",
+      ch_printf (ch, _("You have now obtained experience level %d!\n"),
 		 ++ch->level);
       advance_level (ch);
     }
@@ -510,8 +510,8 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 	  if (ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE)
 	    {
 	      set_char_color (AT_HUNGRY, ch);
-	      send_to_char ("You are STARVING!\n\r", ch);
-	      act (AT_HUNGRY, "$n is starved half to death!", ch, NULL, NULL,
+	      send_to_char (_("You are STARVING!\n"), ch);
+	      act (AT_HUNGRY, _("$n is starved half to death!"), ch, NULL, NULL,
 		   TO_ROOM);
 	      if (!IS_PKILL (ch) || number_bits (1) == 0)
 		worsen_mental_state (ch, 1);
@@ -523,8 +523,8 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 	  if (ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE)
 	    {
 	      set_char_color (AT_THIRSTY, ch);
-	      send_to_char ("You are DYING of THIRST!\n\r", ch);
-	      act (AT_THIRSTY, "$n is dying of thirst!", ch, NULL, NULL,
+	      send_to_char (_("You are DYING of THIRST!\n"), ch);
+	      act (AT_THIRSTY, _("$n is dying of thirst!"), ch, NULL, NULL,
 		   TO_ROOM);
 	      worsen_mental_state (ch, IS_PKILL (ch) ? 1 : 2);
 	      retcode = damage (ch, ch, 2, TYPE_UNDEFINED);
@@ -535,8 +535,8 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 	  if (ch->level < LEVEL_AVATAR)
 	    {
 	      set_char_color (AT_BLOOD, ch);
-	      send_to_char ("You are starved to feast on blood!\n\r", ch);
-	      act (AT_BLOOD, "$n is suffering from lack of blood!", ch,
+	      send_to_char (_("You are starved to feast on blood!\n"), ch);
+	      act (AT_BLOOD, _("$n is suffering from lack of blood!"), ch,
 		   NULL, NULL, TO_ROOM);
 	      worsen_mental_state (ch, 2);
 	      retcode = damage (ch, ch, ch->max_hit / 20, TYPE_UNDEFINED);
@@ -546,7 +546,7 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 	  if (condition != 0)
 	    {
 	      set_char_color (AT_SOBER, ch);
-	      send_to_char ("You are sober.\n\r", ch);
+	      send_to_char (_("You are sober.\n"), ch);
 	    }
 	  retcode = rNONE;
 	  break;
@@ -556,7 +556,7 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
     break;
 #endif
 	default:
-	  bug ("Gain_condition: invalid condition type %d", iCond);
+	  bug (_("Gain_condition: invalid condition type %d"), iCond);
 	  retcode = rNONE;
 	  break;
 	}
@@ -573,8 +573,8 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 	  if (ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE)
 	    {
 	      set_char_color (AT_HUNGRY, ch);
-	      send_to_char ("You are really hungry.\n\r", ch);
-	      act (AT_HUNGRY, "You can hear $n's stomach growling.", ch, NULL,
+	      send_to_char (_("You are really hungry.\n"), ch);
+	      act (AT_HUNGRY, _("You can hear $n's stomach growling."), ch, NULL,
 		   NULL, TO_ROOM);
 	      if (number_bits (1) == 0)
 		worsen_mental_state (ch, 1);
@@ -585,9 +585,9 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 	  if (ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE)
 	    {
 	      set_char_color (AT_THIRSTY, ch);
-	      send_to_char ("You are really thirsty.\n\r", ch);
+	      send_to_char (_("You are really thirsty.\n"), ch);
 	      worsen_mental_state (ch, 1);
-	      act (AT_THIRSTY, "$n looks a little parched.", ch, NULL, NULL,
+	      act (AT_THIRSTY, _("$n looks a little parched."), ch, NULL, NULL,
 		   TO_ROOM);
 	    }
 	  break;
@@ -596,9 +596,9 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 	  if (ch->level < LEVEL_AVATAR)
 	    {
 	      set_char_color (AT_BLOOD, ch);
-	      send_to_char ("You have a growing need to feast on blood!\n\r",
+	      send_to_char (_("You have a growing need to feast on blood!\n"),
 			    ch);
-	      act (AT_BLOOD, "$n gets a strange look in $s eyes...", ch, NULL,
+	      act (AT_BLOOD, _("$n gets a strange look in $s eyes..."), ch, NULL,
 		   NULL, TO_ROOM);
 	      worsen_mental_state (ch, 1);
 	    }
@@ -607,7 +607,7 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 	  if (condition != 0)
 	    {
 	      set_char_color (AT_SOBER, ch);
-	      send_to_char ("You are feeling a little less light headed.\n\r",
+	      send_to_char (_("You are feeling a little less light headed.\n"),
 			    ch);
 	    }
 	  break;
@@ -628,7 +628,7 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 	  if (ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE)
 	    {
 	      set_char_color (AT_HUNGRY, ch);
-	      send_to_char ("You are hungry.\n\r", ch);
+	      send_to_char (_("You are hungry.\n"), ch);
 	    }
 	  break;
 
@@ -636,7 +636,7 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 	  if (ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE)
 	    {
 	      set_char_color (AT_THIRSTY, ch);
-	      send_to_char ("You are thirsty.\n\r", ch);
+	      send_to_char (_("You are thirsty.\n"), ch);
 	    }
 	  break;
 
@@ -644,7 +644,7 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 	  if (ch->level < LEVEL_AVATAR)
 	    {
 	      set_char_color (AT_BLOOD, ch);
-	      send_to_char ("You feel an urgent need for blood.\n\r", ch);
+	      send_to_char (_("You feel an urgent need for blood.\n"), ch);
 	    }
 	  break;
 #ifdef BLEEDING
@@ -663,7 +663,7 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 	  if (ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE)
 	    {
 	      set_char_color (AT_HUNGRY, ch);
-	      send_to_char ("You are a mite peckish.\n\r", ch);
+	      send_to_char (_("You are a mite peckish.\n"), ch);
 	    }
 	  break;
 
@@ -672,7 +672,7 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 	    {
 	      set_char_color (AT_THIRSTY, ch);
 	      send_to_char
-		("You could use a sip of something refreshing.\n\r", ch);
+		(_("You could use a sip of something refreshing.\n"), ch);
 	    }
 	  break;
 
@@ -680,7 +680,7 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 	  if (ch->level < LEVEL_AVATAR)
 	    {
 	      set_char_color (AT_BLOOD, ch);
-	      send_to_char ("You feel an aching in your fangs.\n\r", ch);
+	      send_to_char (_("You feel an aching in your fangs.\n"), ch);
 	    }
 	  break;
 #ifdef BLEEDING
@@ -711,7 +711,7 @@ check_alignment (CHAR_DATA * ch)
     {
       set_char_color (AT_BLOOD, ch);
       send_to_char
-	("Your actions have been incompatible with the ideals of your race.  This troubles you.\n\r",
+	(_("Your actions have been incompatible with the ideals of your race.  This troubles you.\n"),
 	 ch);
     }
 
@@ -719,7 +719,7 @@ check_alignment (CHAR_DATA * ch)
     {
       set_char_color (AT_BLOOD, ch);
       send_to_char
-	("Your actions have been incompatible with the ideals of your race.  This troubles you.\n\r",
+	(_("Your actions have been incompatible with the ideals of your race.  This troubles you.\n"),
 	 ch);
     }
 
@@ -730,7 +730,7 @@ check_alignment (CHAR_DATA * ch)
 	{
 	  set_char_color (AT_BLOOD, ch);
 	  send_to_char
-	    ("Damn you heathen! Go forth and do evil or suffer the consequences!\n\r",
+	    (_("Damn you heathen! Go forth and do evil or suffer the consequences!\n"),
 	     ch);
 	  worsen_mental_state (ch, 35);
 	  return;
@@ -745,10 +745,10 @@ check_alignment (CHAR_DATA * ch)
 	{
 	  set_char_color (AT_BLOOD, ch);
 	  send_to_char
-	    ("You are wracked with guilt and remorse for your craven actions!\n\r",
+	    (_("You are wracked with guilt and remorse for your craven actions!\n"),
 	     ch);
 	  act (AT_BLOOD,
-	       "$n prostrates $mself, seeking forgiveness from $s Lord.", ch,
+	       _("$n prostrates $mself, seeking forgiveness from $s Lord."), ch,
 	       NULL, NULL, TO_ROOM);
 	  worsen_mental_state (ch, 15);
 	  return;
@@ -757,10 +757,10 @@ check_alignment (CHAR_DATA * ch)
 	{
 	  set_char_color (AT_BLOOD, ch);
 	  send_to_char
-	    ("As you betray your faith, your mind begins to betray you.\n\r",
+	    (_("As you betray your faith, your mind begins to betray you.\n"),
 	     ch);
 	  act (AT_BLOOD,
-	       "$n shudders, judging $s actions unworthy of a Paladin.", ch,
+	       _("$n shudders, judging $s actions unworthy of a Paladin."), ch,
 	       NULL, NULL, TO_ROOM);
 	  worsen_mental_state (ch, 6);
 	  return;
@@ -798,13 +798,13 @@ mobile_update (void)
       if (gch_prev && gch_prev->next != ch)
 	{
 	  sprintf (buf,
-		   "FATAL: Mobile_update: %s->prev->next doesn't point to ch.",
+		   _("FATAL: Mobile_update: %s->prev->next doesn't point to ch."),
 		   ch->name);
 	  bug (buf, 0);
 	  bug ("Short-cutting here", 0);
 	  gch_prev = NULL;
 	  ch->prev = NULL;
-	  do_shout (ch, "Thoric says, 'Prepare for the worst!'");
+	  do_shout (ch, _("Thoric says, 'Prepare for the worst!'"));
 	}
 
       if (!IS_NPC (ch))
@@ -824,7 +824,7 @@ mobile_update (void)
       if (ch->pIndexData->vnum == 5 && !IS_AFFECTED (ch, AFF_CHARM))
 	{
 	  if (ch->in_room->first_person)
-	    act (AT_MAGIC, "$n returns to the dust from whence $e came.", ch,
+	    act (AT_MAGIC, _("$n returns to the dust from whence $e came."), ch,
 		 NULL, NULL, TO_ROOM);
 
 	  if (IS_NPC (ch))	/* Guard against purging switched? */
@@ -877,14 +877,14 @@ mobile_update (void)
 	{
 	  if (xIS_SET (ch->act, ACT_AGGRESSIVE)
 	      || xIS_SET (ch->act, ACT_META_AGGR))
-	    do_emote (ch, "snarls and growls.");
+	    do_emote (ch, _("snarls and growls."));
 	  continue;
 	}
 
       if (xIS_SET (ch->in_room->room_flags, ROOM_SAFE)
 	  && (xIS_SET (ch->act, ACT_AGGRESSIVE)
 	      || xIS_SET (ch->act, ACT_META_AGGR)))
-	do_emote (ch, "glares around and snarls.");
+	do_emote (ch, _("glares around and snarls."));
 
 
       /* MOBprogram random trigger */
@@ -936,7 +936,7 @@ mobile_update (void)
 	    {
 	      obj_from_room (obj_best);
 	      obj_to_char (obj_best, ch);
-	      act (AT_ACTION, "$n gets $p.", ch, obj_best, NULL, TO_ROOM);
+	      act (AT_ACTION, _("$n gets $p."), ch, obj_best, NULL, TO_ROOM);
 	    }
 	}
 
@@ -984,17 +984,17 @@ mobile_update (void)
 		  switch (number_bits (2))
 		    {
 		    case 0:
-		      sprintf (buf, "Get away from me, %s!", rch->name);
+		      sprintf (buf, _("Get away from me, %s!"), rch->name);
 		      break;
 		    case 1:
-		      sprintf (buf, "Leave me be, %s!", rch->name);
+		      sprintf (buf, _("Leave me be, %s!"), rch->name);
 		      break;
 		    case 2:
-		      sprintf (buf, "%s is trying to kill me!  Help!",
+		      sprintf (buf, _("%s is trying to kill me!  Help!"),
 			       rch->name);
 		      break;
 		    case 3:
-		      sprintf (buf, "Someone save me from %s!", rch->name);
+		      sprintf (buf, _("Someone save me from %s!"), rch->name);
 		      break;
 		    }
 		  do_yell (ch, buf);
@@ -1195,9 +1195,9 @@ char_update (void)
 		   */
 		  if (ch->fighting)
 		    stop_fighting (ch, TRUE);
-		  act (AT_ACTION, "$n disappears into the void.",
+		  act (AT_ACTION, _("$n disappears into the void."),
 		       ch, NULL, NULL, TO_ROOM);
-		  send_to_char ("You disappear into the void.\n\r", ch);
+		  send_to_char (_("You disappear into the void.\n"), ch);
 		  if (IS_SET (sysdata.save_flags, SV_IDLE))
 		    save_char_obj (ch);
 		  SET_BIT (ch->pcdata->flags, PCFLAG_IDLE);
@@ -1324,7 +1324,7 @@ char_update (void)
 	  char_from_room (ch);
 	  char_to_room (ch, location);
 	  send_to_char
-	    ("The gods have released you from hell as your sentance is up!\n\r",
+	    (_("The gods have released you from hell as your sentance is up!\n"),
 	     ch);
 	  do_look (ch, "auto");
 	  STRFREE (ch->pcdata->helled_by);
@@ -1342,9 +1342,9 @@ char_update (void)
 	   */
 	  if (IS_AFFECTED (ch, AFF_POISON))
 	    {
-	      act (AT_POISON, "$n shivers and suffers.", ch, NULL, NULL,
+	      act (AT_POISON, _("$n shivers and suffers."), ch, NULL, NULL,
 		   TO_ROOM);
-	      act (AT_POISON, "You shiver and suffer.", ch, NULL, NULL,
+	      act (AT_POISON, _("You shiver and suffer."), ch, NULL, NULL,
 		   TO_CHAR);
 	      ch->mental_state =
 		URANGE (20,
@@ -1363,20 +1363,20 @@ char_update (void)
 				{
 					default:
 					{
-					act( AT_BLOOD, "You are bleeding profusely!", ch, NULL, NULL, TO_CHAR );
-					act( AT_BLOOD, "$n is bleeding profusely.", ch, NULL, NULL, TO_ROOM );
+					act( AT_BLOOD, _("You are bleeding profusely!"), ch, NULL, NULL, TO_CHAR );
+					act( AT_BLOOD, _("$n is bleeding profusely."), ch, NULL, NULL, TO_ROOM );
 					}
 					break;
 					case   1:
 					{
-					act( AT_BLOOD, "Blood drips slowly from your wounds...", ch, NULL, NULL, TO_CHAR );
-	    				act( AT_BLOOD, "Blood drips slowly from $n's wounds.", ch, NULL, NULL, TO_ROOM );
+					act( AT_BLOOD, _("Blood drips slowly from your wounds..."), ch, NULL, NULL, TO_CHAR );
+	    				act( AT_BLOOD, _("Blood drips slowly from $n's wounds."), ch, NULL, NULL, TO_ROOM );
 					}
 					break;
 					case   2:
 					{
-					act( AT_BLOOD, "Blood drips slowly from your wounds...", ch, NULL, NULL, TO_CHAR );
-	    				act( AT_BLOOD, "Blood drips slowly from $n's wounds.", ch, NULL, NULL, TO_ROOM );
+					act( AT_BLOOD, _("Blood drips slowly from your wounds..."), ch, NULL, NULL, TO_CHAR );
+	    				act( AT_BLOOD, _("Blood drips slowly from $n's wounds."), ch, NULL, NULL, TO_ROOM );
 					}
 					break;
 					case   3:
@@ -1387,31 +1387,31 @@ char_update (void)
 					break;
 					case   4:
 					{
-					act( AT_BLOOD, "Blood is dripping quickly from your wounds...", ch, NULL, NULL, TO_CHAR );
-    					act( AT_BLOOD, "Blood is dripping quickly from $n's wounds.", ch, NULL, NULL, TO_ROOM );
+					act( AT_BLOOD, _("Blood is dripping quickly from your wounds..."), ch, NULL, NULL, TO_CHAR );
+    					act( AT_BLOOD, _("Blood is dripping quickly from $n's wounds."), ch, NULL, NULL, TO_ROOM );
 					}
 					break;
 					case   5:
 					{
-					act( AT_BLOOD, "Blood is dripping quickly from your wounds...", ch, NULL, NULL, TO_CHAR );
-    					act( AT_BLOOD, "Blood is dripping quickly from $n's wounds.", ch, NULL, NULL, TO_ROOM );
+					act( AT_BLOOD, _("Blood is dripping quickly from your wounds..."), ch, NULL, NULL, TO_CHAR );
+    					act( AT_BLOOD, _("Blood is dripping quickly from $n's wounds."), ch, NULL, NULL, TO_ROOM );
 					}
 					break;
 					case   6:
 					{
-					act( AT_BLOOD, "Blood runs freely from your wounds...", ch, NULL, NULL, TO_CHAR );
-					act( AT_BLOOD, "Blood runs freely from $n's wounds.", ch, NULL, NULL, TO_ROOM );
+					act( AT_BLOOD, _("Blood runs freely from your wounds..."), ch, NULL, NULL, TO_CHAR );
+					act( AT_BLOOD, _("Blood runs freely from $n's wounds."), ch, NULL, NULL, TO_ROOM );
 					}
 					break;
 					case   7:
 					{
-					act( AT_BLOOD, "Blood runs freely from your wounds...", ch, NULL, NULL, TO_CHAR );
-					act( AT_BLOOD, "Blood runs freely from $n's wounds.", ch, NULL, NULL, TO_ROOM );
+					act( AT_BLOOD, _("Blood runs freely from your wounds..."), ch, NULL, NULL, TO_CHAR );
+					act( AT_BLOOD, _("Blood runs freely from $n's wounds."), ch, NULL, NULL, TO_ROOM );
 					}
 					case   8:
 					{
-					act( AT_BLOOD, "Blood runs freely from your wounds...", ch, NULL, NULL, TO_CHAR );
-    					act( AT_BLOOD, "Blood runs freely from $n's wounds.", ch, NULL, NULL, TO_ROOM );
+					act( AT_BLOOD, _("Blood runs freely from your wounds..."), ch, NULL, NULL, TO_CHAR );
+    					act( AT_BLOOD, _("Blood runs freely from $n's wounds."), ch, NULL, NULL, TO_ROOM );
 					}
 					break;
 				}
@@ -1427,17 +1427,17 @@ char_update (void)
 					{
 						gain_condition( ch, COND_BLEEDING,  -2 );
 						if ( ch->pcdata->condition[COND_BLEEDING] == 0 )
-							send_to_char("Your bleeding stops.\n\r",ch);
+							send_to_char(_("Your bleeding stops.\n"), ch);
 						else
-							send_to_char("Your bleeding slows...\n\r",ch);
+							send_to_char(_("Your bleeding slows...\n"), ch);
 					}
 					else
 					{
 						gain_condition( ch, COND_BLEEDING,  -1 );
 						if ( ch->pcdata->condition[COND_BLEEDING] == 0 )
-							send_to_char("Your bleeding stops.\n\r",ch);
+							send_to_char(_("Your bleeding stops.\n"),ch);
 						else
-							send_to_char("Your bleeding slows a little...\n\r",ch);
+							send_to_char(_("Your bleeding slows a little...\n"),ch);
 					}
 				}
 				make_blood( ch );
@@ -1501,46 +1501,46 @@ char_update (void)
 	    switch ((ch->mental_state + 5) / 10)
 	      {
 	      case 3:
-		send_to_char ("You feel feverish.\n\r", ch);
-		act (AT_ACTION, "$n looks kind of out of it.", ch, NULL, NULL,
+		send_to_char (_("You feel feverish.\n"), ch);
+		act (AT_ACTION, _("$n looks kind of out of it."), ch, NULL, NULL,
 		     TO_ROOM);
 		break;
 	      case 4:
-		send_to_char ("You do not feel well at all.\n\r", ch);
-		act (AT_ACTION, "$n doesn't look too good.", ch, NULL, NULL,
+		send_to_char (_("You do not feel well at all.\n"), ch);
+		act (AT_ACTION, _("$n doesn't look too good."), ch, NULL, NULL,
 		     TO_ROOM);
 		break;
 	      case 5:
-		send_to_char ("You need help!\n\r", ch);
-		act (AT_ACTION, "$n looks like $e could use your help.", ch,
+		send_to_char (_("You need help!\n"), ch);
+		act (AT_ACTION, _("$n looks like $e could use your help."), ch,
 		     NULL, NULL, TO_ROOM);
 		break;
 	      case 6:
-		send_to_char ("Seekest thou a cleric.\n\r", ch);
-		act (AT_ACTION, "Someone should fetch a healer for $n.", ch,
+		send_to_char (_("Seekest thou a cleric.\n"), ch);
+		act (AT_ACTION, _("Someone should fetch a healer for $n."), ch,
 		     NULL, NULL, TO_ROOM);
 		break;
 	      case 7:
-		send_to_char ("You feel reality slipping away...\n\r", ch);
+		send_to_char (_("You feel reality slipping away...\n"), ch);
 		act (AT_ACTION,
-		     "$n doesn't appear to be aware of what's going on.", ch,
+		     _("$n doesn't appear to be aware of what's going on."), ch,
 		     NULL, NULL, TO_ROOM);
 		break;
 	      case 8:
-		send_to_char ("You begin to understand... everything.\n\r",
+		send_to_char (_("You begin to understand... everything.\n"),
 			      ch);
-		act (AT_ACTION, "$n starts ranting like a madman!", ch, NULL,
+		act (AT_ACTION, _("$n starts ranting like a madman!"), ch, NULL,
 		     NULL, TO_ROOM);
 		break;
 	      case 9:
-		send_to_char ("You are ONE with the universe.\n\r", ch);
+		send_to_char (_("You are ONE with the universe.\n"), ch);
 		act (AT_ACTION,
-		     "$n is ranting on about 'the answer', 'ONE' and other mumbo-jumbo...",
+		     _("$n is ranting on about 'the answer', 'ONE' and other mumbo-jumbo..."),
 		     ch, NULL, NULL, TO_ROOM);
 		break;
 	      case 10:
-		send_to_char ("You feel the end is near.\n\r", ch);
-		act (AT_ACTION, "$n is muttering and ranting in tongues...",
+		send_to_char (_("You feel the end is near.\n"), ch);
+		act (AT_ACTION, _("$n is muttering and ranting in tongues..."),
 		     ch, NULL, NULL, TO_ROOM);
 		break;
 	      }
@@ -1555,7 +1555,7 @@ char_update (void)
 			&& number_percent () + 10 < abs (ch->mental_state))
 		      do_sleep (ch, "");
 		    else
-		      send_to_char ("You're barely conscious.\n\r", ch);
+		      send_to_char (_("You're barely conscious.\n"), ch);
 		  }
 		break;
 	      case 9:
@@ -1566,7 +1566,7 @@ char_update (void)
 			&& (number_percent () + 20) < abs (ch->mental_state))
 		      do_sleep (ch, "");
 		    else
-		      send_to_char ("You can barely keep your eyes open.\n\r",
+		      send_to_char (_("You can barely keep your eyes open.\n"),
 				    ch);
 		  }
 		break;
@@ -1577,28 +1577,28 @@ char_update (void)
 			&& (number_percent () + 30) < abs (ch->mental_state))
 		      do_sleep (ch, "");
 		    else
-		      send_to_char ("You're extremely drowsy.\n\r", ch);
+		      send_to_char (_("You're extremely drowsy.\n"), ch);
 		  }
 		break;
 	      case 7:
 		if (ch->position > POS_RESTING)
-		  send_to_char ("You feel very unmotivated.\n\r", ch);
+		  send_to_char (_("You feel very unmotivated.\n"), ch);
 		break;
 	      case 6:
 		if (ch->position > POS_RESTING)
-		  send_to_char ("You feel sedated.\n\r", ch);
+		  send_to_char (_("You feel sedated.\n"), ch);
 		break;
 	      case 5:
 		if (ch->position > POS_RESTING)
-		  send_to_char ("You feel sleepy.\n\r", ch);
+		  send_to_char (_("You feel sleepy.\n"), ch);
 		break;
 	      case 4:
 		if (ch->position > POS_RESTING)
-		  send_to_char ("You feel tired.\n\r", ch);
+		  send_to_char (_("You feel tired.\n"), ch);
 		break;
 	      case 3:
 		if (ch->position > POS_RESTING)
-		  send_to_char ("You could use a rest.\n\r", ch);
+		  send_to_char (_("You could use a rest.\n"), ch);
 		break;
 	      }
 	  if (ch->timer > 24)
@@ -1663,8 +1663,8 @@ obj_update (void)
 		    tch->in_room->light -= obj->count;
 		    if (tch->in_room->light < 0)
 		      tch->in_room->light = 0;
-		    act (AT_ACTION, "$p goes out.", tch, obj, NULL, TO_ROOM);
-		    act (AT_ACTION, "$p goes out.", tch, obj, NULL, TO_CHAR);
+		    act (AT_ACTION, _("$p goes out."), tch, obj, NULL, TO_ROOM);
+		    act (AT_ACTION, _("$p goes out."), tch, obj, NULL, TO_CHAR);
 		    if (obj->serial == cur_obj)
 		      global_objcode = rOBJ_EXPIRED;
 		    extract_obj (obj);
@@ -1680,9 +1680,9 @@ obj_update (void)
 		    obj->in_room->light = 0;
 		  if ((tch = obj->in_room->first_person))
 		    {
-		      act (AT_ACTION, "$p goes out.", tch, obj, NULL,
+		      act (AT_ACTION, _("$p goes out."), tch, obj, NULL,
 			   TO_ROOM);
-		      act (AT_ACTION, "$p goes out.", tch, obj, NULL,
+		      act (AT_ACTION, _("$p goes out."), tch, obj, NULL,
 			   TO_CHAR);
 		    }
 		  if (obj->serial == cur_obj)
@@ -1765,47 +1765,47 @@ obj_update (void)
       switch (obj->item_type)
 	{
 	default:
-	  message = "$p mysteriously vanishes.";
+	  message = ___("$p mysteriously vanishes.");
 	  AT_TEMP = AT_PLAIN;
 	  break;
 	case ITEM_CONTAINER:
-	  message = "$p falls apart, tattered from age.";
+	  message = ___("$p falls apart, tattered from age.");
 	  AT_TEMP = AT_OBJECT;
 	  break;
 	case ITEM_PORTAL:
-	  message = "$p unravels and winks from existence.";
+	  message = ___("$p unravels and winks from existence.");
 	  remove_portal (obj);
 	  obj->item_type = ITEM_TRASH;	/* so extract_obj        */
 	  AT_TEMP = AT_MAGIC;	/* doesn't remove_portal */
 	  break;
 	case ITEM_FOUNTAIN:
 	case ITEM_PUDDLE:
-	  message = "$p dries up.";
+	  message = ___("$p dries up.");
 	  AT_TEMP = AT_BLUE;
 	  break;
 	case ITEM_CORPSE_NPC:
-	  message = "$p decays into dust and blows away.";
+	  message = ___("$p decays into dust and blows away.");
 	  AT_TEMP = AT_OBJECT;
 	  break;
 	case ITEM_CORPSE_PC:
-	  message = "$p is sucked into a swirling vortex of colors...";
+	  message = ___("$p is sucked into a swirling vortex of colors...");
 	  AT_TEMP = AT_MAGIC;
 	  break;
 	case ITEM_COOK:
 	case ITEM_FOOD:
-	  message = "$p is devoured by a swarm of maggots.";
+	  message = ___("$p is devoured by a swarm of maggots.");
 	  AT_TEMP = AT_HUNGRY;
 	  break;
 	case ITEM_BLOOD:
-	  message = "$p slowly seeps into the ground.";
+	  message = ___("$p slowly seeps into the ground.");
 	  AT_TEMP = AT_BLOOD;
 	  break;
 	case ITEM_BLOODSTAIN:
-	  message = "$p dries up into flakes and blows away.";
+	  message = ___("$p dries up into flakes and blows away.");
 	  AT_TEMP = AT_ORANGE;
 	  break;
 	case ITEM_SCRAPS:
-	  message = "$p crumble and decay into nothing.";
+	  message = ___("$p crumble and decay into nothing.");
 	  AT_TEMP = AT_OBJECT;
 	  break;
 	case ITEM_FIRE:
@@ -1819,7 +1819,7 @@ obj_update (void)
 	   obj->in_room->light = 0;
 	   }
 	   */
-	  message = "$p burns out.";
+	  message = ___("$p burns out.");
 	  AT_TEMP = AT_FIRE;
 	}
 
@@ -1924,7 +1924,7 @@ char_check (void)
 	      ch->mount = NULL;
 	      ch->position = POS_STANDING;
 	      send_to_char
-		("No longer upon your mount, you fall to the ground...\n\rOUCH!\n\r",
+		(_("No longer upon your mount, you fall to the ground...\nOUCH!\n"),
 		 ch);
 	    }
 
@@ -1943,7 +1943,7 @@ char_check (void)
 		      dam = UMAX (1, dam);
 		      if (number_bits (3) == 0)
 			send_to_char
-			  ("You cough and choke as you try to breathe water!\n\r",
+			  (_("You cough and choke as you try to breathe water!\n"),
 			   ch);
 		      damage (ch, ch, dam, TYPE_UNDEFINED);
 		    }
@@ -1993,7 +1993,7 @@ char_check (void)
 
 			      if (number_bits (3) == 0)
 				send_to_char
-				  ("Struggling with exhaustion, you choke on a mouthful of water.\n\r",
+				  (_("Struggling with exhaustion, you choke on a mouthful of water.\n"),
 				   ch);
 			      damage (ch, ch, dam, TYPE_UNDEFINED);
 			    }
@@ -2417,11 +2417,11 @@ auth_update (void)
 	  if (first_time)
 	    {
 	      first_time = FALSE;
-	      strcpy (log_buf, "Pending authorizations:");
+	      strcpy (log_buf, _("Pending authorizations:"));
 	      /*log_string( log_buf ); */
 	      to_channel (log_buf, CHANNEL_AUTH, "Auth", 1);
 	    }
-	  sprintf (log_buf, " %s@%s new %s %s", victim->name,
+	  sprintf (log_buf, _(" %s@%s new %s %s"), victim->name,
 		   victim->desc->host, race_table[victim->race]->race_name,
 		   class_table[victim->class]->who_name);
 /*         log_string( log_buf ); */
@@ -2439,13 +2439,13 @@ auth_update (void)
   char buf[MAX_INPUT_LENGTH], log_buf[MAX_INPUT_LENGTH];
   bool found_hit = FALSE;	/* was at least one found? */
 
-  strcpy (log_buf, "Pending authorizations:\n\r");
+  strcpy (log_buf, _("Pending authorizations:\n"));
   for (d = first_descriptor; d; d = d->next)
     {
       if ((victim = d->character) && IS_WAITING_FOR_AUTH (victim))
 	{
 	  found_hit = TRUE;
-	  sprintf (buf, " %s@%s new %s %s\n\r", victim->name,
+	  sprintf (buf, _(" %s@%s new %s %s\n"), victim->name,
 		   victim->desc->host, race_table[victim->race]->race_name,
 		   class_table[victim->class]->who_name);
 	  strcat (log_buf, buf);
@@ -2481,7 +2481,7 @@ update_handler (void)
   if (timechar)
     {
       set_char_color (AT_PLAIN, timechar);
-      send_to_char ("Starting update timer.\n\r", timechar);
+      send_to_char (_("Starting update timer.\n"), timechar);
       gettimeofday (&stime, NULL);
     }
 
@@ -2556,9 +2556,9 @@ update_handler (void)
     {
       gettimeofday (&etime, NULL);
       set_char_color (AT_PLAIN, timechar);
-      send_to_char ("Update timing complete.\n\r", timechar);
+      send_to_char (_("Update timing complete.\n"), timechar);
       subtract_times (&etime, &stime);
-      ch_printf (timechar, "Timing took %d.%06d seconds.\n\r",
+      ch_printf (timechar, _("Timing took %d.%06d seconds.\n"),
 		 etime.tv_sec, etime.tv_usec);
       timechar = NULL;
     }
@@ -2615,14 +2615,15 @@ remove_portal (OBJ_DATA * portal)
 void
 reboot_check (time_t reset)
 {
-  static char *tmsg[] = { "You feel the ground shake as the end comes near!",
-    "Lightning crackles in the sky above!",
-    "Crashes of thunder sound across the land!",
-    "The sky has suddenly turned midnight black.",
-    "You notice the life forms around you slowly dwindling away.",
-    "The seas across the realm have turned frigid.",
-    "The aura of magic that surrounds the realms seems slightly unstable.",
-    "You sense a change in the magical forces surrounding you."
+  static char *tmsg[] = { 
+		___("You feel the ground shake as the end comes near!"),
+    ___("Lightning crackles in the sky above!"),
+    ___("Crashes of thunder sound across the land!"),
+    ___("The sky has suddenly turned midnight black."),
+    ___("You notice the life forms around you slowly dwindling away."),
+    ___("The seas across the realm have turned frigid."),
+    ___("The aura of magic that surrounds the realms seems slightly unstable."),
+    ___("You sense a change in the magical forces surrounding you.")
   };
   static const int times[] = { 60, 120, 180, 240, 300, 600, 900, 1800 };
   static const int timesize =
@@ -2642,10 +2643,10 @@ reboot_check (time_t reset)
 
   if ((current_time % 1800) == 0)
     {
-      sprintf (buf, "%.24s: %d players", ctime (&current_time),
+      sprintf (buf, _("%.24s: %d players"), ctime (&current_time),
 	       num_descriptors);
       append_to_file (USAGE_FILE, buf);
-      sprintf (buf, "%.24s:  %dptn  %dpll  %dsc %dbr  %d global loot",
+      sprintf (buf, _("%.24s:  %dptn  %dpll  %dsc %dbr  %d global loot"),
 	       ctime (&current_time),
 	       sysdata.upotion_val,
 	       sysdata.upill_val,
@@ -2664,7 +2665,7 @@ reboot_check (time_t reset)
 
       if (auction->item)
 	{
-	  sprintf (buf, "Sale of %s has been stopped by mud.",
+	  sprintf (buf, _("Sale of %s has been stopped by MUD."),
 		   auction->item->short_descr);
 	  talk_auction (buf);
 	  obj_to_char (auction->item, auction->seller);
@@ -2672,14 +2673,14 @@ reboot_check (time_t reset)
 	  if (auction->buyer && auction->buyer != auction->seller)
 	    {
 	      auction->buyer->gold += auction->bet;
-	      send_to_char ("Your money has been returned.\n\r",
+	      send_to_char (_("Your money has been returned.\n"),
 			    auction->buyer);
 	    }
 	}
-      echo_to_all (AT_YELLOW, "You are forced from these realms by a strong "
-		   "magical presence\n\ras life here is reconstructed.",
+      echo_to_all (AT_YELLOW, _("You are forced from these realms by a strong "
+		   "magical presence\nas life here is reconstructed."),
 		   ECHOTAR_ALL);
-      log_string ("Automatic Reboot");
+      log_string (_("Automatic Reboot"));
       for (vch = first_char; vch; vch = vch->next)
 	if (!IS_NPC (vch))
 	  save_char_obj (vch);
@@ -2731,13 +2732,13 @@ auction_update (void)
     case 1:			/* going once */
     case 2:			/* going twice */
       if (auction->bet > auction->starting)
-	sprintf (buf, "%s: going %s for %s.", auction->item->short_descr,
-		 ((auction->going == 1) ? "once" : "twice"),
+	sprintf (buf, _("%s: going %s for %s."), auction->item->short_descr,
+		 ((auction->going == 1) ? _("once") : _("twice")),
 		 num_punct (auction->bet));
       else
-	sprintf (buf, "%s: going %s (bid not received yet).",
+	sprintf (buf, _("%s: going %s (bid not received yet)."),
 		 auction->item->short_descr,
-		 ((auction->going == 1) ? "once" : "twice"));
+		 ((auction->going == 1) ? _("once") : _("twice")));
 
       talk_auction (buf);
       break;
@@ -2745,13 +2746,13 @@ auction_update (void)
     case 3:			/* SOLD! */
       if (!auction->buyer && auction->bet)
 	{
-	  bug ("Auction code reached SOLD, with NULL buyer, but %d gold bid",
+	  bug (_("Auction code reached SOLD, with NULL buyer, but %d gold bid"),
 	       auction->bet);
 	  auction->bet = 0;
 	}
       if (auction->bet > 0 && auction->buyer != auction->seller)
 	{
-	  sprintf (buf, "%s sold to %s for %s.",
+	  sprintf (buf, _("%s sold to %s for %s."),
 		   auction->item->short_descr,
 		   IS_NPC (auction->buyer) ? auction->
 		   buyer->short_descr : auction->buyer->name,
@@ -3037,10 +3038,10 @@ get_weather_echo (WEATHER_DATA * weath)
       if (precip - dP > -2 * weath_unit)
 	{
 	  char *echo_strings[4] = {
-	    "The clouds disappear.\n\r",
-	    "The clouds disappear.\n\r",
-	    "The sky begins to break through " "the clouds.\n\r",
-	    "The clouds are slowly " "evaporating.\n\r"
+	    ___("The clouds disappear.\n"),
+	    ___("The clouds disappear.\n"),
+	    ___("The sky begins to break through " "the clouds.\n"),
+	    ___("The clouds are slowly " "evaporating.\n")
 	  };
 
 	  weath->echo = echo_strings[n];
@@ -3052,10 +3053,10 @@ get_weather_echo (WEATHER_DATA * weath)
       if (precip - dP <= -2 * weath_unit)
 	{
 	  char *echo_strings[4] = {
-	    "The sky is getting cloudy.\n\r",
-	    "The sky is getting cloudy.\n\r",
-	    "Light clouds cast a haze over " "the sky.\n\r",
-	    "Billows of clouds spread through " "the sky.\n\r"
+	    ___("The sky is getting cloudy.\n"),
+	    ___("The sky is getting cloudy.\n"),
+	    ___("Light clouds cast a haze over " "the sky.\n"),
+	    ___("Billows of clouds spread through " "the sky.\n")
 	  };
 	  weath->echo = echo_strings[n];
 	  weath->echo_color = AT_GREY;
@@ -3068,10 +3069,10 @@ get_weather_echo (WEATHER_DATA * weath)
 	  if (tindex > 1)
 	    {
 	      char *echo_strings[4] = {
-		"The rain stops.\n\r",
-		"The rain stops.\n\r",
-		"The rainstorm tapers " "off.\n\r",
-		"The rain's intensity " "breaks.\n\r"
+					___("The rain stops.\n"),
+					___("The rain stops.\n"),
+					___("The rainstorm tapers " "off.\n"),
+					___("The rain's intensity " "breaks.\n")
 	      };
 	      weath->echo = echo_strings[n];
 	      weath->echo_color = AT_CYAN;
@@ -3079,10 +3080,10 @@ get_weather_echo (WEATHER_DATA * weath)
 	  else
 	    {
 	      char *echo_strings[4] = {
-		"The snow stops.\n\r",
-		"The snow stops.\n\r",
-		"The snow showers taper " "off.\n\r",
-		"The snow flakes disappear " "from the sky.\n\r"
+					___("The snow stops.\n"),
+					___("The snow stops.\n"),
+					___("The snow showers taper " "off.\n"),
+					___("The snow flakes disappear " "from the sky.\n")
 	      };
 	      weath->echo = echo_strings[n];
 	      weath->echo_color = AT_WHITE;
@@ -3096,10 +3097,10 @@ get_weather_echo (WEATHER_DATA * weath)
 	  if (tindex > 1)
 	    {
 	      char *echo_strings[4] = {
-		"It starts to rain.\n\r",
-		"It starts to rain.\n\r",
-		"A droplet of rain falls " "upon you.\n\r",
-		"The rain begins to " "patter.\n\r"
+					___("It starts to rain.\n"),
+					___("It starts to rain.\n"),
+					___("A droplet of rain falls " "upon you.\n"),
+					___("The rain begins to " "patter.\n")
 	      };
 	      weath->echo = echo_strings[n];
 	      weath->echo_color = AT_CYAN;
@@ -3107,10 +3108,10 @@ get_weather_echo (WEATHER_DATA * weath)
 	  else
 	    {
 	      char *echo_strings[4] = {
-		"It starts to snow.\n\r",
-		"It starts to snow.\n\r",
-		"Crystal flakes begin to " "fall from the " "sky.\n\r",
-		"Snow flakes drift down " "from the clouds.\n\r"
+					___("It starts to snow.\n"),
+					___("It starts to snow.\n"),
+					___("Crystal flakes begin to " "fall from the " "sky.\n"),
+					___("Snow flakes drift down " "from the clouds.\n")
 	      };
 	      weath->echo = echo_strings[n];
 	      weath->echo_color = AT_WHITE;
@@ -3119,10 +3120,10 @@ get_weather_echo (WEATHER_DATA * weath)
       else if (tindex < 2 && temp - dT > -weath_unit)
 	{
 	  char *echo_strings[4] = {
-	    "The temperature drops and the rain " "becomes a light snow.\n\r",
-	    "The temperature drops and the rain " "becomes a light snow.\n\r",
-	    "Flurries form as the rain freezes.\n\r",
-	    "Large snow flakes begin to fall " "with the rain.\n\r"
+	    ___("The temperature drops and the rain " "becomes a light snow.\n"),
+	    ___("The temperature drops and the rain " "becomes a light snow.\n"),
+	    ___("Flurries form as the rain freezes.\n"),
+	    ___("Large snow flakes begin to fall " "with the rain.\n")
 	  };
 	  weath->echo = echo_strings[n];
 	  weath->echo_color = AT_WHITE;
@@ -3130,12 +3131,12 @@ get_weather_echo (WEATHER_DATA * weath)
       else if (tindex > 1 && temp - dT <= -weath_unit)
 	{
 	  char *echo_strings[4] = {
-	    "The snow flurries are gradually "
-	      "replaced by pockets of rain.\n\r",
-	    "The snow flurries are gradually "
-	      "replaced by pockets of rain.\n\r",
-	    "The falling snow turns to a cold drizzle.\n\r",
-	    "The snow turns to rain as the air warms.\n\r"
+	    ___("The snow flurries are gradually "
+	      "replaced by pockets of rain.\n"),
+	    ___("The snow flurries are gradually "
+	      "replaced by pockets of rain.\n"),
+	    ___("The falling snow turns to a cold drizzle.\n"),
+	    ___("The snow turns to rain as the air warms.\n")
 	  };
 	  weath->echo = echo_strings[n];
 	  weath->echo_color = AT_CYAN;
@@ -3148,10 +3149,10 @@ get_weather_echo (WEATHER_DATA * weath)
 	  if (tindex > 1)
 	    {
 	      char *echo_strings[4] = {
-		"The lightning has stopped.\n\r",
-		"The lightning has stopped.\n\r",
-		"The sky settles, and the " "thunder surrenders.\n\r",
-		"The lightning bursts fade as " "the storm weakens.\n\r"
+				___("The lightning has stopped.\n"),
+				___("The lightning has stopped.\n"),
+				___("The sky settles, and the " "thunder surrenders.\n"),
+				___("The lightning bursts fade as " "the storm weakens.\n")
 	      };
 	      weath->echo = echo_strings[n];
 	      weath->echo_color = AT_GREY;
@@ -3160,10 +3161,10 @@ get_weather_echo (WEATHER_DATA * weath)
       else if (tindex < 2 && temp - dT > -weath_unit)
 	{
 	  char *echo_strings[4] = {
-	    "The cold rain turns to snow.\n\r",
-	    "The cold rain turns to snow.\n\r",
-	    "Snow flakes begin to fall " "amidst the rain.\n\r",
-	    "The driving rain begins to freeze.\n\r"
+	    ___("The cold rain turns to snow.\n"),
+	    ___("The cold rain turns to snow.\n"),
+	    ___("Snow flakes begin to fall " "amidst the rain.\n"),
+	    ___("The driving rain begins to freeze.\n")
 	  };
 	  weath->echo = echo_strings[n];
 	  weath->echo_color = AT_WHITE;
@@ -3171,11 +3172,11 @@ get_weather_echo (WEATHER_DATA * weath)
       else if (tindex > 1 && temp - dT <= -weath_unit)
 	{
 	  char *echo_strings[4] = {
-	    "The snow becomes a freezing rain.\n\r",
-	    "The snow becomes a freezing rain.\n\r",
-	    "A cold rain beats down on you "
-	      "as the snow begins to melt.\n\r",
-	    "The snow is slowly replaced by a heavy " "rain.\n\r"
+	    ___("The snow becomes a freezing rain.\n"),
+	    ___("The snow becomes a freezing rain.\n"),
+	    ___("A cold rain beats down on you "
+	      "as the snow begins to melt.\n"),
+	    ___("The snow is slowly replaced by a heavy " "rain.\n")
 	  };
 	  weath->echo = echo_strings[n];
 	  weath->echo_color = AT_CYAN;
@@ -3188,11 +3189,11 @@ get_weather_echo (WEATHER_DATA * weath)
 	  if (tindex > 1)
 	    {
 	      char *echo_strings[4] = {
-		"Lightning flashes in the " "sky.\n\r",
-		"Lightning flashes in the " "sky.\n\r",
-		"A flash of lightning splits " "the sky.\n\r",
-		"The sky flashes, and the "
-		  "ground trembles with " "thunder.\n\r"
+				___("Lightning flashes in the " "sky.\n"),
+				___("Lightning flashes in the " "sky.\n"),
+				___("A flash of lightning splits " "the sky.\n"),
+				___("The sky flashes, and the "
+		  		"ground trembles with " "thunder.\n")
 	      };
 	      weath->echo = echo_strings[n];
 	      weath->echo_color = AT_YELLOW;
@@ -3201,14 +3202,14 @@ get_weather_echo (WEATHER_DATA * weath)
       else if (tindex > 1 && temp - dT <= -weath_unit)
 	{
 	  char *echo_strings[4] = {
-	    "The sky rumbles with thunder as "
-	      "the snow changes to rain.\n\r",
-	    "The sky rumbles with thunder as "
-	      "the snow changes to rain.\n\r",
-	    "The falling snow turns to freezing rain "
-	      "amidst flashes of " "lightning.\n\r",
-	    "The falling snow begins to melt as "
-	      "thunder crashes overhead.\n\r"
+	    ___("The sky rumbles with thunder as "
+	      "the snow changes to rain.\n"),
+	    ___("The sky rumbles with thunder as "
+	      "the snow changes to rain.\n"),
+	    ___("The falling snow turns to freezing rain "
+	      "amidst flashes of " "lightning.\n"),
+	    ___("The falling snow begins to melt as "
+	      "thunder crashes overhead.\n")
 	  };
 	  weath->echo = echo_strings[n];
 	  weath->echo_color = AT_WHITE;
@@ -3216,13 +3217,14 @@ get_weather_echo (WEATHER_DATA * weath)
       else if (tindex < 2 && temp - dT > -weath_unit)
 	{
 	  char *echo_strings[4] = {
-	    "The lightning stops as the rainstorm "
-	      "becomes a blinding " "blizzard.\n\r",
-	    "The lightning stops as the rainstorm "
-	      "becomes a blinding " "blizzard.\n\r",
-	    "The thunder dies off as the "
-	      "pounding rain turns to " "heavy snow.\n\r",
-	    "The cold rain turns to snow and " "the lightning stops.\n\r"
+	    ___("The lightning stops as the rainstorm "
+	      "becomes a blinding " "blizzard.\n"),
+	    ___("The lightning stops as the rainstorm "
+	      "becomes a blinding " "blizzard.\n"),
+	    ___("The thunder dies off as the "
+	      "pounding rain turns to " "heavy snow.\n"),
+	    ___("The cold rain turns to snow and "
+				"the lightning stops.\n")
 	  };
 	  weath->echo = echo_strings[n];
 	  weath->echo_color = AT_CYAN;
@@ -3261,10 +3263,10 @@ get_time_echo (WEATHER_DATA * weath)
     case 5:
       {
 	char *echo_strings[4] = {
-	  "The day has begun.\n\r",
-	  "The day has begun.\n\r",
-	  "The sky slowly begins to glow.\n\r",
-	  "The sun slowly embarks upon a new day.\n\r"
+	  ___("The day has begun.\n"),
+	  ___("The day has begun.\n"),
+	  ___("The sky slowly begins to glow.\n"),
+	  ___("The sun slowly embarks upon a new day.\n")
 	};
 	time_info.sunlight = SUN_RISE;
 	weath->echo = echo_strings[n];
@@ -3274,10 +3276,10 @@ get_time_echo (WEATHER_DATA * weath)
     case 6:
       {
 	char *echo_strings[4] = {
-	  "The sun rises in the east.\n\r",
-	  "The sun rises in the east.\n\r",
-	  "The hazy sun rises over the horizon.\n\r",
-	  "Day breaks as the sun lifts into the sky.\n\r"
+	  ___("The sun rises in the east.\n"),
+	  ___("The sun rises in the east.\n"),
+	  ___("The hazy sun rises over the horizon.\n"),
+	  ___("Day breaks as the sun lifts into the sky.\n")
 	};
 	time_info.sunlight = SUN_LIGHT;
 	weath->echo = echo_strings[n];
@@ -3288,13 +3290,13 @@ get_time_echo (WEATHER_DATA * weath)
       {
 	if (pindex > 0)
 	  {
-	    weath->echo = "It's noon.\n\r";
+	    weath->echo = ___("It's noon.\n");
 	  }
 	else
 	  {
 	    char *echo_strings[2] = {
-	      "The intensity of the sun " "heralds the noon hour.\n\r",
-	      "The sun's bright rays beat down " "upon your shoulders.\n\r"
+	      ___("The intensity of the sun " "heralds the noon hour.\n"),
+	      ___("The sun's bright rays beat down " "upon your shoulders.\n")
 	    };
 	    weath->echo = echo_strings[n % 2];
 	  }
@@ -3305,11 +3307,11 @@ get_time_echo (WEATHER_DATA * weath)
     case 19:
       {
 	char *echo_strings[4] = {
-	  "The sun slowly disappears in the west.\n\r",
-	  "The reddish sun sets past the horizon.\n\r",
-	  "The sky turns a reddish orange as the sun "
-	    "ends its journey.\n\r",
-	  "The sun's radiance dims as it sinks in the " "sky.\n\r"
+	  ___("The sun slowly disappears in the west.\n"),
+	  ___("The reddish sun sets past the horizon.\n"),
+	  ___("The sky turns a reddish orange as the sun "
+	    "ends its journey.\n"),
+	  ___("The sun's radiance dims as it sinks in the " "sky.\n")
 	};
 	time_info.sunlight = SUN_SET;
 	weath->echo = echo_strings[n];
@@ -3321,16 +3323,16 @@ get_time_echo (WEATHER_DATA * weath)
 	if (pindex > 0)
 	  {
 	    char *echo_strings[2] = {
-	      "The night begins.\n\r",
-	      "Twilight descends around you.\n\r"
+	      ___("The night begins.\n"),
+	      ___("Twilight descends around you.\n")
 	    };
 	    weath->echo = echo_strings[n % 2];
 	  }
 	else
 	  {
 	    char *echo_strings[2] = {
-	      "The moon's gentle glow diffuses " "through the night sky.\n\r",
-	      "The night sky gleams with " "glittering starlight.\n\r"
+	      ___("The moon's gentle glow diffuses " "through the night sky.\n"),
+	      ___("The night sky gleams with " "glittering starlight.\n")
 	    };
 	    weath->echo = echo_strings[n % 2];
 	  }
@@ -3418,11 +3420,11 @@ hint_update ()
 		{
 		  if (d->character->level > 50)
 		    ch_printf_color (d->character,
-				     "&p( &wHINT&p ):  &P%s\n\r",
+				     _("&p( &wHINT&p ):  &P%s\n"),
 				     get_hint (50));
 		  else
 		    ch_printf_color (d->character,
-				     "&p( &wHINT&p ):  &P%s\n\r",
+				     _("&p( &wHINT&p ):  &P%s\n"),
 				     get_hint (d->character->level));
 		}
 	    }

@@ -4582,15 +4582,15 @@ get_dir (char *txt)
   int edir;
   char c1, c2;
 
-  if (!str_cmp (txt, "northeast"))
+  if (!str_cmp (txt, _("northeast")))
     return DIR_NORTHEAST;
-  if (!str_cmp (txt, "northwest"))
+  if (!str_cmp (txt, _("northwest")))
     return DIR_NORTHWEST;
-  if (!str_cmp (txt, "southeast"))
+  if (!str_cmp (txt, _("southeast")))
     return DIR_SOUTHEAST;
-  if (!str_cmp (txt, "southwest"))
+  if (!str_cmp (txt, _("southwest")))
     return DIR_SOUTHWEST;
-  if (!str_cmp (txt, "somewhere"))
+  if (!str_cmp (txt, _("somewhere")))
     return 10;
 
   c1 = txt[0];
@@ -5006,37 +5006,37 @@ do_redit (CHAR_DATA * ch, char *argument)
   if (!str_cmp (arg, "substate"))
     {
       argument = one_argument (argument, arg2);
-      if (!str_cmp (arg2, "north"))
+      if (!str_cmp (arg2, _("north")))
 	{
 	  ch->inter_substate = SUB_NORTH;
 	  return;
 	}
-      if (!str_cmp (arg2, "east"))
+      if (!str_cmp (arg2, _("east")))
 	{
 	  ch->inter_substate = SUB_EAST;
 	  return;
 	}
-      if (!str_cmp (arg2, "south"))
+      if (!str_cmp (arg2, _("south")))
 	{
 	  ch->inter_substate = SUB_SOUTH;
 	  return;
 	}
-      if (!str_cmp (arg2, "west"))
+      if (!str_cmp (arg2, _("west")))
 	{
 	  ch->inter_substate = SUB_WEST;
 	  return;
 	}
-      if (!str_cmp (arg2, "up"))
+      if (!str_cmp (arg2, _("up")))
 	{
 	  ch->inter_substate = SUB_UP;
 	  return;
 	}
-      if (!str_cmp (arg2, "down"))
+      if (!str_cmp (arg2, _("down")))
 	{
 	  ch->inter_substate = SUB_DOWN;
 	  return;
 	}
-      send_to_char (" unrecognized substate in redit\n\r", ch);
+      send_to_char (_(" unrecognized substate in redit\n"), ch);
       return;
     }
 
@@ -5501,28 +5501,28 @@ do_redit (CHAR_DATA * ch, char *argument)
       switch (ch->inter_substate)
 	{
 	case SUB_EAST:
-	  dir = 'e';
+	  dir = ___('e');
 	  edir = 1;
 	  break;
 	case SUB_WEST:
-	  dir = 'w';
+	  dir = ___('w');
 	  edir = 3;
 	  break;
 	case SUB_SOUTH:
-	  dir = 's';
+	  dir = ___('s');
 	  edir = 2;
 	  break;
 	case SUB_UP:
-	  dir = 'u';
+	  dir = ___('u');
 	  edir = 4;
 	  break;
 	case SUB_DOWN:
-	  dir = 'd';
+	  dir = ___('d');
 	  edir = 5;
 	  break;
 	default:
 	case SUB_NORTH:
-	  dir = 'n';
+	  dir = ___('n');
 	  edir = 0;
 	  break;
 	}
@@ -5553,28 +5553,28 @@ do_redit (CHAR_DATA * ch, char *argument)
       switch (ch->inter_substate)
 	{
 	case SUB_EAST:
-	  dir = 'e';
+	  dir = ___('e');
 	  edir = 1;
 	  break;
 	case SUB_WEST:
-	  dir = 'w';
+	  dir = ___('w');
 	  edir = 3;
 	  break;
 	case SUB_SOUTH:
-	  dir = 's';
+	  dir = ___('s');
 	  edir = 2;
 	  break;
 	case SUB_UP:
-	  dir = 'u';
+	  dir = ___('u');
 	  edir = 4;
 	  break;
 	case SUB_DOWN:
-	  dir = 'd';
+	  dir = ___('d');
 	  edir = 5;
 	  break;
 	default:
 	case SUB_NORTH:
-	  dir = 'n';
+	  dir = ___('n');
 	  edir = 0;
 	  break;
 	}
@@ -5593,28 +5593,28 @@ do_redit (CHAR_DATA * ch, char *argument)
       switch (ch->inter_substate)
 	{
 	case SUB_EAST:
-	  dir = 'e';
+	  dir = ___('e');
 	  edir = 1;
 	  break;
 	case SUB_WEST:
-	  dir = 'w';
+	  dir = ___('w');
 	  edir = 3;
 	  break;
 	case SUB_SOUTH:
-	  dir = 's';
+	  dir = ___('s');
 	  edir = 2;
 	  break;
 	case SUB_UP:
-	  dir = 'u';
+	  dir = ___('u');
 	  edir = 4;
 	  break;
 	case SUB_DOWN:
-	  dir = 'd';
+	  dir = ___('d');
 	  edir = 5;
 	  break;
 	default:
 	case SUB_NORTH:
-	  dir = 'n';
+	  dir = ___('n');
 	  edir = 0;
 	  break;
 	}
@@ -5633,28 +5633,28 @@ do_redit (CHAR_DATA * ch, char *argument)
       switch (ch->inter_substate)
 	{
 	case SUB_EAST:
-	  dir = 'e';
+	  dir = ___('e');
 	  edir = 1;
 	  break;
 	case SUB_WEST:
-	  dir = 'w';
+	  dir = ___('w');
 	  edir = 3;
 	  break;
 	case SUB_SOUTH:
-	  dir = 's';
+	  dir = ___('s');
 	  edir = 2;
 	  break;
 	case SUB_UP:
-	  dir = 'u';
+	  dir = ___('u');
 	  edir = 4;
 	  break;
 	case SUB_DOWN:
-	  dir = 'd';
+	  dir = ___('d');
 	  edir = 5;
 	  break;
 	default:
 	case SUB_NORTH:
-	  dir = 'n';
+	  dir = ___('n');
 	  edir = 0;
 	  break;
 	}
@@ -5755,7 +5755,7 @@ do_redit (CHAR_DATA * ch, char *argument)
 	       TO_ROOM);
 	}
       else
-	act (AT_IMMORT, "Something is different...", ch, NULL, NULL, TO_ROOM);
+	act (AT_IMMORT, _("Something is different..."), ch, NULL, NULL, TO_ROOM);
       if (xit->to_room != tmp)
 	{
 	  xit->to_room = tmp;
@@ -10446,8 +10446,8 @@ do_climate (CHAR_DATA * ch, char *argument)
 	    }
 	  else if (tarea == area)
 	    {
-	      ch_printf (ch, "%s already affects its "
-			 "own weather.\n\r", area->name);
+	      ch_printf (ch, _("%s already affects its "
+			 "own weather.\n"), area->name);
 	      return;
 	    }
 
@@ -10603,7 +10603,7 @@ do_alinks (CHAR_DATA * ch, char *argument)
   argument = one_argument (argument, buf);
   if (buf[0] == '\0')
     {
-      send_to_char ("Please see the related helpfile.\r\n", ch);
+      send_to_char (_("Please see the related helpfile.\n"), ch);
       return;
     }
   all = !str_cmp (buf, "all");

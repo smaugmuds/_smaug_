@@ -253,12 +253,12 @@ main (int argc, char **argv)
     {
       if (!is_number (argv[1]))
 			{
-				fprintf (stderr, "Usage: %s [port #]\n", argv[0]);
+				fprintf (stderr, _("Usage: %s [port #]\n"), argv[0]);
 				exit (1);
 			}
 				  else if ((port = atoi (argv[1])) <= 1024)
 			{
-				fprintf (stderr, "Port number must be above 1024.\n");
+				fprintf (stderr, _("Port number must be above 1024.\n"));
 				exit (1);
 			}
 #ifdef ENABLE_HOTBOOT
@@ -287,7 +287,7 @@ main (int argc, char **argv)
     err = WSAStartup (wVersionRequested, &wsadata);
     if (err)
       {
-				fprintf (stderr, "Error %i on WSAStartup\n", err);
+				fprintf (stderr, _("Error %i on WSAStartup\n"), err);
 				exit (1);
       }
 
@@ -338,7 +338,7 @@ main (int argc, char **argv)
 #ifdef ENABLE_HOTBOOT
   if( fCopyOver )
   {
-    log_string( "Initializing hotboot recovery." );
+    log_string( _("Initializing hotboot recovery.") );
     hotboot_recover(  );
   }
 #endif
@@ -392,13 +392,13 @@ init_socket (int port)
 
   if ((fd = socket (AF_INET, SOCK_STREAM, 0)) < 0)
     {
-      perror ("Init_socket: socket");
+      perror ( _("Init_socket: socket") );
       exit (1);
     }
 
   if (setsockopt (fd, SOL_SOCKET, SO_REUSEADDR, (void *) &x, sizeof (x)) < 0)
     {
-      perror ("Init_socket: SO_REUSEADDR");
+      perror (_("Init_socket: SO_REUSEADDR"));
       closesocket (fd);
       exit (1);
     }
@@ -413,7 +413,7 @@ init_socket (int port)
     if (setsockopt (fd, SOL_SOCKET, SO_DONTLINGER,
 		    (void *) &ld, sizeof (ld)) < 0)
       {
-				perror ("Init_socket: SO_DONTLINGER");
+				perror (_("Init_socket: SO_DONTLINGER"));
 				closesocket (fd);
 				exit (1);
       }
@@ -426,14 +426,14 @@ init_socket (int port)
 
   if (bind (fd, (struct sockaddr *) &sa, sizeof (sa)) == -1)
     {
-      perror ("Init_socket: bind");
+      perror (_("Init_socket: bind"));
       closesocket (fd);
       exit (1);
     }
 
   if (listen (fd, 50) < 0)
     {
-      perror ("Init_socket: listen");
+      perror (_("Init_socket: listen"));
       closesocket (fd);
       exit (1);
     }
@@ -468,17 +468,17 @@ caught_alarm ()
   char buf[MAX_STRING_LENGTH];
 
   // Fix from Igor Romanenko
-  sprintf (buf, "ALARM CLOCK!  In section %s", alarm_section);
+  sprintf (buf, _("ALARM CLOCK!  In section %s"), alarm_section);
   bug (buf);
   strcpy (buf,
-	  "Alas, the hideous malevalent entity known only as 'Lag' rises once more!\n\r");
+	  _("Alas, the hideous malevalent entity known only as 'Lag' rises once more!\n"));
   echo_to_all (AT_IMMORT, buf, ECHOTAR_ALL);
   if (newdesc)
     {
       FD_CLR (newdesc, &in_set);
       FD_CLR (newdesc, &out_set);
       FD_CLR (newdesc, &exc_set);
-      log_string ("clearing newdesc");
+      log_string (_("clearing newdesc"));
     }
 }
 
@@ -489,7 +489,7 @@ check_bad_desc (int desc)
     {
       FD_CLR (desc, &in_set);
       FD_CLR (desc, &out_set);
-      log_string ("Bad FD caught and disposed.");
+      log_string (_("Bad FD caught and disposed."));
       return TRUE;
     }
   return FALSE;
@@ -564,13 +564,13 @@ accept_new (int ctrl)
 
   if (select (maxdesc + 1, &in_set, &out_set, &exc_set, &null_time) < 0)
     {
-      perror ("accept_new: select: poll");
+      perror (_("accept_new: select: poll"));
       exit (1);
     }
 
   if (FD_ISSET (ctrl, &exc_set))
     {
-      bug ("Exception raise on controlling descriptor %d", ctrl);
+      bug (_("Exception raise on controlling descriptor %d"), ctrl);
       FD_CLR (ctrl, &in_set);
       FD_CLR (ctrl, &out_set);
     }
@@ -616,7 +616,7 @@ game_loop ()
 	{
 	  if (d == d->next)
 	    {
-	      bug ("descriptor_loop: loop found & fixed");
+	      bug (_("descriptor_loop: loop found & fixed"));
 	      d->next = NULL;
 	    }
 	  d_next = d->next;
@@ -639,7 +639,7 @@ game_loop ()
 		   || d->idle > 28800)	/* 2 hrs  */
 	    {
 	      write_to_descriptor (d->descriptor,
-				   "Idle timeout... disconnecting.\n\r", 0);
+				   _("Idle timeout... disconnecting.\n"), 0);
 	      d->outtop = 0;
 	      close_socket (d, TRUE);
 	      continue;
@@ -790,7 +790,7 @@ game_loop ()
 	    if (select (0, NULL, NULL, NULL, &stall_time) < 0
 		&& errno != EINTR)
 	      {
-		perror ("game_loop: select: stall");
+		perror (_("game_loop: select: stall"));
 		exit (1);
 	      }
 #endif
@@ -842,8 +842,8 @@ new_descriptor (int new_desc)
   alarm_section = "new_descriptor::accept";
   if ((desc = accept (new_desc, (struct sockaddr *) &sock, &size)) < 0)
     {
-      perror ("New_descriptor: accept");
-      sprintf (bugbuf, "[*****] BUG: New_descriptor: accept");
+      perror (_("New_descriptor: accept"));
+      sprintf (bugbuf, _("[*****] BUG: New_descriptor: accept"));
       log_string_plus (bugbuf, LOG_COMM, sysdata.log_level);
       set_alarm (0);
       return;
@@ -866,7 +866,7 @@ new_descriptor (int new_desc)
   if (fcntl (desc, F_SETFL, FNDELAY) == -1)
 #endif
     {
-      perror ("New_descriptor: fcntl: FNDELAY");
+      perror (_("New_descriptor: fcntl: FNDELAY"));
       set_alarm (0);
       return;
     }
@@ -889,7 +889,7 @@ new_descriptor (int new_desc)
   CREATE (dnew->outbuf, char, dnew->outsize);
 
   strcpy (buf, inet_ntoa (sock.sin_addr));
-  sprintf (log_buf, "Sock.sinaddr:  %s, port %hd.", buf, dnew->port);
+  sprintf (log_buf, _("Sock.sinaddr:  %s, port %hd."), buf, dnew->port);
   log_string_plus (log_buf, LOG_COMM, sysdata.log_level);
   if (sysdata.NO_NAME_RESOLVING)
     dnew->host = STRALLOC (buf);
@@ -903,7 +903,7 @@ new_descriptor (int new_desc)
   if (check_total_bans (dnew))
     {
       write_to_descriptor (desc,
-			   "Your site has been banned from this Mud.\n\r", 0);
+			   _("Your site has been banned from this Mud.\n"), 0);
       free_desc (dnew);
       set_alarm (0);
       return;
@@ -918,7 +918,7 @@ new_descriptor (int new_desc)
       DESCRIPTOR_DATA *d;
 
       bug
-	("New_descriptor: last_desc is NULL, but first_desc is not! ...fixing");
+	(_("New_descriptor: last_desc is NULL, but first_desc is not! ...fixing"));
       for (d = first_descriptor; d; d = d->next)
 	if (!d->next)
 	  last_descriptor = d;
@@ -954,7 +954,7 @@ new_descriptor (int new_desc)
       sprintf (buf, "%24.24s", ctime (&current_time));
       sysdata.time_of_max = str_dup (buf);
       sysdata.alltimemax = sysdata.maxplayers;
-      sprintf (log_buf, "Broke all-time maximum player record: %d",
+      sprintf (log_buf, _("Broke all-time maximum player record: %d"),
 	       sysdata.alltimemax);
       log_string_plus (log_buf, LOG_COMM, sysdata.log_level);
       to_channel (log_buf, CHANNEL_MONITOR, "Monitor", LEVEL_IMMORTAL);
@@ -993,7 +993,7 @@ close_socket (DESCRIPTOR_DATA * dclose, bool force)
   /* say bye to whoever's snooping this descriptor */
   if (dclose->snoop_by)
     write_to_buffer (dclose->snoop_by,
-		     "Your victim has left the game.\n\r", 0);
+		     _("Your victim has left the game.\n"), 0);
 
   /* stop snooping everyone else */
   for (d = first_descriptor; d; d = d->next)
@@ -1007,7 +1007,7 @@ close_socket (DESCRIPTOR_DATA * dclose, bool force)
 	do_return (ch, "");
       else
 	{
-	  bug ("Close_socket: dclose->original without character %s",
+	  bug (_("Close_socket: dclose->original without character %s"),
 	       (dclose->original->name ? dclose->original->name : "unknown"));
 	  dclose->character = dclose->original;
 	  dclose->original = NULL;
@@ -1020,7 +1020,7 @@ close_socket (DESCRIPTOR_DATA * dclose, bool force)
   if (!dclose->prev && dclose != first_descriptor)
     {
       DESCRIPTOR_DATA *dp, *dn;
-      bug ("Close_socket: %s desc:%p != first_desc:%p and desc->prev = NULL!",
+      bug (_("Close_socket: %s desc:%p != first_desc:%p and desc->prev = NULL!"),
 	   ch ? ch->name : d->host, dclose, first_descriptor);
       dp = NULL;
       for (d = first_descriptor; d; d = dn)
@@ -1029,7 +1029,7 @@ close_socket (DESCRIPTOR_DATA * dclose, bool force)
 	  if (d == dclose)
 	    {
 	      bug
-		("Close_socket: %s desc:%p found, prev should be:%p, fixing.",
+		(_("Close_socket: %s desc:%p found, prev should be:%p, fixing."),
 		 ch ? ch->name : d->host, dclose, dp);
 	      dclose->prev = dp;
 	      break;
@@ -1038,7 +1038,7 @@ close_socket (DESCRIPTOR_DATA * dclose, bool force)
 	}
       if (!dclose->prev)
 	{
-	  bug ("Close_socket: %s desc:%p could not be found!.",
+	  bug (_("Close_socket: %s desc:%p could not be found!."),
 	       ch ? ch->name : dclose->host, dclose);
 	  DoNotUnlink = TRUE;
 	}
@@ -1046,7 +1046,7 @@ close_socket (DESCRIPTOR_DATA * dclose, bool force)
   if (!dclose->next && dclose != last_descriptor)
     {
       DESCRIPTOR_DATA *dp, *dn;
-      bug ("Close_socket: %s desc:%p != last_desc:%p and desc->next = NULL!",
+      bug (_("Close_socket: %s desc:%p != last_desc:%p and desc->next = NULL!"),
 	   ch ? ch->name : d->host, dclose, last_descriptor);
       dn = NULL;
       for (d = last_descriptor; d; d = dp)
@@ -1055,7 +1055,7 @@ close_socket (DESCRIPTOR_DATA * dclose, bool force)
 	  if (d == dclose)
 	    {
 	      bug
-		("Close_socket: %s desc:%p found, next should be:%p, fixing.",
+		(_("Close_socket: %s desc:%p found, next should be:%p, fixing."),
 		 ch ? ch->name : d->host, dclose, dn);
 	      dclose->next = dn;
 	      break;
@@ -1064,7 +1064,7 @@ close_socket (DESCRIPTOR_DATA * dclose, bool force)
 	}
       if (!dclose->next)
 	{
-	  bug ("Close_socket: %s desc:%p could not be found!.",
+	  bug (_("Close_socket: %s desc:%p could not be found!."),
 	       ch ? ch->name : dclose->host, dclose);
 	  DoNotUnlink = TRUE;
 	}
@@ -1072,7 +1072,7 @@ close_socket (DESCRIPTOR_DATA * dclose, bool force)
 
   if (dclose->character)
     {
-      sprintf (log_buf, "Closing link to %s. (INRoom %d)",
+      sprintf (log_buf, _("Closing link to %s. (INRoom %d)"),
 	       ch->pcdata->filename, (ch->in_room ? ch->in_room->vnum : -1));
       log_string_plus (log_buf, LOG_COMM,
 		       UMAX (sysdata.log_level, ch->level));
@@ -1106,7 +1106,7 @@ close_socket (DESCRIPTOR_DATA * dclose, bool force)
       if (dclose->connected == CON_PLAYING
 	  || dclose->connected == CON_EDITING)
 	{
-	  act (AT_ACTION, "$n has lost $s link.", ch, NULL, NULL, TO_CANSEE);
+	  act (AT_ACTION, _("$n has lost $s link."), ch, NULL, NULL, TO_CANSEE);
 	  ch->desc = NULL;
 	}
       else
@@ -1148,10 +1148,10 @@ read_from_descriptor (DESCRIPTOR_DATA * d)
   iStart = strlen (d->inbuf);
   if (iStart >= sizeof (d->inbuf) - 10)
     {
-      sprintf (log_buf, "%s input overflow!", d->host);
+      sprintf (log_buf, _("%s input overflow!"), d->host);
       log_string (log_buf);
       write_to_descriptor (d->descriptor,
-			   "\n\r*** PUT A LID ON IT!!! ***\n\rYou cannot enter the same command more than 20 consecutive times!\n\r",
+			   _("\n*** PUT A LID ON IT!!! ***\nYou cannot enter the same command more than 20 consecutive times!\n"),
 			   0);
       return FALSE;
     }
@@ -1175,7 +1175,7 @@ read_from_descriptor (DESCRIPTOR_DATA * d)
 	}
       else if (nRead == 0)
 	{
-	  log_string_plus ("EOF encountered on read.", LOG_COMM,
+	  log_string_plus (_("EOF encountered on read."), LOG_COMM,
 			   sysdata.log_level);
 	  return FALSE;
 	}
@@ -1183,7 +1183,7 @@ read_from_descriptor (DESCRIPTOR_DATA * d)
 	break;
       else
 	{
-	  perror ("Read_from_descriptor");
+	  perror (_("Read_from_descriptor"));
 	  return FALSE;
 	}
     }
@@ -1225,7 +1225,7 @@ read_from_buffer (DESCRIPTOR_DATA * d)
     {
       if (k >= 254)
 	{
-	  write_to_descriptor (d->descriptor, "Line too long.\n\r", 0);
+	  write_to_descriptor (d->descriptor, _("Line too long.\n"), 0);
 
 	  /* skip the rest of the line */
 	  /*
@@ -1269,7 +1269,7 @@ read_from_buffer (DESCRIPTOR_DATA * d)
 			/* sprintf( log_buf, "%s input spamming!", d->host ); */
 			/* log_string( log_buf ); */
 	      write_to_descriptor (d->descriptor,
-				   "\n\r*** PUT A LID ON IT!!! ***\n\rYou cannot enter the same command more than 20 consecutive times!\n\r",
+				   _("\n*** PUT A LID ON IT!!! ***\nYou cannot enter the same command more than 20 consecutive times!\n"),
 				   0);
 	      strcpy (d->incomm, "quit");
 	    }
@@ -1413,7 +1413,7 @@ write_to_buffer (DESCRIPTOR_DATA * d, const char *txt, int length)
 {
   if (!d)
     {
-      bug ("Write_to_buffer: NULL descriptor");
+      bug (_("Write_to_buffer: NULL descriptor"));
       return;
     }
 
@@ -1460,7 +1460,7 @@ write_to_buffer (DESCRIPTOR_DATA * d, const char *txt, int length)
 	  /* empty buffer */
 	  d->outtop = 0;
 	  close_socket (d, TRUE);
-	  bug ("Buffer overflow. Closing (%s).",
+	  bug (_("Buffer overflow. Closing (%s)."),
 	       d->character ? d->character->name : "???");
 	  return;
 	}
@@ -1499,7 +1499,7 @@ write_to_descriptor (int desc, char *txt, int length)
       nBlock = UMIN (length - iStart, 4096);
       if ((nWrite = send (desc, _(txt) + iStart, nBlock, 0)) < 0)
 	{
-	  perror ("Write_to_descriptor");
+	  perror (_("Write_to_descriptor"));
 	  return FALSE;
 	}
     }
@@ -1525,7 +1525,7 @@ show_title (DESCRIPTOR_DATA * d)
     }
   else
     {
-      write_to_buffer (d, "Press enter...\n\r", 0);
+      write_to_buffer (d, _("Press enter...\n"), 0);
     }
   d->connected = CON_PRESS_ENTER;
 }
@@ -1540,7 +1540,7 @@ show_classes_to_nanny (DESCRIPTOR_DATA * d)
   ch = d->character;
 
   ch_printf_color (ch,
-		   "\n\r\n\r&GThe following classes are available (or type &W'help [class]'&G)\n\r");
+		   _("\n\n&GThe following classes are available (or type &W'help [class]'&G)\n"));
   for (iClass = 0; iClass < MAX_PC_CLASS - 3; iClass++)
     {
       if (class_table[iClass]->who_name
@@ -1556,7 +1556,7 @@ show_classes_to_nanny (DESCRIPTOR_DATA * d)
 	  cnt = 0;
 	}
     }
-  ch_printf_color (ch, "\n\r&GPlease select\n\r&W: ");
+  ch_printf_color (ch, _("\n&GPlease select\n&W: "));
   return;
 }
 
@@ -1570,7 +1570,7 @@ show_races_to_nanny (DESCRIPTOR_DATA * d)
   ch = d->character;
 
   ch_printf_color (ch,
-		   "\n\r\n\r&GThe following races are available to your class (or type &W'help [race]'&G)\n\r");
+		   _("\n\n&GThe following races are available to your class (or type &W'help [race]'&G)\n"));
   for (iRace = 0; iRace < MAX_PC_RACE; iRace++)
     {
       if (iRace != RACE_VAMPIRE
@@ -1592,7 +1592,7 @@ show_races_to_nanny (DESCRIPTOR_DATA * d)
 	    }
 	}
     }
-  ch_printf_color (ch, "\n\r&GPlease select\n\r&W: ");
+  ch_printf_color (ch, _("\n&GPlease select\n&W: "));
   return;
 }
 
@@ -1623,7 +1623,7 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
     {
 
     default:
-      bug ("Nanny: bad d->connected %d.", d->connected);
+      bug (_("Nanny: bad d->connected %d."), d->connected);
       close_socket (d, TRUE);
       return;
 
@@ -1640,7 +1640,7 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
       if (!check_parse_name (argument, (d->newstate != 0)))
 	{
 	  write_to_buffer (d,
-			   "That name is reserved, please try another.\n\rName: ",
+			   _("That name is reserved, please try another.\nName: "),
 			   0);
 	  return;
 	}
@@ -1654,21 +1654,21 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 	      if (sysdata.DENY_NEW_PLAYERS == TRUE)
 		{
 		  sprintf (buf,
-			   "The mud is currently preparing for a reboot.\n\r");
+			   _("The mud is currently preparing for a reboot.\n"));
 		  write_to_buffer (d, buf, 0);
 		  sprintf (buf,
-			   "New players are not accepted during this time.\n\r");
+			   _("New players are not accepted during this time.\n"));
 		  write_to_buffer (d, buf, 0);
-		  sprintf (buf, "Please try again in a few minutes.\n\r");
+		  sprintf (buf, _("Please try again in a few minutes.\n"));
 		  write_to_buffer (d, buf, 0);
 		  close_socket (d, FALSE);
 		}
 	      sprintf (buf,
-		       "\n\rChoosing a name is one of the most important parts of this game...\n\r"
-		       "Make sure to pick a name appropriate to the character you are going\n\r"
-		       "to role play, and be sure that it suits a medieval theme.\n\r"
-		       "If the name you select is not acceptable, you will be asked to choose\n\r"
-		       "another one.\n\r\n\rPlease choose a name for your character: ");
+		       _("\nChoosing a name is one of the most important parts of this game...\n"
+		       "Make sure to pick a name appropriate to the character you are going\n"
+		       "to role play, and be sure that it suits a medieval theme.\n"
+		       "If the name you select is not acceptable, you will be asked to choose\n"
+		       "another one.\n\nPlease choose a name for your character: "));
 	      write_to_buffer (d, buf, 0);
 	      d->newstate++;
 	      d->connected = CON_GET_NAME;
@@ -1677,7 +1677,7 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 	  else
 	    {
 	      write_to_buffer (d,
-			       "That name is reserved, please try another.\n\rName: ",
+			       _("That name is reserved, please try another.\nName: "),
 			       0);
 	      return;
 	    }
@@ -1685,17 +1685,17 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 
       if (check_playing (d, argument, FALSE) == BERR)
 	{
-	  write_to_buffer (d, "Name: ", 0);
+	  write_to_buffer (d, _("Name: "), 0);
 	  return;
 	}
 
       fOld = load_char_obj (d, argument, TRUE);
       if (!d->character)
 	{
-	  sprintf (log_buf, "Bad player file %s@%s.", argument, d->host);
+	  sprintf (log_buf, _("Bad player file %s@%s."), argument, d->host);
 	  log_string (log_buf);
 	  write_to_buffer (d,
-			   "Your playerfile is corrupt...Please notify derek@idirect.com.\n\r",
+			   _("Your playerfile is corrupt ... Please report it at: <https://github.com/smaugmuds/_smaug_.git/issues>\n"),
 			   0);
 	  close_socket (d, FALSE);
 	  return;
@@ -1704,7 +1704,7 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
       if (check_bans (ch, BAN_SITE))
 	{
 	  write_to_buffer (d,
-			   "Your site has been banned from this Mud.\n\r", 0);
+			   _("Your site has been banned from this Mud.\n"), 0);
 	  close_socket (d, FALSE);
 	  return;
 	}
@@ -1714,7 +1714,7 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 	  if (check_bans (ch, BAN_CLASS))
 	    {
 	      write_to_buffer (d,
-			       "Your class has been banned from this Mud.\n\r",
+			       _("Your class has been banned from this Mud.\n"),
 			       0);
 	      close_socket (d, FALSE);
 	      return;
@@ -1722,7 +1722,7 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 	  if (check_bans (ch, BAN_RACE))
 	    {
 	      write_to_buffer (d,
-			       "Your race has been banned from this Mud.\n\r",
+			       "Your race has been banned from this Mud.\n",
 			       0);
 	      close_socket (d, FALSE);
 	      return;
@@ -1731,12 +1731,12 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 
       if (xIS_SET (ch->act, PLR_DENY))
 	{
-	  sprintf (log_buf, "Denying access to %s@%s.", argument, d->host);
+	  sprintf (log_buf, _("Denying access to %s@%s."), argument, d->host);
 	  log_string_plus (log_buf, LOG_COMM, sysdata.log_level);
 	  if (d->newstate != 0)
 	    {
 	      write_to_buffer (d,
-			       "That name is already taken.  Please choose another: ",
+			       _("That name is already taken.  Please choose another: "),
 			       0);
 	      d->connected = CON_GET_NAME;
 	      d->character->desc = NULL;
@@ -1744,7 +1744,7 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 	      d->character = NULL;
 	      return;
 	    }
-	  ch_printf_color (ch, "\n\r&RYou are denied access.\n\r");
+	  ch_printf_color (ch, _("\n&RYou are denied access.\n"));
 	  close_socket (d, FALSE);
 	  return;
 	}
@@ -1756,11 +1756,10 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
       if (IS_IMMORTAL (ch) && sysdata.check_imm_host
 	  && !check_immortal_domain (ch, d->host))
 	{
-	  sprintf (log_buf, "%s's char being hacked from %s.", argument,
+	  sprintf (log_buf, _("%s's char being hacked from %s."), argument,
 		   d->host);
 	  log_string_plus (log_buf, LOG_COMM, sysdata.log_level);
-	  ch_printf_color (ch,
-			   "\n\r&RThis hacking attempt has been logged.\n\r");
+	  ch_printf_color (ch,_("\n&RThis hacking attempt has been logged.\n"));
 	  close_socket (d, FALSE);
 	  return;
 	}
@@ -1778,8 +1777,8 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 	  if (wizlock && !IS_IMMORTAL (ch))
 	    {
 	      ch_printf_color (ch,
-			       "\n\r&RThe game is wizlocked.  Only immortals can connect at this time.\n\r");
-	      ch_printf_color (ch, "Please try back later ...\n\r");
+			       _("\n&RThe game is wizlocked.  Only immortals can connect at this time.\n"));
+	      ch_printf_color (ch, _("Please try back later ...\n"));
 	      close_socket (d, FALSE);
 	      return;
 	    }
@@ -1816,7 +1815,7 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 	    {
 	      /* No such player */
 	      write_to_buffer (d,
-			       "\n\rNo such player exists.\n\rPlease check your spelling, or type new to start a new player.\n\r\n\rName: ",
+			       _("\nNo such player exists.\nPlease check your spelling, or type new to start a new player.\n\nName: "),
 			       0);
 	      d->connected = CON_GET_NAME;
 	      d->character->desc = NULL;
@@ -1825,7 +1824,7 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 	      return;
 	    }
 
-	  sprintf (buf, "Did I get that right, %s (Y/N)? ", argument);
+	  sprintf (buf, _("Did I get that right, %s (Y/N)? "), argument);
 	  write_to_buffer (d, buf, 0);
 	  d->connected = CON_CONFIRM_NEW_NAME;
 	  return;
@@ -1867,10 +1866,10 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
       fOld = load_char_obj (d, buf, FALSE);
       if (!d->character)
 	{
-	  sprintf (log_buf, "Bad player file %s@%s.", argument, d->host);
+	  sprintf (log_buf, _("Bad player file %s@%s."), argument, d->host);
 	  log_string (log_buf);
 	  write_to_buffer (d,
-			   "Your playerfile is corrupt...Please notify derek@idirect.com\n\r",
+			   _("Your playerfile is corrupt ... Please report it at: <https://github.com/smaugmuds/_smaug_.git/issues>\n"),
 			   0);
 	  close_socket (d, FALSE);
 	  return;
@@ -1905,9 +1904,11 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 	{
 	case 'y':
 	case 'Y':
+	case 's':
+	case 'S':
 	  sprintf (buf,
-		   "\n\rMake sure to use a password that won't be easily guessed by someone else."
-		   "\n\rPick a good password for %s: %s", ch->name,
+		   _("\nMake sure to use a password that won't be easily guessed by someone else."
+		   "\nPick a good password for %s: %s"), ch->name,
 		   echo_off_str);
 	  write_to_buffer (d, buf, 0);
 	  d->connected = CON_GET_NEW_PASSWORD;
@@ -1915,7 +1916,7 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 
 	case 'n':
 	case 'N':
-	  write_to_buffer (d, "Ok, what IS it, then? ", 0);
+	  write_to_buffer (d, _("Ok, what IS it, then? "), 0);
 	  /* clear descriptor pointer to get rid of bug message in log */
 	  d->character->desc = NULL;
 	  free_char (d->character);
@@ -1924,7 +1925,7 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 	  break;
 
 	default:
-	  write_to_buffer (d, "Please type Yes or No. ", 0);
+	  write_to_buffer (d, _("Please type Yes or No. "), 0);
 	  break;
 	}
       break;
@@ -2040,7 +2041,7 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
     case CON_GET_NEW_CLASS:
       argument = one_argument (argument, arg);
 
-      if (!str_cmp (arg, "help"))
+      if (!str_cmp (arg, _("help")))
 	{
 	  for (iClass = 0; iClass < MAX_PC_CLASS; iClass++)
 	    {
@@ -2107,7 +2108,7 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
     case CON_GET_NEW_RACE:
       argument = one_argument (argument, arg);
 
-      if (!str_cmp (arg, "help"))
+      if (!str_cmp (arg, _("help")))
 	{
 	  for (iRace = 0; iRace < MAX_PC_RACE; iRace++)
 	    {
@@ -2159,7 +2160,7 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 	  return;
 	}
 
-      sprintf (log_buf, "%s@%s new %s %s.", ch->name, d->host,
+      sprintf (log_buf, _("%s@%s new %s %s."), ch->name, d->host,
 	       race_table[ch->race]->race_name,
 	       class_table[ch->class]->who_name);
       log_string_plus (log_buf, LOG_COMM, sysdata.log_level);
@@ -2199,7 +2200,7 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 	do_help (ch, "nmotd");
       else
 	do_help (ch, "motd");
-      send_to_pager ("\n\rPress [ENTER] ", ch);
+      send_to_pager (_("\nPress [ENTER] "), ch);
       d->connected = CON_READ_MOTD;
       break;
 
@@ -2684,7 +2685,7 @@ check_playing (DESCRIPTOR_DATA * d, char *name, bool kick)
 	  if (!ch->name || (cstate != CON_PLAYING && cstate != CON_EDITING))
 	    {
 	      write_to_buffer (d,
-			       "That character is already connected - try again.\n\r",
+			       _("That character is already connected - try again.\n"),
 			       0);
 	      sprintf (log_buf, _("%s already connected."),
 		       ch->pcdata->filename);
@@ -2694,9 +2695,9 @@ check_playing (DESCRIPTOR_DATA * d, char *name, bool kick)
 	  if (!kick)
 	    return TRUE;
 	  write_to_buffer (d,
-			   "Already playing... Kicking off old connection.\n\r",
+			   _("Already playing... Kicking off old connection.\n"),
 			   0);
-	  write_to_buffer (dold, "Kicking off old connection... bye!\n\r", 0);
+	  write_to_buffer (dold, _("Kicking off old connection... bye!\n"), 0);
 	  close_socket (dold, FALSE);
 	  /* clear descriptor pointer to get rid of bug message in log */
 	  d->character->desc = NULL;
@@ -2887,7 +2888,7 @@ send_to_pager (const char *txt, CHAR_DATA * ch)
 {
   if (!ch)
     {
-      bug ("Send_to_pager: NULL *ch");
+      bug (_("Send_to_pager: NULL *ch"));
       return;
     }
   if (txt && ch->desc)
@@ -2917,7 +2918,7 @@ send_to_pager_color (const char *txt, CHAR_DATA * ch)
 
   if (!ch)
     {
-      bug ("Send_to_pager_color: NULL *ch");
+      bug (_("Send_to_pager_color: NULL *ch"));
       return;
     }
   if (!txt || !ch->desc)
@@ -2963,7 +2964,7 @@ figure_color (sh_int AType, CHAR_DATA * ch)
     }
   if (at < 0 || at > AT_WHITE + AT_BLINK)
     {
-      bug ("Figure_color: color %d invalid.", at);
+      bug (_("Figure_color: color %d invalid."), at);
       at = AT_GREY;
     }
   return at;
@@ -3064,13 +3065,13 @@ pager_printf (CHAR_DATA * ch, char *fmt, ...)
 char *
 myobj (OBJ_DATA * obj)
 {
-  if (!str_prefix ("a ", obj->short_descr))
+  if (!str_prefix (_("a "), obj->short_descr))
     return obj->short_descr + 2;
-  if (!str_prefix ("an ", obj->short_descr))
+  if (!str_prefix (_("an "), obj->short_descr))
     return obj->short_descr + 3;
-  if (!str_prefix ("the ", obj->short_descr))
+  if (!str_prefix (_("the "), obj->short_descr))
     return obj->short_descr + 4;
-  if (!str_prefix ("some ", obj->short_descr))
+  if (!str_prefix (_("some "), obj->short_descr))
     return obj->short_descr + 5;
   	return obj->short_descr;
 }
@@ -3129,9 +3130,9 @@ char *
 act_string (const char *format, CHAR_DATA * to, CHAR_DATA * ch,
 	    const void *arg1, const void *arg2, int flags)
 {
-  static char *const he_she[] = { "it", "he", "she" };
-  static char *const him_her[] = { "it", "him", "her" };
-  static char *const his_her[] = { "its", "his", "her" };
+  static char *const he_she[] = { ___("it"), ___("he"), ___("she") };
+  static char *const him_her[] = { ___("it"), ___("him"), ___("her") };
+  static char *const his_her[] = { ___("its"), ___("his"), ___("her") };
   static char buf[MAX_STRING_LENGTH];
   char fname[MAX_INPUT_LENGTH];
   char temp[MAX_STRING_LENGTH];
@@ -3155,7 +3156,7 @@ act_string (const char *format, CHAR_DATA * to, CHAR_DATA * ch,
       ++str;
       if (!arg2 && *str >= 'A' && *str <= 'Z')
 	{
-	  bug ("Act: missing arg2 for code %c:", *str);
+	  bug (_("Act: missing arg2 for code %c:"), *str);
 	  bug (format);
 	  i = " <@@@> ";
 	}
@@ -3164,7 +3165,7 @@ act_string (const char *format, CHAR_DATA * to, CHAR_DATA * ch,
 	  switch (*str)
 	    {
 	    default:
-	      bug ("Act: bad code %c.", *str);
+	      bug (_("Act: bad code %c."), *str);
 	      i = " <@@@> ";
 	      break;
 	    case 't':
@@ -3173,7 +3174,7 @@ act_string (const char *format, CHAR_DATA * to, CHAR_DATA * ch,
 		i = (char *) arg1;
 	      else
 		{
-		  bug ("Act: Bad variable $t");
+		  bug (_("Act: Bad variable $t"));
 		  i = " <@@@> ";
 		}
 	      break;
@@ -3183,7 +3184,7 @@ act_string (const char *format, CHAR_DATA * to, CHAR_DATA * ch,
 		i = (char *) arg2;
 	      else
 		{
-		  bug ("Act: Bad variable $T");
+		  bug (_("Act: Bad variable $T"));
 		  i = " <@@@> ";
 		}
 	      break;
@@ -3194,7 +3195,7 @@ act_string (const char *format, CHAR_DATA * to, CHAR_DATA * ch,
 		i = (to ? MORPHPERS (ch, to) : MORPHNAME (ch));
 	      else
 		{
-		  sprintf (temp, "(MORPH) %s",
+		  sprintf (temp, _("(MORPH) %s"),
 			   (to ? PERS (ch, to) : NAME (ch)));
 		  i = temp;
 		}
@@ -3206,7 +3207,7 @@ act_string (const char *format, CHAR_DATA * to, CHAR_DATA * ch,
 		i = (to ? MORPHPERS (vch, to) : MORPHNAME (vch));
 	      else
 		{
-		  sprintf (temp, "(MORPH) %s",
+		  sprintf (temp, _("(MORPH) %s"),
 			   (to ? PERS (vch, to) : NAME (vch)));
 		  i = temp;
 		}
@@ -3215,7 +3216,7 @@ act_string (const char *format, CHAR_DATA * to, CHAR_DATA * ch,
 	    case 'e':
 	      if (ch->sex > 2 || ch->sex < 0)
 		{
-		  bug ("act_string: player %s has sex set at %d!", ch->name,
+		  bug (_("act_string: player %s has sex set at %d!"), ch->name,
 		       ch->sex);
 		  i = "it";
 		}
@@ -3225,7 +3226,7 @@ act_string (const char *format, CHAR_DATA * to, CHAR_DATA * ch,
 	    case 'E':
 	      if (vch->sex > 2 || vch->sex < 0)
 		{
-		  bug ("act_string: player %s has sex set at %d!", vch->name,
+		  bug (_("act_string: player %s has sex set at %d!"), vch->name,
 		       vch->sex);
 		  i = "it";
 		}
@@ -3235,7 +3236,7 @@ act_string (const char *format, CHAR_DATA * to, CHAR_DATA * ch,
 	    case 'm':
 	      if (ch->sex > 2 || ch->sex < 0)
 		{
-		  bug ("act_string: player %s has sex set at %d!", ch->name,
+		  bug (_("act_string: player %s has sex set at %d!"), ch->name,
 		       ch->sex);
 		  i = "it";
 		}
@@ -3245,7 +3246,7 @@ act_string (const char *format, CHAR_DATA * to, CHAR_DATA * ch,
 	    case 'M':
 	      if (vch->sex > 2 || vch->sex < 0)
 		{
-		  bug ("act_string: player %s has sex set at %d!", vch->name,
+		  bug (_("act_string: player %s has sex set at %d!"), vch->name,
 		       vch->sex);
 		  i = "it";
 		}
@@ -3255,7 +3256,7 @@ act_string (const char *format, CHAR_DATA * to, CHAR_DATA * ch,
 	    case 's':
 	      if (ch->sex > 2 || ch->sex < 0)
 		{
-		  bug ("act_string: player %s has sex set at %d!", ch->name,
+		  bug (_("act_string: player %s has sex set at %d!"), ch->name,
 		       ch->sex);
 		  i = "its";
 		}
@@ -3265,7 +3266,7 @@ act_string (const char *format, CHAR_DATA * to, CHAR_DATA * ch,
 	    case 'S':
 	      if (vch->sex > 2 || vch->sex < 0)
 		{
-		  bug ("act_string: player %s has sex set at %d!", vch->name,
+		  bug (_("act_string: player %s has sex set at %d!"), vch->name,
 		       vch->sex);
 		  i = "its";
 		}
@@ -3276,7 +3277,7 @@ act_string (const char *format, CHAR_DATA * to, CHAR_DATA * ch,
 	      i = (to == ch) ? "" : "s";
 	      break;
 	    case 'Q':
-	      i = (to == ch) ? "your" : his_her[URANGE (0, ch->sex, 2)];
+	      i = (to == ch) ? _("your") : his_her[URANGE (0, ch->sex, 2)];
 	      break;
 	    case 'p':
 	      if (!to || can_see_obj (to, obj1))
@@ -3300,7 +3301,7 @@ act_string (const char *format, CHAR_DATA * to, CHAR_DATA * ch,
 		    i = obj_short (obj2);
 		}
 	      else
-		i = "something";
+					i = "something";
 	      break;
 /*      case 'p': i = (!to || can_see_obj(to, obj1)
           ? obj_short(obj1) : "something");         break;
@@ -3309,7 +3310,7 @@ act_string (const char *format, CHAR_DATA * to, CHAR_DATA * ch,
 */
 	    case 'd':
 	      if (!arg2 || ((char *) arg2)[0] == '\0')
-		i = "door";
+					i = "door";
 	      else
 		{
 		  one_argument ((char *) arg2, fname);
@@ -3359,7 +3360,7 @@ act (sh_int AType, const char *format, CHAR_DATA * ch, const void *arg1,
 
   if (!ch)
     {
-      bug ("Act: null ch. (%s)", format);
+      bug (_("Act: null ch. (%s)"), format);
       return;
     }
 
@@ -3375,7 +3376,7 @@ act (sh_int AType, const char *format, CHAR_DATA * ch, const void *arg1,
 	  switch (*str)
 	    {
 	    default:
-	      bug ("Act: bad code %c for format %s.", *str, format);
+	      bug (_("Act: bad code %c for format %s."), *str, format);
 	      break;
 
 	    case 't':
@@ -3558,7 +3559,7 @@ do_name (CHAR_DATA * ch, char *argument)
 
   if (!check_parse_name (argument, TRUE))
     {
-      send_to_char ("That name is reserved, please try another.\n\r", ch);
+      send_to_char (_("That name is reserved, please try another.\n"), ch);
       return;
     }
 
@@ -3567,7 +3568,7 @@ do_name (CHAR_DATA * ch, char *argument)
 
   if (!str_cmp (ch->name, argument))
     {
-      send_to_char ("That's already your name!\n\r", ch);
+      send_to_char (_("That's already your name!\n"), ch);
       return;
     }
 
@@ -3579,7 +3580,7 @@ do_name (CHAR_DATA * ch, char *argument)
 
   if (tmp)
     {
-      send_to_char ("That name is already taken.  Please choose another.\n\r",
+      send_to_char (_("That name is already taken.  Please choose another.\n"),
 		    ch);
       return;
     }
@@ -3588,7 +3589,7 @@ do_name (CHAR_DATA * ch, char *argument)
 	   capitalize (argument));
   if (stat (fname, &fst) != -1)
     {
-      send_to_char ("That name is already taken.  Please choose another.\n\r",
+      send_to_char (_("That name is already taken.  Please choose another.\n"),
 		    ch);
       return;
     }
@@ -3745,14 +3746,14 @@ display_prompt (DESCRIPTOR_DATA * d)
   CHAR_DATA *victim;
   bool ansi = (!IS_NPC (och) && xIS_SET (och->act, PLR_ANSI));
   const char *prompt;
-  const char *helpstart = "<Type HELP START>";
+  const char *helpstart = ___("<Type HELP START>");
   char buf[MAX_STRING_LENGTH];
   char *pbuf = buf;
   int stat, percent;
 
   if (!ch)
     {
-      bug ("display_prompt: NULL ch");
+      bug (_("display_prompt: NULL ch"));
       return;
     }
 
@@ -3809,7 +3810,7 @@ display_prompt (DESCRIPTOR_DATA * d)
       switch (*(prompt - 1))
 	{
 	default:
-	  bug ("Display_prompt: bad command char '%c'.", *(prompt - 1));
+	  bug (_("Display_prompt: bad command char '%c'."), *(prompt - 1));
 	  break;
 	case '&':
 	case '^':
@@ -4252,6 +4253,7 @@ pager_output (DESCRIPTOR_DATA * d)
       break;
       /* Previous page */
     case 'b':
+    case 'v':
       lines = -1 - (pclines * 2);
       break;
       /* Redraw */
@@ -4265,6 +4267,7 @@ pager_output (DESCRIPTOR_DATA * d)
       break;
       /* Quit */
     case 'q':
+    case 's':
       d->pagetop = 0;
       d->pagepoint = NULL;
       flush_buffer (d, TRUE);
@@ -4317,7 +4320,7 @@ pager_output (DESCRIPTOR_DATA * d)
     if (write_to_descriptor (d->descriptor, "\033[1;36m", 7) == FALSE)
       return FALSE;
   if ((ret = write_to_descriptor (d->descriptor,
-				  "(C)ontinue, (N)on-stop, (R)efresh, (B)ack, (Q)uit: [C] ",
+				  _("(C)ontinue, (N)on-stop, (R)efresh, (B)ack, (Q)uit: [C] "),
 				  0)) == FALSE)
     return FALSE;
   /* Restore previous color */
@@ -4344,10 +4347,10 @@ void shutdown_mud (const char *reason);
 void
 bailout (void)
 {
-  echo_to_all (AT_IMMORT, "MUD shutting down by system operator NOW!!",
+  echo_to_all (AT_IMMORT, _("MUD shutting down by system operator NOW!!"),
 	       ECHOTAR_ALL);
-  shutdown_mud ("MUD shutdown by system operator");
-  log_string ("MUD shutdown by system operator");
+  shutdown_mud (_("MUD shutdown by system operator"));
+  log_string (_("MUD shutdown by system operator"));
   Sleep (5000);			/* give "echo_to_all" time to display */
   mud_down = TRUE;		/* This will cause game_loop to exit */
   service_shut_down = TRUE;	/* This will cause characters to be saved */
