@@ -1,41 +1,31 @@
-/*
-                     R E A L M S    O F    D E S P A I R  !
-   ___________________________________________________________________________
-  //            /                                                            \\
- [|_____________\   ********   *        *   ********   *        *   *******   |]
- [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
- [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
- [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
- [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
- [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
- [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
- [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
- [|_____________\  **********  **      **  **      **  **********  *********  |]
- [|             /  *********   *        *  *        *   ********    *******   |]
-  \\____________\____________________________________________________________//
-     |                                                                     |
-     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
-     |_____________________________________________________________________|
-     |                                                                     |
-     |                         -*- Color Module -*-                        |
-     |_____________________________________________________________________|
-     |                                                                     |
-     |                    Allow user customizable Colors.                  |
-     |                              by Matthew                             |
-     |                    Enhanced ANSI parser by Samson                   |
-     |_____________________________________________________________________|
-    //                                                                     \\
-   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
-   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
-   [|                                                                       |]
-   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
-   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
-   [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
-    \\_____________________________________________________________________//
-*/
+/****************************************************************************
+ *                   ^     +----- |  / ^     ^ |     | +-\                  *
+ *                  / \    |      | /  |\   /| |     | |  \                 *
+ *                 /   \   +---   |<   | \ / | |     | |  |                 *
+ *                /-----\  |      | \  |  v  | |     | |  /                 *
+ *               /       \ |      |  \ |     | +-----+ +-/                  *
+ ****************************************************************************
+ * AFKMud Copyright 1997-2005 by Roger Libiez (Samson),                     *
+ * Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),           *
+ * Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine, and Adjani.    *
+ * All Rights Reserved.                                                     *
+ * Registered with the United States Copyright Office. TX 5-877-286         *
+ *                                                                          *
+ * External contributions from Xorith, Quixadhal, Zarius, and many others.  *
+ *                                                                          *
+ * Original SMAUG 1.4a written by Thoric (Derek Snider) with Altrag,        *
+ * Blodkai, Haus, Narn, Scryn, Swordbearer, Tricops, Gorog, Rennard,        *
+ * Grishnakh, Fireblade, and Nivek.                                         *
+ *                                                                          *
+ * Original MERC 2.1 code by Hatchet, Furey, and Kahn.                      *
+ *                                                                          *
+ * Original DikuMUD code by: Hans Staerfeldt, Katja Nyboe, Tom Madsen,      *
+ * Michael Seifert, and Sebastian Hammer.                                   *
+ ****************************************************************************
+ *               Color Module -- Allow user customizable Colors.            *
+ *                                   --Matthew                              *
+ *                      Enhanced ANSI parser by Samson                      *
+ ****************************************************************************/
 
 void reset_colors( CHAR_DATA * );
 void set_char_color( short AType, CHAR_DATA * ch );
@@ -44,6 +34,8 @@ char *color_str( short AType, CHAR_DATA * ch );
 char *color_align( const char *argument, int size, int align );
 int color_strlen( const char *src );
 char *colorize( const char *txt, DESCRIPTOR_DATA * d );
+
+DECLARE_DO_FUN( do_color );
 
 /*
  * Color Alignment Parameters
@@ -115,8 +107,6 @@ char *colorize( const char *txt, DESCRIPTOR_DATA * d );
 #define ANSI_REVERSE    "\033[7m"   /* Reverse colors */
 #define ANSI_STRIKEOUT  "\033[9m"   /* Overstrike line */
 
-#define AT_COLORIZE	   	-1
-
 #define AT_BLACK         0
 #define AT_BLOOD         1
 #define AT_DGREEN        2
@@ -155,11 +145,11 @@ char *colorize( const char *txt, DESCRIPTOR_DATA * d );
 
 #define AT_PLAIN        32
 #define AT_ACTION       33
-#define AT_SAY        	34
+#define AT_SAY        34
 #define AT_GOSSIP       35
-#define AT_YELL       	36
-#define AT_TELL       	37
-#define AT_HIT        	38
+#define AT_YELL        36
+#define AT_TELL        37
+#define AT_HIT        38
 #define AT_HITME        39
 #define AT_IMMORT       40
 #define AT_HURT         41
@@ -199,13 +189,13 @@ char *colorize( const char *txt, DESCRIPTOR_DATA * d );
 #define AT_ARENA        75
 #define AT_MUSE         76
 #define AT_THINK        77
-#define AT_AFLAGS       78 /* Added by Samson 9-29-98 for area flag display line */
-#define AT_WHO          79  /* Added by Samson 9-29-98 for wholist */
-#define AT_RACETALK     80  /* Added by Samson 9-29-98 for version 1.4 code */
-#define AT_IGNORE       81  /* Added by Samson 9-29-98 for version 1.4 code */
-#define AT_WHISPER      82  /* Added by Samson 9-29-98 for version 1.4 code */
-#define AT_DIVIDER      83  /* Added by Samson 9-29-98 for version 1.4 code */
-#define AT_MORPH        84  /* Added by Samson 9-29-98 for version 1.4 code */
+#define AT_AFLAGS          78 /* Added by Samson 9-29-98 for area flag display line */
+#define AT_WHO            79 /* Added by Samson 9-29-98 for wholist */
+#define AT_RACETALK       80 /* Added by Samson 9-29-98 for version 1.4 code */
+#define AT_IGNORE         81 /* Added by Samson 9-29-98 for version 1.4 code */
+#define AT_WHISPER        82 /* Added by Samson 9-29-98 for version 1.4 code */
+#define AT_DIVIDER        83 /* Added by Samson 9-29-98 for version 1.4 code */
+#define AT_MORPH          84 /* Added by Samson 9-29-98 for version 1.4 code */
 #define AT_SHOUT        85 /* Added by Samson 9-29-98 for shout channel */
 #define AT_RFLAGS       86 /* Added by Samson 12-20-98 for room flag display line */
 #define AT_STYPE        87 /* Added by Samson 12-20-98 for sector display line */
@@ -232,13 +222,8 @@ char *colorize( const char *txt, DESCRIPTOR_DATA * d );
 #define AT_BOARD       108 /* Samson 10-14-03 */
 #define AT_BOARD2      109 /* Samson 10-14-03 */
 #define AT_BOARD3      110 /* Samson 10-14-03 */
-#define AT_AVATAR			 111 /* Burzum 05-04-15 */
-#define AT_MUSIC			 112 /* Burzum 05-04-15 */
-#define AT_QUEST			 113 /* Burzum 05-04-15 */
-#define AT_ASK				 114 /* Burzum 05-04-15 */
-#define AT_STANCE			 115 /* Burzum 05-04-15 */
-#define AT_TOPCOLOR		 116 /* Burzum 05-04-15 */
+
 /* Should ALWAYS be one more than the last numerical value in the list */
-#define MAX_COLORS     117
+#define MAX_COLORS    111
 
 extern const short default_set[MAX_COLORS];

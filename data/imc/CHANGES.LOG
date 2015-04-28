@@ -1,0 +1,72 @@
+IMC2 Freedom Client: Changelog
+------------------------------
+
+This is not necessarily a detailed list, just a general rundown based on a diff file
+that was used to document the changes.
+
+It was decided for purposes of clarity to begin a new changelog for the code.
+Listing changes from the AntiFreeze client code would have been confusing
+considering how much of it was gutted and replaced.
+
+CL-2.1a:
+
+* BUG: Memory leak - imc_delete_reminfo, port and host are not freed.
+* BUG: Memory leak - imcsetup command does not completely free up a deleted local channel.
+* imcgetname does not require the CHAR_DATA argument.
+* Channel who can now show the local mud as well.
+* Some permission checks were using atoi instead of imc_getpermvalue.
+* Unset channel permissions should default to the permission sent during channel refresh.
+* Packets received from muds who don't send is-alive messages need to get added to the reminfo list.
+* If standard auth fails, connection should be retried using SHA-256.
+
+CL-2.1:
+
+* Password encryption method changed to SHA-256.
+
+CL-2:
+
+* Added support for customized who template. Can be expanded upon for others.
+
+CL-1h:
+
+* Host and port information now sent out with is-alive packets.
+
+CL-1g:
+
+* Failure to connect using MD5 will try standard authentication before giving up.
+
+CL-1f:
+
+* Banned muds are not being rejected during packet parsing.
+* Changing your localname will now reset the MD5 login.
+
+CL-1e:
+
+* Made it possible to use imcwho on your own mud for testing purposes.
+
+CL-1d:
+
+* Added emote support to imctell.
+
+CL-1c:
+
+* BUG: Critical buffer overflow found and fixed in packet input buffer.
+
+CL-1b:
+
+* imc_deny_channel was improperly setting denials on the user instead of the target.
+* Remote admin was improperly hashing the router password.
+* Spurious extra loading key for help text.
+* Channel formats being reset based on wrong argument.
+* BUG: Crash in imccommand when creating new channels.
+* BUG: Memory leak - imcfreechardata not freeing channel deny list.
+
+CL-1a:
+
+* Channel permissions were being incorrectly checked with atoi()
+* BUG: Crash in imccommand function when no channel name was specified.
+* BUG: Player flags were incorrectly defined as an enum instead of bitvectors.
+
+CL-1:
+
+* Initial package release under new license terms.

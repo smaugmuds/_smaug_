@@ -1,41 +1,31 @@
-/*
-                     R E A L M S    O F    D E S P A I R  !
-   ___________________________________________________________________________
-  //            /                                                            \\
- [|_____________\   ********   *        *   ********   *        *   *******   |]
- [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
- [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
- [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
- [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
- [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
- [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
- [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
- [|_____________\  **********  **      **  **      **  **********  *********  |]
- [|             /  *********   *        *  *        *   ********    *******   |]
-  \\____________\____________________________________________________________//
-     |                                                                     |
-     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
-     |_____________________________________________________________________|
-     |                                                                     |
-     |                         -*- Color Module -*-                        |
-     |_____________________________________________________________________|
-     |                                                                     |
-     |                    Allow user customizable Colors.                  |
-     |                              by Matthew                             |
-     |                    Enhanced ANSI parser by Samson                   |
-     |_____________________________________________________________________|
-    //                                                                     \\
-   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
-   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
-   [|                                                                       |]
-   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
-   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
-   [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
-    \\_____________________________________________________________________//
-*/
+/****************************************************************************
+ *                   ^     +----- |  / ^     ^ |     | +-\                  *
+ *                  / \    |      | /  |\   /| |     | |  \                 *
+ *                 /   \   +---   |<   | \ / | |     | |  |                 *
+ *                /-----\  |      | \  |  v  | |     | |  /                 *
+ *               /       \ |      |  \ |     | +-----+ +-/                  *
+ ****************************************************************************
+ * AFKMud Copyright 1997-2005 by Roger Libiez (Samson),                     *
+ * Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),           *
+ * Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine, and Adjani.    *
+ * All Rights Reserved.                                                     *
+ * Registered with the United States Copyright Office. TX 5-877-286         *
+ *                                                                          *
+ * External contributions from Xorith, Quixadhal, Zarius, and many others.  *
+ *                                                                          *
+ * Original SMAUG 1.4a written by Thoric (Derek Snider) with Altrag,        *
+ * Blodkai, Haus, Narn, Scryn, Swordbearer, Tricops, Gorog, Rennard,        *
+ * Grishnakh, Fireblade, and Nivek.                                         *
+ *                                                                          *
+ * Original MERC 2.1 code by Hatchet, Furey, and Kahn.                      *
+ *                                                                          *
+ * Original DikuMUD code by: Hans Staerfeldt, Katja Nyboe, Tom Madsen,      *
+ * Michael Seifert, and Sebastian Hammer.                                   *
+ ****************************************************************************
+ *               Color Module -- Allow user customizable Colors.            *
+ *                                   --Matthew                              *
+ *                      Enhanced ANSI parser by Samson                      *
+ ****************************************************************************/
 
 /*
 * The following instructions assume you know at least a little bit about
@@ -70,49 +60,48 @@
  *     1.  Add the name(s) for your new color(s) to the end of the pc_displays array.
  *     2.  Add the default color(s) to the end of the default_set array.
  */
-
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
 #include <dirent.h>
-
 #include "mud.h"
 
-char *const pc_displays[MAX_COLORS] = {
-   "black", "dred", "dgreen", "orange",
-   "dblue", "purple", "cyan", "grey",
-   "dgrey", "red", "green", "yellow",
-   "blue", "pink", "lblue", "white",
-   "blink", "bdred", "bdgreen", "bdorange",
-   "bdblue", "bpurple", "bcyan", "bgrey",
-   "bdgrey", "bred", "bgreen", "byellow",
-   "bblue", "bpink", "blblue", "bwhite",
-   "plain", "action", "say", "chat",
-   "yells", "tell", "hit", "hitme",
-   "immortal", "hurt", "falling", "danger",
-   "magic", "consider", "report", "poison",
-   "social", "dying", "dead", "skill",
-   "carnage", "damage", "fleeing", "rmname",
-   "rmdesc", "objects", "people", "list",
-   "bye", "gold", "gtells", "note",
-   "hungry", "thirsty", "fire", "sober",
-   "wearoff", "exits", "score", "reset",
-   "log", "die_msg", "wartalk", "arena",
-   "muse", "think", "aflags", "who",
-   "racetalk", "ignore", "whisper", "divider",
-   "morph", "shout", "rflags", "stype",
-   "aname", "auction", "score2", "score3",
-   "score4", "who2", "who3", "who4",
-   "intermud", "helpfiles", "who5", "score5",
-   "who6", "who7", "prac", "prac2",
-   "prac3", "prac4", "mxpprompt", "guildtalk",
-   "board", "board2", "board3",
-	 "avatar", "music", "quest", "ask", "topcolor"
+char *const pc_displays[MAX_COLORS] =
+{
+   "black",    "dred",      "dgreen",    "orange",
+   "dblue",    "purple",    "cyan",      "grey",
+   "dgrey",    "red",       "green",     "yellow",
+   "blue",     "pink",      "lblue",     "white",
+   "blink",    "bdred",     "bdgreen",   "bdorange",
+   "bdblue",   "bpurple",   "bcyan",     "bgrey",
+   "bdgrey",   "bred",      "bgreen",    "byellow",
+   "bblue",    "bpink",     "blblue",    "bwhite",
+   "plain",    "action",    "say",       "chat",
+   "yells",    "tell",      "hit",       "hitme",
+   "immortal", "hurt",      "falling",   "danger",
+   "magic",    "consider",  "report",    "poison",
+   "social",   "dying",     "dead",      "skill",
+   "carnage",  "damage",    "fleeing",   "rmname",
+   "rmdesc",   "objects",   "people",    "list",
+   "bye",      "gold",      "gtells",    "note",
+   "hungry",   "thirsty",   "fire",      "sober",
+   "wearoff",  "exits",     "score",     "reset",
+   "log",      "die_msg",   "wartalk",   "arena",
+   "muse",     "think",     "aflags",    "who",
+   "racetalk", "ignore",    "whisper",   "divider",
+   "morph",    "shout",     "rflags",    "stype",
+   "aname",    "auction",   "score2",    "score3",
+   "score4",   "who2",      "who3",      "who4",
+   "intermud", "helpfiles", "who5",      "score5",
+   "who6",     "who7",      "prac",      "prac2",
+   "prac3",    "prac4",     "mxpprompt", "guildtalk",
+   "board",    "board2",    "board3"
 };
 
 /* All defaults are set to Alsherok default scheme, if you don't 
 like it, change it around to suite your own needs - Samson */
-const short default_set[MAX_COLORS] = {
+const short default_set[MAX_COLORS] =
+{
    AT_BLACK, AT_BLOOD, AT_DGREEN, AT_ORANGE, /*  3 */
    AT_DBLUE, AT_PURPLE, AT_CYAN, AT_GREY, /*  7 */
    AT_DGREY, AT_RED, AT_GREEN, AT_YELLOW, /* 11 */
@@ -120,8 +109,8 @@ const short default_set[MAX_COLORS] = {
    AT_BLACK_BLINK, AT_BLOOD_BLINK, AT_DGREEN_BLINK, AT_ORANGE_BLINK, /* 19 */
    AT_DBLUE_BLINK, AT_PURPLE_BLINK, AT_CYAN_BLINK, AT_GREY_BLINK, /* 23 */
    AT_DGREY_BLINK, AT_RED_BLINK, AT_GREEN_BLINK, AT_YELLOW_BLINK, /* 27 */
-   AT_BLUE_BLINK, AT_PINK_BLINK, AT_LBLUE_BLINK, AT_WHITE_BLINK,  /* 31 */
-   AT_GREY, AT_GREY, AT_BLUE, /* 34 */
+   AT_BLUE_BLINK, AT_PINK_BLINK, AT_LBLUE_BLINK, AT_WHITE_BLINK, /* 31 */
+   AT_GREY, AT_GREY, AT_BLUE,   /* 34 */
    AT_GREEN, AT_LBLUE, AT_WHITE, AT_GREY, /* 38 */
    AT_GREY, AT_YELLOW, AT_GREY, AT_GREY,  /* 42 */
    AT_GREY, AT_BLUE, AT_GREY, AT_GREY, /* 46 */
@@ -141,8 +130,6 @@ const short default_set[MAX_COLORS] = {
    AT_RED, AT_WHITE, AT_BLUE, AT_DGREEN,  /* 102 */
    AT_CYAN, AT_BLOOD, AT_RED, AT_DGREEN,  /* 106 */
    AT_GREEN, AT_GREY, AT_GREEN, AT_WHITE  /* 110 */
-   AT_GREEN, AT_YELLOW, AT_GREEN, AT_BLUE, /* 114 */
-	 AT_WHITE, AT_PURPLE /* 116 */
 };
 
 char *const valid_color[] = {
@@ -1577,7 +1564,7 @@ void send_to_pager( const char *txt, CHAR_DATA * ch )
    return;
 }
 
-void ch_printf( CHAR_DATA * ch, char *fmt, ... )
+void ch_printf( CHAR_DATA *ch, char *fmt, ... )
 {
    char buf[MAX_STRING_LENGTH * 2];
    va_list args;
@@ -1589,7 +1576,7 @@ void ch_printf( CHAR_DATA * ch, char *fmt, ... )
    send_to_char( buf, ch );
 }
 
-void pager_printf( CHAR_DATA * ch, char *fmt, ... )
+void pager_printf( CHAR_DATA *ch, char *fmt, ... )
 {
    char buf[MAX_STRING_LENGTH * 2];
    va_list args;
@@ -1605,7 +1592,7 @@ void pager_printf( CHAR_DATA * ch, char *fmt, ... )
  * The primary output interface for formatted output.
  */
 /* Major overhaul. -- Alty */
-void ch_printf_color( CHAR_DATA * ch, char *fmt, ... )
+void ch_printf_color( CHAR_DATA *ch, char *fmt, ... )
 {
    char buf[MAX_STRING_LENGTH * 2];
    va_list args;
@@ -1617,7 +1604,7 @@ void ch_printf_color( CHAR_DATA * ch, char *fmt, ... )
    send_to_char( buf, ch );
 }
 
-void pager_printf_color( CHAR_DATA * ch, char *fmt, ... )
+void pager_printf_color( CHAR_DATA *ch, char *fmt, ... )
 {
    char buf[MAX_STRING_LENGTH * 2];
    va_list args;
@@ -1629,9 +1616,9 @@ void pager_printf_color( CHAR_DATA * ch, char *fmt, ... )
    send_to_pager( buf, ch );
 }
 
-void paint( short AType, CHAR_DATA * ch, const char *fmt, ... )
+void paint( short AType, CHAR_DATA *ch, const char *fmt, ... )
 {
-   char buf[MAX_STRING_LENGTH * 2]; /* better safe than sorry */
+   char buf[MAX_STRING_LENGTH * 2];   /* better safe than sorry */
    va_list args;
 
    va_start( args, fmt );
