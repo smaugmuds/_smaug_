@@ -1,30 +1,43 @@
-/****************************************************************************
-*             ___________.__               .__                             *
-*             \_   _____/|  | ___.__. _____|__|__ __  _____                *
-*              |    __)_ |  |<   |  |/  ___/  |  |  \/     \               *
-*              |        \|  |_\___  |\___ \|  |  |  /  Y Y  \              *
-*             /_______  /|____/ ____/____  >__|____/|__|_|  /              *
-*                     \/      \/         \/     Engine    \/               *
-*                       A SMAUG Derived Game Engine.                       *
-* ------------------------------------------------------------------------ *
-* Elysium Engine Copyright 1999-2010 by Steven Loar                        *
-* Elysium Engine Development Team: Kayle (Steven Loar), Katiara, Scoyn,    *
-*                                  and Mikon.                              *
-* ------------------------------------------------------------------------ *
-* [S]imulated [M]edieval [A]dventure multi[U]ser [G]ame                    *
-* SMAUG 1.4 (C) 1994, 1995, 1996, 1998  by Derek Snider                    *
-* SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus, Scryn, Rennard,    *
-* Swordbearer, Gorog, Grishnakh, Nivek, Tricops and Fireblade              *
-* ------------------------------------------------------------------------ *
-* Merc 2.1 Diku Mud improvments copyright (C) 1992, 1993 by Michael        *
-* Chastain, Michael Quan, and Mitchell Tse.                                *
-* Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,          *
-* Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.     *
-* ------------------------------------------------------------------------ *
-*	                     Weather System Header                             *
-****************************************************************************
-*     Base Weather Model Copyright (c) 2007 Chris Jacobson                 *
-****************************************************************************/
+/*
+                     R E A L M S    O F    D E S P A I R  !
+   ___________________________________________________________________________
+  //            /                                                            \\
+ [|_____________\   ********   *        *   ********   *        *   *******   |]
+ [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
+ [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
+ [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
+ [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
+ [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
+ [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
+ [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
+ [|_____________\  **********  **      **  **      **  **********  *********  |]
+ [|             /  *********   *        *  *        *   ********    *******   |]
+  \\____________\____________________________________________________________//
+     |                                                                     |
+     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
+     |_____________________________________________________________________|
+     |                                                                     |
+     |                    -*- Weather System Module -*-                    |
+     |_____________________________________________________________________|
+     |                                                                     |
+     | Elysium Engine Copyright 1999-2009 by Steven Loar                   |
+     | Elysium Engine Development Team: Kayle (Steven Loar), Venia, Scoyn, |
+     |                                   and Mikon.                        |
+     | Base Weather Model Copyright (c) 2007 Chris Jacobson                |
+     |_____________________________________________________________________|
+    //                                                                     \\
+   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
+   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
+   [|                                                                       |]
+   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
+   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
+   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
+   [|  Nyboe. Win32 port Nick Gammon.                                       |]
+   [|                                                                       |]
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+    \\_____________________________________________________________________//
+*/
+
 
 #include <string.h>
 #include <stdio.h>
@@ -59,48 +72,6 @@ int get_climate( char *type )
          return x;
    return -1;
 }
-
-struct WeatherCell
-{
-   int climate;        // Climate flag for the cell
-   int hemisphere;     // Hemisphere flag for the cell
-   int temperature;    // Fahrenheit because I'm American, by god
-   int pressure;       // 0..100 for now, later change to barometric pressures
-   int cloudcover;     // 0..100, amount of clouds in the sky
-   int humidity;       // 0+
-   int precipitation;  // 0..100
-   int energy;			// 0..100 Storm Energy, chance of storm.
-   /*
-   *  Instead of a wind direction we use an X/Y speed
-   *  It makes the math below much simpler this way.
-   *  Its not hard to determine a basic cardinal direction from this
-   *  If you want to, a good rule of thumb is that if one directional
-   *  speed is more than double that of the other, ignore it; that is
-   *  if you have speed X = 15 and speed Y = 3, the wind is obviously
-   *  to the east.  If X = 15 and Y = 10, then its a south-east wind. 
-   */
-   int windSpeedX;    //  < 0 = west, > 0 = east
-   int windSpeedY;    //  < 0 = north, > 0 = south
-};
-
-/*
-*	This is the Weather Map.  It is a grid of cells representing X-mile square
-*	areas of weather
-*/
-struct WeatherCell	weatherMap[WEATHER_SIZE_X][WEATHER_SIZE_Y];
-
-/*
-*	This is the Weather Delta Map.  It is used to accumulate changes to be
-*	applied to the Weather Map.  Why accumulate changes then apply them, rather
-*	than just change the Weather Map as we go?
-*	Because doing that can mean a change just made to a neighbor can
-*	immediately cause ANOTHER change to a neighbor, causing things
-*	to get out of control or causing cascading weather, propagating much
-*	faster and unpredictably (in a BAD unpredictable way)
-*	Instead, we determine all the changes that should occur based on the current
-*	'snapshot' of weather, than apply them all at once!
-*/
-struct WeatherCell	weatherDelta[WEATHER_SIZE_X][WEATHER_SIZE_Y];
 
 //	Set everything up with random non-equal values to prevent equalibrium
 void InitializeWeatherMap( void )
@@ -2252,10 +2223,10 @@ int version;
 void save_weathermap( void )
 {
    int x, y;
-   char filename[MIL];
+   char filename[MAX_INPUT_LENGTH];
    FILE *fp;
 
-   snprintf( filename, MIL, "%s%s", SYSTEM_DIR, WEATHER_FILE );
+   snprintf( filename, MAX_INPUT_LENGTH, "%s%s", SYSTEM_DIR, WEATHER_FILE );
    if( !( fp = fopen( filename, "w" ) ) )
    {
       bug( "%s: fopen", __func__ );
@@ -3045,9 +3016,9 @@ bool isGaleForceWindS( int windy )
       return FALSE;
 } 
 
-void do_setweather( CHAR_DATA* ch, const char* argument)
+void do_setweather( CHAR_DATA *ch, char *argument)
 {
-   char arg[MIL], arg2[MIL], arg3[MIL], arg4[MIL];
+   char arg[MAX_INPUT_LENGTH], arg2[MAX_INPUT_LENGTH], arg3[MAX_INPUT_LENGTH], arg4[MAX_INPUT_LENGTH];
    int value, x, y;
 
    argument = one_argument( argument, arg );
@@ -3152,9 +3123,9 @@ void do_setweather( CHAR_DATA* ch, const char* argument)
    }
 }
 
-void do_showweather( CHAR_DATA* ch, const char* argument)
+void do_showweather( CHAR_DATA *ch, char *argument)
 {
-   char arg[MIL], arg2[MIL];
+   char arg[MAX_INPUT_LENGTH], arg2[MAX_INPUT_LENGTH];
    int x, y;
 
    argument = one_argument( argument, arg );
@@ -3209,7 +3180,7 @@ void do_showweather( CHAR_DATA* ch, const char* argument)
    ch_printf_color( ch, "&WWind Speed YAxis:  &w%d&D\r\n", cell->windSpeedY );
 }
 
-void do_weather( CHAR_DATA* ch, const char* argument)
+void do_weather( CHAR_DATA *ch, char *argument)
 {
    struct WeatherCell *cell = getWeatherCell( ch->in_room->area );
 

@@ -151,17 +151,20 @@ devdistclean: distclean-local distclean-doc
 	echo "=== distclean-local done ==="
 
 install-data-hook:
-	@echo "Installing <@PACKAGE@> data files ..."; \
-	mkdir -pv $(sharedstatedir)/@PACKAGE@; \
-	cp -rvf data/* $(sharedstatedir)/@PACKAGE@; \
-	echo "Creating <@PACKAGE@> directory to store log files ..."; \
+	@echo "Creating <@PACKAGE@> directory to store log files ..."; \
 	mkdir -pv $(localstatedir)/log/@PACKAGE@; \
 	echo "Creating <@PACKAGE@> directories to store lock and run files ..."; \
 	mkdir -pv $(localstatedir)/lock/@PACKAGE@; \
 	mkdir -pv $(localstatedir)/run/; \
+	echo "Installing <@PACKAGE@> Database files ..."; \
+	mkdir -pv $(sharedstatedir)/@PACKAGE@; \
+	cp -rvf db/* $(sharedstatedir)/@PACKAGE@; \
+	echo "Installing <@PACKAGE@> Website files ..."; \
+	mkdir -pv $(localstatedir)/www/@PACKAGE@; \
+	cp -rvf www/* $(localstatedir)/www/@PACKAGE@; \
 	echo "Creating user <$(USER)> and group <$(GROUP)> ..."; \
-	groupadd $(GROUP); \
-	useradd $(USER) -g $(GROUP); \
+	groupadd $(GROUP) &>/dev/null; \
+	useradd $(USER) -g $(GROUP) &>/dev/null; \
 	echo "Setting up <$(prefix)> permissions to <$(USER):$(GROUP)> ..."; \
 	chown -R $(USER):$(GROUP) $(prefix); \
 	echo ""; \

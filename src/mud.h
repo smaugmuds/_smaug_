@@ -333,6 +333,20 @@ extern int MAX_PC_CLASS;
 #include "house.h"
 #include "hint.h"
 
+#ifdef ENABLE_WEATHER
+#include "weather.h"
+#ifndef ENABLE_CALENDAR
+#define SEASON_SPRING  0
+#define SEASON_SUMMER  1
+#define SEASON_FALL    2
+#define SEASON_WINTER  3
+#define SEASON_MAX     4
+#define WINTER_HUNGER        1
+#define SUMMER_THIRST        1
+#define SUMMER_THIRST_DESERT 2
+#endif
+#endif
+
 /* This is to tell if act uses uppercasestring or not --Shaddai */
 bool DONT_UPPER;
 
@@ -737,6 +751,7 @@ struct time_info_data
   int day;
   int month;
   int year;
+  int season;
   int sunlight;
 };
 
@@ -748,8 +763,10 @@ struct hour_min_sec
   int manual;
 };
 
+#ifndef ENABLE_WEATHER
 /* Define maximum number of climate settings - FB */
 #define MAX_CLIMATE 5
+#endif
 
 struct weather_data
 {
@@ -2797,6 +2814,11 @@ struct pc_data
 #ifdef ENABLE_HOTBOOT
    bool hotboot;  /* hotboot tracker */
 #endif
+#ifdef ENABLE_CALENDAR
+  int *timezone;
+  int day;
+  int month;
+#endif
 };
 
 
@@ -3038,6 +3060,10 @@ struct area_data
   int high_economy;
   int low_economy;
   WEATHER_DATA *weather;	/* FB */
+#ifdef ENABLE_WEATHER
+  int weatherx;
+  int weathery;
+#endif
 };
 
 
@@ -3132,6 +3158,14 @@ struct system_data
 #ifdef ENABLE_HOTBOOT
    void *dlHandle;
 #endif
+#ifdef ENABLE_CALENDAR
+  int hournoon;
+  int daysperweek;
+  int dayspermonth;
+  int daysperyear;
+  int monthsperyear;
+  int maxholiday;
+#endif
 };
 
 
@@ -3181,6 +3215,9 @@ struct room_index_data
   int tele_vnum;
   sh_int tele_delay;
   sh_int tunnel;		/* max people that will fit */
+#ifdef ENABLE_CALENDAR
+  int winter_sector;
+#endif
 };
 
 /*
@@ -5014,6 +5051,10 @@ char *sha256_crypt args ((const char *key, const char *salt));
 #define COLOR_FILE		SYSTEM_DIR 	"colors.dat"	/* User-definable color */
 #define MEMBERS_FILE		SYSTEM_DIR 	"members.dat"	/* Store the members lists */
 #define STANCE_FILE     	SYSTEM_DIR 	"stances.dat"
+
+#ifdef ENABLE_CALENDAR
+#define HOLIDAY_FILE    SYSTEM_DIR    "holidays.dat"
+#endif
 
 #define HOUSE_LIST           			"house.lst"	/* Location of housing list for loadup of houses */
 #define HOMEBUY_FILE    	HOUSE_DIR 	"homebuy.dat"	/* Location of automated housing auction file */

@@ -2313,6 +2313,7 @@ char *const month_name[] = {
   "the Long Shadows", "the Ancient Darkness", "the Great Evil"
 };
 
+#ifndef ENABLE_CALENDAR
 void
 do_time (CHAR_DATA * ch, char *argument)
 {
@@ -2349,7 +2350,9 @@ do_time (CHAR_DATA * ch, char *argument)
 
   return;
 }
+#endif
 
+#ifndef ENABLE_WEATHER
 /*
  * Produce a description of the weather based on area weather using
  * the following sentence format:
@@ -2396,6 +2399,7 @@ do_weather (CHAR_DATA * ch, char *argument)
 
   ch_printf (ch, buf);
 }
+#endif
 
 /*
  * Moved into a separate function so it can be used for other things

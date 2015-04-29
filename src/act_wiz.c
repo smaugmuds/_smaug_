@@ -10899,6 +10899,7 @@ do_reserve (CHAR_DATA * ch, char *argument)
  * Last Modified: July 21, 1997
  * Fireblade
  */
+#ifndef ENABLE_WEATHER
 void
 do_showweather (CHAR_DATA * ch, char *argument)
 {
@@ -11092,7 +11093,7 @@ do_setweather (CHAR_DATA * ch, char *argument)
 
   return;
 }
-
+#endif
 
 void
 do_khistory (CHAR_DATA * ch, char *argument)

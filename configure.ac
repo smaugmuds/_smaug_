@@ -541,6 +541,36 @@ if test "$enable_hotboot" = "yes"; then
 fi
 AM_CONDITIONAL([ENABLE_HOTBOOT], [test "$enable_hotboot" = "yes"])
 
+# Enable Mapper Support (-DENABLE_MAPPER) #
+AC_ARG_ENABLE(mapper,
+              AC_HELP_STRING([--enable-mapper],
+                             [enable Mapper Support @<:@default=yes@:>@]),
+              [], [enable_mapper=yes])
+if test "$enable_mapper" = "yes"; then
+		AC_DEFINE([ENABLE_MAPPER], [], [Mapper Support])
+fi
+AM_CONDITIONAL([ENABLE_MAPPER], [test "$enable_mapper" = "yes"])
+
+# Enable New Weather System (-DENABLE_WEATHER) #
+AC_ARG_ENABLE(weather,
+              AC_HELP_STRING([--enable-weather],
+                             [enable New Weather Support @<:@default=yes@:>@]),
+              [], [enable_weather=yes])
+if test "$enable_weather" = "yes"; then
+		AC_DEFINE([ENABLE_WEATHER], [], [New Weather Support])
+fi
+AM_CONDITIONAL([ENABLE_WEATHER], [test "$enable_weather" = "yes"])
+
+# Enable New Calendar System (-DENABLE_CALENDAR) #
+AC_ARG_ENABLE(calendar,
+              AC_HELP_STRING([--enable-calendar],
+                             [enable New Calendar Support @<:@default=yes@:>@]),
+              [], [enable_calendar=yes])
+if test "$enable_calendar" = "yes"; then
+		AC_DEFINE([ENABLE_CALENDAR], [], [New Calendar Support])
+fi
+AM_CONDITIONAL([ENABLE_CALENDAR], [test "$enable_calendar" = "yes"])
+
 # Enable Web Server (-DHTTPD)
 AC_ARG_ENABLE(httpd,
               AC_HELP_STRING([--enable-httpd],
@@ -586,30 +616,30 @@ AC_MSG_RESULT([Configured --{SMAUG}-- build flags:
  * Developer flags:     <$enable_devel>
  * Performance flags:   <$enable_performance>
 
-Configured --{SMAUG}-- MUD Server basic features:
+Configured --{SMAUG}-- MUD Server features:
 
+ * SMAUG 2.0:           <$enable_smaug2>
  * Password Encryption: <$enable_crypt>
  * Request Support:     <$enable_request>
  * Planes:              <$enable_planes>
  * Who arguments:       <$enable_whoarg>
+ * HotBoot:             <$enable_hotboot>
+ * New Score Tables:    <$enable_newscore>
+ * Show Stance Info:    <$enable_showstance>
+ * Player Bleeding:     <$enable_bleeding>
+ * MUD Mapper:          <$enable_mapper>
+ * New Weather:         <$enable_weather>
+ * New Calendar:        <$enable_calendar>
  * Honour Code:         <$enable_honour>
  * Housing:             <$enable_housing>
  * House Mobs:          <$enable_housemobs>
  * Extended Rooms:      <$enable_extrooms>
- * Act Comm Scramble:   <$enable_scramble>
  * Liquids System:      <$enable_liquids>
-
-Configured --{SMAUG}-- MUD Server extra features:
-
- * SMAUG 2.0:           <$enable_smaug2>
- * New Score Tables:    <$enable_newscore>
- * Show Stance Info:    <$enable_showstance>
+ * Act Comm Scramble:   <$enable_scramble>
  * Banking:             <$enable_bank>
  * Marry:               <$enable_marry>
- * Player Bleeding:     <$enable_bleeding>
  * DNS Resolver:        <$enable_dns>
  * Web Server:          <$enable_httpd>
- * HotBoot:             <$enable_hotboot>
 ])
 AC_MSG_RESULT([Well done! \"configure\" complete, now type \"make\"!])
 AC_MSG_RESULT

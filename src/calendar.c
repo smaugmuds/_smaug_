@@ -88,7 +88,7 @@ struct tzone_type tzone_table[MAX_TZONE] = {
    {"GMT+12", "Fiji, Wellington, Auckland", 12, 0},
 };
 
-int tzone_lookup( const char *arg )
+int tzone_lookup( char *arg )
 {
    int i;
 
@@ -106,7 +106,7 @@ int tzone_lookup( const char *arg )
    return -1;
 }
 
-void do_timezone( CHAR_DATA* ch, char* argument)
+do_timezone( CHAR_DATA* ch, char* argument)
 {
    int i;
 
@@ -473,7 +473,7 @@ void save_timedata( void )
    return;
 }
 
-void do_time( CHAR_DATA* ch, const char* argument)
+do_time( CHAR_DATA* ch, char* argument)
 {
    HOLIDAY_DATA *holiday;
    extern char str_boot_time[];
@@ -702,7 +702,7 @@ void free_holidays( void )
    return;
 }
 
-void do_holidays( CHAR_DATA* ch, const char* argument)
+do_holidays( CHAR_DATA* ch, char* argument)
 {
    HOLIDAY_DATA *day;
 
@@ -867,7 +867,7 @@ void do_saveholiday( CHAR_DATA* ch, const char* argument)
 
 /* Holiday OLC command - (c)Andrew Wilkie May-20-2005*/
 /* Calendar code (c)The Alsherok Team*/
-void do_setholiday( CHAR_DATA* ch, const char* argument)
+do_setholiday( CHAR_DATA* ch, char* argument)
 {
    HOLIDAY_DATA *day, *newday;
    int count = 0;

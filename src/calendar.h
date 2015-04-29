@@ -34,14 +34,16 @@
  */
 #define SEASON_SPRING		0
 #define SEASON_SUMMER		1
-#define SEASON_FALL		    2
+#define SEASON_FALL		  2
 #define SEASON_WINTER		3
-#define SEASON_MAX         	4
+#define SEASON_MAX      4
 
 /* Hunger/Thirst modifiers */
 #define WINTER_HUNGER 1
 #define SUMMER_THIRST 1
 #define SUMMER_THIRST_DESERT 2
+
+#define SECT_ICE 3
 
 typedef struct holiday_data HOLIDAY_DATA;
 

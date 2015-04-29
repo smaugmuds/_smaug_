@@ -47,16 +47,16 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 # SOLARIS_LINK = -lnsl -lsocket
 
 CLEANFILES = *~ *.o *.lo *.la *.a *.so smaug.h \
-smaug$(EXEEXT) smaug-dns$(EXEEXT) smaug-httpd$(EXEEXT) stamp-h1
+smaug$(EXEEXT) smaug-resolv$(EXEEXT) smaug-httpd$(EXEEXT) stamp-h1
 
 # Build binaries #
 
 # bin/smaug #
 bin_PROGRAMS = smaug$(EXEEXT)
 
-# bin/smaug-dns #
+# bin/smaug-resolv #
 if ENABLE_DNS_RESOLV
-bin_PROGRAMS += smaug-dns$(EXEEXT)
+bin_PROGRAMS += smaug-resolv$(EXEEXT)
 endif
 
 # bin/smaug-httpd #
@@ -124,6 +124,18 @@ ibuild.c liquids.c magic.c makeobjs.c mapout.c mpxset.c planes.c \
 renumber.c reset.c shops.c skills.c special.c stances.c starmap.c \
 stat_obj.c tables.c track.c variables.c marry.c
 
+if ENABLE_MAPPER
+libsmaug_realm_la_SOURCES += mapper.c
+endif
+
+if ENABLE_CALENDAR
+libsmaug_realm_la_SOURCES += calendar.c
+endif
+
+if ENABLE_WEATHER
+libsmaug_realm_la_SOURCES += weather.c
+endif
+
 # bin/smaug #
 
 smaug_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
@@ -169,17 +181,17 @@ libsmaug_dns_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
 libsmaug_dns_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
 libsmaug_dns_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
 
-libsmaug_dns_la_SOURCES = libdns.c
+libsmaug_dns_la_SOURCES = dns.c
 
-# bin/smaug-dns #
+# bin/smaug-resolv #
 
-smaug_dns_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-smaug_dns_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-smaug_dns_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
+smaug_resolv_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
+smaug_resolv_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
+smaug_resolv_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
 
-smaug_dns_SOURCES = dns.c
+smaug_resolv_SOURCES = resolv.c
 
-smaug_dns_LDADD = libsmaug-dns.la
+smaug_resolv_LDADD = libsmaug-dns.la
 endif
 
 # Source Code Headers #
@@ -196,7 +208,19 @@ if ENABLE_HOTBOOT
 include_HEADERS += hotboot.h
 endif
 
+if ENABLE_MAPPER
+include_HEADERS += mapper.h
+endif
+
+if ENABLE_CALENDAR
+include_HEADERS += calendar.h
+endif
+
+if ENABLE_WEATHER
+include_HEADERS += weather.h
+endif
+
 if ENABLE_DNS_RESOLV
-include_HEADERS += libdns.h
+include_HEADERS += dns.h
 endif
 

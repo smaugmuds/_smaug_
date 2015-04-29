@@ -29,15 +29,24 @@
 /* Password Encryption Support */
 #undef CRYPT
 
+/* New Calendar Support */
+#undef ENABLE_CALENDAR
+
 /* DNS Resolver */
 #undef ENABLE_DNS_RESOLV
 
 /* Hotboot Support */
 #undef ENABLE_HOTBOOT
 
+/* Mapper Support */
+#undef ENABLE_MAPPER
+
 /* Define to 1 if translation of program messages to the user's native
    language is requested. */
 #undef ENABLE_NLS
+
+/* New Weather Support */
+#undef ENABLE_WEATHER
 
 /* Extended Rooms Support */
 #undef EXTENDED_ROOMS
