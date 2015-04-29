@@ -1,0 +1,8199 @@
+#AREA   New Darkhaven~
+
+
+
+#VERSION 1
+#AUTHOR Rennard~
+
+#RANGES
+0 60 0 60
+$
+
+#RESETMSG The bells of the cathedral toll the passing of time.~
+
+#FLAGS
+1
+
+#ECONOMY 0 87824366
+
+#CLIMATE 2 2 2
+
+#MOBILES
+#21000
+healer cleric priestess~
+the cathedral priestess~
+A priestess of the cathedral bestows blessings from the altar.
+~
+~
+3 4194472 1000 C
+50 0 0 25d500+300 0d0+0
+0 0
+112 112 2
+18 13 13 13 13 13 13
+0 0 0 0 0
+0 1 0 0 262143 1 0
+0 0 2047 0 3156992 0 0 263
+#21001
+wizard shopkeeper~
+the wizard shopkeeper~
+The wizard shopkeeper stands here.
+~
+~
+3 4194344 0 C
+50 0 -300 1d1+30000 20d100+100
+700000 0
+112 112 1
+18 18 18 18 13 13 18
+0 0 0 0 0
+1 0 0 0 3 3 6
+34 4 2047 0 3156992 0 48 3
+#21002
+blacksmith~
+the blacksmith~
+The blacksmith stands here.
+~
+~
+3 4194344 0 C
+50 0 -300 1d1+30000 1d1+1000
+0 0
+112 112 1
+18 18 18 18 13 13 18
+0 0 0 0 0
+2 22 0 0 5 5 5
+0 0 2047 0 3156992 0 32 3
+#21003
+alchemist~
+the alchemist~
+The alchemist stands behind the counter.
+~
+~
+3 4194344 0 C
+50 0 0 1d1+30000 4d5+100
+1000000 0
+112 112 2
+18 18 18 18 13 13 18
+0 0 0 0 0
+1 0 0 0 3 3 6
+0 0 2047 0 3156992 0 48 3
+#21004
+scribe~
+the scribe~
+The scribe sits here.
+~
+~
+3 4194344 0 C
+50 0 0 1d1+30000 4d5+100
+1000000 0
+112 112 1
+18 18 18 18 13 13 18
+0 0 0 0 0
+1 0 0 0 3 3 6
+0 0 2047 0 3156992 0 48 3
+#21006
+vampire trainer~
+the vampire trainer~
+The vampire trainer awaits a student.
+~
+~
+1091 4718632 -1000 C
+50 0 0 1d1+30000 1d1+20
+0 0
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 4 0 0 1 1 3
+0 0 2047 1048594 3072 33 1054784 2
+#21007
+blood doll~
+the blood doll~
+A blood doll hangs limply here.
+~
+~
+3 0 1000 C
+1 0 0 1d1+100 0d0+0
+0 0
+112 112 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 1 0 0 1 1 0
+0 0 2047 0 4194303 0 0 0
+#21009
+man sailor~
+the sailor~
+A sailor offers you his selection of boats.
+~
+~
+67 4194344 0 C
+50 0 0 1d1+30000 0d0+0
+100000 0
+112 112 1
+13 18 18 18 13 13 18
+0 0 0 0 0
+0 3 0 0 1 1 5
+0 0 2047 0 3156992 0 32 0
+#21010
+waitress~
+the waitress~
+The waitress awaits your order.
+~
+~
+7 4194344 0 C
+50 0 0 1d1+30000 0d0+0
+0 0
+112 112 2
+18 18 18 18 18 18 18
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 2047 0 3156992 0 0 0
+#21011
+printer~
+the printer~
+A thin man sits behind a stack of papers.
+~
+~
+67 4194344 0 C
+50 0 0 1d1+30000 0d0+0
+10000 0
+112 112 1
+18 18 18 18 13 13 18
+0 0 0 0 0
+0 3 0 0 1 1 3
+0 0 2047 0 3156992 0 0 0
+#21012
+trainer father~
+the Guild Father~
+The Guild's trainer meditates here.
+~
+~
+1091 4194472 1000 C
+50 0 0 1d1+30000 100d5+800
+0 0
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 1 0 0 1 1 5
+0 0 2047 0 2100224 0 0 0
+#21013
+bartender~
+the bartender~
+The bartender stands behind his counter.
+~
+~
+3 4194344 0 C
+50 0 0 1d1+30000 5d100+800
+10000 0
+112 112 1
+13 18 18 18 13 13 18
+0 0 0 0 0
+0 3 0 0 1 1 5
+0 0 2047 0 3156992 0 48 3
+#21014
+jeweler~
+the jeweler~
+The jeweler smiles warmly.
+~
+~
+3 4194344 0 C
+50 0 0 1d1+30000 0d0+0
+5000000 0
+112 112 2
+13 18 18 18 13 13 18
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 2047 0 3156992 0 32 0
+#21015
+armourer~
+the armourer~
+The armourer is here fitting a mail helm.
+~
+~
+3 4194344 0 C
+50 0 0 1d1+30000 1d1+1000
+5000000 0
+112 112 2
+13 18 18 18 13 13 18
+0 0 0 0 0
+0 22 0 0 1 1 5
+0 0 2047 0 3156992 0 32 3
+#21016
+smith weaponsmith~
+the weaponsmith~
+The weaponsmith labors over a lengthy blade.
+~
+~
+3 4194344 0 C
+50 0 0 1d1+30000 0d0+0
+5000000 0
+112 112 1
+13 18 18 18 13 13 18
+0 0 0 0 0
+0 22 0 0 1 1 5
+0 0 2047 0 3156992 0 32 0
+#21017
+postmaster~
+the postmaster~
+The postmaster sorts the day's mail.
+~
+~
+3 4194344 0 C
+50 0 0 1d1+30000 0d0+0
+1000000 0
+112 112 1
+13 18 18 18 13 13 18
+0 0 0 0 0
+0 3 0 0 1 1 3
+0 0 2047 0 3156992 0 0 0
+#21018
+butcher~
+the butcher~
+A butcher greets you.
+~
+~
+3 4194344 0 C
+50 0 0 1d1+30000 1d1+800
+0 0
+112 112 1
+13 18 18 18 13 13 18
+0 0 0 0 0
+0 21 0 0 1 1 3
+0 0 2047 0 3156992 0 32 0
+#21019
+baker~
+the baker~
+The baker is here, covered in flour.
+~
+~
+3 4194344 0 C
+50 0 0 1d1+30000 1d1+500
+0 0
+112 112 1
+13 18 18 18 13 13 18
+0 0 0 0 0
+0 20 0 0 1 1 3
+0 0 2047 0 3156992 0 32 0
+#21020
+farmer girl~
+the farmer girl~
+A young farmer girl smiles as you enter.
+~
+~
+3 4194344 0 C
+50 0 0 1d1+30000 1d1+250
+0 0
+112 112 2
+13 18 18 18 13 13 18
+0 0 0 0 0
+0 3 0 0 1 1 3
+0 0 2047 0 3156992 0 32 0
+#21021
+tailor~
+the tailor~
+The tailor is here, showing off his wares.
+~
+~
+3 4194344 0 C
+50 0 0 1d1+30000 4d5+100
+1000000 0
+112 112 1
+18 18 18 18 13 13 18
+0 0 0 0 0
+0 3 0 0 1 1 6
+0 0 2047 0 3156992 0 48 3
+#21022
+stable keeper~
+the stable keeper~
+The stable keeper tends to his animals.
+~
+~
+3 4194344 0 C
+50 0 0 1d1+30000 4d5+100
+1000000 0
+112 112 1
+13 18 18 18 13 13 18
+0 0 0 0 0
+0 3 0 0 1 1 6
+0 0 2047 0 3156992 0 48 3
+#21023
+thief master~
+the Master Thief~
+A master thief is here to demonstrate the ways of thievery.
+~
+~
+1027 4194344 0 C
+50 0 0 1d1+30000 0d0+0
+0 0
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 2 0 0 1 1 0
+0 0 2047 0 3156992 0 576 524290
+#21025
+innkeeper~
+the innkeeper~
+The Innkeeper stands here, looking rather gruff.
+~
+~
+3 4194344 0 C
+50 0 0 1d1+30000 100d15+1000
+0 0
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 4
+0 0 2047 0 3156992 0 48 3
+> bribe_prog 200~
+if inroom($i) == 21069
+  say Go on back and pick a room.
+  , points over his shoulder.
+  mptransfer $n 21146
+  mpat $n mea $n The innkeeper points you down the hall.
+  mpat $n say When you wan'na leave, just tell me.
+  mppurge coins
+endif
+~
+> speech_prog leave exit~
+if inroom($i) == 21146
+if inroom($n) == 21146
+  mptransfer $n 21069
+  mpat $n mea $n The innkeeper leads you out.
+endif
+endif
+~
+|
+#21028
+sage man~
+the sage~
+A pensive sage mulls over new sorcery.
+~
+~
+1027 4194344 0 C
+50 0 0 1d1+30000 100d5+800
+100 0
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 0 0 0 1 1 5
+0 0 2047 0 3156992 0 0 0
+#21029
+storekeeper~
+the storekeeper~
+A large man stands here, selling equipment for adventurers.
+~
+~
+3 4194344 0 C
+50 0 0 1d1+30000 100d10+1000
+0 0
+112 112 1
+25 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 4
+0 0 2047 0 3156992 0 0 3
+#21031
+man ranger~
+the ranger trainer~
+The ranger trainer demonstrates combat maneuvers.
+~
+~
+1027 4194344 0 C
+50 0 0 1d1+30000 100d5+800
+0 0
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 6 0 0 1 1 5
+0 0 2047 0 3156992 0 0 0
+#21034
+woman trainer~
+the Druid trainer~
+A robed woman is here, training initiate druids.
+~
+~
+1027 4194344 0 C
+50 0 0 1d1+30000 100d10+1000
+0 0
+112 112 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 5 0 0 1 1 4
+0 0 2047 0 3156992 0 0 0
+#21035
+man trainer~
+the Warrior trainer~
+A giant man stands here, waiting to train young warriors.
+~
+~
+1027 4194344 0 C
+50 0 0 1d1+30000 5d100+800
+0 0
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 5
+0 0 2047 0 3156992 0 0 0
+#21037
+guard man~
+the guard~
+A guard patrols the streets of the city.
+~
+~
+65 32 1000 C
+15 0 0 15d15+300 1d1+20
+500 0
+112 112 1
+16 13 13 16 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 3
+2 2 2047 0 3072 0 0 3
+#21041
+guard~
+the guard~
+A tired guard is here.
+~
+~
+3 0 1000 C
+5 0 90 1d10+20 2d3+3
+100 0
+104 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 2
+0 0 2047 0 0 0 0 0
+#21043
+bowman~
+the bowman~
+A bowman stares out over the ramparts.
+~
+~
+65 32 0 C
+15 0 0 15d15+300 1d4+10
+500 0
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 2
+0 0 2047 0 0 0 0 2
+#21044
+executioner~
+the Executioner~
+A executioner stands silently before you.
+~
+~
+3 4202668 0 C
+50 0 0 1d1+30000 1d1+800
+0 0
+112 112 1
+18 18 18 18 18 15 18
+0 0 0 0 0
+0 3 0 0 1 1 4
+0 0 2047 0 2100224 0 0 3
+#21045
+dog stray~
+a stray~
+A stray dog noses along the street.
+~
+~
+65 0 0 C
+5 0 100 1d1+35 2d5+2
+10 0
+112 112 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+30 3 0 0 1634468353 513 0
+0 0 1725 0 0 0 0 2
+#21052
+thief figure~
+the thief~
+A strange figure lurks furtively.
+~
+~
+65 98336 0 C
+8 0 0 3d40+50 3d2+5
+0 0
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 2
+0 0 2047 2048 0 0 0 0
+#21055
+beggar man beggarprog~
+the beggar~
+A decrepit old beggar sits on the cobbles of the road, pleading.
+~
+The old man is clad in the rags of what was once a nobleman's clothes.
+He eyes you warily and holds out a tin cup in supplication...
+~
+3 0 300 C
+3 0 100 1d1+20 2d3+3
+0 0
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 2047 0 0 0 0 0
+> all_greet_prog 100~
+if name($n) == dog stray
+  emote pets the dog.
+  mpforce stray lick beggar
+  say That's a good boy, here's a small treat.
+  mpecho The beggar tosses a scrap of meat across the road.
+  mpecho The stray quickly chases after it, eager to fill his belly.
+else
+  say Could you spare a few coins please?
+  beg $n
+endif
+~
+> rand_prog 5~
+, rummages in one of many pouches, searching for gold no doubt.
+~
+> bribe_prog 1000~
+say OHHH MY!!!
+mpecho The beggar suddenly clutches his chest and doubles over.
+mpecho In the blink of an eye, he is dead. 
+mpecho The surprise and shock must have been too much for him.
+mpat 21194 mpforce cleric mpat beggarprog mppurge beggarprog
+~
+> bribe_prog 100~
+say I cannot express my gratitude in words $n!
+kis $n
+say If only others were so generous.
+~
+> bribe_prog 10~
+say Thank you for such a worthy donation.
+thank $n
+~
+|
+#21056
+hawk~
+the regal hawk~
+A proud hawk perches regally here, defiant to all.
+~
+The hawk returns your stare with unfeeling eyes.  Its beak and talons
+appear as though they could rend even the toughest of flesh.
+~
+3 4718632 0 C
+15 0 -20 3d75+100 3d10+10
+0 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+78 3 0 0 513 512 2
+0 0 296125 0 0 0 1 2
+#21057
+mare horse~
+the beautiful mare~
+A beautiful white mare slowly trots in a circle.
+~
+This white mare sports a brilliant white coat and whinnies at your approach.
+She appears ready to serve anyone.
+~
+262147 0 0 C
+20 0 80 2d100+100 3d10+10
+0 0
+112 112 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+86 3 0 0 262656 374272 2
+0 0 67261 2 0 2048 32 2
+#21058
+horse warhorse~
+the warhorse~
+A mighty black warhorse beats angrily at the ground here.
+~
+The black steed snorts as you examine him.  His fine black coat shines
+brightly regardless of light and the warhorse seems as though it could
+run tirelessly for days.
+~
+262147 0 0 C
+25 0 80 3d100+250 3d10+30
+0 0
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+86 3 0 0 395675 373248 2
+0 0 67261 2 0 2048 32 2
+#21059
+cat~
+the cat~
+A black cat scampers away from your booted feet.
+~
+The black cat appears frightened out of its mind...
+~
+3 0 0 C
+5 0 20 2d75+50 3d10+20
+0 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+74 3 0 0 513 512 2
+0 0 67261 0 0 2048 0 0
+#21060
+hound dog~
+the hound~
+A hunting dog paces in circles here, sniffing the ground.
+~
+The hunting dog constantly sniffs the ground, searching for its prey.
+~
+3 0 0 C
+10 0 30 3d75+85 5d5+10
+0 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+73 3 0 0 395987 2688 2
+0 0 67261 0 0 2048 0 2
+#21061
+guard man~
+the guard~
+A heavy guard walks the wall of the city.
+~
+~
+65 32 1000 C
+15 0 5 15d15+300 1d4+10
+500 0
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 3
+2 2 2047 0 3072 0 0 1
+#21062
+guard~
+the gate guard~
+A gate guard tends the western gate.
+~
+~
+3 32 1000 C
+15 0 0 15d15+150 1d4+10
+500 0
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 2
+2 2 2047 0 3072 0 0 0
+> time_prog 6~
+un w
+op w
+~
+> time_prog 20~
+close w
+lock w
+~
+|
+#21063
+man guard~
+the guard~
+A gate guard tends the outer gate.
+~
+~
+3 32 1000 C
+15 0 0 15d15+300 1d4+10
+500 0
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 2
+2 2 2047 0 3072 0 0 3
+> time_prog 6~
+un e
+op e
+~
+> time_prog 20~
+close e
+lock e
+~
+|
+#21064
+guard man~
+the guard~
+A gate guard tends the north gate.
+~
+~
+3 32 1000 C
+15 0 0 15d15+300 1d4+10
+500 0
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 2
+2 2 2047 0 3072 0 0 3
+> time_prog 6~
+un n
+op n
+~
+> time_prog 20~
+close n
+lock n
+~
+|
+#21065
+guard~
+the guard~
+A gate guard tends the outer gate.
+~
+~
+3 32 1000 C
+15 0 0 15d15+300 3d4+15
+500 0
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 2
+2 2 2047 0 3072 0 0 1
+> time_prog 20~
+close s
+lock s
+~
+> time_prog 6~
+unlock s
+op s
+~
+|
+#21066
+guard~
+the guard~
+A guard of watches you as you move by.
+~
+~
+3 32 1000 C
+15 0 0 15d15+300 1d4+10
+500 0
+112 112 1
+16 13 13 16 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 3
+2 2 2047 0 3072 0 0 3
+> time_prog 6~
+un e
+op e
+~
+> time_prog 20~
+close e
+lock e
+~
+|
+#21067
+man guard~
+the guard~
+A guard of the city stands here.
+~
+~
+3 8224 1000 C
+15 0 0 15d15+300 1d4+10
+500 0
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 2
+2 2 2047 1059840 3072 0 0 3
+> time_prog 6~
+un w
+op w
+~
+> time_prog 20~
+close w
+lock w
+~
+|
+#21068
+guard~
+the guard~
+A guard of the city stands at the ready.
+~
+~
+3 32 1000 C
+15 0 0 15d15+150 1d4+10
+500 0
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 2
+2 2 2047 0 3072 0 0 0
+> time_prog 6~
+un s
+op s
+~
+> time_prog 20~
+close s
+lock s
+~
+|
+#21069
+guard~
+the guard~
+An guard keeps vigilant watch here.
+~
+~
+3 32 1000 C
+15 0 0 15d15+300 1d4+10
+500 0
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 2
+2 2 2047 0 3072 0 0 3
+> time_prog 6~
+un n
+op n
+~
+> time_prog 20~
+close n
+lock n
+close manhole
+~
+|
+#21070
+mule~
+the pack mule~
+A pack mule lumbers about, carrying its master's belongings.
+~
+This fat, lumbering creature is dirty and unkept. You find yourself
+wondering what it carries.
+~
+262147 0 0 C
+6 0 150 1d1+40 3d3+8
+0 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+86 3 0 0 390727 374272 2
+0 0 67261 0 0 0 0 0
+#21071
+archer~
+the bowman~
+A bowman peers over the ramparts.
+~
+~
+65 32 1000 C
+15 0 0 15d15+300 1d4+10
+500 0
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 3
+2 2 2047 0 3072 0 0 0
+#21073
+key~
+a newly created key~
+Some god abandoned a newly created key here.
+~
+~
+1 0 0 S
+1 0 0 0d0+0 0d0+0
+0 0
+112 112 0
+#21074
+key~
+a newly created key~
+Some god abandoned a newly created key here.
+~
+~
+1 0 0 S
+1 0 0 0d0+0 0d0+0
+0 0
+112 112 0
+#21075
+key~
+a newly created key~
+Some god abandoned a newly created key here.
+~
+~
+1 0 0 S
+1 0 0 0d0+0 0d0+0
+0 0
+112 112 0
+#21076
+key~
+a newly created key~
+Some god abandoned a newly created key here.
+~
+~
+1 0 0 S
+1 0 0 0d0+0 0d0+0
+0 0
+112 112 0
+#21077
+key~
+a newly created key~
+Some god abandoned a newly created key here.
+~
+~
+1 0 0 S
+1 0 0 0d0+0 0d0+0
+0 0
+112 112 0
+#21078
+key~
+a newly created key~
+Some god abandoned a newly created key here.
+~
+~
+1 0 0 S
+1 0 0 0d0+0 0d0+0
+0 0
+112 112 0
+#21079
+key~
+a newly created key~
+Some god abandoned a newly created key here.
+~
+~
+1 0 0 S
+1 0 0 0d0+0 0d0+0
+0 0
+112 112 0
+#21080
+key~
+a newly created key~
+Some god abandoned a newly created key here.
+~
+~
+1 0 0 S
+1 0 0 0d0+0 0d0+0
+0 0
+112 112 0
+#21415
+newbie mob~
+a newly created newbie mob~
+Some god abandoned a newly created newbie mob here.
+~
+~
+1073741825 0 0 S
+1 0 0 0d0+0 0d0+0
+0 0
+112 112 0
+#21416
+newbie mob~
+a newly created newbie mob~
+Some god abandoned a newly created newbie mob here.
+~
+~
+1073741825 0 0 S
+1 0 0 0d0+0 0d0+0
+0 0
+112 112 0
+#21420
+dark figure assassin~
+the assassin~
+A dark figure lurks here, hiding in the shadows.
+~
+A dark man stands before you, seemingly wearing the shadows around him
+like a cloak.  His gaze bores into your soul, and he appears to beckon
+you over to speak with him.  The glint of steel by his side alerts you
+that this man is probably an assassin.
+~
+3 4227112 0 C
+10 0 0 1d1+200 0d0+0
+0 0
+112 112 0
+18 13 13 16 13 13 13
+0 0 0 0 -10
+0 3 0 0 1 1 1
+0 0 0 0 3072 0 0 2
+> all_greet_prog 25~
+if isnpc($n)
+else
+  mpechoat $n A man hidden in the shadows beckons you over to him.
+  tell $n I have some information which may be of some value...
+  tell $n And for a price I will perhaps share it with you.
+endif
+~
+> speech_prog p how much~
+if isnpc($n)
+else
+  mpechoat $n The dark figure stares unflinchingly into your eyes.
+  mpechoaround $n $I draws close to $n and says something.
+  mpechoat $n $I matter-of-factly says, '45,000 gold pieces.'
+endif
+~
+> speech_prog p what price~
+if isnpc($n)
+else
+  mpechoat $n The dark figure stares unflinchingly into your eyes.
+  mpechoaround $n $I draws close to $n and says something.
+  mpechoat $n $I matter-of-factly says, '45,000 gold pieces.'
+endif
+~
+> bribe_prog 45000~
+mer $n $I quickly tucks the coins inside his shroud, stepping toward $n.
+mea $n $I quickly tucks the coins inside his shroud, and says:
+mea $n 'I took this from a man... a weak, sniveling man I was to kill.'
+mea $n He continues, 'He traded me the artifact in exchange for his life.'
+, sneers
+mea $n The figure says, 'Lucky was he the price on his head was low...'
+mea $n He produces a strange, tied parchment from his shroud.
+mpoload 21420 5
+give parchment $n
+mpjunk all.parchment
+mpjunk all.coins
+say Good ... doing business ... with you, $n.
+, backs into the shadows.
+~
+> speech_prog p how much?~
+if isnpc($n)
+else
+  mpechoat $n The dark figure stares unflinchingly into your eyes.
+  mpechoaround $n $I draws close to $n and says something.
+  mpechoat $n $I matter-of-factly says, '45,000 gold pieces.'
+endif
+ 
+~
+> speech_prog p what price?~
+if isnpc($n)
+else
+  mpechoat $n The dark figure stares unflinchingly into your eyes.
+  mpechoaround $n $I draws close to $n and says something.
+  mpechoat $n $I matter-of-factly says, '45,000 gold pieces.'
+endif
+~
+|
+#21431
+kinalsta man~
+Kinalsta~
+A proud man stands here, deliberating over his theories.
+~
+~
+1073742851 4194344 0 C
+51 0 0 1d1+30000 100d10+1000
+0 0
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 7 0 0 1 1 0
+0 0 47 0 3156992 0 0 0
+#21434
+woman demon female~
+The woman~
+A pitiful demon cowers behind a failed aura of evil.
+~
+~
+3 128 -750 C
+1 0 0 1d0+100 0d0+0
+1 0
+112 112 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 1 0 0 1 1 0
+0 0 9 0 4194303 0 0 0
+> death_prog 100~
+mpechoat $n You hear a ghastly howl.
+say You think you may have killed me, but I will be avenged!
+mpechoat $n Another demon is quickly pushed from the shadows.
+mpmload 21434
+~
+> rand_prog 6~
+sac corpse
+sac head
+sac heart
+~
+|
+#21499
+final mob~
+a newly created final mob~
+Some god abandoned a newly created final mob here.
+~
+~
+1073741825 0 0 S
+1 0 0 0d0+0 0d0+0
+0 0
+112 112 0
+#0
+
+
+#OBJECTS
+#21000
+potion violet glowing~
+a glowing violet potion~
+A glowing violet potion has been carelessly left here.~
+~
+10 321 1
+25 -1 -1 -1
+2 61000 6100
+'heal' 'NONE' 'NONE'
+E
+violet~
+Textures of both deep red and pale purple swirl together inside the vial.
+~
+#21001
+potion purple glowing~
+a glowing purple potion~
+A glowing purple potion has been carelessly left here.~
+~
+10 65 1
+25 -1 -1 -1
+2 6500 650
+'cure critical' 'NONE' 'NONE'
+#21002
+puce potion glowing~
+a glowing puce potion~
+A glowing puce potion has been carelessly left here.~
+~
+10 65 1
+10 -1 -1 -1
+2 2400 240
+'cure serious' 'NONE' 'NONE'
+#21003
+potion maroon glowing~
+a glowing maroon potion~
+A glowing maroon potion has been carelessly left here.~
+~
+10 65 1
+1 -1 -1 -1
+2 750 75
+'cure light' 'NONE' 'NONE'
+#21004
+potion blue glowing~
+glowing blue potion~
+A glowing blue potion has been carelessly left here.~
+~
+10 65 1
+22 -1 131 -1
+2 15000 1500
+'restore mana' 'restore mana' 'NONE'
+#21005
+scroll recall~
+recall scroll~
+A scroll of recall has been carelessly left here.~
+~
+2 64 1
+1 -1 -1 -1
+1 200 20
+'word of recall' 'NONE' 'NONE'
+#21006
+tablet magical identify~
+a magical tablet~
+A magical tablet has been carelessly left here.~
+~
+2 64 1
+1 -1 -1 -1
+1 400 40
+'identify' 'NONE' 'NONE'
+#21007
+scroll detect invis~
+a scroll of detect invisibility~
+A scroll of detect invisibility has been left here.~
+~
+2 64 1
+5 -1 -1 -1
+1 2000 200
+'detect invis' 'NONE' 'NONE'
+#21008
+beer bottle~
+a bottle of beer~
+A small bottle, tipped on its side, drips on the ground.~
+~
+17 0 16385
+5 5 1 0
+1 100 10
+#21009
+whiskey bottle~
+a bottle of whiskey~
+A bottle of whiskey spills drops on the ground.~
+~
+17 0 16385
+10 10 5 0
+1 50 5
+#21010
+mug ale~
+a mug of ale~
+A large mug of ale sits here.~
+~
+17 0 16385
+12 12 4 0
+1 75 7
+#21014
+salami~
+a slice of salami~
+A slice of salami sits in the dirt.~
+~
+19 0 1
+1 0 0 0
+1 50 5
+#21015
+beef~
+a big chunk of beef~
+A large chunk of raw beef lies here.~
+~
+19 0 1
+5 0 0 0
+5 100 10
+#21016
+turkey~
+a cooked turkey~
+A cooked bird, which looks quite edible, lies in the dirt.~
+~
+19 0 1
+10 0 0 0
+2 200 20
+#21017
+bottle milk~
+a bottle of milk~
+A bottle of milk sits upright on the ground.~
+~
+17 0 16385
+10 10 10 0
+3 100 10
+#21018
+wheel cheese~
+a wheel of cheese~
+A round wheel of cheese looks very good.~
+~
+19 0 16385
+5 0 0 0
+3 250 25
+#21019
+lemonade cup~
+a cup of lemonade~
+A cup of lemonade makes your thirst quench easily.~
+~
+17 0 16385
+2 2 6 0
+1 50 5
+#21020
+cake~
+a chocolate cake~
+A large chocolate cake awaits someone to eat it.~
+~
+19 0 16385
+10 0 0 0
+1 150 15
+#21021
+loaf bread~
+a loaf of bread~
+A scrumptious loaf of bread lies here, making your taste buds swirl.~
+~
+19 0 1
+4 0 0 0
+2 150 15
+#21022
+cherry pie~
+a cherry pie~
+A cherry pie makes your mouth water.~
+~
+19 0 16385
+4 0 0 0
+1 100 10
+#21023
+quill~
+a writing quill~
+A writing quill lies on the ground, unowned.~
+~
+21 0 1
+0 0 0 0
+1 30 3
+#21024
+raft~
+a sturdy raft~
+A large raft blocks a little of the road.~
+~
+22 0 1
+0 0 0 0
+5 100 10
+#21025
+canoe~
+a canoe~
+A large canoe has been left here, looking as though it just went over rapids.~
+~
+22 0 1
+0 0 0 0
+10 500 50
+#21034
+warrior guild board~
+the board of the warrior guild~
+The board of the Warrior Guild hangs here.~
+~
+12 6 0
+0 0 0 0
+1 0 0
+#21035
+ranger guild board~
+the ranger guild board~
+The board of the Ranger Guild hangs here.~
+~
+12 0 0
+0 0 0 0
+1001 0 0
+#21037
+mage guild board~
+the board of the mage guild~
+The board of the Mage Guild hangs here.~
+~
+12 1 0
+0 0 0 0
+1001 0 0
+#21038
+tome board nature~
+the Tome of Nature~
+A mystical tome with sickened yellow pages rests here.~
+~
+12 262144 0
+0 0 0 0
+1001 0 0
+#21039
+cleric guild board~
+the board of the cleric guild~
+The board of the Cleric Guild hangs here.~
+~
+12 257 0
+0 0 0 0
+1001 0 0
+#21040
+thief guild board~
+the board of the thief guild~
+The board of the Thief Guild hangs here.~
+~
+12 4 0
+0 0 0 0
+1001 0 0
+#21041
+vampire guild board~
+the board of the vampire guild~
+The board of the Vampire Guild hangs here.~
+~
+12 20 0
+0 0 0 0
+1001 0 0
+#21042
+board general~
+the general board~
+The Darkhaven board hangs here.~
+~
+12 0 0
+0 0 0 0
+1001 0 0
+E
+book~
+~
+#21045
+crystal wand~
+a sparkling crystal wand~
+A sparkling crystal wand has been left lying here.~
+~
+3 65 16385
+12 3 3 -1
+1 1000 100
+'refresh'
+#21046
+bag rune-covered~
+a rune-covered bag~
+A strange bag, covered in runes, has been left here.~
+~
+15 65 1
+75 1 0 1
+1 1000 100
+#21048
+mail board stack~
+a stack of mail~
+A stack of mail is piled high here.~
+~
+12 0 0
+0 0 0 0
+1001 0 0
+#21049
+ball light~
+a bright ball of light~
+A bright ball of light shimmers in the air.~
+~
+1 65 1
+0 0 -1 0
+1 100 10
+#21055
+thief ring~
+a thief's ring~
+A ring which will bring good luck lies here.~
+~
+9 1074479104 3
+3 3 0 0
+1 500 50
+A
+31 2
+#21056
+ring~
+a ring of the city guard~
+An iron ring has fallen here.~
+~
+9 65 3
+3 3 0 0
+1 500 50
+E
+ring~
+Rumors say that these rings protect from magical enchantments...
+~
+A
+17 -3
+A
+27 3072
+#21057
+neck guard iron~
+an iron guard~
+An iron neck guard has fallen here.~
+~
+9 0 5
+5 5 0 0
+3 600 60
+#21058
+crested plate~
+a crested breastplate~
+A breastplate has fallen here.~
+~
+9 0 9
+6 6 0 0
+8 1000 100
+#21059
+iron helm~
+an iron helm~
+An iron helm has fallen here.~
+~
+9 0 17
+5 5 0 0
+8 800 80
+#21060
+mail leggings~
+mail leggings~
+A set of mail leggings has fallen here.~
+~
+9 0 33
+4 4 0 0
+4 300 30
+#21061
+boots black~
+black boots~
+A set of boots has fallen here.~
+~
+9 0 65
+4 4 0 0
+2 200 20
+#21062
+chain sleeves~
+chain sleeves~
+A set of chain sleeves has fallen here.~
+~
+9 0 257
+5 5 0 0
+3 400 40
+#21063
+iron gauntlets~
+iron gauntlets~
+Some iron gauntlets have fallen here.~
+~
+9 0 129
+5 5 0 0
+4 400 40
+#21064
+iron bracer~
+an iron bracer~
+An iron bracer has fallen here.~
+~
+9 0 4097
+4 4 0 0
+2 100 10
+#21065
+iron shield~
+an iron shield~
+An iron shield has fallen here.~
+~
+9 0 513
+7 7 0 0
+6 600 60
+#21066
+iron visor~
+an iron visor~
+An iron visor has fallen here.~
+~
+9 0 131073
+3 4 0 0
+1 100 10
+#21067
+torch~
+a torch~
+A plain wooden torch has been left lying here.~
+~
+1 0 1
+0 0 24 0
+1 10 1
+#21068
+wooden bow~
+a wooden bow~
+A wooden bow has fallen here.~
+~
+56 0 262145
+10 0 0 14 1 0
+3 300 30
+A
+18 1
+A
+19 3
+#21069
+sword longsword~
+a longsword~
+A longsword has fallen here.~
+~
+5 524288 8193
+10 0 0 3
+6 300 30
+#21070
+key~
+the key to the western gate of Darkhaven~
+The key to the western gate of Darkhaven lies here.~
+~
+9 0 16385
+0 0 0 0
+1 1000 100
+#21071
+key~
+the key to the northern gate of Darkhaven~
+The key to Darkhaven's northern gate lies here.~
+~
+9 0 16385
+0 0 0 0
+1 1000 100
+#21072
+key~
+the key to the eastern gate of Darkhaven~
+The key to Darkhaven's eastern gate lies here.~
+~
+9 0 16385
+0 0 0 0
+1 1000 100
+#21073
+key~
+the key to the southern gate of Darkhaven~
+The key to Darkhaven's southern gate lies here.~
+~
+9 0 16385
+0 0 0 0
+1 1000 100
+#21076
+leather shirt~
+a leather shirt~
+Someone has left a leather shirt lying here.~
+~
+9 0 9
+3 3 0 0
+4 200 20
+#21077
+pants leather~
+some leather pants~
+Some leather pants are lying here.~
+~
+9 0 33
+2 3 0 0
+2 150 15
+#21078
+leather sleeves~
+some leather sleeves~
+Some leather sleeves have been abandoned here.~
+~
+9 0 257
+1 3 0 0
+1 75 7
+#21079
+leather boots~
+some leather boots~
+A pair of leather boots are lying here.~
+~
+9 0 65
+2 2 0 0
+2 125 12
+#21080
+leather gloves pair~
+a pair of leather gloves~
+Two leather gloves are lying on the ground.~
+~
+9 0 129
+1 3 0 0
+1 100 10
+#21081
+steel dagger~
+a steel dagger~
+A gleaming dagger shines brightly here.~
+~
+5 524288 8193
+0 0 0 11
+1 100 10
+#21082
+iron mace~
+an iron mace~
+An iron mace has been carelessly left here.~
+~
+5 524288 8193
+7 4 0 0
+4 200 20
+#21083
+key~
+inn key~
+This item doesn't need a long :P~
+~
+18 0 1
+0 0 0 0
+1 0 0
+#21084
+salve~
+Sample Salve~
+A sample of Salve lies here~
+~
+60 0 16385
+10 5 5 5 -1 -1
+1 0 0
+'heal' 'cure poison'
+#21085
+arrow~
+A magical arrow~
+A magical arrow lies here.~
+~
+57 64 278529
+0 0 0 14
+1 0 0
+#21086
+flint~
+A shard of flint~
+A shard of flint lies here.~
+~
+8 64 1
+0 0 0 0
+1 0 0
+#21087
+bow~
+a newly created bow~
+Some god dropped a newly created bow here.~
+~
+13 1073741824 0
+0 0 0 0
+1 0 0
+#21094
+ring golden band~
+a strange golden band~
+A strange golden band has been left lying here.~
+~
+9 65 3
+2 2 0 0
+1 10000 1000
+A
+27 3072
+#21111
+manor painting~
+an oil painting~
+A painting of a glorious manor house hangs on the wall, catching your eye.~
+~
+12 256 0
+0 0 0 0
+1 0 0
+E
+painting manor house~
+You move closer to take a look at the image in the painting.  The home is
+beautiful, inviting and imposing all at the same time.  You find yourself
+wondering what it would be like to live in such a place...
+~
+> exa_prog 100~
+mpechoat $n A magical force suddenly takes hold of you, pulling you in!
+mpechoat $n When you right yourself, you look around to collect your bearings,
+mpechoat $n and find yourself standing before the manor...
+mptrans $n 2400
+mpecho $n fades before your eyes while examining the painting of the manor.
+~
+|
+#21112
+solemn painting unholy~
+a dark, solemn painting~
+A dark, solemn painting hangs here in the shadows, collecting dust.~
+~
+12 4 0
+0 0 0 0
+50 0 0
+E
+solemn painting unholy~
+Gazing at the painting, you find yourself entranced by the image of a
+woman kneeling at the foot of a grave, mourning the loss of her child.
+As tears stream down her face, she finds the arms of an angel wrapped
+around her, seeming to comfort her in her hour of despair.  Suddenly,
+everything about you shifts and you find yourself becoming part of
+the painting, screaming as the angel of darkness drags you, too, 
+unto the unholy grounds of the dead.
+~
+> exa_prog 100~
+mpechoat $n Your feel your body as it dissolves into elements of color,
+mpechoat $n spinning slowly into the oils of the dark painting...
+mpechoaround $n Stepping forward to examine the painting, $n's body begins to
+mpechoaround $n liquesce, dissolving into a kaleidoscope of colors, spinning
+mpechoaround $n funnel-like into the oiled textures of the solemn image.
+mptransfer $n 2171
+~
+|
+#21133
+smoked rabbit~
+smoked rabbit~
+A freshly smoked rabbit lies here giving off a hickory scent.~
+%s savour$q a piece of $p.~
+19 0 1
+10 0 0 0
+2 200 20
+#21134
+roast quail~
+Roast Quail~
+A plump roast quail has been carelessly left on the ground here.~
+%s delicately nibble$q on a piece of $p.~
+19 0 1
+10 0 0 0
+2 200 20
+#21135
+chanterelle mushrooms~
+some freshly picked chanterelle mushrooms~
+Some freshly picked chanterelle mushrooms have been left behind here.~
+%s savor$q $p.~
+19 0 1
+10 0 0 0
+2 200 20
+#21136
+bag black walnuts~
+a bag of fresh black walnuts~
+Walnut shells lie discarded around a small burlap bag left here.~
+%s quickly down$q $p.~
+19 0 1
+10 0 0 0
+2 200 20
+#21137
+leg lamb~
+a leg of lamb~
+A freshly cooked leg of lamb has been dropped here.~
+%s savagely gnaw$q on $p.~
+19 8192 1
+10 0 0 0
+2 200 20
+#21138
+wild mustard greens~
+some wild mustard greens~
+Some freshly gathered wild mustard greens have been forgotten here.~
+%s quickly eat$q $p.~
+19 0 1
+10 0 0 0
+2 200 20
+#21139
+sunflower seeds~
+a handful of sunflower seeds~
+A handfull of salty sunflower seeds has been left hhere.~
+%s quickly consume$q $p.~
+19 0 1
+10 0 0 0
+2 200 20
+#21420
+parchment opaque~
+an opaque parchment~
+A piece of opaque parchment lies here absorbing the light.~
+~
+35 2 1
+0 0 0 0
+1 45000 4500
+E
+parchment~
+You find you are suddenly able to read the ancient words transcribed upon the
+piece of parchment.  The more you read, the more visible the words become...
+ 
+                   Strategy & Tactic of the Ancient Deadly
+ 
+This parchment is intended for those engaged in pkilling, the deadly path,
+but many of the tactics outlined here may be useful in other circumstances,
+also.  The following details the contents of this parchment:
+ 
+ 
+1.  Legend                          4.  Spells/Skills and Immunties/Death Traps
+2.  Important Suggestions           5.  Disarm and Backstab
+3.  Preperation and Area Knowledge  6.  Config +FLEE and Miscellaneous Tidbits
+ 
+ 
+To view a topics, simply type the number of the item you wish to read.
+ 
+~
+E
+1~
+The Legend of the Parchment
+ 
+During the excavation for New DarkHaven, a chest of weapons and artifacts
+was uncovered, was concluded to have originated with an ancient clan of
+pkillers...
+ 
+All the weapons of this clan with shiny metal surfaces had been covered
+by black tar.  The conclusion was that the clan had attempted to avoid
+detection in sunlight by preventing the blades of their weapons from
+reflecting the sun's rays.
+ 
+Because of this, it is believed the clan was known as the Black Knives,
+of which the only references to them now is in the lore of the Bards.
+ 
+Hidden among the weapons and artifacts was a set of tattered parchments,
+which upon translation, appeared to be training material written by an
+ancient pkiller.  Although some of the information is now obsolete,
+the relevant portions were transcribed and made available in the
+parchment you now hold...
+ 
+~
+E
+2~
+Three Important Suggestions
+ 
+1.)  If possible, turn on your "capture session" capability.  This will
+help you improve your performance by reviewing your failures and your
+opponents tactics.
+ 
+2.)  Some kind of macro facility is recommended.  Depending on your typing
+speed, this may be more important to some players than others.  In general,
+if one player uses macros and another does not, the player using macros
+has a distinct (speed) advantage.
+ 
+3.)  This game is a social place.  Players who share info with other
+players tend to do much better than solitary players.  The information here
+is intended to be sparse.  To fully understand the items discussed here, it
+is wise to talk the things mentioned here over with other players.
+ 
+~
+E
+3~
+Preparation is the foundation to success.  A weaker player who is prepared
+will often defeat a stronger player who is not.  Preparation includes being
+shielded and having your weapons wielded at all times when you are not in a
+safe place.  It also means having the spells you need and being able to
+quickly regenerate a shield or spell if it wears out.
+ 
+You must carry scrolls, potions and other objects that will give you spells
+and heals and you must be prepared to get them and use them instantly.  This
+means you have to carry some in your inventory and some in containers.  You
+need to have macros set up to get them and use them.  If you do not use
+macros, you need to know which items are stored in which containers so you
+can get them instantly.  When attacked by surprise, you cannot afford to
+start fumbling around hunting for supplies -- you will likely die.
+ 
+How do you get all these scrolls, potions and other items?  Well, mages and
+clerics can brew potions and scribe scrolls of any spell for any player.  If
+you do not have a mage or cleric, you'll need to co-operate with other
+players to learn where to buy them or how to find other equivalent objects.
+ 
+(Type look 3A for Area Knowledge)
+ 
+~
+E
+3a~
+Area Knowledge
+ 
+Area Knowledge is important to survival whether engaging in pkilling or mob
+killing.  You should try to learn as much about an area before attempting
+to operate in it.  Know nearby safe zones and where you can or cannot
+recall from.  This knowledge may save you in the future.
+ 
+~
+E
+4~
+Spells and Skills
+ 
+The following is a list of spells and skills that you should understand and
+be able to use:
+ 
+Shields        - sanctuary, iceshield, fireshield, shockshield.
+Detection      - detect invis, detect hidden, true sight, scry, faerie fog.
+Defensive      - armor, bless, shield, stone skin, protection, heal, invis.
+Offensive      - faerie fire, poison, blindness, curse, weaken.
+Movement       - float, fly, aqua breath, pass door.
+Miscellaneous  - astral walk, mist walk, plant pass, solar flight, summon,
+                 farsight, kindred strength, create spring.
+Skills         - backstab, scan, pick lock, stun, disarm.
+                  
+(Look 4A for Dealing with Immunities and Death Traps)
+ 
+~
+E
+4a~
+Dealing with Immunities
+ 
+Some players and mobs are immune to different types of weapons and spells.
+It's a good idea to carry a few different kinds of weapons and be prepared
+to use a few different kinds of offensive spells.  It is important during a
+fight to try and see if your weapons and spells are doing any damage.  If
+your weapon is constantly "missing" (not dodged or parried, but missing),
+be ready to switch to another weapon.  If your fireball constantly misses,
+try a different kind of spell.  There are many, including lightning bolt,
+burning hands, color spray, energy drain and many others to choose from.
+ 
+ 
+Avoiding Death Traps and Other Nasty Surprises
+ 
+When you are in an unfamiliar place, it is a good idea to look ahead before
+entering a new room.  Use scry or scan to do this.  If you see a room that
+has no exits, you need to be cautions because it might be a death trap.  If
+you cannot scry or scan, type "look direction" and read the description of
+what lies in that direction.  Most of these rooms are not death traps, they
+just have exits that are not obvious or require you to recall to exit.  One
+good technique is to bring a friend or a character with little equipment
+and send them in to test for a death trap.  Having friends in the mud pays
+dividends in many ways.
+~
+E
+5~
+Disarm
+ 
+If you can disarm an opponent and take their weapon, you can get a great
+advantage.  This tactic is a little over-rated because your opponent may
+have a good grip on their weapon or may have extra weapons.  The effort
+you put into disarming them takes away from other tactics you should be
+using instead.  Disarming mobs can sometimes be a bad move because some
+mobs hit much harder when disarmed.  If you must try this skill, perhaps
+you should try it only once or twice in a fight and then move on.
+ 
+ 
+Backstab
+ 
+If you can backstab an opponent to start a fight, you should certainly try
+it.  In order to be backstabbed, however, an opponent must be at full hit
+points.  If they never eat or drink (a good tactic against backstabbing),
+they will always be a few hp below maximum.  You can always start a fight
+by healing your opponent in the hopes of bringing them to full hit points,
+then backstab them.  Naughty but Nice!
+ 
+~
+E
+6~
+Config +FLEE
+ 
+Many players like this until they flee into a death trap.  In general, it's
+a bad idea.  You are usually better off to recall than to flee.  If you have
+problems recalling, as a last resort, you can try teleport.
+ 
+ 
+Miscellaneous Tidbits
+ 
+The susceptibility spells, (Razorbait, Swordbait, Winter Mist, Blazebane,
+Ethereal Funnel) and the resistance spells, (Dragonskin, Demonskin, Inner
+Warmth, Blazeward, Ethereal Shield) are of lesser value and you should
+probably not trouble yourself with them until you have mastered all other
+aspects of combat and strategy.  Suscpetibility spells may be useful when
+fighting a known mob that takes a long time to defeat, as they tend to
+reduce the time somewhat.  Spells like Eldritch Sphere, Antimagic Shell,
+Shadowform and Valiance are also best left for specialized uses.
+ 
+There are also some miscellaneous skills which are best left for specialized
+use - (kick, punch, bash, circle).  Circle appears to be a wonderful skill,
+but there are problems with it.  It only works in certain circumstances and
+it locks you out (lags the circler) for a round or two.
+ 
+~
+#21435
+augurer guild board~
+the board of the augurer guild~
+The board of the Augurer Guild hangs here.~
+~
+12 0 0
+0 0 0 0
+1 0 0
+#0
+
+
+#ROOMS
+#21000
+Darkhaven Square~
+You are standing within the expanse of the famous Darkhaven Square.  A
+stone statue of occupies the square's center, surrounded by gardens of
+shrubbery which enhance the air of serenity and peace here in the center
+of the city.  The main road lead away in the cardinal directions, while
+to the northeast and northwest are forested paths.  The spires of a
+cathedral can be seen rising to the northwest.
+~
+0 1081344 1
+D0
+Vertic Avenue lies to the north.
+~
+~
+0 -1 21001
+D1
+To the east lies Horizon Road.
+~
+~
+0 -1 21036
+D2
+Vertic Avenue lies to the south.
+~
+~
+0 -1 21042
+D3
+To the west lies Horizon Road.
+~
+~
+0 -1 21039
+D4
+You gaze up into the air.
+~
+~
+0 -1 21337
+D6
+The forested path continues...
+~
+~
+0 -1 21200
+D7
+The forested path leads up to the cathedral.
+~
+~
+0 -1 21163
+E
+sign post signpost~
+North - Vertic Avenue
+        - To Justice Road
+East  - Horizon Road
+        - To Hawk Street
+South - Vertic Avenue
+        - To Horizon Road
+        - To Market Street
+        - To Law Avenue
+West  - Horizon Road
+        - To Falcon Road
+Northwest - Cathedral
+            - To the Guild of Clerics
+            - To the Guild of Druids
+            - To the cathdral altar
+Northeast - Forest
+            - To the Guild of Rangers
+            - To the Guild of Warriors
+~
+S
+#21001
+Vertic Avenue~
+Here the roadway passes by a circular platform, atop which stands a man of
+ultimately stern countenance.  A wall surrounding the cathedral rises to
+the west, and a small forested area lines the eastern roadway.  Vertic
+Avenue ranges to the north and south.
+~
+0 1318916 1
+D0
+Vertic Avenue lies in this direction.
+~
+~
+0 -1 21002
+D2
+The road to the south leads to Darkhaven Square.
+~
+~
+0 -1 21000
+> entry_prog 100~
+if isnpc($n)
+or isimmort($n)
+else
+if ispkill($n)
+if level($n) == 50
+mpechoat 0.$n Raging mists drag you away...
+mptrans 0.$n 3001
+endif
+endif
+endif
+~
+|
+S
+#21002
+Vertic Avenue~
+Nothing in particular strikes your attention as you walk down this portion
+of Vertic Avenue.  It seems almost as if the citizens of the city forgot
+to place a statue here, or perhaps a plaque.  The lengthy road ranges
+to the north and south.
+~
+0 1048576 1
+D0
+The cobbled roads of Vertic Avenue lie in this direction.
+~
+~
+0 -1 21003
+D2
+A peculiar section of Vertic Avenue lies to the south.
+~
+~
+0 -1 21001
+S
+#21003
+Vertic Avenue~
+You continue down Vertic Avenue.  To the east you can see the stone structure
+of the warrior's, the cathedral rises in the west, and to the north you can
+seen an intersection.
+~
+0 1048576 1
+D0
+Vertic Avenue and Justice Road cross just north of here.
+~
+~
+0 -1 21004
+D2
+A rather bland portion of Vertic Avenue lies to the south.
+~
+~
+0 -1 21002
+S
+#21004
+Intersection of Vertic Avenue and Justice Road~
+You stand at the intersection of Vertic Avenue and Justice Road.  To the
+north you can see the north gate of Darkhaven.  Justice Road lies to the
+east and west, while Vertic Avenue can be seen to the north and south.
+~
+0 1048576 1
+D0
+The northern gate can be seen in this direction.
+~
+~
+0 -1 21100
+D1
+Justice Road extends to the east.
+~
+~
+0 -1 21005
+D2
+Going south will bring you near the heart of the city.
+~
+~
+0 -1 21003
+D3
+Justice Road extends to the west.
+~
+~
+0 -1 21035
+E
+sign post signpost~
+North - The North Gate of Darkhaven
+East  - Justice Road
+        - To Hawk Street
+South - Vertic Avenue
+        - To Horizon Road
+        - To Market Street
+        - To Law Avenue
+        - To Darkhaven Square
+West  - Justice Road
+        - To Falcon Road
+~
+S
+#21005
+Justice Road~
+This portion of Justice Road seems unkempt.  A whistling northern wind can
+be heard passing through the trees to the south, and you smile to yourself
+as you continue on your way.  Justice Road stretches to the east and west.
+~
+0 1048576 1
+D1
+Justice Road lies to the east.
+~
+~
+0 -1 21006
+D3
+The intersection of Vertic Avenue and Justice Road is to the west.
+~
+~
+0 -1 21004
+S
+#21006
+Justice Road~
+You are on a solemn section of Justice Road.  A statue depicting a party
+of adventurers fighting off an undead dragon sits in the center of the
+road.  Blinking back a tear, you remember hearing this tale in a local
+inn, and realize that the statue is a memorial.  Justice Road extends to
+the east and west.
+~
+0 1048576 1
+D1
+Justice Road is to the east.
+~
+~
+0 -1 21007
+D3
+Justice Road extends westward.
+~
+~
+0 -1 21005
+S
+#21007
+Justice Road~
+You are walking down Justice Road.  The long road, which lines the northern
+wall of Darkhaven, meets up with Hawk Street to the east to form one of the
+four corners of Darkhaven.  The street continues westward.
+~
+0 1048576 1
+D1
+Justice Road meets Hawk Street to the east.
+~
+~
+0 -1 21008
+D3
+Justice Road continues to the west.
+~
+~
+0 -1 21006
+S
+#21008
+Meeting of Hawk Street and Justice Road~
+Hawk Street and Justice Road come together here to form one of the four
+corners of Darkhaven.  A stone staircase leads upward onto the fantastic
+city's battlements, from where even the strongest foe can be repelled.
+Hawk Street lies to the south, while Justice Road stretches westward.
+~
+0 1048576 1
+D2
+Hawk Street lies to the south.
+~
+~
+0 -1 21009
+D3
+Justice Road lies to the west.
+~
+~
+0 -1 21007
+D4
+The stairs lead up onto Darkhaven's battlements.
+~
+~
+0 -1 21321
+E
+sign post signpost~
+West  - Justice Road
+        - To Vertic Avenue
+        - To Falcon Road
+South - Hawk Street
+        - To Horizon Road
+        - To Market Street
+        - To Law Avenue
+~
+S
+#21009
+Hawk Street~
+This section of Hawk Street is reserved for storing the eastern wall's
+defense supplies.  Quivers of arrows are stacked high into the air,
+almost within reach of the guards on the battlements.  Hawk Street
+stretches to the north and south.
+~
+0 1048576 1
+D0
+Hawk Street meets up with Justice Road to the north.
+~
+~
+0 -1 21008
+D2
+Hawk Street continues to the south.
+~
+~
+0 -1 21010
+S
+#21010
+Hawk Street~
+This portion of Hawk Street is rather poor and unkempt.  Rags litter the
+street, and several of the city's unfortunate have set up residence here.
+A tent has been set up on the eastern side of the road, a beggar's home
+no doubt.  Hawk Street continues to the north and south.
+~
+0 1048576 1
+D0
+Hawk Street continues to the north.
+~
+~
+0 -1 21009
+D2
+The road ranges to the south.
+~
+~
+0 -1 21011
+S
+#21011
+Hawk Street~
+You are walking down the northern half of Hawk Street at a brisk pace.
+To the east is the towering eastern wall of Darkhaven, while a forest
+surrounded by a short wall is to the west.  Hawk Street ranges to the
+north and south.
+~
+0 1048576 1
+D0
+Hawk Street extends northward.
+~
+~
+0 -1 21010
+D2
+Horizon Road and Hawk Street cross to the south.
+~
+~
+0 -1 21012
+S
+#21012
+Intersection of Horizon Road and Hawk Street~
+You stand at the intersection of Horizon Road and Hawk Street.  To the
+east you can see the massive east gate of Darkhaven, while Hawk Street
+lies to the north and south, and Horizon Road runs west.
+~
+0 1048576 1
+D0
+Hawk Street is to the north.
+~
+~
+0 -1 21011
+D1
+To the east is the eastern gate.
+~
+~
+0 -1 21113
+D2
+You can see Hawk Street stretch far to the south.
+~
+~
+0 -1 21013
+D3
+Horizon Road lies to the east.
+~
+~
+0 -1 21038
+E
+sign post signpost~
+North - Hawk Street
+        - To Justice Road
+East  - The East Gate of Darkhaven
+South - Hawk Street
+        - To Market Street
+        - To Law Avenue
+West  - Horizon Road
+        - To Darkhaven Square
+~
+S
+#21013
+Hawk Street~
+You take a brief pause on your way down Hawk Street, and you can hear the
+chirping of birds coming from the other side of the city wall.  Upon
+catching your breath, you gather your belongings and continue on your way.
+~
+0 1048576 1
+D0
+Horizon Road and Hawk Street cross just north of here.
+~
+~
+0 -1 21012
+D2
+The Market and Hawk Street intersection is south of here.
+~
+~
+0 -1 21014
+S
+#21014
+Intersection of Market Street and Hawk Street~
+You stand at the intersection of Market Street and Hawk Street.  A wall
+towers over you to the east, keeping intruders out of Darkhaven.  To
+the west are the glorious pavilions and shops of Darkhaven, while
+Hawk Street continues to the north and south.
+~
+0 1048576 1
+D0
+Hawk Street lies in this direction.
+~
+~
+0 -1 21013
+D2
+Hawk Street stretches southward as far as the eye can see.
+~
+~
+0 -1 21015
+D3
+The markets of Darkhaven await your arrival and gold.
+~
+~
+0 -1 21050
+E
+sign post signpost~
+North - Hawk Street
+        - To Horizon Road
+        - To Justice Road
+South - Hawk Street
+        - To Law Avenue
+West  - Market Street
+~
+S
+#21015
+Hawk Street~
+This portion of Hawk Street is lined with pine trees and small colorful
+gardens.  Two marble benches sit on opposite sides of the cobbled road,
+enticing you to rest.  You can see Law Avenue meeting up with Hawk
+Street to the south, while to the north is the Market Street and
+Hawk Street intersection.
+~
+0 1048576 1
+D0
+Market Street and Hawk Street meet to the north.
+~
+~
+0 -1 21014
+D2
+Gazing southward, you see the southeastern corner of Darkhaven.
+~
+~
+0 -1 21016
+S
+#21016
+Meeting of Hawk Street and Law Avenue~
+Hawk Street and Law Avenue come together here to form one of the four
+corners of Darkhaven.  A stone staircase leads up onto the fantastic
+city's battlements, from where even the strongest foe can be repelled.
+Hawk Street lies to the north, while Law Avenue stretches westward.
+~
+0 1048576 1
+D0
+Hawk Street lies to the north.
+~
+~
+0 -1 21015
+D3
+Law Avenue lies to the west.
+~
+~
+0 -1 21017
+D4
+Stairs lead up to Darkhaven's battlements.
+~
+~
+0 -1 21314
+E
+sign post signpost~
+North - Hawk Street
+        - To Market Street
+        - To Horizon Road
+        - To Justice Road
+West  - Law Avenue
+        - To Vertic Avenue
+        - To Falcon Road
+~
+S
+#21017
+Law Avenue~
+You are walking down Law Avenue, the road which lines the southern wall
+of Darkhaven.  The cobblestones here seem worn and used.  To the north
+is the reason for this:  a mount and pet store.  Even from here you can
+smell the faint scent of hay.  To the east is one of the four corners
+of Darkhaven, while Law Avenue continues westward.
+~
+0 1048576 1
+D0
+The Companions and Mounts shop lies to the north.
+~
+~
+0 -1 21339
+D1
+Law Avenue joins Hawk Street to the east.
+~
+~
+0 -1 21016
+D3
+Law Avenue stretches westward.
+~
+~
+0 -1 21018
+E
+sign post signpost~
+North - Companions and Mounts
+East  - Law Avenue
+        - To Hawk Street
+West  - Law Avenue
+        - To Vertic Avenue
+        - To Falcon Road
+~
+S
+#21018
+Law Avenue~
+A tall statue attracts your attention on this portion of Law Avenue.  The
+marble sculpture is of a man in his late forties wielding a blade of ebony
+against an unseen attacker, although from the man's posture it is obvious
+that his opponent was enormous.  A small golden plaque sits near the
+statue, explaining its importance.  The road stretches both east and west.
+~
+0 1048576 1
+D1
+The road extends eastward.
+~
+~
+0 -1 21017
+D3
+Law Avenue stretches westward as far as the eye can see.
+~
+~
+0 -1 21019
+E
+plaque~
+The plaque reads: 'May you rest in peace, Uthar Darkbane.'
+~
+S
+#21019
+Law Avenue~
+Although you pass by the building to the north frequently, you still have
+trouble believing it stands there.  The Dragon Exports, known for bizarre
+dragon collectibles and occultic behavior, has set up a Darkhaven branch
+inside the large stone structure to the north.  The road ranges to the
+east and west from here.
+~
+0 1048576 1
+D0
+To the north is the reception desk for the Dragon Exports company.
+~
+~
+0 -1 9850
+D1
+Law Avenue continues to the east.
+~
+~
+0 -1 21018
+D3
+Vertic Avenue and Law Avenue cross to the west.
+~
+~
+0 -1 21020
+E
+sign post signpost~
+North - Dragon Cult
+East  - Law Avenue
+        - To Hawk Street
+West  - Law Avenue
+        - To Vertic Avenue
+        - To Falcon Road
+~
+S
+#21020
+Intersection of Vertic Avenue and Law Avenue~
+You stand at the intersection of Vertic Avenue and Law Avenue.  Gazing to
+the south, you see the massive south gate of Darkhaven.  The cobbled roads
+of Vertic Avenue and Law Avenue lie in the four cardinal directions.
+~
+0 1048576 1
+D0
+To the north is Vertic Avenue.
+~
+~
+0 -1 21044
+D1
+You see the legendary Law Avenue.
+~
+~
+0 -1 21019
+D2
+To the south is Darkhaven's southern gate.
+~
+~
+0 -1 21074
+D3
+Law Avenue extends to the west.
+~
+~
+0 -1 21021
+E
+sign post signpost~
+North - Vertic Avenue
+        - To Market Street
+        - To Horizon Road
+        - To Justice Road
+        - To Darkhaven Square
+East  - Law Avenue
+        - To Hawk Street
+South - The Southern Gate of Darkhaven
+West  - Law Avenue
+        - To Falcon Road
+~
+S
+#21021
+Law Avenue~
+You are traversing the cobblestone roads of Law Avenue at a brisk pace.
+To the north is the Darkhaven Art Gallery, a building known throughout
+the the world for its rare beauty and exquisite art.  You feel almost
+like paying the ancient building a visit.  Law Avenue extends to the
+east and west.
+~
+0 1048576 1
+D0
+The Art Gallery awaits...
+~
+~
+0 -1 24800
+D1
+Law Avenue and Vertic Road cross to the east.
+~
+~
+0 -1 21020
+D3
+Law Avenue ranges to the west.
+~
+~
+0 -1 21022
+E
+sign post signpost~
+North - Darkhaven Art Gallery
+East  - Law Avenue
+        - To Vertic Avenue
+        - To Hawk Street
+West  - Law Avenue
+        - To Falcon Road
+~
+S
+#21022
+Law Avenue~
+You are walking down a rather commercial part of Law Avenue.  Merchants
+hassle you to spend your gold as you attempt to continue on your way.
+Glancing to the north, you see the only shop worth visiting, owned by
+the respectable Annir.  Law Avenue stretches to the east and west.
+~
+0 1048576 1
+D0
+A clothing shop is situated to the north.
+~
+~
+0 -1 21066
+D1
+Law Avenue extends to the east.
+~
+~
+0 -1 21021
+D3
+Law Avenue stretches westward.
+~
+~
+0 -1 21023
+E
+sign post signpost~
+North - Annir's Clothing
+West  - Law Avenue
+        - To Falcon Road
+East  - Law Avenue
+        - To Hawk Street
+        - To Vertic Avenue
+~
+S
+#21023
+Law Avenue~
+This stretch of Law Avenue is cobbled and well kept, like most of the
+streets of Darkhaven.  Looking northward, you see a small mansion which
+seems abandoned.  Two stone gargoyles guard the gates to the strange
+building, their ruby eyes glowing softly.  The lengthy cobblestone
+road extends to the east and west.
+~
+0 1048576 1
+D0
+An abandoned mansion is to the north.
+~
+~
+0 -1 21353
+D1
+Law Avenue continues in this direction.
+~
+~
+0 -1 21022
+D3
+Law Avenue clashes with Falcon Road to the west.
+~
+~
+0 -1 21024
+E
+sign post signpost~
+North - An Abandoned Mansion
+        - To the Guild of Vampires
+West  - Law Avenue
+        - To Falcon Road
+East  - Law Avenue
+        - To Vertic Avenue
+        - To Hawk Street
+~
+S
+#21024
+Meeting of Falcon Road and Law Avenue~
+Falcon Road and Law Avenue come together here to form one of the four
+corners of Darkhaven.  A stone staircase leads up onto the fantastic
+city's battlements, from where even the strongest foe can be repelled.
+Falcon Road lies to the north, while Law Avenue stretches eastward.
+~
+0 1048576 1
+D0
+Falcon Road lies to the north.
+~
+~
+0 -1 21025
+D1
+Law Avenue lies to the east.
+~
+~
+0 -1 21023
+D4
+The stairs lead up to Darkhaven's battlements.
+~
+~
+0 -1 21307
+E
+sign post signpost~
+North - Falcon Road
+        - To Market Street
+        - To Horizon Road
+        - To Justice Road
+East  - Law Avenue
+        - To Vertic Avenue
+        - To Hawk Street
+~
+S
+#21025
+Falcon Road~
+You pick up your pace as you travel down this portion of Falcon Road.
+Gazing eastward, you see what is easily the darkest alley in the city,
+though a glimmer of light can be seen flickering in the shadows of
+the slim street.  To the north is an intersection, while Falcon
+Road continues to the south.
+~
+0 1048576 1
+D0
+Thieves Alley is east of here.
+~
+~
+0 -1 21026
+D1
+The Thieves Alley is east of here.
+~
+~
+0 -1 21063
+D2
+One of the four corners of Darkhaven is located to the south.
+~
+~
+0 -1 21024
+E
+sign post signpost~
+North - Falcon Road
+        - To Justice Road
+        - To Horizon Road
+        - To Market Street
+East  - Thieves Alley
+        - To the Guild of Thieves
+South - Falcon Road
+        - To Law Avenue
+~
+S
+#21026
+Intersection of Market Street and Falcon Road~
+You stand at the intersection of Market Street and Falcon Road.  A wall
+towers over you to the west, keeping intruders out of Darkhaven.  To the
+east are the glorious pavilions and shops of Darkhaven, while Falcon
+Road continues to the north and south.
+~
+0 1048576 1
+D0
+Falcon Road lies in this direction.
+~
+~
+0 -1 21027
+D1
+You gaze at the pavillions and shops of Market Street.
+~
+~
+0 -1 21045
+D2
+To the south is Falcon Road.
+~
+~
+0 -1 21025
+E
+sign post signpost~
+North - Falcon Road
+        - To Justice Road
+        - To Horizon Road
+East  - Market Street
+South - Falcon Road
+        - To Law Avenue
+~
+S
+#21027
+Falcon Road~
+You are walking down a poorer section of Falcon Road.  The cobbled roads 
+seem unkept and dirty, definitely unusual in this city which represents
+hope and order.  The street ranges to the north and south.
+~
+0 1048576 1
+D0
+Horizon Road and Falcon Road cross to the north.
+~
+~
+0 -1 21028
+D2
+Market Street and Falcon Road cross just south of here.
+~
+~
+0 -1 21026
+S
+#21028
+Intersection of Horizon Road and Falcon Road~
+You stand at the intersection of Horizon Road and Falcon Road.  Gazing to
+the west, you see the huge west gate of Darkhaven.  The cobbled roads of
+Horizon Road and Falcon Road lie in the four cardinal directions.
+~
+0 1048576 1
+D0
+The cobbled streets of Falcon Road lie to the north.
+~
+~
+0 -1 21029
+D1
+Walking in this direction will lead you into the very heart of the city.
+~
+~
+0 -1 21041
+D2
+Falcon Road lies to the south.
+~
+~
+0 -1 21027
+D3
+To the west is the west gate of Darkhaven.
+~
+~
+0 -1 21088
+E
+sign post signpost~
+West  - The Western Gate of Darkhaven
+South - Falcon Road
+        - To Market Street
+        - To Law Avenue
+East  - Horizon Road
+        - To Darkhaven Square
+North - Falcon Road
+        - To Justice Avenue
+~
+S
+#21029
+Falcon Road~
+You are walking down a rarely used portion of Falcon Road.  To the east is
+Darkhaven's church, while Falcon Road ranges to the north and south.
+~
+0 1048576 1
+D0
+Falcon Road stretches northward.
+~
+~
+0 -1 21030
+D2
+The intersection of Horizon Road and Falcon Road is south of here.
+~
+~
+0 -1 21028
+S
+#21030
+Falcon Road~
+You walk through a poor, almost abandoned section of Darkhaven.  Indeed,
+this portion of Falcon Road is neither dirty nor clean, just untouched.
+The cobbled road continues to the north and south.
+~
+0 1048576 1
+D0
+Falcon Road extends northward.
+~
+~
+0 -1 21031
+D2
+Falcon Road stretches southward.
+~
+~
+0 -1 21029
+S
+#21031
+Falcon Road~
+Here you spy the spires and stained glass windows of the cathedral peeking
+out peek out from the lush green forest cultivated in the center of this
+thriving city.  Falcon Road ranges to both the north and south.
+~
+0 1048576 1
+D0
+Falcon Road meets with Justice Road to the north.
+~
+~
+0 -1 21032
+D2
+Falcon Road lies to the south.
+~
+~
+0 -1 21030
+S
+#21032
+Meeting of Falcon Road and Justice Road~
+Falcon Road and Justice Road come together here to form one of the four
+corners of Darkhaven.  A stone staircase lead upward onto the fantastic
+city's battlements, from where even the strongest foe can be repelled.
+Falcon Road lies to the south, while Justice Road stretches eastward.
+~
+0 1048576 1
+D1
+Justice Road lies to the east.
+~
+~
+0 -1 21033
+D2
+Falcon Road lies to the south.
+~
+~
+0 -1 21031
+D4
+The stairs lead up to Darkhaven's battlements.
+~
+~
+0 -1 21328
+E
+sign post signpost~
+East - Justice Road
+        - to Vertic Avenue
+        - to Hawk Street
+South - Falcon Road
+        - to Horizon Road
+        - to Market Street
+        - to Law Avenue
+~
+S
+#21033
+Justice Road~
+This is a rather unremarkable portion of Justice Road, as nothing out
+of the ordinary pokes at your attention.  The northern wall lines the
+cobbled street, which ranges to the east and west.
+~
+0 1048576 1
+D1
+Justice Road stretches eastward.
+~
+~
+0 -1 21034
+D3
+Justice Road and Falcon Road meet to the west.
+~
+~
+0 -1 21032
+S
+#21034
+Justice Road~
+You travel down an eerie portion of Justice Road.  In the forest to the
+south you can hear strange chants to Thoric.  The mysterious melody sends
+shivers down your spine, making you wonder who would sing such a song in
+a city of peace and goodness.  Justice Road stretches east and west.
+~
+0 1048576 1
+D1
+Justice Road lies to the east.
+~
+~
+0 -1 21035
+D3
+Justice Road continues to the west.
+~
+~
+0 -1 21033
+S
+#21035
+Justice Road~
+You are walking cautiously through this part of Justice Road.  Lately you
+have heard rumors of thieves prowling these parts, mocking the very name
+of the road.  The cobbled street ranges to the east and west.
+~
+0 1048576 1
+D1
+The intersection of Vertic Avenue and Justice Road is east of here.
+~
+~
+0 -1 21004
+D3
+Justice Road stretches westward.
+~
+~
+0 -1 21034
+S
+#21036
+Horizon Road~
+Travelling the cobbled streets of Horizon Road, you are pleased to see the
+ancient Darkhaven Town Hall still stands.  Horizon road continues to the
+east and west.
+~
+0 1048576 1
+D1
+Horizon Road stretches onward in this direction.
+~
+~
+0 -1 21037
+D3
+The road to the west leads to Darkhaven Square.
+~
+~
+0 -1 21000
+E
+sign post signpost~
+East  - Horizon Road
+        - To Hawk Street
+South - The Archives
+        - To the Lore of the Archives
+        - To the Oracle of the Archives
+West  - Horizon Road
+        - To Vertic Avenue
+        - To Falcon Road
+        - To Darkhaven Square
+~
+S
+#21037
+Horizon Road~
+While traversing Horizon Road, you gaze up at the Darkhaven Tower of
+Sorcery, whose entrance lies to the south.  The lengthy cobblestone
+road stretches to the east and west.
+~
+0 1048576 1
+D1
+Horizon Road continues in this direction.
+~
+~
+0 -1 21038
+D2
+The gates to Darkhaven's Tower of Sorcery are to the south.
+~
+~
+0 -1 21126
+D3
+Horizon Road continues in this direction.
+~
+~
+0 -1 21036
+E
+sign post signpost~
+East  - Horizon Road
+        - To Hawk Street
+South - Darkhaven Tower of Sorcery
+        - To the Guild of Mages
+West  - Horizon Road
+        - To Vertic Avenue
+        - To Falcon Road
+        - To Darkhaven Square
+~
+S
+#21038
+Horizon Road~
+Young and giddy adventurers pass you as you travel this portion of Horizon
+Road.  Gazing southward, you see the illustrious Darkhaven Academy, which
+has the responsibility of training new adventurers.  The cobbled streets
+of Horizon Road continue to the east and west.
+~
+0 1048576 1
+D1
+The intersection of Horizon Road and Hawk Street lies to the east.
+~
+~
+0 -1 21012
+D2
+The entrance to Darkhaven Academy lies to the south.
+~
+~
+0 -1 21280
+D3
+Horizon Road stretches to the west as far as the eye can see.
+~
+~
+0 -1 21037
+E
+sign post signpost~
+East  - Horizon Road
+        - To Hawk Street
+South - Darkhaven Academy
+West  - Horizon Road
+        - To Vertic Avenue
+        - To Falcon Road
+        - To Darkhaven Square
+~
+S
+#21039
+Horizon Road~
+You quicken your pace as you walk down the cobblestones of Horizon Road.
+Gazing to the north, you see the cathedral in all its beauty.  To the east
+is Darkhaven Square, while Horizon Road leads on to the west.  The Western
+Hall, a popular point of congregation, is situated in a building just to
+the south.
+~
+0 1048576 1
+D1
+The road to the east leads to Darkhaven Square.
+~
+~
+0 -1 21000
+D2
+The Western Hall lies in this direction.
+~
+~
+0 -1 21335
+D3
+Horizon Road stretches onward as far as the eye can see.
+~
+~
+0 -1 21040
+E
+sign post signpost~
+East  - Horizon Road
+        - To Hawk Street
+        - To Vertic Avenue
+        - To Darkhaven Square
+South - Western Hall
+West  - Horizon Road
+        - To Falcon Road
+~
+S
+#21040
+Horizon Road~
+Here the city's inn stands to the south, and you make note to remember 
+this location for later.  Gazing to the east and west, you can see nothing
+but Horizon Road.
+~
+0 1048576 1
+D1
+Horizon Road stretches further eastward.
+~
+~
+0 -1 21039
+D2
+The town inn awaits.
+~
+~
+0 -1 21069
+D3
+Horizon Road stretches further westward.
+~
+~
+0 -1 21041
+E
+sign post signpost~
+East  - Horizon Road
+        - To Hawk Street
+        - To Vertic Avenue
+        - To Darkhaven Square
+South - The Inn
+West  - Horizon Road
+        - To Falcon Road
+~
+S
+#21041
+Horizon Road~
+Cheery laughter can be heard in this section of Horizon Road.  Listening
+closely, you are not surprised to find the laughter coming from the tavern
+to the south.  Peasants passing by also seem interested in those who can
+find joy in these dark times.  Horizon Road ranges to the east and west.
+~
+0 1048576 1
+D1
+Horizon Road continues in this direction.
+~
+~
+0 -1 21040
+D2
+The tavern lies to the south.
+~
+~
+0 -1 21068
+D3
+Horizon Road and Falcon Road cross to the west.
+~
+~
+0 -1 21028
+E
+sign post signpost~
+East  - Horizon Road
+        - To Hawk Street
+        - To Vertic Avenue
+        - To Darkhaven Square
+South - The Grim Smile
+West  - Horizon Road
+        - To Falcon Road
+~
+S
+#21042
+Vertic Avenue~
+You are travelling upon the southern portion of Vertic Avenue.  The tents
+of the Darkhaven markets rise high into the air to the east and west.  The
+cobblestone road stretches to the north and south, where you can see a
+bustling intersection.
+~
+0 1048576 1
+D0
+The road to the north leads to Darkhaven Square.
+~
+~
+0 -1 21000
+D2
+A bustling intersection lies to the south.
+~
+~
+0 -1 21043
+S
+#21043
+Intersection of Vertic Avenue and Market Street~
+You stand at the intersection of Vertic Avenue and Market Street.  The
+intersection bustles with activity as citizens go about their business.
+To the east and west runs Market Street, lined with the exotic shops of
+Darkhaven, while Vertic Avenue lies to the north and south.
+~
+0 1048576 1
+D0
+Vertic Avenue lies to the north.
+~
+~
+0 -1 21042
+D1
+You can see the exotic markets of Darkhaven.
+~
+~
+0 -1 21048
+D2
+Vertic Avenue stretches to the south as far as the eye can see.
+~
+~
+0 -1 21044
+D3
+You can see the exotic markets of Darkhaven.
+~
+~
+0 -1 21047
+E
+sign post signpost~
+North - Vertic Avenue
+        - To Justice Road
+        - To Horizon Road
+        - To Darkhaven Square
+East  - Market Street
+        - To Hawk Street
+South - Vertic Avenue
+        - To Law Avenue
+West  - Market Street
+        - To Falcon Road
+~
+S
+#21044
+Vertic Avenue~
+While traversing the busy, cobbled streets of Darkhaven, you notice
+a particularly dark alley to the west which citizens commonly avoid.
+Grinning, you imagine the cloaked thief lurking in the shadows.
+Vertic Avenue extends to the north and south.
+~
+0 1048576 1
+D0
+Intersection of Vertic Avenue and Market Street
+~
+~
+0 -1 21043
+D2
+The intersection of Vertic Avenue and Law Avenue lies to the south.
+~
+~
+0 -1 21020
+D3
+You can't make out any details about the dark alley.
+~
+~
+0 -1 21065
+E
+sign post signpost~
+North - Vertic Avenue
+        - To Market Street
+        - To Horizon Road
+        - To Justice Road
+        - To Darkhaven Square
+West  - Thieves Alley
+        - To the Guild of Thieves
+South - Vertic Avenue
+        - To Law Avenue
+~
+S
+#21045
+Market Street~
+You smile at the sight of the familiar Market Street and its glorious
+pavilions.  A fiery ruby catches your eye in the shop to the south,
+while the shop to the north is eerily silent.  Market Street extends
+to the east and west.
+~
+0 1048576 1
+D0
+A scribe's shop is situated just north of here.
+~
+~
+0 -1 21051
+D1
+More shops attract your attention to the east.
+~
+~
+0 -1 21046
+D2
+A jewelry shop has been set up in the tent to the south.
+~
+~
+0 -1 21052
+D3
+Market Street meets up with Falcon Road to the west.
+~
+~
+0 -1 21026
+E
+sign post signpost~
+North - The Scribe's Tent
+East  - Market Street
+        - To Hawk Street
+        - To Vertic Avenue
+South - The Shining Emerald
+West  - Market Street
+        - To Falcon Road
+~
+S
+#21046
+Market Street~
+Citizens of Darkhaven scamper around you, anxious to finish their shopping.
+Gazing northward, you can see a female elf brewing a multitude of potions,
+while to the south you see Darkhaven's courier service.  Market Street
+ranges to the east and west.
+~
+0 1048576 1
+D0
+The Alchemist's is to the north.
+~
+~
+0 -1 21054
+D1
+More shops attract your attention to the east.
+~
+~
+0 -1 21047
+D2
+The Darkhaven mail service is situated in a building to the south.
+~
+~
+0 -1 21053
+D3
+More shops attract your attention to the west.
+~
+~
+0 -1 21045
+E
+sign post signpost~
+North - The Alchemist's
+East  - Market Street
+        - To Hawk Street
+        - To Vertic Avenue
+South - The Darkhaven Courier
+West  - Market Street
+        - To Falcon Road
+~
+S
+#21047
+Market Street~
+The cobbled road is buzzing with activity.  Eager shouts from numerous tents
+and pavilions encourage potential customers to come inspect a shopkeeper's
+wares.  To the north is the Magician's Tent, while a dealer in parchment is
+to the south.  Market Street stretches to the east and west.
+~
+0 1048576 1
+D0
+The wizard's tent is to the north.
+~
+~
+0 -1 21055
+D1
+You see the intersection of Vertic Avenue and Market Street.
+~
+~
+0 -1 21043
+D2
+A parchment store lies to the south.
+~
+~
+0 -1 21056
+D3
+More shops attract your attention to the west.
+~
+~
+0 -1 21046
+E
+sign post signpost~
+North - Wizard's Tent
+East  - Market Street
+        - To Hawk Street
+        - To Vertic Avenue
+South - Quills and Parchments
+West  - Market Street
+        - To Falcon Road
+~
+S
+#21048
+Market Street~
+The cobbled road is buzzing with activity.  Eager shouts from numerous tents
+and pavilions encourage potential customers to come inspect a shopkeeper's
+wares.  To the north is the Food Market, while the tent to the south is
+dedicated to repairing items.  Market Street stretches to the east and west.
+~
+0 1048576 1
+D0
+The butcher's shop lies in this direction.
+~
+~
+0 -1 21057
+D1
+More shops attract your attention in this direction.
+~
+~
+0 -1 21049
+D2
+You can see a stocky dwarf repairing equipment.
+~
+~
+0 -1 21058
+D3
+The intersection of Vertic Avenue and Market Street lies to the west.
+~
+~
+0 -1 21043
+E
+sign post signpost~
+North - The Carnivore's Delight
+East  - Market Street
+        - To Hawk Street
+South - The Damaged Goods
+West  - Market Street
+        - To Vertic Avenue
+        - Falcon Road
+~
+S
+#21049
+Market Street~
+Citizens of Darkhaven scamper about you, eager to finish their shopping.
+The aroma of fresh bread assails your nose, coming from a bakery to the
+north, and the clanging of metal on metal rings out from Darkhaven's
+armoury to the south.  Market Street ranges to the east and west.
+~
+0 1048576 1
+D0
+You can see a bakery to the north.
+~
+~
+0 -1 21060
+D1
+More shops attract your attention in this direction.
+~
+~
+0 -1 21050
+D2
+The Solid Parry is to the south.
+~
+~
+0 -1 21059
+D3
+More shops attract your attention in this direction.
+~
+~
+0 -1 21048
+E
+sign post signpost~
+North - The Darkhaven Bakery
+East  - Market Street
+        - To Hawk Street
+South - The Solid Parry
+West  - Market Street
+        - To Vertic Avenue
+        - To Falcon Road
+~
+S
+#21050
+Market Street~
+You smile at the familiar sight of Market Street and its glorious pavilions.
+The ring of sword on sword can be heard to the south, while the dairy is
+situated to the north.  Market Street extends east and west.
+~
+0 1048576 1
+D0
+The dairy to the north deals in all dairy products.
+~
+~
+0 -1 21061
+D1
+Market Street joins up with Hawk Street to the east.
+~
+~
+0 -1 21014
+D2
+Weapons can be bought or sold in the store to the south.
+~
+~
+0 -1 21062
+D3
+More shops attract you in this direction.
+~
+~
+0 -1 21049
+E
+sign post signpost~
+North - Dairy Products
+East  - Market Street
+        - To Hawk Street
+South - The Daring Attack
+West  - Market Street
+        - To Vertic Avenue
+        - To Falcon Road
+~
+S
+#21051
+The Scribe's Tent~
+You find yourself in a quiet section of the tent.  All that can be heard is
+the constant scratching of quill on parchment and scrolls litter the floor,
+although most have been carefully categorized and placed into different
+boxes.  A desk sits in the center of the room, where the scribe writes an
+infinite amount of scrolls.  You almost pity the man his job, until you see
+his coin pouch.  To the east is the apothecary, while a tent opening to the
+south leads back out onto Market Street.
+~
+0 1048584 0
+D1
+The alchemist's tent lies to the east.
+~
+~
+0 -1 21054
+D2
+The opening in the tent leads back out onto Market Street.
+~
+~
+0 -1 21045
+S
+#21052
+The Shining Emerald~
+A locked display box dominates this particular shop.  Under the glass
+of the box are a myriad of gems, each lying gently upon a miniscule cushion.
+Hanging from the walls are various paintings, while sculptures take up the
+rest of the floor space.  To the east is Darkhaven's courier, while an
+opening in the tent to the north leads back out onto Market Street.
+~
+0 1048584 0
+D0
+An opening in the tent leads back out onto Market Street.
+~
+~
+0 -1 21045
+D1
+Darkhaven's courier lies to the east.
+~
+~
+0 -1 21053
+S
+#21053
+The Darkhaven Courier~
+An immense bookshelf set against the southern wall of the tent has been
+organized into small slots, each containing letters to and from the citizens
+of Darkhaven.  Errand boys are constantly coming in and collecting packets
+for delivery.  To the east is the Quill and Parchment shop, while the shop
+to the west deals in jewelry and other rare treasures.  An opening in the
+tent leads back out onto Market Street to the north.
+~
+0 3407880 0
+D0
+An opening in the tent leads back out onto Market Street.
+~
+~
+0 -1 21046
+D1
+The Quill and Parchment shop lies to the east.
+~
+~
+0 -1 21056
+D2
+A silent corner of the courier makes a good spot for composing thoughts.
+~
+~
+16777216 -1 21409
+D3
+A dealer in fine jewelry has set up a shop to the west.
+~
+~
+0 -1 21052
+S
+#21054
+The Alchemist's~
+This portion of the tent is filled with the scent of chemicals. Wooden
+shelves are lined with potions, each of varying colors. A counter sits
+in the center of the room. Walking nearer, you notice a small plaque
+on the counter which reads 'Success lies in alchemy'. An opening in the
+tent leads back out onto Market Street lies to the south, while two
+other magic shops are situated to the east and west.
+~
+0 1048584 0
+D1
+To the east is the wizard's tent.
+~
+~
+0 -1 21055
+D2
+The opening in the tent leads back out onto Market Street.
+~
+~
+0 -1 21046
+D3
+A scribe's shop lies to the west.
+~
+~
+0 -1 21051
+S
+#21055
+The Wizard's Tent~
+A musty odor fills your nostrils as you inhale.  Bookcases hug the walls
+of this part of the tent, each shelf filled with magical items.  As you
+begin to inspect several of the shelves, you notice they are all covered
+in dust.  A square wooden counter sits in the center of the room, and an
+opening in the tent leads back out onto Market Street, while the
+Alchemist's tent lies to the west.
+~
+0 1048584 0
+D2
+The opening in the tent leads back out to Market Street.
+~
+~
+0 -1 21047
+D3
+You can see the alchemist's tent.
+~
+~
+0 -1 21054
+S
+#21056
+Quills and Parchments~
+You find yourself in a rather small and empty shop.  Parchments tied
+into neat packs lie about in an unorganized manner.  A counter in the
+center of the room houses numerous plain quills, as well as a couple
+more unique writing tools.  The Darkhaven courier is to the west, and
+the newsletter's public office is to the south, while an opening in
+the tent to the north leads back out onto Market Street.
+~
+0 1048584 0
+D0
+An opening in the tent leads back out onto Market Street.
+~
+~
+0 -1 21047
+D3
+The Darkhaven Courier is situated in the shop to the west.
+~
+~
+0 -1 21053
+S
+#21057
+The Butcher's Shop~
+The smell of fresh meat is present in the air of this shop.  Kept cool in
+magically frosted vaults, the city butcher sells his meats here, imported
+from lands far distant.  To the south is the famous Market Street, while
+the Darkhaven Bakery lies to the east.
+~
+0 1048584 0
+D1
+The city bakery is to the east.
+~
+~
+0 -1 21060
+D2
+An opening in the tent allows you to return to Market Street.
+~
+~
+0 -1 21048
+S
+#21058
+The Blacksmith's Tent~
+You stand within the sweltering tent of the city's blacksmith.  Darkhaven's
+armourer lies to the east, while an opening in the tent leads back out onto
+Market Street.
+~
+0 1048584 0
+D0
+The opening in the tent leads back out onto Market Street.
+~
+~
+0 -1 21048
+D1
+The armourer's shop lies to the east.
+~
+~
+0 -1 21059
+S
+#21059
+Armory~
+This shop's owner is a dedicated creator of armor and shields.  Having lost
+her son to shabby equipment, she took up the job of putting protective suits
+of mail together.  To the west is the blacksmith's, while the armourer's is
+to the east.  An opening in the tent leads back out north onto Market Street.
+~
+0 1048584 0
+D0
+The opening in the tent leads back out onto Market Street.
+~
+~
+0 -1 21049
+D1
+The weaponry shop is to the east.
+~
+~
+0 -1 21062
+D3
+The blacksmith's is to the west.
+~
+~
+0 -1 21058
+S
+#21060
+The Darkhaven Bakery~
+Upon entering the Darkhaven Bakery, you find yourself surrounded by citizens
+of the marvelous city, each waiting in line for their daily bread.  Gazing
+eastward, you see a farmer's shop which sells all forms of dairy products.
+A butcher's shop also lies to the west, while an opening in the tent to
+the south leads back out onto Market Street.
+~
+0 1048584 0
+D1
+Dairy products can be bought in the shop to the east.
+~
+~
+0 -1 21061
+D2
+An opening in the tent leads back out onto Market Street.
+~
+~
+0 -1 21049
+D3
+The butchery lies to the west.
+~
+~
+0 -1 21057
+S
+#21061
+The Dairy Tent~
+This small shop smells strongly of cheese, as dozens of types of cheeses
+have been laid out and labeled properly on several long shelves.  You notice
+many bottles of milk, considered to be more important than even water,
+carefully stacked in the northeast corner.  To the west is the Darkhaven
+Bakery, while Market Street lies to the south.
+~
+0 1048584 0
+D2
+An opening in the tent leads back out onto Market Street.
+~
+~
+0 -1 21050
+D3
+The Darkhaven Bakery is situated in the shop to the west.
+~
+~
+0 -1 21060
+S
+#21062
+Weaponry Shop~
+Racks line the walls of this tent, each filled to the brim with weapons.
+You grin evilly at the items of destruction, and try out a couple on the
+practice dummies hung from the ceiling.  A counter in the center of the
+room is where the keeper of this shop does business.  To the west is
+the armourer's shop, while an opening in the tent to the north leads
+back out onto Market Street.
+~
+0 1048584 0
+D0
+The opening in the tent leads back out onto Market Street.
+~
+~
+0 -1 21050
+D3
+The Solid Parry is situated to the west.
+~
+~
+0 -1 21059
+S
+#21063
+Thieves Alley~
+You are walking through a particularly dark and unkempt alley of Darkhaven.
+Rats scurry across the cobbled ground, squeaking at you.  Empty crates and
+tattered rags are lying about.  The alley opens up to Falcon Road to the
+west, while to the east the darkness deepens.
+~
+0 1048576 1
+D1
+The Thieves Alley continues in this direction.
+~
+~
+0 -1 21064
+D3
+Falcon Road lies to the west.
+~
+~
+0 -1 21025
+S
+#21064
+Thieves Alley~
+You are walking through a particularly dark and unkempt alley of Darkhaven.
+Rats scurry across the cobbled ground, squeaking at you.  Empty crates and
+tattered rags are lying about.  The alley stretches to the east and west,
+while the mysterious Guild of Thieves lies to the north.
+~
+0 1048576 1
+D0
+The thieves of Darkhaven have set up their guild in the building to the north.
+~
+~
+0 -1 21141
+D1
+The Thieves Alley continues in this direction.
+~
+~
+0 -1 21065
+D3
+The Thieves Alley continues in this direction.
+~
+~
+0 -1 21063
+S
+#21065
+Thieves Alley~
+You are walking through a particularly dark and unkempt alley of Darkhaven.
+Rats scurry across the cobbled ground, squeaking at you.  Empty crates and
+tattered rags are lying about.  The alley opens up to Vertic Avenue to the
+east, while to the west the darkness deepens.
+~
+0 1048576 1
+D1
+Vertic Avenue lies to the east.
+~
+~
+0 -1 21044
+D3
+The Thieves Alley continues in this direction.
+~
+~
+0 -1 21064
+S
+#21066
+Annir's Clothing~
+The shop you have entered smells heavily of leather.  Gazing about, you
+see all manner of clothing, from leather to silk.  A wooden counter lines
+the northern wall of the shop, and several stalls line the eastern wall,
+where you can try on your clothes.  A door to the south leads back out
+onto Law Avenue.
+~
+0 1048584 0
+D2
+The door leads back out onto Law Avenue
+~
+~
+0 -1 21022
+S
+#21067
+Companions and Mounts~
+You walk into a large shop which smells of horses and hay.  Behind the long
+wooden counter are dozens of cages containing varying types of animals.  You
+can hear the sounds of horses coming from a store room in the back of the
+shop.  A door to the south leads back out onto the busy Law Avenue.
+~
+0 12 0
+S
+#21068
+The Tavern~
+You enter the city's grungy tavern, in fact the only bar inside the city
+itself, appropriately connected to the city's inn to the east.  Smoke and
+the smell of alcohol mix with laughter, quickly giving you a dull headache.
+To the east is town inn, while the fresh air of the outdoors stands at
+bay to the north.
+~
+0 1048584 0
+D0
+A door leads out onto Horizon Road.
+~
+~
+0 -1 21041
+D1
+The inn lies to the east.
+~
+~
+0 -1 21069
+S
+#21069
+The Darkhaven Inn~
+Here a weary traveller can seek a good rest in comfort without fear of
+theft or, worse yet, murder.  A long counter stretches across much of
+the room, and for a few coins the innkeeper will gladly rent you one
+of his rooms.  Drunken laughter emerges from a hall to the west.  To
+the south beyond a door barred by the innkeeper are the rooms.
+~
+0 1048588 0
+D0
+Horizon Road lies to the north.
+~
+~
+0 -1 21040
+D3
+The tavern lies to the west.
+~
+~
+0 -1 21068
+S
+#21071
+A Chamber Covered with Runes~
+Runes of protection and preservation have been carefully engraved in the
+walls of this chamber.  It is here that the archmages of the guild leave
+behind various scrolls, staves and wands which hold little value for them
+but may be of great use to an initiate.  The powerful magic being worked
+in this room gives you the feeling that the items left here could survive
+the greatest of calamities.  A corridor leads back to the guild's main
+hall to the northeast.
+~
+0 3686408 0
+D6
+The corridor leads back to the guild's main hall.
+~
+~
+0 -1 21127
+S
+#21072
+The Court of the Red Robes~
+This hall is slightly smaller than the Court of the Conclave, for it
+is reserved for the members of the Red Robes only. The seats in this
+room are all crafted of plain grey stone, and circle the slate podium
+sitting in the center of the hall.  A lone aisle leads back to the
+Court of the Conclave.
+~
+0 3145740 0
+D2
+The Court of the Conclave lies to the south.
+~
+~
+0 -1 21133
+S
+#21073
+The Court of the Black Robes~
+This hall is slightly smaller than the Court of the Conclave, for it is
+reserved for the members of the Black Robes only.  The seats in this room
+are all crafted of dark obsidian and circle the onyx podium lying in the
+hall's center.  A sole aisle leads back to the Court of the Conclave.
+~
+0 3145740 0
+D7
+The Court of the Conclave is to the northwest.
+~
+~
+0 -1 21133
+S
+#21074
+Inside the Southern Gate~
+You stand inside the southern gate of Darkhaven.  To the north is the
+intersection of Vertic Avenue and Law Avenue.
+~
+0 1048580 1
+D0
+Two roads cross to the north.
+~
+~
+0 -1 21020
+D2
+The gate leads outside of Darkhaven.
+~
+gate~
+7 21073 21075
+S
+#21075
+Outside the Southern Gate~
+You are standing just outside the southern gate of Darkhaven.  To the south
+you see the southern bridge, which crosses the Darkhaven River.  As you are
+about to leave, something compels you to investigate the foliage near here.
+~
+0 1048580 1
+D0
+The gate leads into the city of Darkhaven.
+~
+gate~
+7 21073 21074
+D1
+A path begins to the east.
+~
+~
+0 -1 21124
+D2
+A long, rusted bridge leads away into the black forest...
+~
+~
+0 -1 3504
+D3
+A path begins to the west.
+~
+~
+0 -1 21076
+D5
+Into darkness...
+~
+manhole~
+1035 -1 7030
+E
+foliage~
+Searching thoroughly, you discover a manhole hidden beneath one of the
+many bushes.
+~
+S
+#21076
+On a Trail West of the Southern Gate~
+You are on a dirt road just west of the southern gate.  The path extends to
+the east and west.
+~
+0 1048576 1
+D1
+To the east the southern gate of Darkhaven.
+~
+~
+0 -1 21075
+D3
+The road continues to the west.
+~
+~
+0 -1 21077
+S
+#21077
+On a Trail Rounding Darkhaven~
+You are on a dirt road set against the southern wall of Darkhaven.  The
+blue waters of Darkhaven River can be seen to the south.  The trail you
+so faithfully travel continues to the east and west.
+~
+0 1048576 1
+D1
+The road continues to the east.
+~
+~
+0 -1 21076
+D3
+The road continues to the west.
+~
+~
+0 -1 21078
+S
+#21078
+On a Trail Rounding Darkhaven~
+You are on a dirt path rounding the southern wall of Darkhaven.  The
+familiar sound of running water emanates from the Darkhaven River to
+the south.  The trail stretches to the east and west.
+~
+0 1048576 1
+D1
+The path continues to the east.
+~
+~
+0 -1 21077
+D3
+The trail continues to the west.
+~
+~
+0 -1 21079
+S
+#21079
+On a Trail Rounding Darkhaven~
+You are on a dirt trail which lines the southern wall of Darkhaven.
+The sound of rushing water can be heard to the south, surely coming
+from Darkhaven River.  The road extends to the east and west.
+~
+0 1048576 1
+D1
+The path continues to the east.
+~
+~
+0 -1 21078
+D3
+The road continues to the west.
+~
+~
+0 -1 21080
+S
+#21080
+On a Trail Rounding Darkhaven~
+You are on a dirt road hugging the southern wall of Darkhaven.  A
+steep hill, one too steep to descend, lies to the south, cradling
+Darkhaven River.  The trail ranges to the east and west.
+~
+0 1048576 1
+D1
+The road continues to the east.
+~
+~
+0 -1 21079
+D3
+The path continues to the west.
+~
+~
+0 -1 21081
+S
+#21081
+Before the Precarious Bridge~
+You have come to what remains of Darkhaven's ancient stone bridge, which
+allowed passage to what was once the concourse.  Its supports are cracked,
+and the entire structure seems liable to fall into the Darkhaven River
+at any moment.  To the north and east are two plain dirt roads, while
+you can see the ruins of the concourse to the south.
+~
+0 1048576 1
+D0
+A path begins to the north.
+~
+~
+0 -1 21082
+D1
+A road begins to the east.
+~
+~
+0 -1 21080
+D2
+The precarious bridge lies to the south.
+~
+~
+0 -1 21296
+S
+#21082
+On a Trail Rounding Darkhaven~
+You travel a dirt road hugging the western wall of Darkhaven.  The stunted
+trees of Haon Dor can be seen to the west, while the trail ranges to the
+north and south.
+~
+0 1048576 1
+D0
+The path continues to the north.
+~
+~
+0 -1 21083
+D2
+The trail continues to the south.
+~
+~
+0 -1 21081
+S
+#21083
+On a Trail Rounding Darkhaven~
+You are on a dirt path situated but a few feet west of Darkhaven.
+The dark forest of Haon Dor lies to the west, while the unkempt
+road stretches to the north and south.
+~
+0 1048576 1
+D0
+The trail continues to the north.
+~
+~
+0 -1 21084
+D2
+The path continues to the south.
+~
+~
+0 -1 21082
+S
+#21084
+On a Trail Rounding Darkhaven~
+You are on a dirt trail set against the western wall of Darkhaven.
+The gloomy forest of Haon Dor is situated to your west, while the
+path extends to the north and south.
+~
+0 1048576 1
+D0
+The road continues to the north.
+~
+~
+0 -1 21085
+D2
+The path continues to the south.
+~
+~
+0 -1 21083
+S
+#21085
+On a Trail Rounding Darkhaven~
+You are on a dirt road hugging the western wall of Darkhaven.  The
+forest of Haon Dor lies to the west, while the path ranges to the
+north and south.
+~
+0 1048576 1
+D0
+The path continues to the north.
+~
+~
+0 -1 21086
+D2
+The road continues to the south.
+~
+~
+0 -1 21084
+S
+#21086
+On a Trail South of the Western Gate~
+You are on a dirt road hugging the western wall of Darkhaven.  Gazing
+northward, you see a patrol of guards returning to their city after a
+hard day's work.  The path continues to the south.
+~
+0 1048576 1
+D0
+The western entrance to Darkhaven lies to the north.
+~
+~
+0 -1 21087
+D2
+The train continues rounding the city wall of Darkhaven.
+~
+~
+0 -1 21085
+S
+#21087
+Outside the Western Gate~
+You are standing just outside the western gate of Darkhaven.  Gazing up at
+the battlements, you notice a particularly well dressed lord organizing this
+gate's defense.  A dirt road lies to the north and south, circling around
+Darkhaven.  To the west you see a wide path which passes through the
+dark forest of Haon Dor.
+~
+0 1048580 1
+D0
+A path begins to the north.
+~
+~
+0 -1 21089
+D1
+The gate leads into the city of Darkhaven.
+~
+gate~
+7 21070 21088
+D2
+A road begins to the south.
+~
+~
+0 -1 21086
+D3
+Into the forest...
+~
+~
+0 -1 6000
+S
+#21088
+Inside the Western Gate~
+You stand the western gate of Darkhaven.  To the east is the intersection of
+Horizon Road and Falcon Road.
+~
+0 1048580 1
+D1
+Two roads cross to the east.
+~
+~
+0 -1 21028
+D3
+The road continues deep into the forests of Haon Dor.
+~
+gate~
+7 21070 21087
+S
+#21089
+On a Trail North of the Western Gate~
+You are walking down an endless dirt road which circles the city of
+Darkhaven.  To the west is the forest of Haon Dor, and from somewhere
+within a crow resting in a tree cries out at you.  The western gate
+of Darkhaven is just south of here, and the path stretches northward.
+~
+0 1048576 1
+D0
+The path continues to the north.
+~
+~
+0 -1 21090
+D2
+The western gate is to the south.
+~
+~
+0 -1 21087
+S
+#21090
+On a Trail Rounding Darkhaven~
+You are on a dirt road which circles the city of Darkhaven.  A trail
+extends westward into a strange forest.  A wooden sign at the path's
+entrance attracts your attention, while the road stretches off to
+the north and south.
+~
+0 1048576 1
+D0
+The path continues to the north.
+~
+~
+0 -1 21091
+D2
+The road continues to the south.
+~
+~
+0 -1 21089
+D3
+Thick brambles and overhanging twigs part to reveal a narrow trail.
+~
+~
+0 -1 21401
+E
+sign~
+The sign reads:
+ Hail Traveler!  You stand before the Pixie Forest, a
+group of woods populated by one of the smaller races of
+the world.  The area is intended for those of low
+level, and welcomes you.
+~
+S
+#21091
+On a Trail Rounding Darkhaven~
+You are circling the city of Darkhaven by way of a long dirt road.
+To the south is an entrance to the Pixie Forest, while the path
+continues northward.
+~
+0 1048576 1
+D0
+The path continues to the north.
+~
+~
+0 -1 21092
+D2
+The road continues to the south.
+~
+~
+0 -1 21090
+S
+#21092
+On a Trail Rounding Darkhaven~
+Your legs begin to feel weak and you realize that you have been in the
+wilderness far too long.  A nice rest in Darkhaven will do you much
+good.  The unending dirt road stretches to the north and south.
+~
+0 1048576 1
+D0
+The path continues to the north.
+~
+~
+0 -1 21093
+D2
+The trail continues to the south.
+~
+~
+0 -1 21091
+S
+#21093
+On a Trail Rounding Darkhaven~
+The long dirt road curves around the northwestern corner of Darkhaven 
+just north of here.  A gentle sea breeze cools your skin, coming from
+the northwest.  The lengthy trail also continues to the south.
+~
+0 1048576 1
+D0
+A gentle sea breeze is coming in from the north.
+~
+~
+0 -1 21094
+D2
+The path continues to the south.
+~
+~
+0 -1 21092
+S
+#21094
+On a Trail Rounding Darkhaven~
+The long dirt road circles around the northwest corner of Darkhaven's
+city walls.  A small trail branches off here, heading roughly westward,
+and the smell of a gentle sea breeze blows in from this direction.
+The path continues to the east and south.
+~
+0 1048576 1
+D1
+The path continues to the east.
+~
+~
+0 -1 21095
+D2
+The road continues to the south.
+~
+~
+0 -1 21093
+S
+#21095
+On a Trail Rounding Darkhaven~
+The long dirt road curves around the northwest corner of Darkhaven west
+of here.  The unending road continues to the east and west.
+~
+0 1048576 1
+D1
+The path continues to the east.
+~
+~
+0 -1 21096
+D3
+The road continues to the west.
+~
+~
+0 -1 21094
+S
+#21096
+On a Trail Rounding Darkhaven~
+Lying at your feet is the freshly severed head of a cityguard.  A scroll
+has been tied to the horrid gift, obviously a message to Darkhaven.  The
+dirt road extends to the east and west.
+~
+0 1048576 1
+D1
+The trail continues to the east.
+~
+~
+0 -1 21097
+D3
+The path continues to the west.
+~
+~
+0 -1 21095
+E
+scroll~
+Runes of preservation and permanence cover the scroll, as well as the
+words:  Darkhaven's Time Will Come, Just As Thalos.
+~
+S
+#21097
+On a Trail Rounding Darkhaven~
+The ground here is packed in, not like the loose dirt you have become
+accustomed to.  Two tracks stretch across the terrain, those of a horse
+and the cart it was pulling.  The road stretches to the east and west.
+~
+0 1048576 1
+D1
+The road continues to the east.
+~
+~
+0 -1 21098
+D3
+The path continues to the west.
+~
+~
+0 -1 21096
+S
+#21098
+On a Trail West of the Northern Gate~
+You are walking down a dirt road just west of Darkhaven's northern gate.
+Footprints in the dirt tells you that a patrol of guards passed not long
+ago. The trail ranges to the east and west.
+~
+0 1048576 1
+D1
+Darkhaven's northern gate is to the east.
+~
+~
+0 -1 21099
+D3
+The road continues to the west.
+~
+~
+0 -1 21097
+S
+#21099
+Outside the Northern Gate~
+You are walking down a dirt road just west of the northern gate.  Footprints
+in the dirt tells you that a patrol of guards passed not long ago.  The trail
+ranges to the east and west.
+~
+0 1048580 1
+D1
+The path begins to the east.
+~
+~
+0 -1 21101
+D2
+The gate leads into Darkhaven.
+~
+gate~
+7 21071 21100
+D3
+The road begins to the west.
+~
+~
+0 -1 21098
+S
+#21100
+Inside the Northern Gate~
+You stand inside the northern gate of Darkhaven.  To the south lies the
+intersection of Vertic Avenue and Justice Road.
+~
+0 1048580 1
+D0
+The gate leads out of Darkhaven.
+~
+gate~
+7 21071 21099
+D2
+Two roads meet to the south.
+~
+~
+0 -1 21004
+S
+#21101
+On a Trail East of the Northern Gate~
+You are walking down a dirt road not far east of the northern gate.  Tracks
+in the ground show that a band of men passed not long ago, probably a roving
+patrol of guards.  The road extends to the east and west.
+~
+0 1048576 1
+D1
+The trail continues to the east.
+~
+~
+0 -1 21102
+D3
+Darkhaven's northern gate is to the west.
+~
+~
+0 -1 21099
+S
+#21102
+On a Trail Rounding Darkhaven~
+You are a plain road which lines to the northern wall of Darkhaven.
+A broken sign lies in the dirt, its message still visible in black
+letters.  The road ranges to the east and west.
+~
+0 1048576 1
+D1
+The road continues to the east.
+~
+~
+0 -1 21103
+D3
+The path continues to the west.
+~
+~
+0 -1 21101
+E
+sign~
+The sign reads:
+ Welcome to Darkhaven - City of Hope.
+~
+S
+#21103
+On a Trail Rounding Darkhaven~
+You feel a craving for adventure and excitement as you walk down this bland
+road which circles the city of Darkhaven.  A forest to the north blocks your
+view of the plains.  The path stretches to the east and west.
+~
+0 1048576 1
+D1
+The road continues to the east.
+~
+~
+0 -1 21105
+D3
+The trail continues to the west.
+~
+~
+0 -1 21102
+S
+#21105
+On a Trail Rounding Darkhaven~
+You are on a long dirt road which circles the city of Darkhaven.  The path
+curves around here, eventually bringing you to the northern gate.
+~
+0 1048576 1
+D1
+The path continues to the east.
+~
+~
+0 -1 21106
+D3
+The road continues to the west.
+~
+~
+0 -1 21103
+S
+#21106
+On a Trail Rounding Darkhaven~
+The path curves around the northeastern corner of Darkhaven here.
+Thick, impassable woods are to the north and east, while the long
+dirt road continues to the west and south.
+~
+0 1048576 1
+D2
+The path continues to the south.
+~
+~
+0 -1 21107
+D3
+The path stretches westward.
+~
+~
+0 -1 21105
+S
+#21107
+On a Trail Rounding Darkhaven~
+The long path begins to curve here, preparing for a turn around the
+northeastern corner of Darkhaven.  A line of archers stand atop the
+city's battlements.  The path stretches to the north and south.
+~
+0 1048576 1
+D0
+The path curves around the northeastern corner.
+~
+~
+0 -1 21106
+D2
+The road continues to the south.
+~
+~
+0 -1 21108
+S
+#21108
+On a Trail Rounding Darkhaven~
+You are on a long dirt road which lines the eastern wall of Darkhaven.
+A thick, impassable forest lies to the east, while to the north the
+trail begins to curve.
+~
+0 1048576 1
+D0
+The trail stretches northward.
+~
+~
+0 -1 21107
+D2
+The path continues to the south.
+~
+~
+0 -1 21109
+S
+#21109
+On a Trail Rounding Darkhaven~
+A mystical portal floats in the sky above here, the glowing myriad
+of colors which emanates from within mesmerizes you, urging you to
+explore what lies beyond.  Suddenly a moment of clarity comes to
+you as you realize the dangers of entering the Machine Dream.
+You think twice about taking the step, and cast your eyes down the
+dirt road which leads north and south from here.
+~
+0 1048576 1
+D0
+The road heads northward.
+~
+~
+0 -1 21108
+D2
+The road extends to the south.
+~
+~
+0 -1 21110
+S
+#21110
+On a Trail Rounding Darkhaven~
+You begin to kick a rock down the long dirt trail, growing bored at
+the endless trees to the east and the limitless wall to the west.
+Yet the trail continues to the north and south, leading onward
+around the city of Darkhaven.
+~
+0 1048576 1
+D0
+The path continues to the north.
+~
+~
+0 -1 21109
+D2
+The road continues to the south.
+~
+~
+0 -1 21111
+S
+#21111
+On a Trail North of the Eastern Gate~
+You are walking down a trail just north of the eastern gate.  A forest thick
+with undergrowth is to the east, and as you approach it you realize it is
+too dense to allow you to proceed further.  The long road extends to the
+north and south.
+~
+0 1048576 1
+D0
+The path continues to the north.
+~
+~
+0 -1 21110
+D2
+Darkhaven's eastern gate is to the south.
+~
+~
+0 -1 21112
+S
+#21112
+Outside the Eastern Gate~
+You are standing just ouside the eastern gate of Darkhaven.  Soldiers walk
+the city's walls, keeping guard against whatever may come.  A road runs 
+to the north and south around the city walls.
+~
+0 1048580 1
+D0
+A path begins to the north.
+~
+~
+0 -1 21111
+D1
+The road continues out into the countryside.
+~
+~
+0 -1 3503
+D2
+A road begins to the south.
+~
+~
+0 -1 21114
+D3
+The gate leads into Darkhaven.
+~
+gate~
+7 21072 21113
+S
+#21113
+Inside the Eastern Gate~
+You stand inside the eastern gate of Darkhaven.  To the west is the
+intersection of Horizon Road and Hawk Street.
+~
+0 1048580 1
+D1
+The gate leads out of Darkhaven.
+~
+gate~
+7 21072 21112
+D3
+Two roads cross to the west.
+~
+~
+0 -1 21012
+S
+#21114
+On a Trail South of the East Gate~
+You are walking on a dirt trail just south of the eastern gate on a road
+which circles the city walls.
+~
+0 1048576 1
+D0
+The eastern gate is to the north.
+~
+~
+0 -1 21112
+D2
+The road continues to the south.
+~
+~
+0 -1 21115
+S
+#21115
+On a Trail Rounding Darkhaven~
+The dirt road curves slightly here as it maneuvers around an old abandoned
+cart.  The cart is missing its two rear wheels, probably stolen during the
+night by a band of thieves.  The lengthy path ranges north and south.
+~
+0 1048576 1
+D0
+The trail continues to the north.
+~
+~
+0 -1 21114
+D2
+The path continues to the south.
+~
+~
+0 -1 21116
+S
+#21116
+On a Trail Rounding Darkhaven~
+You are on a dirt road which lines the eastern wall of Darkhaven, famed
+City of Hope.  From here, you can see the Tower of Sorcery peeking into
+view above the towering wall.  The path continues north and south.
+~
+0 1048576 1
+D0
+The road continues to the north.
+~
+~
+0 -1 21115
+D2
+The path continues to the south.
+~
+~
+0 -1 21117
+S
+#21117
+On a Trail Rounding Darkhaven~
+You are walking down a long dirt road which hugs the outer wall of
+Darkhaven tightly.  An impassable forest is to the east, while the
+trail extends to the north and south.
+~
+0 1048576 1
+D0
+The path continues to the north.
+~
+~
+0 -1 21116
+D2
+The road continues to the south.
+~
+~
+0 -1 21118
+S
+#21118
+On a Trail Rounding Darkhaven~
+You are on a lengthy dirt road which circles all around the city of
+Darkhaven.  The path here ranges to the north and south.
+~
+0 1048576 1
+D0
+The path continues to the north.
+~
+~
+0 -1 21117
+D2
+The road continues to the south.
+~
+~
+0 -1 21119
+S
+#21119
+On a Trail Rounding Darkhaven~
+You begin to grow tired of seeing the lengthy dirt road which lines
+the outer walls of Darkhaven.  Gazing to the south, you can make out
+the Darkhaven River flowing from a tunnel in a huge mountain.  The
+path stretches to the north and west.
+~
+0 1048576 1
+D0
+The path continues to the north.
+~
+~
+0 -1 21118
+D3
+The road continues to the west.
+~
+~
+0 -1 21120
+S
+#21120
+On a Trail Rounding Darkhaven~
+You begin to run down the endless dirt road which circles the beautiful
+city of Darkhaven.  The sound of rushing water can be heard to the south,
+while the path extends to the east and west.
+~
+0 1048576 1
+D1
+The path continues to the east.
+~
+~
+0 -1 21119
+D3
+The road continues to the west.
+~
+~
+0 -1 21121
+S
+#21121
+On a Trail Rounding Darkhaven~
+You are rounding the city of Darkhaven by way of a dirt road.  The
+tall southern wall looms over you, while to the south you can see
+the Darkhaven river.  The path ranges to the east and west.
+~
+0 1048576 1
+D1
+The road continues to the east.
+~
+~
+0 -1 21120
+D3
+The path continues to the west.
+~
+~
+0 -1 21122
+S
+#21122
+On a Trail Rounding Darkhaven~
+You walk briskly down a path which lines the southern wall of Darkhaven.
+The sound of rushing water can be heard to the south, and the road itself
+stretches to the east and west.
+~
+0 1048576 1
+D1
+The road continues to the east.
+~
+~
+0 -1 21121
+D3
+The path continues to the west.
+~
+~
+0 -1 21123
+S
+#21123
+On a Trail Rounding Darkhaven~
+You are travelling down a dirt road lined with stunted pine trees.  The
+tall southern wall of Darkhaven looms over you.  A steep hill cradles the
+Darkhaven River to the south, andt the road extends to the east and west.
+~
+0 1048576 1
+D1
+The path continues to the east.
+~
+~
+0 -1 21122
+D3
+The road continues to the west.
+~
+~
+0 -1 21124
+S
+#21124
+On a Trail East of the Southern Gate~
+You are on a dirt road just east of the southern gate.  You can hear the
+sound of a hammer striking wood to the south and smile as you picture the
+citiy's Marina which must lie just ahead.  The trail continues east and west.
+~
+0 1048576 1
+D1
+The road continues to the east.
+~
+~
+0 -1 21123
+D2
+The Darkhaven Marina lies to the south.
+~
+~
+0 -1 21275
+D3
+To the west is the southern gate of Darkhaven.
+~
+~
+0 -1 21075
+S
+#21126
+Outside the Tower of Sorcery~
+Green foliage borders a cobblestone path which leads up a flight of
+stairs into Darkhaven's Tower of Sorcery.  The tall monument to magic
+looms ominously over you.  Rumor has it that only members of the Guild
+of Mages may enter the tower, all others being forced back northward.
+~
+0 3145732 1
+D0
+Horizon Road is to the north.
+~
+~
+0 -1 21037
+D2
+The Tower of High Sorcery lies to the south.
+~
+~
+0 -1 21127
+> entry_prog 100~
+if isimmort($n)
+or isnpc($n)
+or guild($n) == Guild of Mages
+else
+mpechoat $n You may not trespass on this guild.
+mptransfer $n 21037
+endif
+~
+|
+S
+#21127
+Within the Tower of Sorcery~
+You walk beneath the impossibly high arches which support the great hall of
+Darkhaven's Tower of Sorcery.  Walls crafted of smooth obsidian are covered
+with hoards of sorcerous runes, splitting even the smallest reflection into
+a dazzling array of shimmering images.  A circular rune of power flares
+brightly in the center of the room as a mage recalls in from the wilderness.
+Hallways extend to the southeast, southwest and west.  A huge library opens
+to the west, a chamber covered with runes is to the southwest and a chamber
+of meditation is to the southeast.  Almost hidden from view above, an alcove
+leads to the Court of the Conclave.
+~
+0 3145740 0
+D0
+The archway leads back to the streets of Darkhaven.
+~
+~
+0 -1 21126
+D3
+An immense library is at the end of the corridor to the west.
+~
+~
+0 -1 21128
+D4
+A long stairway leads upward.
+~
+~
+0 -1 21131
+D8
+The Chamber of Meditation lies to the southeast.
+~
+~
+0 -1 21129
+D9
+A chamber covered with runes lies to the southwest.
+~
+~
+0 -1 21071
+S
+#21128
+The Library~
+Row upon row of bookcases fill this room.  It is here that the mages of
+the guild keep their irreplaceable tomes of magic.  The domed chamber is
+illuminated by a cluster of floating globes of light.  In the dead center
+of the library is a podium made of gold, stone and obsidian, upon which
+sits a magical tome, allowing you to communicate with your fellow mages
+by will alone.  To the east, a corridor leads back to the main hall of
+the Tower of Sorcery.
+~
+0 3145740 0
+D1
+The corridor leads back to the main hall.
+~
+~
+0 -1 21127
+S
+#21129
+The Chamber of Meditation~
+A powerful magical heat strikes you upon entering this room.  It is here
+that the mages practice their diverse number of spells.  A powerful altar
+in the center of the chamber channels the power of the Mistress of Magic
+to all who stand here.  A sage is resting upon a marble bench, teaching
+a group of initiates a new spell. Lining the eastern wall is a row of
+statues, each one made of different materials and elements. A corridor
+leads back to the main hall to the northwest.
+~
+0 3145740 0
+D7
+The corridor leads back to the main hall.
+~
+~
+0 -1 21127
+S
+#21131
+On a Stone Stairway~
+You find yourself on a long flight of stairs which spirals up to the top of
+Darkhaven's Tower of Sorcery.  The grey stone steps are steep and difficult
+to climb, definitely the reason why most mages fly to the summit.  The main
+hall of the Guild of Mages is at the bottom of the steps, while the Court
+of the Conclave lies at their peak.
+~
+0 3145740 0
+D4
+The stairs spiral upward.
+~
+~
+0 -1 21132
+D5
+The main hall of the mage's guild is down from here.
+~
+~
+0 -1 21127
+S
+#21132
+On a Stone Stairway~
+You find yourself on a long flight of stairs which spirals up to the top of
+Darkhaven's Tower of Sorcery.  The grey stone steps are steep and difficult
+to climb, definitely the reason why most mages fly to the tower's summit.
+The main hall of the Guild of Mages is far below, while the Court of the
+Conclave lies just at the top of these steps.
+~
+0 3145740 0
+D4
+The Court of the Conclave lies at the top of these steps.
+~
+~
+0 -1 21133
+D5
+The stairs lead back down to the main hall.
+~
+~
+0 -1 21131
+S
+#21133
+The Court of the Conclave~
+You are standing in the Court of the Conclave, an enormous hall where
+the members of the Guild of Mages, regardless of the color of robe they
+have chosen, gather to discuss topics from the mundane to the supernatural.
+Seats made of either white ivory, grey stone, or black obsidian have been
+situated around a single podium in the center of the room, behind which
+the speaker stands.  Three aisles lead off to the north, southeast and
+southwest, while an alcove cloaked in shadows leads back down to the
+main hall of the Tower of Sorcery.
+~
+0 3145740 0
+D0
+The Court of the Grey Robes lies to the north.
+~
+~
+0 -1 21072
+D5
+The stairs lead back down to the main hall.
+~
+~
+0 -1 21132
+D8
+The Court of the Black Robes lies to the southeast.
+~
+~
+0 -1 21073
+D9
+The Court of the White Robes lies to the southwest.
+~
+~
+0 -1 21380
+S
+#21134
+Foyer of an Abandoned Mansion~
+You find yourself in a large and seemingly abandoned mansion.  It is quite
+aged, and its furniture and tapestries have been ruined utterly.  A single
+decoration remains undamaged:  the statue of a fearsome vampire, which you
+notice seems to drip fresh blood from its stone fangs, surely a warning to
+any who would disturb the rest of the undead.  A flight of stone stairs
+leads into a foreboding darkness beneath the mansion, while a door to
+the south exits onto Law Avenue.
+~
+0 3145740 0
+D2
+The door leads to the corridor of the Abandoned Mansion.
+~
+~
+0 -1 21353
+D5
+The stairs lead into the cellar of the mansion.
+~
+~
+0 -1 21135
+> entry_prog 100~
+mpasound The howls of wolfish minions arise from the depths of the mansion.
+if isimmort($n)
+or isnpc($n)
+or guild($n) == Guild of Vampires
+else
+  mea 0.$n You may not trespass on this guild.
+  mptrans 0.$n 21023
+endif
+~
+|
+S
+#21135
+Lair of the Vampires~
+You have entered a set of catacombs beneath one of the abandoned mansions
+of Darkhaven.  What should have been a musty, unused group of tunnels has
+been renovated into the Guild of Vampires.  New chambers have been carved
+into the ground, and numerous coffins have been carried down into this
+very room.  Five corridors lie to the east, south, west, northeast
+and northwest, while a staircase leads back up into the mansion and a
+private staircase leads into the Leadership Chamber below.
+~
+0 3145736 0
+D1
+A sparring room lies to the east.
+~
+~
+0 -1 21137
+D2
+A silent reading room is to the south.
+~
+~
+0 -1 21136
+D4
+The stairs lead back up into the mansion.
+~
+~
+0 -1 21134
+D6
+A room covered with blood lies to the northeast.
+~
+~
+0 -1 21138
+D7
+The Hoard of the Undead is to the northwest.
+~
+~
+0 -1 21139
+D8
+~
+~
+0 -1 21162
+S
+#21136
+A Stone Grotto~
+This low stone chamber is completely silent, its walls covered in runes
+of privacy and secrecy.  A single altar of obsidian resides in the center
+of the floor, droplets of fresh blood rolling endlessly down its smooth
+surface.  Atop the beautiful stone lies an ancient tome recording the
+times of the kindred.  A corridor north leads back to the main hall.
+~
+0 3145736 0
+D0
+The corridor leads back out to the main hall.
+~
+~
+0 -1 21135
+S
+#21137
+The Chamber of Discipline~
+The Chamber of Discipline is where those of the Kindred come to learn and
+apply new skills and spells.  A horrid rune of death has been drawn in blood
+on the cold stone floor, and a rack sporting numerous bloodied weapons sits
+against the eastern wall, inspiring within you an eagerness for battles to
+come.  A corridor to the west leads back to the main hall.
+~
+0 3145736 0
+D3
+A corridor leads back to the main hall.
+~
+~
+0 -1 21135
+S
+#21138
+A Room Covered with Blood~
+You have entered a dimly lit room, covered in shadow and thick stains of
+dark blood.  A single blood doll hangs from the ceiling, barely aware of
+your presence...
+~
+0 3145736 0
+D3
+An expansive room covered in runes.
+~
+~
+0 -1 21139
+D9
+The corridor leads back to the main hall.
+~
+~
+0 -1 21135
+S
+#21139
+Hoard of the Undead~
+This incredibly large chamber is where the Kindred keep their gathered
+valuables, and some kindred have even been known to leave items behind
+here for the use of their brethren.  The room is enchanted with runes
+of preservation, protecting items left here from even the greatest of
+disasters.  A corridor to the southeast leads back to the main hall,
+and a passage through the eastern wall leads to a smaller chamber.
+~
+0 3686408 0
+D1
+A small, dark chamber.
+~
+~
+0 -1 21138
+D8
+A corridor leads back to the main hall.
+~
+~
+0 -1 21135
+S
+#21141
+The Guild of Thieves~
+You stand inside the main hall of the Guild of Thieves.  Velvet couches
+line the walls, no doubt stolen from some wealthy merchant.  Paintings
+and tapestries hang from the stone walls, displaying scenes of deception,
+stealth and vengeance.  The training room is to the east while a small
+the donation room is to the north and a dark alley beckons to the south.
+~
+0 3145740 0
+D0
+The donation room of the Guild of Thieves is to the north.
+~
+~
+0 -1 21144
+D1
+To the east is a training room.
+~
+~
+0 -1 21142
+D2
+The Thieves Alley lies to the south.
+~
+~
+0 -1 21064
+> entry_prog 100~
+if isimmort($n)
+or isnpc($n)
+or guild($n) == Guild of Thieves
+else
+  mpechoat $n You may not trespass on this guild.
+  mptrans 0.$n 21064
+endif
+~
+|
+S
+#21142
+The Art of Profit~
+This is where thieves come to learn new skills which will aid their quest
+for fortune.  A sparring circle is situated in one corner, while a dummy
+covered with bells is in another.  Several young thieves are attempting
+to steal jewels off this dummy without ringing the many bells.  To the
+west is the main hall of the thieves' guild.
+~
+0 3145736 0
+D3
+The main hall of the guild is to the west.
+~
+~
+0 -1 21141
+S
+#21144
+Chamber of the Loot~
+This silent room is where the thieves leave items of little or no value
+to them, usually acquired during their 'spare time'.  Other thieves often
+find the items left here useful and in this way the thieves of the guild
+help each other.  To the east is a small, silent room, while the main
+hall is to the south.
+~
+0 3145736 0
+D1
+The room to the east is where thieves leave notes for their comrades.
+~
+~
+0 -1 21145
+D2
+The main hall of the guild is to the south.
+~
+~
+0 -1 21141
+S
+#21145
+A Darkened Back Room~
+This shadowed, silent room is bare of any furnishings save for a large
+podium.  Resting atop the podium is a ledger containing notes relevant
+to the thieves of the guild.  To the west is the Chamber of the Loot.
+~
+0 3145736 0
+D3
+The Chamber of the Loot is to the west.
+~
+~
+0 -1 21144
+S
+#21146
+A Plain Hallway~
+You are in a plain hallway inside the inn.  Corridors extend to the east and
+west, leading to the various rooms of the inn.  Behind a large door to the
+north is the inn's entrance hall, while beyond a door to the south lies one
+of more luxurious rooms.
+~
+0 3145740 0
+D1
+A plain hallway is to the east.
+~
+~
+0 -1 21148
+D2
+A luxurious room lies beyond the door.
+~
+~
+3 -1 21147
+D3
+A plain hallway is to the west.
+~
+~
+0 -1 21155
+S
+#21147
+A Luxurious Room~
+You are in a fairly luxurious room.  A mirror hangs on the eastern wall,
+reflecting your staring visage.  Paintings and tapestries hang from the 
+stone walls, making you feel as though you were in a castle.  A large bed 
+which could easily fit three has been set against the southern wall, and 
+a great fire burns quietly in the fireplace in the west wall. 
+~
+0 3146248 0
+D0
+A hallway in the inn is behind the door.
+~
+~
+3 -1 21146
+S
+#21148
+A Plain Hallway~
+You walk through a bland hallway in the inn.  A dozen paintings have been
+hung on the walls, although they are not well done and were probably extras
+given away by Darkhaven Art Gallery.  Doors to the north and south lead to
+the inn's more simple rooms, while the corridor stretches to the east
+and west.
+~
+0 3145740 0
+D0
+Beyond this door is a plain room of the inn.
+~
+~
+3 -1 21150
+D1
+The hallway continues to the east.
+~
+~
+0 -1 21151
+D2
+Beyond this door is a plain room of the inn.
+~
+~
+3 -1 21149
+D3
+The hallway stretches westward.
+~
+~
+0 -1 21146
+S
+#21149
+A Plain Room~
+You are in a simple room of the inn, so simple that you are slightly 
+surprised at its low quality, even for the price you paid.  An uncomfortable
+wooden bed sits in a corner, a small vanity mirror is lying on a desk, and
+more cheap paintings decorate the room's walls.  The door to the north leads
+back out into the hallway.
+~
+0 3146248 0
+D0
+A hallway of the inn is to the north.
+~
+~
+3 -1 21148
+S
+#21150
+A Plain Room~
+You are in a simple room of the inn, so simple that you are slightly 
+surprised at its low quality, even for the price you paid.  An uncomfortable
+wooden bed sits in a corner, a small vanity mirror is lying on a desk, and
+more cheap paintings decorate the room's walls.  The door to the south
+leads back out into the hallway.
+~
+0 3146248 0
+D2
+The hallway lies behind the door.
+~
+~
+3 -1 21148
+S
+#21151
+A Plain Hallway~
+The plain hallway you are walking through is quite drab and is decorated
+by only a few cheap paintings.  The doors to the north and south lead to
+the inn's simpler rooms, while beyond the eastern door lies a luxurious
+room intended for wealthier adventurers.  The corridor ranges westward,
+leading back to the entrance hall.
+~
+0 3145740 0
+D0
+A regular room is behind this door.
+~
+~
+3 -1 21152
+D1
+A luxurious room lies behind the door.
+~
+~
+3 -1 21154
+D2
+A regular chamber is behind this door.
+~
+~
+3 -1 21153
+D3
+A hallway leads back to the entrance hall.
+~
+~
+0 -1 21148
+S
+#21152
+A Plain Room~
+You are in a simple room of the inn, so simple that you are slightly 
+surprised at its low quality, even for the price you paid.  An uncomfortable
+wooden bed sits in a corner, a small vanity mirror is lying on a desk, and
+more cheap paintings decorate the room's walls.  The door to the south leads
+back out into the hallway.
+~
+0 3146248 0
+D2
+Beyond the door is a long hallway.
+~
+~
+3 -1 21151
+S
+#21153
+A Plain Room~
+You are in a simple room of the inn, so simple that you are slightly 
+surprised at its low quality, even for the price you paid. An uncomfortable
+wooden bed sits in a corner, a small vanity mirror is lying on a desk, and
+more cheap paintings decorate the room's walls.  The door to the north leads
+back out into the hallway.
+~
+0 3146248 0
+D0
+A hallway lies behind the door.
+~
+~
+3 -1 21151
+S
+#21154
+A Luxurious Room~
+You are in a luxurious room.  You whistle tunelessly as you enjoy the 
+various splendors of the expensive room.  A mirror hangs on the eastern
+wall, reflecting your staring visage.  Paintings and tapestries hang from 
+the stone walls, making you feel as though you were in a castle.  A large
+bed which could easily fit three has been set against the southern wall,
+and a great fire burns quietly in the fireplace in the west wall.
+~
+0 3146248 0
+D3
+The door leads back out into the hallway.
+~
+~
+3 -1 21151
+S
+#21155
+A Plain Hallway~
+You walk through a bland hallway in the inn.  A dozen paintings have been 
+hung on the walls, although they are not well done and were probably extras
+given away by Darkhaven Art Gallery.  Doors to the north and south lead to
+the inn's more simple rooms, while the corridor stretches to the east and
+west.
+~
+0 3145740 0
+D0
+Beyond the door is a rather plain room.
+~
+~
+3 -1 21156
+D1
+The hallway stretches eastward.
+~
+~
+0 -1 21146
+D2
+Past this door is a regular room of the inn.
+~
+~
+3 -1 21157
+D3
+The corridor continues to the west.
+~
+~
+0 -1 21159
+S
+#21156
+A Plain Room~
+You are in a simple room of the inn, and are slightly surprised to see 
+that the chamber is of such a low quality, even for the price you paid.  
+An uncomfortable wooden bed sits in a corner, while a vanity mirror is
+propped up on a desk and more of the same cheap paintings decorate the
+room's walls.  A door to the south leads back out into the hallway.
+~
+0 3146248 0
+D2
+A hallway lies to the south.
+~
+~
+3 -1 21155
+S
+#21157
+A Plain Room~
+You are in a simple room of the inn, and are slightly surprised to see 
+that the chamber is of such a low quality, even for the price you paid.  
+An uncomfortable wooden bed sits in a corner, while a vanity mirror is 
+propped up on a desk and more of the same cheap paintings decorate the 
+room's walls.  A door to the north leads back out into the hallway.
+~
+0 3146248 0
+D0
+The inn's hallway is behind this door.
+~
+~
+3 -1 21155
+S
+#21158
+A Plain Room~
+You are in a simple room of the inn, and are slightly surprised to see 
+that the chamber is of such a low quality, even for the price you paid.  
+An uncomfortable wooden bed sits in a corner, while a vanity mirror is 
+propped up on a desk and more of the same cheap paintings decorate the 
+room's walls.  A door to the north leads back out into the hallway.
+~
+0 3146248 0
+D0
+Behind the door is a lengthy corridor.
+~
+~
+3 -1 21159
+S
+#21159
+A Plain Hallway~
+The plain hallway you are walking through is quite drab, decorated by only
+a few cheap paintings.  The doors to the north and south lead to the inn's
+simpler rooms, while beyond the western one is a luxurious room intended
+for wealthy adventurers.  The corridor ranges eastward, leading back to
+the entrance hall.
+~
+0 3145740 0
+D0
+A plain room lies beyond this door.
+~
+~
+3 -1 21160
+D1
+The hallway continues to the east.
+~
+~
+0 -1 21155
+D2
+Beyond this door lies a plain room.
+~
+~
+3 -1 21158
+D3
+Behind this door is a luxurious room.
+~
+~
+3 -1 21161
+S
+#21160
+A Plain Room~
+You are in a simple room of the inn, and are slightly surprised to see 
+that the chamber is of such a low quality, even for the price you paid.
+An uncomfortable wooden bed sits in a corner, while a vanity mirror is
+propped up on a desk and more of the same cheap paintings decorate the 
+room's walls.  A door to the south leads back out into the hallway.
+~
+0 3146248 0
+D2
+The door leads back out into the hallway.
+~
+~
+3 -1 21159
+S
+#21161
+A Luxurious Room~
+You are in a luxurious room.  You whistle tunelessly as you enjoy the 
+various splendors of the expensive room.  A mirror hangs on the eastern 
+wall, reflecting your staring visage.  Paintings and tapestries hang from 
+the stone walls, making you feel as though you were in a castle.  A large 
+bed which could easily fit three has been set against the southern wall, 
+and a small fire burns brightly in a fireplace in the west wall. 
+~
+0 3146248 0
+D1
+The door leads back out into the hallway.
+~
+~
+3 -1 21159
+S
+#21162
+A Shadowy Room Covered With Blood~
+You have entered a shadowy room literally smeared with scarlet stains.
+The stone walls of the square chamber are covered with the blood of 
+innocents, and you smile as you remember your last feast.  As you look 
+around you notice a pretty virgin has been left here for you.
+~
+0 3145736 0
+D7
+~
+~
+0 -1 21135
+S
+#21163
+A Forested Path~
+This small forested path is very wide, large enough to allow the passage
+of carts and horses.  You realize from the constant flow of traffic here
+that it is wide out of necessity, as the citizens of Darkhaven constantly
+pass through here on their way to cathedral to the northwest.  The
+Darkhaven Square is to the southeast.
+~
+0 1048580 1
+D3
+The path leads you toward the cathedral.
+~
+~
+0 -1 21165
+D8
+The path leads to Darkhaven Square.
+~
+~
+0 -1 21000
+S
+#21165
+A Forested Path~
+You are walking down a wide forested path, passing by citizens here and
+there.  Gazing at the ground, you see that a pair of horses and a cart
+have passed here recently, most likely bringing supplies to Darkhaven's
+church.  The cathedral lies in the distance to the northwest, although
+the path continues westward.  The path also leads eastward back to the
+Darkhaven Square.
+~
+0 1048580 1
+D1
+The forested path leads back to Darkhaven Square.
+~
+~
+0 -1 21163
+D3
+The path leads to the cathedral.
+~
+~
+0 -1 21166
+S
+#21166
+A Fork in the Path~
+The wide, forested road splits here, presenting you with a decision to make.
+Standing in the center of the intersection, paths extend to the north, east
+and west.
+~
+0 1048580 1
+D0
+The path leads north to the cathedral.
+~
+~
+0 -1 21167
+D1
+The path leads back to Darkhaven Square.
+~
+~
+0 -1 21165
+D3
+The path leads westward.
+~
+~
+0 -1 21185
+S
+#21167
+Outside the Cathedral~
+The cathedral which houses the priests and priestesses of Darkhaven stands
+before you, open to all comers.  Traveling north will take you up a flight
+of stairs and into the structure, or you can head back to the south.
+~
+0 1048580 3
+D0
+A flight of stairs leads up into the cathedral.
+~
+~
+0 -1 21168
+D2
+The forested path leads back to Darkhaven Square.
+~
+~
+0 -1 21166
+S
+#21168
+Entry of the Cathedral~
+You stand in the entrance hall of the cathedral of Darkhaven.  An aisle leads
+north into the main chamber, at the far end of which stands the cathedral's
+altar, where all come to pray.  To the east and west are hallways which lead
+to the Guild of Clerics.  The priests and priestesses of the cathedral have
+have allowed the clerics to established their guild within the confines of
+the temple for a small fee.  A large archway to the south leads outside.
+~
+0 1048588 0
+D0
+The carpeted walkway leads up to the altar.
+~
+~
+0 -1 21181
+D1
+The Guild of Clerics is at the end of this corridor.
+~
+~
+0 -1 21170
+D2
+The archway leads out of the church.
+~
+~
+0 -1 21167
+D3
+The Guild of Clerics is at the end of this corridor.
+~
+~
+0 -1 21177
+S
+#21170
+The Cleric's Guild~
+You are standing in the eastern hall of the cleric's guild, an organization
+dedicated to bringing clerics together in worship.  Paintings and tapestries
+decorate the walls, while a large oval carpet covers the marble floor.  To
+the east is the Altar to Evil, while two corridors extend to the north and
+south.  The entrance hall of the cathedral is to the west.
+~
+0 3145740 0
+D0
+A long corridor leads to the Chamber of Prayer.
+~
+~
+0 -1 21171
+D1
+The Altar of Evil is to the east.
+~
+~
+0 -1 21176
+D2
+A long corridor leads to a silent room.
+~
+~
+0 -1 21172
+D3
+The entrance hall of the church is to the west.
+~
+~
+0 -1 21168
+> entry_prog 100~
+if isimmort($n)
+or isnpc($n)
+or guild($n) == Guild of Clerics
+else
+  mea 0.$n You may not trespass on this guild.
+  mptrans 0.$n 21168
+endif
+~
+|
+S
+#21171
+The Chamber of Prayer~
+This circular chamber is where the clerics of the guild come to pray and
+meditate, as well as to train their various skills and spells.  A circle
+of white and black candles sit in the center of the chamber, flickering
+quietly, and the walls are covered with tapestries of the known Gods
+whom the clerics worship.  A long corridor to the south leads back
+to the eastern hall of the Cleric's Guild.
+~
+0 3145740 0
+D2
+The corridor leads back to the eastern hall.
+~
+~
+0 -1 21170
+S
+#21172
+The Chamber of the Scriptures~
+You enter a strangely silent room.  A single podium sits in the center of
+the chamber, atop which rests an ancient tome, whispering the words of
+the Gods.  It is here that the members of the Cleric's Guild come to
+communicate with each other, and with their Gods.  A long corridor
+leads northward back to the eastern hall.
+~
+0 3145740 0
+D0
+The corridor leads back to the eastern hall.
+~
+~
+0 -1 21170
+S
+#21174
+Public Notices~
+Here the citizens of the city come to read and trade information about the
+events of their time.  A large board hangs on the far wall, serving to carry
+the word of the common people one to another, and people mill slowly by,
+reading and perusing notes in the silent atmosphere.
+~
+0 1377292 0
+D1
+The cathedral altar is to the east.
+~
+~
+1 -1 21194
+S
+#21176
+Before the Altar to Evil~
+The Altar to Evil glows ominously here, a foul wound in this pristine
+temple.  Barely accepted by those of the cathedral, the cleric's
+guild was allowed to keep the shrine due to a necessity to maintain
+the True Neutral.  The altar is made of cold obsidian which seems to
+radiate a darkness, and runes of permanence, preservation and death
+have been engraved in it.  The clerics of evil often come here to
+receive blessing and healing.
+~
+0 3145740 0
+D3
+The eastern hall of the cleric's guild lies to the west.
+~
+~
+0 -1 21170
+> rand_prog 50~
+if isimmort($r)
+or isgood($r)
+else
+  mpforce $r pray
+  c heal $r
+endif
+~
+> rand_prog 50~
+if isimmort($r)
+or isgood($r)
+else
+  mpforce $r grovel
+  c bless $r
+endif
+~
+|
+S
+#21177
+The Cleric's Guild~
+You are standing in the western hall of the cleric's guild, an organization
+dedicated to bringing clerics together in worship.  Paintings and tapestries
+decorate the walls while a large oval carpet covers the marble floor.  To
+the west is the Altar to Good, while a corridor extends to the north.  The
+entrance hall of the cathedral is to the east.
+~
+0 3145740 0
+D0
+The Chamber of Donation is to the north.
+~
+~
+0 -1 21178
+D1
+The entrance hall to the church is to the east.
+~
+~
+0 -1 21168
+D3
+The Altar to Good is situated to the west.
+~
+~
+0 -1 21180
+> entry_prog 100~
+if isimmort($n)
+or isnpc($n)
+or guild($n) == Guild of Clerics
+else
+  mea 0.$n You may not trespass on this guild.
+  mptrans 0.$n 21168
+endif
+~
+|
+S
+#21178
+The Chamber of Charity~
+This large chamber is where the clerics of the guild leave donations for
+their comrades.  The room is filled with a multitude of religious artifacts
+and symbols, as well as thousands of vials of holy water.  A long corridor
+leads back to the western hall of the Cleric's Guild to the south.
+~
+0 3686412 0
+D2
+The corridor leads to the western hall of the guild.
+~
+~
+0 -1 21177
+S
+#21180
+Before the Altar to Good~
+You are standing before the Altar to Good, a monument to the powers of
+light.  The altar's smooth platinum surface radiates a brilliant white
+light, and being near it gives you a sense of peace and security.  The
+priests and priestesses of the cathedral themselves encouraged the
+placement of this altar, unlike its antithesis, to the east.  The
+western hall of the cleric's guild is to the east.
+~
+0 3145740 0
+D1
+The western hall of the guild lies to the east.
+~
+~
+0 -1 21177
+> rand_prog 50~
+if isimmort($r)
+or isevil($r)
+else
+  mpforce $r pray
+  c heal $r
+endif
+~
+> rand_prog 50~
+if isimmort($r)
+or isevil($r)
+else
+  mpforce $r grovel
+  c bless $r
+endif
+~
+|
+S
+#21181
+Inside the Cathedral~
+Walking down the aisle leads to the cathedral altar, you smile at the beauty
+this church.  Rows of pews are to your left and right, filled with citizens
+paying their dues to their gods in prayer.  Two archways to the north lead
+into chambers of donation, while the cathedral entrance is to the south.
+~
+0 1048588 0
+D0
+The carpeted walkway leads up to the altar.
+~
+~
+0 -1 21182
+D2
+The carpeted walkway leads back to the entrance.
+~
+~
+0 -1 21168
+S
+#21182
+Inside the Cathedral~
+You are in the aisle which leads to the cathedral's altar.  A serene melody
+floats through the air.  Two grand archways lie to the east and west, opening
+into chambers of donation.  The pews of the church are to the south, while
+the altar itself lies to the north.
+~
+0 3407884 0
+D0
+The Altar to Thoric is to the north.
+~
+~
+16777216 -1 21194
+D1
+A chamber of donation is to the east.
+~
+~
+0 -1 21192
+D2
+The aisle leads back to the pews of the cathedral.
+~
+~
+0 -1 21181
+D3
+A chamber of donation is to the west.
+~
+~
+0 -1 21193
+E
+sign post signpost~
+North - The Altar
+East  - Donations
+South - Towards Darkhaven Square
+West  - Donations
+~
+S
+#21185
+A Forested Path~
+This part of the forested path is much more narrow, definitely due to the
+lack of horses and carts that pass through here.  The merry chirping of
+birds amuses you as you continue on your way.  To the southwest is a
+forest clearing, while a fork in the road lies to the east.
+~
+0 1048580 1
+D0
+This path leads to the Guild of Augurers.
+~
+~
+0 -1 21435
+D1
+A fork in the road is to the east.
+~
+~
+0 -1 21166
+D9
+A large clearing lies to the southwest.
+~
+~
+0 -1 21186
+S
+#21186
+A Clearing in the Forest~
+You find yourself in a large clearing in the forest which surrounds the
+cathedral.  The remains of the ancient Temple of Darkhaven are scattered
+about.  The head of Odin's statue, sliced from its body by some unholy blade,
+stares almost sadly at you.  A staircase leads down into what remains of the
+Temple's catacombs, which the druids of Darkhaven have reconstructed.  The
+forested path lies to the northeast.
+~
+0 3145732 1
+D5
+The steps lead down into the Guild of Druids.
+~
+~
+0 -1 21187
+D6
+The forested trail extends to the northeast.
+~
+~
+0 -1 21185
+> entry_prog 100~
+if isimmort($n)
+or isnpc($n)
+or guild($n) == Guild of Druids
+else
+  mea 0.$n You may not trespass on this guild.
+  mptrans 0.$n 21185
+endif
+~
+|
+S
+#21187
+The Guild of Druids~
+The ancient cellar of the Temple of Darkhaven has been reconstructed into
+a magnificent guild hall.  Potted plants line the walls of the main hall,
+while creeping vines cover the walls.  In the center of the room, seven
+black lacquer chairs circle an oaken table.  Four corridors lie in the
+four cardinal directions, while the thud of staff striking staff
+emerges from a room to the south.
+~
+0 3145740 0
+D0
+A spacious room lies at the end of this corridor.
+~
+~
+0 -1 21188
+D2
+A training room lies to the south.
+~
+~
+0 -1 21190
+D3
+A silent room is located west of here.
+~
+~
+0 -1 21191
+D4
+A flight of stairs lead back up to the surface.
+~
+~
+0 -1 21186
+S
+#21188
+A Spacious Room~
+This spacious room is where the druids of the guild leave items for their
+fellow druids, and mounds of equipment, scrolls and potions are lying here.
+The tiled floor of the large room is covered with runes of preservation and
+permanence, giving you the feeling that items in this room could survive
+even the greatest of disasters.  A corridor to the south leads back to
+the main hall.
+~
+0 3686412 0
+D2
+The main hall of the guild lies to the south.
+~
+~
+0 -1 21187
+S
+#21190
+The Trial of Lore~
+This room is where the druids come to train and meditate.  A large circle
+formed of green shrubs lies in the center of the room, and within it spar
+two elder druids, each wielding a heavy oaken staff.  A corridor to the
+north leads back to the main hall of the Guild of Druids.
+~
+0 3145740 0
+D0
+A corridor leads back to the guild's main hall.
+~
+~
+0 -1 21187
+S
+#21191
+A Room of Silence~
+This strange room is rather empty, save for a single oaken podium which
+sits in the center of the eerily silent chamber.  Upon it rests a tome so
+fraught with age that its pages are a sickened yellow.  This is where the
+druids of the guild leave messages for one another.  A corridor to the
+east leads back to the main hall of the Guild of Druids.
+~
+0 3146252 0
+D1
+A corridor leads back to the main hall of the guild.
+~
+~
+0 -1 21187
+S
+#21192
+Eastern Donation Room~
+This small chamber is where those of charitable hearts leave behind items
+of use to other adventurers.  The priests and priestesses of the cathedral
+do not condone those who leave armor and weapons here however, as that is
+reserved for the chamber to the far west.
+~
+0 1851404 0
+D3
+A carpeted walkway leads back to the pews.
+~
+~
+0 -1 21182
+S
+#21193
+Western Donation Room~
+This small chamber is where those of charitable hearts may leave behind
+weapons and pieces of armor for others.  The priests and priestesses of
+the cathedral do not condone those who leave other types of items here,
+as that is reserved for the room to the far east.
+~
+0 1851404 0
+D1
+A carpeted walkway leads back to the pews.
+~
+~
+0 -1 21182
+S
+#21194
+The Cathedral Altar~
+You are before the cathedral's altar.  Those of ill luck or poor faith often
+come here to pray to their God for guidance, or chance.  An aisle leads back
+south through the cathedral, while a large public board lies to the west.
+~
+0 1319944 0
+D2
+The walkway leads back to the pews.
+~
+~
+0 -1 21182
+D3
+The public board room of Darkhaven lies to the west.
+~
+~
+0 -1 21174
+S
+#21200
+A Forested Path~
+You walk on a forested path within the city of Darkhaven.  The trail stretches
+to the northeast, while the Darkhaven Square lies to the southwest.
+~
+0 1048580 1
+D6
+The path leads deeper into the forest.
+~
+~
+0 -1 21201
+D9
+The Darkhaven Square lies to the southwest.
+~
+~
+0 -1 21000
+S
+#21201
+A Forested Path~
+You travel through a small forest along a path leading toward two unique
+structures, one atop a hill to the east, one a short distance to the
+north.  The path becomes a hill to the east, while the southwestern path 
+leads back to the Darkhaven Square. ~
+0 1048580 1
+D1
+This path leads further toward the structures.
+~
+~
+0 -1 21202
+D9
+This path leads back to the Darkhaven Square.
+~
+~
+0 -1 21200
+S
+#21202
+A Forested Path~
+You pick up your pace as you begin nearing your destination.  The forested
+path has become a rather steep hill.  The way uphill is considerably harder
+to climb than the one downhill.
+~
+0 1048580 1
+D3
+This path leads back to Darkhaven Square.
+~
+~
+0 -1 21201
+D6
+This path leads toward the structures.
+~
+~
+0 -1 21204
+S
+#21204
+A Fork in the Path~
+You have come to a fork in the forested path, leaving you with a decision
+to make.  A large wooden sign cries out for attention here, guiding any
+confused travellers, as paths lie to the north, east and southwest.
+~
+0 1048580 1
+D0
+Into the Guild of Warriors
+~
+~
+0 -1 21233
+D1
+The Ranger's Guild lies at the end of this path.
+~
+~
+0 -1 21205
+D9
+The path leads back to Darkhaven Square.
+~
+~
+0 -1 21202
+E
+sign~
+The sign reads:
+  North: The Guild of Warriors
+  Southwest: Darkhaven Square
+  East: Ranger's Guild
+~
+S
+#21205
+A Forested Path~
+The forested path is much more narrow here than to the west.  Only
+an experienced ranger could run down this path without tripping a on
+tree's roots.  A fork in the path is to the west, while a steep hill
+can be seen to the southeast.
+~
+0 1048580 1
+D3
+A fork in the path lies to the west.
+~
+~
+0 -1 21204
+D8
+A steep hill can be seen to the southeast.
+~
+~
+0 -1 21207
+S
+#21207
+Before a Steep Hill~
+You are at the bottom of a long, steep hill.  Gazing upward, you wish
+you could just fly up, but the tree canopy blocks your ascendance.  It
+is no wonder that the Ranger's Guild chose to settle at the top of this
+hill, for only the skilled climbers of the guild could climb the sheer
+face of this near cliff.  The path leads back northwest to the fork.
+~
+0 1048580 1
+D4
+The Ranger's Guild is at the top of this hill.
+~
+~
+0 -1 21208
+D7
+The path leads back to the fork.
+~
+~
+0 -1 21205
+S
+#21208
+The Guild of Rangers~
+You are at the top of the steep hill.  Climbable only by rangers, the guild
+wisely chose this location upon which to establish their hall.  The guild's
+hall itself is much less of an actual building, and much more of a reshaping
+of natural elements.  Situated around an open clearing in the forest, owing
+to the preference most rangers share for being in the open, only a scant few
+buildings can be seen, each scattered one from the other.  Paths lead off to
+the northeast, east and south.
+~
+0 3145732 1
+D1
+The path leads off to a large clearing.
+~
+~
+0 -1 21210
+D2
+An ensorcelled building lies to the south.
+~
+~
+0 -1 21212
+D5
+The path down the hill is a long one.
+~
+~
+0 -1 21207
+D6
+A pratice yard is at the end of this path.
+~
+~
+0 -1 21213
+> entry_prog 100~
+if isimmort($n)
+or isnpc($n)
+or guild($n) == Guild of Rangers
+else
+  mea 0.$n You may not trespass on this guild.
+  mptrans 0.$n 21207
+endif
+~
+|
+S
+#21210
+The Clearing of Comrades~
+This immense clearing is filled with various items left behind for other
+rangers of the guild.  The eerie hum of magic fills the room, giving you
+the feeling that these items are quite literally under the protection of
+the Gods.  You mutter a silent prayer and slowly begin searching for
+items of use.  To the west is the main clearing of the Ranger's Guild.
+~
+0 3686404 1
+D3
+The path leads back to the main clearing.
+~
+~
+0 -1 21208
+S
+#21212
+A Silent Building~
+This strange building has been enchanted with runes of silence.  Not a
+single sound can be heard.  Gazing northward, you see the path leading
+back to the main clearing.
+~
+0 3211276 0
+D0
+The path leads back to the main clearing.
+~
+~
+0 -1 21208
+S
+#21213
+Tracking the Prey~
+The Guild of Rangers has built a large practice yard in their part of
+these woods.  An arena sits in the center of the clearing, where the
+young adventurers first begin to fight and learn new spells.  A number
+of other stations surround the arena, teaching young ones how to hunt
+and track.  It is obvious that the Ranger's Guild is a tightly knit
+organization. A path leads back to the main clearing to the southwest.
+~
+0 3145732 1
+D9
+The main clearing is at the end of this path.
+~
+~
+0 -1 21208
+S
+#21233
+Stone Tunnel~
+You enter a long, narrow stone tunnel which carries you northward into
+a large structure which houses the guild of warriors.  You can return
+to the forested section of Darkhaven back to the south.
+~
+0 1048588 0
+D0
+The Guild of Warriors lies to the north.
+~
+~
+0 -1 21236
+D2
+A fork in the path.
+~
+~
+0 -1 21204
+E
+plaque~
+The plaque reads:
+ The Guild of Warriors, may their blades be ever sharp.
+~
+S
+#21236
+The Guild of Warriors~
+You stand in a large stone structure which houses the Guild of Warriors.
+Depictions of battle, heroism and physical prowess adorne the walls.  To
+the east is a large sparring circle, while a large room lies just to
+the north.  An archway to the south leads back into the forest
+inside Darkhaven.
+~
+0 3145740 0
+D0
+A large room lies to the north.
+~
+~
+0 -1 21240
+D1
+A sparring circle is situated east of here.
+~
+~
+0 -1 21237
+D2
+The archway leads back to the tunnel.
+~
+~
+0 -1 21233
+> entry_prog 100~
+if isimmort($n)
+or isnpc($n)
+or guild($n) == Guild of Warriors
+else
+  mea 0.$n You may not trespass on this guild.
+  mptransfer 0.$n 21233
+endif
+~
+|
+S
+#21237
+The Sparring Circle~
+A ring of steel outlines a sparring circle here.  The initiates of the
+warriors' guild have long been known to come here for training and insight
+on the ways of the warrior.  To the north is a silent corner reserved for
+notes of great importance, while the guild's main hall is to the west.
+~
+0 3145740 0
+D0
+A silent corner of the hall is to the north.
+~
+~
+0 -1 21239
+D3
+The main hall of the warriors' guild is west of here.
+~
+~
+0 -1 21236
+S
+#21239
+A Silent Corner in the Hall~
+This silent corner in the immense hall is where warriors come to post
+announcements of great import.  To the south is a sparring circle,
+while to the west lies a large donation room.
+~
+0 3145740 0
+D2
+You can see a sparring circle.
+~
+~
+0 -1 21237
+D3
+A large storage room lies to the west.
+~
+~
+0 -1 21240
+S
+#21240
+Armor Dump~
+Here the warriors of the guild store items intended for donation to other
+guildmembers in need.  The main hall is to the south.
+~
+0 3686412 0
+D1
+A silent corner in the hall is east of here.
+~
+~
+0 -1 21239
+D2
+The main hall of the warriors' guild is to the south.
+~
+~
+0 -1 21236
+E
+plaque~
+The plaque reads:
+ Take what is needed, nothing more, nothing less.
+~
+S
+#21275
+The Darkhaven Marina~
+The odor of fish assaults your senses as you inhale.  The Darkhaven Marina
+is a rather large structure, housing several small boats and over a dozen
+rafts.  To the south you can see the Darkhaven River, while a dirt road
+lies to the north.  A small path leads off to the east, following the
+Darkhaven river as it winds its way to the Ocean.
+~
+0 1048588 0
+D0
+The trail rounding Darkhaven is to the north.
+~
+~
+0 -1 21124
+D2
+To the south you can see the Darkhaven River.
+~
+~
+0 -1 21297
+S
+#21280
+Entrance to the Academy~
+You stand at the entrance to the Darkhaven Academy.  A large flight of
+stone stairs lead down into the massive subterranean structure, which
+has the responsibility of training the young adventurers of the world.
+A small cobbled street leads eastward to a shop catering to the needs
+of these adventurers.  To the north, you see the lengthy Horizon Road.
+~
+0 1048580 1
+D0
+Horizon Road lies to the north.
+~
+~
+0 -1 21038
+D1
+The Young Adventurer's Necessities is east of here.
+~
+~
+0 -1 21295
+D5
+~
+~
+16777216 -1 10300
+> leave_prog 100~
+if isimmort($n)
+else
+  mpforce $n vis
+endif
+~
+|
+S
+#21290
+The Ruins of the Concourse~
+You sigh longingly at the sight of Darkhaven's ruined concourse. What was
+once a busy road is now a cobbled wasteland.  Debris from crushed buildings
+lies about, all that remains from that night of terror.  A single structure
+remains standing, a small house sitting beside an old elm tree.  To the
+north is the crumbling bridge.
+~
+0 1048576 2
+D0
+The crumbling bridge is to the north.
+~
+~
+0 -1 21296
+D1
+The remains of the concourse continue to the east.
+~
+~
+0 -1 21291
+S
+#21291
+Among the Ruins of the Concourse~
+You stand at what was once an intersection of roads among the remains of
+the ruined concourse.  Far to the east is an ancient elm tree and a small,
+strange building.  Gazing southward, you notice that, curiously enough,
+the Darkhaven graveyard remains standing.  As you turn to move on, you
+notice a large chain dangling high above you, just within jumping reach.
+~
+0 1048576 2
+D1
+Far to the east you see an old elm tree.
+~
+~
+0 -1 21292
+D2
+The entrance to the graveyard is to the south.
+~
+~
+0 -1 21293
+D3
+This path leads back to the crumbling bridge.
+~
+~
+0 -1 21290
+D4
+The great chain stretches into the clouds...
+~
+~
+0 -1 7914
+S
+#21292
+Near the Elm Tree~
+You are walking down what remains of a cobbled road, picking your way
+through the debris which clogs the unkempt street.  To the east is the
+only remaining building of the concourse, as well as the ancient tree
+of Elm Street. 
+~
+0 1048576 2
+D1
+You can see the old tree and the eerie building.
+~
+~
+0 -1 21294
+D3
+This path leads back to the crumbling bridge.
+~
+~
+0 -1 21291
+S
+#21293
+Entrance to the Graveyard~
+You are standing just outside the gates of the ancient Darkhaven graveyard.
+A shiver runs down your spine as you remember the howling undead residing
+in the lower chambers of the place.  A path leads southward into the 
+graveyard, while the ruins of the concourse are to the north.
+~
+0 1048580 2
+D0
+This path leads back to the crumbling bridge.
+~
+~
+0 -1 21291
+D2
+Into the graveyard...
+~
+gate~
+1 -1 3600
+S
+#21294
+Beneath the Elm Tree~
+You are standing amid the debris beneath the ancient elm tree of what
+used to be Elm Street.  To the south is the only remaining building on
+the concourse and you now realize why it still stands; its walls are
+covered with powerful runes of protection.
+~
+0 1048576 2
+D3
+This path leads back to the crumbling bridge.
+~
+~
+0 -1 21292
+S
+#21295
+The Young Adventurer's Necessities~
+Water skins, rations and torches hang from the walls:  all necessary to 
+survival when adventuring.  A stack of books which have been designed to
+help the young adventurer lie stacked in the rear of the shop.  To the
+west is the entrance to the Darkhaven Academy.
+~
+0 1048588 0
+D3
+The entrance to the Darkhaven Academy is to the west.
+~
+~
+0 -1 21280
+S
+#21296
+Crossing the Precarious Bridge~
+You tread carefully across the crumbling bridge.  Gazing fearfully at the
+cracked supports, you feel a sense of relief to see they are still somewhat
+sturdy.  To the south, the ruins of the old concourse spread haphazardly.
+~
+0 1048580 2
+D0
+A dirt road lies to the north.
+~
+~
+0 -1 21081
+D2
+The ruins of the concourse are to the south.
+~
+~
+0 -1 21290
+> rand_prog 2~
+mpecho The damaged bridge suddenly groans, and shifts slightly.
+~
+> rand_prog 2~
+mpecho A slight movement can be felt rumbling through the crumbling bridge.
+~
+|
+S
+#21297
+On the Darkhaven River~
+You find yourself in a small artificial bay linking the Darkhaven Marina
+to the town's beloved river.  The marina's beach is to the north, while
+the river lies to the east and west.
+~
+0 1048580 7
+D0
+The Darkhaven Marina lies to the north.
+~
+~
+0 -1 21275
+D3
+The river flows westward.
+~
+~
+0 -1 21300
+D8
+The river continues in this direction.
+~
+~
+0 -1 21298
+S
+#21298
+On the Darkhaven River~
+You are travelling across the Darkhaven River.  Its blue waters are flowing
+slowly westward, dragging along any debris.  Far to the east you can make
+out a tunnel of some sort.
+~
+0 1048580 7
+D1
+The river lies to the east.
+~
+~
+0 -1 21299
+D7
+The river flows westward.
+~
+~
+0 -1 21297
+S
+#21299
+On the Darkhaven River~
+You are on the famed Darkhaven River.  Its strong currents push driftwood
+and other floating objects westward.  The blue waters themselves seem to
+emerge from a tunnel in the mountains to the east.
+~
+0 1048580 7
+D3
+The river flows westward.
+~
+~
+0 -1 21298
+S
+#21300
+On the Darkhaven River~
+The waters here are flowing slighty faster than to the east.  Gazing west,
+you can see that the river passes under the southern bridge of Darkhaven.
+The tale of the troll under the bridge passes through your head as you
+ponder where the river leads.
+~
+0 1048580 7
+D1
+You see a small artificial bay which connects to the marina.
+~
+~
+0 -1 21297
+D3
+The river flows under the southern bridge.
+~
+~
+0 -1 21301
+S
+#21301
+Under the Southern Bridge~
+You are forced to duck your head as you pass under the southern bridge of
+Darkhaven.  On the underside of the bridge is a slate plaque, which looks
+aged beyond time.
+~
+0 1048580 7
+D1
+The river lies to the east.
+~
+~
+0 -1 21300
+D3
+The river flows westward.
+~
+~
+0 -1 21302
+E
+plaque~
+The plaque reads:
+  Strong is the one who fights for me,
+  Smart is this one so strong and free,
+  Wise is the one who counsels me,
+  Determined to prove what he can see,
+  Quick is the one who steals for me,
+  Charming, bold, confuses many,
+  Luck with the one who escapes me,
+  Dead be my foe, my enemy.
+ 
+-Lord Rennard, March 1996
+ 
+I'd like to say thanks to Thoric for creating and maintaining an
+excellent mud, to Dominus for some amazing administrative work,
+to the coders for all the unique gadgets, to the builders for
+creating a lush game world, to the immortals for upholding the
+law and to the players for making it all worth it.
+ 
+I would also like to extend a special thanks to Haus, who provided
+an enormous supply of ideas through the original new DH, and to
+Blodkai, for endless insight and support.
+~
+S
+#21302
+On the Darkhaven River~
+The waters become rushing rapids here, forcing you to carefully monitor
+your actions.  Going upriver will bring you under the southern bridge,
+while following the river will lead you under the crumbling bridge.
+~
+0 1048580 7
+D1
+The river passes under the southern bridge to the east.
+~
+~
+0 -1 21301
+D3
+The river passes under the crumbling bridge to the west.
+~
+~
+0 -1 21303
+S
+#21303
+Under the Crumbling Bridge~
+You carefully wade through the waters under this low bridge, praying that
+it does not crash down upon your head.  The river flows into the ocean to
+the west, and you spy a grate in the northern underside of the bridge.
+~
+0 1048580 7
+D1
+The river continues to the east.
+~
+~
+0 -1 21302
+E
+grate~
+Constructed into the underside of the northern bridge-support, it looks
+quite old but quite sturdy.  Looking closer, you notice it has a set of
+swing-hinges and a bolted fastener; you may be able to open it.
+~
+> leave_prog 100~
+close grate
+~
+|
+S
+#21307
+Atop the Battlements~
+You are standing atop Darkhaven's battlements.  The entire southwestern
+countryside is visible from here, ranging from the Miden'nir to the dark
+forest of Haon Dor.  You spot the Darkhaven River flowing its way swiftly
+from east to west just south of here.  The battlements continue to the
+north and east, while a stone stairway leads down to the streets.
+~
+0 1048580 1
+D0
+The battlements continue to the north.
+~
+~
+0 -1 21308
+D1
+The battlements continue to the east.
+~
+~
+0 -1 21311
+D5
+The stairway leads back down to the city streets.
+~
+~
+0 -1 21024
+S
+#21308
+Atop the Battlements~
+The beautiful yet deadly forest of Haon Dor stretches west as far as the
+eye can see.  Far to the southwest, you can barely make out the big, blue
+ocean.  The battlements continue to the north and south.
+~
+0 1048576 1
+D0
+The battlements continue to the north.
+~
+~
+0 -1 21309
+D2
+The battlements continue to the south.
+~
+~
+0 -1 21307
+S
+#21309
+Atop the Battlements~
+The massive western gate of Darkhaven is just north of here, creaking and
+groaning loudly as it opens and closes.  A rather wide trail leads through
+the center of the vast forest known as Haon Dor to the west, and a chimney
+can be seen poking out of the dark trees just to the southwest.  Far down
+the trail to the west one enormous tree seems to rise above the all others.
+The battlements stretch southward.
+~
+0 1048576 1
+D2
+The battlements continue to the south.
+~
+~
+0 -1 21308
+S
+#21311
+Atop the Battlements~
+The rushing waves of the Darkhaven river can be heard from here.  Far to
+the south, you can see the dark forest of the gobline-infested Miden'nir
+(Goblinic for green blood).  Darkhaven's defenses continue to the east
+and west.
+~
+0 1048576 1
+D1
+The battlements end east of here.
+~
+~
+0 -1 21312
+D3
+The battlements continue to the west.
+~
+~
+0 -1 21307
+S
+#21312
+Atop the Battlements~
+The massive southern gate of Darkhaven is just east of here, groaning and
+creaking loudly as it opens and closes.  The southern bridge and the often
+dangerous, sometimes deadly, Miden'nir are clearly visible from here.  The,
+battlements stretch westward.
+~
+0 1048576 1
+D3
+The battlements continue to the west.
+~
+~
+0 -1 21311
+S
+#21314
+Atop the Battlements~
+You are standing atop Darkhaven's battlements.  The whole southeastern
+countryside is visible from here, ranging from the Miden'nir to even
+lands beyond.  The great battlements continue to the north and west,
+while a stone stairway leads back down to the city streets.
+~
+0 1048580 1
+D0
+The battlements lie to the north.
+~
+~
+0 -1 21315
+D3
+The battlements lie to the west.
+~
+~
+0 -1 21318
+D5
+The stairs lead back down to Darkhaven's streets.
+~
+~
+0 -1 21016
+S
+#21315
+Atop the Battlements~
+You are standing atop Darkhaven's eastern wall, where the city's guards
+have set up a series of defenses to ward off assailants.  A broad dirt
+road lines the wall outside of the city, and Hawk Street is to the west.
+A group of archers stand here, laughing about the goblins' last pathetic
+attempt to invade the majestic city.  The battlements continue to the
+north and south.
+~
+0 1048576 1
+D0
+The battlements continue to the north.
+~
+~
+0 -1 21316
+D2
+The battlements continue to the south.
+~
+~
+0 -1 21314
+S
+#21316
+Atop the Battlements~
+The massive eastern gate of Darkhaven is just to the north, groaning and
+creaking loudly as it opens and closes.  South and east from here you can
+clearly see the dark dwarven forest.
+~
+0 1048576 1
+D2
+The battlements extend down the eastern wall of Darkhaven.
+~
+~
+0 -1 21315
+S
+#21318
+Atop the Battlements~
+The rushing waves of the Darkhaven River can be heard from here.  In the
+distance to the south, you can see a group of goblins skirting the edge of
+the dark forest known as the Miden'nir, its name signifying green blood in
+the tongue of the goblins.  Darkhaven's defenses continue east and west.
+~
+0 1048576 1
+D1
+The battlements extend down the southern wall.
+~
+~
+0 -1 21314
+D3
+The battlements extend down the southern wall of Darkhaven.
+~
+~
+0 -1 21319
+S
+#21319
+Atop the Battlements~
+The massive southern gate of Darkhaven is just west of here, groaning and
+creaking loudly as it opens and closes.  The crumbling southern bridge and
+the dangerous Miden'nir are clearly visible from here.  Tbe battlements
+stretch east from here.
+~
+0 1048576 1
+D1
+The battlements continue east of here.
+~
+~
+0 -1 21318
+S
+#21321
+Atop the Battlements~
+You are standing atop Darkhaven's battlements.  The whole northeastern
+countryside is visible from here.  A number of archers pace back and forth
+here along the battlements, knocking an arrow back at the slightest sign of
+danger.  The battlements extend to the west and south, while a stairway
+leads back down to the streets.
+~
+0 1048580 1
+D2
+The battlements continue down the eastern wall.
+~
+~
+0 -1 21323
+D3
+The battlements extend down the northern wall.
+~
+~
+0 -1 21326
+D5
+The stairway leads back down to the streets.
+~
+~
+0 -1 21008
+S
+#21322
+Atop the Battlements~
+You are standing atop Darkhaven's great eastern wall.  The guardians of
+Darkhaven, in their wisdom, have set up battlements here to fend off any
+attackers.  The battlements extend to the north and south.
+~
+0 0 1
+D0
+The battlements stretch northward.
+~
+~
+0 -1 21321
+D2
+The battlements continue to the south.
+~
+~
+0 -1 21323
+S
+#21323
+Atop the Battlements~
+You are standing atop the eastern wall of Darkhaven.  The battlements extend
+to the north and south.
+~
+0 1048576 1
+D0
+The battlements continue to the north.
+~
+~
+0 -1 21321
+D2
+The battlements extend to the south.
+~
+~
+0 -1 21324
+S
+#21324
+Atop the Battlements~
+The massive eastern gate of Darkhaven is just to the south, groaning and
+creaking loudly as it opens and closes.  South and east from here you can
+clearly see the dark dwarven forest.  The battlements continue to the north.
+~
+0 1048576 1
+D0
+The battlements continue to the north.
+~
+~
+0 -1 21323
+S
+#21325
+Atop the Battlements~
+You sigh at the beauty of the north countryside.  Athough he has doubtless
+seen this view countless times before, a nearby archer whistles as he
+gazes northward with you.  The battlements extend to the east and west.
+~
+0 0 1
+D1
+The battlements lead off to the east.
+~
+~
+0 -1 21321
+D3
+The battlements continue to the west.
+~
+~
+0 -1 21326
+S
+#21326
+Atop the Battlements~
+You are standing atop Darkhaven's northern wall.  The battlements continue
+to the east and west.
+~
+0 1048576 1
+D1
+The battlements continue tothe east.
+~
+~
+0 -1 21321
+D3
+The battlements extend westward.
+~
+~
+0 -1 21327
+S
+#21327
+Atop the Battlements~
+This portion of the battlements stretches to the east, all the way back to
+northeastern corner of Darkhaven.
+~
+0 1048576 1
+D1
+The battlements stretch eastward.
+~
+~
+0 -1 21326
+S
+#21328
+Atop the Battlements~
+You are standing atop Darkhaven's battlements.  The whole northwestern
+countryside is visible from here, stretching away beyond the forest of
+Haon Dor.  The battlements continue to the east and south, while a
+stone stairway leads back down to the city streets.
+~
+0 1048580 1
+D1
+The battlements continue to the east.
+~
+~
+0 -1 21329
+D2
+The battlements continue to the south.
+~
+~
+0 -1 21332
+D5
+The stairway leads back down to the city streets.
+~
+~
+0 -1 21032
+S
+#21329
+Atop the Battlements~
+You are standing atop Darkhaven's northern wall.  The battlements range to
+the east and west.
+~
+0 1048576 1
+D1
+The battlements continue east of here.
+~
+~
+0 -1 21330
+D3
+The battlements continue to the west.
+~
+~
+0 -1 21328
+S
+#21330
+Atop the Battlements~
+The battlements here extend westward, leading back to the northwestern
+corner of Darkhaven.
+~
+0 1048576 1
+D3
+The battlements continue to the west.
+~
+~
+0 -1 21329
+S
+#21332
+Atop the Battlements~
+The beautiful yet deadly forest of Haon Dor stretches westward as far as
+the eye can see.  The great battlements continue to the north and south.
+~
+0 1048576 1
+D0
+The battlements continue to the north.
+~
+~
+0 -1 21328
+D2
+The battlements continue to the south.
+~
+~
+0 -1 21333
+S
+#21333
+Atop the Battlements~
+The massive western gate of Darkhaven is just south of here, creaking and
+groaning loudly as it opens and closes.  A rather wide trail leads through
+the center of the vast forest known as Haon Dor to the west, and a chimney
+can be seen poking out of the dark trees just to the southwest.  Far down
+the trail to the west one enormous tree seems to rise above the all others.
+The battlements stretch northward.
+~
+0 1048576 1
+D0
+The battlements continue to the north.
+~
+~
+0 -1 21332
+S
+#21335
+The Western Hall~
+You enter a large building filled with people.  The building is usually
+busy with functions, almost always filled to the maximum.  The large main
+hall boasts a maid who comes around serving drinks and meals to the people
+who sit down.
+~
+0 1049608 0
+D0
+The lights of Horizon Street glimmer to the north.
+~
+~
+0 -1 21039
+S
+#21337
+In the Air~
+You are floating in the air high above Darkhaven.  Gazing downward,
+you see that you are just above the Darkhaven Square.  The citizens
+of Darkhaven look like tiny mice scurrying about from this height.
+Looking upward, you see a rainbow in the distance.
+~
+0 1048580 9
+D4
+You gaze higher into the air.
+~
+~
+0 -1 21338
+D5
+Darkhaven Square is down from here.
+~
+~
+0 -1 21000
+S
+#21338
+In the Air~
+You are flying in the air high above Darkhaven.  You can see the whole
+countryside from here:  It is truly a splendid sight to behold.  Gazing
+upward, you see a bright rainbow.
+~
+0 1048580 9
+D4
+A rainbow stretches into the distance...
+~
+~
+0 -1 800
+D5
+Darkhaven Square is far below.
+~
+~
+0 -1 21337
+S
+#21339
+Companions and Mounts~
+You walk into a large shop which smells of horses and hay.  Behind the
+long wooden counter are dozens of cages containing varying types of animals,
+and you can hear the sounds of horses coming from a large storage area in
+the back of the shop.  A door to the south leads back out onto the busy
+Law Avenue.
+~
+0 1052672 1
+D2
+Law Avenue lies to the south.
+~
+~
+0 -1 21017
+S
+#21340
+Petshop Stables~
+~
+0 3147780 1
+S
+#21353
+A Corridor in the Abandoned Mansion~
+You walk carefully down the corridor, noticing its smooth stone floor and
+walls. The walls and floor have been smoothed by age, and stains of blood
+seem to randomly mark the stone surfaces.  You see a large foyer ahead of
+you, and this corridor seems quite abandoned.  A strong wooden doorframe
+is etched into the wall to the west, and through the doorway you can see a
+faintly lit room.
+~
+0 8 0
+D0
+You see a large abandoned foyer.
+~
+~
+0 -1 21134
+D2
+You see Law Avenue.
+~
+~
+0 -1 21023
+S
+#21380
+The Court of the White Robes~
+This hall is slightly smaller than the Court of the Conclave, for it is
+reserved for the members of the White Robes only.  The seats in this room
+are all crafted of a shining white ivory and circle a brilliant silver
+podium which sits in the center of the hall.  A single aisle leads
+back to the Court of the Conclave.
+~
+0 3145740 0
+D6
+The Court of the Conclave lies to the northeast.
+~
+~
+0 -1 21133
+S
+#21390
+The Gold Room~
+This chamber is where Darkhaven shopkeepers deposit their gold.
+~
+0 3155980 0
+S
+#21401
+Plunging through the brambles~
+You plunge down the narrow wooded trail, mindful of the overreaching
+brambles and twigs which have crowded together here at the forest's
+edge.  The trail continues to the southwest, and a wide dirt road
+can be seen through the foliage to the east.
+~
+0 0 3
+D1
+A wide dirt road skirting a high battlement.
+~
+~
+0 -1 21090
+D9
+The trails continues safely to the southwest.
+~
+~
+0 -1 21402
+S
+#21402
+On a forest trail~
+Your way here bends around in two directions.  The forest grows thicker
+to the west, the scents and sounds beckoning to you.  Peering to the
+northeast, you think you can see a break in the trees.  Mayhap the
+trail is nearing its end.
+~
+0 0 3
+D3
+The trail continues peacefully onward.
+~
+~
+0 -1 21403
+D6
+Brambles and twigs crowd the path.
+~
+~
+0 -1 21401
+S
+#21403
+On a forest trail~
+The trail here continues on both east and west.  The peak of a cathedral
+tower can barely be made out in the distance to the east through the
+overhang of limbs, and a sound much like that of small wings fluttering
+comes frequently from the forest to the west.
+~
+0 0 3
+D1
+The narrow trail continues.
+~
+~
+0 -1 21402
+D3
+The trail turns.
+~
+~
+0 -1 21404
+S
+#21404
+A turn in the forest trail~
+You stand at a curve on a narrow, peaceful forest trail.  The sounds of
+small fluttering wings comes from the northwest, and a the narrow but
+well-trodden pathway continues roughly eastward through the forest.
+~
+0 0 3
+D1
+Along the forest trail.
+~
+~
+0 -1 21403
+D7
+A small junction in the forest.
+~
+~
+0 -1 2074
+S
+#21409
+A Silent Corner of the Courier~
+You find yourself at the rear of the Darkhaven Courier.  Many small
+tables sit here, accompanied by similarly tiny wooden chairs, and
+unfinished missives have been left lying on a couple of ink-stained
+tables.  An unnatural silence also seems to haunt this portion of
+the tent, allowing you to collect your thoughts.  To the north is
+the main chamber of the Courier.
+~
+0 3212300 0
+D0
+The Darkhaven Courier
+~
+~
+0 -1 21053
+S
+#21430
+The Guild of Augurers~
+Emerging from the forest around the cathedral, you find yourself in the
+main hall of the Guild of Augurers.  Precious tapestries and drawings
+adorn the walls gracefully, showing the beauty and strength of the Augurer.
+The walls are granitelike and smooth, and the floors are painstakingly
+polished to perfection.  The sweet smells of jasmine, parsley and other
+assorted herbs fill the air around you, giving you a sense of warmth and
+peace as you walk through the vast hall.
+~
+0 3145740 0
+D2
+The Chamber of Bounty lies to the south.
+~
+~
+0 -1 21434
+D3
+The Plank of Musing lies to the east.
+~
+~
+0 -1 21433
+D4
+The Hall of Repose rises above you.
+~
+~
+0 -1 21437
+D6
+The scent of the forest around the cathedral.
+~
+~
+0 -1 21435
+S
+#21432
+The Vault of Contemplation~
+Above the main hall, you find yourself in a room of peace and contentment.
+The walls all around you are made of stained glass, rather than the granite
+in the hall, allowing the sunlight from the realms into this room.  A light
+humming and singing can be heard in this spacious room, and the sweet smell
+of jasmine is predominant here.  The Augurer is a very spiritual person,
+and relies on meditation and reflection upon the day's activities in order
+to be a productive citizen in the community.  Sculptures and handicrafts of
+the Augurer lie in this room in a state of order, yet in a state of chaos
+as well, showing the strengths and weaknesses of the Augurer's mind.
+~
+0 3145740 0
+D5
+The Hall of Repose leads to the main hall of the guild.
+~
+~
+0 -1 21437
+S
+#21433
+The Plank of Musing~
+As you enter this small yet illuminated room, you see an enormous table with
+scriptures and writing utensils upon it.  Several exquisite chairs surround
+the large oak table, and at times you can find other Augurers here pondering
+the existence of life, the importance of their daily deeds and anything else
+that they wish to discuss.  The air in this room is still, and sounds from
+the outside are not readily heard from this tiny room which seems to be shut
+off from the rest of the Guild of Augurers.
+~
+0 3145740 0
+D1
+This way leads back to the main hall of the Guild of Augurers.
+~
+~
+0 -1 21430
+S
+#21434
+The Chamber of Bounty~
+As you enter this room, a strong feeling of charity washes over your very
+life and soul.  The Chamber of Bounty is a darkened room, illuminated only
+by torches fixed to the walls held by antiqued sconce holders.  All around 
+you lie items donated by your fellow guild members, and those items that
+may seem useless to one may be invaluable to others.  Precious armours,
+treasures and pieces of magic lie here, and more are certainly welcome to
+be donated for use by other Augurers.
+~
+0 3686412 0
+D0
+The main hall of the Guild of Augurers lies north of here.
+~
+~
+0 -1 21430
+S
+#21435
+Along the forested path~
+As you walk further through the forest around the cathedral, you notice an
+illuminated edifice lying to the north of you.  A faint smell of spices and
+other pungent scents wafts from this granitelike structure, mixing with the
+various smells of the forest around you.
+~
+0 4 1
+D2
+This path leads back to Darkhaven Square.
+~
+~
+0 -1 21185
+D9
+~
+~
+0 -1 21430
+> entry_prog 100~
+if isimmort($n)
+or isnpc($n)
+or guild($n) == Guild of Augurers
+else
+  mea 0.$n You may not trespass on this guild.
+  mptrans 0.$n 21185
+endif
+~
+|
+S
+#21436
+The Tomb of Rectification~
+As you enter this cramped room, the smell of burning oil and the stench of
+day old sweat nearly bowls you over with a strong force. A large metal table
+stands in the middle of the room, covered in many smithing tools. The constant
+clank of metal on metal pierces your ears, and you look over to the western
+wall of the room to see a large man stooping over the great table, repairing
+a poor soul's gear.  Scraps of leather, cloth and fine fabrics lie in disarray
+about this tiny room.
+~
+0 3146764 0
+S
+#21437
+The Hall of Repose~
+Walking down the hallway, you can see various depictions of Augurers in
+battle, as well as their participation in theatrical pursuits, teaching,
+learning and conversing with others of their class.  The walls are
+smooth like marble, and the floors are well polished and shine brightly.
+Soft light flows in from the east and coloured rays of sunshine seem to
+beam in from above.
+~
+0 3145740 0
+D1
+A warm light flows in from the east where the Niche of Convergence lies.
+~
+~
+0 -1 21438
+D4
+Colourful rays of sunshine stream in from the Vault of Contemplation above.
+~
+~
+0 -1 21432
+D5
+The main hall of the Guild of Augurers is below.
+~
+~
+0 -1 21430
+D7
+~
+~
+0 -1 21439
+S
+#21438
+The Niche of Convergence~
+A soft light and sweet smell of incense welcomes you into this warm room.
+Many soft, cushioned chairs and chesterfields adorn the walls, and small
+tables lie nearby for placement of your drink and for game playing.  A
+soft murmur of the other Augurers and the clinking of glasses fills
+your ears with serenity.  This is where the Augurer comes to be refreshed
+after a long day of fighting, training and ascertaining the local lore.
+~
+0 3146760 0
+D3
+The Hall of Repose lies to the east.
+~
+~
+0 -1 21437
+S
+#21439
+The Cubiculum of Lore~
+As you walk around this spacious room, you can see depictions of Augurers
+meditating and learning the lore of their class.  The room is brightly lit
+by sconces upon the granitelike walls, and the air is nearly tasteless.
+As the Augurer is very keen on its knowledge, a loremaster is here to help
+you prepare and iterate your skills and spells.
+~
+0 3146764 0
+D8
+~
+~
+0 -1 21437
+S
+#21499
+Final room~
+~
+0 1075838980 1
+S
+#0
+
+
+#RESETS
+M 0 21044 1 21001
+M 0 21045 2 21003
+M 0 21037 8 21005
+E 1 21056 28 1
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21067 28 0
+E 1 21069 23 16
+M 0 21055 1 21010
+M 0 21037 8 21018
+E 1 21056 28 1
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21067 28 0
+E 1 21069 23 16
+M 0 21037 8 21022
+E 1 21067 28 0
+E 1 21069 23 16
+E 1 21056 28 1
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+M 0 21037 8 21030
+E 1 21056 28 1
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21067 28 0
+E 1 21069 23 16
+M 0 21037 8 21038
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21067 28 0
+E 1 21069 23 16
+E 1 21056 28 1
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+M 0 21037 8 21041
+E 1 21056 28 1
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21067 28 0
+E 1 21069 23 16
+M 0 21037 8 21047
+E 1 21056 28 1
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21069 23 16
+E 1 21067 28 0
+M 0 21045 2 21048
+M 0 21037 8 21050
+E 1 21056 28 1
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21067 28 0
+E 1 21069 23 16
+M 0 21004 1 21051
+G 1 21005 3
+G 1 21006 2
+G 1 21007 1
+M 0 21014 1 21052
+M 0 21017 1 21053
+O 1 21048 1 21053
+M 0 21003 1 21054
+G 1 21000 2
+G 1 21003 1
+G 1 21002 1
+G 1 21001 1
+G 1 21004 1
+M 0 21001 1 21055
+G 1 35 3
+G 1 34 3
+G 1 21046 1
+G 1 21049 1
+M 0 21011 1 21056
+G 1 36 8
+G 1 37 7
+M 0 21018 1 21057
+G 1 21014 1
+G 1 21015 1
+G 1 21016 1
+M 0 21002 1 21058
+M 0 21015 1 21059
+G 1 21057 17
+G 1 21058 30
+G 1 21059 30
+G 1 21060 30
+G 1 21061 30
+G 1 21062 30
+G 1 21063 30
+G 1 21064 26
+G 1 21065 9
+G 1 21066 16
+M 0 21019 1 21060
+G 1 21020 2
+G 1 21021 1
+M 0 21020 1 21061
+G 1 21017 1
+G 1 21018 1
+G 1 21019 2
+M 0 21016 1 21062
+G 1 21068 9
+G 1 21069 23
+G 1 21081 1
+G 1 21082 1
+M 0 21052 3 21063
+E 1 21055 3 1
+M 0 21052 3 21064
+E 1 21055 3 1
+M 0 21052 3 21065
+E 1 21055 3 1
+M 0 21021 1 21066
+G 1 21076 1
+G 1 21077 1
+G 1 21078 1
+G 1 21079 1
+G 1 21080 1
+M 0 21013 1 21068
+G 1 21009 1
+G 1 21008 1
+G 1 21010 1
+M 0 21025 2 21069
+M 0 21068 1 21074
+E 1 21073 2 17
+E 1 21056 28 1
+E 1 21057 17 3
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21064 26 14
+E 1 21066 16 20
+E 1 21067 28 0
+E 1 21069 23 16
+M 0 21069 1 21075
+E 1 21056 28 1
+E 1 21057 17 3
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21064 26 14
+E 1 21066 16 20
+E 1 21067 28 0
+E 1 21069 23 16
+E 1 21073 2 17
+E 1 21064 26 15
+E 1 21065 9 11
+M 0 21061 4 21081
+E 1 21056 28 1
+E 1 21057 17 3
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21064 26 15
+E 1 21065 9 11
+E 1 21066 16 20
+E 1 21067 28 0
+E 1 21064 26 14
+E 1 21069 23 16
+M 0 21063 1 21087
+E 1 21056 28 1
+E 1 21057 17 3
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21064 26 14
+E 1 21064 26 15
+E 1 21065 9 11
+E 1 21066 16 20
+E 1 21067 28 0
+E 1 21069 23 16
+E 1 21070 2 17
+M 0 21062 1 21088
+E 1 21070 2 17
+E 1 21056 28 1
+E 1 21057 17 3
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21064 26 14
+E 1 21066 16 20
+E 1 21069 23 16
+E 1 21067 28 0
+M 0 21061 4 21094
+E 1 21067 28 0
+E 1 21056 28 1
+E 1 21057 17 3
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21064 26 14
+E 1 21064 26 15
+E 1 21065 9 11
+E 1 21066 16 20
+E 1 21069 23 16
+M 0 21065 1 21099
+E 1 21071 2 17
+E 1 21056 28 1
+E 1 21057 17 3
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21064 26 14
+E 1 21066 16 20
+E 1 21067 28 0
+E 1 21069 23 16
+E 1 21065 9 11
+E 1 21064 26 15
+M 0 21064 1 21100
+E 1 21056 28 1
+E 1 21057 17 3
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21064 26 14
+E 1 21066 16 20
+E 1 21067 28 0
+E 1 21069 23 16
+E 1 21071 2 17
+M 0 21061 4 21106
+E 1 21056 28 1
+E 1 21057 17 3
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21064 26 14
+E 1 21064 26 15
+E 1 21065 9 11
+E 1 21066 16 20
+E 1 21067 28 0
+E 1 21069 23 16
+M 0 21067 1 21112
+E 1 21072 2 17
+E 1 21065 9 11
+E 1 21064 26 14
+E 1 21056 28 1
+E 1 21057 17 3
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21064 26 15
+E 1 21066 16 20
+E 1 21067 28 0
+E 1 21069 23 16
+M 0 21066 1 21113
+E 1 21056 28 1
+E 1 21057 17 3
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21064 26 14
+E 1 21066 16 20
+E 1 21067 28 0
+E 1 21069 23 16
+E 1 21072 2 17
+M 0 21061 4 21119
+E 1 21067 28 0
+E 1 21056 28 1
+E 1 21057 17 3
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21064 26 14
+E 1 21064 26 15
+E 1 21065 9 11
+E 1 21066 16 20
+E 1 21069 23 16
+O 1 21037 1 21128
+M 0 21028 1 21129
+G 1 34 3
+O 1 21041 1 21136
+M 0 21006 1 21137
+M 0 21007 1 21138
+M 0 21023 1 21142
+O 1 21040 1 21145
+M 0 21025 2 21146
+D 0 21146 2 1
+D 0 21147 0 1
+D 0 21148 0 1
+D 0 21148 2 1
+D 0 21149 0 1
+D 0 21150 2 1
+D 0 21151 0 1
+D 0 21151 1 1
+D 0 21151 2 1
+D 0 21152 2 1
+D 0 21153 0 1
+D 0 21154 3 1
+D 0 21155 0 1
+D 0 21155 2 1
+D 0 21156 2 1
+D 0 21157 0 1
+D 0 21158 0 1
+D 0 21159 0 1
+D 0 21159 2 1
+D 0 21159 3 1
+D 0 21160 2 1
+D 0 21161 1 1
+M 0 21012 1 21171
+O 1 21039 1 21172
+M 0 21034 1 21190
+O 1 21038 1 21191
+O 0 21111 1 21193
+O 0 21112 1 21192
+M 0 21000 1 21194
+O 1 21035 1 21212
+M 0 21031 1 21213
+M 0 21035 1 21237
+O 1 21034 1 21239
+M 0 21009 1 21275
+G 1 21025 1
+G 1 21024 1
+M 0 21029 1 21295
+G 1 10316 2
+G 1 10317 2
+G 1 10314 2
+M 0 21071 8 21308
+E 1 21056 28 1
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21066 16 20
+E 1 21067 28 0
+E 1 21068 9 16
+M 0 21071 8 21312
+E 1 21056 28 1
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21067 28 0
+E 1 21068 9 16
+M 0 21071 8 21316
+E 1 21056 28 1
+E 1 21057 17 3
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21064 26 14
+E 1 21067 28 0
+E 1 21068 9 16
+M 0 21071 8 21318
+E 1 21056 28 1
+E 1 21057 17 3
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21067 28 0
+E 1 21068 9 16
+M 0 21071 8 21324
+E 1 21056 28 1
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21066 16 20
+E 1 21067 28 0
+E 1 21068 9 16
+M 0 21071 8 21326
+E 1 21056 28 1
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21064 26 14
+E 1 21067 28 0
+E 1 21068 9 16
+M 0 21071 8 21329
+E 1 21056 28 1
+E 1 21057 17 3
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21067 28 0
+E 1 21068 9 16
+M 0 21071 8 21333
+E 1 21056 28 1
+E 1 21058 30 5
+E 1 21059 30 6
+E 1 21060 30 7
+E 1 21061 30 8
+E 1 21062 30 10
+E 1 21063 30 9
+E 1 21064 26 14
+E 1 21067 28 0
+E 1 21068 9 16
+M 0 21010 1 21335
+G 1 21022 1
+G 1 21019 2
+G 1 21020 2
+M 0 21022 1 21339
+M 0 21056 1 21340
+M 0 21057 1 21340
+M 0 21058 1 21340
+M 0 21059 1 21340
+M 0 21060 1 21340
+M 0 21070 1 21340
+M 0 21431 1 21439
+O 0 21042 1 21174
+O 0 21435 1 21433
+S
+
+
+#SHOPS
+ 21001    3  4  0  0  0   120  90         0 23    ; the wizard shopkeeper
+ 21003   26 10  0  0  0   115  90         0 23    ; the alchemist
+ 21004    2  0  0  0  0   120  90         0 23    ; the scribe
+ 21009   22  0  0  0  0   120  90         0 23    ; the sailor
+ 21010    0  0  0  0  0   120  90         0 23    ; the waitress
+ 21011    0  0  0  0  0   120  90         0 23    ; the printer
+ 21013    0  0  0  0  0   120  90         0 23    ; the bartender
+ 21014    8  0  0  0  0    95  90         0 23    ; the jeweler
+ 21015    9  0  0  0  0   120  90         0 23    ; the armourer
+ 21016    5  0  0  0  0   120  90         0 23    ; the weaponsmith
+ 21018    0  0  0  0  0   120  90         0 23    ; the butcher
+ 21019    0  0  0  0  0   120  90         0 23    ; the baker
+ 21020    0  0  0  0  0   120  90         0 23    ; the farmer girl
+ 21021    9  0  0  0  0   120  90         0 23    ; the tailor
+ 21029    0  0  0  0  0   120  90         0 23    ; the storekeeper
+0
+
+
+#REPAIRS
+ 21002    5  9 15         100   1         0 23    ; the blacksmith
+0
+
+
+#SPECIALS
+M  21000 spec_cast_adept
+M  21037 spec_guard
+M  21044 spec_guard
+M  21045 spec_fido
+M  21052 spec_thief
+M  21061 spec_guard
+M  21062 spec_guard
+M  21063 spec_guard
+M  21064 spec_guard
+M  21065 spec_guard
+M  21066 spec_guard
+M  21067 spec_guard
+M  21068 spec_guard
+M  21069 spec_guard
+S
+
+
+#$

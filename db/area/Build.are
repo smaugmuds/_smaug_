@@ -1,0 +1,2131 @@
+#AREA   Build Interface Stuff~
+
+
+
+#AUTHOR Haus~
+
+#RANGES
+0 60 0 60
+$
+
+#FLAGS
+0
+
+#ECONOMY 0 45000000
+
+#MOBILES
+#0
+
+
+#OBJECTS
+#0
+
+
+#ROOMS
+#9500
+Hermit's hut~
+You are inside the hermit's hut. It is rather old, but serves it purpose.
+It keeps its habitant from the rough winds and dangerous beasts of the
+plains and foothills. There is a small fireplace here.
+~
+0 9 0
+D1
+~
+~
+0 -1 9501
+D2
+~
+~
+0 -1 9504
+M 9500 0 1 a
+S
+#9501
+Inside a small tent~
+This is a small and simple tent with few possessions in sight. Lying
+here and there are young-looking men and women, possibly slaves to the
+leader of this band.
+~
+0 8 0
+D1
+~
+~
+0 -1 9502
+D2
+~
+~
+0 -1 9505
+D3
+~
+~
+0 -1 9500
+M 9500 0 2 b
+S
+#9502
+A Hovel~
+You are inside the hermit's hut. It is rather old, but serves it purpose.
+It keeps its habitant from the rough winds and dangerous beasts of the
+plains and foothills. There is a small fireplace here.
+~
+0 9 0
+D1
+~
+~
+0 -1 9503
+D2
+~
+~
+0 -1 9506
+D3
+~
+~
+0 -1 9501
+M 9500 0 3 c
+S
+#9503
+A Campsite~
+This small group of desert nomads has stopped for the day to rest
+and refresh themselves beside this beautiful oasis. Three tents and some
+camels make up the party. From within two of the tents you hear muffled
+voices, obviously surprised at your visit.
+~
+0 0 2
+D2
+~
+~
+0 -1 9507
+D3
+~
+~
+0 -1 9502
+M 9500 0 4 d
+S
+#9504
+A Shack~
+You are inside the hermit's hut. It is rather old, but serves it purpose.
+It keeps its habitant from the rough winds and dangerous beasts of the
+plains and foothills. There is a small fireplace here.
+~
+0 9 0
+D0
+~
+~
+0 -1 9500
+D1
+~
+~
+0 -1 9505
+D2
+~
+~
+0 -1 9508
+M 9500 1 1 e
+S
+#9505
+Inside the cabin~
+You are inside a small one-room cabin made entirely from heavy logs.  It is
+very sparsely furnished, containing only most basic housekeeping equipment,
+such as a bed, a chair and a table.
+~
+0 9 0
+D0
+~
+~
+0 -1 9501
+D1
+~
+~
+0 -1 9506
+D2
+~
+~
+0 -1 9509
+D3
+~
+~
+0 -1 9504
+M 9500 2 1 f
+S
+#9506
+A Homestead~
+You are inside a small one-room cabin made entirely from heavy logs.  It is
+very sparsely furnished, containing only most basic housekeeping equipment,
+such as a bed, a chair and a table.
+~
+0 9 0
+D0
+~
+~
+0 -1 9502
+D1
+~
+~
+0 -1 9507
+D2
+~
+~
+0 -1 9510
+D3
+~
+~
+0 -1 9505
+M 9500 3 1 g
+S
+#9507
+A Keep~
+You are in a huge hall. Large tapestries line the walls and huge statues of
+various make and appearance are spread about. The ceiling above supports huge
+candelabras, which light the room. To the east, you see a bright light and
+hear sounds of inhabitation. Looking west, you see the entry gates to the keep.
+~
+0 0 1
+D0
+~
+~
+0 -1 9503
+D2
+~
+~
+0 -1 9511
+D3
+~
+~
+0 -1 9506
+M 9500 4 1 h
+S
+#9508
+A Fortress~
+You are in a huge hall. Large tapestries line the walls and huge statues of
+various make and appearance are spread about. The ceiling above supports huge
+candelabras, which light the room. To the east, you see a bright light and
+hear sounds of inhabitation. Looking west, you see the entry gates to the keep.
+~
+0 9 1
+D0
+~
+~
+0 -1 9504
+D1
+~
+~
+0 -1 9509
+D2
+~
+~
+0 -1 9513
+M 9500 1 2 i
+S
+#9509
+A Castle~
+You are in a huge hall. Large tapestries line the walls and huge statues of
+various make and appearance are spread about. The ceiling above supports huge
+candelabras, which light the room. To the east, you see a bright light and
+hear sounds of inhabitation. Looking west, you see the entry gates to the keep.
+~
+0 9 0
+D0
+~
+~
+0 -1 9505
+D1
+~
+~
+0 -1 9510
+D2
+~
+~
+0 -1 9514
+D3
+~
+~
+0 -1 9508
+M 9500 2 2 j
+S
+#9510
+Guard House~
+You are in the guard house to the west of the entrance
+to the castle.  There are nude posters covering the walls.
+~
+0 9 0
+D0
+~
+~
+0 -1 9506
+D1
+~
+~
+0 -1 9511
+D2
+~
+~
+0 -1 9515
+D3
+~
+~
+0 -1 9509
+M 9500 3 2 k
+S
+#9511
+By the Temple Altar~
+You are by the temple altar in the northern end of the Temple of Darkhaven.
+A huge altar made from white polished marble is standing in front of you and
+behind it is a ten foot tall sitting statue of Odin, the King of the Gods.
+~
+0 3155085 0
+D0
+~
+~
+0 -1 9507
+D2
+~
+~
+0 -1 9516
+D3
+~
+~
+0 -1 9510
+M 9500 4 2 l
+S
+#9512
+Inside a Store~
+You are in a small room that smells of rare chemicals and spices.
+Dividing the room in two is a large desk, and on the wall behind it are
+numerous shelves crammed with jars, bottles, books and scrolls of all
+sorts and sizes.
+~
+0 9 0
+D1
+~
+~
+0 -1 9513
+D2
+~
+~
+0 -1 9517
+M 9500 0 3 m
+S
+#9513
+A Spooky Graveyard~
+You are on a well-kept gravel road that leads north-south through the
+graveyard.  On both sides of the road grow dark evergreen trees.  An iron
+grate is to the north and narrow gravel paths lead east and west.
+~
+0 0 2
+D0
+~
+~
+0 -1 9508
+D1
+~
+~
+0 -1 9514
+D2
+~
+~
+0 -1 9518
+D3
+~
+~
+0 -1 9512
+M 9500 1 3 n
+S
+#9514
+A Monestary~
+You are in a huge hall. Large tapestries line the walls and huge statues of
+various make and appearance are spread about. The ceiling above supports huge
+candelabras, which light the room. To the east, you see a bright light and
+hear sounds of inhabitation. Looking west, you see the entry gates to the keep.
+~
+0 17 0
+D0
+~
+~
+0 -1 9509
+D1
+~
+~
+0 -1 9515
+D2
+~
+~
+0 -1 9519
+D3
+~
+~
+0 -1 9513
+M 9500 2 3 o
+S
+#9515
+A Stable~
+This is a large stable where mounts of all types are brought to be trained
+as mounts.  Looking about you see four stable-hands trying to saddle a 
+excitable and sleek looking stallion that stands nearly 18 hands tall. 
+There are a number of different stalls here each holding a different mount,
+from the every day pack mule to the exotic Tros horse.
+~
+0 9 1
+D0
+~
+~
+0 -1 9510
+D1
+~
+~
+0 -1 9516
+D2
+~
+~
+0 -1 9520
+D3
+~
+~
+0 -1 9514
+M 9500 3 3 p
+S
+#9516
+A Tavern~
+You are standing in the bar.  The bar is set against the northern wall, old
+archaic writing, carvings and symbols cover its top.  A fireplace is built into
+the western wall, and through the southeastern windows you can see the temple
+square.  This place makes you feel like home.
+A small sign with big letters is fastened to the bar.
+~
+0 9 0
+D0
+~
+~
+0 -1 9511
+D2
+~
+~
+0 -1 9521
+D3
+~
+~
+0 -1 9515
+M 9500 4 3 q
+S
+#9517
+The Basement~
+This seems like your average basement.  Old Christmas decorations,
+suitcases, bicycles litter your way.  You hear the squeaking of
+rats in the corners.
+~
+0 9 5
+D0
+~
+~
+0 -1 9512
+D1
+~
+~
+0 -1 9518
+D2
+~
+~
+0 -1 9522
+M 9500 0 4 r
+S
+#9518
+A Bedroom~
+This is a snugly set bedroom with all the necessities for a romantic evening.
+A large fireplace adorns the east wall, and sizzling away is the wood that
+is ablaze within.  The bed is enormous, covering at least HALF of this great
+room.  This stretches at least 300 square feet, so can you imagine the BED?
+A large staircase leads down to the hall.  A couple of doors open up to a
+broad balcony to the south. 
+~
+0 9 0
+D0
+~
+~
+0 -1 9513
+D1
+~
+~
+0 -1 9519
+D2
+~
+~
+0 -1 9523
+D3
+~
+~
+0 -1 9517
+M 9500 1 4 s
+S
+#9519
+A Banquet Room~
+You are in the dining area of the student mages. From the number of
+tables and chairs here, you can see that this room could easily seat
+several hundred people. It is oddly deserted here, obviously not meal time.
+  Exits lead west to the kitchen, and back east.
+~
+0 9 0
+D0
+~
+~
+0 -1 9514
+D1
+~
+~
+0 -1 9520
+D2
+~
+~
+0 -1 9524
+D3
+~
+~
+0 -1 9518
+M 9500 2 4 t
+S
+#9520
+A Corridor~
+You stand in the great hall of the keep. Huge pillars rise up to the vaulted
+ceiling and torch light glimmers off the marble floor here. You are amazed at
+the sheer size of the hall. The hall itself leads north and east. You notice a
+smaller hall leading south, deeper into the keep.
+~
+0 9 0
+D0
+~
+~
+0 -1 9515
+D1
+~
+~
+0 -1 9521
+D2
+~
+~
+0 -1 9525
+D3
+~
+~
+0 -1 9519
+M 9500 3 4 u
+S
+#9521
+An Attic~
+You are floating in a formless void, detached from all sensation of physical
+matter, surrounded by swirling glowing light, which fades into the relative
+darkness around you without any trace of edges or shadow.
+   There is a "No Tipping" notice pinned to the darkness.
+~
+0 9 1
+D0
+~
+~
+0 -1 9516
+D2
+~
+~
+0 -1 9526
+D3
+~
+~
+0 -1 9520
+M 9500 4 4 v
+S
+#9522
+A Vault~
+You are floating in a formless void, detached from all sensation of physical
+matter, surrounded by swirling glowing light, which fades into the relative
+darkness around you without any trace of edges or shadow.
+   There is a "No Tipping" notice pinned to the darkness.
+~
+0 9 0
+D0
+~
+~
+0 -1 9517
+D1
+~
+~
+0 -1 9523
+D2
+~
+~
+0 -1 9527
+M 9500 0 5 w
+S
+#9523
+Sitting Room~
+You are standing in the middle of a really comfortable place. The walls are
+decorated with paintings of smiling Kings and Queens. The most attractive
+picture is one of a Prince in shiny armour. By one of the walls there is an
+old arm-chair. The only exit is through the aspenwood door to the east.
+~
+0 9 0
+D0
+~
+~
+0 -1 9518
+D1
+~
+~
+0 -1 9524
+D2
+~
+~
+0 -1 9528
+D3
+~
+~
+0 -1 9522
+M 9500 1 5 x
+S
+#9524
+Study~
+You are in a small dark passage, which would be unremarkable if not for
+the fact that it ends in a blinding blue light to the west. On hooks set
+into the wall here there hang several travel worthy cloaks, and a small
+leather backpack.  It looks as if someone has prepared this room to be used
+in the event speedy of a evacuation.
+~
+0 65545 0
+D0
+~
+~
+0 -1 9519
+D1
+~
+~
+0 -1 9525
+D2
+~
+~
+0 -1 9529
+D3
+~
+~
+0 -1 9523
+M 9500 2 5 y
+S
+#9525
+A Passageway~
+This Passageway branches off from the main hall and leads somewhere ... where?
+~
+0 265 1
+D0
+~
+~
+0 -1 9520
+D1
+~
+~
+0 -1 9526
+D2
+~
+~
+0 -1 9530
+D3
+~
+~
+0 -1 9524
+M 9500 3 5 z
+S
+#9526
+Tower~
+The tower creaks and groans, almost as if it were muttering to
+itself.  There are windows displaying a full moon, reigning over
+the night sky.  The room is dark and there is almost a musty odor
+to it.  You are surprised that you can't detect any dust or dirt,
+although there are a couple of cobwebs in the corner.
+~
+0 9 1
+D0
+~
+~
+0 -1 9521
+D2
+~
+~
+0 -1 9531
+D3
+~
+~
+0 -1 9525
+M 9500 4 5 A
+S
+#9527
+Crypt~
+You are in a large room which continues to the west.  You notice many
+coffins here.  Open coffins reveal remains of something other than man.  
+The smell of reptile is very strong here.
+~
+0 9 0
+D0
+~
+~
+0 -1 9522
+D1
+~
+~
+0 -1 9528
+D2
+~
+~
+0 -1 9532
+M 9500 0 6 B
+S
+#9528
+Work Room~
+You are in the workroom of The Mad Alchemist. Bubbling braziers, long
+glass tubes and scores of oddly shaped vials and bottles are everywhere.
+It is incredibly messy here, crushed glass and other trash litter the floor.
+  The only apparent exit is the one you entered by.
+~
+0 9 0
+D0
+~
+~
+0 -1 9523
+D1
+~
+~
+0 -1 9529
+D2
+~
+~
+0 -1 9533
+D3
+~
+~
+0 -1 9527
+M 9500 1 6 C
+S
+#9529
+Laboratory~
+You are in the workroom of The Mad Alchemist. Bubbling braziers, long
+glass tubes and scores of oddly shaped vials and bottles are everywhere.
+It is incredibly messy here, crushed glass and other trash litter the floor.
+  The only apparent exit is the one you entered by.
+~
+0 9 0
+D0
+~
+~
+0 -1 9524
+D1
+~
+~
+0 -1 9530
+D2
+~
+~
+0 -1 9534
+D3
+~
+~
+0 -1 9528
+M 9500 2 6 D
+S
+#9530
+A hallway~
+You are in a long hallway leading north and south. The walls emit a faint
+magical glow which provides enough light to see by.
+  The sharp sound of metal on metal can be heard to the west.
+~
+0 9 0
+D0
+~
+~
+0 -1 9525
+D1
+~
+~
+0 -1 9531
+D2
+~
+~
+0 -1 9535
+D3
+~
+~
+0 -1 9529
+M 9500 3 6 E
+S
+#9531
+Turret~
+The tower creaks and groans, almost as if it were muttering to
+itself.  There are windows displaying a full moon, reigning over
+the night sky.  The room is dark and there is almost a musty odor
+to it.  You are surprised that you can't detect any dust or dirt,
+although there are a couple of cobwebs in the corner.
+~
+0 9 1
+D0
+~
+~
+0 -1 9526
+D2
+~
+~
+0 -1 9536
+D3
+~
+~
+0 -1 9530
+M 9500 4 6 F
+S
+#9532
+Storage Room~
+You are in a small store room. Assorted junk is piled on shelves or
+leaning against walls.
+  The only apparent exit it back south.
+~
+0 521 0
+D0
+~
+~
+0 -1 9527
+D1
+~
+~
+0 -1 9533
+D2
+~
+~
+0 -1 9537
+M 9500 0 7 G
+S
+#9533
+Kitchen~
+This must be the place of food and drink. You can hear the faint noise of 
+rats feasting on meat and bread from somewhere undeterminable. The sound
+makes you feel the agony of HUNGER. The only visible exit is south to the
+Northern end of the hall. To the north there is a larder, and to the east
+stands a fridge.
+~
+0 9 0
+D0
+~
+~
+0 -1 9528
+D1
+~
+~
+0 -1 9534
+D2
+~
+~
+0 -1 9538
+D3
+~
+~
+0 -1 9532
+M 9500 1 7 H
+S
+#9534
+The Larder~
+You can see food all over. Among the heaps of food you notice HUGE rats
+scuttering around, nibbling pieces off the heaps here and there.
+~
+0 521 0
+D0
+~
+~
+0 -1 9529
+D1
+~
+~
+0 -1 9535
+D2
+~
+~
+0 -1 9539
+D3
+~
+~
+0 -1 9533
+M 9500 2 7 I
+S
+#9535
+The Stairs~
+The stairs continue to circle up and down here.
+~
+0 9 0
+D0
+~
+~
+0 -1 9530
+D1
+~
+~
+0 -1 9536
+D2
+~
+~
+0 -1 9540
+D3
+~
+~
+0 -1 9534
+M 9500 3 7 J
+S
+#9536
+On The Rooftop~
+You are floating in a formless void, detached from all sensation of physical
+matter, surrounded by swirling glowing light, which fades into the relative
+darkness around you without any trace of edges or shadow.
+   There is a "No Tipping" notice pinned to the darkness.
+~
+0 0 4
+D0
+~
+~
+0 -1 9531
+D2
+~
+~
+0 -1 9541
+D3
+~
+~
+0 -1 9535
+M 9500 4 7 K
+S
+#9537
+Closet~
+You are in a dark broom closet. Many straw brooms and other cleaning
+instruments have been left here, apparently unused (perhaps the maid quit?).
+  The only exit leads back north to the hallway.
+~
+0 2057 0
+D0
+~
+~
+0 -1 9532
+D1
+~
+~
+0 -1 9538
+D2
+~
+~
+0 -1 9542
+M 9500 0 8 L
+S
+#9538
+Office~
+This is the central office of Discordia.  Here meetings are held and
+important issues discussed.  Here the deities and leaders merge together
+their trains of thought, to form the governing body of Discordia.
+~
+0 9 0
+D0
+~
+~
+0 -1 9533
+D1
+~
+~
+0 -1 9539
+D2
+~
+~
+0 -1 9543
+D3
+~
+~
+0 -1 9537
+M 9500 1 8 M
+S
+#9539
+The treasury~
+You are in a small chamber, the stale air here is testament to the fact
+that it has gone undisturbed for many years.
+~
+0 9 0
+D0
+~
+~
+0 -1 9534
+D1
+~
+~
+0 -1 9540
+D2
+~
+~
+0 -1 9544
+D3
+~
+~
+0 -1 9538
+M 9500 2 8 N
+S
+#9540
+The landing~
+You are on a small landing in the middle of a long stairway leading up.
+Your senses seem dulled here, no sound or smell can be detected at all, and
+the only thing you can see in any direction is endless stairway.
+~
+0 9 0
+D0
+~
+~
+0 -1 9535
+D1
+~
+~
+0 -1 9541
+D2
+~
+~
+0 -1 9545
+D3
+~
+~
+0 -1 9539
+M 9500 3 8 O
+S
+#9541
+On The Balcony~
+You see a splendid of the most of this world. The valleys stretch as far as
+the eye reaches to the south from here. Down below you can see the entrance
+of this magnificent building. To the north are the doors to Redferne's Bedroom.
+~
+0 9 4
+D0
+~
+~
+0 -1 9536
+D2
+~
+~
+0 -1 9546
+D3
+~
+~
+0 -1 9540
+M 9500 4 8 P
+S
+#9542
+Foyer~
+You are inside the high tower of sorcery. The sight is truly amazing.
+From here, it is obvious that somehow, the tower is much larger on the
+inside than it is on the outside. Young mages walk about, completely
+oblivious to your presence.
+  Exits lead north to the common room, west to the dinning room, east to
+a plain hallway and back south through the gate.
+~
+0 13 0
+D0
+~
+~
+0 -1 9537
+D1
+~
+~
+0 -1 9543
+D2
+~
+~
+0 -1 9547
+M 9500 0 9 Q
+S
+#9543
+Drawing Room~
+You have entered the master enchanter's chamber. Upon all the walls here
+are racks of finely crafted weapons. A huge chest with a glowing lock is
+set to one side. Several unfinished looking blades rest atop a small work
+table.
+~
+0 9 0
+D0
+~
+~
+0 -1 9538
+D1
+~
+~
+0 -1 9544
+D2
+~
+~
+0 -1 9548
+D3
+~
+~
+0 -1 9542
+M 9500 1 9 R
+S
+#9544
+The Den~
+You are floating in a formless void, detached from all sensation of physical
+matter, surrounded by swirling glowing light, which fades into the relative
+darkness around you without any trace of edges or shadow.
+   There is a "No Tipping" notice pinned to the darkness.
+~
+0 9 1
+D0
+~
+~
+0 -1 9539
+D1
+~
+~
+0 -1 9545
+D2
+~
+~
+0 -1 9549
+D3
+~
+~
+0 -1 9543
+M 9500 2 9 S
+S
+#9545
+At A Ladder~
+You are floating in a formless void, detached from all sensation of physical
+matter, surrounded by swirling glowing light, which fades into the relative
+darkness around you without any trace of edges or shadow.
+   There is a "No Tipping" notice pinned to the darkness.
+~
+0 1 5
+D0
+~
+~
+0 -1 9540
+D1
+~
+~
+0 -1 9546
+D2
+~
+~
+0 -1 9550
+D3
+~
+~
+0 -1 9544
+M 9500 3 9 T
+S
+#9546
+On A Catwalk~
+You stand on a precarious catwalk, high above the ground.
+This small beam is so thin that your toes hang off into the air.
+~
+0 512 5
+D0
+~
+~
+0 -1 9541
+D2
+~
+~
+0 -1 9551
+D3
+~
+~
+0 -1 9545
+M 9500 4 9 U
+S
+#9547
+Entrance~
+"Magnificent" does not even begin to describe the foyer.  Lavishly
+decorated, yet elegant, it gives an impression of indescribable
+wealth.  Paintings and tapestries line the walls depicting scenes
+from throughout history.  Antiques furnitures and oriental rugs are
+tastefully placed in ideal spots.  The door is at least 10 feet
+high and is made of oak.
+~
+0 13 0
+D0
+~
+~
+0 -1 9542
+D1
+~
+~
+0 -1 9548
+D2
+~
+~
+0 -1 9552
+M 9500 0 10 V
+S
+#9548
+Arboretum.~
+A small indoor garden so that the residents don't have to go
+outside to enjoy plants and commune with nature.  There are several
+trees, a small pond and flowers of every kind.
+~
+0 9 0
+D0
+~
+~
+0 -1 9543
+D1
+~
+~
+0 -1 9549
+D2
+~
+~
+0 -1 9553
+D3
+~
+~
+0 -1 9547
+M 9500 1 10 W
+S
+#9549
+The Library~
+This is truly a magnificent place! Books and scrolls lie together on every
+shelf. A large globe, with the map of the Mud-world upon it, stands in the
+dimly lit north-western corner of the room. Two large and comfortable-
+looking leather arm-chairs adorn the center of the library together with
+a huge oak desk. Dim light radiates from an enormous crystal chandelier
+hanging down from the ceiling approximately 10 feet off the floor. To the
+east there is a great old ashen door. A large glass window is set in the
+west wall.
+~
+0 9 0
+D0
+~
+~
+0 -1 9544
+D1
+~
+~
+0 -1 9550
+D2
+~
+~
+0 -1 9554
+D3
+~
+~
+0 -1 9548
+M 9500 2 10 X
+S
+#9550
+A Vent~
+It is very dark here...
+~
+0 777 0
+D0
+~
+~
+0 -1 9545
+D1
+~
+~
+0 -1 9551
+D2
+~
+~
+0 -1 9555
+D3
+~
+~
+0 -1 9549
+M 9500 3 10 Y
+S
+#9551
+A Shaft~
+You are floating in a formless void, detached from all sensation of physical
+matter, surrounded by swirling glowing light, which fades into the relative
+darkness around you without any trace of edges or shadow.
+   There is a "No Tipping" notice pinned to the darkness.
+~
+0 265 0
+D0
+~
+~
+0 -1 9546
+D2
+~
+~
+0 -1 9556
+D3
+~
+~
+0 -1 9550
+M 9500 4 10 Z
+S
+#9552
+Gate~
+You have reached the entrance to the high tower of sorcerery. The
+tower looms above you at an incredible height. It seems to disappear
+into the storm clouds above.
+  A diamond gate is to the north, guarded by a huge golem. The trail
+back south has disappeared behind you.
+~
+0 1 0
+D0
+~
+~
+0 -1 9547
+D1
+~
+~
+0 -1 9553
+D2
+~
+~
+0 -1 9557
+M 9500 0 11 0
+S
+#9553
+Audience Room~
+You are in a large chamber. Small bolts of energy leap from wall to wall,
+crackling with power. The floor is a swirl of indeterminable colors and
+patterns ever changing. Bright bursts of color seem to explode into the air
+and fade again at random times. All this splendor plays about and draws
+attention to a large throne in the center of the room, it seems to be cut
+from a single enormous emerald.
+~
+0 9 0
+D0
+~
+~
+0 -1 9548
+D1
+~
+~
+0 -1 9554
+D2
+~
+~
+0 -1 9558
+D3
+~
+~
+0 -1 9552
+M 9500 1 11 1
+S
+#9554
+Conservatory~
+Here was the rehearsal and recital room for the residents of the
+estate.  There is a Steinway piano in the corner and various gilded
+instruments are on display in a glass cabinet.
+~
+0 9 0
+D0
+~
+~
+0 -1 9549
+D1
+~
+~
+0 -1 9555
+D2
+~
+~
+0 -1 9559
+D3
+~
+~
+0 -1 9553
+M 9500 2 11 2
+S
+#9555
+A Dumbwaiter~
+It is very dark here...
+~
+0 777 0
+D0
+~
+~
+0 -1 9550
+D1
+~
+~
+0 -1 9556
+D2
+~
+~
+0 -1 9560
+D3
+~
+~
+0 -1 9554
+M 9500 3 11 3
+S
+#9556
+A Chimney~
+You are floating in a formless void, detached from all sensation of physical
+matter, surrounded by swirling glowing light, which fades into the relative
+darkness around you without any trace of edges or shadow.
+   There is a "No Tipping" notice pinned to the darkness.
+~
+0 9 0
+D0
+~
+~
+0 -1 9551
+D2
+~
+~
+0 -1 9561
+D3
+~
+~
+0 -1 9555
+M 9500 4 11 4
+S
+#9557
+Porch~
+A huge patio overlooks the lawn area.  There are enough tables and
+chairs for a party of 100.  The tables and chairs are ornate and
+expensive, tasteful and elegant.  Stairs lead up to the main
+house.
+~
+0 0 1
+D0
+~
+~
+0 -1 9552
+D1
+~
+~
+0 -1 9558
+D2
+~
+~
+0 -1 9562
+M 9500 0 12 5
+S
+#9558
+Classroom~
+You are in an apparently empty classroom. A strange feeling of being
+watched comes over you, and you hear the faint rustle of robes.
+  The only apparent exit is back east to the hallway.
+~
+0 1 0
+D0
+~
+~
+0 -1 9553
+D1
+~
+~
+0 -1 9559
+D2
+~
+~
+0 -1 9563
+D3
+~
+~
+0 -1 9557
+M 9500 1 12 6
+S
+#9559
+Limbo~
+You are floating in a formless void, detached from all sensation of physical
+matter, surrounded by swirling glowing light, which fades into the relative
+darkness around you without any trace of edges or shadow.
+   There is a "No Tipping" notice pinned to the darkness.
+~
+0 1 1
+D0
+~
+~
+0 -1 9554
+D1
+~
+~
+0 -1 9560
+D2
+~
+~
+0 -1 9564
+D3
+~
+~
+0 -1 9558
+M 9500 2 12 7
+S
+#9560
+Lawn~
+The lawn seems to stretch and stretch to the south and to the west.
+North of you is a gate.  The grass is emerald green and luscious,
+obviously well cared for.
+~
+0 0 2
+D0
+~
+~
+0 -1 9555
+D1
+~
+~
+0 -1 9561
+D2
+~
+~
+0 -1 9565
+D3
+~
+~
+0 -1 9559
+M 9500 3 12 8
+S
+#9561
+Limbo~
+You are floating in a formless void, detached from all sensation of physical
+matter, surrounded by swirling glowing light, which fades into the relative
+darkness around you without any trace of edges or shadow.
+   There is a "No Tipping" notice pinned to the darkness.
+~
+0 1 1
+D0
+~
+~
+0 -1 9556
+D2
+~
+~
+0 -1 9566
+D3
+~
+~
+0 -1 9560
+M 9500 4 12 9
+S
+#9562
+Lake~
+A huge patio overlooks the lawn area.  There are enough tables and
+chairs for a party of 100.  The tables and chairs are ornate and
+expensive, tasteful and elegant.  Stairs lead up to the main
+house.
+~
+0 0 6
+D0
+~
+~
+0 -1 9557
+D1
+~
+~
+0 -1 9563
+D2
+~
+~
+0 -1 9567
+M 9500 0 13 !
+S
+#9563
+Forest~
+You are in an apparently empty classroom. A strange feeling of being
+watched comes over you, and you hear the faint rustle of robes.
+  The only apparent exit is back east to the hallway.
+~
+0 1 3
+D0
+~
+~
+0 -1 9558
+D1
+~
+~
+0 -1 9564
+D2
+~
+~
+0 -1 9568
+D3
+~
+~
+0 -1 9562
+M 9500 1 13 @
+S
+#9564
+Swamp~
+You are floating in a formless void, detached from all sensation of physical
+matter, surrounded by swirling glowing light, which fades into the relative
+darkness around you without any trace of edges or shadow.
+   There is a "No Tipping" notice pinned to the darkness.
+~
+0 1 1
+D0
+~
+~
+0 -1 9559
+D1
+~
+~
+0 -1 9565
+D2
+~
+~
+0 -1 9569
+D3
+~
+~
+0 -1 9563
+M 9500 2 13 #
+S
+#9565
+Well~
+The lawn seems to stretch and stretch to the south and to the west.
+North of you is a gate.  The grass is emerald green and luscious,
+obviously well cared for.
+~
+0 777 0
+D0
+~
+~
+0 -1 9560
+D1
+~
+~
+0 -1 9566
+D2
+~
+~
+0 -1 9570
+D3
+~
+~
+0 -1 9564
+M 9500 3 13 $
+S
+#9566
+Street~
+You are floating in a formless void, detached from all sensation of physical
+matter, surrounded by swirling glowing light, which fades into the relative
+darkness around you without any trace of edges or shadow.
+   There is a "No Tipping" notice pinned to the darkness.
+~
+0 1 1
+D0
+~
+~
+0 -1 9561
+D2
+~
+~
+0 -1 9571
+D3
+~
+~
+0 -1 9565
+M 9500 4 13 %
+S
+#9567
+On the River~
+The levee is directly north of here.  The river flows in an east west
+direction.
+~
+0 1 7
+D0
+~
+~
+0 -1 9562
+D1
+~
+~
+0 -1 9568
+D2
+~
+~
+0 -1 9572
+M 9500 0 14 ^
+S
+#9568
+The Floor of the Canyon~
+Various elemental forms wander the floor of the canyon.  Some seem to be
+going about their business, while others seem to have no business at all.
+In general, it is calm, yet there is always a incessant buzz of things
+going on about.  The canyon continues north and east.
+~
+0 0 5
+D0
+~
+~
+0 -1 9563
+D1
+~
+~
+0 -1 9569
+D2
+~
+~
+0 -1 9573
+D3
+~
+~
+0 -1 9567
+M 9500 1 14 &
+S
+#9569
+Beach~
+This damp, cold beach is covered in a thick grey mist limiting vision
+to arms reach.  The ghostly sound of the waves can be heard off to the
+east. The mist itself seem to be flowing in from the west.
+~
+0 0 10
+D0
+~
+~
+0 -1 9564
+D1
+~
+~
+0 -1 9570
+D2
+~
+~
+0 -1 9574
+D3
+~
+~
+0 -1 9568
+M 9500 2 14 *
+S
+#9570
+Mine~
+You are at the bottom of the mineshaft.  The air here is very sooty, and
+it is very hard to breath.  The mineshaft leads up and east.
+~
+0 265 5
+D0
+~
+~
+0 -1 9565
+D1
+~
+~
+0 -1 9571
+D2
+~
+~
+0 -1 9575
+D3
+~
+~
+0 -1 9569
+M 9500 3 14 (
+S
+#9571
+Road~
+You stand on Bywater Road, the busiest street in all of Shiredom.  The road
+continues to the east and west while to the north lies the general store.
+~
+0 0 4
+D0
+~
+~
+0 -1 9566
+D2
+~
+~
+0 -1 9576
+D3
+~
+~
+0 -1 9570
+M 9500 4 14 )
+S
+#9572
+On the Stream~
+The stream is cold and frigid, yet it supports plenty of life beneath its
+surface.  The current trickles west and there is a field to the south.
+~
+0 0 6
+D0
+~
+~
+0 -1 9567
+D1
+~
+~
+0 -1 9573
+M 9500 0 15 -
+S
+#9573
+The forest clearing~
+You are in a clearing in the forest.  Lots of fresh stumps of varying sizes
+protrude from the ground and heavy logs are stacked neatly in a big pile
+supported by stakes set into the ground.  Paths lead north, east and west.
+~
+0 0 3
+D0
+~
+~
+0 -1 9568
+D1
+~
+~
+0 -1 9574
+D3
+~
+~
+0 -1 9572
+M 9500 1 15 _
+S
+#9574
+Snake Pit~
+You stand beside a large dark pond.  The water boils not with heat, but with
+motion, as if it is alive.  A creaking beat pulses through the air, leaving
+you with a cold sweat and fear in your heart.
+~
+0 1 5
+D0
+~
+~
+0 -1 9569
+D1
+~
+~
+0 -1 9575
+D2
+~
+~
+0 -1 9577
+D3
+~
+~
+0 -1 9573
+M 9500 2 15 +
+S
+#9575
+Tunnel~
+You are floating in a formless void, detached from all sensation of physical
+matter, surrounded by swirling glowing light, which fades into the relative
+darkness around you without any trace of edges or shadow.
+   There is a "No Tipping" notice pinned to the darkness.
+~
+0 265 0
+D0
+~
+~
+0 -1 9570
+D1
+~
+~
+0 -1 9576
+D2
+~
+~
+0 -1 9578
+D3
+~
+~
+0 -1 9574
+M 9500 3 15 =
+S
+#9576
+Path~
+You are on a small path leading through the dense forest.  The crowns of the
+old trees leave the forest in an unreal twilight illumination.  The path
+continues east and west.
+~
+0 0 3
+D0
+~
+~
+0 -1 9571
+D2
+~
+~
+0 -1 9579
+D3
+~
+~
+0 -1 9575
+M 9500 4 15 |
+S
+#9577
+Sandstorm~
+A vast desert stretches for miles, the sand constantly shifting around you.
+You feel lost.
+~
+0 0 10
+D0
+~
+~
+0 -1 9574
+D1
+~
+~
+0 -1 9578
+D2
+~
+~
+0 -1 9582
+M 9500 2 16 `
+S
+#9578
+Rope~
+You are floating in a formless void, detached from all sensation of physical
+matter, surrounded by swirling glowing light, which fades into the relative
+darkness around you without any trace of edges or shadow.
+   There is a "No Tipping" notice pinned to the darkness.
+~
+0 0 1
+D0
+~
+~
+0 -1 9575
+D1
+~
+~
+0 -1 9579
+D2
+~
+~
+0 -1 9583
+D3
+~
+~
+0 -1 9577
+M 9500 3 16 {
+S
+#9579
+Cliff~
+Being very careful not to lose your balance, you look around and
+find that this canyon is about a half a kilometer deep. To the west is
+a dark cave leading under the desert sands.
+~
+0 0 5
+D0
+~
+~
+0 -1 9576
+D2
+~
+~
+0 -1 9584
+D3
+~
+~
+0 -1 9578
+M 9500 4 16 [
+S
+#9580
+An Underground River~
+You are standing in water, the tunnel continues both to the
+north and south.
+~
+0 265 6
+D1
+~
+~
+0 -1 9581
+D2
+~
+~
+0 -1 9585
+M 9500 0 17 }
+S
+#9581
+Jungle~
+You stand beside a large dark pond.  The water boils not with heat, but with
+motion, as if it is alive.  A creaking beat pulses through the air, leaving
+you with a cold sweat and fear in your heart.
+~
+0 1 3
+D1
+~
+~
+0 -1 9582
+D2
+~
+~
+0 -1 9586
+D3
+~
+~
+0 -1 9580
+M 9500 1 17 ]
+S
+#9582
+Sand Bar~
+You are on a little sand bar in the water.
+~
+0 0 10
+D0
+~
+~
+0 -1 9577
+D1
+~
+~
+0 -1 9583
+D2
+~
+~
+0 -1 9587
+D3
+~
+~
+0 -1 9581
+M 9500 2 17 :
+S
+#9583
+On the Rope Bridge~
+You are on the rope bridge.  From here, you can see the whole Valley of the
+Elves.  To the south, you see the main valley.  To the north-east, you see a
+smaller valley with a building in the center of it.  To the north-west, you
+can see a very small valley with a shack in it's center.  A rope ladder
+leads down into a trail.
+~
+0 0 5
+D0
+~
+~
+0 -1 9578
+D1
+~
+~
+0 -1 9584
+D2
+~
+~
+0 -1 9588
+D3
+~
+~
+0 -1 9582
+M 9500 3 17 "
+S
+#9584
+A Bridge~
+You are floating in a formless void, detached from all sensation of physical
+matter, surrounded by swirling glowing light, which fades into the relative
+darkness around you without any trace of edges or shadow.
+   There is a "No Tipping" notice pinned to the darkness.
+~
+0 1 1
+D0
+~
+~
+0 -1 9579
+D2
+~
+~
+0 -1 9589
+D3
+~
+~
+0 -1 9583
+M 9500 4 17 '
+S
+#9585
+An Underground Lake~
+You stand beside a large dark pond.  The water boils not with heat, but with
+motion, as if it is alive.  A creaking beat pulses through the air, leaving
+you with a cold sweat and fear in your heart.
+~
+0 9 6
+D0
+~
+~
+0 -1 9580
+D1
+~
+~
+0 -1 9586
+M 9500 0 18 <
+S
+#9586
+Cave~
+This cavern overwhelms you. The walls and ceiling seem miles away.
+Bones of previous adventurers lie strewn on the cavern floor.
+~
+0 9 5
+D0
+~
+~
+0 -1 9581
+D1
+~
+~
+0 -1 9587
+D3
+~
+~
+0 -1 9585
+M 9500 1 18 ,
+S
+#9587
+Sombody Ignored This Room~
+You are floating in a formless void, detached from all sensation of physical
+matter, surrounded by swirling glowing light, which fades into the relative
+darkness around you without any trace of edges or shadow.
+   There is a "No Tipping" notice pinned to the darkness.
+~
+0 1 1
+D0
+~
+~
+0 -1 9582
+D1
+~
+~
+0 -1 9588
+D3
+~
+~
+0 -1 9586
+M 9500 2 18 >
+S
+#9588
+A Rope Ladder~
+You are floating in a formless void, detached from all sensation of physical
+matter, surrounded by swirling glowing light, which fades into the relative
+darkness around you without any trace of edges or shadow.
+   There is a "No Tipping" notice pinned to the darkness.
+~
+0 0 5
+D0
+~
+~
+0 -1 9583
+D1
+~
+~
+0 -1 9589
+D3
+~
+~
+0 -1 9587
+M 9500 3 18 .
+S
+#9589
+A Natural Bridge~
+You are floating in a formless void, detached from all sensation of physical
+matter, surrounded by swirling glowing light, which fades into the relative
+darkness around you without any trace of edges or shadow.
+   There is a "No Tipping" notice pinned to the darkness.
+~
+0 1 4
+D0
+~
+~
+0 -1 9584
+D3
+~
+~
+0 -1 9588
+M 9500 4 18 ?
+S
+#0
+
+
+#RESETS
+O 0 30 1 9500
+S
+
+
+#SHOPS
+0
+
+
+#REPAIRS
+0
+
+
+#SPECIALS
+S
+
+
+#$

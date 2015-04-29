@@ -1,0 +1,2041 @@
+#AREA   Limbo~
+
+
+
+#VERSION 1
+#AUTHOR RoD~
+
+#RANGES
+0 60 0 60
+$
+
+#RESETMSG A dim pulse of light filters through the swirling mists.~
+
+#FLAGS
+4 60
+
+#ECONOMY 0 49466007
+
+#CLIMATE 2 2 2
+
+#MOBILES
+#1
+Puff~
+Puff~
+Puff the Fractal Dragon is here, contemplating a higher reality.
+~
+~
+1073741827 4203176 1000 C
+50 20 -30 5d10+30550 4d10+200
+10000 1000
+112 112 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+31 0 0 0 3420515 3420515 0
+0 0 0 0 3156992 0 2 3
+#2
+freddy imp~
+A demon imp~
+A demon imp hovers nearby...drooling constantly with a fiendish grin.
+~
+This demon is clearly something that you don't want to mess with...
+It appears to be very agile, and very strong.  
+~
+3 40 -1000 S
+50 1 -300 5d10+31550 1d2+2
+10000 155000
+112 112 0
+> act_prog p is starved~
+mpoload 20
+give mushroom $n
+mpforce $n eat mushroom
+mprestore $n 500
+~
+> act_prog p bashes against~
+mprestore $n 500
+~
+> act_prog p shivers and~
+cast 'cure poison' $n
+mprestore $n 500
+~
+> act_prog p wears~
+mprestore $n 500
+~
+> act_prog p wields~
+mprestore $n 500
+~
+> act_prog p is DEAD!!~
+if inroom($i) == 6
+   mptransfer 0.$n 6
+  else
+  mptransfer 0.$n 8
+endif
+~
+> act_prog p is suffering from lack of blood!~
+mpforce $n drink blood
+mprestore $n 500
+~
+> rand_prog 1~
+if isimmort($r)
+else
+  if class($r) == vampire
+    mpforce $r drink blood
+    mprestore $r 100
+  endif
+endif
+~
+> act_prog p is mortally wounded, and will die soon, if not aided.~
+mprestore $n 1000
+~
+> act_prog p is incapacitated, and will die slowly soon if not aided.~
+mprestore $n 1000
+~
+> act_prog p has entered the game.~
+if inroom($i) == 8
+or isimmort($n)
+else
+  if ishelled($n) == 0
+     mea 0.$n _yel Your time in hell has expired, and you have been released.
+     if ispkill($n)
+       mptransfer 0.$n 3001
+     else
+       mptransfer 0.$n 21000
+     endif
+     mpat 0.$n mpforce 0.$n look
+  endif
+endif
+~
+> act_prog p disappears in a column of divine power.~
+if inroom($i) == 6
+  mptransfer 0.$n 6
+  mpforce 0.$n look
+else
+  mptransfer 0.$n 8
+endif
+~
+|
+#3
+supermob~
+the supermob~
+The supermob is here.  He looks busy as hell.
+~
+How clever he looks!
+~
+1084235777 4259882 -1000 C
+56 1 -300 5d10+31550 1d2+2
+10000 155000
+112 112 0
+13 13 13 13 13 13 25
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 0 0 2108528 0 0 3
+> rand_prog 10~
+mpinvis 51
+if ismobinvis($i)
+else
+  mpinvis
+endif
+~
+|
+#4
+fharlangan god traveler~
+Fharlangan~
+A man desiring nothing more than to be allowed to travel is here.
+~
+The eternal wanderer is before you.  His clothes are threadbare and
+his boots weathered, yet his eyes possess the light of youth.  He
+goes throughout the world now always wandering, never tarrying.
+~
+5 4203176 600 C
+50 0 -200 100d50+3500 4d10+14
+150000 0
+112 112 1
+25 20 20 18 17 13 25
+0 0 0 0 0
+90 0 0 0 131073 131073 0
+0 0 0 96 2100231 16 402653296 2
+> rand_prog 5~
+c teleport
+mpasound You feel the power of an immortal close by...
+mpe With a clap of thunder, Fharlangan strides out of a cloud of lightning.
+if level($r) == 2
+  mpadvance $r 3
+  mea $r You have been chosen by me to carry my word throughout the Realms!
+  mer $r $I points an aged finger at $r, who suddenly looks different!
+  c bless $n
+  c refresh $n
+  c 'heal' $n
+  c sanc $n
+endif
+~
+> fight_prog 15~
+mpasound The nearby sound of a god doing battle can be heard clearly.
+mpe $I gathers his godly might into one blow and strikes out!
+mpe $I's blast of magic rips through the air!
+mpdamage $n 500
+~
+> rand_prog 10~
+wear all
+drop all.ball
+drop all.mushroom
+~
+> rand_prog 3~
+mpat 3 c heal
+, mumbles and runs his hands over his arms.
+~
+|
+#5
+undead animated corpse~
+an animated corpse~
+An animated corpse struggles with the horror of its undeath.
+~
+Denied its rightful death, this animated corpse has been infused with the
+powerful energies of its master.  It exists on the precipice between life
+and unlife, even as its physical body rots and decays under the strain of
+its tasks.
+~
+1 0 0 C
+1 0 0 10d0+2 0d0+0
+0 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 7 0 0 0 0 2
+#7
+wd dog watchdog~
+Gorog's watchdog~
+Gorog's watchdog growls at everyone.
+~
+Gorog's watchdog is the biggest meanest dog he could find.
+ 
+Gorog hopes you will try to fight with it.
+ 
+~
+3 4759720 -1000 C
+55 0 0 1d1+30000 1d12+800
+0 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 1
+80 50 0 0 3157347 0 65 7
+> act_prog p~
+~
+> rand_prog 4~
+if mortinworld(cedrick)
+mpat 0.cedrick mpdelay cedrick 30
+endif
+if mortinworld(lizee)
+mpat 0.lizee mpdelay lizee 30
+endif
+if mortinworld(lereanni)
+mpat 0.lereanni mpdelay lereanni 30
+endif
+if mortinworld(xrykath)
+mpat 0.xrykath mpdelay xrykath 30
+endif
+~
+> act_prog p gives you~
+mpjunk all
+yum
+burp
+~
+> death_prog 100~
+mplog killed by $n
+mpoload 28 40
+give earring 0.$n
+mpjunk all
+~
+> rand_prog 20~
+mprestore $i 400
+mpmset $i mentalstate 0
+~
+> fight_prog 100~
+mprestore self 1000
+if isnpc($n)
+   mpslay $n
+else
+mpdamage 0.$n 200
+endif
+if rand(2)
+   c 'gas breath'
+endif
+~
+|
+#9
+secretary~
+The secretary~
+A secretary for SmoKe and Damian looks over at you.
+~
+~
+1073741825 100663464 0 C
+50 0 0 100d77+6000 0d0+0
+0 0
+112 112 2
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 0
+0 0 1 0 0 0 2097920 7
+> act_prog p has entered the game.~
+mpechoat $n This is a message to ALL people who want vnums. They aren't
+mpechoat $n handed out currently as we are sorting them out. Please type
+mpechoat $n SAY SUPPLIES and you will be promoted to level 2 <if now level 1>
+mpechoat $n and you will recieve a quill and 2 scrolls for you to use. You can
+mpechoat $n then type SAY VNUMS to be transfered to the VNUM note room.
+~
+> speech_prog p SUPPLIES~
+if level ( $n ) == 1
+mpadvance $n 2
+mpechoat $n You've been granted level 2 by the Gods. Remember to save.
+mpechoat $n Here are 2 quill's and 2 scrolls. Please use them wisely.
+mpoload 36 1
+mpoload 37 1
+mpoload 36 1
+mpoload 37 1
+give note $n  
+give note $n
+give quill $n   
+give quill $n 
+mpforce $n save
+else
+mpechoat $n Here are 2 quill's and 2 scrolls. Please use them wisely.
+mpoload 36 1
+mpoload 37 1
+mpoload 36 1
+mpoload 37 1
+give note $n
+give note $n
+give quill $n
+give quill $n
+mpforce $n save
+endif
+~
+> speech_prog p VNUMS~
+mpechoaround $n The secretary reaches over to the wall and pushes a big red
+mpechoaround $n button. Just then $n disappears in a flash!
+mpechoat $n If you want to come back here type "VNUMS" without the quotes 
+mpechoat $n If you want to come back here type VNUMS in the board room.
+mpechoat $n You appear in a new room magically.
+mpforce $n wear note
+mpechoat $n Type note write to write a note. Use the second note if
+mpechoat $n You make a mistake. Type note show to check everything.
+mpechoat $n You WONT be able to read after you post!
+mptransfer $n 9
+~
+|
+#10
+wolf~
+a deadly wolf~
+A deadly wolf prowls around you with a vengeance
+~
+While this large beast circles you, you have a chance to see its large          
+fangs and its sharp claws.  The wolf's eyes are small, black and have           
+the aura of a deadly intent.  Its raggedy coat tells of a recent battle         
+with something.
+~
+1073741825 0 0 C
+1 0 0 0d0+0 0d0+0
+0 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+5 4 0 0 135445263 135445263 2
+0 0 0 0 0 0 3 0
+#11
+mist~
+mist~
+A thick mist plays with your senses.
+~
+Is it the fog you see?  Or are your eyes playing deadly tricks on you.  The
+mist swirls around you and then quickly disappears before you can blink.  You
+suddenly find yourself overcome with an unknown power.
+~
+1073741825 2129920 0 C
+1 0 0 0d0+0 0d0+0
+0 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+85 3 0 0 135447947 135447947 2
+0 0 0 0 0 0 35651584 0
+#12
+bat~
+bat~
+A bat hovers nearby with bloody fangs.
+~
+As this bloodsucking creature flies past you, you notice the tiny black
+eyes that stare at your jugular vein.  This little black bat has the
+intentions of drinking your blood until there is none left in your body.
+~
+1073741825 524288 0 C
+1 0 0 0d0+0 0d0+0
+0 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+23 3 0 0 1996514925 1996514924 2
+0 0 0 0 0 0 3 0
+#13
+hawk~
+hawk~
+A hawk watches you with predatory eyes from its perch.
+~
+This proud creature stands upon its perch watching you with unblinking
+eyes.  Any movement made by you could make it flare its wings in disapproval
+and open its beak to scream its intent.  Its long beak open and before you
+know what has happened, it comes flying towards you.
+~
+1073741825 524288 0 C
+1 0 0 0d0+0 0d0+0
+0 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+78 3 0 0 135448667 135448666 2
+0 0 0 0 0 0 2 0
+#14
+black cat~
+black cat~
+A black cat has crossed your path with deadly intent.
+~
+With a furry black coat, and big yellow eyes, this cat gracefully walks
+across your path, bringing you several years of bad luck.  Its tail moves
+slowly to tell you that it is laughing at your misfortune.
+~
+1073741825 8 0 C
+1 0 0 0d0+0 0d0+0
+0 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+29 3 0 0 6645091 6645090 2
+0 0 0 0 0 0 3 0
+#15
+dove~
+dove~
+A beautiful dove sings a melancholy melody from its nest.
+~
+With feathers the colour of soft grey and soft loving black eyes, this small
+delicate creature sings you a tune full of romance.  The tune it sings comes
+from the small breast that rises and falls with every chorus it sings.  You
+are at peace as you listen to this lovable creature.
+~
+1073741825 524288 0 C
+1 0 0 0d0+0 0d0+0
+0 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+78 3 0 0 135448667 135448666 1
+0 0 0 0 0 0 2 0
+#16
+fish~
+fish~
+A fish blows large bubbles as it quickly swims past you.
+~
+With fins, teeth and gills, this slippery little thing is hard to catch.
+It swims with a speed no beast, human or animal can compete with.  It's
+tiny eyes, move with every breath.  It blows several large bubbles as it
+quickly swims past you.
+~
+1073741825 -2147483648 0 C
+1 0 0 0d0+0 0d0+0
+0 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+81 3 0 0 135448379 135448378 1
+0 0 0 0 0 0 0 0
+#17
+avatar~
+the avatar of %s~
+The daunting and powerful avatar of %s occupies the ground here.
+~
+The avatar of %s appears calm and cool, ready for whatever might come.
+~
+16777219 0 0 C
+1 0 0 5d5+25 5d5+26
+0 0
+112 112 0
+25 25 25 25 25 25 25
+0 0 0 0 0
+88 3 0 0 1 1 0
+20 0 2047 0 1024 0 0 0
+> death_prog 100~
+mpecho The spirit of the avatar rises skyward to be joined with its master,
+mpecho while its corporeal form falls lifelessly to the ground.
+~
+> rand_prog 5~
+mpecho With its task complete, the avatar departs in a puff of smoke.
+mpgoto 4
+~
+> speech_prog depart~
+bow
+, disappears in a puff of smoke.
+mpgoto 4
+~
+|
+#18
+buff dragon~
+Buff the Badass Dragon~
+Buff the Badass Dragon blows your mind with FIRE!
+~
+~
+1082130433 38371328 0 C
+55 0 0 1d1+22000 1d1+800
+0 0
+108 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 1 1 6
+0 0 0 0 3157091 0 65 0
+> fight_prog 50~
+c 'gas breath'
+c 'frost breath'
+c 'acid breath'
+c 'fire breath'
+c 'lightning breath
+~
+> act_prog ~
+~
+|
+#70
+chateau jules host~
+Jules~
+The executive of the Chateau stands here, looking very pompous.
+~
+~
+83888195 188 0 C
+50 0 -300 1d1+30000 50d100+50
+0 0
+112 112 1
+25 25 25 25 25 25 25
+-30 -30 -30 -30 -30
+51 3 0 0 7 6 5
+60 60 0 0 2100224 0 0 3
+> all_greet_prog 100~
+if sex($n) == 1
+say Ah, bonjour monsieur $n, welcome to the Chateau L'amour!
+wink
+say If you wish to dine, please speak up sir.
+endif
+if sex($n) == 2
+say ooOOooOOooOOoo la la! Welcome madame $n!
+hand $n
+say If you wish to dine madame, just say so.
+endif
+~
+> speech_prog p i wish to dine~
+if sex($n) == 1
+say Well then, right this way monsieur.
+mpopenpassage 72 73 7
+mea 0.$n $I escorts you into the dining room.
+mer 0.$n $I escorts $n into the dining room.
+mpforce $n nw
+mpclosepassage 72 7
+mpat 73 say Ah, here is a table for two.
+mpat 73 say Enjoy your dinner, sir.
+else
+if sex($n) == 2
+smile
+say Right this way madame $n.
+mpopenpassage 72 73 7
+mea 0.$n $I escorts you into the dining room.
+mer 0.$n $I escorts $n into the dining room.
+mpforce $n nw
+mpclosepassage 72 7
+mpat 73 say Ah, here is a table for two.
+mpat 73 say Enjoy your dinner madame.
+endif
+endif
+~
+|
+#71
+chateau pierre waiter~
+Pierre~
+A Chateau waiter stands here, looking very preoccupied.
+~
+~
+83888195 2097852 0 C
+50 0 -300 1d1+30000 50d100+50
+0 0
+112 112 1
+25 25 25 25 25 25 25
+-30 -30 -30 -30 -30
+3 3 0 0 131073 131072 5
+60 60 0 0 2100224 0 0 3
+> speech_prog waiter!~
+if ispc($n)
+say Ah bonjour! welcome to the Chateau "Cabaret"
+say Our special this evening is fillet mignon...
+say If you want this delectable entree, just say so.
+smile
+endif
+~
+> speech_prog p I will have the fillet mignon~
+say Ah excellent!
+emote dashes to the kitchen and comes back holding plates.
+mpoload 70
+give fillet-mignon-steak $n
+mpoload 71
+give glass-sherry-wine $n
+say If you wish to go to your room after you've eaten, just say so.
+wink
+~
+> speech_prog p I wish to go to the room~
+if ispc($n)
+ooo
+say Ah yes, right this way.
+mpopenpassage 73 74 4
+mpforce $n u
+mpclosepassage 73 4
+mpat 74 say Enjoy!
+endif
+~
+|
+#80
+guardian vampire~
+a guardian vampire~
+A vampire is here hiding his face from your light source.
+~
+Before you stands a guardian vampire, looking quite evil to say the least.
+The hair on your arms is raised by its presence alone, and it seems to you
+that he appears too formidable to be a minor minion.
+~
+35 40 -1000 C
+25 0 -4 1d1+385 4d5+15
+0 105000
+112 112 1
+13 13 13 13 13 13 13
+0 0 0 0 0
+67 3 0 0 7499637 7499636 0
+0 0 1735 0 0 0 33558528 0
+#99
+final mob~
+a newly created final mob~
+Some god abandoned a newly created final mob here.
+~
+~
+1073741825 0 0 S
+1 0 0 0d0+0 0d0+0
+0 0
+112 112 0
+#0
+
+
+#OBJECTS
+#2
+coin gold~
+a gold coin~
+One miserable gold coin.~
+~
+20 0 1
+1 0 0 0
+1 0 0
+#3
+coins gold~
+%d gold coins~
+A pile of gold coins.~
+~
+20 0 1
+0 0 0 0
+1 0 0
+#7
+board of marks~
+the Marks Board~
+The Vnum Administrators Marks Board.~
+~
+13 1073741824 0
+0 0 0 0
+1 0 0
+#8
+board vnum/area~
+the Vnum/Area Board~
+The Vnum/Area Board is hanging on the wall here.~
+~
+13 1073741824 0
+0 0 0 0
+1 0 0
+#9
+board vnum~
+the Vnum Board~
+The Board of Vnums lies here.~
+~
+13 1073741824 0
+0 0 0 0
+1 0 0
+#10
+corpse~
+the corpse of %s~
+The corpse of %s lies here.~
+~
+23 0 1
+0 0 0 1
+100 0 0
+#11
+corpse~
+the corpse of %s~
+The corpse of %s is lying here.~
+~
+24 0 0
+0 0 0 1
+100 0 0
+#12
+head~
+the decapitated head of %s~
+The head of %s lies here, a vacant stare of shock on its face.~
+%s gobble$q down $p with gusto... disgusting!~
+61 0 1
+10 0 0 0
+5 0 0
+#13
+heart~
+the torn-out heart of %s~
+The torn-out heart of %s lies here, no longer beating with life.~
+%s savagely devour$q $p!~
+61 0 1
+16 0 0 0
+2 0 0
+#14
+arm~
+the mangled arm of %s~
+A writhing arm lies torn from the body of %s.~
+%s chomp$q on $p.~
+61 0 1
+30 0 0 0
+5 0 0
+#15
+leg~
+the dismembered leg of %s~
+Still twitching as if to kick you, the leg of %s lies here.~
+%s chomp$q on $p.~
+61 0 1
+40 0 0 0
+5 0 0
+#16
+guts~
+the spilled guts of %s~
+The disemboweled guts of %s swarm with maggots.~
+~
+61 0 0
+5 0 0 1
+1 0 0
+#17
+blood~
+the spilled blood~
+A pool of spilled blood lies here.~
+~
+27 0 0
+5 0 0 1
+1 0 0
+#18
+bloodstain~
+the bloodstain~
+Blood stains the ground.~
+~
+28 0 0
+5 0 0 1
+1 0 0
+#19
+scraps remnants~
+the remnants of %s~
+The remnants of %s are strewn about.~
+~
+29 0 1
+5 0 0 1
+1 0 0
+#20
+mushroom~
+a magic mushroom~
+A delicious magic mushroom is here.~
+%s enjoy$q $p.~
+19 0 1
+5 0 0 0
+1 10 1
+#21
+ball light iridescent~
+a ball of iridescent light~
+Shards of iridescent light shimmer in a brightly glowing ball.~
+~
+1 65 1
+0 0 -1 0
+1 0 0
+#22
+spring mystical flowing~
+a mystical spring~
+A mystical spring flows majestically from a glowing circle of blue.~
+~
+25 64 0
+100000 100000 0 0
+10 10 1
+> use_prog 100~
+mpechoat $n You drink deeply from the flow of mystical water.
+mpechoar $n $n drinks deeply from the flow of mystical water.
+~
+|
+#23
+skin~
+the skin of %s~
+The skin of %s lies here.~
+~
+8 0 1
+0 0 0 0
+1 0 0
+#24
+meat fresh slice~
+a slice of raw meat from %s~
+A slice of raw meat from %s lies lies on the ground.~
+~
+61 262144 1
+15 0 0 0
+2 0 0
+> use_prog 100~
+mpechoat $n Your mouth waters in delight as you enjoy this fresh meat.
+mpechoaround $n $n chews contentedly, enjoying the flavor of the fresh meat.
+~
+|
+#25
+shoppe bag shopping~
+a bag~
+A shoppe bag lies discarded nearby.~
+~
+15 0 1
+50 0 0 0
+2 20 2
+#26
+blood pool spill bloodlet~
+a quantity of let blood~
+A pool of let blood glistens here.~
+~
+27 0 0
+0 0 0 0
+1 0 0
+#30
+fire flame cloud~
+a cloud of vaporous flame~
+A cloud of vaporous flame blazes here, defying the elements.~
+~
+34 64 0
+0 0 0 0
+10 10 1
+#31
+trap~
+a trap~
+You detect a trap.~
+~
+44 0 0
+0 0 0 0
+100 10 1
+#32
+portal whirling~
+a whirling portal~
+A whirling portal of energy turns slowly, beckoning to the unknown.~
+~
+46 64 0
+0 0 0 0
+100 10 1
+#33
+black poison powder~
+black poisoning powder~
+A small amount of black poisoning powder sits in a small container on the ground.~
+~
+13 0 16385
+0 0 0 0
+1 48000 4800
+#34
+scroll scribing blank~
+a blank scroll~
+A blank scroll lays here gathering dust.~
+~
+2 0 16385
+0 -1 -1 -1
+2 10000 1000
+'NONE' 'NONE' 'NONE'
+#35
+flask empty~
+an empty flask~
+An empty flask lays here gathering dust.~
+~
+10 0 16385
+1 -1 -1 -1
+1 15000 1500
+'NONE' 'NONE' 'NONE'
+#36
+parchment paper note~
+a note~
+A note has been discarded here.~
+~
+47 8192 16385
+0 0 0 0
+1 1500 150
+#37
+quill pen~
+a quill~
+A feather dipped in ink lies here.~
+~
+21 0 1
+15 15 0 0
+2 2000 200
+#38
+boots travel traveling~
+weathered boots~
+A pair of weathered traveling boots lie here.~
+~
+9 8391747 65
+11 11 0 0
+2 325400 32540
+A
+19 5
+A
+18 1
+A
+14 100
+A
+2 1
+#39
+key gate~
+a gate key~
+A largish key lies here.~
+~
+18 524288 1
+0 0 0 0
+1 0 0
+#41
+orb~
+the orb~
+A small orb tops a slender pedestal of glowing crystal.~
+~
+37 0 0
+0 0 0 0
+1 0 0
+E
+orb~
+Pulsing atop the crystal column, it seems as though it could be pushed to
+turn it ever so slightly.
+~
+> push_prog 100~
+mpechoat $n The instant your hand touches the orb, your surroundings change.
+mpechoat $n The sights and busy sounds of Darkhaven surround you...
+if ispkill($n)
+  mptrans 0.$n 3009
+else
+  mptrans $n 21001
+  mpat 21001 mer 0.$n $n materializes in the center of the great rune.
+endif
+mpat 99 pull orb
+~
+|
+#42
+orb~
+a pulsing orb~
+A pulsing orb lies here, probably lost.~
+~
+4 0 16385
+25 1 1 -1
+1 1 0
+'heal'
+> use_prog 100~
+mpecho $n blows sweet dragon's breath over you.
+~
+|
+#43
+holy symbol faith~
+a symbol of faith~
+A holy symbol lies here, shining.~
+~
+9 -2147483648 16385
+5 5 0 0
+5 0 0
+A
+4 2
+#44
+chunk chunks brain brains~
+the splattered brains of %s~
+Grey chunks of the brain of %s lie here attracting flies.~
+%s savagely devour$q $p!~
+19 0 1
+16 0 0 0
+2 0 0
+#45
+hand~
+the severed hand of %s~
+The severed hand of %s clenches in a death spasm.~
+%s savagely devour$q $p!~
+61 0 1
+12 0 0 0
+2 0 0
+#46
+foot~
+the twisted foot of %s~
+The foot of %s lies in a pool of coagulated blood.~
+%s savagely devour$q $p!~
+61 0 1
+12 0 0 0
+2 0 0
+#47
+finger~
+the wriggling finger of %s~
+Ripped from the hand of %s, a finger lies wriggling here.~
+%s savagely devour$q $p!~
+61 0 1
+5 0 0 0
+1 0 0
+#48
+ear~
+the torn ear of %s~
+The sliced-off ear of %s lies here, never again to hear battle.~
+%s savagely devour$q $p!~
+61 0 1
+5 0 0 0
+1 0 0
+#49
+eye~
+the gouged-out eye of %s~
+A gouged-out eye forever envisions the gruesome death of %s.~
+%s savagely devour$q $p!~
+61 0 1
+5 0 0 0
+1 0 0
+#50
+long-tongue~
+the long tongue of %s~
+Twisting as if to taste you, the writhing tongue of %s lies here.~
+%s savagely devour$q $p!~
+61 0 1
+14 0 0 0
+2 0 0
+#51
+eyestalk~
+the eyestalk of %s~
+Visions of death fill your mind as you notice the eyestalks of %s.~
+%s savagely devour$q $p!~
+61 0 1
+10 0 0 0
+1 0 0
+#52
+tentacle~
+the slimy tentacle of %s~
+A tentacle of %s thrashes wildly in a feeble attempt to regain life.~
+%s savagely devour$q $p!~
+61 0 1
+25 0 0 0
+4 0 0
+#53
+fin~
+the mutilated fin of %s~
+The mutilated fin of %s lies here, smelling of rot and decay.~
+~
+13 0 1
+0 0 0 0
+2 0 0
+#54
+wing~
+the wing of %s~
+The mangled wing of %s thrashes in final throes.~
+~
+13 0 0
+0 0 0 0
+4 0 0
+#55
+tail~
+the thrashing tail of %s~
+The tail of %s lies here in a heap of morbid decay.~
+~
+13 0 1
+0 0 0 0
+5 0 0
+#56
+scale~
+a scale from %s~
+A scale from %s lies here, caked thickly in blood.~
+~
+13 0 1
+0 0 0 0
+3 0 0
+#57
+tusk~
+the broken tusk of %s~
+The broken tusk of %s has dropped here.~
+~
+13 0 1
+0 0 0 0
+5 0 0
+#58
+horn~
+the cracked horn of %s~
+The cracked horn of %s lies dislodged here.~
+~
+13 0 1
+0 0 0 0
+6 0 0
+#59
+claw~
+the severed claw of %s~
+The severed claw of %s lies mangled here.~
+~
+13 0 1
+0 0 0 0
+5 0 0
+#60
+blood fountain~
+a fountain of blood~
+A fountain of fresh blood flows in the corner.~
+~
+27 0 0
+99999 99999 0 0
+1 0 0
+#63
+extradimensional portal~
+an extradimensional portal~
+Some wizard left an extradimensional portal laying here.~
+~
+15 8618240 1
+500 0 0 0
+4 1000 100
+#64
+sigil~
+the sigil of %s~
+The sigil of %s lies here, abandoned.~
+~
+1 0 1
+200 0 -1 0
+1 0 0
+E
+sigil~
+A floating, opaque candle spreads the aura of a deity about the room.
+~
+A
+13 20
+A
+12 20
+A
+14 20
+A
+17 -20
+> wear_prog 100~
+if favor($n) < 300
+mpforce 0.$n remove sigil
+mea 0.$n Due to your low favor with your deity, you cannot brandish the sigil.
+endif
+~
+|
+#65
+solomonic cross crucifix symbol~
+a solomonic crucifix~
+An elegant crucifix radiates a glow of warmth and piety.~
+~
+9 25218307 16385
+10 10 0 0
+4 0 0
+#70
+fillet mignon steak~
+a delicate fillet mignon~
+A delicate fillet mignon lies here on a plate, still sizzling.~
+~
+19 0 1
+0 0 0 0
+1 50 5
+> use_prog 100~
+mea 0.$n The delectable and juicy steak melts in your mouth...
+mer 0.$n As $n eats the delectable and juicy steak, it melts in $s mouth...
+~
+|
+#71
+glass sherry wine~
+a fine glass of sherry~
+A wine glass full of sherry drips here on the ground.~
+~
+17 0 16385
+6 6 2 0
+1 250 25
+#72
+honeymoon plaque sign~
+a honeymoon plaque~
+A golden plaque gleams in the sunlight, crying out for your attention.~
+~
+12 0 0
+0 0 0 0
+1500 0 0
+E
+honeymoon plaque sign~
+These few but illustrious rooms are dedicated to Haus and Moonbeam, on 
+their wedding day, from Telemachus and the whole Imm gang, may it be a 
+fruitful and eternal wedlock =)
+ 
+--Telemachus
+12/15/97
+~
+#80
+feather~
+a feather from %s~
+A feather from %s floats about here.~
+~
+13 0 1
+0 0 0 0
+1 0 0
+#81
+forelegs~
+the severed foreleg of %s~
+The severed foreleg of %s lies here.~
+~
+13 0 1
+0 0 0 0
+1 0 0
+#82
+paw~
+%s's severed paw~
+The severed paw of %s lies here.~
+~
+13 0 1
+0 0 0 0
+1 0 0
+#83
+hoof~
+the cloven hoof of %s~
+The cloven hoof of %s lies here.~
+~
+13 0 1
+0 0 0 0
+2 0 0
+#84
+beak~
+the beak of %s~
+The beak of %s lies here.~
+~
+13 0 1
+0 0 0 0
+1 0 0
+#85
+sharpscale~
+a sharp scale from %s~
+A sharp scale from %s lies here.~
+~
+13 0 1
+0 0 0 0
+1 0 0
+#86
+haunch~
+the haunch of %s~
+The great haunch of %s lies here.~
+~
+19 0 1
+25 0 0 0
+4 0 0
+#87
+fang~
+the fang of %s~
+The fang of %s lies here.~
+~
+13 0 1
+0 0 0 0
+1 0 0
+#90
+arena sign banner~
+a floating banner~
+A big banner floats here.  Read it.~
+~
+12 1 0
+0 0 0 0
+1 0 0
+E
+arena sign banner~
+Use the arena at your own risk.
+ 
+Equipment loss for _ANY_ reason will _NOT_ be reimbursed.
+ 
+Deadlies will be able to loot and be looted by other deadlies.
+Otherwise no looting is possible.
+
+To return to Darkhaven, say "return" in the center of the arena.
+You cannot leave if engaged in combat.
+~
+#99
+final object~
+a newly created final object~
+Some god dropped a newly created final object here.~
+~
+13 1073741824 0
+0 0 0 0
+1 0 0
+#0
+
+
+#ROOMS
+#2
+Limbo~
+You float in a formless void, detached from all sensation of physical
+matter, surrounded by swirling glowing light which fades into the
+relative darkness around you without any trace of edge or shadow.
+~
+0 3154956 1
+D5
+~
+~
+0 -1 21194
+M 9500 0 1 a
+> rand_prog 50~
+mpmset $r full 50
+mpmset $r thirst 100
+mprestore $r 1
+~
+> act_prog is~
+mpmset $n full 50
+mpmset $n thirst 100
+mprestore $n 2
+~
+> act_prog p has lost~
+mpmset $n full 50
+mpmset $n thirst 100
+mprestore $n 2
+~
+|
+S
+#3
+Storage~
+This room is reserved for storage of polymorphed players.
+~
+0 3148294 1
+M 9500 0 0 z
+S
+#4
+Deity purge room~
+This room handles the purging of unused deities.
+~
+0 3145740 1
+S
+#6
+Hell~
+As if picked up by the scruff of your neck by a mighty hand, you find
+yourself unceremoniously dumped at a strange gateway.  Here is the
+place which will determine your fate.  Whether you will be sent back
+to life as you once knew it, or proceed onto a far yet bleaker pathway.
+The time has come for you to plead your case and await judgement for the
+crimes that have been placed upon your head.  Speak wisely and choose
+your words carefully, for your testimony will be written in the ledgers
+of the Gods, and will determine the path you will ultimately travel.
+~
+0 36840524 1
+S
+#8
+Hell~
+As if picked up by the scruff of your neck by a mighty hand, you find
+yourself unceremoniously dumped at a strange gateway.  Here is the
+place which will determine your fate.  Whether you will be sent back
+to life as you once knew it, or proceed onto a far yet bleaker pathway.
+The time has come for you to plead your case and await judgement for the
+crimes that have been placed upon your head.  Speak wisely and choose
+your words carefully, for your testimony will be written in the ledgers
+of the Gods, and will determine the path you will ultimately travel.
+                L|J(_)
+            )    | (")      (
+            ,(.  |`/ \- y  (,`)
+           )' (' | \ /\/  ) (.
+          (' ),) | _W_   (,)' ).
+~
+0 36840524 1
+> death_prog 100~
+if ispc($n)
+mptransfer $n 8
+mpforce $n drink blood
+mpforce $n drink blood
+mpforce $n drink blood
+mpforce $n drink blood
+mpforce $n drink blood
+mpforce $n drink water
+mpforce $n drink water
+mpforce $n drink water
+mpforce $n drink water
+mpforce $n drink water
+endif
+~
+|
+S
+#9
+Task Room~
+Any mob here is probably performing tasks.  Mess with it and I will
+kill your dog.
+-- Blodkai
+~
+0 3407876 1
+D5
+The Academy of Darkhaven
+~
+~
+0 -1 10300
+D10
+~
+VNUMS~
+526336 -1 10300
+S
+#29
+The Arena~
+You find yourself on the Arena floor.  The roar of the crowd above you
+is overwhelming, while around you ... your opponent awaits your coming.
+~
+0 1076895756 1
+D0
+~
+~
+0 -1 30
+D1
+~
+~
+0 -1 37
+D2
+~
+~
+0 -1 36
+> death_prog 100~
+mpecho A deafening clamor of gleeful shouts rain down from above!
+mpechoaround $n Trinkets, spittle and half-eaten food pelt down on your head.
+mpechoaround $n Tokens of favor from an appreciative crowd.
+~
+> rand_prog 15~
+mpecho A slow chant floats down to you:  "Two man enter ... one man leave."
+~
+|
+S
+#30
+The Arena~
+You find yourself on the Arena floor.  The roar of the crowd above you
+is overwhelming, while around you ... your opponent awaits your coming.
+~
+0 1076895756 1
+D1
+~
+~
+0 -1 31
+D2
+~
+~
+0 -1 29
+D5
+~
+~
+128 -1 34
+D8
+~
+~
+0 -1 37
+> death_prog 100~
+mpecho A deafening clamor of gleeful shouts rain down from above!
+mpechoaround $n Trinkets, spittle and half-eaten food pelt down on your head.
+mpechoaround $n Tokens of favor from an appreciative crowd.
+~
+> rand_prog 15~
+mpecho A slow chant floats down to you:  "Two man enter ... one man leave."
+~
+|
+S
+#31
+The Arena~
+You find yourself on the Arena floor.  The roar of the crowd above you
+is overwhelming, while around you ... your opponent awaits your coming.
+~
+0 1076895756 1
+D1
+~
+~
+0 -1 32
+D2
+~
+~
+0 -1 37
+D3
+~
+~
+0 -1 30
+> death_prog 100~
+mpecho A deafening clamor of gleeful shouts rain down from above!
+mpechoaround $n Trinkets, spittle and half-eaten food pelt down on your head.
+mpechoaround $n Tokens of favor from an appreciative crowd.
+~
+> rand_prog 15~
+mpecho A slow chant floats down to you:  "Two man enter ... one man leave."
+~
+|
+S
+#32
+The Arena~
+You find yourself on the Arena floor.  The roar of the crowd above you
+is overwhelming, while around you ... your opponent awaits your coming.
+~
+0 1076895756 1
+D2
+~
+~
+0 -1 33
+D3
+~
+~
+0 -1 31
+D5
+~
+~
+128 -1 36
+D9
+~
+~
+0 -1 37
+> death_prog 100~
+mpecho A deafening clamor of gleeful shouts rain down from above!
+mpechoaround $n Trinkets, spittle and half-eaten food pelt down on your head.
+mpechoaround $n Tokens of favor from an appreciative crowd.
+~
+> rand_prog 15~
+mpecho A slow chant floats down to you:  "Two man enter ... one man leave."
+~
+|
+S
+#33
+The Arena~
+You find yourself on the Arena floor.  The roar of the crowd above you
+is overwhelming, while around you ... your opponent awaits your coming.
+~
+0 1076895756 1
+D0
+~
+~
+0 -1 32
+D2
+~
+~
+0 -1 34
+D3
+~
+~
+0 -1 37
+> death_prog 100~
+mpecho A deafening clamor of gleeful shouts rain down from above!
+mpechoaround $n Trinkets, spittle and half-eaten food pelt down on your head.
+mpechoaround $n Tokens of favor from an appreciative crowd.
+~
+> rand_prog 15~
+mpecho A slow chant floats down to you:  "Two man enter ... one man leave."
+~
+|
+S
+#34
+The Arena~
+You find yourself on the Arena floor.  The roar of the crowd above you
+is overwhelming, while around you ... your opponent awaits your coming.
+~
+0 1076895756 1
+D0
+~
+~
+0 -1 33
+D3
+~
+~
+0 -1 35
+D4
+~
+~
+128 -1 30
+D7
+~
+~
+0 -1 37
+> death_prog 100~
+mpecho A deafening clamor of gleeful shouts rain down from above!
+mpechoaround $n Trinkets, spittle and half-eaten food pelt down on your head.
+mpechoaround $n Tokens of favor from an appreciative crowd.
+~
+> rand_prog 15~
+mpecho A slow chant floats down to you:  "Two man enter ... one man leave."
+~
+|
+S
+#35
+The Arena~
+You find yourself on the Arena floor.  The roar of the crowd above you
+is overwhelming, while around you ... your opponent awaits your coming.
+~
+0 1076895756 1
+D0
+~
+~
+0 -1 37
+D1
+~
+~
+0 -1 34
+D3
+~
+~
+0 -1 36
+> death_prog 100~
+mpecho A deafening clamor of gleeful shouts rain down from above!
+mpechoaround $n Trinkets, spittle and half-eaten food pelt down on your head.
+mpechoaround $n Tokens of favor from an appreciative crowd.
+~
+> rand_prog 15~
+mpecho A slow chant floats down to you:  "Two man enter ... one man leave."
+~
+|
+S
+#36
+The Arena~
+You find yourself on the Arena floor.  The roar of the crowd above you
+is overwhelming, while around you ... your opponent awaits your coming.
+~
+0 1076895756 1
+D0
+~
+~
+0 -1 29
+D1
+~
+~
+0 -1 35
+D4
+~
+~
+128 -1 32
+D6
+~
+~
+0 -1 37
+> death_prog 100~
+mpecho A deafening clamor of gleeful shouts rain down from above!
+mpechoaround $n Trinkets, spittle and half-eaten food pelt down on your head.
+mpechoaround $n Tokens of favor from an appreciative crowd.
+~
+> rand_prog 15~
+mpecho A slow chant floats down to you:  "Two man enter ... one man leave."
+~
+|
+S
+#37
+The Arena~
+You stand in the direct center of the Arena.  Blood pools around your
+feet, and you almost slip in this morbid mess.  The stench of death
+surrounds you, momentarily blocking from your mind the realization
+that you could be attacked from any conceivable direction.  Spinning
+slowly about, you realize the poor tactical position you hold.
+~
+0 1076895756 1
+D0
+~
+~
+0 -1 31
+D1
+~
+~
+0 -1 33
+D2
+~
+~
+0 -1 35
+D3
+~
+~
+0 -1 29
+D4
+~
+~
+128 -1 39
+D5
+~
+~
+128 -1 38
+D6
+~
+~
+0 -1 32
+D7
+~
+~
+0 -1 30
+D8
+~
+~
+0 -1 34
+D9
+~
+~
+0 -1 36
+> death_prog 100~
+mpecho A deafening clamor of gleeful shouts rain down from above!
+mpechoaround $n Trinkets, spittle and half-eaten food pelt down on your head.
+mpechoaround $n Tokens of favor from an appreciative crowd.
+~
+> rand_prog 15~
+mpecho A slow chant floats down to you:  "Two man enter ... one man leave."
+~
+> speech_prog p return~
+if isfight($n)
+else
+  mptrans $n 21001
+endif
+~
+|
+S
+#38
+The Arena~
+You find yourself beneath the floor of the great Arena.  The crowd's roar
+above is overwhelming, while somewhere ahead ... your opponent awaits.
+~
+0 1076895756 1
+D0
+~
+~
+0 -1 40
+D4
+~
+~
+128 -1 37
+> death_prog 100~
+mpecho A deafening clamor of gleeful shouts rain down from above!
+mpechoaround $n Trinkets, spittle and half-eaten food pelt down on your head.
+mpechoaround $n Tokens of favor from an appreciative crowd.
+~
+> rand_prog 15~
+mpecho A slow chant floats down to you:  "Two man enter ... one man leave."
+~
+|
+S
+#39
+The Arena~
+You find yourself above the floor of the Arena.  The roar of the crowd
+is overwhelming, while somewhere ahead of you ... your opponent awaits.
+~
+0 1076895756 1
+D2
+~
+~
+0 -1 40
+D5
+~
+~
+128 -1 37
+> death_prog 100~
+mpecho A deafening clamor of gleeful shouts rain down from above!
+mpechoaround $n Trinkets, spittle and half-eaten food pelt down on your head.
+mpechoaround $n Tokens of favor from an appreciative crowd.
+~
+> rand_prog 15~
+mpecho A slow chant floats down to you:  "Two man enter ... one man leave."
+~
+|
+S
+#40
+The Arena~
+You are somewhere above or below the arena floor.  The sound of the crowd
+around you is overwhelming, while somewhere ... your opponent awaits.
+~
+0 1076895756 1
+D0
+~
+~
+0 -1 39
+D2
+~
+~
+0 -1 38
+> death_prog 100~
+mpecho A deafening clamor of gleeful shouts rain down from above!
+mpechoaround $n Trinkets, spittle and half-eaten food pelt down on your head.
+mpechoaround $n Tokens of favor from an appreciative crowd.
+~
+> rand_prog 15~
+mpecho A slow chant floats down to you:  "Two man enter ... one man leave."
+~
+|
+S
+#41
+The Halls of Combat~
+You stand in a massive hallway before the great Arena.  Cheers and jeers
+from the assembled throngs rise and fall through the corridors.  Lounging
+around the hall with you are several other individuals awaiting their own
+chance at glory, honor, and spoils beyond the great doors.  The Arena is
+dangerous, though, and battles are often to the death.  Once you leave
+this room, there is no turning back.....
+ 
+If you have not fought in the Arena before, you should type "look rules".
+When ready, wait for the Immortal to assign you an exit.
+~
+0 1076896776 1
+D4
+~
+~
+0 -1 42
+D5
+~
+~
+0 -1 43
+E
+rules~
+Arena Combat Rules
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+1)  All duels between peaceful characters must be run by an immortal of
+    Creator or higher.
+ 
+2)  All duels between deadly characters must be run by an immortal of
+    Creator or higher.
+ 
+2)  Combat must be agreed upon by both parties.
+ 
+3)  Any looting must be agreed upon before-hand by both parties.
+    (The overseeing immortal will enforce this)
+ 
+4)  Once you have entered your combatant room, there is no restarting.
+ 
+5)  Any rules on the fight must be stated clearly by both parties prior
+    to the commencement of battle.
+ 
+6)  The decision of the immortal overseeing the duel is final.
+ 
+Any complaints should be directed to the Pkill Conclave; you should include
+who you dueled, who ran the duel, what occured, and why you have a problem.
+Logs are extremely helpful.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+~
+> rand_prog 20~
+mpecho A slow chant floats in to you: "Two men enter...one man leave."
+~
+|
+S
+#42
+First Combatant's Chamber~
+You stand in a long hallway leading out into the Arena proper.  About
+you are stacked all manner of weaponry and armor.  Choose your armament
+properly, as it will be all that stands between you and death.
+~
+0 3154952 1
+D0
+~
+~
+0 -1 30
+D1
+~
+~
+0 -1 32
+D2
+~
+~
+0 -1 34
+D3
+~
+~
+0 -1 36
+> entry_prog 100~
+if isimmort($n)
+or isnpc($n)
+else
+  mpforce $n config -autoloot
+  mpforce $n channel +yell
+  mpechoat $n Do not alter your autoloot configuration until duel is complete.
+endif
+~
+> leave_prog 100~
+if isimmort($n)
+or isnpc($n)
+else
+  mpecho A rousing chorus of cheers explodes in your ears!
+  mpechoat $n You bow deeply to the dangerous crowd.
+  mpechoaround $n $n bows deeply to the assembled throng.
+  if class($n) == warrior
+    mpforce $n yell Your blood will flow upon the cold stone!
+  endif
+  if class($n) == thief
+    mpforce $n yell Soon will my blade find its mark!
+  endif
+  if class($n) == mage
+    mpforce $n yell Now will the spellfire swell within and consume thee!
+  endif
+  if class($n) == druid
+    mpforce $n yell Let the melee begin!
+  endif
+  if class($n) == ranger
+    mpforce $n yell Let the melee begin!
+  endif
+  if class($n) == vampire
+    mpforce $n yell Bring your damnable hunt!  We shall see who survives!
+  endif
+  if class($n) == cleric
+    mpforce $n yell Let the melee begin!
+  endif
+endif
+~
+|
+S
+#43
+Combatant's Chamber~
+You stand in a long hallway leading out into the Arena proper.  About
+you are stacked all manner of weaponry and armor.  Choose your armament
+properly, as it will be all that stands between you and death.
+~
+0 3154952 1
+D0
+~
+~
+0 -1 31
+D1
+~
+~
+0 -1 33
+D2
+~
+~
+0 -1 35
+D3
+~
+~
+0 -1 29
+> entry_prog 100~
+if isimmort($n)
+or isnpc($n)
+else
+  mpforce $n config -autoloot
+  mpforce $n channel +yell
+  mpechoat $n Do not alter your autoloot configuration until duel is complete.
+endif
+~
+> leave_prog 100~
+if isimmort($n)
+or isnpc($n)
+else
+  mpecho A rousing chorus of cheers explodes in your ears!
+  mpechoat $n You bow deeply to the dangerous crowd.
+  mpechoaround $n $n bows deeply to the assembled throng.
+  if class($n) == warrior
+    mpforce $n yell Your blood will flow upon the cold stone!
+  endif
+  if class($n) == thief
+    mpforce $n yell Soon will my blade find its mark!
+  endif
+  if class($n) == mage
+    mpforce $n yell Now will the spellfire swell within and consume thee!
+  endif
+  if class($n) == druid
+    mpforce $n yell Let the melee begin!
+  endif
+  if class($n) == ranger
+    mpforce $n yell Let the melee begin!
+  endif
+  if class($n) == vampire
+    mpforce $n yell Bring your damnable hunt!  We shall see who survives!
+  endif
+  if class($n) == cleric
+    mpforce $n yell Let the melee begin!
+  endif
+endif
+~
+|
+S
+#44
+The Shores of The Dragon Sea~
+You have come to these shores in an attempt to aid others, your very 
+blood may soon cover this beach though.
+~
+0 1075847168 6
+D6
+~
+~
+0 -1 45
+S
+#45
+The Path to Caermont~
+The path you travel now is long and arduous, perhaps soon you will
+find a place to rest, or a battle to fight.
+~
+0 1075847168 2
+D1
+~
+~
+0 -1 46
+D2
+~
+~
+0 -1 47
+D8
+~
+~
+0 -1 65
+D9
+~
+~
+0 -1 44
+S
+#99
+A Space in Time~
+As if awakening from an unsettlingly surreal dream, you find yourself in
+unfamiliar surroundings far from whence you came.  As the torpor wears
+off and your eyes begin to refocus, you realize you have been brought
+here by the Gods to receive a message of relative import.  Checking
+through your inventory, you look for some sign of indication to validate
+your purpose and assure you that the deconstruction of your mind has not
+yet been put into play.
+~
+0 3153932 0
+> act_prog p has entered~
+if isimmort($n)
+  mpe You may have a note in your inventory...
+else
+  mpechoat $n You move closely to examine the orb before you...
+  mpforce $n examine orb
+  mpforce $n i
+endif
+~
+|
+S
+#0
+
+
+#RESETS
+D 0 46 0 1
+D 0 48 2 1
+D 0 53 3 1
+D 0 56 1 1
+D 0 54 1 1
+D 0 59 3 1
+D 0 54 3 1
+D 0 57 1 1
+D 0 58 5 2
+D 0 60 4 2
+D 0 92 1 2
+D 0 93 3 2
+D 0 55 1 1
+D 0 67 3 1
+O 0 41 1 99
+M 0 1 1 2
+O 0 22 1 2
+O 0 22 1 6
+O 0 22 1 1206
+O 0 60 1 6
+O 0 60 1 1206
+O 0 22 1 8
+O 0 60 1 8
+M 0 2 2 8
+M 0 2 2 6
+O 0 1225 1 8
+O 1 61 1 50
+O 1 98 1 50
+O 0 60 1 2
+M 0 71 1 73
+M 0 70 1 72
+O 0 75 1 74
+O 0 72 1 70
+M 0 7 2 7
+M 1 18 1 1
+O 1 14209 1 1
+S
+
+
+#SHOPS
+0
+
+
+#REPAIRS
+0
+
+
+#SPECIALS
+M  1 spec_breath_gas
+S
+
+
+#$

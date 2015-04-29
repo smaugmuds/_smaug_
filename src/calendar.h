@@ -50,10 +50,10 @@ typedef struct holiday_data HOLIDAY_DATA;
 extern HOLIDAY_DATA *first_holiday;
 extern HOLIDAY_DATA *last_holiday;
 
-extern const char *const day_name[];
-extern const char *const month_name[];
-extern const char *const season_name[];
-extern bool winter_freeze;
+char *const day_name[MAX_STRING_LENGTH];
+char *const month_name[MAX_STRING_LENGTH];
+char *const season_name[MAX_STRING_LENGTH];
+bool winter_freeze;
 
 struct holiday_data
 {

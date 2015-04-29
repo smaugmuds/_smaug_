@@ -35,7 +35,7 @@
 #include <errno.h>
 
 #include "mud.h"
-#include "libdns.h"
+#include "dns.h"
 
 DNS_DATA *first_cache;
 DNS_DATA *last_cache;

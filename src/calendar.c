@@ -42,7 +42,6 @@
 #include <unistd.h>
 
 #include "mud.h"
-#include "calendar.h"
 
 HOLIDAY_DATA *first_holiday;
 HOLIDAY_DATA *last_holiday;
@@ -54,8 +53,8 @@ extern ROOM_INDEX_DATA *room_index_hash[MAX_KEY_HASH];
 
 struct tzone_type
 {
-   const char *name; /* Name of the time zone */
-   const char *zone; /* Cities or Zones in zone crossing */
+   char *name; /* Name of the time zone */
+   char *zone; /* Cities or Zones in zone crossing */
    int gmt_offset;   /* Difference in hours from Greenwich Mean Time */
    int dst_offset;   /* Day Light Savings Time offset, Not used but left it in anyway */
 };
@@ -106,7 +105,7 @@ int tzone_lookup( char *arg )
    return -1;
 }
 
-do_timezone( CHAR_DATA* ch, char* argument)
+do_timezone( CHAR_DATA *ch, char *argument)
 {
    int i;
 
@@ -227,19 +226,19 @@ char *mini_c_time( time_t curtime, int tz )
 
 /* Time values modified to Alsherok calendar - Samson 5-6-99 */
 /* Time Values Modified to Smaug Calendar - Kayle 10-17-07 */
-const char *const day_name[] = {
+char *const day_name[] = {
    "the Moon", "the Bull", "Deception", "Thunder", "Freedom",
    "the Great Gods", "the Sun"
 };
 
-const char *const month_name[] = {
+char *const month_name[] = {
    "Winter", "the Winter Wolf", "the Frost Giant", "the Old Forces",
    "the Grand Struggle", "the Spring", "Nature", "Futility", "the Dragon",
    "the Sun", "the Heat", "the Battle", "the Dark Shades", "the Shadows",
    "the Long Shadows", "the Ancient Darkness", "the Great Evil"
 };
 
-const char *const season_name[] = {
+char *const season_name[] = {
    "&gspring", "&Ysummer", "&Oautumn", "&Cwinter"
 };
 
@@ -858,7 +857,7 @@ void save_holidays( void )
    return;
 }
 
-void do_saveholiday( CHAR_DATA* ch, const char* argument)
+do_saveholiday( CHAR_DATA* ch, char* argument)
 {
    save_holidays(  );
    send_to_char( "Holiday chart saved.\r\n", ch );

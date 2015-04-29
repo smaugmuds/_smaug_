@@ -333,6 +333,10 @@ extern int MAX_PC_CLASS;
 #include "house.h"
 #include "hint.h"
 
+#ifdef ENABLE_CALENDAR
+#include "calendar.h"
+#endif
+
 #ifdef ENABLE_WEATHER
 #include "weather.h"
 #ifndef ENABLE_CALENDAR
@@ -5051,6 +5055,10 @@ char *sha256_crypt args ((const char *key, const char *salt));
 #define COLOR_FILE		SYSTEM_DIR 	"colors.dat"	/* User-definable color */
 #define MEMBERS_FILE		SYSTEM_DIR 	"members.dat"	/* Store the members lists */
 #define STANCE_FILE     	SYSTEM_DIR 	"stances.dat"
+
+#ifdef ENABLE_WEATHER
+#define WEATHER_FILE                            "weather.dat"
+#endif
 
 #ifdef ENABLE_CALENDAR
 #define HOLIDAY_FILE    SYSTEM_DIR    "holidays.dat"
