@@ -5248,6 +5248,7 @@ void fwrite_bitvector args ((EXT_BV * bits, FILE * fp));
 char *print_bitvector args ((EXT_BV * bits));
 char *fread_string args ((FILE * fp));
 char *fread_string_nohash args ((FILE * fp));
+char *fread_flagstring( FILE * fp );
 void fread_to_eol args ((FILE * fp));
 char *fread_word args ((FILE * fp));
 char *fread_line args ((FILE * fp));
@@ -5304,6 +5305,8 @@ void add_loginmsg args ((char *name, sh_int type, char *argument));
 void check_loginmsg args ((CHAR_DATA * ch));
 void save_loginmsg args ((void));
 
+
+
 /* build.c */
 void start_editing args ((CHAR_DATA * ch, char *data));
 void stop_editing args ((CHAR_DATA * ch));
@@ -5330,6 +5333,8 @@ int get_oflag args ((char *flag));
 int get_wflag args ((char *flag));
 void init_area_weather args ((void));
 void save_weatherdata args ((void));
+size_t mudstrlcpy args( ( char *dst, const char *src, size_t siz ) );
+size_t mudstrlcat args( ( char *dst, const char *src, size_t siz ) );
 
 /* fight.c */
 int max_fight args ((CHAR_DATA * ch));

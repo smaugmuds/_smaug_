@@ -3594,6 +3594,74 @@ fread_string_nohash (FILE * fp)
     }
 }
 
+/* Read a string from file and return it */
+char *fread_flagstring( FILE * fp )
+{
+   static char flagstring[MAX_STRING_LENGTH];
+   char *plast;
+   char c;
+   int ln;
+
+   plast = flagstring;
+   flagstring[0] = '\0';
+   ln = 0;
+   /*
+    * Skip blanks. Read first char. 
+    */
+   do
+   {
+      if( feof( fp ) )
+      {
+         bug( "%s: EOF encountered on read.", __FUNCTION__ );
+         if( fBootDb )
+            exit( 1 );
+         return "";
+      }
+      c = getc( fp );
+   }
+   while( isspace( c ) );
+   if( ( *plast++ = c ) == '~' )
+      return "";
+
+   for( ;; )
+   {
+      if( ln >= ( MAX_STRING_LENGTH - 1 ) )
+      {
+         bug( "%s: string too long", __FUNCTION__ );
+         *plast = '\0';
+         return flagstring;
+      }
+      switch ( *plast = getc( fp ) )
+      {
+         default:
+            plast++;
+            ln++;
+            break;
+
+         case EOF:
+            bug( "%s: EOF", __FUNCTION__ );
+            if( fBootDb )
+               exit( 1 );
+            *plast = '\0';
+            return flagstring;
+            break;
+
+         case '\n':
+            plast++;
+            ln++;
+            *plast++ = '\r';
+            ln++;
+            break;
+
+         case '\r':
+            break;
+
+         case '~':
+            *plast = '\0';
+            return flagstring;
+      }
+   }
+}
 
 
 /*
@@ -8262,4 +8330,84 @@ check_loginmsg (CHAR_DATA * ch)
     }
 
   return;
+}
+
+size_t mudstrlcpy( char *dst, const char *src, size_t siz )
+{
+   register char *d = dst;
+   register const char *s = src;
+   register size_t n = siz;
+
+   if( !src )
+   {
+      bug( "%s: NULL src string passed!", __FUNCTION__ );
+      return 0;
+   }
+
+   if( !dst )
+   {
+      bug( "%s: NULL dst string being passed!", __FUNCTION__ );
+      return 0;
+   }
+
+   /*
+    * Copy as many bytes as will fit
+    */
+   if( n != 0 && --n != 0 )
+   {
+      do
+      {
+         if( ( *d++ = *s++ ) == 0 )
+            break;
+      }
+      while( --n != 0 );
+   }
+
+   /*
+    * Not enough room in dst, add NUL and traverse rest of src
+    */
+   if( n == 0 )
+   {
+      if( siz != 0 )
+         *d = '\0';  /* NUL-terminate dst */
+      while( *s++ )
+         ;
+   }
+   return ( s - src - 1 ); /* count does not include NUL */
+}
+
+size_t mudstrlcat( char *dst, const char *src, size_t siz )
+{
+   register char *d = dst;
+   register const char *s = src;
+   register size_t n = siz;
+   size_t dlen;
+
+   if( !src )
+   {
+      bug( "%s: NULL src string passed!", __FUNCTION__ );
+      return 0;
+   }
+
+   /*
+    * Find the end of dst and adjust bytes left but don't go past end
+    */
+   while( n-- != 0 && *d != '\0' )
+      d++;
+   dlen = d - dst;
+   n = siz - dlen;
+
+   if( n == 0 )
+      return ( dlen + strlen( s ) );
+   while( *s != '\0' )
+   {
+      if( n != 1 )
+      {
+         *d++ = *s;
+         n--;
+      }
+      s++;
+   }
+   *d = '\0';
+   return ( dlen + ( s - src ) );   /* count does not include NUL */
 }

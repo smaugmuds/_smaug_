@@ -2300,6 +2300,7 @@ do_exits (CHAR_DATA * ch, char *argument)
   return;
 }
 
+#ifndef ENABLE_CALENDAR
 
 char *const day_name[] = {
   "the Moon", "the Bull", "Deception", "Thunder", "Freedom",
@@ -2313,7 +2314,6 @@ char *const month_name[] = {
   "the Long Shadows", "the Ancient Darkness", "the Great Evil"
 };
 
-#ifndef ENABLE_CALENDAR
 void
 do_time (CHAR_DATA * ch, char *argument)
 {
