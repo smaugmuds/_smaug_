@@ -21,6 +21,15 @@
 #     |                         -*- Makefile -*-                            |
 #     |_____________________________________________________________________|
 #    //                                                                     \\
+#   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+#   [|                                                                       |]
+#   [|  AFKMud Copyright 1997-2007 by Roger Libiez (Samson),                 |]
+#   [|  Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),       |]
+#   [|  Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine,            |]
+#   [|  Xorith, and Adjani.                                                  |]
+#   [|  All Rights Reserved. External contributions from Remcon, Quixadhal,  |]
+#   [|  Zarius and many others.                                              |]
+#   [|                                                                       |]
 #   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
 #   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
 #   [|                                                                       |]
@@ -28,8 +37,6 @@
 #   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
 #   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
 #   [|  Nyboe. Win32 port Nick Gammon.                                       |]
-#   [|                                                                       |]
-#   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
 #    \\_____________________________________________________________________//
 
 CC = gcc
@@ -81,6 +88,32 @@ if ENABLE_DNS_RESOLV
 noinst_LTLIBRARIES += libsmaug-dns.la
 endif
 
+# lib/libsmaug-olc.la (static lib) #
+if ENABLE_OLC2
+noinst_LTLIBRARIES += libsmaug-olc.la
+endif
+
+if ENABLE_OLC2
+# libsmaug-olc #
+
+libsmaug_olc_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
+libsmaug_olc_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
+libsmaug_olc_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
+
+libsmaug_olc_la_SOURCES = \
+oedit.c redit.c medit.c
+endif
+
+if ENABLE_DNS_RESOLV
+# libsmaug-dns #
+
+libsmaug_dns_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
+libsmaug_dns_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
+libsmaug_dns_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
+
+libsmaug_dns_la_SOURCES = dns.c
+endif
+
 # lib/libsmaug-act.so (shared lib) #
 libsmaug_act_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
 libsmaug_act_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
@@ -113,6 +146,10 @@ libsmaug_info_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
 libsmaug_info_la_SOURCES = \
 boards.c comments.c hint.c news.c requests.c 
 
+if ENABLE_MSSP
+libsmaug_info_la_SOURCES += mssp.c
+endif
+
 # lib/libsmaug-realm.so (shared lib) #
 libsmaug_realm_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
 libsmaug_realm_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
@@ -124,12 +161,22 @@ ibuild.c liquids.c magic.c makeobjs.c mapout.c mpxset.c planes.c \
 renumber.c reset.c shops.c skills.c special.c stances.c starmap.c \
 stat_obj.c tables.c track.c variables.c marry.c
 
+if ENABLE_COLOR
+libsmaug_realm_la_SOURCES += color.c
+else
+libsmaug_realm_la_SOURCES += colorize.c
+endif
+
 if ENABLE_MAPPER
 libsmaug_realm_la_SOURCES += mapper.c
 endif
 
-if ENABLE_CALENDAR
-libsmaug_realm_la_SOURCES += calendar.c
+if ENABLE_TIMEZONE
+libsmaug_realm_la_SOURCES += timezone.c
+endif
+
+if ENABLE_HOLIDAYS
+libsmaug_realm_la_SOURCES += holidays.c
 endif
 
 if ENABLE_WEATHER
@@ -143,7 +190,7 @@ smaug_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
 smaug_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
 
 smaug_SOURCES = smaug.c \
-i18n.c const.c colorize.c db.c handler.c hashstr.c \
+i18n.c const.c db.c handler.c hashstr.c \
 ident.c imm_host.c interp.c win32srv.c sha256.c
 
 if ENABLE_HOTBOOT
@@ -151,8 +198,16 @@ smaug_SOURCES += hotboot.c
 endif
 
 smaug_LDADD = \
-libsmaug-act.la libsmaug-player.la libsmaug-mudprog.la \
-libsmaug-info.la libsmaug-realm.la
+libsmaug-act.la libsmaug-player.la \
+libsmaug-mudprog.la libsmaug-info.la libsmaug-realm.la
+
+if ENABLE_DNS_RESOLV
+smaug_LDADD += libsmaug-dns.la 
+endif
+
+if ENABLE_OLC2
+smaug_LDADD += libsmaug-olc.la 
+endif
 
 if HTTPD
 # libsmaug-httpd #
@@ -175,14 +230,6 @@ smaug_httpd_LDADD = libsmaug-httpd.la
 endif
 
 if ENABLE_DNS_RESOLV
-# libsmaug-dns #
-
-libsmaug_dns_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_dns_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_dns_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
-
-libsmaug_dns_la_SOURCES = dns.c
-
 # bin/smaug-resolv #
 
 smaug_resolv_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
@@ -190,8 +237,6 @@ smaug_resolv_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
 smaug_resolv_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
 
 smaug_resolv_SOURCES = resolv.c
-
-smaug_resolv_LDADD = libsmaug-dns.la
 endif
 
 # Source Code Headers #
@@ -208,12 +253,24 @@ if ENABLE_HOTBOOT
 include_HEADERS += hotboot.h
 endif
 
+if ENABLE_COLOR
+include_HEADERS += color.h
+endif
+
 if ENABLE_MAPPER
 include_HEADERS += mapper.h
 endif
 
-if ENABLE_CALENDAR
-include_HEADERS += calendar.h
+if ENABLE_MSSP
+include_HEADERS += mssp.h
+endif
+
+if ENABLE_TIMEZONE
+include_HEADERS += timezone.h
+endif
+
+if ENABLE_HOLIDAYS
+include_HEADERS += holidays.h
 endif
 
 if ENABLE_WEATHER
@@ -224,3 +281,6 @@ if ENABLE_DNS_RESOLV
 include_HEADERS += dns.h
 endif
 
+if ENABLE_OLC2
+include_HEADERS += olc.h
+endif

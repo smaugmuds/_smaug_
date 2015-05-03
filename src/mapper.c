@@ -1,42 +1,60 @@
-/****************************************************************************
- * [S]imulated [M]edieval [A]dventure multi[U]ser [G]ame      |   \\._.//   *
- * -----------------------------------------------------------|   (0...0)   *
- * SMAUG 1.8 (C) 1994, 1995, 1996, 1998  by Derek Snider      |    ).:.(    *
- * -----------------------------------------------------------|    {o o}    *
- * SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,      |   / ' ' \   *
- * Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,      |~'~.VxvxV.~'~*
- * Tricops, Fireblade, Edmond, Conran                         |             *
- * ------------------------------------------------------------------------ *
- * Merc 2.1 Diku Mud improvments copyright (C) 1992, 1993 by Michael        *
- * Chastain, Michael Quan, and Mitchell Tse.                                *
- * Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,          *
- * Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.     *
- * ------------------------------------------------------------------------ *
- *                           Room Mapper Module                             *
- ****************************************************************************/
+/*
+                     R E A L M S    O F    D E S P A I R  !
+   ___________________________________________________________________________
+  //            /                                                            \\
+ [|_____________\   ********   *        *   ********   *        *   *******   |]
+ [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
+ [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
+ [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
+ [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
+ [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
+ [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
+ [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
+ [|_____________\  **********  **      **  **      **  **********  *********  |]
+ [|             /  *********   *        *  *        *   ********    *******   |]
+  \\____________\____________________________________________________________//
+     |                                                                     |
+     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
+     |_____________________________________________________________________|
+     |                                                                     |
+     |                      -*- Room Mapper Module -*-                     |
+     |_____________________________________________________________________|
+     |                                                                     |
+     |   Converted for AFKMud 1.64 by Zarius (jeff@mindcloud.com)          |
+     |   Downloaded from http://www.mindcloud.com                          |
+     |   If you like the snippet let me know                               |
+     |_____________________________________________________________________|
+    //                                                                     \\
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+   [|                                                                       |]
+   [|  AFKMud Copyright 1997-2007 by Roger Libiez (Samson),                 |]
+   [|  Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),       |]
+   [|  Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine,            |]
+   [|  Xorith, and Adjani.                                                  |]
+   [|  All Rights Reserved. External contributions from Remcon, Quixadhal,  |]
+   [|  Zarius and many others.                                              |]
+   [|                                                                       |]
+   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
+   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
+   [|                                                                       |]
+   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
+   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
+   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
+   [|  Nyboe. Win32 port Nick Gammon.                                       |]
+   [|                                                                       |]
+   [|  In order to use any part of this Merc Diku Mud, you must comply with |]
+   [|  both the original Diku license in 'license.doc' as well the Merc     |]
+   [|  license in 'license.txt'.  In particular, you may not remove either  |]
+   [|  of these copyright notices.                                          |]
+   [|                                                                       |]
+   [|  Dystopia Mud improvements copyright (C) 2000-2001 by Brian Graversen |]
+   [|                                                                       |]
+   [|  Much time and thought has gone into this software and you are        |]
+   [|  benefitting.  We hope that you share your changes too.  What goes    |]
+   [|  around, comes around.                                                |]
+    \\_____________________________________________________________________//
+*/
 
-/**************************************************************************
-*  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
-*  Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.   *
-*                                                                         *
-*  Merc Diku Mud improvments copyright (C) 1992, 1993 by Michael          *
-*  Chastain, Michael Quan, and Mitchell Tse.                              *
-*                                                                         *
-*  In order to use any part of this Merc Diku Mud, you must comply with   *
-*  both the original Diku license in 'license.doc' as well the Merc       *
-*  license in 'license.txt'.  In particular, you may not remove either of *
-*  these copyright notices.                                               *
-*                                                                         *
-*  Dystopia Mud improvements copyright (C) 2000, 2001 by Brian Graversen  *
-*                                                                         *
-*  Much time and thought has gone into this software and you are          *
-*  benefitting.  We hope that you share your changes too.  What goes      *
-*  around, comes around.                                                  *
-***************************************************************************
-*  Converted for AFKMud 1.64 by Zarius (jeff@mindcloud.com)               *
-*  Downloaded from http://www.mindcloud.com                               *
-*  If you like the snippet let me know                                    *
-***************************************************************************/
 /**************************************************************************
  * 	                       Version History                              *
  **************************************************************************
@@ -134,7 +152,7 @@ char *get_exits( CHAR_DATA * ch )
 
    set_char_color( AT_EXITS, ch );
 
-   mudstrlcpy( buf, "[Exits:", MAX_STRING_LENGTH );
+   mudstrlcpy( buf, _("[Exits:"), MAX_STRING_LENGTH );
 
    for( pexit = ch->in_room->first_exit; pexit; pexit = pexit->next )
    {
@@ -148,22 +166,22 @@ char *get_exits( CHAR_DATA * ch )
             found = TRUE;
             mudstrlcat( buf, " ", MAX_STRING_LENGTH );
 
-            mudstrlcat( buf, capitalize( dir_name[pexit->vdir] ), MAX_STRING_LENGTH );
+            mudstrlcat( buf, capitalize(_(dir_name[pexit->vdir])), MAX_STRING_LENGTH );
 
             /*
              * New code added to display closed, or otherwise invisible exits to immortals 
              * Installed by Samson 1-25-98 
              */
             if( IS_SET( pexit->exit_info, EX_CLOSED ) )
-               mudstrlcat( buf, "->(Closed)", MAX_STRING_LENGTH );
+               mudstrlcat( buf, _("->(Closed)"), MAX_STRING_LENGTH );
             if( IS_SET( pexit->exit_info, EX_DIG ) )
-               mudstrlcat( buf, "->(Dig)", MAX_STRING_LENGTH );
+               mudstrlcat( buf, _("->(Dig)"), MAX_STRING_LENGTH );
             if( IS_SET( pexit->exit_info, EX_WINDOW ) )
-               mudstrlcat( buf, "->(Window)", MAX_STRING_LENGTH );
+               mudstrlcat( buf, _("->(Window)"), MAX_STRING_LENGTH );
             if( IS_SET( pexit->exit_info, EX_HIDDEN ) )
-               mudstrlcat( buf, "->(Hidden)", MAX_STRING_LENGTH );
+               mudstrlcat( buf, _("->(Hidden)"), MAX_STRING_LENGTH );
             if( xIS_SET( pexit->to_room->room_flags, ROOM_DEATH ) )
-               mudstrlcat( buf, "->(Deathtrap)", MAX_STRING_LENGTH );
+               mudstrlcat( buf, _("->(Deathtrap)"), MAX_STRING_LENGTH );
          }
       }
       else
@@ -176,18 +194,18 @@ char *get_exits( CHAR_DATA * ch )
             found = TRUE;
             mudstrlcat( buf, " ", MAX_STRING_LENGTH );
 
-            mudstrlcat( buf, capitalize( dir_name[pexit->vdir] ), MAX_STRING_LENGTH );
+            mudstrlcat( buf, capitalize(_(dir_name[pexit->vdir])), MAX_STRING_LENGTH );
 
             if( IS_SET( pexit->exit_info, EX_CLOSED ) )
-               mudstrlcat( buf, "->(Closed)", MAX_STRING_LENGTH );
+               mudstrlcat( buf, _("->(Closed)"), MAX_STRING_LENGTH );
             if( IS_AFFECTED( ch, AFF_DETECTTRAPS ) && xIS_SET( pexit->to_room->room_flags, ROOM_DEATH ) )
-               mudstrlcat( buf, "->(Deathtrap)", MAX_STRING_LENGTH );
+               mudstrlcat( buf, _("->(Deathtrap)"), MAX_STRING_LENGTH );
          }
       }
    }
 
    if( !found )
-      mudstrlcat( buf, " none]", MAX_STRING_LENGTH );
+      mudstrlcat( buf, _(" none]"), MAX_STRING_LENGTH );
    else
       mudstrlcat( buf, "]", MAX_STRING_LENGTH );
    mudstrlcat( buf, "\r\n", MAX_STRING_LENGTH );

@@ -20,6 +20,15 @@
      |                    -*- Regular Update Module -*-                    |
      |_____________________________________________________________________|
     //                                                                     \\
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+   [|                                                                       |]
+   [|  AFKMud Copyright 1997-2007 by Roger Libiez (Samson),                 |]
+   [|  Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),       |]
+   [|  Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine,            |]
+   [|  Xorith, and Adjani.                                                  |]
+   [|  All Rights Reserved. External contributions from Remcon, Quixadhal,  |]
+   [|  Zarius and many others.                                              |]
+   [|                                                                       |]
    [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
    [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
    [|                                                                       |]
@@ -27,8 +36,6 @@
    [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
    [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
    [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
     \\_____________________________________________________________________//
 */
 
@@ -3240,6 +3247,7 @@ get_weather_echo (WEATHER_DATA * weath)
   return;
 }
 
+#ifndef ENABLE_TIMEZONE
 /*
  * get echo messages according to time changes...
  * some echoes depend upon the weather so an echo must be
@@ -3401,7 +3409,152 @@ time_update ()
 
   return;
 }
+#else
+void time_update( void )
+{
+   DESCRIPTOR_DATA *d;
+   int n;
+   const char *echo; /* echo string */
+   int echo_color;   /* color for the echo */
 
+   n = number_bits( 2 );
+   echo = NULL;
+   echo_color = AT_GREY;
+
+   ++time_info.hour;
+
+   if( time_info.hour == sysdata.hourdaybegin || time_info.hour == sysdata.hoursunrise
+       || time_info.hour == sysdata.hournoon || time_info.hour == sysdata.hoursunset
+       || time_info.hour == sysdata.hournightbegin )
+   {
+      for( d = first_descriptor; d; d = d->next )
+      {
+         if( d->connected == CON_PLAYING && IS_OUTSIDE( d->character ) && IS_AWAKE( d->character ) )
+         {
+            struct WeatherCell *cell = getWeatherCell( d->character->in_room->area );
+
+            switch( time_info.hour )
+            {
+               case 6:
+               {
+                  const char *echo_strings[4] = {
+                     "The day has begun.\r\n",
+                     "The day has begun.\r\n",
+                     "The sky slowly begins to glow.\r\n",
+                     "The sun slowly embarks upon a new day.\r\n"
+                  };
+                  time_info.sunlight = SUN_RISE;
+                  echo = echo_strings[n];
+                  echo_color = AT_YELLOW;
+                  break;
+               }
+
+               case 7:
+               {
+                  const char *echo_strings[4] = {
+                     "The sun rises in the east.\r\n",
+                     "The sun rises in the east.\r\n",
+                     "The hazy sun rises over the horizon.\r\n",
+                     "Day breaks as the sun lifts into the sky.\r\n"
+                  };
+                  time_info.sunlight = SUN_LIGHT;
+                  echo = echo_strings[n];
+                  echo_color = AT_ORANGE;
+                  break;
+               }
+
+               case 12:
+               {
+                  if( getCloudCover( cell ) > 21 )
+                  {
+                     echo = "It's noon.\r\n";
+                  }
+                  else
+                  {
+                     const char *echo_strings[2] = {
+                        "The intensity of the sun heralds the noon hour.\r\n",
+                        "The sun's bright rays beat down upon your shoulders.\r\n"
+                     };
+
+                     echo = echo_strings[n % 2];
+                  }
+                  time_info.sunlight = SUN_LIGHT;
+                  echo_color = AT_WHITE;
+                  break;
+               }
+
+               case 18:
+               {
+                  const char *echo_strings[4] = {
+                     "The sun slowly disappears in the west.\r\n",
+                     "The reddish sun sets past the horizon.\r\n",
+                     "The sky turns a reddish orange as the sun ends its journey.\r\n",
+                     "The sun's radiance dims as it sinks in the sky.\r\n"
+                  };
+                  time_info.sunlight = SUN_SET;
+                  echo = echo_strings[n];
+                  echo_color = AT_RED;
+                  break;
+               }
+
+               case 19:
+               {
+                  if( getCloudCover( cell ) > 21 )
+                  {
+                     const char *echo_strings[2] = {
+                        "The night begins.\r\n",
+                        "Twilight descends around you.\r\n"
+                     };
+
+                     echo = echo_strings[n % 2];
+                  }
+                  else
+                  {
+                     const char *echo_strings[2] = {
+                        "The moon's gentle glow diffuses through the night sky.\r\n",
+                        "The night sky gleams with glittering starlight.\r\n"
+                     };
+
+                     echo = echo_strings[n % 2];
+                  }
+                  time_info.sunlight = SUN_DARK;
+                  echo_color = AT_DBLUE;
+                  break;
+               }
+            }
+
+            if( !echo )
+               continue;
+            set_char_color( echo_color, d->character );
+            send_to_char( echo, d->character );
+         }
+      }
+   }
+   if( time_info.hour == sysdata.hourmidnight )
+   {
+      time_info.hour = 0;
+      time_info.day++;
+      RandomizeCells(  );
+   }
+
+   if( time_info.day >= sysdata.dayspermonth )
+   {
+      time_info.day = 0;
+      time_info.month++;
+   }
+
+   if( time_info.month >= sysdata.monthsperyear )
+   {
+      time_info.month = 0;
+      time_info.year++;
+   }
+   calc_season(  );  /* Samson 5-6-99 */
+   /*
+    * Save game world time - Samson 1-21-99 
+    */
+   save_timedata(  );
+}
+#endif
 
 void
 hint_update ()

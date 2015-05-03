@@ -1,0 +1,16 @@
+OasisOLC II v0.1 for Smaug 1.4
+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*
+Based on OasisOLC for CircleMUD by Harvey Gilpin, and George Greer
+Revamped/Rewritten/Recoded/Redone for Smaug by Tagith (Evan Cortens)
+
+This project has no affiliation in any way, shape or form with the
+OasisOLC for Circle project.  If this violates any copyright laws,
+please contact me first, and not your lawyer.  I'm sure we can work
+something out.
+
+When you are running this code, keep in mind that it is still in BETA
+testing.  If you come across any bugs, any at all, don't hesitate to
+contact me about them.  Or, if you have any suggestions for additions to
+the code, please email me at cortense@home.com.  Thank-you very much
+for using OasisOLC II.
+   -+- Tagith

@@ -21,6 +21,15 @@
 #     |   Process this file with autoconf to produce a configure script     |
 #     |_____________________________________________________________________|
 #    //                                                                     \\
+#   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+#   [|                                                                       |]
+#   [|  AFKMud Copyright 1997-2007 by Roger Libiez (Samson),                 |]
+#   [|  Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),       |]
+#   [|  Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine,            |]
+#   [|  Xorith, and Adjani.                                                  |]
+#   [|  All Rights Reserved. External contributions from Remcon, Quixadhal,  |]
+#   [|  Zarius and many others.                                              |]
+#   [|                                                                       |]
 #   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
 #   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
 #   [|                                                                       |]
@@ -28,8 +37,6 @@
 #   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
 #   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
 #   [|  Nyboe. Win32 port Nick Gammon.                                       |]
-#   [|                                                                       |]
-#   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
 #    \\_____________________________________________________________________//
 
 AC_INIT([smaug], [2.0.0],
@@ -72,7 +79,7 @@ AC_DEFINE_UNQUOTED([LOGDIR], ["${prefix}/var/log/smaug/"], [Define to log direct
 AC_DEFINE_UNQUOTED([BINDIR], ["${prefix}/bin/"], [Define HotBoot Executable Directory.])
 AC_DEFINE_UNQUOTED([LOCKDIR], ["${prefix}/var/lock/smaug/"], [Define lock file directory.])
 
-AC_SUBST([DESCRIPTION], ["--{SMAUG}-- MUD Server"])
+AC_SUBST([DESCRIPTION], ["--{ SMAUG II }-- MUD Server"])
 
 LT_INIT
 LT_LANG([C])
@@ -486,6 +493,46 @@ if test "$enable_smaug2" = "yes"; then
 		AC_DEFINE([SMAUG2], [], [SMAUG Support])
 fi
 
+# Enable OasisOLC Support (-DENABLE_OLC2) #
+AC_ARG_ENABLE(olc2,
+              AC_HELP_STRING([--enable-olc2],
+                             [enable OasisOLC Support @<:@default=yes@:>@]),
+              [], [enable_olc2=yes])
+if test "$enable_olc2" = "yes"; then
+		AC_DEFINE([ENABLE_OLC2], [], [OasisOLC Support])
+fi
+AM_CONDITIONAL([ENABLE_OLC2], [test "$enable_olc2" = "yes"])
+
+# Enable OasisOLC Extras Support (-DENABLE_OLC2_EXTRAS) #
+AC_ARG_ENABLE(olc2extras,
+              AC_HELP_STRING([--enable-olc2extras],
+                             [enable OasisOLC Extras Support @<:@default=yes@:>@]),
+              [], [enable_olc2extras=yes])
+if test "$enable_olc2extras" = "yes"; then
+		AC_DEFINE([ENABLE_OLC2_EXTRAS], [], [OasisOLC Extras Support])
+fi
+AM_CONDITIONAL([ENABLE_OLC2_EXTRAS], [test "$enable_olc2extras" = "yes"])
+
+# Enable BuildWalk Support (-DENABLE_BUILDWALK) #
+AC_ARG_ENABLE(buildwalk,
+              AC_HELP_STRING([--enable-buildwalk],
+                             [enable BuildWalk Support @<:@default=yes@:>@]),
+              [], [enable_buildwalk=yes])
+if test "$enable_buildwalk" = "yes"; then
+		AC_DEFINE([ENABLE_BUILDWALK], [], [BuildWalk Support])
+fi
+AM_CONDITIONAL([ENABLE_BUILDWALK], [test "$enable_buildwalk" = "yes"])
+
+# Enable Billion MAX_VNUM Support (-DBILLION_VNUM) #
+AC_ARG_ENABLE(bvnum,
+              AC_HELP_STRING([--enable-bvnum],
+                             [enable Billion MAX_VNUM Support @<:@default=yes@:>@]),
+              [], [enable_bvnum=yes])
+if test "$enable_bvnum" = "yes"; then
+		AC_DEFINE([BILLION_VNUM], [], [Billion MAX_VNUM Support])
+fi
+AM_CONDITIONAL([BILLION_VNUM], [test "$enable_bvnum" = "yes"])
+
 # New Score Table (-DNEWSCORE) #
 AC_ARG_ENABLE(newscore,
               AC_HELP_STRING([--enable-newscore],
@@ -507,8 +554,8 @@ fi
 # Enable Banking Support (-DBANK_INSTALLED) #
 AC_ARG_ENABLE(bank,
               AC_HELP_STRING([--enable-bank],
-                             [enable Banking Support @<:@default=no@:>@]),
-              [], [enable_bank=no])
+                             [enable Banking Support @<:@default=yes@:>@]),
+              [], [enable_bank=yes])
 if test "$enable_bank" = "yes"; then
 		AC_DEFINE([BANK_INSTALLED], [], [Banking Support])
 fi
@@ -516,8 +563,8 @@ fi
 # Enable Marriage Support (-DMARRIAGE) #
 AC_ARG_ENABLE(marry,
               AC_HELP_STRING([--enable-marry],
-                             [enable Marriage Support @<:@default=no@:>@]),
-              [], [enable_marry=no])
+                             [enable Marriage Support @<:@default=yes@:>@]),
+              [], [enable_marry=yes])
 if test "$enable_marry" = "yes"; then
 		AC_DEFINE([MARRIAGE], [], [Marriage Support])
 fi
@@ -541,6 +588,16 @@ if test "$enable_hotboot" = "yes"; then
 fi
 AM_CONDITIONAL([ENABLE_HOTBOOT], [test "$enable_hotboot" = "yes"])
 
+# Enable Color Support (-DENABLE_COLOR) #
+AC_ARG_ENABLE(color,
+              AC_HELP_STRING([--enable-color],
+                             [enable Color Support @<:@default=yes@:>@]),
+              [], [enable_color=yes])
+if test "$enable_color" = "yes"; then
+		AC_DEFINE([ENABLE_COLOR], [], [Color Support])
+fi
+AM_CONDITIONAL([ENABLE_COLOR], [test "$enable_color" = "yes"])
+
 # Enable Mapper Support (-DENABLE_MAPPER) #
 AC_ARG_ENABLE(mapper,
               AC_HELP_STRING([--enable-mapper],
@@ -561,15 +618,35 @@ if test "$enable_weather" = "yes"; then
 fi
 AM_CONDITIONAL([ENABLE_WEATHER], [test "$enable_weather" = "yes"])
 
-# Enable New Calendar System (-DENABLE_CALENDAR) #
-AC_ARG_ENABLE(calendar,
-              AC_HELP_STRING([--enable-calendar],
-                             [enable New Calendar Support @<:@default=yes@:>@]),
-              [], [enable_calendar=yes])
-if test "$enable_calendar" = "yes"; then
-		AC_DEFINE([ENABLE_CALENDAR], [], [New Calendar Support])
+# Enable Timezone (-DENABLE_TIMEZONE) #
+AC_ARG_ENABLE(timezone,
+              AC_HELP_STRING([--enable-timezone],
+                             [enable Timezone @<:@default=yes@:>@]),
+              [], [enable_timezone=yes])
+if test "$enable_timezone" = "yes"; then
+		AC_DEFINE([ENABLE_TIMEZONE], [], [Timezone Support])
 fi
-AM_CONDITIONAL([ENABLE_CALENDAR], [test "$enable_calendar" = "yes"])
+AM_CONDITIONAL([ENABLE_TIMEZONE], [test "$enable_timezone" = "yes"])
+
+# Enable Holidays (-DENABLE_HOLIDAYS) #
+AC_ARG_ENABLE(holidays,
+              AC_HELP_STRING([--enable-holidays],
+                             [enable Holidays @<:@default=yes@:>@]),
+              [], [enable_holidays=yes])
+if test "$enable_holidays" = "yes"; then
+		AC_DEFINE([ENABLE_HOLIDAYS], [], [Holidays Support])
+fi
+AM_CONDITIONAL([ENABLE_HOLIDAYS], [test "$enable_holidays" = "yes"])
+
+# Enable MSSP Support (-DENABLE_MSSP) #
+AC_ARG_ENABLE(mssp,
+              AC_HELP_STRING([--enable-mssp],
+                             [enable MSSP Support @<:@default=yes@:>@]),
+              [], [enable_mssp=yes])
+if test "$enable_mssp" = "yes"; then
+		AC_DEFINE([ENABLE_MSSP], [], [MSSP Support])
+fi
+AM_CONDITIONAL([ENABLE_MSSP], [test "$enable_mssp" = "yes"])
 
 # Enable Web Server (-DHTTPD)
 AC_ARG_ENABLE(httpd,
@@ -619,25 +696,32 @@ AC_MSG_RESULT([Configured --{SMAUG}-- build flags:
 Configured --{SMAUG}-- MUD Server features:
 
  * SMAUG 2.0:           <$enable_smaug2>
+ * Oasis OLC:           <$enable_olc2>
+ * Oasis OLC Extras:    <$enable_olc2extras>
+ * Buildwalk:           <$enable_buildwalk>
+ * Billion MAX_VNUM:    <$enable_bvnum>
  * Password Encryption: <$enable_crypt>
  * Request Support:     <$enable_request>
- * Planes:              <$enable_planes>
- * Who arguments:       <$enable_whoarg>
- * HotBoot:             <$enable_hotboot>
+ * Room Planes:         <$enable_planes>
+ * Who Arguments:       <$enable_whoarg>
+ * MUD HotBoot:         <$enable_hotboot>
  * New Score Tables:    <$enable_newscore>
  * Show Stance Info:    <$enable_showstance>
  * Player Bleeding:     <$enable_bleeding>
- * MUD Mapper:          <$enable_mapper>
+ * New Colors:          <$enable_color>
+ * New MUD Mapper:      <$enable_mapper>
+ * MSSP Support:        <$enable_mssp>
  * New Weather:         <$enable_weather>
- * New Calendar:        <$enable_calendar>
+ * Timezone:            <$enable_timezone>
+ * Holidays:            <$enable_holidays>
  * Honour Code:         <$enable_honour>
- * Housing:             <$enable_housing>
+ * Player Houses:       <$enable_housing>
  * House Mobs:          <$enable_housemobs>
  * Extended Rooms:      <$enable_extrooms>
  * Liquids System:      <$enable_liquids>
  * Act Comm Scramble:   <$enable_scramble>
  * Banking:             <$enable_bank>
- * Marry:               <$enable_marry>
+ * Player Marry:        <$enable_marry>
  * DNS Resolver:        <$enable_dns>
  * Web Server:          <$enable_httpd>
 ])

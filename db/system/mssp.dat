@@ -1,0 +1,47 @@
+#MSSP_INFO
+Hostname          localhost~
+Contact           admin@example.com~
+Icon              http://www.yourwebsite.com/iconimage.gif~
+Language          English~
+Location          United States~
+Website           http://www.smaugmuds.org~
+Family            DikuMUD~
+Genre             Fantasy~
+GamePlay          Hack and Slash~
+GameSystem        Custom~
+Intermud          IMC2~
+Status            Live~
+SubGenre          Medieval Fantasy~
+Created           2000
+MinAge            0
+Worlds            0
+Ansi              1
+MCCP              1
+MCP               0
+MSP               0
+SSL               0
+MXP               0
+Pueblo            0
+Vt100             0
+Xterm256          0
+Pay2Play          0
+Pay4Perks         0
+HiringBuilders    0
+HiringCoders      0
+AdultMaterial     0
+Multiclassing     0
+NewbieFriendly    1
+PlayerCities      0
+PlayerClans       0
+PlayerCrafting    0
+PlayerGuilds      0
+EquipmentSystem   None~
+Multiplaying      None~
+PlayerKilling     Restricted~
+QuestSystem       Automated~
+RolePlaying       Encouraged~
+TrainingSystem    Both~
+WorldOriginality  Mostly Original~
+End
+
+#END

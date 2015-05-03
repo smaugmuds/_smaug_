@@ -52,7 +52,6 @@
 #include <stdarg.h>
 #include <string.h>
 #include "mud.h"
-#include "mssp.h"
 
 struct mssp_info *mssp_info;
 void fread_mssp_info( FILE * fp );
@@ -382,7 +381,7 @@ void show_mssp( CHAR_DATA * ch )
    ch_printf( ch, "&zWorldOriginality  &W%s\r\n", mssp_info->worldOriginality );
 }
 
-void do_setmssp( CHAR_DATA *ch, const char* argument )
+void do_setmssp( CHAR_DATA *ch, char* argument )
 {
    char arg1[MIL];
    char **strptr = NULL;
@@ -669,9 +668,9 @@ extern int top_reset;
 extern int top_prog;
 extern int top_mob_index;
 extern int top_obj_index;
-extern short num_skills;
+// extern short num_skills;
 extern int top_prog;
-#define codebase "SmaugFUSS 1.9"
+#define codebase "Smaug II"
 
 short player_count( void )
 {
@@ -726,7 +725,7 @@ void send_mssp_data( DESCRIPTOR_DATA * d )
    mssp_reply( d, "CLASSES", "%d", MAX_CLASS );
    mssp_reply( d, "LEVELS", "%d", MAX_LEVEL );
    mssp_reply( d, "RACES", "%d", MAX_RACE );
-   mssp_reply( d, "SKILLS", "%d", num_skills );
+//   mssp_reply( d, "SKILLS", "%d", num_skills );
    mssp_reply( d, "WORLDS", "%d", mssp_info->worlds );
    mssp_reply( d, "ANSI", "%d", mssp_info->ansi );
    mssp_reply( d, "MCCP", "%d", mssp_info->mccp );

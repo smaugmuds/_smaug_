@@ -20,6 +20,15 @@
      |                  -*- Player Informational Module -*-                |
      |_____________________________________________________________________|
     //                                                                     \\
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+   [|                                                                       |]
+   [|  AFKMud Copyright 1997-2007 by Roger Libiez (Samson),                 |]
+   [|  Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),       |]
+   [|  Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine,            |]
+   [|  Xorith, and Adjani.                                                  |]
+   [|  All Rights Reserved. External contributions from Remcon, Quixadhal,  |]
+   [|  Zarius and many others.                                              |]
+   [|                                                                       |]
    [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
    [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
    [|                                                                       |]
@@ -27,8 +36,6 @@
    [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
    [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
    [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
     \\_____________________________________________________________________//
 */
 
@@ -1360,44 +1367,44 @@ do_look (CHAR_DATA * ch, char *argument)
 	    send_to_char_color (ch->in_room->name, ch);
 	  else
 	    send_to_char (ch->in_room->name, ch);
-	  send_to_char ("\n\r", ch);
+	  	send_to_char ("\n\r", ch);
 	}
-
       set_char_color (AT_RMDESC, ch);
       if (arg1[0] == '\0' || (!IS_NPC (ch) && !xIS_SET (ch->act, PLR_BRIEF)))
-	{
-	  if (xIS_SET (ch->in_room->room_flags, ROOM_COLOR))
-	    send_to_char_color (ch->in_room->description, ch);
-	  else
-	    send_to_char (ch->in_room->description, ch);
-	}
+			{
+#ifndef ENABLE_MAPPER
+				if (xIS_SET (ch->in_room->room_flags, ROOM_COLOR))
+					send_to_char_color (ch->in_room->description, ch);
+				else
+					send_to_char (ch->in_room->description, ch);
+			}
+#endif
 
-/*
-	if ( !IS_NPC(ch) && xIS_SET(ch->act, PLR_AUTOMAP) )
+  /* Automapper Snippet */
+  if (!IS_NPC (ch) && xIS_SET(ch->act, PLR_AUTOMAP))
 	{
-	    if(ch->in_room->map != NULL)
-	    {
-	       do_lookmap(ch, NULL);
-	    }
+#ifdef ENABLE_MAPPER
+	   draw_room_map( ch, ch->in_room->description );
 	}
-*/
-
-      /* Testing automapper snippet - 2002 */
-      if (!IS_NPC (ch) && xIS_SET (ch->act, PLR_AUTOMAP))
+  else
 	{
+     send_to_char(ch->in_room->description, ch);
+#else
 	  ch_printf_color (ch,
 			   "&w_____________________________________________________________________________\n\r");
 	  if (IS_IMMORTAL (ch))
 	    do_lookmap (ch, "auto");
-	  ch_printf_color (ch,
+		  ch_printf_color (ch,
 			   "&w_____________________________________________________________________________\n\r");
-
+#endif
 	}
 
-
+#ifdef ENABLE_MAPPER
+	}
+#else
       if (!IS_NPC (ch) && xIS_SET (ch->act, PLR_AUTOEXIT))
-	do_exits (ch, "auto");
-
+				do_exits (ch, "auto");
+#endif
 
       show_list_to_char (ch->in_room->first_content, ch, FALSE, FALSE);
       show_char_to_char (ch->in_room->first_person, ch);
@@ -2300,7 +2307,7 @@ do_exits (CHAR_DATA * ch, char *argument)
   return;
 }
 
-#ifndef ENABLE_CALENDAR
+#ifndef ENABLE_TIMEZONE
 
 char *const day_name[] = {
   "the Moon", "the Bull", "Deception", "Thunder", "Freedom",
@@ -2315,7 +2322,7 @@ char *const month_name[] = {
 };
 
 void
-do_time (CHAR_DATA * ch, char *argument)
+do_time (CHAR_DATA *ch, char *argument)
 {
   extern char str_boot_time[];
   extern char reboot_time[];
@@ -5434,7 +5441,7 @@ do_config (CHAR_DATA * ch, char *argument)
 		 xIS_SET (ch->act, PLR_ANSI) ? "[+] ANSI" : "[-] ansi",
 		 xIS_SET (ch->act, PLR_RIP) ? "[+] RIP" : "[-] rip",
 		 xIS_SET (ch->act,
-			  PLR_COMPASS) ? "[+] COMPASS" : "[-] compass");
+			  PLR_COMPASS) ? "[+] COMPASS" : "[-] compass", xIS_SET( ch->act, PLR_AUTOMAP ) ? "[+] AUTOMAP" : "[-] automap" );
       set_char_color (AT_DGREEN, ch);
       send_to_char ("\n\r\n\rAuto:      ", ch);
       set_char_color (AT_GREY, ch);
@@ -5564,6 +5571,8 @@ do_config (CHAR_DATA * ch, char *argument)
 	bit = PLR_ANSI;
       else if (!str_prefix (arg + 1, "compass"))
 	bit = PLR_COMPASS;
+      else if(!str_prefix( arg + 1, "automap"))
+	bit = PLR_AUTOMAP;
       else if (!str_prefix (arg + 1, "rip"))
 	bit = PLR_RIP;
 /*	else if ( !str_prefix( arg+1, "flee"     ) ) bit = PLR_FLEE; */

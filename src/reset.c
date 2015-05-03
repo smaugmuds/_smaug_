@@ -29,6 +29,15 @@
      | pArea->reset_first ... pArea->reset_last.  -- Altrag                |
      |_____________________________________________________________________|
     //                                                                     \\
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+   [|                                                                       |]
+   [|  AFKMud Copyright 1997-2007 by Roger Libiez (Samson),                 |]
+   [|  Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),       |]
+   [|  Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine,            |]
+   [|  Xorith, and Adjani.                                                  |]
+   [|  All Rights Reserved. External contributions from Remcon, Quixadhal,  |]
+   [|  Zarius and many others.                                              |]
+   [|                                                                       |]
    [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
    [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
    [|                                                                       |]
@@ -36,8 +45,6 @@
    [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
    [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
    [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
     \\_____________________________________________________________________//
 */
 

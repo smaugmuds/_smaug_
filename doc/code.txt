@@ -1,0 +1,193 @@
+SMAUG code server: A Code Walkthrough
+--------------------------------------
+
+In this article, I outline exactly how SMAUG actually works. After reading this article, you'll have a better sense of the physics of the SMAUG world. Think of the SMAUG world consisting of a bunch of blood veins and arteries; this document will teach you how the blood circulates through the system, allowing it to run.
+
+I wrote this using the official SMAUG 1.8 release, but it should be virtually identical to earlier official releases, and probably very similar to SMAUGFUSS as well.
+
+
+IN THE BEGINNING.....
+
+First, the SMAUG executable file is run. This is usually done by a script, but can be done manually as well. This is where the command is actually entered to launch SMAUG. Usually something like "../src/smaug 4000", from within the areas folder. You know what I'm talking about.
+
+The first function which runs is the "main" function located in comm.c. Go ahead and open comm.c and glance through the "main" function as you read this. It starts like this:
+
+    #ifdef WIN32
+    int mainthread( int argc, char **argv )
+    #else
+    int main( int argc, char **argv )
+    #endif
+    {
+    struct timeval now_time;
+    char hostn[128];
+
+Main starts by doing lots of initialization stuff. Some important global variables are initialized. A reserve file is opened, as is a log file. I'll write about what these are in another article later. The port number, specified in the runline when smaug was executed, is retrieved. And then, the database is booted by the function, boot_db, from db.c. Let's switch over to db.c now and find boot_db and examine that function. We'll return to finish "main" later.
+
+
+INITIALIZING THE DATABASE
+
+What is the database? The database is all the data in the game universe: areas, spells, deities, help files, noteboards, etc. It all gets loaded by the boot_db function in db.c. Looking through boot_db, see what it does:
+
+    Loads the commands
+    Loads the system data, or creates default system data if none exists
+    Loads the socials
+    Loads and sorts the skills (which includes the spells)
+    Loads classes and races
+    Loads the news
+    Generates the wizlist and retiredlist
+    "init_request_pipe": For web-based who lists, if enabled
+    Initializes tons of other stuff
+    Loads the area files
+    Initializes the supermob (I'll write an article about him later)
+    Etc.
+
+After boot_db has been run, the data which the universe runs on, is in place.
+
+
+LET THE GAME BEGIN
+
+After the "main" function has run boot_db, and done some other initialization, it calls the function, "game_loop". When SMAUG is running, virtually all the time is spent in game_loop. As the name suggests, it contains a loop which runs over and over again until the MUD shuts down or reboots.
+
+So without further ado, let's move to the "game_loop" function, still in comm.c. We'll come back and finish the "main" function much later at the very end of the walkthrough.
+
+Game_loop starts out by doing a little more initialization. Then it calls a loop:
+
+/* Main loop */
+while ( !mud_down )
+{
+
+That means the stuff in this loop will run over and over until something toggles the "mud_down" variable to true. Eg., until someone shuts down or reboots the MUD. Technically not an infinite loop, but I'll refer to it as an "infinite" loop since it runs for the entire playable duration of the game.
+
+The first thing that happens in this main loop, is that new data is accepted from any incoming connections. This is done with the "accept_new" function calls. Accept_new is a very low level function which uses socket programming. Maybe I'll write an article about that someday, but it's beyond the scope of this walkthrough. The one important thing about accept_new is that it checks for new connections to the port the MUD is running on. When a new connection is made, the "new_descriptor" function is called. Let's take a look at "new_descriptor".
+
+"New_descriptor" is a rather technical function, but here's what it boils down to. A structure is created to hold data about the new connection. This structure is of the type "DESCRIPTOR_DATA", defined in mud.h. It's initialized in such a way that the MUD sees that there's been no input from this connection, or output to this connection, yet. And then, most importantly for walkthrough purposes, the "connected" part of the new descriptor is set to CON_GET_NAME. Then, the welcome screen is sent to the connection, which usually includes a line such as "Please enter your name, or type new". After that, the MUD updates the current number of players, checks if a new record's broken, and that's it.
+
+"But, what about the rest of the login sequence??" you might ask. That's handled elsewhere, and we'll get there. For now, back to game_loop.
+
+After accepting new data from connections, the game loops through all descriptors (i.e. all connections) and checks for connections which have been sitting still too long, or which have "raised exceptions" (usually "raised exceptions" here translates into "They lost their connection").
+
+Any descriptor which hasn't been kicked off for being idle or disconnected, is checked for input. This is done with the "read_from_descriptor" function. If the connection corresponds to a logged-in player, and that player is lagged (for example, they just cast a spell), then the new input is simply stored, possibly with other input that's already stored. All this stored input will have to wait til the lag (spell lag, walking lag, whatever) runs out, which will happen on a later iteration of the infinite loop.
+
+Read_from_descriptor takes input from deep in the mysterious world of socket programming, and sticks it in a less mystical buffer of text attached to the connection. It's still not processed or interpreted, but at least now it's stored where we can look at it without having PhD's in network engineering :)
+
+If the connection has no lag (spell lag, walking lag, whatever), the MUD attempts to read a single line from the stored input buffer, with the "read_from_buffer" function. If there's an entire, completed command sitting in the buffer, it will be removed from the buffer and copied to the descriptor's "incomm" string. Incomm is just another, smaller buffer, which holds only one command at a time.
+
+Assuming a full command was found, and moved to "incomm", it now gets processed. First, the character's idle timer is removed. Then, the incomm is copied to yet another buffer, called cmdline, and reset. Cmdline isn't attached to the connection itself, it's a buffer that lives inside game_loop and gets used by *all* players. The "current character" is set to the connection's character, if there is one (as opposed to a connection sitting at the login screen for example). I'll write another article later to discuss what this "current character" business is all about, that's a whole nother can of worms in itself ;)
+
+Next, the game checks whether the player is in the middle of a paused "pager screen". This is a little-known feature of SMAUG, it's possible to turn on a "pager" so that when huge blocks of text like the "areas" list are shown, it'll periodically freeze and wait for the player to tell it to continue (or back up, or abort, etc.) Mostly an artifact from the days when telnet clients didn't have scrollbars. If the player is in such a freezed screen, the command they have entered is parsed as a pager-command ("continue", "nonstop", "backup", or "abort", I think), this is all taken care of by the "set_pager_input" function.
+
+If the player wasn't stuck on a pager menu, then the game will branch off depending on their "connection state", i.e. d->connected. The three possibilities are "Playing", "Editing", and "Other". If the connection is "Playing", that means they're actually all logged in and moving around normally, and the command they just entered is parsed accordingly, by the "interpret" function which we'll cover later. If the connection is "Editing", that means they're in a writing buffer, e.g. they're writing a note. In that case, the command is parsed accordingly, by the "edit_buffer" function which I won't go into in this walkthrough. And, if the connection is "Other", that means the player is either in the middle of logging in, or in the middle of creating a new character. In that case, the command is parsed by the "nanny" function, which we'll cover next.
+
+
+NEW CHARACTER SCREEN AND LOGGING IN SCREEN: THE SMAUG NANNY
+
+The "nanny" function, in comm.c, is so-named because it acts like a nanny taking care of "children" connections which haven't yet "grown up" into full-fledged characters. When you're making a new character and the game's asking you questions about race/class/etc., or when you're entering your login name and password, or when you're reading the message of the day, it's all handled by the nanny. Search for "void nanny" in comm.c and let's take a look at this function.
+
+/*
+* Deal with sockets that haven't logged in yet.
+*/
+void nanny( DESCRIPTOR_DATA *d, char *argument )
+{
+
+
+Each descriptor has a "connected" variable which tells the MUD what their connection state is. For a descriptor which has finished logging in, this state is always "playing" or "editing". But for a descriptor not yet logged in, there are a ton of connection states, and they specify where the connection is in the login or create-new-character process. For example if the connection state is CON_GET_NAME, that means the person at the other end has been asked to enter their name, so the next thing they transmit had better be some sort of name. If the connection state is CON_GET_NEW_CLASS, that means the MUD has just sent a list of classes and asked the visitor what class they'd like to try. So the next thing the visitor transmits had better be some kind of class. And so on.
+
+When a descriptor which has one of these nanny connection states, sends a command, the command is interpreted according to the exact connection state. Someone in CON_GET_NAME will have their command parsed as a name. It might be an invalid name, in which case the MUD will respond appropriately and, probably, keep them in CON_GET_NAME so they can try again. Similarly, if the visitor is in CON_GET_NEW_CLASS, their command will be parsed as a class. If it's an invalid class, the MUD will say something to that effect, and keep them in CON_GET_NEW_CLASS so they can try again.
+
+When a valid answer is given to whatever nanny is asking-- like, a valid name or a valid class-- the MUD typically asks the next question (e.g., "What's your password?" or "Do you wanna be an elf or a dwarf?") The connection state is advanced, e.g. to CON_GET_PASSWORD or CON_GET_NEW_RACE, and the process continues.
+
+During all these stages, the actual physical "body" of the player is generated, either from scratch (new character) or from a save file. But it's floating in the ether, not yet able to influence or be influenced by the game universe.
+
+This continues all the way to CON_READ_MOTD, which means the MUD has transmitted the message of the day and told the player to "Press enter to continue", and is waiting for the player to press enter. After that, the actual, "physical" player is placed in the universe, and the visitor "graduates" from nanny into the real game.
+
+
+INTERPRET: OH, THIS STUFF THE PLAYER ENTERED IS A COMMAND??
+
+If a connection isn't in the limbo of nanny, nor in a writing buffer, then a received command from this connection will be sent to the "interpret" function, in interp.c. Move to interp.c and find the interpret function as we go through it.
+
+First, interpret checks whether the character has a "SUB_REPEATCMD" substate. In English, this boils down to asking whether the player is an immortal who has "redit on", "mset on", "oset on", or whatever. If so, the "on" command (redit, mset, oset, or whatever) is pinpointed and remembered for later.
+
+If not (ie, "if ( !cmd )" ), then the MUD will attempt to find the command using the first word of what the player entered (e.g. if the player entered "look at guard", the command will be "look"). In some cases, the first letter, rather than the first word, will be used. For example, using ' for say, or . for chat, or : for immtalk. Note that when we wanna look at the first word in a line, it's extremely common to use the "one_argument" function.
+
+Whatever the command "key" is-- first word, or first letter-- the MUD checks the command tables, loaded by boot_db and customized by the cedit command, to find which command the player's talking about. It might be that no commands match, but that doesn't necessarily mean the player entered gibberish-- they could've entered a skill or a social or something. For now, the MUD just makes a note of whether or not a matching command was found.
+
+At this point, if the player was "AFK", they have their AFK status removed-- *unless* the command they just entered, was another "AFK" command (in which case, the actual command will do the work).
+
+Next, log and snoop are handled. If the player is being logged, their command is diligently recorded to a logfile. If an admin is snooping the player, the admin will see the command the player just entered.
+
+Then, comes the "Build Interface" part of interp.c. A massive, messy wall of code that starts at "BUILD INTERFACE (start)" and ends at "BUILD INTERFACE (end)". What's all that stuff do? It's for immortal commands like "mmenu" where the imm actually enters a "menu" to edit mobs/objects/rooms. You either know what this is, or you don't, and if you don't, don't worry it's unimportant.
+
+The next part is more fun, the "timer delayed commands" part, for those weird skills like dig and search. These are actually stored on the player as "timers". For example, when a player digs and starts digging, the MUD sets a timer on them, and when the timer hits 0, that's when the dig ends. This part of interp.c is for if a player enters another command while such a timer is ticking. How should the game behave? Well, that's left up to the skill in question (dig, search, or whatever). Interp asks the skill, "umm, they're trying to interrupt you, do something please", by calling the skill's function with "(timer->do_fun)(ch,"")" after flagging the character as an impatient interruptor ("ch->substate = SUB_TIMER_DO_ABORT"). In stock SMAUG, this usually just results in a message like "You stop digging..." but if you're creative you can have a LOT of fun with this technology making custom skills :)
+
+It never occurs with the stock skills that come with SMAUG, but it's possible that the skill could respond by flagging the character as "Can't Abort". That's what the line, "if ( ch->substate != SUB_TIMER_CANT_ABORT )", is about. Imagine, the player tries to interrupt a dig and gets the message, "Your shovel is possessed!! You can't stop digging!!!" >:)
+
+To understand a little better how these skill timers work, go ahead and study the do_dig or do_search functions, in skills.c.
+
+Next, if the MUD didn't find a match for the command in the command table, it checks the following tables in order: the skill table; room progs (programs that let builders add custom commands to a room); mob progs (same thing, custom commands added on a mob); object progs (custom commands added on an object); socials; "news" commands (don't ask me, that's new to SMAUG 1.8); IMC commands, if enabled; and finally, exit keywords with the "auto" exit flag. If none of these work, the MUD gives up and says the infamous, "Huh?"
+
+Checking, e.g., the skill table, is done via the "check_skill" function; checking, e.g., the socials, is done by the "check_social" function, and so on. If these find a match, they don't just return true, but they actually run the skill/social/prog/etc. So, to understand what makes skills tick, study the check_skill function. To find out what makes socials tick, study the check_social function, and so on. I'll leave them out of this walkthrough, so it doesn't become a thousand pages long.
+
+If a skill/social/etc. match was found, the interpret function returns control back to game_loop. But suppose the player is actually entering a command. The next thing interpret does is check if they're in the right position ("What, in your dreams?") That's done with the check_pos function.
+
+Next, a function called check_cmd_flags is used to check whether the player is "allowed" to do the command (even though by this point the player is the right level and so on). This is mainly to prevent two exploits: ordering charmed mobs to do things they shouldn't do, and making possessed mobs do things they shouldn't do. (Yes, this same "interpret" function is used on mobs, when they are charmed and given orders. It's also used by mpforce, force, at, mpat, rat, for, as well as executing individual lines of mud programs, and other stuff too)
+
+Shaddai's "nuisance" stuff comes next. If an immortal flags you as a nuisance, you have a random chance of your commands failing. Basically just silly joke code.
+
+Finally, the command itself is executed, with the elegant line: "(*cmd->do_fun) ( ch, argument );" This is timed with the "start_timer" and "end_timer" functions, so the MUD can keep track of how many times the command is used and how laggy it is. If it's too laggy, the MUD will even record it on the BUG channel.
+
+And that, is the end of interp. "But.. but... where does the actual command result come in??" That's what the "(*cmd->do_fun) ( ch, argument );" line is all about. To find what an individual command does, look up its code, e.g., to find what "north" does, look up do_north, to find out what "wear" does, look up do_wear, and so on.
+
+And now back to game_loop where we left off.
+
+
+THE PULSE OF THE UNIVERSE
+
+We left game_loop where it branched into interpret, nanny, and edit_buffer, which was while looping through the set of all connections.
+
+Eventually, game_loop gets through the set of all connections, and is done with its nanny/interpret/edit_buffer task.
+
+Next comes what the anonymous commentor calls, "autonomous game motion", but which I call, "The Pulse of the Universe". I'm talking about the "update_handler" function call.
+
+The update_handler function, called by game_loop, is located in update.c. Go to update.c now and find "update_handler".
+
+What update_handler does is it keeps track of a bunch of timers. The timers are: pulse_area, pulse_mobile, pulse_violence, pulse_point, pulse_second, pulse_houseauc, and casino_time. Whenever one of these timers hits 0, it's set back to an initial value (which varies from timer to timer, a bigger timer for slower pulses), and update_handler calls an update function. For example when pulse_area hits 0, update_handler calls area_update.
+
+These timers control the ebb and flow of the game world. Everything which happens without players issuing orders for it to happen, happens here. Battles are waged because of these timers, with pulse_violence making combatants hit eachother. Objects decay, players grow hungry, timers tick away, spell affects run out, and so on. Basically if every player suddenly lost connection, what would continue to happen in the game world, would be determined by the update functions.
+
+The one update function I should speak about more in detail, is aggr_update, which is short for "aggression update". It actually handles two things, aggression and act progs, so it should be called "aggr_act_update" or something, but it was probably written long before act progs were invented.
+
+The thing about SMAUG is, aggression isn't instantaneous. If a player walks into a room full of hateful red dragons, the dragons don't actually attack instantly, even though it seems that way. This is because, it's theoretically possible, a player can enter and leave a room in the same "pulse" (ie, the same iteration of game_loop). The easiest example would be if the player, without flying, walks into a room with no floor. Another example is if the room has an entry prog which forces the player out. And there are other, more complicated examples too.
+
+Instead, aggression is handled once a pulse by aggr_update. Aggr_update is called so quickly that to the untrained eye, aggression *seems* instantaneous.
+
+Act progs are also not instantaneous. Why not? Because any call to the "act" function-- essentially, any time an action takes place-- has the potential to trigger an act prog. Thousands of functions all over SMAUG call that function. And they call it with no safety checks. If a prog runs, it has the potential to do all sorts of things. Teleport the player, kill the player, kill all players in the room... it could theoretically kill all players in the whole game! It could juggle the linked lists, destroy objects, close doors that were open a second ago, and so on. The point is, although most progs are harmless, any time in the code where a prog is executed, you basically have *no promise* that any assumptions you could make beforehand are still safe. That means, if act progs were to be done instantly, every major function in the codebase would have to be stuffed thick with careful checks and balances to make sure those progs didn't screw everything up.
+
+So instead, act progs are saved and executed at the next aggr_update, where they're *relatively* controlled (but, this is still an area chock full of bugs if you have a psychotic enough and clever enough builder).
+
+
+AND NOW THE DRAGON WILL CATCH ITS BREATH...
+
+Okay, so update_handler finishes running and the dust settles, let's go back to game_loop. After calling update_handler, the rest of the loop is what I call "the recovery". The game has just done a ton of work and now it'll catch its breath.
+
+The next function called by game_loop after update_handler, is check_requests. This makes the game listen for incoming web requests for a who list, if enabled. This is what makes those "See who's playing" links on some MUD websites work. I won't get into details here since it doesn't really effect the in-game universe.
+
+The next comment may surprise you a little: "Output." Yes, that's right, in all this time, NO ACTUAL OUTPUT HAS BEEN TRANSMITTED BY THE MUD! Everything so far has been just a bunch of data juggling entirely on the server side. Above, wherever it *seems* like some kind of output should be transmitted ("The evil wizard's fireball maims you!"), it's actually just recorded in a buffer of text to be output later. And that "later" is now.
+
+Game_loop cycles through all connections. For each connection, it checks whether it can send output. If not, it closes the connection. If it can send the output, though, the "flush_buffer" function is called. "Flush_buffer" means "take the buffer of output we've been storing up to send, and finally send it". I won't go into the details of flush_buffer since it gets into socket programming, but it's fascinating stuff for the advanced coder, and it should be studied eventually because it's where the prompt is handled.
+
+The next stretch of code in game_loop looks like something out of an arcane math book. It's actually pretty simple though. The MUD is basically computing the amount of time to the next pulse. And then, it completely shuts down and does *nothing* until that next pulse comes. I think the pulses are supposed to come once every fourth of a second, which means this sleeping period would usually last approximately one-fourth of a second (I could be wrong here, though). But basically.. and this surprised me too a little at first.. the vast, overwhelming majority of SMAUG's life is spent deep in the cold hibernation of oblivion. A hibernation broken at rare points by sudden flurries of feverish activity which you and I know as, "The Game".
+
+Once the period of hibernation is complete, the "infinite" loop in game_loop will start anew, and the game will continue. It all happens so fast as to provide the illusion of an unbroken, continuous world.
+
+
+ARMAGEDDON
+
+At some point, assuming the MUD never crashes, eventually something will take the "mud_down" variable and toggle it to true. This could be the result of an admin shutting the mud down, or just a regularly scheduled reboot. Remember that the "infinite" loop in game_loop was a "while ( !mud_down )" loop. So, once this variable is set to true, without fanfare, the loop will finish its current iteration and then stop.
+
+After the "infinite" loop, there are only a couple more lines in game_loop. Morphs are saved (if you don't know what morphs are, don't worry, I doubt many people do). Standard error is flushed-- that just means, the program pauses long enough to make sure anything that was to be printed to the terminal where it was run, has time to be printed there. (Remember, it takes time to print things to a screen or file, time which is usually negligibly short, but since the program is on the verge of terminating, no time is short enough). Control is then returned to where it started, in the "main" function.
+
+Let's see, we left "main" at the call to game_loop, so let's see what happens after that. A handful of "closesocket" functions are called: this means the program is no longer listening on any of its ports, the game is now deaf to the outside world. If the program was compiled on Windows, some Windows cleanup takes place. And then, as the anonymous commentator points out, "That's all, folks."
+
+
+Posted by Valcados at 8:22 AM (http://smaugcodesnippets.blogspot.com.es/2008/09/smaug-code-server-code-walkthrough.html)
+

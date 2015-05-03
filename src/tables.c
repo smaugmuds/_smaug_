@@ -20,6 +20,15 @@
      |                   -*- Table Load/Save Module -*-                    |
      |_____________________________________________________________________|
     //                                                                     \\
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+   [|                                                                       |]
+   [|  AFKMud Copyright 1997-2007 by Roger Libiez (Samson),                 |]
+   [|  Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),       |]
+   [|  Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine,            |]
+   [|  Xorith, and Adjani.                                                  |]
+   [|  All Rights Reserved. External contributions from Remcon, Quixadhal,  |]
+   [|  Zarius and many others.                                              |]
+   [|                                                                       |]
    [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
    [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
    [|                                                                       |]
@@ -27,8 +36,6 @@
    [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
    [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
    [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
     \\_____________________________________________________________________//
 */
 
@@ -384,6 +391,10 @@ skill_function (char *name)
 	return do_bset;
       if (!str_cmp (name, "do_bstat"))
 	return do_bstat;
+#ifdef ENABLE_BUILDWALK
+      if (!str_cmp (name, "do_buildwalk"))
+	return do_buildwalk;
+#endif
       if (!str_cmp (name, "do_bug"))
 	return do_bug;
       if (!str_cmp (name, "do_bury"))
@@ -392,6 +403,10 @@ skill_function (char *name)
 	return do_buy;
       break;
     case 'c':
+#ifdef ENABLE_DNS_RESOLV
+      if (!str_cmp (name, "do_cache"))
+	return do_cast;
+#endif
 #ifdef MYSTARIC
       if (!str_cmp (name, "do_casinoset"))
 	return do_casinoset;
@@ -432,8 +447,13 @@ skill_function (char *name)
 	return do_cmdtable;
       if (!str_cmp (name, "do_cmenu"))
 	return do_cmenu;
+#ifndef ENABLE_COLOR
       if (!str_cmp (name, "do_colorize"))
 	return do_colorize;
+#else
+      if (!str_cmp (name, "do_color"))
+	return do_color;
+#endif
       if (!str_cmp (name, "do_colorscheme"))
 	return do_colorscheme;
       if (!str_cmp (name, "do_commands"))
@@ -652,6 +672,10 @@ skill_function (char *name)
 	return do_hlist;
       if (!str_cmp (name, "do_holylight"))
 	return do_holylight;
+#ifdef ENABLE_HOLIDAYS
+      if (!str_cmp (name, "do_holidays"))
+	return do_holidays;
+#endif
       if (!str_cmp (name, "do_homebuy"))
 	return do_homebuy;
       if (!str_cmp (name, "do_house"))
@@ -730,6 +754,10 @@ skill_function (char *name)
 	return do_list;
       if (!str_cmp (name, "do_litterbug"))
 	return do_litterbug;
+#ifdef LIQUIDSYSTEM
+      if (!str_cmp (name, "do_liquids"))
+	return do_liquids;
+#endif
       if (!str_cmp (name, "do_loadarea"))
 	return do_loadarea;
       if (!str_cmp (name, "do_loadup"))
@@ -798,6 +826,10 @@ skill_function (char *name)
 	return do_mfind;
       if (!str_cmp (name, "do_minvoke"))
 	return do_minvoke;
+#ifdef LIQUIDSYSTEM
+      if (!str_cmp (name, "do_mix"))
+	return do_mistwalk;
+#endif
       if (!str_cmp (name, "do_mistwalk"))
 	return do_mistwalk;
       if (!str_cmp (name, "do_mlist"))
@@ -1008,6 +1040,10 @@ skill_function (char *name)
     case 'o':
       if (!str_cmp (name, "do_oassign"))
 	return do_oassign;
+#ifdef ENABLE_OLC2
+      if (!str_cmp (name, "do_ocopy"))
+	return do_ocopy;
+#endif
       if (!str_cmp (name, "do_oclaim"))
 	return do_oclaim;
       if (!str_cmp (name, "do_ocreate"))
@@ -1026,8 +1062,16 @@ skill_function (char *name)
 	return do_oldscore;
       if (!str_cmp (name, "do_olist"))
 	return do_olist;
+#ifdef ENABLE_OLC2
+			if ( !str_cmp( name, "do_omedit" ))
+	return do_omedit;
+#endif
       if (!str_cmp (name, "do_omenu"))
 	return do_omenu;
+#ifdef ENABLE_OLC2
+			if ( !str_cmp( name, "do_ooedit" ))
+	return do_ooedit;
+#endif
       if (!str_cmp (name, "do_opcopy"))
 	return do_opcopy;
       if (!str_cmp (name, "do_opedit"))
@@ -1047,6 +1091,10 @@ skill_function (char *name)
 	return do_orders;
       if (!str_cmp (name, "do_ordertalk"))
 	return do_ordertalk;
+#ifdef ENABLE_OLC2
+			if ( !str_cmp( name, "do_oredit" ))
+	return do_oredit;
+#endif
       if (!str_cmp (name, "do_oset"))
 	return do_oset;
       if (!str_cmp (name, "do_ostat"))
@@ -1239,6 +1287,10 @@ skill_function (char *name)
 	return do_save;
       if (!str_cmp (name, "do_savearea"))
 	return do_savearea;
+#ifdef ENABLE_HOLIDAYS
+      if (!str_cmp (name, "do_saveholiday"))
+	return do_saveholiday;
+#endif
       if (!str_cmp (name, "do_say"))
 	return do_say;
       if (!str_cmp (name, "do_say_to"))
@@ -1269,6 +1321,20 @@ skill_function (char *name)
 	return do_setcouncil;
       if (!str_cmp (name, "do_setdeity"))
 	return do_setdeity;
+#ifdef LIQUIDSYSTEM
+      if (!str_cmp (name, "do_setmixture"))
+	return do_setmixture;
+      if (!str_cmp (name, "do_setliquid"))
+	return do_setliquid;
+#endif
+#ifdef ENABLE_MSSP
+      if (!str_cmp (name, "do_setmssp"))
+	return do_setmssp;
+#endif
+#ifdef ENABLE_HOLIDAYS
+      if (!str_cmp (name, "do_setholiday"))
+	return do_setholiday;
+#endif
       if (!str_cmp (name, "do_setrace"))
 	return do_setrace;
       if (!str_cmp (name, "do_setvault"))
@@ -1381,6 +1447,10 @@ skill_function (char *name)
 	return do_time;
       if (!str_cmp (name, "do_timecmd"))
 	return do_timecmd;
+#ifdef ENABLE_TIMEZONE
+      if (!str_cmp (name, "do_timezone"))
+	return do_timezone;
+#endif
       if (!str_cmp (name, "do_title"))
 	return do_title;
       if (!str_cmp (name, "do_track"))
@@ -1788,12 +1858,20 @@ skill_name (DO_FUN * skill)
     return "do_bset";
   if (skill == do_bstat)
     return "do_bstat";
+#ifdef ENABLE_BUILDWALK
+  if (skill == do_buildwalk)
+    return "do_buildwalk";
+#endif
   if (skill == do_bug)
     return "do_bug";
   if (skill == do_bury)
     return "do_bury";
   if (skill == do_buy)
     return "do_buy";
+#ifdef ENABLE_DNS_RESOLV
+  if (skill == do_cache)
+    return "do_cache";
+#endif
 #ifdef MYSTARIC
   if (skill == do_casinoset)
     return "do_casinoset";
@@ -1834,8 +1912,13 @@ skill_name (DO_FUN * skill)
     return "do_cmdtable";
   if (skill == do_cmenu)
     return "do_cmenu";
+#ifndef ENABLE_COLOR
   if (skill == do_colorize)
     return "do_colorize";
+#else
+  if (skill == do_color)
+    return "do_color";
+#endif
   if (skill == do_colorscheme)
     return "do_colorscheme";
   if (skill == do_commands)
@@ -2040,6 +2123,10 @@ skill_name (DO_FUN * skill)
     return "do_hlist";
   if (skill == do_holylight)
     return "do_holylight";
+#ifdef ENABLE_HOLIDAYS
+  if (skill == do_holidays)
+    return "do_holidays";
+#endif
   if (skill == do_homebuy)
     return "do_homebuy";
   if (skill == do_homepage)
@@ -2112,6 +2199,10 @@ skill_name (DO_FUN * skill)
     return "do_list";
   if (skill == do_litterbug)
     return "do_litterbug";
+#ifdef LIQUIDSYSTEM
+  if (skill == do_liquids)
+    return "do_liquids";
+#endif
   if (skill == do_loadarea)
     return "do_loadarea";
   if (skill == do_loadup)
@@ -2176,6 +2267,10 @@ skill_name (DO_FUN * skill)
     return "do_minvoke";
   if (skill == do_mistwalk)
     return "do_mistwalk";
+#ifdef LIQUIDSYSTEM
+  if (skill == do_mix)
+    return "do_mix";
+#endif
   if (skill == do_mlist)
     return "do_mlist";
   if (skill == do_mmenu)
@@ -2381,6 +2476,10 @@ skill_name (DO_FUN * skill)
     return "do_nuisance";
   if (skill == do_oassign)
     return "do_oassign";
+#ifdef ENABLE_OLC2
+  if (skill == do_ocopy)
+		return "do_ocopy";
+#endif
   if (skill == do_oclaim)
     return "do_oclaim";
   if (skill == do_ocreate)
@@ -2399,8 +2498,16 @@ skill_name (DO_FUN * skill)
     return "do_oldscore";
   if (skill == do_olist)
     return "do_olist";
+#ifdef ENABLE_OLC2
+  if (skill == do_omedit)
+		return "do_omedit";
+#endif
   if (skill == do_omenu)
     return "do_omenu";
+#ifdef ENABLE_OLC2
+  if (skill == do_ooedit)
+		return "do_ooedit";
+#endif
   if (skill == do_opcopy)
     return "do_opcopy";
   if (skill == do_opedit)
@@ -2420,6 +2527,10 @@ skill_name (DO_FUN * skill)
     return "do_orders";
   if (skill == do_ordertalk)
     return "do_ordertalk";
+#ifdef ENABLE_OLC2
+  if (skill == do_oredit)
+		return "do_oredit";
+#endif
   if (skill == do_oset)
     return "do_oset";
   if (skill == do_ostat)
@@ -2600,6 +2711,10 @@ skill_name (DO_FUN * skill)
     return "do_save";
   if (skill == do_savearea)
     return "do_savearea";
+#ifdef ENABLE_HOLIDAYS
+  if (skill == do_saveholiday)
+    return "do_saveholiday";
+#endif
   if (skill == do_say)
     return "do_say";
   if (skill == do_say_to)
@@ -2630,6 +2745,20 @@ skill_name (DO_FUN * skill)
     return "do_setcouncil";
   if (skill == do_setdeity)
     return "do_setdeity";
+#ifdef LIQUIDSYSTEM
+  if (skill == do_setmixture)
+    return "do_setmixture";
+  if (skill == do_setliquid)
+    return "do_setliquid";
+#endif
+#ifdef ENABLE_MSSP
+  if (skill == do_setmssp)
+    return "do_setmssp";
+#endif
+#ifdef ENABLE_HOLIDAYS
+  if (skill == do_setholiday)
+    return "do_setholiday";
+#endif
   if (skill == do_setrace)
     return "do_setrace";
   if (skill == do_setvault)
@@ -2740,6 +2869,10 @@ skill_name (DO_FUN * skill)
     return "do_time";
   if (skill == do_timecmd)
     return "do_timecmd";
+#ifdef ENABLE_TIMEZONE
+  if (skill == do_timezone)
+    return "do_timezone";
+#endif
   if (skill == do_title)
     return "do_title";
   if (skill == do_track)

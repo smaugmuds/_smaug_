@@ -20,15 +20,22 @@
      |                 -*- Database Management Module -*-                  |
      |_____________________________________________________________________|
     //                                                                     \\
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+   [|                                                                       |]
+   [|  AFKMud Copyright 1997-2007 by Roger Libiez (Samson),                 |]
+   [|  Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),       |]
+   [|  Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine,            |]
+   [|  Xorith, and Adjani.                                                  |]
+   [|  All Rights Reserved. External contributions from Remcon, Quixadhal,  |]
+   [|  Zarius and many others.                                              |]
+   [|                                                                       |]
    [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
    [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
    [|                                                                       |]
    [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-   [|  Quan, and Mitchell Tse. Original Diku Mud Â 1990-1991 by Sebastian   |]
+   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
    [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
    [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
     \\_____________________________________________________________________//
 */
 
@@ -110,6 +117,9 @@ int nummobsloaded;
 int numobjsloaded;
 int physicalobjects;
 int last_pkroom;
+#ifdef ENABLE_MSSP
+time_t mud_start_time;
+#endif
 
 MAP_INDEX_DATA *first_map;	/* maps */
 
@@ -312,7 +322,9 @@ NOTE_DATA *read_log args ((FILE * fp));
  */
 void load_corpses args ((void));
 void renumber_put_resets args ((AREA_DATA * pArea));
+#ifndef ENABLE_COLOR
 void load_colors args ((void));
+#endif
 
 /*
  * MUDprogram locals
@@ -370,6 +382,10 @@ boot_db (void)
   log_string ( _("Loading interface commands ...") );
   load_commands ();
 
+#ifdef ENABLE_MSSP
+  mud_start_time = current_time;
+#endif
+
 	sprintf( log_buf, _("Reading --{%s}-- System Data configuration ..."), PACKAGE );
   log_string ( _(log_buf) );
 
@@ -416,6 +432,14 @@ boot_db (void)
   sysdata.pk_silence = 0;
   sysdata.wizlock = FALSE;
   sysdata.magichell = FALSE;
+#ifdef ENABLE_TIMEZONE
+  sysdata.secpertick = 70;
+  sysdata.pulsepersec = 4;
+  sysdata.hoursperday = 24;
+  sysdata.daysperweek = 7;
+  sysdata.dayspermonth = 31;
+  sysdata.monthsperyear = 17;
+#endif
   sysdata.save_flags = SV_DEATH | SV_PASSCHG | SV_AUTO
     | SV_PUT | SV_DROP | SV_GIVE | SV_AUCTION | SV_ZAPDROP | SV_IDLE;
 
@@ -475,6 +499,11 @@ boot_db (void)
 
   log_string ( _("Making Wizlist ...") );
   make_wizlist ();
+
+#ifdef ENABLE_MSSP
+  log_string( "Loading MSSP Data..." );
+  load_mssp_data( );
+#endif
 
 /*    log_string("Making adminlist");
     make_adminlist();
@@ -555,6 +584,7 @@ boot_db (void)
   log_string ( _("Initializing random number generator ...") );
   init_mm ();
 
+#ifndef ENABLE_TIMEZONE
   /*
    * Set time and weather.
    */
@@ -596,7 +626,56 @@ boot_db (void)
        else                                  weather_info.sky = SKY_CLOUDLESS;
      */
   }
+else
+   /*
+    * Set time and weather.
+    */
+   {
+      long lhour, lday, lmonth;
 
+      log_string( _("Setting time and weather.") );
+
+      if( !load_timedata(  ) )   /* Loads time from stored file if TRUE - Samson 1-21-99 */
+      {
+         boot_log( _("Resetting mud time based on current system time.") );
+         lhour = ( current_time - 650336715 ) / ( sysdata.pulsetick / sysdata.pulsepersec );
+         time_info.hour = lhour % sysdata.hoursperday;
+         lday = lhour / sysdata.hoursperday;
+         time_info.day = lday % sysdata.dayspermonth;
+         lmonth = lday / sysdata.dayspermonth;
+         time_info.month = lmonth % sysdata.monthsperyear;
+         time_info.year = lmonth / sysdata.monthsperyear;
+      }
+
+      if( time_info.hour < sysdata.hoursunrise )
+         time_info.sunlight = SUN_DARK;
+      else if( time_info.hour < sysdata.hourdaybegin )
+         time_info.sunlight = SUN_RISE;
+      else if( time_info.hour < sysdata.hoursunset )
+         time_info.sunlight = SUN_LIGHT;
+      else if( time_info.hour < sysdata.hournightbegin )
+         time_info.sunlight = SUN_SET;
+      else
+         time_info.sunlight = SUN_DARK;
+   }
+#endif
+
+#ifdef ENABLE_HOLIDAYS
+   log_string( _("Loading holiday chart...") ); /* Samson 5-13-99 */
+   load_holidays(  );
+#endif
+
+#ifndef ENABLE_WEATHER
+   if( !load_weathermap(  ) )
+   {
+      InitializeWeatherMap(  );
+   }
+#endif
+
+#ifdef ENABLE_DNS_RESOLV
+   log_string( _("Loading DNS cache...") );  /* Samson 1-30-02 */
+   load_dns(  );
+#endif
   /*
    * Assign gsn's for skills which need them.
    */
@@ -812,8 +891,10 @@ boot_db (void)
     load_homebuy ();
     log_string ( _("Loading login messages ...") );
     load_loginmsg ();
+#ifndef ENABLE_COLOR
     log_string ( _("Loading Colors ...") );
     load_colors ();
+#endif
     MOBtrigger = TRUE;
   }
 
@@ -3177,6 +3258,7 @@ free_char (CHAR_DATA * ch)
       DISPOSE (ch->pcdata->bamfout);	/* no hash */
       DISPOSE (ch->pcdata->rank);
       STRFREE (ch->pcdata->title);
+      STRFREE (ch->pcdata->lang);
       STRFREE (ch->pcdata->bio);
       DISPOSE (ch->pcdata->bestowments);	/* no hash */
       DISPOSE (ch->pcdata->homepage);	/* no hash */
@@ -4688,9 +4770,7 @@ add_to_wizlist (char *name, int level)
 {
   WIZENT *wiz, *tmp;
 
-#ifdef DEBUG
   log_string ("Adding to wizlist...");
-#endif
 
   CREATE (wiz, WIZENT, 1);
   wiz->name = str_dup (name);
@@ -7193,6 +7273,9 @@ load_systemdata (SYSTEM_DATA * sys)
 	    }
 	}
       fclose (fp);
+      fp = NULL;
+      update_timers(  );
+      update_calendar(  );
     }
 
   if (!sysdata.guild_overseer)

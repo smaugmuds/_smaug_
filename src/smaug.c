@@ -20,6 +20,15 @@
      |                 -*- Low-Level Communication Module -*-              |
      |_____________________________________________________________________|
     //                                                                     \\
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+   [|                                                                       |]
+   [|  AFKMud Copyright 1997-2007 by Roger Libiez (Samson),                 |]
+   [|  Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),       |]
+   [|  Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine,            |]
+   [|  Xorith, and Adjani.                                                  |]
+   [|  All Rights Reserved. External contributions from Remcon, Quixadhal,  |]
+   [|  Zarius and many others.                                              |]
+   [|                                                                       |]
    [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
    [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
    [|                                                                       |]
@@ -27,8 +36,6 @@
    [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
    [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
    [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
     \\_____________________________________________________________________//
 */
 
@@ -1627,6 +1634,20 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
       close_socket (d, TRUE);
       return;
 
+#ifdef ENABLE_OLC2
+    case CON_OEDIT:
+        oedit_parse( d, argument );
+        break;
+
+    case CON_REDIT:
+        redit_parse( d, argument );
+        break;
+
+    case CON_MEDIT:
+        medit_parse( d, argument );
+        break;
+#endif
+
     case CON_GET_NAME:
       if (argument[0] == '\0')
 	{
@@ -1635,6 +1656,19 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 	}
 
       argument[0] = UPPER (argument[0]);
+
+#ifdef ENABLE_MSSP
+    if( !str_cmp( argument, "MSSP-REQUEST" ) )
+    {
+        send_mssp_data( d );
+
+        sprintf( log_buf, _("IP: %s requested MSSP data!"), d->host );
+				log_string( log_buf );
+
+        close_socket( d, FALSE );
+        return;
+    }
+#endif
 
       /* Old players can keep their characters. -- Alty */
       if (!check_parse_name (argument, (d->newstate != 0)))
@@ -2774,7 +2808,7 @@ stop_idling (CHAR_DATA * ch)
 }
 
 
-
+#ifndef ENABLE_COLOR
 /*
  * Write to one char.
  */
@@ -3025,8 +3059,6 @@ set_pager_color (sh_int AType, CHAR_DATA * ch)
     }
 }
 
-
-
 /* source: EOD, by John Booth (???) */
 void
 ch_printf (CHAR_DATA * ch, char *fmt, ...)
@@ -3053,6 +3085,39 @@ pager_printf (CHAR_DATA * ch, char *fmt, ...)
 
   send_to_pager (buf, ch);
 }
+
+/*
+ * The primary output interface for formatted output.
+ */
+/* Major overhaul. -- Alty */
+
+void
+ch_printf_color (CHAR_DATA * ch, char *fmt, ...)
+{
+  char buf[MAX_STRING_LENGTH * 2];
+  va_list args;
+
+  va_start (args, fmt);
+  vsprintf (buf, fmt, args);
+  va_end (args);
+
+  send_to_char_color (buf, ch);
+}
+
+void
+pager_printf_color (CHAR_DATA * ch, char *fmt, ...)
+{
+  char buf[MAX_STRING_LENGTH * 2];
+  va_list args;
+
+  va_start (args, fmt);
+  vsprintf (buf, fmt, args);
+  va_end (args);
+
+  send_to_pager_color (buf, ch);
+}
+
+#endif
 
 /*
  * Function to strip off the "a" or "an" or "the" or "some" from an object's
@@ -3088,37 +3153,6 @@ obj_short (OBJ_DATA * obj)
       return buf;
     }
   return obj->short_descr;
-}
-
-/*
- * The primary output interface for formatted output.
- */
-/* Major overhaul. -- Alty */
-
-void
-ch_printf_color (CHAR_DATA * ch, char *fmt, ...)
-{
-  char buf[MAX_STRING_LENGTH * 2];
-  va_list args;
-
-  va_start (args, fmt);
-  vsprintf (buf, fmt, args);
-  va_end (args);
-
-  send_to_char_color (buf, ch);
-}
-
-void
-pager_printf_color (CHAR_DATA * ch, char *fmt, ...)
-{
-  char buf[MAX_STRING_LENGTH * 2];
-  va_list args;
-
-  va_start (args, fmt);
-  vsprintf (buf, fmt, args);
-  va_end (args);
-
-  send_to_pager_color (buf, ch);
 }
 
 #define MORPHNAME(ch)   ((ch->morph&&ch->morph->morph)? \
@@ -3507,6 +3541,10 @@ act (sh_int AType, const char *format, CHAR_DATA * ch, const void *arg1,
 				     && (get_trust (to) <
 					 (ch->pcdata ? ch->
 					  pcdata->wizinvis : 0))))))
+#ifdef ENABLE_OLC2
+	    continue;
+	if ( to->desc && is_inolc(to->desc) )
+#endif
 	continue;
 
       if (IS_IMMORTAL (to))
@@ -3514,7 +3552,8 @@ act (sh_int AType, const char *format, CHAR_DATA * ch, const void *arg1,
       else
 	txt = act_string (format, to, ch, arg1, arg2, STRING_NONE);
 
-      if (to->desc)
+  if (to->desc)
+#ifndef ENABLE_COLOR
 	{
 	  if (AType == AT_COLORIZE)
 	    {
@@ -3525,18 +3564,23 @@ act (sh_int AType, const char *format, CHAR_DATA * ch, const void *arg1,
 		  set_char_color (AT_MAGIC, to);
 		  write_to_buffer (to->desc, txt, strlen (txt));
 		}
+
 	    }
 	  else
+#endif
 	    {
 	      set_char_color (AType, to);
 	      write_to_buffer (to->desc, txt, strlen (txt));
 	    }
-	}
+#ifndef ENABLE_COLOR
+		}
+#endif
+
       if (MOBtrigger)
-	{
-	  /* Note: use original string, not string with ANSI. -- Alty */
-	  mprog_act_trigger (txt, to, ch, obj1, vch, obj2);
-	}
+			{
+				/* Note: use original string, not string with ANSI. -- Alty */
+				mprog_act_trigger (txt, to, ch, obj1, vch, obj2);
+			}
     }
   MOBtrigger = TRUE;
   return;
@@ -3991,6 +4035,15 @@ display_prompt (DESCRIPTOR_DATA * d)
 		stat = 0;
 	      break;
 	    case 'B':
+#ifdef ENABLE_BUILDWALK
+				if ( !IS_NPC( ch ) )
+				{
+				    if ( IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+				    {
+				        strcpy( pbuf, " &C[&GBUILDWALK&C]&c" );
+				    }
+				}
+#endif
 	      if (IS_VAMPIRE (ch))
 		stat = ch->level + 10;
 	      else

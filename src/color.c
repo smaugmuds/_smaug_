@@ -1,31 +1,48 @@
-/****************************************************************************
- *                   ^     +----- |  / ^     ^ |     | +-\                  *
- *                  / \    |      | /  |\   /| |     | |  \                 *
- *                 /   \   +---   |<   | \ / | |     | |  |                 *
- *                /-----\  |      | \  |  v  | |     | |  /                 *
- *               /       \ |      |  \ |     | +-----+ +-/                  *
- ****************************************************************************
- * AFKMud Copyright 1997-2005 by Roger Libiez (Samson),                     *
- * Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),           *
- * Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine, and Adjani.    *
- * All Rights Reserved.                                                     *
- * Registered with the United States Copyright Office. TX 5-877-286         *
- *                                                                          *
- * External contributions from Xorith, Quixadhal, Zarius, and many others.  *
- *                                                                          *
- * Original SMAUG 1.4a written by Thoric (Derek Snider) with Altrag,        *
- * Blodkai, Haus, Narn, Scryn, Swordbearer, Tricops, Gorog, Rennard,        *
- * Grishnakh, Fireblade, and Nivek.                                         *
- *                                                                          *
- * Original MERC 2.1 code by Hatchet, Furey, and Kahn.                      *
- *                                                                          *
- * Original DikuMUD code by: Hans Staerfeldt, Katja Nyboe, Tom Madsen,      *
- * Michael Seifert, and Sebastian Hammer.                                   *
- ****************************************************************************
- *               Color Module -- Allow user customizable Colors.            *
- *                                   --Matthew                              *
- *                      Enhanced ANSI parser by Samson                      *
- ****************************************************************************/
+/*
+                     R E A L M S    O F    D E S P A I R  !
+   ___________________________________________________________________________
+  //            /                                                            \\
+ [|_____________\   ********   *        *   ********   *        *   *******   |]
+ [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
+ [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
+ [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
+ [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
+ [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
+ [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
+ [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
+ [|_____________\  **********  **      **  **      **  **********  *********  |]
+ [|             /  *********   *        *  *        *   ********    *******   |]
+  \\____________\____________________________________________________________//
+     |                                                                     |
+     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
+     |_____________________________________________________________________|
+     |                                                                     |
+     |                        -*- Color Module -*-                         |
+     |_____________________________________________________________________|
+     |                                                                     |
+     |       (Adapted from AFKMUD - Allow user customizable Colors)        |
+     |                              [Matthew]                              |
+     |                   Enhanced ANSI parser by Samson                    |
+     |_____________________________________________________________________|
+    //                                                                     \\
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+   [|                                                                       |]
+   [|  AFKMud Copyright 1997-2007 by Roger Libiez (Samson),                 |]
+   [|  Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),       |]
+   [|  Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine,            |]
+   [|  Xorith, and Adjani.                                                  |]
+   [|  All Rights Reserved. External contributions from Remcon, Quixadhal,  |]
+   [|  Zarius and many others.                                              |]
+   [|                                                                       |]
+   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
+   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
+   [|                                                                       |]
+   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
+   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
+   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
+   [|  Nyboe. Win32 port Nick Gammon.                                       |]
+    \\_____________________________________________________________________//
+*/
 
 /*
 * The following instructions assume you know at least a little bit about
@@ -95,7 +112,8 @@ char *const pc_displays[MAX_COLORS] =
    "intermud", "helpfiles", "who5",      "score5",
    "who6",     "who7",      "prac",      "prac2",
    "prac3",    "prac4",     "mxpprompt", "guildtalk",
-   "board",    "board2",    "board3"
+   "board",    "board2",    "board3",    "avatar",
+	 "music",    "quest",     "ask",       "stance"
 };
 
 /* All defaults are set to Alsherok default scheme, if you don't 
@@ -129,7 +147,9 @@ const short default_set[MAX_COLORS] =
    AT_GREEN, AT_PINK, AT_DGREEN, AT_CYAN, /* 98 */
    AT_RED, AT_WHITE, AT_BLUE, AT_DGREEN,  /* 102 */
    AT_CYAN, AT_BLOOD, AT_RED, AT_DGREEN,  /* 106 */
-   AT_GREEN, AT_GREY, AT_GREEN, AT_WHITE  /* 110 */
+   AT_GREEN, AT_GREY, AT_GREEN, AT_WHITE, /* 110 */
+   AT_AVATAR, AT_MUSIC, AT_QUEST, AT_ASK, /* 114 */
+   AT_STANCE                              /* 115 */
 };
 
 char *const valid_color[] = {
@@ -280,7 +300,8 @@ void reset_colors( CHAR_DATA * ch )
       return;
    }
    else
-      log_printf( "%s: Attempting to reset NPC colors: %s", __FUNCTION__, ch->short_descr );
+			sprintf( log_buf, "%s: Attempting to reset NPC colors: %s", __FUNCTION__, ch->short_descr );
+			log_string ( log_buf );
 }
 
 void do_color( CHAR_DATA * ch, char *argument )
@@ -1439,7 +1460,7 @@ void set_char_color( short AType, CHAR_DATA * ch )
    ch->desc->pagecolor = ch->colors[AType];
 }
 
-void write_to_pager( DESCRIPTOR_DATA * d, const char *txt, unsigned int length )
+void write_to_pager( DESCRIPTOR_DATA * d, const char *txt, int length )
 {
    int pageroffset;  /* Pager fix by thoric */
 

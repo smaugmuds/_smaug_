@@ -20,6 +20,15 @@
      |                    -*- Player Movement Module -*-                   |
      |_____________________________________________________________________|
     //                                                                     \\
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+   [|                                                                       |]
+   [|  AFKMud Copyright 1997-2007 by Roger Libiez (Samson),                 |]
+   [|  Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),       |]
+   [|  Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine,            |]
+   [|  Xorith, and Adjani.                                                  |]
+   [|  All Rights Reserved. External contributions from Remcon, Quixadhal,  |]
+   [|  Zarius and many others.                                              |]
+   [|                                                                       |]
    [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
    [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
    [|                                                                       |]
@@ -27,8 +36,6 @@
    [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
    [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
    [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
     \\_____________________________________________________________________//
 */
 
@@ -1380,76 +1387,296 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 void
 do_north (CHAR_DATA * ch, char *argument)
 {
+#ifdef ENABLE_BUILDWALK
+    if ( !IS_NPC( ch ) )
+    {
+        if ( IS_IMMORTAL( ch ) && IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            do_build_walk( ch, "north" );
+            return;
+        }
+
+        if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            move_char( ch, get_exit( ch->in_room, DIR_NORTH ), 0 );
+            return;
+        }
+    }
+    if ( IS_NPC( ch ) )
+    {
+        move_char( ch, get_exit( ch->in_room, DIR_NORTH ), 0 );
+        return;
+    }
+#else
   move_char (ch, get_exit (ch->in_room, DIR_NORTH), 0);
   return;
+#endif
 }
 
 
 void
 do_east (CHAR_DATA * ch, char *argument)
 {
+#ifdef ENABLE_BUILDWALK
+    if ( !IS_NPC( ch ) )
+    {
+        if ( IS_IMMORTAL( ch ) && IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            do_build_walk( ch, "east" );
+            return;
+        }
+
+        if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            move_char( ch, get_exit( ch->in_room, DIR_EAST ), 0 );
+            return;
+        }
+    }
+    if ( IS_NPC( ch ) )
+    {
+        move_char( ch, get_exit( ch->in_room, DIR_EAST ), 0 );
+        return;
+    }
+#else
   move_char (ch, get_exit (ch->in_room, DIR_EAST), 0);
   return;
+#endif
 }
 
 
 void
 do_south (CHAR_DATA * ch, char *argument)
 {
+#ifdef ENABLE_BUILDWALK
+    if ( !IS_NPC( ch ) )
+    {
+        if ( IS_IMMORTAL( ch ) && IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            do_build_walk( ch, "south" );
+            return;
+        }
+
+        if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            move_char( ch, get_exit( ch->in_room, DIR_SOUTH ), 0 );
+            return;
+        }
+    }
+    if ( IS_NPC( ch ) )
+    {
+        move_char( ch, get_exit( ch->in_room, DIR_SOUTH ), 0 );
+        return;
+    }
+#else
   move_char (ch, get_exit (ch->in_room, DIR_SOUTH), 0);
   return;
+#endif
 }
 
 
 void
 do_west (CHAR_DATA * ch, char *argument)
 {
+#ifdef ENABLE_BUILDWALK
+    if ( !IS_NPC( ch ) )
+    {
+        if ( IS_IMMORTAL( ch ) && IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            do_build_walk( ch, "west" );
+            return;
+        }
+
+        if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            move_char( ch, get_exit( ch->in_room, DIR_WEST ), 0 );
+            return;
+        }
+    }
+    if ( IS_NPC( ch ) )
+    {
+        move_char( ch, get_exit( ch->in_room, DIR_WEST ), 0 );
+        return;
+    }
+#else
   move_char (ch, get_exit (ch->in_room, DIR_WEST), 0);
   return;
+#endif
 }
 
 
 void
 do_up (CHAR_DATA * ch, char *argument)
 {
+#ifdef ENABLE_BUILDWALK
+    if ( !IS_NPC( ch ) )
+    {
+        if ( IS_IMMORTAL( ch ) && IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            do_build_walk( ch, "up" );
+            return;
+        }
+
+        if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            move_char( ch, get_exit( ch->in_room, DIR_UP ), 0 );
+            return;
+        }
+    }
+    if ( IS_NPC( ch ) )
+    {
+        move_char( ch, get_exit( ch->in_room, DIR_UP ), 0 );
+        return;
+    }
+#else
   move_char (ch, get_exit (ch->in_room, DIR_UP), 0);
   return;
+#endif
 }
 
 
 void
 do_down (CHAR_DATA * ch, char *argument)
 {
+#ifdef ENABLE_BUILDWALK
+    if ( !IS_NPC( ch ) )
+    {
+        if ( IS_IMMORTAL( ch ) && IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            do_build_walk( ch, "down" );
+            return;
+        }
+
+        if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            move_char( ch, get_exit( ch->in_room, DIR_DOWN ), 0 );
+            return;
+        }
+    }
+    if ( IS_NPC( ch ) )
+    {
+        move_char( ch, get_exit( ch->in_room, DIR_DOWN ), 0 );
+        return;
+    }
+#else
   move_char (ch, get_exit (ch->in_room, DIR_DOWN), 0);
   return;
+#endif
 }
 
 void
 do_northeast (CHAR_DATA * ch, char *argument)
 {
+#ifdef ENABLE_BUILDWALK
+    if ( !IS_NPC( ch ) )
+    {
+        if ( IS_IMMORTAL( ch ) && IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            do_build_walk( ch, "northeast" );
+            return;
+        }
+
+        if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            move_char( ch, get_exit( ch->in_room, DIR_NORTHEAST ), 0 );
+            return;
+        }
+    }
+    if ( IS_NPC( ch ) )
+    {
+        move_char( ch, get_exit( ch->in_room, DIR_NORTHEAST ), 0 );
+        return;
+    }
+#else
   move_char (ch, get_exit (ch->in_room, DIR_NORTHEAST), 0);
   return;
+#endif
 }
 
 void
 do_northwest (CHAR_DATA * ch, char *argument)
 {
+#ifdef ENABLE_BUILDWALK
+    if ( !IS_NPC( ch ) )
+    {
+        if ( IS_IMMORTAL( ch ) && IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            do_build_walk( ch, "northwest" );
+            return;
+        }
+
+        if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            move_char( ch, get_exit( ch->in_room, DIR_NORTHWEST ), 0 );
+            return;
+        }
+    }
+    if ( IS_NPC( ch ) )
+    {
+        move_char( ch, get_exit( ch->in_room, DIR_NORTHWEST ), 0 );
+        return;
+    }
+#else
   move_char (ch, get_exit (ch->in_room, DIR_NORTHWEST), 0);
   return;
+#endif
 }
 
 void
 do_southeast (CHAR_DATA * ch, char *argument)
 {
+#ifdef ENABLE_BUILDWALK
+    if ( !IS_NPC( ch ) )
+    {
+        if ( IS_IMMORTAL( ch ) && IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            do_build_walk( ch, "southeast" );
+            return;
+        }
+
+        if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            move_char( ch, get_exit( ch->in_room, DIR_SOUTHEAST ), 0 );
+            return;
+        }
+    }
+    if ( IS_NPC( ch ) )
+    {
+        move_char( ch, get_exit( ch->in_room, DIR_SOUTHEAST ), 0 );
+        return;
+    }
+#else
   move_char (ch, get_exit (ch->in_room, DIR_SOUTHEAST), 0);
   return;
+#endif
 }
 
 void
 do_southwest (CHAR_DATA * ch, char *argument)
 {
+#ifdef ENABLE_BUILDWALK
+    if ( !IS_NPC( ch ) )
+    {
+        if ( IS_IMMORTAL( ch ) && IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            do_build_walk( ch, "southwest" );
+            return;
+        }
+
+        if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            move_char( ch, get_exit( ch->in_room, DIR_SOUTHWEST ), 0 );
+            return;
+        }
+    }
+    if ( IS_NPC( ch ) )
+    {
+        move_char( ch, get_exit( ch->in_room, DIR_SOUTHWEST ), 0 );
+        return;
+    }
+#else
   move_char (ch, get_exit (ch->in_room, DIR_SOUTHWEST), 0);
   return;
+#endif
 }
 
 
@@ -3117,3 +3344,81 @@ do_unbolt (CHAR_DATA * ch, char *argument)
   ch_printf (ch, _("You see no %s here.\n"), arg);
   return;
 }
+
+#ifdef ENABLE_BUILDWALK
+void do_build_walk( CHAR_DATA *ch, char *argument )
+{
+    char                    arg[MAX_INPUT_LENGTH];
+    char                    buf[MAX_STRING_LENGTH];
+    ROOM_INDEX_DATA        *location,
+                           *ch_location;
+    AREA_DATA              *pArea;
+    int                     vnum,
+                            edir;
+    char                    tmpcmd[MAX_INPUT_LENGTH];
+    EXIT_DATA              *xit;
+
+
+    if ( IS_IMMORTAL( ch ) && IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+    {
+        set_char_color( AT_PLAIN, ch );
+
+        ch_location = ch->in_room;
+
+        argument = one_argument( argument, arg );
+
+        edir = get_dir( arg );
+
+        xit = get_exit( ch_location, edir );
+
+        if ( !xit )
+        {
+            pArea = ch->in_room->area;
+            vnum = pArea->low_r_vnum;
+
+            if ( !pArea )
+            {
+                bug( "buildwalking: !pArea", 0 );
+                return;
+            }
+            while ( vnum <= pArea->hi_r_vnum && get_room_index( vnum ) != NULL )
+                vnum++;
+            if ( vnum > pArea->hi_r_vnum )
+            {
+                send_to_char
+                    ( "&GYou cannot buildwalk anymore as there are no empty higher number rooms to be found.\r\n",
+                      ch );
+                return;
+            }
+            ch_printf( ch, "&GBuildwalking from room %d to %d to the %s.\r\n\r\n",
+                       ch->in_room->vnum, vnum, arg );
+
+//            location = make_room( vnum, pArea );
+            location = make_room( vnum );
+            if ( !location )
+            {
+                bug( "buildwalking: make_room failed", 0 );
+                return;
+            }
+            location->area = pArea;
+            sprintf( tmpcmd, "bexit %s %d", arg, vnum );
+            do_redit( ch, tmpcmd );
+        }
+        else
+        {
+            vnum = xit->vnum;
+            location = get_room_index( vnum );
+            ch_printf( ch,
+                       "&GCannot buildwalk back into a room that you already created an exit.\r\n\r\n" );
+        }
+
+        location->sector_type = ch_location->sector_type;
+        location->room_flags = ch_location->room_flags;
+        sprintf( buf, "%d", vnum );
+        do_goto( ch, buf );
+
+        return;
+    }
+    move_char( ch, get_exit( ch->in_room, edir ), 0 );
+}
+#endif

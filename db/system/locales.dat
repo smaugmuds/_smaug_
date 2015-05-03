@@ -1,0 +1,51 @@
+#LOCALE
+Name                  English~
+Name.en               English~
+Name.es_ES            Inglés~
+Name.es_ES.UTF-8      Inglés~
+Name.gl_ES            Inglés~
+Name.gl_ES.UTF-8      Inglés~
+Locale                en~
+End
+
+#LOCALE
+Name                  Spanish~
+Name.en               Spanish~
+Name.es_ES            Español~
+Name.es_ES.UTF-8      Español~
+Name.gl_ES            Español~
+Name.gl_ES.UTF-8      Español~
+Locale                es_ES~
+End
+
+#LOCALE
+Name                  Spanish (UTF8)~
+Name.en               Spanish (UTF8)~
+Name.es_ES            Español (UTF8)~
+Name.es_ES.UTF-8      Español (UTF8)~
+Name.gl_ES            Español (UTF8)~
+Name.gl_ES.UTF-8      Español (UTF8)~
+Locale                es_ES.UTF-8~
+End
+
+#LOCALE
+Name                  Galician~
+Name.en               Galician~
+Name.es_ES            Gallego~
+Name.es_ES.UTF-8      Gallego~
+Name.gl_ES            Galego~
+Name.gl_ES.UTF-8      Galego~
+Locale                gl_ES~
+End
+
+#LOCALE
+Name                  Galician (UTF8)~
+Name.en               Galician (UTF8)~
+Name.es_ES            Gallego (UTF8)~
+Name.es_ES.UTF-8      Gallego (UTF8)~
+Name.gl_ES            Galego (UTF8)~
+Name.gl_ES.UTF-8      Galego (UTF8)~
+Locale                gl_ES.UTF-8~
+End
+
+#END

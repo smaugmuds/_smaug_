@@ -1,0 +1,457 @@
+The below is a little snippet of code to add some
+olc ease of typing.  I made it for use with Oasis
+OLC II snippet.  However, I believe you could use
+this in just about any Diku codebase.
+
+The guy who made Oasis OLCII and the guy who ported
+the snippet so it works with smaug are:
+OasisOLC II v0.1 for Smaug 1.4
+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*
+Based on OasisOLC for CircleMUD by Harvey Gilpin, 
+and George Greer Revamped/Rewritten/Recoded/Redone 
+for Smaug by Tagith (Evan Cortens)
+
+You can find the Oasis II OLC snippet on mudbytes.com
+
+The following enhancements are what I am offering:
+1) Additions to omedit and ooedit such that when you type
+the command with no argument it automatically creates
+the next highest vnum object or mob, and puts you in
+the editor.
+
+2) Buildwalk, at least what I think buildwalk should be
+as I have never used Oasis OLC, and just made the command
+based on what a builder who has before told me it did.
+What is buildwalk?  Its a config that allows builders who
+are in an area to simply walk in a direction and the next
+highest vnum room is created and the builder is taken to
+the location.
+
+Note:  I cannot offer any installation help.  Please feel
+free to report to me any bugs/ideas/typos with it though.
+vladaar -at- gmail.com
+
+Now for the Installation...........
+
+In oedit.c
+
+Find do_ooedit
+
+Underneath..
+/*
+ * Starts it all off
+ */
+void do_ooedit( CHAR_DATA *ch, char *argument )
+{
+    char                    arg[MAX_INPUT_LENGTH];
+    DESCRIPTOR_DATA        *d;
+    OBJ_DATA               *obj;
+
+Add
+    AREA_DATA              *pArea;
+    int                     cvnum,
+                            vnum;
+    OBJ_INDEX_DATA         *pObjIndex;
+
+Underneath ...
+    if ( arg[0] == '\0' )
+
+Change it to look like this......
+
+    {
+        pArea = ch->in_room->area;
+        vnum = pArea->low_o_vnum;
+
+        if ( !pArea )
+        {
+            bug( "object: !pArea", 0 );
+            return;
+        }
+
+        while ( vnum <= pArea->hi_o_vnum && get_obj_index( vnum ) != NULL )
+            vnum++;
+        if ( vnum > pArea->hi_o_vnum )
+        {
+            send_to_char
+                ( "&GYou cannot create any more objects as you have used all that your area is alloted.\r\n",
+                  ch );
+            return;
+        }
+        pObjIndex = make_object( vnum, cvnum, argument );
+        pObjIndex->area = ch->pcdata->area;
+
+        if ( !pObjIndex )
+        {
+            send_to_char( "Error.\n\r", ch );
+            log_string( "do_ocreate: make_object failed." );
+            return;
+        }
+        obj = create_object( pObjIndex, get_trust( ch ) );
+        obj_to_char( obj, ch );
+        act( AT_IMMORT, "$n makes arcane gestures, and opens $s hands to reveal $p!", ch,
+             obj, NULL, TO_ROOM );
+        obj->name = STRALLOC( "object" );
+    }
+
+At
+
+        if ( ( obj = get_obj_world( ch, arg ) ) == NULL )
+        {
+            send_to_char( "Nothing like that in hell, earth, or heaven.\r\n", ch );
+            return;
+        }
+
+Change it to this...
+
+    else
+    {
+        if ( ( obj = get_obj_world( ch, arg ) ) == NULL )
+        {
+            send_to_char( "Nothing like that in hell, earth, or heaven.\r\n", ch );
+            return;
+        }
+    }
+
+That is it for ooedit, now onto omedit in medit.c...
+
+Find do_omedit
+
+Underneath...
+void do_omedit( CHAR_DATA *ch, char *argument )
+{
+    char                    arg[MAX_INPUT_LENGTH];
+    DESCRIPTOR_DATA        *d;
+    CHAR_DATA              *victim;
+
+Add.......
+    AREA_DATA              *pArea;
+    int                     cvnum,
+                            vnum;
+    MOB_INDEX_DATA         *pMobIndex;
+    char                    buf[MSL];
+    CHAR_DATA              *mob;
+
+Find...
+    if ( arg[0] == '\0' )
+
+Replace what is below it with......
+    {
+        pArea = ch->in_room->area;
+        vnum = pArea->low_m_vnum;
+
+        if ( !pArea )
+        {
+            bug( "mob: !pArea", 0 );
+            return;
+        }
+
+        while ( vnum <= pArea->hi_m_vnum && get_mob_index( vnum ) != NULL )
+            vnum++;
+        if ( vnum > pArea->hi_m_vnum )
+        {
+            send_to_char
+                ( "&GYou cannot create any more mobs as you have used all that your area is alloted.\r\n",
+                  ch );
+            return;
+        }
+        argument = STRALLOC( "mob" );
+        pMobIndex = make_mobile( vnum, cvnum, argument );
+        pMobIndex->area = ch->pcdata->area;
+
+        if ( !pMobIndex )
+        {
+            send_to_char( "Error.\n\r", ch );
+            log_string( "do_mcreate: make_mobile failed." );
+            return;
+        }
+        mob = create_mobile( pMobIndex );
+
+        char_to_room( mob, ch->in_room );
+        mudstrlcpy( buf, "mob", MSL );
+        STRFREE( mob->name );
+        mob->name = STRALLOC( buf );
+        victim = mob;
+    }
+
+Find.........
+
+        if ( ( victim = get_char_world( ch, arg ) ) == NULL )
+        {
+            send_to_char( "Nothing like that in hell, earth, or heaven.\r\n", ch );
+            return;
+        }
+
+Replace with.........
+
+    else
+    {
+        if ( ( victim = get_char_world( ch, arg ) ) == NULL )
+        {
+            send_to_char( "Nothing like that in hell, earth, or heaven.\r\n", ch );
+            return;
+        }
+    }
+
+That is it for medit.c
+
+Now for buildwalk..........
+
+heh I apologize this gets hackish, and I'm sure there
+are cleaner ways of doing this, but it works.
+
+In act_wiz.c add the this function:
+
+void do_buildwalk( CHAR_DATA *ch, char *argument )
+{
+
+    if ( !IS_IMMORTAL( ch ) || IS_NPC(ch) )
+    {
+        send_to_char( "Huh?\r\n", ch );
+        return;
+    }
+
+    if ( IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+    {
+        REMOVE_BIT( ch->pcdata->flags, PCFLAG_BUILDWALK );
+
+        send_to_char( "&GYou are no longer buildwalking.\r\n", ch );
+        act( AT_GREEN, "&G$n is no longer buildwalking.", ch, NULL, NULL, TO_CANSEE );
+    }
+    else
+    {
+        SET_BIT( ch->pcdata->flags, PCFLAG_BUILDWALK );
+
+        send_to_char( "&GYou are now buildwalking.\r\n", ch );
+        act( AT_GREY, "&G$n is now buildwalking.", ch, NULL, NULL, TO_CANSEE );
+        return;
+    }
+}
+
+Goto act_move.c
+
+At the top add..........
+void                    do_build_walk( CHAR_DATA *ch, char *argument );
+
+Then add this function........
+
+/* Build walk to new rooms - Vladaar - http://6dragons.org */
+void do_build_walk( CHAR_DATA *ch, char *argument )
+{
+    char                    arg[MIL];
+    char                    buf[MAX_STRING_LENGTH];
+    ROOM_INDEX_DATA        *location,
+                           *ch_location;
+    AREA_DATA              *pArea;
+    int                     vnum,
+                            edir;
+    char                    tmpcmd[MAX_INPUT_LENGTH];
+    EXIT_DATA              *xit;
+
+
+    if ( IS_IMMORTAL( ch ) && IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+    {
+        set_char_color( AT_PLAIN, ch );
+
+        ch_location = ch->in_room;
+
+        argument = one_argument( argument, arg );
+
+        edir = get_dir( arg );
+
+        xit = get_exit( ch_location, edir );
+
+        if ( !xit )
+        {
+            pArea = ch->in_room->area;
+            vnum = pArea->low_r_vnum;
+
+            if ( !pArea )
+            {
+                bug( "buildwalking: !pArea", 0 );
+                return;
+            }
+            while ( vnum <= pArea->hi_r_vnum && get_room_index( vnum ) != NULL )
+                vnum++;
+            if ( vnum > pArea->hi_r_vnum )
+            {
+                send_to_char
+                    ( "&GYou cannot buildwalk anymore as there are no empty higher number rooms to be found.\r\n",
+                      ch );
+                return;
+            }
+            ch_printf( ch, "&GBuildwalking from room %d to %d to the %s.\r\n\r\n",
+                       ch->in_room->vnum, vnum, arg );
+
+            location = make_room( vnum, pArea );
+            if ( !location )
+            {
+                bug( "buildwalking: make_room failed", 0 );
+                return;
+            }
+            location->area = pArea;
+            sprintf( tmpcmd, "bexit %s %d", arg, vnum );
+            do_redit( ch, tmpcmd );
+        }
+        else
+        {
+            vnum = xit->vnum;
+            location = get_room_index( vnum );
+            ch_printf( ch,
+                       "&GCannot buildwalk back into a room that you already created an exit.\r\n\r\n" );
+        }
+
+        location->sector_type = ch_location->sector_type;
+        location->room_flags = ch_location->room_flags;
+        sprintf( buf, "%d", vnum );
+        do_goto( ch, buf );
+
+        return;
+    }
+    move_char( ch, get_exit( ch->in_room, edir ), 0 );
+}
+
+Now in all your cardinal directions, do_north, east, west, south, etc...
+
+Replace the guts with the below of course you need to change the
+directions to the appropriate direction you are editing do_east to
+do_build_walk(ch, "east" ); and DIR_EAST respectively.
+
+    if ( !IS_NPC( ch ) )
+    {
+        if ( IS_IMMORTAL( ch ) && IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            do_build_walk( ch, "north" );
+            return;
+        }
+
+        if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            move_char( ch, get_exit( ch->in_room, DIR_NORTH ), 0 );
+            return;
+        }
+    }
+    if ( IS_NPC( ch ) )
+    {
+        move_char( ch, get_exit( ch->in_room, DIR_NORTH ), 0 );
+        return;
+    }
+
+Ok well we have PCFLAG_BUILDWALK so we will need to add that.
+
+goto mud.h
+
+With the other do_fun declares add
+DECLARE_DO_FUN( do_buildwalk );  
+
+If you don't have bdf or dyslm or mktables snippet, then
+you will need to goto tables.c and add a do_buildwalk there
+twice.
+
+With the other PCFLAG defines add this
+#define PCFLAG_BUILDWALK  BV29 
+
+The bit# maybe diff for you just make sure it matches
+the order that you will add to build.c
+
+In Build.c find your pcflags...  mine looks like this
+
+char                   *const pc_flags[] = {
+/* changed "r8" to "" so players on watch can't see it  -- Gorog */
+    "r1", "deadly", "unauthed", "norecall", "nointro",
+    "gag", "retired", "guest", "nosummon", "pager",
+    "notitled", "groupwho", "diagnose", "highgag", "",
+    "hints", "dnd", "idle", "showslots", "admin",
+    "enforcer", "builder", "temp", "privacy", "wizhcolor",
+    "aidle", "r20", "nobeep", "demigod", "buildwalk"
+};
+
+Make sure buildwalk is in the proper place matched up
+to mud.h
+
+Now to clean up the command so it looks cool, and that is
+what it is all about looking cool, put in the following
+checks in these locations...
+
+In do_goto function....
+
+Find....
+
+   if( !xIS_SET( ch->act, PLR_WIZINVIS ) )
+      act( AT_IMMORT, "$n $T", ch, NULL,
+           ( ch->pcdata
+             && ch->pcdata->bamfout[0] != '\0' ) ? ch->pcdata->bamfout : ( char * )"leaves in a swirling mist.", TO_ROOM );
+
+Add replace with
+    if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) && !IS_NPC( ch ) )
+    {
+   if( !xIS_SET( ch->act, PLR_WIZINVIS ) )
+      act( AT_IMMORT, "$n $T", ch, NULL,
+           ( ch->pcdata
+             && ch->pcdata->bamfout[0] != '\0' ) ? ch->pcdata->bamfout : ( char * )"leaves in a swirling mist.", TO_ROOM );
+     }
+
+A little further down find.....
+
+  if( !xIS_SET( ch->act, PLR_WIZINVIS ) )
+      act( AT_IMMORT, "$n $T", ch, NULL,
+           ( ch->pcdata
+             && ch->pcdata->bamfin[0] != '\0' ) ? ch->pcdata->bamfin : ( char * )"appears in a swirling mist.", TO_ROOM );
+
+replace with...
+
+    if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) && !IS_NPC( ch ) )
+    {
+  if( !xIS_SET( ch->act, PLR_WIZINVIS ) )
+      act( AT_IMMORT, "$n $T", ch, NULL,
+           ( ch->pcdata
+             && ch->pcdata->bamfin[0] != '\0' ) ? ch->pcdata->bamfin : ( char * )"appears in a swirling mist.", TO_ROOM );         
+     }
+
+Next find.......
+
+                act( AT_IMMORT, "$n reveals a hidden passage!", ch, NULL, NULL, TO_ROOM );
+
+And replace with.......
+
+            if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) && !IS_NPC( ch ) )
+            {
+                act( AT_IMMORT, "$n reveals a hidden passage!", ch, NULL, NULL, TO_ROOM );
+            }
+
+You may have a place or two depending on your code you want to have
+something else commented out, that is up to you.
+
+Now let's let Staff know they have buildwalking on, in case they
+start walking about forgetting it is on.....
+
+Goto comm.c and find......
+
+void act_printf( short AType, CHAR_DATA *ch, void *arg1, void *arg2, int type,
+                 const char *str, ... )
+
+Find....
+              mudstrlcat( buf, " &G%v&W/&G%V&Cmv&W]", MSL );
+
+which is the tail end of normal prompt on my mud.
+
+Replace with.......
+
+    if ( !IS_NPC( ch ) )
+    {
+        if ( IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+        {
+            mudstrlcat( buf, " &G%v&W/&G%V&Cmv&W] &C[&GBUILDWALK&C]&c", MSL );
+        }
+        else
+        {
+            mudstrlcat( buf, " &G%v&W/&G%V&Cmv&W]", MSL );
+        }
+    }
+
+Now make clean, and compile it.  Hope it helps you out.
+
+Vladaar
+http://6dragons.org
+
+
+

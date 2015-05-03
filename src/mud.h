@@ -20,6 +20,15 @@
      |                    -*- MUD Common definitions -*-                   |
      |_____________________________________________________________________|
     //                                                                     \\
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+   [|                                                                       |]
+   [|  AFKMud Copyright 1997-2007 by Roger Libiez (Samson),                 |]
+   [|  Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),       |]
+   [|  Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine,            |]
+   [|  Xorith, and Adjani.                                                  |]
+   [|  All Rights Reserved. External contributions from Remcon, Quixadhal,  |]
+   [|  Zarius and many others.                                              |]
+   [|                                                                       |]
    [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
    [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
    [|                                                                       |]
@@ -27,8 +36,6 @@
    [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
    [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
    [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
     \\_____________________________________________________________________//
 */
 
@@ -203,6 +210,12 @@ typedef struct member_list MEMBER_LIST;
 typedef struct variable_data VARIABLE_DATA;
 typedef struct lmsg_data LMSG_DATA;
 
+
+
+#ifdef ENABLE_OLC2
+typedef struct	olc_data		OLC_DATA;
+#endif
+
 /*
  * Function types.
  */
@@ -265,10 +278,13 @@ typedef ch_ret SPELL_FUN args ((int sn, int level, CHAR_DATA * ch, void *vo));
 
 #define MAX_KILLTRACK		25	/* track mob vnums killed */
 
-#define MAX_VNUM        1000000000	/* Upper vnum limit */
+#ifdef BILLION_VNUM
+  #define MAX_VNUM 2097152000
+#else
+  #define MAX_VNUM 1000000000
+#endif
 
 #define MAX_RGRID_ROOMS      30000
-
 
 /*
  * Game parameters.
@@ -325,21 +341,38 @@ extern int MAX_PC_CLASS;
 #define LEVEL_LOG		    LEVEL_LESSER
 #define LEVEL_HIGOD		    LEVEL_GOD
 
+#ifdef ENABLE_DNS_RESOLV
+#include "dns.h"
+#endif
+
+#ifdef ENABLE_COLOR
+#include "color.h"
+#endif
+
 #ifdef ENABLE_HOTBOOT
 #include "hotboot.h"
 #endif
 
 #include "news.h"		/* Extended News - 12/15/01 - Nopey */
+
+#ifdef ENABLE_MSSP
+#include "mssp.h"
+#endif
+
 #include "house.h"
 #include "hint.h"
 
-#ifdef ENABLE_CALENDAR
-#include "calendar.h"
+#ifdef ENABLE_HOLIDAYS
+#include "holidays.h"
+#endif
+
+#ifdef ENABLE_TIMEZONE
+#include "timezone.h"
 #endif
 
 #ifdef ENABLE_WEATHER
 #include "weather.h"
-#ifndef ENABLE_CALENDAR
+#ifndef ENABLE_TIMEZONE
 #define SEASON_SPRING  0
 #define SEASON_SUMMER  1
 #define SEASON_FALL    2
@@ -853,6 +886,9 @@ typedef enum
   CON_GET_WANT_RIPANSI, CON_TITLE, CON_PRESS_ENTER,
   CON_WAIT_1, CON_WAIT_2, CON_WAIT_3,
   CON_ACCEPTED, CON_GET_PKILL, CON_READ_IMOTD
+#ifdef ENABLE_OLC2
+  , CON_REDIT,		CON_OEDIT,		CON_MEDIT
+#endif
 #ifdef ENABLE_HOTBOOT
 	, CON_COPYOVER_RECOVER
 #endif
@@ -909,6 +945,9 @@ struct descriptor_data
   unsigned char prevcolor;
   int ifd;
   pid_t ipid;
+#ifdef ENABLE_OLC2
+  OLC_DATA *olc;
+#endif
 };
 
 
@@ -1027,7 +1066,7 @@ typedef enum
  * Real action "TYPES" for act.
  */
 
-
+#ifndef ENABLE_COLOR
 #define AT_COLORIZE	   -1	/* Color sequence to interpret color codes */
 #define AT_BLACK	    0
 #define AT_BLOOD	    1
@@ -1107,6 +1146,7 @@ typedef enum
   AT_TOPCOLOR
 } at_color_types;
 #define AT_MAXCOLOR	(AT_TOPCOLOR-AT_COLORBASE)
+#endif
 
 #define INIT_WEAPON_CONDITION    12
 #define MAX_ITEM_IMPACT		 30
@@ -2369,33 +2409,37 @@ typedef enum
 } player_flags;
 
 /* Bits for pc_data->flags. */
-#define PCFLAG_R1                  BV00
-#define PCFLAG_DEADLY              BV01
+#define PCFLAG_R1            BV00
+#define PCFLAG_DEADLY        BV01
 #define PCFLAG_UNAUTHED		   BV02
-#define PCFLAG_NORECALL            BV03
-#define PCFLAG_NOINTRO             BV04
-#define PCFLAG_GAG		   BV05
-#define PCFLAG_RETIRED             BV06
-#define PCFLAG_GUEST               BV07
+#define PCFLAG_NORECALL      BV03
+#define PCFLAG_NOINTRO       BV04
+#define PCFLAG_GAG		   		 BV05
+#define PCFLAG_RETIRED       BV06
+#define PCFLAG_GUEST         BV07
 #define PCFLAG_NOSUMMON		   BV08
 #define PCFLAG_PAGERON		   BV09
-#define PCFLAG_NOTITLE             BV10
+#define PCFLAG_NOTITLE       BV10
 #define PCFLAG_GROUPWHO		   BV11
 #define PCFLAG_DIAGNOSE		   BV12
 #define PCFLAG_HIGHGAG		   BV13
-#define PCFLAG_WATCH		   BV14	/* see function "do_watch" */
+#define PCFLAG_WATCH		     BV14	/* see function "do_watch" */
 #define PCFLAG_HELPSTART	   BV15	/* Force new players to help start */
 #define PCFLAG_DND      	   BV16	/* Do Not Disturb flage */
   /* DND flag prevents unwanted transfers of imms by lower level imms */
-#define PCFLAG_IDLE		   BV17	/* Player is Linkdead */
-#define PCFLAG_NOBIO               BV18
-#define PCFLAG_NODESC              BV19
-#define PCFLAG_BECKON		   BV20	/* Cannot be beckoned/beeped */
-#define PCFLAG_NOEXP		   BV21	/* Will not gain experience */
+#define PCFLAG_IDLE		       BV17	/* Player is Linkdead */
+#define PCFLAG_NOBIO         BV18
+#define PCFLAG_NODESC        BV19
+#define PCFLAG_BECKON		     BV20	/* Cannot be beckoned/beeped */
+#define PCFLAG_NOEXP		     BV21	/* Will not gain experience */
 #define PCFLAG_NOBECKON		   BV22	/* Cannot beckon/beep */
-#define PCFLAG_HINTS		   BV23	/* Hints config */
-#define PCFLAG_NOHTTP		   BV24
+#define PCFLAG_HINTS		     BV23	/* Hints config */
+#define PCFLAG_NOHTTP		     BV24
 #define PCFLAG_FREEKILL		   BV25
+
+#ifdef ENABLE_BUILDWALK
+#define PCFLAG_BUILDWALK     BV26
+#endif
 
 typedef enum
 {
@@ -2594,6 +2638,7 @@ struct char_data
   ROOM_INDEX_DATA *in_room;
   ROOM_INDEX_DATA *was_in_room;
   PC_DATA *pcdata;
+  LOCALE_DATA *locale;
   DO_FUN *last_cmd;
   DO_FUN *prev_cmd;		/* mapping */
   void *dest_buf;		/* This one is to assign to differen things */
@@ -2631,12 +2676,6 @@ struct char_data
   sh_int numattacks;
   int gold;
   int exp;
-#ifdef BANK_INSTALLED
-  int balance;
-#endif
-#ifdef MARRIAGE
-	char *spouse;
-#endif
   EXT_BV act;
   EXT_BV affected_by;
   EXT_BV no_affected_by;
@@ -2706,6 +2745,15 @@ struct char_data
 #ifdef ENABLE_HOTBOOT
   int home_vnum; /* hotboot tracker */
 #endif
+#ifdef BANK_INSTALLED
+  int balance;
+#endif
+#ifdef MARRIAGE
+	char *spouse;
+#endif
+#ifdef ENABLE_COLOR
+   short colors[MAX_COLORS];
+#endif
 };
 
 
@@ -2737,12 +2785,7 @@ struct pc_data
   COUNCIL_DATA *council;
   AREA_DATA *area;
   DEITY_DATA *deity;
-#ifdef BANK_INSTALLED
-  CHAR_DATA *balance;
-#endif
-#ifdef MARRIAGE
-	char *spouse;
-#endif
+	char *lang;
   char *homepage;
   char *email;
   char *icq;
@@ -2775,7 +2818,6 @@ struct pc_data
   int bet_amt;
   long int outcast_time;	/* The time at which the char was outcast */
   NUISANCE_DATA *nuisance;	/* New Nuisance structure */
-
   long int restore_time;	/* The last time the char did a restore all */
   int r_range_lo;		/* room range */
   int r_range_hi;
@@ -2814,14 +2856,24 @@ struct pc_data
   char *see_me;			/* who can see me (imm only) */
   char *recent_site;		/* site a player started their most recent session from */
   char *prev_site;		/* site a player last quit from */
+#ifdef ENABLE_COLOR
+  sh_int colorize[MAX_COLORS];
+#else
   sh_int colorize[AT_MAXCOLOR];
+#endif
 #ifdef ENABLE_HOTBOOT
    bool hotboot;  /* hotboot tracker */
 #endif
-#ifdef ENABLE_CALENDAR
-  int *timezone;
+#ifdef ENABLE_TIMEZONE
+  int timezone;
   int day;
   int month;
+#endif
+#ifdef BANK_INSTALLED
+  int balance;
+#endif
+#ifdef MARRIAGE
+	char *spouse;
 #endif
 };
 
@@ -2898,6 +2950,9 @@ struct obj_index_data
   int serial;
   sh_int layers;
   int rent;			/* Unused */
+#ifdef ENABLE_OLC2_EXTRAS
+  int room;
+#endif
 };
 
 
@@ -3160,14 +3215,28 @@ struct system_data
   bool wizlock;			/* rebooting wizlocked? */
   bool magichell;
 #ifdef ENABLE_HOTBOOT
-   void *dlHandle;
+  void *dlHandle;
 #endif
-#ifdef ENABLE_CALENDAR
-  int hournoon;
+#ifdef ENABLE_TIMEZONE
+  int secpertick;
+  int pulsepersec;
+  int pulsetick;
+  int pulseviolence;
+  int pulsemobile;
+  int pulsecalendar;
+  int hoursperday;
   int daysperweek;
   int dayspermonth;
   int daysperyear;
   int monthsperyear;
+  int hoursunrise;
+  int hourdaybegin;
+  int hournoon;
+  int hoursunset;
+  int hournightbegin;
+  int hourmidnight;
+#endif
+#ifdef ENABLE_HOLIDAYS
   int maxholiday;
 #endif
 };
@@ -3219,7 +3288,7 @@ struct room_index_data
   int tele_vnum;
   sh_int tele_delay;
   sh_int tunnel;		/* max people that will fit */
-#ifdef ENABLE_CALENDAR
+#ifdef ENABLE_TIMEZONE
   int winter_sector;
 #endif
 };
@@ -3968,7 +4037,9 @@ extern const struct lck_app_type lck_app[26];
 extern char *const honour_rank[12][7];
 extern const struct race_type _race_table[MAX_RACE];
 extern struct race_type *race_table[MAX_RACE];
+#ifndef ENABLE_COLOR
 extern struct at_color_type at_color_table[AT_MAXCOLOR];
+#endif
 extern const struct liq_type liq_table[LIQ_MAX];
 extern char *const attack_table[18];
 
@@ -4001,6 +4072,9 @@ extern char *const npc_class[];
 extern char *const defense_flags[];
 extern char *const attack_flags[];
 extern char *const area_flags[];
+#ifdef ENABLE_OLC2
+extern  char *  const   container_flags []; /* OasisOLC */
+#endif
 extern char *const ex_pmisc[];
 extern char *const ex_pwater[];
 extern char *const ex_pair[];
@@ -4008,7 +4082,6 @@ extern char *const ex_pearth[];
 extern char *const ex_pfire[];
 
 extern char *const login_msg[];
-
 
 extern int const lang_array[];
 extern char *const lang_names[];
@@ -4222,8 +4295,17 @@ DECLARE_DO_FUN (do_broach);
 DECLARE_DO_FUN (do_bset);
 DECLARE_DO_FUN (do_bstat);
 DECLARE_DO_FUN (do_bug);
+
+#ifdef ENABLE_BUILDWALK
+DECLARE_DO_FUN (do_buildwalk);  
+#endif
+
 DECLARE_DO_FUN (do_bury);
 DECLARE_DO_FUN (do_buy);
+
+#ifdef ENABLE_DNS_RESOLV
+DECLARE_DO_FUN( do_cache );
+#endif
 
 #ifdef MYSTARIC
 DECLARE_DO_FUN (do_casinostat);
@@ -4247,7 +4329,13 @@ DECLARE_DO_FUN (do_climb);
 DECLARE_DO_FUN (do_close);
 DECLARE_DO_FUN (do_cmdtable);
 DECLARE_DO_FUN (do_cmenu);
+
+#ifdef ENABLE_COLOR
+DECLARE_DO_FUN( do_color );
+#else
 DECLARE_DO_FUN (do_colorize);	/* Alty */
+#endif
+
 DECLARE_DO_FUN (do_colorscheme);
 DECLARE_DO_FUN (do_commands);
 DECLARE_DO_FUN (do_comment);
@@ -4282,9 +4370,11 @@ DECLARE_DO_FUN (do_disarm);
 DECLARE_DO_FUN (do_disconnect);
 DECLARE_DO_FUN (do_dismiss);
 DECLARE_DO_FUN (do_dismount);
+
 #ifdef MARRIAGE
 DECLARE_DO_FUN (do_divorce);
 #endif
+
 DECLARE_DO_FUN (do_dmesg);
 DECLARE_DO_FUN (do_dnd);
 DECLARE_DO_FUN (do_down);
@@ -4352,6 +4442,9 @@ DECLARE_DO_FUN (do_hintsubmit);
 DECLARE_DO_FUN (do_hitall);
 DECLARE_DO_FUN (do_hl);
 DECLARE_DO_FUN (do_hlist);
+#ifdef ENABLE_HOLIDAYS
+DECLARE_DO_FUN( do_holidays );
+#endif
 DECLARE_DO_FUN (do_holylight);
 DECLARE_DO_FUN (do_homepage);
 #ifdef ENABLE_HOTBOOT
@@ -4387,6 +4480,9 @@ DECLARE_DO_FUN (do_level);
 DECLARE_DO_FUN (do_light);
 DECLARE_DO_FUN (do_list);
 DECLARE_DO_FUN (do_litterbug);
+#ifdef LIQUIDSYSTEM
+DECLARE_DO_FUN (do_liquids);
+#endif
 DECLARE_DO_FUN (do_loadarea);
 DECLARE_DO_FUN (do_loadup);
 DECLARE_DO_FUN (do_lock);
@@ -4417,11 +4513,17 @@ DECLARE_DO_FUN (do_meditate);
 DECLARE_DO_FUN (do_memberlist);
 DECLARE_DO_FUN (do_memory);
 DECLARE_DO_FUN (do_message);
+#ifdef ENABLE_OLC2
+DECLARE_DO_FUN( do_mcopy	); /* OLC - Tagith */
+#endif
 DECLARE_DO_FUN (do_mcreate);
 DECLARE_DO_FUN (do_mdelete);
 DECLARE_DO_FUN (do_mfind);
 DECLARE_DO_FUN (do_minvoke);
 DECLARE_DO_FUN (do_mistwalk);
+#ifdef LIQUIDSYSTEM
+DECLARE_DO_FUN (do_mix);
+#endif
 DECLARE_DO_FUN (do_mlist);
 DECLARE_DO_FUN (do_mobinvade);
 DECLARE_DO_FUN (do_morphcreate);
@@ -4464,6 +4566,9 @@ DECLARE_DO_FUN (do_noteroom);
 DECLARE_DO_FUN (do_nslay);
 DECLARE_DO_FUN (do_nuisance);
 DECLARE_DO_FUN (do_oassign);
+#ifdef ENABLE_OLC2
+DECLARE_DO_FUN( do_ocopy	); /* OLC - Tagith */
+#endif
 DECLARE_DO_FUN (do_oclaim);
 DECLARE_DO_FUN (do_ocreate);
 DECLARE_DO_FUN (do_odelete);
@@ -4472,6 +4577,11 @@ DECLARE_DO_FUN (do_ogrub);
 DECLARE_DO_FUN (do_oinvoke);
 DECLARE_DO_FUN (do_oldscore);
 DECLARE_DO_FUN (do_olist);
+#ifdef ENABLE_OLC2
+DECLARE_DO_FUN( do_omedit	); /* OLC - Tagith */
+DECLARE_DO_FUN( do_ooedit	); /* OLC - Tagith */
+DECLARE_DO_FUN( do_oredit	); /* OLC - Tagith */
+#endif
 DECLARE_DO_FUN (do_oowner);
 DECLARE_DO_FUN (do_opcopy);
 DECLARE_DO_FUN (do_open);
@@ -4518,6 +4628,9 @@ DECLARE_DO_FUN (do_rank);
 DECLARE_DO_FUN (do_rap);
 DECLARE_DO_FUN (do_rassign);
 DECLARE_DO_FUN (do_rat);
+#ifdef ENABLE_OLC2
+DECLARE_DO_FUN (do_rcopy); /* OLC - Tagith */
+#endif
 DECLARE_DO_FUN (do_rdelete);
 DECLARE_DO_FUN (do_rdig);
 DECLARE_DO_FUN (do_reboo);
@@ -4569,6 +4682,9 @@ DECLARE_DO_FUN (do_rstat);
 DECLARE_DO_FUN (do_sacrifice);
 DECLARE_DO_FUN (do_save);
 DECLARE_DO_FUN (do_savearea);
+#ifdef ENABLE_HOLIDAYS
+DECLARE_DO_FUN( do_saveholiday );
+#endif
 DECLARE_DO_FUN (do_say);
 DECLARE_DO_FUN (do_say_to);
 DECLARE_DO_FUN (do_scan);
@@ -4583,6 +4699,16 @@ DECLARE_DO_FUN (do_setclan);
 DECLARE_DO_FUN (do_setclass);
 DECLARE_DO_FUN (do_setcouncil);
 DECLARE_DO_FUN (do_setdeity);
+#ifdef LIQUIDSYSTEM
+DECLARE_DO_FUN ( do_setmixture );
+DECLARE_DO_FUN ( do_setliquid );
+#endif
+#ifdef ENABLE_MSSP
+DECLARE_DO_FUN ( do_setmssp );
+#endif
+#ifdef ENABLE_HOLIDAYS
+DECLARE_DO_FUN ( do_setholiday );
+#endif
 DECLARE_DO_FUN (do_setrace);
 DECLARE_DO_FUN (do_setvault);
 DECLARE_DO_FUN (do_setweather);
@@ -4642,6 +4768,9 @@ DECLARE_DO_FUN (do_tell);
 DECLARE_DO_FUN (do_think);
 DECLARE_DO_FUN (do_time);
 DECLARE_DO_FUN (do_timecmd);
+#ifdef ENABLE_TIMEZONE
+DECLARE_DO_FUN( do_timezone );
+#endif
 DECLARE_DO_FUN (do_title);
 DECLARE_DO_FUN (do_track);
 DECLARE_DO_FUN (do_trance);
@@ -4958,24 +5087,24 @@ char *sha256_crypt args ((const char *key, const char *salt));
 #endif
 
 #define AREA_DIR		RUNDIR		"area/"		     	/* Area files    	*/
-#define PLAYER_DIR		RUNDIR		"player/"		/* Player files     	*/
-#define BACKUP_DIR		RUNDIR		"player/backup/"	/* Backup Player files 	*/
+#define PLAYER_DIR	RUNDIR		"player/"		/* Player files     	*/
+#define BACKUP_DIR	RUNDIR		"player/backup/"	/* Backup Player files 	*/
 #define GOD_DIR			RUNDIR		"gods/"			/* God Info Dir        	*/
 #define BOARD_DIR		RUNDIR		"boards/"		/* Board data dir       */
 #define CLAN_DIR		RUNDIR		"clans/"		/* Clan data dir        */
-#define COUNCIL_DIR 		RUNDIR		"councils/"	/* Council data dir             */
+#define COUNCIL_DIR RUNDIR		"councils/"	/* Council data dir             */
 #define DEITY_DIR		RUNDIR		"deity/"	/* Deity data dir               */
-#define BUILD_DIR  		RUNDIR		"building/"	/* Online building save dir     */
-#define SYSTEM_DIR		RUNDIR		"system/"	/* Main system files            */
+#define BUILD_DIR  	RUNDIR		"building/"	/* Online building save dir     */
+#define SYSTEM_DIR	RUNDIR		"system/"	/* Main system files            */
 #define PROG_DIR		RUNDIR		"mudprogs/"	/* MUDProg files                */
-#define CORPSE_DIR		RUNDIR		"corpses/"	/* Corpses                      */
+#define CORPSE_DIR	RUNDIR		"corpses/"	/* Corpses                      */
 #define	CLASS_DIR		RUNDIR		"classes/"	/* Classes                      */
 #define	RACE_DIR		RUNDIR		"races/"	/* Races                        */
 #define WATCH_DIR		RUNDIR		"watch/"	/* Imm watch files --Gorog      */
 #define VAULT_DIR		RUNDIR		"vault/"	/* storage vaults								*/
-#define HOUSE_DIR      		RUNDIR		"houses/"		/* Location of housing directory */
+#define HOUSE_DIR   RUNDIR		"houses/"		/* Location of housing directory */
 
-#ifdef NEWCOLORS
+#ifdef ENABLE_COLOR
 #define COLOR_DIR		RUNDIR 		"color/"	/* New color files */
 #endif
 
@@ -5009,7 +5138,7 @@ char *sha256_crypt args ((const char *key, const char *salt));
 #define CUTLINK_FILE		LOGDIR 		"cutlink.log"	/* Info on cut/dropped links while in combat */
 #define CHARCOUNT_FILE		LOGDIR 		"ccount.tmp"	/* Counting, temp */
 #define USAGE_FILE		LOGDIR 		"usage.log"	/* How many people are online every half hour */
-																										/* Trying to determine best reboot time */
+																						/* Trying to determine best reboot time */
 
 #define TEMP_FILE		PLAYER_DIR 	"charsave.tmp"	/* More char save protect */
 
@@ -5056,11 +5185,32 @@ char *sha256_crypt args ((const char *key, const char *salt));
 #define MEMBERS_FILE		SYSTEM_DIR 	"members.dat"	/* Store the members lists */
 #define STANCE_FILE     	SYSTEM_DIR 	"stances.dat"
 
-#ifdef ENABLE_WEATHER
-#define WEATHER_FILE                            "weather.dat"
+#define LOCALES_FILE       	SYSTEM_DIR 	"locales.dat"	/* Locales list */
+
+#ifdef LIQUIDSYSTEM
+#define LIQUIDS_FILE		SYSTEM_DIR		"liquids.dat"
+#define MIXTURES_FILE		SYSTEM_DIR		"mixtures.dat"
 #endif
 
-#ifdef ENABLE_CALENDAR
+#ifdef ENABLE_MSSP
+#define MSSP_FILE				SYSTEM_DIR		"mssp.dat"
+#endif
+
+#ifdef ENABLE_DNS_RESOLV
+#define DNS_FILE 			SYSTEM_DIR 		"dns.dat"
+#endif
+
+#ifdef ENABLE_WEATHER
+#define WEATHER_FILE                            "weathermap.dat"
+#else
+#define WEATHER_FILE														"weather.dat"
+#endif
+
+#ifdef ENABLE_TIMEZONE
+#define TIME_FILE				SYSTEM_DIR		"time.dat"
+#endif
+
+#ifdef ENABLE_HOLIDAYS
 #define HOLIDAY_FILE    SYSTEM_DIR    "holidays.dat"
 #endif
 
@@ -5159,6 +5309,9 @@ void add_social args ((SOCIALTYPE * social));
 void free_command args ((CMDTYPE * command));
 void unlink_command args ((CMDTYPE * command));
 void add_command args ((CMDTYPE * command));
+#ifdef ENABLE_BUILDWALK
+void do_build_walk( CHAR_DATA *ch, char *argument );
+#endif
 
 /* boards.c */
 void load_boards args ((void));
@@ -5168,7 +5321,7 @@ void free_note args ((NOTE_DATA * pnote));
 /* build.c */
 int get_cmdflag args ((char *flag));
 char *flag_string args ((int bitvector, char *const flagarray[]));
-char *ext_flag_string args ((EXT_BV * bitvector, char *const flagarray[]));
+char *ext_flag_string args ((EXT_BV *bitvector, char *const flagarray[]));
 int get_mpflag args ((char *flag));
 int get_dir args ((char *txt));
 char *strip_cr args ((char *str));
@@ -5193,19 +5346,25 @@ void save_deity args ((DEITY_DATA * deity));
 int c_strlen (const char *s);
 int colorlen (const char *s, int goal);
 void close_socket args ((DESCRIPTOR_DATA * dclose, bool force));
+
 void write_to_buffer args ((DESCRIPTOR_DATA * d, const char *txt,
 			    int length));
 void write_to_pager args ((DESCRIPTOR_DATA * d, const char *txt, int length));
 void send_to_char args ((const char *txt, CHAR_DATA * ch));
-void send_to_char_color args ((const char *txt, CHAR_DATA * ch));
 void send_to_pager args ((const char *txt, CHAR_DATA * ch));
+void ch_printf args ((CHAR_DATA * ch, char *fmt, ...));
+void pager_printf args ((CHAR_DATA * ch, char *fmt, ...));
+
+#ifndef ENABLE_COLOR
+void send_to_char_color args ((const char *txt, CHAR_DATA * ch));
 void send_to_pager_color args ((const char *txt, CHAR_DATA * ch));
+#endif
+
 void set_char_color args ((sh_int AType, CHAR_DATA * ch));
 void set_pager_color args ((sh_int AType, CHAR_DATA * ch));
-void ch_printf args ((CHAR_DATA * ch, char *fmt, ...));
 void ch_printf_color args ((CHAR_DATA * ch, char *fmt, ...));
-void pager_printf args ((CHAR_DATA * ch, char *fmt, ...));
 void pager_printf_color args ((CHAR_DATA * ch, char *fmt, ...));
+
 void act args ((sh_int AType, const char *format, CHAR_DATA * ch,
 		const void *arg1, const void *arg2, int type));
 char *myobj args ((OBJ_DATA * obj));
@@ -5795,6 +5954,16 @@ void show_high_hash args ((int top));
 /* newscore.c */
 char *get_class args ((CHAR_DATA * ch));
 char *get_race args ((CHAR_DATA * ch));
+
+#ifdef ENABLE_OLC2
+/* olc stuff (oedit.c redit.c medit.c) */
+void	medit_parse	args( ( DESCRIPTOR_DATA *d, char *arg ) );
+void	redit_parse	args( ( DESCRIPTOR_DATA *d, char *arg ) );
+void	oedit_parse	args( ( DESCRIPTOR_DATA *d, char *arg ) );
+
+bool	is_inolc	args( ( DESCRIPTOR_DATA *d ) );
+void	cleanup_olc	args( ( DESCRIPTOR_DATA *d ) );
+#endif
 
 #undef	VD
 #undef	SK

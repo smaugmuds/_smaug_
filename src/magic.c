@@ -20,6 +20,15 @@
      |                    -*- Spell Handling Module -*-                    |
      |_____________________________________________________________________|
     //                                                                     \\
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+   [|                                                                       |]
+   [|  AFKMud Copyright 1997-2007 by Roger Libiez (Samson),                 |]
+   [|  Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),       |]
+   [|  Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine,            |]
+   [|  Xorith, and Adjani.                                                  |]
+   [|  All Rights Reserved. External contributions from Remcon, Quixadhal,  |]
+   [|  Zarius and many others.                                              |]
+   [|                                                                       |]
    [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
    [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
    [|                                                                       |]
@@ -27,8 +36,6 @@
    [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
    [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
    [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
     \\_____________________________________________________________________//
 */
 
@@ -517,26 +524,50 @@ successful_casting (SKILLTYPE * skill, CHAR_DATA * ch,
       if (skill->hit_char && skill->hit_char[0] != '\0')
 	{
 	  if (str_cmp (skill->hit_char, SPELL_SILENT_MARKER))
+#ifndef ENABLE_COLOR
 	    act (AT_COLORIZE, skill->hit_char, ch, obj, victim, TO_CHAR);
+#else
+	    act (AT_MAGIC, skill->hit_char, ch, obj, victim, TO_CHAR);
+#endif
 	}
       else if (skill->type == SKILL_SPELL)
+#ifndef ENABLE_COLOR
 	act (AT_COLORIZE, "Ok.", ch, NULL, NULL, TO_CHAR);
+#else
+	act (AT_MAGIC, "Ok.", ch, NULL, NULL, TO_CHAR);
+#endif
     }
   if (ch && skill->hit_room && skill->hit_room[0] != '\0' &&
       str_cmp (skill->hit_room, SPELL_SILENT_MARKER))
+#ifndef ENABLE_COLOR
     act (AT_COLORIZE, skill->hit_room, ch, obj, victim, TO_NOTVICT);
+#else
+    act (AT_MAGIC, skill->hit_room, ch, obj, victim, TO_NOTVICT);
+#endif
   if (ch && victim && skill->hit_vict && skill->hit_vict[0] != '\0')
     {
       if (str_cmp (skill->hit_vict, SPELL_SILENT_MARKER))
 	{
 	  if (ch != victim)
+#ifndef ENABLE_COLOR
 	    act (AT_COLORIZE, skill->hit_vict, ch, obj, victim, TO_VICT);
+#else
+	    act (AT_MAGIC, skill->hit_vict, ch, obj, victim, TO_VICT);
+#endif
 	  else
+#ifndef ENABLE_COLOR
 	    act (AT_COLORIZE, skill->hit_vict, ch, obj, victim, TO_CHAR);
+#else
+	    act (AT_MAGIC, skill->hit_vict, ch, obj, victim, TO_CHAR);
+#endif
 	}
     }
   else if (ch && ch == victim && skill->type == SKILL_SPELL)
+#ifndef ENABLE_COLOR
     act (AT_COLORIZE, "Ok.", ch, NULL, NULL, TO_CHAR);
+#else
+    act (AT_MAGIC, "Ok.", ch, NULL, NULL, TO_CHAR);
+#endif
 }
 
 /*
@@ -561,21 +592,37 @@ failed_casting (SKILLTYPE * skill, CHAR_DATA * ch,
       if (skill->miss_char && skill->miss_char[0] != '\0')
 	{
 	  if (str_cmp (skill->miss_char, SPELL_SILENT_MARKER))
+#ifndef ENABLE_COLOR
 	    act (AT_COLORIZE, skill->miss_char, ch, obj, victim, TO_CHAR);
+#else
+	    act (AT_MAGIC, skill->miss_char, ch, obj, victim, TO_CHAR);
+#endif
 	}
       else if (skill->type == SKILL_SPELL)
 	act (chitme, "You failed.", ch, NULL, NULL, TO_CHAR);
     }
   if (ch && skill->miss_room && skill->miss_room[0] != '\0' && str_cmp (skill->miss_room, SPELL_SILENT_MARKER) && str_cmp (skill->miss_room, "supress"))	/* Back Compat -- Alty */
+#ifndef ENABLE_COLOR
     act (AT_COLORIZE, skill->miss_room, ch, obj, victim, TO_NOTVICT);
+#else
+    act (AT_MAGIC, skill->miss_room, ch, obj, victim, TO_NOTVICT);
+#endif
   if (ch && victim && skill->miss_vict && skill->miss_vict[0] != '\0')
     {
       if (str_cmp (skill->miss_vict, SPELL_SILENT_MARKER))
 	{
 	  if (ch != victim)
+#ifndef ENABLE_COLOR
 	    act (AT_COLORIZE, skill->miss_vict, ch, obj, victim, TO_VICT);
+#else
+	    act (AT_MAGIC, skill->miss_vict, ch, obj, victim, TO_VICT);
+#endif
 	  else
+#ifndef ENABLE_COLOR
 	    act (AT_COLORIZE, skill->miss_vict, ch, obj, victim, TO_CHAR);
+#else
+	    act (AT_MAGIC, skill->miss_vict, ch, obj, victim, TO_CHAR);
+#endif
 	}
     }
   else if (ch && ch == victim)
@@ -583,7 +630,11 @@ failed_casting (SKILLTYPE * skill, CHAR_DATA * ch,
       if (skill->miss_char && skill->miss_char[0] != '\0')
 	{
 	  if (str_cmp (skill->miss_char, SPELL_SILENT_MARKER))
+#ifndef ENABLE_COLOR
 	    act (AT_COLORIZE, skill->miss_char, ch, obj, victim, TO_CHAR);
+#else
+	    act (AT_MAGIC, skill->miss_char, ch, obj, victim, TO_CHAR);
+#endif
 	}
       else if (skill->type == SKILL_SPELL)
 	act (chitme, "You failed.", ch, NULL, NULL, TO_CHAR);
@@ -612,12 +663,20 @@ immune_casting (SKILLTYPE * skill, CHAR_DATA * ch,
       if (skill->imm_char && skill->imm_char[0] != '\0')
 	{
 	  if (str_cmp (skill->imm_char, SPELL_SILENT_MARKER))
+#ifndef ENABLE_COLOR
 	    act (AT_COLORIZE, skill->imm_char, ch, obj, victim, TO_CHAR);
+#else
+	    act (AT_MAGIC, skill->imm_char, ch, obj, victim, TO_CHAR);
+#endif
 	}
       else if (skill->miss_char && skill->miss_char[0] != '\0')
 	{
 	  if (str_cmp (skill->miss_char, SPELL_SILENT_MARKER))
+#ifndef ENABLE_COLOR
 	    act (AT_COLORIZE, skill->hit_char, ch, obj, victim, TO_CHAR);
+#else
+	    act (AT_MAGIC, skill->hit_char, ch, obj, victim, TO_CHAR);
+#endif
 	}
       else if (skill->type == SKILL_SPELL || skill->type == SKILL_SKILL)
 	act (chit, "That appears to have no effect.", ch, NULL, NULL,
@@ -626,21 +685,37 @@ immune_casting (SKILLTYPE * skill, CHAR_DATA * ch,
   if (ch && skill->imm_room && skill->imm_room[0] != '\0')
     {
       if (str_cmp (skill->imm_room, SPELL_SILENT_MARKER))
+#ifndef ENABLE_COLOR
 	act (AT_COLORIZE, skill->imm_room, ch, obj, victim, TO_NOTVICT);
+#else
+	act (AT_MAGIC, skill->imm_room, ch, obj, victim, TO_NOTVICT);
+#endif
     }
   else if (ch && skill->miss_room && skill->miss_room[0] != '\0')
     {
       if (str_cmp (skill->miss_room, SPELL_SILENT_MARKER))
+#ifndef ENABLE_COLOR
 	act (AT_COLORIZE, skill->miss_room, ch, obj, victim, TO_NOTVICT);
+#else
+	act (AT_MAGIC, skill->miss_room, ch, obj, victim, TO_NOTVICT);
+#endif
     }
   if (ch && victim && skill->imm_vict && skill->imm_vict[0] != '\0')
     {
       if (str_cmp (skill->imm_vict, SPELL_SILENT_MARKER))
 	{
 	  if (ch != victim)
+#ifndef ENABLE_COLOR
 	    act (AT_COLORIZE, skill->imm_vict, ch, obj, victim, TO_VICT);
+#else
+	    act (AT_MAGIC, skill->imm_vict, ch, obj, victim, TO_VICT);
+#endif
 	  else
+#ifndef ENABLE_COLOR
 	    act (AT_COLORIZE, skill->imm_vict, ch, obj, victim, TO_CHAR);
+#else
+	    act (AT_MAGIC, skill->imm_vict, ch, obj, victim, TO_CHAR);
+#endif
 	}
     }
   else if (ch && victim && skill->miss_vict && skill->miss_vict[0] != '\0')
@@ -648,9 +723,17 @@ immune_casting (SKILLTYPE * skill, CHAR_DATA * ch,
       if (str_cmp (skill->miss_vict, SPELL_SILENT_MARKER))
 	{
 	  if (ch != victim)
+#ifndef ENABLE_COLOR
 	    act (AT_COLORIZE, skill->miss_vict, ch, obj, victim, TO_VICT);
+#else
+	    act (AT_MAGIC, skill->miss_vict, ch, obj, victim, TO_VICT);
+#endif
 	  else
+#ifndef ENABLE_COLOR
 	    act (AT_COLORIZE, skill->miss_vict, ch, obj, victim, TO_CHAR);
+#else
+	    act (AT_MAGIC, skill->miss_vict, ch, obj, victim, TO_CHAR);
+#endif
 	}
     }
   else if (ch && ch == victim)
@@ -658,12 +741,20 @@ immune_casting (SKILLTYPE * skill, CHAR_DATA * ch,
       if (skill->imm_char && skill->imm_char[0] != '\0')
 	{
 	  if (str_cmp (skill->imm_char, SPELL_SILENT_MARKER))
+#ifndef ENABLE_COLOR
 	    act (AT_COLORIZE, skill->imm_char, ch, obj, victim, TO_CHAR);
+#else
+	    act (AT_MAGIC, skill->imm_char, ch, obj, victim, TO_CHAR);
+#endif
 	}
       else if (skill->miss_char && skill->miss_char[0] != '\0')
 	{
 	  if (str_cmp (skill->hit_char, SPELL_SILENT_MARKER))
+#ifndef ENABLE_COLOR
 	    act (AT_COLORIZE, skill->hit_char, ch, obj, victim, TO_CHAR);
+#else
+	    act (AT_MAGIC, skill->hit_char, ch, obj, victim, TO_CHAR);
+#endif
 	}
       else if (skill->type == SKILL_SPELL || skill->type == SKILL_SKILL)
 	act (chit, "That appears to have no affect.", ch, NULL, NULL,
@@ -4767,12 +4858,23 @@ spell_astral_walk (int sn, int level, CHAR_DATA * ch, void *vo)
     }
 
   if (skill->hit_char && skill->hit_char[0] != '\0')
+#ifndef ENABLE_COLOR
     act (AT_COLORIZE, skill->hit_char, ch, NULL, victim, TO_CHAR);
+#else
+    act (AT_MAGIC, skill->hit_char, ch, NULL, victim, TO_CHAR);
+#endif
   if (skill->hit_vict && skill->hit_vict[0] != '\0')
+#ifndef ENABLE_COLOR
     act (AT_COLORIZE, skill->hit_vict, ch, NULL, victim, TO_VICT);
-
+#else
+    act (AT_MAGIC, skill->hit_vict, ch, NULL, victim, TO_VICT);
+#endif
   if (skill->hit_room && skill->hit_room[0] != '\0')
+#ifndef ENABLE_COLOR
     act (AT_COLORIZE, skill->hit_room, ch, NULL, victim, TO_NOTVICT);
+#else
+    act (AT_MAGIC, skill->hit_room, ch, NULL, victim, TO_NOTVICT);
+#endif
   else
     act (AT_MAGIC, "$n disappears in a flash of light!", ch, NULL, NULL,
 	 TO_ROOM);
@@ -4798,7 +4900,11 @@ spell_astral_walk (int sn, int level, CHAR_DATA * ch, void *vo)
   else
     char_to_room (ch, victim->in_room);
   if (skill->hit_dest && skill->hit_dest[0] != '\0')
+#ifndef ENABLE_COLOR
     act (AT_COLORIZE, skill->hit_dest, ch, NULL, victim, TO_NOTVICT);
+#else
+    act (AT_MAGIC, skill->hit_dest, ch, NULL, victim, TO_NOTVICT);
+#endif
   else
     act (AT_MAGIC, "$n appears in a flash of light!", ch, NULL, NULL,
 	 TO_ROOM);
@@ -5584,18 +5690,36 @@ spell_portal (int sn, int level, CHAR_DATA * ch, void *vo)
 	 ch);
     }
   else
+#ifndef ENABLE_COLOR
     act (AT_COLORIZE, skill->hit_char, ch, NULL, victim, TO_CHAR);
+#else
+    act (AT_MAGIC, skill->hit_char, ch, NULL, victim, TO_CHAR);
+#endif
   if (!skill->hit_room || skill->hit_room[0] == '\0')
+#ifndef ENABLE_COLOR
     act (AT_COLORIZE,
 	 "$n utters an incantation, and a portal forms in front of you!", ch,
 	 NULL, NULL, TO_ROOM);
+#else
+    act (AT_MAGIC,
+	 "$n utters an incantation, and a portal forms in front of you!", ch,
+	 NULL, NULL, TO_ROOM);
+#endif
   else
+#ifndef ENABLE_COLOR
     act (AT_COLORIZE, skill->hit_room, ch, NULL, victim, TO_ROOM);
+#else
+    act (AT_MAGIC, skill->hit_room, ch, NULL, victim, TO_ROOM);
+#endif
   if (!skill->hit_vict || skill->hit_vict[0] == '\0')
     act (AT_MAGIC, "A shimmering portal forms in front of you!", victim, NULL,
 	 NULL, TO_ROOM);
   else
+#ifndef ENABLE_COLOR
     act (AT_COLORIZE, skill->hit_vict, victim, NULL, victim, TO_ROOM);
+#else
+    act (AT_MAGIC, skill->hit_vict, victim, NULL, victim, TO_ROOM);
+#endif
   portalObj = obj_to_room (portalObj, ch->in_room);
 
   pexit = make_exit (targetRoom, fromRoom, DIR_PORTAL);
@@ -5972,8 +6096,13 @@ spell_solar_flight (int sn, int level, CHAR_DATA * ch, void *vo)
     }
   else
     char_to_room (ch, victim->in_room);
+#ifndef ENABLE_COLOR
   act (AT_COLORIZE, "$n appears in a blinding flash of light!",
        ch, NULL, NULL, TO_ROOM);
+#else
+  act (AT_MAGIC, "$n appears in a blinding flash of light!",
+       ch, NULL, NULL, TO_ROOM);
+#endif
   do_look (ch, "auto");
   return rNONE;
 }
@@ -6650,9 +6779,17 @@ spell_area_attack (int sn, int level, CHAR_DATA * ch, void *vo)
 
   affects = (skill->affects ? TRUE : FALSE);
   if (skill->hit_char && skill->hit_char[0] != '\0')
+#ifndef ENABLE_COLOR
     act (AT_COLORIZE, skill->hit_char, ch, NULL, NULL, TO_CHAR);
+#else
+    act (AT_MAGIC, skill->hit_char, ch, NULL, NULL, TO_CHAR);
+#endif
   if (skill->hit_room && skill->hit_room[0] != '\0')
+#ifndef ENABLE_COLOR
     act (AT_COLORIZE, skill->hit_room, ch, NULL, NULL, TO_ROOM);
+#else
+    act (AT_MAGIC, skill->hit_room, ch, NULL, NULL, TO_ROOM);
+#endif
 
   for (vch = ch->in_room->first_person; vch; vch = vch_next)
     {
@@ -6980,14 +7117,22 @@ spell_affect (int sn, int level, CHAR_DATA * ch, void *vo)
 	  if (strstr (skill->hit_char, "$N"))
 	    hitchar = TRUE;
 	  else
+#ifndef ENABLE_COLOR
 	    act (AT_COLORIZE, skill->hit_char, ch, NULL, NULL, TO_CHAR);
+#else
+	    act (AT_MAGIC, skill->hit_char, ch, NULL, NULL, TO_CHAR);
+#endif
 	}
       if (skill->hit_room && skill->hit_room[0] != '\0')
 	{
 	  if (strstr (skill->hit_room, "$N"))
 	    hitroom = TRUE;
 	  else
+#ifndef ENABLE_COLOR
 	    act (AT_COLORIZE, skill->hit_room, ch, NULL, NULL, TO_ROOM);
+#else
+	    act (AT_MAGIC, skill->hit_room, ch, NULL, NULL, TO_ROOM);
+#endif
 	}
       if (skill->hit_vict && skill->hit_vict[0] != '\0')
 	hitvict = TRUE;
@@ -7018,26 +7163,53 @@ spell_affect (int sn, int level, CHAR_DATA * ch, void *vo)
 
 	  if (hitvict && ch != victim)
 	    {
+#ifndef ENABLE_COLOR
 	      act (AT_COLORIZE, skill->hit_vict, ch, NULL, victim, TO_VICT);
+#else
+	      act (AT_MAGIC, skill->hit_vict, ch, NULL, victim, TO_VICT);
+#endif
 	      if (hitroom)
 		{
+#ifndef ENABLE_COLOR
 		  act (AT_COLORIZE, skill->hit_room, ch, NULL, victim,
 		       TO_NOTVICT);
 		  act (AT_COLORIZE, skill->hit_room, ch, NULL, victim,
 		       TO_CHAR);
+#else
+		  act (AT_MAGIC, skill->hit_room, ch, NULL, victim,
+		       TO_NOTVICT);
+		  act (AT_MAGIC, skill->hit_room, ch, NULL, victim,
+		       TO_CHAR);
+#endif
 		}
 	    }
 	  else if (hitroom)
+#ifndef ENABLE_COLOR
 	    act (AT_COLORIZE, skill->hit_room, ch, NULL, victim, TO_ROOM);
+#else
+	    act (AT_MAGIC, skill->hit_room, ch, NULL, victim, TO_ROOM);
+#endif
 	  if (ch == victim)
 	    {
 	      if (hitvict)
+#ifndef ENABLE_COLOR
 		act (AT_COLORIZE, skill->hit_vict, ch, NULL, ch, TO_CHAR);
+#else
+		act (AT_MAGIC, skill->hit_vict, ch, NULL, ch, TO_CHAR);
+#endif
 	      else if (hitchar)
+#ifndef ENABLE_COLOR
 		act (AT_COLORIZE, skill->hit_char, ch, NULL, ch, TO_CHAR);
+#else
+		act (AT_MAGIC, skill->hit_char, ch, NULL, ch, TO_CHAR);
+#endif
 	    }
 	  else if (hitchar)
+#ifndef ENABLE_COLOR
 	    act (AT_COLORIZE, skill->hit_char, ch, NULL, victim, TO_CHAR);
+#else
+	    act (AT_MAGIC, skill->hit_char, ch, NULL, victim, TO_CHAR);
+#endif
 	}
       retcode = spell_affectchar (sn, level, ch, victim);
       if (!groupsp && !areasp)

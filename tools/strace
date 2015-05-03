@@ -1,0 +1,3 @@
+if test -z "$1"; then exit 1; fi;
+
+strace -p $1 2>&1 | grep -v ^gettime | grep -v ^select

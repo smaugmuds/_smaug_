@@ -20,6 +20,15 @@
      |                   -*- Wizard/God Command Module -*-                 |
      |_____________________________________________________________________|
     //                                                                     \\
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+   [|                                                                       |]
+   [|  AFKMud Copyright 1997-2007 by Roger Libiez (Samson),                 |]
+   [|  Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),       |]
+   [|  Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine,            |]
+   [|  Xorith, and Adjani.                                                  |]
+   [|  All Rights Reserved. External contributions from Remcon, Quixadhal,  |]
+   [|  Zarius and many others.                                              |]
+   [|                                                                       |]
    [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
    [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
    [|                                                                       |]
@@ -27,8 +36,6 @@
    [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
    [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
    [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
     \\_____________________________________________________________________//
 */
 
@@ -7657,7 +7664,7 @@ void
 do_cset (CHAR_DATA * ch, char *argument)
 {
   char arg[MAX_STRING_LENGTH];
-  sh_int level;
+  sh_int level, value;
 
   set_pager_color (AT_PLAIN, ch);
 
@@ -7864,6 +7871,71 @@ do_cset (CHAR_DATA * ch, char *argument)
       send_to_char (_("Ok.\n"), ch);
       return;
     }
+
+   value = ( short )atoi( argument );
+
+   if( !str_cmp( arg, "max-holidays" ) )
+   {
+      sysdata.maxholiday = value;
+      ch_printf( ch, "Max Holiday set to %d.\r\n", value );
+      save_sysdata( sysdata );
+      return;
+   }
+
+   if( !str_cmp( arg, "hours-per-day" ) )
+   {
+      sysdata.hoursperday = value;
+      ch_printf( ch, "Hours per day set to %d.\r\n", value );
+      update_calendar(  );
+      save_sysdata( sysdata );
+      return;
+   }
+
+   if( !str_cmp( arg, "days-per-week" ) )
+   {
+      sysdata.daysperweek = value;
+      ch_printf( ch, "Days per week set to %d.\r\n", value );
+      update_calendar(  );
+      save_sysdata( sysdata );
+      return;
+   }
+
+   if( !str_cmp( arg, "days-per-month" ) )
+   {
+      sysdata.dayspermonth = value;
+      ch_printf( ch, "Days per month set to %d.\r\n", value );
+      update_calendar(  );
+      save_sysdata( sysdata );
+      return;
+   }
+
+   if( !str_cmp( arg, "months-per-year" ) )
+   {
+      sysdata.monthsperyear = value;
+      ch_printf( ch, "Months per year set to %d.\r\n", value );
+      update_calendar(  );
+      save_sysdata( sysdata );
+      return;
+   }
+
+   if( !str_cmp( arg, "seconds-per-tick" ) )
+   {
+      sysdata.secpertick = value;
+      ch_printf( ch, "Seconds per tick set to %d.\r\n", value );
+      update_timers(  );
+      save_sysdata( sysdata );
+      return;
+   }
+
+   if( !str_cmp( arg, "pulse-per-second" ) )
+   {
+      sysdata.pulsepersec = value;
+      ch_printf( ch, "Pulse per second set to %d.\r\n", value );
+      update_timers(  );
+      save_sysdata( sysdata );
+      return;
+   }
+
 
   level = (sh_int) atoi (argument);
 
@@ -12686,3 +12758,31 @@ do_message (CHAR_DATA * ch, char *argument)
     }
 
 }
+
+#ifdef ENABLE_BUILDWALK
+void do_buildwalk( CHAR_DATA *ch, char *argument )
+{
+
+    if ( !IS_IMMORTAL( ch ) || IS_NPC(ch) )
+    {
+        send_to_char( "Huh?\r\n", ch );
+        return;
+    }
+
+    if ( IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
+    {
+        REMOVE_BIT( ch->pcdata->flags, PCFLAG_BUILDWALK );
+
+        send_to_char( "&GYou are no longer buildwalking.\r\n", ch );
+        act( AT_GREEN, "&G$n is no longer buildwalking.", ch, NULL, NULL, TO_CANSEE );
+    }
+    else
+    {
+        SET_BIT( ch->pcdata->flags, PCFLAG_BUILDWALK );
+
+        send_to_char( "&GYou are now buildwalking.\r\n", ch );
+        act( AT_GREY, "&G$n is now buildwalking.", ch, NULL, NULL, TO_CANSEE );
+        return;
+    }
+}
+#endif

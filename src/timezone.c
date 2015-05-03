@@ -20,6 +20,15 @@
      |           -*- Calendar Handler/Seasonal Updates Module -*-          |
      |_____________________________________________________________________|
     //                                                                     \\
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+   [|                                                                       |]
+   [|  AFKMud Copyright 1997-2007 by Roger Libiez (Samson),                 |]
+   [|  Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),       |]
+   [|  Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine,            |]
+   [|  Xorith, and Adjani.                                                  |]
+   [|  All Rights Reserved. External contributions from Remcon, Quixadhal,  |]
+   [|  Zarius and many others.                                              |]
+   [|                                                                       |]
    [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
    [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
    [|                                                                       |]
@@ -27,8 +36,6 @@
    [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
    [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
    [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
     \\_____________________________________________________________________//
 */
 
@@ -42,9 +49,6 @@
 #include <unistd.h>
 
 #include "mud.h"
-
-HOLIDAY_DATA *first_holiday;
-HOLIDAY_DATA *last_holiday;
 
 #define MAX_TZONE   25
 
@@ -73,7 +77,7 @@ struct tzone_type tzone_table[MAX_TZONE] = {
    {"GMT-2", "Mid-Atlantic", -2, 0},
    {"GMT-1", "Cape Verdes", -1, 0},
    {"GMT", "Greenwich Mean Time, Greenwich", 0, 0},
-   {"GMT+1", "Berlin, Rome", 1, 0},
+   {"GMT+1", "Berlin, Rome, Madrid", 1, 0},
    {"GMT+2", "Israel, Cairo", 2, 0},
    {"GMT+3", "Moscow, Kuwait", 3, 0},
    {"GMT+4", "Abu Dhabi, Muscat", 4, 0},
@@ -86,6 +90,44 @@ struct tzone_type tzone_table[MAX_TZONE] = {
    {"GMT+11", "Magadan, Soloman Is.", 11, 0},
    {"GMT+12", "Fiji, Wellington, Auckland", 12, 0},
 };
+
+/* Time values modified to Alsherok calendar - Samson 5-6-99 */
+/* Time Values Modified to Smaug Calendar - Kayle 10-17-07 */
+char *const day_name[] = {
+   ___("the Moon"), ___("the Bull"), ___("Deception"), ___("Thunder"), ___("Freedom"),
+   ___("the Great Gods"), ___("the Sun")
+};
+
+char *const month_name[] = {
+   ___("Winter"), ___("the Winter Wolf"), ___("the Frost Giant"), ___("the Old Forces"),
+   ___("the Grand Struggle"), ___("the Spring"), ___("Nature"), ___("Futility"), ___("the Dragon"),
+   ___("the Sun"), ___("the Heat"), ___("the Battle"), ___("the Dark Shades"), ___("the Shadows"),
+   ___("the Long Shadows"), ___("the Ancient Darkness"), ___("the Great Evil")
+};
+
+char *const season_name[] = {
+   ___("&gspring"), ___("&Ysummer"), ___("&Oautumn"), ___("&Cwinter")
+};
+
+void update_calendar( void )
+{
+   sysdata.daysperyear = sysdata.dayspermonth * sysdata.monthsperyear;
+   sysdata.hoursunrise = sysdata.hoursperday / 4;
+   sysdata.hourdaybegin = sysdata.hoursunrise + 1;
+   sysdata.hournoon = sysdata.hoursperday / 2;
+   sysdata.hoursunset = ( ( sysdata.hoursperday / 4 ) * 3 );
+   sysdata.hournightbegin = sysdata.hoursunset + 1;
+   sysdata.hourmidnight = sysdata.hoursperday;
+   calc_season(  );
+}
+
+void update_timers( void )
+{
+   sysdata.pulsetick = sysdata.secpertick * sysdata.pulsepersec;
+   sysdata.pulseviolence = 3 * sysdata.pulsepersec;
+   sysdata.pulsemobile = 4 * sysdata.pulsepersec;
+   sysdata.pulsecalendar = 4 * sysdata.pulsetick;
+}
 
 int tzone_lookup( char *arg )
 {
@@ -105,6 +147,7 @@ int tzone_lookup( char *arg )
    return -1;
 }
 
+void
 do_timezone( CHAR_DATA *ch, char *argument)
 {
    int i;
@@ -114,7 +157,7 @@ do_timezone( CHAR_DATA *ch, char *argument)
 
    if( !argument || argument[0] == '\0' )
    {
-      ch_printf( ch, "%-6s %-30s (%s)\r\n", "Name", "City/Zone Crosses", "Time" );
+      ch_printf( ch, "%-6s %-30s (%s)\r\n", _("Name"), _("City/Zone Crosses"), _("Time") );
       send_to_char( "-------------------------------------------------------------------------\r\n", ch );
       for( i = 0; i < MAX_TZONE; i++ )
       {
@@ -128,12 +171,12 @@ do_timezone( CHAR_DATA *ch, char *argument)
 
    if( i == -1 )
    {
-      send_to_char( "That time zone does not exists. Make sure to use the exact name.\r\n", ch );
+      send_to_char( _("That time zone does not exists. Make sure to use the exact name.\n"), ch );
       return;
    }
 
    ch->pcdata->timezone = i;
-   ch_printf( ch, "Your time zone is now %s %s (%s)\r\n", tzone_table[i].name,
+   ch_printf( ch, _("Your time zone is now %s %s (%s)\n"), tzone_table[i].name,
               tzone_table[i].zone, c_time( current_time, i ) );
 }
 
@@ -142,8 +185,8 @@ do_timezone( CHAR_DATA *ch, char *argument)
  */
 char *c_time( time_t curtime, int tz )
 {
-   static const char *day[] = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
-   static const char *month[] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+   static const char *day[] = { ___("Sun"), ___("Mon"), ___("Tue"), ___("Wed"), ___("Thu"), ___("Fri"), ___("Sat") };
+   static const char *month[] = { ___("Jan"), ___("Feb"), ___("Mar"), ___("Apr"), ___("May"), ___("Jun"), ___("Jul"), ___("Aug"), ___("Sep"), ___("Oct"), ___("Nov"), ___("Dec") };
    static char strtime[128];
    struct tm *ptime;
    char tzonename[50];
@@ -224,24 +267,6 @@ char *mini_c_time( time_t curtime, int tz )
    return strtime;
 }
 
-/* Time values modified to Alsherok calendar - Samson 5-6-99 */
-/* Time Values Modified to Smaug Calendar - Kayle 10-17-07 */
-char *const day_name[] = {
-   "the Moon", "the Bull", "Deception", "Thunder", "Freedom",
-   "the Great Gods", "the Sun"
-};
-
-char *const month_name[] = {
-   "Winter", "the Winter Wolf", "the Frost Giant", "the Old Forces",
-   "the Grand Struggle", "the Spring", "Nature", "Futility", "the Dragon",
-   "the Sun", "the Heat", "the Battle", "the Dark Shades", "the Shadows",
-   "the Long Shadows", "the Ancient Darkness", "the Great Evil"
-};
-
-char *const season_name[] = {
-   "&gspring", "&Ysummer", "&Oautumn", "&Cwinter"
-};
-
 /* Calling function must insure tstr buffer is large enough.
  * Returns the address of the buffer passed, allowing things like
  * this printf example: 123456secs = 1day 10hrs 17mins 36secs
@@ -266,7 +291,7 @@ char *sec_to_hms( time_t loctime, char *tstr )
 
    if( loctime < 1 )
    {
-      mudstrlcat( tstr, "no time at all", MAX_STRING_LENGTH );
+      mudstrlcat( tstr, _("no time at all"), MAX_STRING_LENGTH );
       return ( tstr );
    }
 
@@ -298,7 +323,7 @@ char *sec_to_hms( time_t loctime, char *tstr )
                if( wk )
                {
                   sflg = 1;
-                  snprintf( buff, MAX_STRING_LENGTH, "%d week%c", wk, DUR_ADDS( wk ) );
+                  snprintf( buff, MAX_STRING_LENGTH, _("%d week%c"), wk, DUR_ADDS( wk ) );
                   mudstrlcat( tstr, buff, MAX_STRING_LENGTH );
                }
             }
@@ -307,7 +332,7 @@ char *sec_to_hms( time_t loctime, char *tstr )
                if( sflg == 1 )
                   mudstrlcat( tstr, " ", MAX_STRING_LENGTH );
                sflg = 1;
-               snprintf( buff, MAX_STRING_LENGTH, "%d day%c", dy, DUR_ADDS( dy ) );
+               snprintf( buff, MAX_STRING_LENGTH, _("%d day%c"), dy, DUR_ADDS( dy ) );
                mudstrlcat( tstr, buff, MAX_STRING_LENGTH );
             }
          }
@@ -316,7 +341,7 @@ char *sec_to_hms( time_t loctime, char *tstr )
             if( sflg == 1 )
                mudstrlcat( tstr, " ", MAX_STRING_LENGTH );
             sflg = 1;
-            snprintf( buff, MAX_STRING_LENGTH, "%d hour%c", hr, DUR_ADDS( hr ) );
+            snprintf( buff, MAX_STRING_LENGTH, _("%d hour%c"), hr, DUR_ADDS( hr ) );
             mudstrlcat( tstr, buff, MAX_STRING_LENGTH );
          }
       }
@@ -325,7 +350,7 @@ char *sec_to_hms( time_t loctime, char *tstr )
          if( sflg == 1 )
             mudstrlcat( tstr, " ", MAX_STRING_LENGTH );
          sflg = 1;
-         snprintf( buff, MAX_STRING_LENGTH, "%d minute%c", mn, DUR_ADDS( mn ) );
+         snprintf( buff, MAX_STRING_LENGTH, _("%d minute%c"), mn, DUR_ADDS( mn ) );
          mudstrlcat( tstr, buff, MAX_STRING_LENGTH );
       }
    }
@@ -333,19 +358,10 @@ char *sec_to_hms( time_t loctime, char *tstr )
    {
       if( sflg == 1 )
          mudstrlcat( tstr, " ", MAX_STRING_LENGTH );
-      snprintf( buff, MAX_STRING_LENGTH, "%d second%c", sc, DUR_ADDS( sc ) );
+      snprintf( buff, MAX_STRING_LENGTH, _("%d second%c"), sc, DUR_ADDS( sc ) );
       mudstrlcat( tstr, buff, MAX_STRING_LENGTH );
    }
    return ( tstr );
-}
-
-HOLIDAY_DATA *get_holiday( short month, short day )
-{
-   HOLIDAY_DATA *holiday;
-   for( holiday = first_holiday; holiday; holiday = holiday->next )
-      if( month + 1 == holiday->month && day + 1 == holiday->day )
-         return holiday;
-   return NULL;
 }
 
 /* Reads the actual time file from disk - Samson 1-21-99 */
@@ -399,7 +415,7 @@ bool load_timedata( void )
    bool found;
 
    found = FALSE;
-   snprintf( filename, 256, "%stime.dat", SYSTEM_DIR );
+   snprintf( filename, 256, "%s", TIME_FILE );
 
    if( ( fp = fopen( filename, "r" ) ) != NULL )
    {
@@ -449,7 +465,7 @@ void save_timedata( void )
    FILE *fp;
    char filename[256];
 
-   snprintf( filename, 256, "%stime.dat", SYSTEM_DIR );
+   snprintf( filename, 256, "%s", TIME_FILE );
 
    if( ( fp = fopen( filename, "w" ) ) == NULL )
    {
@@ -472,9 +488,12 @@ void save_timedata( void )
    return;
 }
 
-do_time( CHAR_DATA* ch, char* argument)
+void
+do_time( CHAR_DATA *ch, char *argument)
 {
+#ifdef ENABLE_HOLIDAYS
    HOLIDAY_DATA *holiday;
+#endif
    extern char str_boot_time[];
    // Uncomment if you have Samson's Pfile Cleanup Snippet installed.
    //char buf[MAX_STRING_LENGTH];
@@ -484,35 +503,37 @@ do_time( CHAR_DATA* ch, char* argument)
    day = time_info.day + 1;
 
    if( day > 4 && day < 20 )
-      suf = "th";
+      suf = _("th");
    else if( day % 10 == 1 )
-      suf = "st";
+      suf = _("st");
    else if( day % 10 == 2 )
-      suf = "nd";
+      suf = _("nd");
    else if( day % 10 == 3 )
-      suf = "rd";
+      suf = _("rd");
    else
-      suf = "th";
+      suf = _("th");
 
-   ch_printf( ch, "&wIt is &W%d&w o'clock &W%s&w, Day of &W%s&w,&W %d%s&w day in the Month of &W%s&w.\r\n"
-              "&wIt is the season of %s&w, in the year &W%d&w.\r\n"
-              "&wThe mud started up at  :  &W %s\r\n"
-              "&wThe system time        :  &W %s\r\n",
+   ch_printf( ch, _("&wIt is &W%d&w o'clock &W%s&w, Day of &W%s&w,&W %d%s&w day in the Month of &W%s&w.\n"
+              "&wIt is the season of %s&w, in the year &W%d&w.\n"
+              "&wThe mud started up at :&W %s\n"
+              "&wThe system time       :&W %s\n"),
               ( time_info.hour % sysdata.hournoon == 0 ) ? sysdata.hournoon : time_info.hour % sysdata.hournoon,
-              time_info.hour >= sysdata.hournoon ? "pm" : "am", day_name[( time_info.day ) % sysdata.daysperweek], day, suf,
-              month_name[time_info.month], season_name[time_info.season], time_info.year, str_boot_time,
+              time_info.hour >= sysdata.hournoon ? "pm" : "am", _(day_name[(time_info.day) % sysdata.daysperweek]), day, suf,
+              _(month_name[time_info.month]), _(season_name[time_info.season]), time_info.year, str_boot_time,
               c_time( current_time, -1 ) );
 
-   ch_printf( ch, "&wYour local time        :  &W %s&D\r\n", c_time( current_time, ch->pcdata->timezone ) );
-   holiday = get_holiday( time_info.month, day - 1 );
+   ch_printf( ch, _("&wYour local time       :&W %s&D\n"), c_time( current_time, ch->pcdata->timezone ) );
 
+#ifdef ENABLE_HOLIDAYS
+   holiday = get_holiday( time_info.month, day - 1 );
    if( holiday != NULL )
-      ch_printf( ch, "&wIt's a holiday today:&W %s\r\n", holiday->name );
+      ch_printf( ch, _("&wIt's a holiday today:&W %s\n"), holiday->name );
+#endif
 
    if( !IS_NPC( ch ) )
    {
       if( day == ch->pcdata->day + 1 && time_info.month == ch->pcdata->month )
-         send_to_char( "&WToday is your &Pb&pi&Yr&Oth&Yd&pa&Py&R!&D\r\n", ch );
+         send_to_char( _("&WToday is your &Pb&pi&Yr&Oth&Yd&pa&Py&R!&D\n"), ch );
    }
 
   /* Uncomment if you have Samson's Pfile Cleanup Snippet installed.
@@ -535,8 +556,8 @@ void start_winter( void )
    ROOM_INDEX_DATA *room;
    int iHash;
 
-   echo_to_all( AT_CYAN, "The air takes on a chilling cold as winter sets in.", ECHOTAR_ALL );
-   echo_to_all( AT_CYAN, "Freshwater bodies everywhere have frozen over.\r\n", ECHOTAR_ALL );
+   echo_to_all( AT_CYAN, _("The air takes on a chilling cold as winter sets in."), ECHOTAR_ALL );
+   echo_to_all( AT_CYAN, _("Freshwater bodies everywhere have frozen over.\n"), ECHOTAR_ALL );
 
    winter_freeze = TRUE;
 
@@ -562,8 +583,8 @@ void start_spring( void )
    ROOM_INDEX_DATA *room;
    int iHash;
 
-   echo_to_all( AT_DGREEN, "The chill recedes from the air as spring begins to take hold.", ECHOTAR_ALL );
-   echo_to_all( AT_BLUE, "Freshwater bodies everywhere have thawed out.\r\n", ECHOTAR_ALL );
+   echo_to_all( AT_DGREEN, _("The chill recedes from the air as spring begins to take hold."), ECHOTAR_ALL );
+   echo_to_all( AT_BLUE, _("Freshwater bodies everywhere have thawed out.\n"), ECHOTAR_ALL );
 
    winter_freeze = FALSE;
 
@@ -583,18 +604,19 @@ void start_spring( void )
 
 void start_summer( void )
 {
-   echo_to_all( AT_YELLOW, "The days grow longer and hotter as summer grips the world.\r\n", ECHOTAR_ALL );
+   echo_to_all( AT_YELLOW, _("The days grow longer and hotter as summer grips the world.\n"), ECHOTAR_ALL );
    return;
 }
 
 void start_fall( void )
 {
-   echo_to_all( AT_ORANGE, "The leaves begin changing colors signaling the start of fall.\r\n", ECHOTAR_ALL );
+   echo_to_all( AT_ORANGE, _("The leaves begin changing colors signaling the start of fall.\n"), ECHOTAR_ALL );
    return;
 }
 
 void season_update( void )
 {
+#ifdef ENABLE_HOLIDAYS
    HOLIDAY_DATA *day;
 
    day = get_holiday( time_info.month, time_info.day );
@@ -606,6 +628,7 @@ void season_update( void )
          echo_to_all( AT_IMMORT, day->announce, ECHOTAR_ALL );
       }
    }
+#endif
 
    if( time_info.season == SEASON_WINTER && winter_freeze == FALSE )
    {
@@ -677,355 +700,5 @@ void calc_season( void )
 
    season_update(  );   /* Maintain the season in case of reboot, check for holidays */
 
-   return;
-}
-
-void free_holiday( HOLIDAY_DATA * day )
-{
-   UNLINK( day, first_holiday, last_holiday, next, prev );
-   DISPOSE( day->announce );
-   DISPOSE( day->name );
-   DISPOSE( day );
-   return;
-}
-
-void free_holidays( void )
-{
-   HOLIDAY_DATA *day, *day_next;
-
-   for( day = first_holiday; day; day = day_next )
-   {
-      day_next = day->next;
-      free_holiday( day );
-   }
-   return;
-}
-
-do_holidays( CHAR_DATA* ch, char* argument)
-{
-   HOLIDAY_DATA *day;
-
-   send_to_pager( "&RHoliday		       &YMonth	        &GDay\r\n", ch );
-   send_to_pager( "&g----------------------+----------------+---------------\r\n", ch );
-
-   for( day = first_holiday; day; day = day->next )
-      pager_printf( ch, "&G%-21s	&g%-11s	%-2d\r\n", day->name, month_name[day->month - 1], day->day );
-
-   return;
-}
-
-/* Read in an individual holiday */
-void fread_day( HOLIDAY_DATA * day, FILE * fp )
-{
-   const char *word;
-   bool fMatch;
-
-   for( ;; )
-   {
-      word = feof( fp ) ? "End" : fread_word( fp );
-      fMatch = FALSE;
-
-      switch ( UPPER( word[0] ) )
-      {
-         case '*':
-            fMatch = TRUE;
-            fread_to_eol( fp );
-            break;
-
-         case 'A':
-            KEY( "Announce", day->announce, fread_string_nohash( fp ) );
-            break;
-
-         case 'D':
-            KEY( "Day", day->day, fread_number( fp ) );
-            break;
-
-         case 'E':
-            if( !str_cmp( word, "End" ) )
-            {
-               if( !day->announce )
-                  day->announce = str_dup( "Today is a holiday, but who the hell knows which one." );
-               return;
-            }
-            break;
-
-         case 'M':
-            KEY( "Month", day->month, fread_number( fp ) );
-            break;
-
-         case 'N':
-            KEY( "Name", day->name, fread_string_nohash( fp ) );
-            break;
-      }
-
-      if( !fMatch )
-         bug( "fread_day: no match: %s", word );
-   }
-}
-
-/* Load the holiday file */
-void load_holidays( void )
-{
-   char filename[256];
-   HOLIDAY_DATA *day;
-   FILE *fp;
-   short daycount;
-
-   first_holiday = NULL;
-   last_holiday = NULL;
-
-   snprintf( filename, 256, "%s%s", SYSTEM_DIR, HOLIDAY_FILE );
-
-   if( ( fp = fopen( filename, "r" ) ) != NULL )
-   {
-      daycount = 0;
-      for( ;; )
-      {
-         char letter;
-         char *word;
-
-         letter = fread_letter( fp );
-         if( letter == '*' )
-         {
-            fread_to_eol( fp );
-            continue;
-         }
-
-         if( letter != '#' )
-         {
-            bug( "%s", "load_holidays: # not found." );
-            break;
-         }
-
-         word = fread_word( fp );
-         if( !str_cmp( word, "HOLIDAY" ) )
-         {
-            if( daycount >= sysdata.maxholiday )
-            {
-               bug( "load_holidays: more holidays than %d, increase Max Holiday in cset.", sysdata.maxholiday );
-               fclose( fp );
-               return;
-            }
-            CREATE( day, HOLIDAY_DATA, 1 );
-            fread_day( day, fp );
-            daycount++;
-            LINK( day, first_holiday, last_holiday, next, prev );
-            continue;
-         }
-         else if( !str_cmp( word, "END" ) )
-            break;
-         else
-         {
-            bug( "load_holidays: bad section: %s.", word );
-            continue;
-         }
-      }
-      fclose( fp );
-   }
-
-   return;
-}
-
-/* Save the holidays to disk - Samson 5-6-99 */
-void save_holidays( void )
-{
-   HOLIDAY_DATA *day;
-   FILE *fp;
-   char filename[256];
-
-   snprintf( filename, 256, "%s%s", SYSTEM_DIR, HOLIDAY_FILE );
-
-   if( !( fp = fopen( filename, "w" ) ) )
-   {
-      bug( "%s", "save_holidays: fopen" );
-      perror( filename );
-   }
-   else
-   {
-      for( day = first_holiday; day; day = day->next )
-      {
-         fprintf( fp, "%s", "#HOLIDAY\n" );
-         fprintf( fp, "Name		%s~\n", day->name );
-         fprintf( fp, "Announce	%s~\n", day->announce );
-         fprintf( fp, "Month		%d\n", day->month );
-         fprintf( fp, "Day		%d\n", day->day );
-         fprintf( fp, "%s", "End\n\n" );
-      }
-      fprintf( fp, "%s", "#END\n" );
-      fclose( fp );
-   }
-   return;
-}
-
-do_saveholiday( CHAR_DATA* ch, char* argument)
-{
-   save_holidays(  );
-   send_to_char( "Holiday chart saved.\r\n", ch );
-   return;
-}
-
-/* Holiday OLC command - (c)Andrew Wilkie May-20-2005*/
-/* Calendar code (c)The Alsherok Team*/
-do_setholiday( CHAR_DATA* ch, char* argument)
-{
-   HOLIDAY_DATA *day, *newday;
-   int count = 0;
-   int x = 0;
-   char arg1[MAX_INPUT_LENGTH], arg2[MAX_INPUT_LENGTH], arg3[MAX_INPUT_LENGTH];
-
-   argument = one_argument( argument, arg1 );
-   argument = one_argument( argument, arg2 );
-   argument = one_argument( argument, arg3 );
-
-   if( arg1 == '\0' || !str_cmp( arg1, " " ) )
-   {
-      send_to_char( "Syntax : setholiday <name> <field> <argument>\r\n", ch );
-      send_to_char( "Field can be : day name create announce save delete\r\n", ch );
-      return;
-   }
-
-/* Save em all.. saves the work of saving individual 
-   holidays when mass-creating or editing*/
-   if( !str_cmp( arg1, "save" ) )
-   {
-      save_holidays(  );
-      send_to_char( "Holiday chart saved.\r\n", ch );
-      return;
-   }
-
-/* Create a new holiday by name arg1 */
-   if( !str_cmp( arg2, "create" ) )
-   {
-      for( day = first_holiday; day; day = day->next )
-         count++;
-      for( day = first_holiday; day; day = day->next )
-      {
-         if( !str_cmp( arg1, day->name ) )
-         {
-            send_to_char( "A holiday with that name exists already!\r\n", ch );
-            return;
-         }
-      }
-
-      if( count >= sysdata.maxholiday )
-      {
-         send_to_char( "There are already too many holidays!\r\n", ch );
-         return;
-      }
-
-      CREATE( newday, HOLIDAY_DATA, 1 );
-      newday->name = str_dup( arg1 );
-      newday->day = time_info.day;
-      newday->month = time_info.month;
-      newday->announce = str_dup( "Today is the holiday of when some moron forgot to set the announcement for this one!" );
-      LINK( newday, first_holiday, last_holiday, next, prev );
-      send_to_char( "Holiday created.\r\n", ch );
-      return;
-   }
-
-/* Now... let's find that holiday */
-
-   for( day = first_holiday; day; day = day->next )
-   {
-      if( !str_cmp( day->name, arg1 ) )
-         break;
-   }
-
-/* Anything match? */
-   if( !day )
-   {
-      send_to_char( "Which holiday was that?\r\n", ch );
-      return;
-   }
-
-/* Set the day */
-
-   if( !str_cmp( arg2, "day" ) )
-   {
-      if( arg3 == '\0' || !is_number( arg3 ) || atoi( arg3 ) > sysdata.dayspermonth || atoi( arg3 ) <= 1 )
-      {
-         ch_printf( ch, "You must specify a numeric value : %d - %d", 1, sysdata.dayspermonth );
-         return;
-      }
-
-/* What day is it?... FRIDAY!.. oh... no... it's.. arg3? */
-      day->day = atoi( arg3 );
-      send_to_char( "Day changed.\r\n", ch );
-      return;
-   }
-
-   if( !str_cmp( arg2, "month" ) )
-   {
-/* Go through the months and find arg3 */
-
-      if( arg3 == '\0' || !is_number( arg3 ) || atoi( arg3 ) > sysdata.monthsperyear || atoi( arg3 ) <= 1 )
-      {
-         send_to_char( "You must specify a valid month number:\r\n", ch );
-
-/* List all the months with a counter next to them*/
-         count = 1;
-         while( month_name[x] != '\0' && str_cmp(month_name[x], " ") && x < sysdata.monthsperyear)
-
-         {
-            ch_printf( ch, "&R(&W%d&R)&Y%s\r\n", count, month_name[x] );
-            x++;
-            count++;
-         }
-return;
-      }
-
-
-/* What's the month? */
-      day->month = atoi( arg3 );
-      send_to_char( "Month changed.\r\n", ch );
-      return;
-   }
-
-   if( !str_cmp( arg2, "announce" ) )
-   {
-      if( arg3 == '\0' || !str_cmp( arg3, " " ) || is_number( arg3 ) )
-      {
-         send_to_char( "Set the annoucement to what?\r\n", ch );
-         return;
-      }
-
-/* Set the announcement */
-      DISPOSE( day->announce );
-      day->announce = str_dup( arg3 );
-      send_to_char( "Announcement changed.\r\n", ch );
-      return;
-   }
-
-/* Change the name */
-   if( !str_cmp( arg2, "name" ) )
-   {
-      if( arg3 == '\0' || !str_cmp( arg3, " " ) || is_number( arg3 ) )
-      {
-         send_to_char( "Set the name to what?\r\n", ch );
-         return;
-      }
-
-/* Release the good...err... name */
-      DISPOSE( day->name );
-      day->name = str_dup( arg3 );
-      send_to_char( "Name changed.\r\n", ch );
-      return;
-   }
-
-   if( !str_cmp( arg2, "delete" ) )
-   {
-      if( str_cmp( arg3, "yes" ) )
-      {
-         send_to_char( "If you are sure, use 'delete yes'.\r\n", ch );
-         return;
-      }
-
-      free_holiday( day );
-      send_to_char( "&RHoliday deleted.\r\n", ch );
-      return;
-   }
-
-   send_to_char( "Syntax: setholiday <name> <field> <argument>\r\n", ch );
-   send_to_char( "Field can be: day name create announce save delete\r\n", ch );
    return;
 }

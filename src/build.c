@@ -20,6 +20,15 @@
      |              -*- Online Building and Editing Module -*-             |
      |_____________________________________________________________________|
     //                                                                     \\
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+   [|                                                                       |]
+   [|  AFKMud Copyright 1997-2007 by Roger Libiez (Samson),                 |]
+   [|  Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),       |]
+   [|  Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine,            |]
+   [|  Xorith, and Adjani.                                                  |]
+   [|  All Rights Reserved. External contributions from Remcon, Quixadhal,  |]
+   [|  Zarius and many others.                                              |]
+   [|                                                                       |]
    [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
    [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
    [|                                                                       |]
@@ -27,8 +36,6 @@
    [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
    [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
    [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
     \\_____________________________________________________________________//
 */
 
@@ -100,6 +107,16 @@ char *const o_flags[] = {
   "deathdrop", "skinned", "nofill", "blackened", "noscavenge",
   "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10"
 };
+
+#ifdef ENABLE_OLC2
+char * const   container_flags [] =
+{
+	"closeable", "pickproof", "closed", "locked", "eatkey", "r1", "r2", "r3",
+	"r4", "r5", "r6", "r7", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15",
+	"r16", "r17", "r18", "r19", "r20", "r21", "r22", "r23", "r24", "r25", "r26",
+	"r27"
+};
+#endif
 
 char *const mag_flags[] = {
   "returning", "backstabber", "bane", "loyal", "haste", "drain",
@@ -197,7 +214,11 @@ char *const pc_flags[] = {
 /* changed "r8" to "" so players on watch can't see it  -- Gorog */
   "nosummon", "pager", "notitled", "groupwho", "diagnose", "highgag", "",
   "nstart", "dnd", "idle", "nobio", "nodesc", "beckon", "noexp", "nobeckon",
-  "hints", "nohttp", "freekill", "r20", "r21", "r22", "r23", "r24", "r25",
+  "hints", "nohttp", "freekill", 
+#ifdef ENABLE_BUILDWALK
+	"buildwalk",
+#endif
+  "r20", "r21", "r22", "r23", "r24", "r25",
   "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10"
 };
 
@@ -1183,10 +1204,17 @@ do_goto (CHAR_DATA * ch, char *argument)
   if (ch->fighting)
     stop_fighting (ch, TRUE);
 
+#ifdef ENABLE_BUILDWALK
+    if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) && !IS_NPC( ch ) )
+    {
+#endif
   if (!xIS_SET (ch->act, PLR_WIZINVIS))
     act (AT_IMMORT, "$n $T", ch, NULL,
 	 (ch->pcdata && ch->pcdata->bamfout[0] != '\0')
 	 ? ch->pcdata->bamfout : "leaves in a swirling mist.", TO_ROOM);
+#ifdef ENABLE_BUILDWALK
+		}
+#endif
 
   ch->regoto = ch->in_room->vnum;
   char_from_room (ch);
@@ -1197,10 +1225,17 @@ do_goto (CHAR_DATA * ch, char *argument)
     }
   char_to_room (ch, location);
 
+#ifdef ENABLE_BUILDWALK
+    if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) && !IS_NPC( ch ) )
+    {
+#endif
   if (!xIS_SET (ch->act, PLR_WIZINVIS))
     act (AT_IMMORT, "$n $T", ch, NULL,
 	 (ch->pcdata && ch->pcdata->bamfin[0] != '\0')
 	 ? ch->pcdata->bamfin : "appears in a swirling mist.", TO_ROOM);
+#ifdef ENABLE_BUILDWALK
+		}
+#endif
 
   do_look (ch, "auto");
 
@@ -5751,8 +5786,15 @@ do_redit (CHAR_DATA * ch, char *argument)
 	  xit->description = STRALLOC ("");
 	  xit->key = -1;
 	  xit->exit_info = 0;
+#ifdef ENABLE_BUILDWALK
+    if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) && !IS_NPC( ch ) )
+    {
+#endif
 	  act (AT_IMMORT, "$n reveals a hidden passage!", ch, NULL, NULL,
 	       TO_ROOM);
+#ifdef ENABLE_BUILDWALK
+		}
+#endif
 	}
       else
 	act (AT_IMMORT, _("Something is different..."), ch, NULL, NULL, TO_ROOM);

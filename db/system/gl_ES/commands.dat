@@ -389,6 +389,14 @@ Log         0
 End
 
 #COMMAND
+Name        buildwalk~
+Code        do_buildwalk
+Position    100
+Level       61
+Log         1
+End
+
+#COMMAND
 Name        bug~
 Code        do_bug
 Position    100
@@ -619,10 +627,18 @@ Log         0
 End
 
 #COMMAND
-Name        cociñar~
+Name        cocinhar~
 Code        do_cook
 Position    100
 Level       1
+Log         0
+End
+
+#COMMAND
+Name        color~
+Code        do_color
+Position    100
+Level       0
 Log         0
 End
 
@@ -1279,6 +1295,14 @@ Log         0
 End
 
 #COMMAND
+Name        vacacions~
+Code        do_holidays
+Position    100
+Level       0
+Log         0
+End
+
+#COMMAND
 Name        hotboot~
 Code        do_hotboot
 Position    100
@@ -1452,7 +1476,7 @@ Log         0
 End
 
 #COMMAND
-Name        ignorar
+Name        ignorar~
 Code        do_ignore
 Position    100
 Level       1
@@ -2910,6 +2934,38 @@ Log         0
 End
 
 #COMMAND
+Name        ocopy~
+Code        do_ocopy
+Position    100
+Level       64
+Log         0
+End
+
+#COMMAND
+Name        omedit~
+Code        do_omedit
+Position    100
+Level       55
+Log         3
+End
+
+#COMMAND
+Name        ooedit~
+Code        do_ooedit
+Position    100
+Level       55
+Log         3
+End
+
+#COMMAND
+Name        oredit~
+Code        do_oredit
+Position    100
+Level       55
+Log         3
+End
+
+#COMMAND
 Name        poñer~
 Code        do_put
 Position    106
@@ -3766,6 +3822,30 @@ Log         1
 End
 
 #COMMAND
+Name        setmssp~
+Code        do_setmssp
+Position    100
+Level       61
+Log         1
+End
+
+#COMMAND
+Name        setholiday~
+Code        do_setholiday
+Position    100
+Level       60
+Log         1
+End
+
+#COMMAND
+Name        saveholiday~
+Code        do_saveholiday
+Position    100
+Level       60
+Log         0
+End
+
+#COMMAND
 Name        setliquid~
 Code        do_setliquid
 Position    100
@@ -4260,6 +4340,22 @@ Position    100
 Level       1
 Log         0
 Flags       4
+End
+
+#COMMAND
+Name        time~
+Code        do_time
+Position    100
+Level       0
+Log         0
+End
+
+#COMMAND
+Name        timezone~
+Code        do_timezone
+Position    100
+Level       0
+Log         0
 End
 
 #COMMAND

@@ -20,6 +20,15 @@
      |              -*- Character Saving & Loading Module -*-              |
      |_____________________________________________________________________|
     //                                                                     \\
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+   [|                                                                       |]
+   [|  AFKMud Copyright 1997-2007 by Roger Libiez (Samson),                 |]
+   [|  Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),       |]
+   [|  Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine,            |]
+   [|  Xorith, and Adjani.                                                  |]
+   [|  All Rights Reserved. External contributions from Remcon, Quixadhal,  |]
+   [|  Zarius and many others.                                              |]
+   [|                                                                       |]
    [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
    [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
    [|                                                                       |]
@@ -27,8 +36,6 @@
    [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
    [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
    [|  Nyboe. Win32 port Nick Gammon.                                       |]
-   [|                                                                       |]
-   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
     \\_____________________________________________________________________//
 */
 
@@ -509,6 +516,13 @@ fwrite_char (CHAR_DATA * ch, FILE * fp)
   fprintf (fp, "MKills       %d\n", ch->pcdata->mkills);
   fprintf (fp, "MDeaths      %d\n", ch->pcdata->mdeaths);
   fprintf (fp, "IllegalPK    %d\n", ch->pcdata->illegal_pk);
+#ifdef ENABLE_TIMEZONE
+  fprintf( fp, "Timezone     %d\n", ch->pcdata->timezone );
+#endif
+  fprintf( fp, "Locale       %s~\n", ch->pcdata->lang );
+#ifdef MARRIAGE
+  fprintf( fp, "Spouse       %s~\n", ch->pcdata->spouse );
+#endif
   fprintf (fp, "AttrPerm     %d %d %d %d %d %d %d\n",
 	   ch->perm_str,
 	   ch->perm_int,
@@ -565,10 +579,12 @@ fwrite_char (CHAR_DATA * ch, FILE * fp)
 	  fprintf (fp, "Homeowner %s~\n", tmphb->seller);
     }
 
+#ifndef ENABLE_COLOR
   for (sn = 0; sn < AT_MAXCOLOR; ++sn)
     if (ch->pcdata->colorize[sn] != -1)
       fprintf (fp, "Color        %s %d\n", at_color_table[sn].name,
 	       ch->pcdata->colorize[sn]);
+#endif
 
   for (sn = 1; sn < top_sn; sn++)
     {
@@ -623,6 +639,17 @@ fwrite_char (CHAR_DATA * ch, FILE * fp)
       fprintf (fp, "Killed       %d %d\n",
 	       ch->pcdata->killed[sn].vnum, ch->pcdata->killed[sn].count);
     }
+
+#ifdef ENABLE_COLOR
+   {
+      int x;
+      fprintf( fp, "MaxColors    %d\n", MAX_COLORS );
+      fprintf( fp, "Colors       " );
+      for( x = 0; x < MAX_COLORS; x++ )
+         fprintf( fp, "%d ", ch->colors[x] );
+      fprintf( fp, "\n" );
+   }
+#endif
 
   fprintf (fp, "End\n\n");
   return;
@@ -925,8 +952,10 @@ load_char_obj (DESCRIPTOR_DATA * d, char *name, bool preload)
   ch->pcdata->hotboot = FALSE;  /* Never changed except when PC is saved during hotboot save */
 #endif
 
+#ifndef ENABLE_COLOR
   for (i = 0; i < AT_MAXCOLOR; ++i)
     ch->pcdata->colorize[i] = -1;
+#endif
 
   found = FALSE;
   sprintf (strsave, "%s%c/%s", PLAYER_DIR, tolower (name[0]),
@@ -1065,6 +1094,9 @@ load_char_obj (DESCRIPTOR_DATA * d, char *name, bool preload)
       ch->pcdata->o_range_lo = 0;
       ch->pcdata->o_range_hi = 0;
       ch->pcdata->wizinvis = 0;
+#ifdef ENABLE_TIMEZONE
+      ch->pcdata->timezone = -1;
+#endif
     }
   else
     {
@@ -1171,6 +1203,16 @@ fread_char (CHAR_DATA * ch, FILE * fp, bool preload)
 
   file_ver = 0;
   killcnt = 0;
+
+#ifdef ENABLE_COLOR
+  int max_colors = 0;
+
+ /*
+  * Setup color values in case player has none set - Samson
+  */
+  memcpy( &ch->colors, &default_set, sizeof( default_set ) );
+#endif
+
   for (;;)
     {
       word = feof (fp) ? "End" : fread_word (fp);
@@ -1314,6 +1356,15 @@ fread_char (CHAR_DATA * ch, FILE * fp, bool preload)
 
 	  KEY ("Class", ch->class, fread_number (fp));
 
+#ifdef ENABLE_COLOR
+	  if (!str_cmp (word, "Colors"))
+	    {
+        int x;
+
+        for( x = 0; x < max_colors; x++ )
+          ch->colors[x] = fread_number( fp );
+          fread_to_eol( fp );
+#else
 	  if (!str_cmp (word, "Color"))
 	    {
 	      char *cword;
@@ -1332,6 +1383,7 @@ fread_char (CHAR_DATA * ch, FILE * fp, bool preload)
 		  bug ("Fread_char: color %s invalid.", cword);
 		  fread_number (fp);
 		}
+#endif
 	      fMatch = TRUE;
 	      break;
 	    }
@@ -1569,6 +1621,7 @@ fread_char (CHAR_DATA * ch, FILE * fp, bool preload)
 	case 'L':
 	  KEY ("Level", ch->level, fread_number (fp));
 	  KEY ("LongDescr", ch->long_descr, fread_string (fp));
+    KEY ("Locale", ch->pcdata->lang, fread_string (fp));
 	  if (!strcmp (word, "Languages"))
 	    {
 	      ch->speaks = fread_number (fp);
@@ -1578,6 +1631,15 @@ fread_char (CHAR_DATA * ch, FILE * fp, bool preload)
 	  break;
 
 	case 'M':
+#ifdef ENABLE_COLOR
+    if( !str_cmp( word, "MaxColors" ) )
+    {
+      int temp = fread_number( fp );
+      max_colors = UMIN( temp, MAX_COLORS );
+      fMatch = TRUE;
+      break;
+    }
+#endif
 	  KEY ("MDeaths", ch->pcdata->mdeaths, fread_number (fp));
 	  KEY ("Mentalstate", ch->mental_state, fread_number (fp));
 	  KEY ("MGlory", ch->pcdata->quest_accum, fread_number (fp));
@@ -1719,6 +1781,9 @@ fread_char (CHAR_DATA * ch, FILE * fp, bool preload)
 	  KEY ("SeeMe", ch->pcdata->see_me, fread_string (fp));	// Alty
 	  KEY ("Sex", ch->sex, fread_number (fp));
 	  KEY ("ShortDescr", ch->short_descr, fread_string (fp));
+#ifdef MARRIAGE
+	  KEY ("Spouse", ch->pcdata->spouse, fread_string (fp));
+#endif
 	  KEY ("Stance", ch->stance, fread_number (fp));
 	  if (!str_cmp (word, "Stances"))
 	    {
@@ -1964,6 +2029,9 @@ fread_char (CHAR_DATA * ch, FILE * fp, bool preload)
 	      break;
 	    }
 	  KEY ("Trust", ch->trust, fread_number (fp));
+#ifdef ENABLE_TIMEZONE
+    KEY( "Timezone", ch->pcdata->timezone, fread_number( fp ));
+#endif
 	  /* Let no character be trusted higher than one below maxlevel -- Narn */
 	  ch->trust = UMIN (ch->trust, MAX_LEVEL - 1);
 
