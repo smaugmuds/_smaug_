@@ -203,9 +203,11 @@ char *const act_flags[] = {
   "scholar", "secretive", "hardhat", "mobinvis", "noassist", "autonomous",
   "pacifist", "noattack", "annoying", "statshield", "prototype", "nosummon",
   "nosteal", "r2", "infested", "free2", "blocking", "is_clone",
-  "is_dreamform",
-  "is_spiritform", "is_projection", "stopscript", "r1", "r2", "r3", "r4",
-  "r5", "r6", "r7", "r8", "r9", "r10"
+  "is_dreamform", "is_spiritform", "is_projection", "stopscript",
+#ifdef BANK_INSTALLED
+  "banker",
+#endif
+  "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10"
 };
 
 char *const pc_flags[] = {

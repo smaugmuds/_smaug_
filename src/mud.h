@@ -1716,8 +1716,8 @@ struct smaug_affect
 #define ACT_IS_DREAMFORM    38	/* Same as PLR_IS_DREAMFORM */
 #define ACT_IS_SPIRITFORM   39	/* Same as PLR_IS_SPIRITFORM */
 #define ACT_IS_PROJECTION   40	/* Same as PLR_IS_PROJECTION */
-#define ACT_STOP_SCRIPT			41	/* Don't execute script progs */
-#define ACT_BANKER					42
+#define ACT_STOP_SCRIPT	    41	/* Don't execute script progs */
+#define ACT_BANKER	    42
 
 /*
  * Bits for 'affected_by'.

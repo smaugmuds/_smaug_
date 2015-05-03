@@ -1021,6 +1021,10 @@ MENU_DATA mob_page_b_data[] = { {
  "1", "k", 5, 12, "%1.1s", NULL, STRING, 1, "mset %s flags polyself"},
 {
  "1", "l", 5, 29, "%1.1s", NULL, STRING, 1, "mset %s flags meta_aggr"},
+#ifdef BANK_INSTALLED
+{
+ "1", "l", 5, 29, "%1.1s", NULL, STRING, 1, "mset %s flags banker"},
+#endif
 {
  "1", "m", 5, 47, "%1.1s", NULL, STRING, 1, "mset %s flags guardian"},
 {
