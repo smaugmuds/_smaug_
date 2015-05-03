@@ -51,7 +51,7 @@
 
 **--{SMAUG II}--** is a **Merc** and **DikuMUD** derived MUD server. Its name is a backronym inspired by the dragon **Smaug** found in **J. R. R. Tolkien's** fiction. **--{SMAUG II}--** is a multiplayer text-based role-playing game in a real-time virtual world, which is a type of MUD. Modern massively multiplayer online role-playing games **(MMORPGs)** traces directly back to the MUD genre.
 
-**--{SMAUG II}--** is an enhancenment of **SMAUG 1.8b**, this project was started to have a source code structure which builds, installs and runs in most modern distributed system environments. **--{SMAUG II}--** is ready to add, enable and disable new code snippets using the **GNU Autotools** build system. Many bug fixes and additions were made to the **SMAUG 1.8b** source code, always trying to keep the compatibility with **SMAUG 1.8b**. All paths for data files and directories were modified, because **--{SMAUG II}--** installation is stored into a **LSB** directory distribution. All code is internationalized using **GNU Gettext**, all zones, clases, races and some system files were modified to be translated. Old "**startd**" script was replaced with "**smaugd**" and "**smaugd-monitor**", these scripts will start up and keep your MUD server running. If **--{SMAUG II}--** server process fails, "**smaugd-monitor**" will respawn it again. To know more about all these new changes, take a look at the section **--{SMAUG II}-- ChangeLog**. Some new code snippets were extracted and adapted from **AFKMud** and **SMAUGfuss**. All licenses and mentions to the original code authors was saved in all header files.
+**--{SMAUG II}--** is an enhancenment of **SMAUG 1.8b**, this project was started to have a source code structure which builds, installs and runs in most modern distributed system environments. **--{SMAUG II}--** is ready to add, enable and disable new code snippets using the **GNU Autotools** build system. Many bug fixes and additions were made to the **SMAUG 1.8b** source code, always trying to keep the compatibility with **SMAUG 1.8b**. All paths for data files and directories were modified, because **--{SMAUG II}--** installation is stored into a **LSB** directory distribution. All code is internationalized using **GNU Gettext**, all zones, clases, races and some system files were modified to be translated. Old "**startd**" script was replaced with "**smaugd**" and "**smaugd-monitor**", these scripts will start up and keep your MUD server running. If **--{SMAUG II}--** server process fails, "**smaugd-monitor**" will respawn it again. To know more about all these new changes, take a look at the section **--{SMAUG II}-- ChangeLog**. Some new code snippets were extracted and adapted from **AFKMud** and **SMAUGfuss**. All licenses and mentions to the original **SMAUG** code authors are displayed in source code header files.
 
 **SMAUG 1.8b**, is an fixed **SMAUG 1.4a** which is a heavily modified derivative of the **Merc 2.1** distribution. **SMAUG 1.4a** is close to six times the size of **Merc 2.1**, and has major changes to the inner workings of the code, hence making porting of code from other Diku-derivatives non-trivial to the non-coder. Due to the ability to edit most everything online, you will most likely find the online help pages more informative. **SMAUG** is the base code that runs the popular **Realms of Despair** MUD. Through the years it has been tweaked, modified, and enhanced to become one of the most feature packed branches of the **MERC** family of codebases. 
 
@@ -99,8 +99,10 @@
 
 Here are just some of the features **--{SMAUG II}--** has:
 
-	- Full featured, bug-free command-line online building (including shops, resets, repairshops, etc)
-	- Optional easy to use menu-based online building
+	- Full featured, Command-Line Online Building (including shops, resets, repairshops, etc)
+	- Optional, easy to use menu-based online building
+	- Online building updated to Oasis OLCII
+	- New Online Building features and Buildwalk
 	- Damageable and repairable equipment
 	- MUDPrograms/scripts (mob, obj and room programs)
 	- Monsters that will remember you, hunt you down, and summon you
@@ -139,15 +141,18 @@ Here are just some of the features **--{SMAUG II}--** has:
 	- Projectiles are fully supported
 	- Extended bit vectors for when 32 are just not enough
 	- SHA256 player passwords encryption.
-  - New personalized Colors.
+	- New personalized Colors.
 	- Room Mapper.
-	- New Weather and Calendar system .
-  - Room Planes
+	- New Weather.
+	- Timezone.
+	- Holidays.
+	- Server and Characters Translations.
+	- Room Planes
 	- Mounts and much much more
 	- Fixed Liquids & Mixtures.
 	- Banking System.
-  - Player marriage system.
-  - Mongoose web server with jta26 as Online MUD Web Client.
+	- Player marriage system.
+	- Mongoose web server with jta26 as Online MUD Web Client.
 
 Realm Areas:
 ```
@@ -185,9 +190,11 @@ Realm Areas:
 	* Changes from **SMAUG 1.8b** to **--{SMAUG II}--**:
 ```
 		- Moved all "KEY" definitions to "mud.h".
-		- Room Mapper, Colors, Weather & Calendar systems from AFKMud.
+		- Added Oasis OLCII Online editor, new features and "do_buildwalk".
+		- Defined new MUD default colors.
+		- Adapted Room Mapper, Colors, Weather, Timezone, Holidays systems from AFKMud.
 		- Added Mongoose web server with JTA26.jar MUD WebClient.
-		- Added GNU Gettext support: Translated MUD Areas, Races, Classes, Commands, Skills & Socials.
+		- Added GNU Gettext support. Translated: Server, Areas, Races, Classes, Commands, Skills & Socials.
 		- Required runtime data directories moved to "data".
 		- Renamed "services.c" to "win32srv.c".
 		- Renamed "comm.c" to "smaug.c".

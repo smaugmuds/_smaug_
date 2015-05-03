@@ -94,6 +94,7 @@ CLEANDEVELFILES = compile configure depcomp src/smaug.h src/*.la ar-lib \
 	src/smaug src/smaug-resolv src/smaug-httpd Doxyfile po/POTFILES po/stamp-po \
 	AUTHORS ChangeLog INSTALL config.lt libtool src/.deps src/*.o src/*.lo \
 	`find $(srcdir) -iname "Makefile.in"` \
+	`find $(srcdir) -iname "*.autogen-bak"` \
 	`find $(srcdir) -iname "*~"`
 
 CLEANBUILDFILES = config.log etc/smaugd.conf etc/init.d/smaugd bin/smaug-monitor \
@@ -102,8 +103,7 @@ CLEANBUILDFILES = config.log etc/smaugd.conf etc/init.d/smaugd bin/smaug-monitor
 	`find $(srcdir) -iname "Makefile"`
 
 CLEANFILES = $(CLEANBUILDFILES) \
-	`find $(srcdir) -iname "*~"` \
-	`find $(srcdir) -iname "*.autogen-bak"`
+	`find $(srcdir) -iname "*~"`
 
 if HAVE_DOXYGEN
 all-doc:
