@@ -1528,7 +1528,7 @@ void oedit_parse( DESCRIPTOR_DATA *d, char *arg )
 
         case ITEM_CONTAINER:
             number = atoi(arg);
-            if ( number < 0 || number > 31 )
+            if ( number < 0 || number > MAX_OLC_ITEMS_LIST )
                 oedit_disp_container_flags_menu(d);
             else
             {

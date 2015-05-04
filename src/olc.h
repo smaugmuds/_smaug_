@@ -11,6 +11,7 @@
 \**************************************************************************/
 
 #define MAX_RIS_FLAG 21
+#define MAX_OLC_ITEMS_LIST 51
 
 /* Global function definitions */
 void oedit_parse( DESCRIPTOR_DATA *d, char *arg );

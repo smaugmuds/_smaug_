@@ -336,9 +336,9 @@ void redit_disp_flag_menu( DESCRIPTOR_DATA *d )
     int counter, columns = 0;
 
     write_to_buffer( d, "50\x1B[;H\x1B[2J", 0 );
-    for ( counter = 0; counter < 31; counter++ ) 
+    for ( counter = 0; counter < MAX_OLC_ITEMS_LIST; counter++ ) 
     {
-	if ( counter == 28 || counter == 29 || counter == 31 )
+	if ( counter == MAX_OLC_ITEMS_LIST-3 || counter == MAX_OLC_ITEMS_LIST-2 || counter == MAX_OLC_ITEMS_LIST )
 	    continue;
 
 	sprintf( buf, "&g%2d&w) %-20.20s ", counter + 1, r_flags[counter]);
