@@ -101,7 +101,7 @@ libsmaug_olc_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
 libsmaug_olc_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
 
 libsmaug_olc_la_SOURCES = \
-oedit.c redit.c medit.c
+ooedit.c oredit.c omedit.c
 endif
 
 if ENABLE_DNS_RESOLV

@@ -2,7 +2,10 @@
 
 
 
+#VERSION 3
 #AUTHOR Scarab~
+
+#CREDITS ~
 
 #RANGES
 1 5 0 60
@@ -13,7 +16,9 @@ $
 #FLAGS
 1 3
 
-#ECONOMY 0 497845790
+#ECONOMY 0 497818680
+
+#CLIMATE 2 2 2
 
 #MOBILES
 #10300
@@ -22,28 +27,30 @@ the dread wolf~
 A dread wolf is hunting here
 ~
 ~
-1073741889 0 0 C
+1073741889 0 0 V
 4 0 35 44d0+1 0d0+0
 500 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 66692 0 2048 0 0 0
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10301
 slug arena~
 a slimy slug~
 A slimy slug is here scrounging up a meal
 ~
 ~
-65 0 0 C
+65 0 0 V
 4 0 45 44d0+1 0d0+0
 500 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 66560 0 2048 0 0 0
+2 25 25 25 25 25 25 0 0 0 0 0 
 #10302
 naga arena~
 the bone naga~
@@ -52,28 +59,30 @@ A bone naga rears up on its tail, ready to strike at you.
 Possessing the lower body of a snake and the upper body of a skeleton,
 this creature is something to be careful of.
 ~
-65 0 -200 C
+65 0 -200 V
 5 0 88 55d0+1 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 62
 0 0 0 0 131073 131073 0
 0 0 66561 0 2048 0 0 0
+6 25 25 25 25 25 25 0 0 0 0 0 
 #10303
 crawler arena~
 a carrion crawler~
 A carrion crawler growls at you.
 ~
 ~
-65 56 0 C
+65 56 0 V
 5 0 -1 55d0+1 0d0+0
 1000 0
-8 8 1
+112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 1159 0 2048 0 0 0
+2 25 25 25 25 25 25 0 0 0 0 0 
 #10304
 ~
 the naga~
@@ -83,10 +92,15 @@ Not the prettiest creature you have evere seen. This beast's entire lower
 half is that of a snake, while the upper part of it's body is that of a
 woman, and she doesn't look happy to see you.
 ~
-1073741891 0 0 S
+1073741891 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 25 25 25 25 25 25 0 0 0 0 0 
 #10305
 naga cage~
 the naga~
@@ -96,14 +110,15 @@ Not the prettiest creature you have ever seen. This beasts entire lower
 half is that of a snake. The upper part of its body is that of a woman.
 She does not look happy to see you.
 ~
-1073741891 0 0 C
+1073741891 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 1159 0 0 0 0 0
+1 25 25 25 25 25 25 0 0 0 0 0 
 #10306
 naga cage~
 the naga~
@@ -113,14 +128,15 @@ Not the prettiest creature you have ever seen. This beasts entire lower
 half is that of a snake. The upper part of its body is that of a woman.
 She does not look happy to see you.
 ~
-67 0 0 C
+67 0 0 V
 1 0 -92 11d1+0 0d0+0
 0 0
-8 8 1
+112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 1159 0 0 0 0 0
+1 25 25 25 25 25 25 0 0 0 0 0 
 #10307
 naga cage~
 the naga~
@@ -130,14 +146,15 @@ Not the prettiest creature you have ever seen. This beasts entire lower
 half is that of a snake. The upper part of its body is that of a woman.
 She does not look happy to see you.
 ~
-67 0 0 C
+67 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 1159 0 0 0 0 0
+2 25 25 25 25 25 25 0 0 0 0 0 
 #10308
 naga cage~
 the naga~
@@ -147,14 +164,15 @@ Not the prettiest creature you have ever seen. This beasts entire lower
 half is that of a snake. The upper part of its body is that of a woman.
 She does not look happy to see you.
 ~
-67 0 0 C
+67 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 1159 0 0 0 0 0
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10309
 naga cage~
 the naga~
@@ -164,14 +182,15 @@ Not the prettiest creature you have ever seen. This beasts entire lower
 half is that of a snake. The upper part of its body is that of a woman.
 She does not look happy to see you.
 ~
-67 0 0 C
+67 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 1159 0 0 0 0 0
+4 25 25 25 25 25 25 0 0 0 0 0 
 #10310
 naga cage~
 the naga~
@@ -181,14 +200,15 @@ Not the prettiest creature you have ever seen. This beasts entire lower
 half is that of a snake. The upper part of its body is that of a woman.
 She does not look happy to see you.
 ~
-67 0 0 C
+67 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 1159 0 0 0 0 0
+4 25 25 25 25 25 25 0 0 0 0 0 
 #10311
 naga cage~
 the naga~
@@ -198,14 +218,15 @@ Not the prettiest creature you have ever seen. This beasts entire lower
 half is that of a snake. The upper part of its body is that of a woman.
 She does not look happy to see you.
 ~
-67 0 0 C
+67 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 1159 0 0 0 0 0
+6 25 25 25 25 25 25 0 0 0 0 0 
 #10312
 gnoll cage~
 the gnoll~
@@ -214,14 +235,15 @@ A young gnoll is here ready to attack you.
 Eager to test his prowess in battle, this young gnoll bares his fangs at you.
 He is trying to strike fear in your heart.
 ~
-35 0 0 C
+35 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 0 0 0 1 1 0
 0 0 1031 0 0 0 0 0
+3 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 90~
 if level($n) >= 4
 if mobinroom(10312) <= 1
@@ -240,14 +262,15 @@ A young gnoll is here ready to attack you.
 Eager to test his prowess in battle, this young gnoll bares his fangs at you.
 He is trying to strike fear in your heart.
 ~
-35 0 0 C
+35 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 0 0 0 1 1 0
 0 0 1031 0 0 0 0 0
+1 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 90~
 if level($n) >= 4
 if mobinroom(10313) <= 1
@@ -266,14 +289,15 @@ A young gnoll is here ready to attack you.
 Eager to test his prowess in battle, this young gnoll bares his fangs at you.
 He is trying to strike fear in your heart.
 ~
-35 0 0 C
+35 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 0 0 0 1 1 0
 0 0 1031 0 0 0 0 0
+4 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 90~
 if level($n) >= 4
 if mobinroom(10314) <= 1
@@ -292,14 +316,15 @@ A young gnoll is here ready to attack you.
 Eager to test his prowess in battle, this young gnoll bares his fangs at you.
 He is trying to strike fear in your heart.
 ~
-35 0 0 C
+35 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 0 0 0 1 1 0
 0 0 1031 0 0 0 0 0
+5 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 90~
 if level($n) >= 4
 if mobinroom(10315) <= 1
@@ -318,14 +343,15 @@ A young gnoll is here ready to attack you.
 Eager to test his prowess in battle, this young gnoll bares his fangs at you.
 He is trying to strike fear in your heart.
 ~
-35 8 0 C
+35 8 0 V
 1 0 69 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 83
 0 0 0 0 131073 131073 0
 0 0 1031 0 0 0 0 0
+2 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 90~
 if level($n) >= 4
 if mobinroom(10316) <= 1
@@ -344,14 +370,15 @@ A young gnoll is here ready to attack you
 Eager to test his prowess in battle, this young gnoll bares his fangs at you.
 He is trying to strike fear in your heart.
 ~
-35 0 0 C
+35 0 0 V
 1 0 0 11d1+0 0d0+0
 100 0
-8 8 1
+112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 1031 0 0 0 0 0
+6 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 90~
 if level($n) >= 4
 if mobinroom(10317) <= 1
@@ -370,14 +397,15 @@ A young gnoll is here ready to attack you.
 Eager to test his prowess in battle, this young gnoll bares his fangs at you.
 He is trying to strike fear in your heart.
 ~
-35 0 0 C
+35 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 0 0 0 1 1 0
 0 0 1031 0 0 0 0 0
+1 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 90~
 if level($n) >= 4
 if mobinroom(10318) <= 1
@@ -396,14 +424,15 @@ A kobold with a sickly grin on its face is here.
 He looks back at you with his beady little eyes. With a snarl he attacks.
 You are sure you can beat in combat.
 ~
-35 0 0 C
+35 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 3 0 0 0 131073 131072 0
 0 0 3 0 0 0 0 0
+1 25 25 25 25 25 25 0 0 0 0 0 
 #10320
 kobold cage~
 the kobold~
@@ -412,14 +441,15 @@ A kobold with a sickly grin on its face is here.
 He looks back at you with his beady little eyes. With a snarl he attacks.
 You are sure you can beat in combat.
 ~
-35 0 0 C
+35 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 3 0 0 0 131073 131072 0
 0 0 3 0 0 0 0 0
+2 25 25 25 25 25 25 0 0 0 0 0 
 #10321
 kobold cage~
 the kobold~
@@ -428,14 +458,15 @@ A kobold with a sickly grin on its face is here.
 He looks back at you with his beady little eyes. With a snarl he attacks.
 You are sure you can beat in combat.
 ~
-35 0 0 C
+35 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 3 0 0 0 131073 131072 0
 0 0 3 0 0 0 0 0
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10322
 kobold cage~
 the kobold~
@@ -444,14 +475,15 @@ A kobold with a sickly grin on its face is here.
 He looks back at you with his beady little eyes. With a snarl he attacks.
 You are sure you can beat in combat.
 ~
-35 0 0 C
+35 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 3 0 0 0 131073 131072 0
 0 0 3 0 0 0 0 0
+5 25 25 25 25 25 25 0 0 0 0 0 
 #10323
 kobold cage~
 the kobold~
@@ -460,14 +492,15 @@ A kobold with a sickly grin on its face is here.
 He looks back at you with his beady little eyes. With a snarl he attacks.
 You are sure you can beat in combat.
 ~
-35 0 0 C
+35 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 3 0 0 0 131073 131072 0
 0 0 3 0 0 0 0 0
+1 25 25 25 25 25 25 0 0 0 0 0 
 #10324
 kobold cage~
 the kobold~
@@ -476,14 +509,15 @@ A kobold with a sickly grin on its face is here.
 He looks back at you with his beady little eyes. With a snarl he attacks.
 You are sure you can beat in combat.
 ~
-35 0 0 C
+35 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 3 0 0 0 131073 131072 0
 0 0 3 0 0 0 0 0
+0 25 25 25 25 25 25 0 0 0 0 0 
 #10325
 kobold cage~
 the kobold~
@@ -493,14 +527,15 @@ You can't really make out any physical details of the guardian. The form
 of the spectre is constantly shifting in and out of existence, what you
 can see of it is more like a transparent mist.
 ~
-35 0 1000 C
+35 0 1000 V
 1 0 90 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 84
 3 0 0 0 3 2 0
 0 0 3 0 0 0 0 0
+1 25 25 25 25 25 25 0 0 0 0 0 
 #10326
 minotaur cage~
 the minotaur~
@@ -509,10 +544,15 @@ A minotaur is here snorting at your intrusion.
 Not the largest of the species you have ever seen. Actually this minotaur
 looks pretty small compared to the others of its kind that you have seen.
 ~
-67 0 0 S
+67 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 25 25 25 25 25 25 0 0 0 0 0 
 #10327
 minotaur cage~
 the minotaur~
@@ -521,10 +561,15 @@ A minotaur is here snorting at your intrusion.
 Not the largest of the species you have ever seen. Actually this minotaur
 looks pretty small compared to the others of its kind that you have seen.
 ~
-67 0 0 S
+67 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+2 25 25 25 25 25 25 0 0 0 0 0 
 #10328
 minotaur cage~
 the minotaur~
@@ -533,10 +578,15 @@ A minotaur is here snorting at your intrusion.
 Not the largest of the species you have ever seen. Actually this minotaur
 looks pretty small compared to the others of its kind that you have seen.
 ~
-67 0 0 S
+67 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10329
 minotaur cage~
 the minotaur~
@@ -545,10 +595,15 @@ A minotaur is here snorting at your intrusion.
 Not the largest of the species you have ever seen. Actually this minotaur
 looks pretty small compared to the others of its kind that you have seen.
 ~
-67 0 0 S
+67 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+5 25 25 25 25 25 25 0 0 0 0 0 
 #10330
 minotaur cage~
 the minotaur~
@@ -557,10 +612,15 @@ A minotaur is here snorting at your intrusion.
 Not the largest of the species you have ever seen. Actually this minotaur
 looks pretty small compared to the others of its kind that you have seen.
 ~
-67 0 0 S
+67 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+1 25 25 25 25 25 25 0 0 0 0 0 
 #10331
 minotaur cage~
 the minotaur~
@@ -569,10 +629,15 @@ A minotaur is here snorting at your intrusion.
 Not the largest of the species you have ever seen. Actually this minotaur
 looks pretty small compared to the others of its kind that you have seen.
 ~
-67 0 0 S
+67 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+6 25 25 25 25 25 25 0 0 0 0 0 
 #10332
 minotaur cage~
 the minotaur~
@@ -581,10 +646,15 @@ A minotaur is here snorting at your intrusion.
 Not the largest of the species you have ever seen. Actually this minotaur
 looks pretty small compared to the others of its kind that you have seen.
 ~
-67 0 0 S
+67 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 25 25 25 25 25 25 0 0 0 0 0 
 #10333
 healer spectre cage~
 the spectre~
@@ -594,14 +664,15 @@ You can't really make out any physical details of the guardian. The form
 of the spectre is constantly shifting in and out of existence, what you
 can see of it is more like a transparent mist.
 ~
-3 184 1000 C
+3 184 1000 V
 50 0 0 20000d1+0 0d0+0
 0 0
-8 8 0
+112 112 0
 18 13 13 13 13 13 0
 0 0 0 0 0
 1 0 0 0 2 3 0
 0 0 0 0 2097152 0 0 0
+5 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p is dying~
 mpforce 0.$n drink
 mpechoat $n Drinking fluid will help your thirst and improve your mental state.
@@ -622,14 +693,15 @@ You can't really make out any physical details of the guardian. The form
 of the spectre is constantly shifting in and out of existence, what you
 can see of it is more like a transparent mist.
 ~
-1073741827 184 1000 C
+1073741827 184 1000 V
 50 0 0 20000d1+0 0d0+0
 0 0
-8 8 0
+112 112 0
 18 13 13 13 13 13 0
 0 0 0 0 0
 1 0 0 0 3 3 0
 0 0 0 0 2097152 0 0 0
+1 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p is dying~
 mpforce 0.$n drink
 mpechoat $n Drinking fluid will help your thirst and improve your mental state.
@@ -650,14 +722,15 @@ You can't really make out any physical details of the guardian. The form
 of the spectre is constantly shifting in and out of existence, what you
 can see of it is more like a transparent mist.
 ~
-3 184 1000 C
+3 184 1000 V
 50 0 0 20000d1+0 0d0+0
 0 0
-8 8 0
+112 112 0
 18 13 13 13 13 13 0
 0 0 0 0 0
 1 0 0 0 2 3 0
 0 0 0 0 2097152 0 0 0
+3 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p is dying~
 mpforce 0.$n drink
 mpechoat $n Drinking fluid will help your thirst and improve your mental state.
@@ -678,14 +751,15 @@ You can't really make out any physical details of the guardian. The form
 of the spectre is constantly shifting in and out of existence, what you
 can see of it is more like a transparent mist.
 ~
-3 184 1000 C
+3 184 1000 V
 50 0 0 20000d1+0 0d0+0
 0 0
-8 8 0
+112 112 0
 18 13 13 13 13 13 0
 0 0 0 0 0
 1 0 0 0 2 3 0
 0 0 0 0 2097152 0 0 0
+5 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p is dying~
 mpforce 0.$n drink
 mpechoat $n Drinking fluid will help your thirst and improve your mental state.
@@ -706,14 +780,15 @@ You can't really make out any physical details of the guardian. The form
 of the spectre is constantly shifting in and out of existence, what you
 can see of it is more like a transparent mist.
 ~
-3 184 1000 C
+3 184 1000 V
 50 0 0 20000d1+0 0d0+0
 0 0
-8 8 0
+112 112 0
 18 13 13 13 13 13 0
 0 0 0 0 0
 1 0 0 0 2 3 0
 0 0 0 0 2097152 0 0 0
+1 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p is dying~
 mpforce 0.$n drink
 mpechoat $n Drinking fluid will help your thirst and improve your mental state.
@@ -734,14 +809,15 @@ You can't really make out any physical details of the guardian. The form
 of the spectre is constantly shifting in and out of existence, what you
 can see of it is more like a transparent mist.
 ~
-3 184 1000 C
+3 184 1000 V
 50 0 0 20000d1+0 0d0+0
 0 0
-8 8 0
+112 112 0
 18 13 13 13 13 13 0
 0 0 0 0 0
 1 0 0 0 2 3 0
 0 0 0 0 2097152 0 0 0
+5 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p is dying~
 mpforce 0.$n drink
 mpechoat $n Drinking fluid will help your thirst and improve your mental state.
@@ -762,14 +838,15 @@ Not the prettiest creature you have evere seen. This beast's entire lower
 half is that of a snake, while the upper part of it's body is that of a
 woman, and she doesn't look happy to see you.
 ~
-67 184 0 C
+67 184 0 V
 50 0 94 20000d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 18 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 0 0 0 0 0 0
+6 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p is dying~
 mpforce 0.$n drink
 mpechoat $n Drinking fluid will help your thirst and improve your mental state.
@@ -791,14 +868,15 @@ long life and many experiences in these Realms. He is looked on
 with awe and unquestioned respect. That respect is well deserved.
 Do not attempt to kill him, for you shall surely die.
 ~
-1027 4194472 1000 C
+1027 4194472 1000 V
 1 0 94 1d1+1000 0d0+0
 100 0
-8 8 1
+112 112 1
 13 13 13 13 13 13 0
 0 0 0 0 37
 0 4 0 0 131072 131073 0
 0 0 0 0 1059840 0 0 0
+5 25 25 25 25 25 25 0 0 0 0 0 
 > all_greet_prog 100~
 tell $n Are you ready for your lessons?
 ~
@@ -812,14 +890,15 @@ This is Toric, a Lord of Healing.  If you grovel before him, you might
 receive extra assistance.  Groveling before the Lords will not get you
 very far in the game, but honest play, helping others and strategy will.
 ~
-1073741827 4194472 1000 C
+1073741827&1024 4194472 1000 V
 25 0 94 30000d1+0 0d0+0
 100 0
-8 8 1
+112 112 1
 13 13 13 13 13 13 0
 0 0 0 0 -30
 0 6 0 0 131072 131073 0
 0 0 0 0 1058816 0 0 0
+1 100 100 100 100 100 100 0 0 0 0 0 
 > all_greet_prog 100~
 if isnpc($n)
 if ischarmed($n)
@@ -882,14 +961,15 @@ A sage storekeeper is here, selling his wares.
 This is a friendly shopkeeper. His eyes sparkle with amusement. He seems
 patient with those still learning to use the shop. 
 ~
-3 4194856 0 C
+3 4194856 0 V
 1 0 94 1000d1+0 0d0+0
 100 0
-8 8 1
+112 112 1
 18 13 13 13 13 13 0
 0 0 0 0 44
 3 0 0 0 131072 131073 0
 0 0 3 0 1048576 0 0 0
+2 25 25 25 25 25 25 0 0 0 0 0 
 > all_greet_prog 100~
 smile $n
 say Welcome to my store!
@@ -913,14 +993,15 @@ A dragonsnake is here, venomous saliva dripping from its jaws.
 This is a small, but vicious dragon. His body is long and serpentine.
 This will be quite a battle, but the prize is well worth the effort.
 ~
-3 0 0 C
+3 0 0 V
 4 0 35 50d1+0 0d0+0
 1000 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 44
 3 0 0 0 131072 131073 0
 0 0 3 0 2048 0 0 0
+3 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 100~
 mpoload 10307 2
 mpoload 10309 2
@@ -934,14 +1015,15 @@ The chadoyn is straining its leash, attempting to attack you.
 He looks back at you with his beady little eyes and a snarl on his face.
 You are pretty sure you can best him in regards to combat.
 ~
-1073741827 0 0 C
+1073741827 0 0 V
 4 0 25 44d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 44
 85 0 0 0 131072 131073 0
 0 0 3 0 2048 0 0 0
+6 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 85~
 if level($n) >= 6
 if rand(50)
@@ -961,14 +1043,15 @@ This is a woman of average beauty, her face is wrinkled from both time
 and laughter.  She enjoys her duties in the Academy, aiding the new
 adventurers to the training area of their chosen class.
 ~
-3 680 1000 C
+3 680 1000 V
 50 0 94 15000d1+0 5d5+5
 100 0
-8 8 2
+112 112 2
 13 13 13 13 13 13 0
 0 0 0 0 44
 0 0 0 0 131072 131073 0
 0 0 3 0 0 0 0 0
+3 240 240 240 240 240 240 0 0 0 0 0 
 > all_greet_prog 100~
 mpechoat $n Silvina looks up from her filing and appraises your needs.
 say Hello there, $n.
@@ -1067,14 +1150,15 @@ This is a nones long
 He looks back at you with his beady little eyes and a snarl on his face.
 You are pretty sure you can best him in regards to combat
 ~
-1073741859 0 0 C
+1073741859 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 44
 3 0 0 0 131073 131072 0
 0 0 3 0 0 0 0 0
+1 25 25 25 25 25 25 0 0 0 0 0 
 #10348
 None~
 this is a none~
@@ -1083,14 +1167,15 @@ This is a nones long
 He looks back at you with his beady little eyes and a snarl on his face.
 You are pretty sure you can best him in regards to combat
 ~
-1073741859 0 0 C
+1073741859 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 44
 3 0 0 0 131073 131072 0
 0 0 3 0 0 0 0 0
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10349
 statue mage cage~
 the statue~
@@ -1099,14 +1184,15 @@ A marble statue of an ancient mage
 This is a statue of an wizened old mage. Made of fine marble that is magical
 and contains the spirit of the subject after which it was fashioned.
 ~
-3 680 1000 C
+3 680 1000 V
 50 0 35 40d1+0 5d5+5
 100 0
-8 8 1
+112 112 1
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 0 0 0 1 1 0
 0 0 3 0 3072 0 0 0
+5 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p bounces around.~
 mpforce $n look
 mpecho The statue begins to move, marble transforming to flesh.
@@ -1168,14 +1254,15 @@ A marble statue of an ancient cleric
 This is a statue made of fine marble, depicting a cleric. She is done
 in a lifelike manner, like she was a real person dipped in the marble.
 ~
-3 680 1000 C
+3 680 1000 V
 50 0 35 40d1+0 5d5+5
 100 0
-8 8 2
+112 112 2
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 1 0 0 1 1 0
 0 0 3 0 3072 0 0 0
+2 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p bounces around.~
 mpforce $n look
 mpecho The statue begins to move, marble transforming to flesh.
@@ -1238,14 +1325,15 @@ This statue is made from the darkest black marble you have ever seen.
 It depicts a shadowy cloaked thief. You feel his eyes on you, like it is
 a living person and not a statue at all.
 ~
-3 680 1000 C
+3 680 1000 V
 50 0 35 40d1+0 5d5+5
 100 0
-8 8 1
+112 112 1
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 2 0 0 1 1 0
 0 0 3 0 3072 0 0 0
+6 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p looks at you.~
 if class($n) == Thief
 mpechoat $n Hello $n, I am a fellow thief who is here to tell you a little
@@ -1308,14 +1396,15 @@ This warrior is carved from the finest of marbles. The artist seems to
 have caught the vitality of his subject, so much so that the statue seems
 alive.
 ~
-3 680 1000 C
+3 680 1000 V
 50 0 35 40d1+0 5d5+5
 100 0
-8 8 1
+112 112 1
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 3 0 3072 0 0 0
+0 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p looks at you.~
 if class($n) == Warrior
 mpechoat $n Hello $n, I am a fellow warrior who is here to tell you a little
@@ -1378,14 +1467,15 @@ This is a marble carving of a seductress, only the fangs give away her
 vampiric nature. Her eyes are hypnotic, making you feel like she is 
 looking deep into your soul.
 ~
-3 680 1000 C
+3 680 1000 V
 50 0 35 40d1+0 5d5+5
 100 0
-8 8 2
+112 112 2
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 4 0 0 1 1 0
 0 0 3 0 3072 0 0 0
+0 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p looks at you.~
 if class($n) == Vampire
 mpechoat $n Hello $n, I am a fellow vampire who is here to tell you a little
@@ -1447,14 +1537,15 @@ A marble statue of an ancient druid.
 This is a finely carved statue of an old druidess in ceremonial white
 robes. She is made to look so natural, you are sure she is alive.
 ~
-3 680 1000 C
+3 680 1000 V
 50 0 35 40d1+0 5d5+5
 100 0
-8 8 2
+112 112 2
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 5 0 0 1 1 0
 0 0 3 0 3072 0 0 0
+1 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p looks at you.~
 if class($n) == Druid
 mpechoat $n Hello $n, I am a fellow druid who is here to tell you a little
@@ -1516,14 +1607,15 @@ A marble statue of an ancient ranger.
 This statue was made with excellent details. This ranger stands proud.
 Then you notice a movement, you are sure it is alive.
 ~
-3 680 1000 C
+3 680 1000 V
 50 0 35 40d1+0 5d5+5
 100 0
-8 8 1
+112 112 1
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 6 0 0 1 1 0
 0 0 3 0 3072 0 0 0
+1 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p bounces around.~
 mpforce $n look
 mpecho The statue begins to move, marble transforming to flesh.
@@ -1583,14 +1675,15 @@ a tiny pixie~
 A tiny pixie floats about you.
 ~
 ~
-3 4718632 0 C
+3 4718632 0 V
 4 0 -100 1d1+300 0d0+0
 0 0
-8 8 1
+112 112 1
 13 13 13 25 13 13 25
 0 0 0 0 0
 85 0 0 0 135619917 135619917 0
 0 0 0 0 0 0 0 0
+1 25 25 25 25 25 25 0 0 0 0 0 
 > act_prog p glances at you.~
 nudge $n
 if class ($n) == Cleric
@@ -1645,10 +1738,15 @@ a test mob~
 This is a test mob.
 ~
 ~
-1073741825 0 0 S
+1073741825 0 0 V
 1 0 0 11d1+0 0d0+0
 0 0
-8 8 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10359
 None~
 this is a none~
@@ -1657,14 +1755,15 @@ This is a nones long
 Eager to test hit prowess in battle this young gnoll bares his fangs at you
 in an attempt to strike fear into your heart.
 ~
-1073741859 0 0 C
+1073741859 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 37
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10360
 None~
 this is a none~
@@ -1673,24 +1772,30 @@ This is a nones long
 Eager to test hit prowess in battle this young gnoll bares his fangs at you
 in an attempt to strike fear into your heart.
 ~
-1073741859 0 0 C
+1073741859 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 37
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10361
 None~
 this is a none~
 This is a nones long
 ~
 ~
-1073741827 0 -400 S
+1073741827 0 -400 V
 1 0 0 11d1+0 0d0+0
 300 0
-8 8 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10362
 None~
 this is a none~
@@ -1699,14 +1804,15 @@ This is a nones long
 Eager to test hit prowess in battle this young gnoll bares his fangs at you
 in an attempt to strike fear into your heart.
 ~
-1073741859 0 0 C
+1073741859 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 37
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
+5 25 25 25 25 25 25 0 0 0 0 0 
 #10363
 None~
 this is a none~
@@ -1715,14 +1821,15 @@ This is a nones long
 Eager to test hit prowess in battle this young gnoll bares his fangs at you
 in an attempt to strike fear into your heart.
 ~
-1073741859 0 0 C
+1073741859 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 37
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
+1 25 25 25 25 25 25 0 0 0 0 0 
 #10364
 None~
 this is a none~
@@ -1732,10 +1839,15 @@ No fur covers the body of this beast, only a pastey white skin. So thin
 is the skin on this beast that you can see the organs working to keep
 this thing alive. Even from a distance you can smell it's fetid breath.
 ~
-1073741889 0 -1000 S
+1073741889 0 -1000 V
 1 0 90 11d1+0 0d0+0
 0 0
-8 8 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 25 25 25 25 25 25 0 0 0 0 0 
 #10365
 None~
 this is a none~
@@ -1744,14 +1856,15 @@ This is a nones long
 Eager to test hit prowess in battle, this young gnoll bares his fangs at you.
 He is trying to strike fear in your heart.
 ~
-1073741859 0 0 C
+1073741859 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 37
 0 0 0 0 131073 131072 0
 0 0 1031 0 0 0 0 0
+2 25 25 25 25 25 25 0 0 0 0 0 
 #10366
 None~
 this is a none~
@@ -1760,14 +1873,15 @@ This is a nones long
 Eager to test hit prowess in battle this young gnoll bares his fangs at you
 in an attempt to strike fear into your heart.
 ~
-1073741859 0 0 C
+1073741859 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 37
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10367
 None~
 this is a none~
@@ -1777,14 +1891,15 @@ Not the largest of the species you have ever seen. Actually this minotaur
 looks pretty small compared to the other's of it's kind that you have
 heard about.
 ~
-1073741827 0 0 C
+1073741827 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 48
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
+5 25 25 25 25 25 25 0 0 0 0 0 
 #10368
 None~
 this is a none~
@@ -1794,14 +1909,15 @@ Not the largest of the species you have ever seen. Actually this minotaur
 looks pretty small compared to the other's of it's kind that you have
 heard about.
 ~
-1073741827 0 0 C
+1073741827 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 48
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
+0 25 25 25 25 25 25 0 0 0 0 0 
 #10369
 None~
 this is a none~
@@ -1811,14 +1927,15 @@ Not the largest of the species you have ever seen. Actually this minotaur
 looks pretty small compared to the other's of it's kind that you have
 heard about.
 ~
-1073741827 0 0 C
+1073741827 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 48
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
+6 25 25 25 25 25 25 0 0 0 0 0 
 #10370
 None~
 this is a none~
@@ -1828,14 +1945,15 @@ Not the largest of the species you have ever seen. Actually this minotaur
 looks pretty small compared to the other's of it's kind that you have
 heard about.
 ~
-1073741827 0 0 C
+1073741827 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 48
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
+0 25 25 25 25 25 25 0 0 0 0 0 
 #10371
 None~
 this is a none~
@@ -1845,14 +1963,15 @@ Not the largest of the species you have ever seen. Actually this minotaur
 looks pretty small compared to the other's of it's kind that you have
 heard about.
 ~
-1073741827 0 0 C
+1073741827 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 48
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
+6 25 25 25 25 25 25 0 0 0 0 0 
 #10372
 None~
 this is a none~
@@ -1862,24 +1981,30 @@ Not the largest of the species you have ever seen. Actually this minotaur
 looks pretty small compared to the other's of it's kind that you have
 heard about.
 ~
-1073741827 0 0 C
+1073741827 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 48
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
+6 25 25 25 25 25 25 0 0 0 0 0 
 #10382
 None~
 this is a none~
 This is a nones long
 ~
 ~
-1073742017 0 0 S
+1073742017 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+5 25 25 25 25 25 25 0 0 0 0 0 
 #10386
 None~
 this is a none~
@@ -1888,10 +2013,15 @@ This is a nones long
 Wallowing in a pool of it's own slime, this slug turns sightless eyes
 towards you thinking you may make a good meal.
 ~
-1073742017 0 0 S
+1073742017 0 0 V
 1 0 94 11d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+5 25 25 25 25 25 25 0 0 0 0 0 
 #10393
 None~
 this is a none~
@@ -1901,14 +2031,15 @@ Dragged back from thier eternal rest these nagas were Queen Asp's personal
 bodyguards. Known to be fierce fighters in thier past lifetime they now
 possess an "undying" loyalty to thier Queen.
 ~
-1073741857 0 0 C
+1073741857 0 0 V
 1 0 60 11d1+0 0d0+0
 300 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 67
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10394
 Abbigayle language teacher~
 abbigayle~
@@ -1922,14 +2053,15 @@ voice at last breaks the spell. Her voice is like satin, you can hardly
 wait for your lessons to begin. Any reason to hear her speak the tongues
 foreign to your ears.
 ~
-1048579 4194472 0 C
+1048579 4194472 0 V
 5 16 5 1000d1+0 1d6+3
 50 450
-8 8 2
+112 112 2
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 671871 671871 0
 0 0 3 0 1059840 0 0 0
+1 25 25 25 25 25 25 0 0 0 0 0 
 > all_greet_prog 100~
 if ispc($n)
 wink $n
@@ -1964,14 +2096,15 @@ Dragged back from their eternal rest, these nagas were Queen Asp's personal
 bodyguards.  Known to be fierce fighters in their past lifetime, they now
 possess an "undying" loyalty to their Queen.
 ~
-33 0 0 C
+33 0 0 V
 7 0 60 1d1+50 0d0+0
 300 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 84 0 0 0 4097 135169 0
 0 0 0 0 0 0 0 0
+3 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 78~
 if level($n) >= 9
 if rand(50)
@@ -1995,14 +2128,15 @@ shock horror. From the waist down Asp has the form of a snake! Skilled with
 a sword and possession of a keen intellect are but a few of the traits that
 have allowed her to rise in power among her people.
 ~
-35 0 0 C
+35 0 0 V
 7 0 80 60d1+0 0d0+0
 500 0
-8 8 2
+112 112 2
 13 13 13 13 13 13 0
 0 0 0 0 62
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10398
 apprentice scvital~
 an apprentice of Scarab~
@@ -2012,14 +2146,15 @@ Don't let appearances fool you, this young one possesses great magical
 skill beyond his years. He one days hopes to fill the position of his
 master Scarab in his role as Archmage of the Realm's.
 ~
-1 67108872 0 C
+1 67108872 0 V
 50 0 -200 9000d1+0 0d0+0
 0 0
-8 8 1
+112 112 1
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 0 0 0 1 4 0
 0 0 0 0 0 0 2097152 512
+6 240 240 240 240 240 240 0 0 0 0 0 
 #10399
 Tsythia Mistress Headmistress~
 Mistress Tsythia~
@@ -2030,10 +2165,15 @@ You can barely take your eyes from her, she is hypnotizing.  She smiles at
 you, knowing you are appreciating her beauty.  You bet she is as deadly as
 she is beautiful to gain the position of headmistress of this Academy.
 ~
-3 4194472 0 S
+3 4194472 0 V
 1 0 0 1000d1+0 0d0+0
 0 0
-8 8 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+2 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 100~
 mpmload 10399
 say You may kill this body, but my spirit will not die!
@@ -2120,14 +2260,15 @@ A marble statue of an ancient Augurer stands here.
 This Augurer is carved from the finest of marbles.  The artist seems to have
 caught the vitality of his subject, so much so that the statue seems alive.
 ~
-1073741827 680 1000 C
+1073741827 680 1000 V
 50 0 35 40d1+0 5d5+5
 100 0
-8 8 1
+112 112 1
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 7 0 0 1 1 0
 0 0 3 0 3072 0 0 0
+1 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p looks at you.~
 if class($n) == Augurer
 mpechoat $n Hello $n, I am a fellow Augurer who is here to tell you a little
@@ -2190,14 +2331,15 @@ You can't really make out any physical details of the guardian. The form
 of the spectre is constantly shifting in and out of existence, what you
 can see of it is more like a transparent mist.
 ~
-3 184 1000 C
+3 184 1000 V
 50 0 0 20000d1+0 0d0+0
 0 0
-8 8 0
+112 112 0
 18 13 13 13 13 13 0
 0 0 0 0 0
 1 0 0 0 3 2 0
 0 0 0 0 2097152 0 0 0
+4 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p is dying~
 mpforce 0.$n drink
 mpechoat $n Drinking fluid will help your thirst and improve your mental state.
@@ -2218,14 +2360,15 @@ Not the prettiest creature you have ever seen, this beast's entire
 lower half is that of a snake, while the upper part is that of a
 woman.  She does not look happy to see you.
 ~
-67 0 0 C
+67 0 0 V
 1 0 94 9d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 1159 0 0 0 0 0
+4 25 25 25 25 25 25 0 0 0 0 0 
 #10403
 minotaur cage~
 the minotaur~
@@ -2234,10 +2377,15 @@ A minotaur is here snorting at your intrusion.
 Not the largest of the species you have ever seen.  Actually, this minotaur
 looks rather small compared to others of its kind you have encountered.
 ~
-67 0 0 S
+67 0 0 V
 1 0 94 8d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+5 25 25 25 25 25 25 0 0 0 0 0 
 #10404
 gnoll cage~
 the gnoll~
@@ -2246,14 +2394,15 @@ A young gnoll is here ready to attack you.
 Eager to test his prowess in battle, this young gnoll bares his fangs at you
 as he tries to strike fear in your heart.
 ~
-35 0 0 C
+35 0 0 V
 1 0 94 9d1+9 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 0 0 0 1 1 0
 0 0 1031 0 0 0 0 0
+5 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 90~
 if level($n) >= 4
 if mobinroom(10404) <= 1
@@ -2272,14 +2421,15 @@ A kobold with a sickly grin on its face is here.
 It looks back at you with beady little eyes.  With a snarl he attacks, but
 you are sure you can beat in combat.
 ~
-35 0 0 C
+35 0 0 V
 1 0 94 8d1+0 0d0+0
 100 0
-8 8 0
+112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 3 0 0 0 131073 131072 0
 0 0 3 0 0 0 0 0
+4 25 25 25 25 25 25 0 0 0 0 0 
 #10406
 fire ant arena~
 a Fire Ant~
@@ -2290,14 +2440,15 @@ at a insect of this size.  His body is tense with aggrevation as he
 ponders your intrusion.  You have interrupted his food collecting, perhaps
 you will now be his next meal.
 ~
-101 33280 0 C
+101 33280 0 V
 7 11 25 1d10+120 1d4+6
 340 2000
-8 8 1
+112 112 1
 15 13 13 13 13 13 13
 0 0 0 0 0
 83 3 0 0 1 1 0
 0 0 1775 0 2048 0 0 0
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10407
 ant fire arena~
 a Fire Ant~
@@ -2308,14 +2459,15 @@ at a insect of this size.  His body is tense with aggrevation as he
 ponders your intrusion.  You have interrupted his food collecting, perhaps
 you will now be his next meal.
 ~
-101 33280 0 C
+101 33280 0 V
 7 11 25 1d10+120 1d4+6
 340 2000
-8 8 1
+112 112 1
 15 13 13 13 13 13 13
 0 0 0 0 0
 83 3 0 0 135679493 135679493 0
 0 0 1775 0 2048 0 0 0
+6 25 25 25 25 25 25 0 0 0 0 0 
 #10408
 ant fire arena~
 a Fire Ant~
@@ -2326,14 +2478,15 @@ at a insect of this size.  His body is tense with aggrevation as he
 ponders your intrusion.  You have interrupted his food collecting, perhaps
 you will now be his next meal.
 ~
-101 33280 0 C
+101 33280 0 V
 7 11 25 1d10+120 1d4+6
 340 2000
-8 8 1
+112 112 1
 15 13 13 13 13 13 13
 0 0 0 0 0
 83 3 0 0 135679493 135679493 0
 0 0 1775 0 2048 0 0 0
+2 25 25 25 25 25 25 0 0 0 0 0 
 #10409
 ant fire arena~
 a Fire Ant~
@@ -2344,14 +2497,15 @@ at a insect of this size.  His body is tense with aggrevation as he
 ponders your intrusion.  You have interrupted his food collecting, perhaps
 you will now be his next meal.
 ~
-101 33280 0 C
+101 33280 0 V
 7 11 25 1d10+120 1d4+6
 340 2000
-8 8 1
+112 112 1
 15 13 13 13 13 13 13
 0 0 0 0 0
 83 3 0 0 135679493 135679493 0
 0 0 1775 0 2048 0 0 0
+2 25 25 25 25 25 25 0 0 0 0 0 
 #10410
 centipede arena~
 a centipede~
@@ -2361,14 +2515,15 @@ This centipede is half the length of a grown human male is tall.  It has
 the nerve to walk across your feet as if you existance means nothing to
 it. You watch in awe as those one hundred legs move in rhythm.
 ~
-65 4194816 0 C
+65 4194816 0 V
 8 11 25 2d7+130 1d4+6
 1000 2000
-8 8 1
+112 112 1
 15 13 13 17 13 13 13
 0 0 0 0 0
 83 3 0 0 135679493 135679493 0
 0 0 1775 0 2048 0 0 0
+0 25 25 25 25 25 25 0 0 0 0 0 
 #10411
 centipede arena~
 a centipede~
@@ -2378,14 +2533,15 @@ This centipede is half the length of a grown human male is tall.  It has
 the nerve to walk across your feet as if you existance means nothing to
 it. You watch in awe as those one hundred legs move in rhythm.
 ~
-65 4194816 0 C
+65 4194816 0 V
 8 11 25 2d7+130 1d4+6
 1000 2000
-8 8 1
+112 112 1
 15 13 13 17 13 13 13
 0 0 0 0 0
 83 3 0 0 135679493 135679493 0
 0 0 1775 0 2048 0 0 0
+4 25 25 25 25 25 25 0 0 0 0 0 
 #10412
 centipede arena~
 a centipede~
@@ -2395,14 +2551,15 @@ This centipede is half the length of a grown human male is tall.  It has
 the nerve to walk across your feet as if you existance means nothing to
 it. You watch in awe as those one hundred legs move in rhythm.
 ~
-65 4194816 0 C
+65 4194816 0 V
 8 11 25 2d7+130 1d4+6
 1000 2000
-8 8 1
+112 112 1
 15 13 13 17 13 13 13
 0 0 0 0 0
 83 3 0 0 135679493 135679493 0
 0 0 1775 0 2048 0 0 0
+4 25 25 25 25 25 25 0 0 0 0 0 
 #10413
 centipede arena~
 a centipede~
@@ -2412,14 +2569,15 @@ This centipede is half the length of a grown human male is tall.  It has
 the nerve to walk across your feet as if you existance means nothing to
 it. You watch in awe as those one hundred legs move in rhythm.
 ~
-65 4194816 0 C
+65 4194816 0 V
 8 11 25 2d7+130 1d4+6
 1000 2000
-8 8 1
+112 112 1
 15 13 13 17 13 13 13
 0 0 0 0 0
 83 3 0 0 135679493 135679493 0
 0 0 1775 0 2048 0 0 0
+0 25 25 25 25 25 25 0 0 0 0 0 
 #10414
 rat grey arena~
 a large grey rat~
@@ -2429,14 +2587,15 @@ This is one large rat.  You would not want to allow him to bite you.
 His grey fur is matted from blood and dirt, and his eyes seem to
 watch your every movement.
 ~
-65 4194816 0 C
+65 4194816 0 V
 6 11 25 1d10+75 1d4+3
 500 2000
-8 8 1
+112 112 1
 15 13 13 14 13 13 13
 0 0 0 0 0
 77 3 0 0 135680721 135680721 0
 0 0 1775 0 2048 0 1 0
+5 25 25 25 25 25 25 0 0 0 0 0 
 #10415
 rat grey arena~
 a large grey rat~
@@ -2446,14 +2605,15 @@ This is one large rat.  You would not want to allow him to bite you.
 His grey fur is matted from blood and dirt, and his eyes seem to
 watch your every movement.
 ~
-65 4194816 0 C
+65 4194816 0 V
 6 11 25 1d10+75 1d4+3
 500 2000
-8 8 1
+112 112 1
 15 13 13 14 13 13 13
 0 0 0 0 0
 77 3 0 0 135680721 135680721 0
 0 0 1775 0 2048 0 1 0
+6 25 25 25 25 25 25 0 0 0 0 0 
 #10416
 rat grey arena~
 a large grey rat~
@@ -2463,14 +2623,15 @@ This is one large rat.  You would not want to allow him to bite you.
 His grey fur is matted from blood and dirt, and his eyes seem to
 watch your every movement.
 ~
-65 4194816 0 C
+65 4194816 0 V
 6 11 25 1d10+75 1d4+3
 500 2000
-8 8 1
+112 112 1
 15 13 13 14 13 13 13
 0 0 0 0 0
 77 3 0 0 135680721 135680721 0
 0 0 1775 0 2048 0 1 0
+4 25 25 25 25 25 25 0 0 0 0 0 
 #10417
 rat grey arena~
 a large grey rat~
@@ -2480,14 +2641,15 @@ This is one large rat.  You would not want to allow him to bite you.
 His grey fur is matted from blood and dirt, and his eyes seem to
 watch your every movement.
 ~
-65 4194816 0 C
+65 4194816 0 V
 6 11 25 1d10+75 1d4+3
 500 2000
-8 8 1
+112 112 1
 15 13 13 14 13 13 13
 0 0 0 0 0
 77 3 0 0 135680721 135680721 0
 0 0 1775 0 2048 0 1 0
+6 25 25 25 25 25 25 0 0 0 0 0 
 #10418
 mole arena~
 a mole~
@@ -2497,14 +2659,15 @@ This mole is covered in mud!  His body is plump and his movements
 are slow.  You can see his small, beady eyes, but doubt that he
 can really see you.
 ~
-65 512 0 C
+65 512 0 V
 6 11 25 1d10+99 1d4+3
 500 2000
-8 8 1
+112 112 1
 15 13 13 14 13 13 13
 0 0 0 0 0
 76 3 0 0 135680815 135680815 0
 0 0 1775 0 2048 0 0 0
+5 25 25 25 25 25 25 0 0 0 0 0 
 #10419
 mole arena~
 a mole~
@@ -2514,14 +2677,15 @@ This mole is covered in mud!  His body is plump and his movements
 are slow.  You can see his small, beady eyes, but doubt that he
 can really see you.
 ~
-65 512 0 C
+65 512 0 V
 6 11 25 1d10+99 1d4+3
 500 2000
-8 8 1
+112 112 1
 15 13 13 14 13 13 13
 0 0 0 0 0
 76 3 0 0 135680815 135680815 0
 0 0 1775 0 2048 0 0 0
+4 25 25 25 25 25 25 0 0 0 0 0 
 #10420
 mole arena~
 a mole~
@@ -2531,14 +2695,15 @@ This mole is covered in mud!  His body is plump and his movements
 are slow.  You can see his small, beady eyes, but doubt that he
 can really see you.
 ~
-65 512 0 C
+65 512 0 V
 6 11 25 1d10+99 1d4+3
 500 2000
-8 8 1
+112 112 1
 15 13 13 14 13 13 13
 0 0 0 0 0
 76 3 0 0 135680815 135680815 0
 0 0 1775 0 2048 0 0 0
+2 25 25 25 25 25 25 0 0 0 0 0 
 #10421
 mole arena~
 a mole~
@@ -2548,44 +2713,60 @@ This mole is covered in mud!  His body is plump and his movements
 are slow.  You can see his small, beady eyes, but doubt that he
 can really see you.
 ~
-65 512 0 C
+65 512 0 V
 6 11 25 1d10+99 1d4+3
 500 2000
-8 8 1
+112 112 1
 15 13 13 14 13 13 13
 0 0 0 0 0
 76 3 0 0 135680815 135680815 0
 0 0 1775 0 2048 0 0 0
+5 25 25 25 25 25 25 0 0 0 0 0 
 #10497
 hvak1 advancer~
 Hungrily, a hollow voice~
 Hvak1 Advancer is here (should always be in 10499)
 ~
 ~
-1073741825 4194344 0 S
+1073741825 4194344 0 V
 50 0 0 0d0+0 0d0+0
 0 0
-8 8 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+1 240 240 240 240 240 240 0 0 0 0 0 
 #10498
 hvak2 advancer~
 A rasping voice~
 Hvak2 Advancer is here (should always be in 10499)
 ~
 ~
-1073741825 4194344 0 S
+1073741825 4194344 0 V
 50 0 0 0d0+0 0d0+0
 0 0
-8 8 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+6 240 240 240 240 240 240 0 0 0 0 0 
 #10499
 final mob~
 a newly created final mob~
 Some god abandoned a newly created final mob here.
 ~
 ~
-1073741825 0 0 S
+1073741825 0 0 V
 1 0 0 0d0+0 0d0+0
 0 0
-8 8 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+6 25 25 25 25 25 25 0 0 0 0 0 
 #0
 
 
@@ -2831,7 +3012,7 @@ You see a dragonskin water container here.~
 ~
 17 0 1
 15 15 0 0
-0 30 3
+1 30 3
 #10315
 mace academy~
 a finely wrought mace~
@@ -2981,8 +3162,9 @@ an anti-death elixir~
 An odd, glowing potion lays here.~
 ~
 10 1 1
-20 16 61 81
+20 -1 -1 -1
 2 0 0
+'cure light' 'cure serious' 'refresh'
 E
 anti-death antideath elixir potion~
 This potion was made to help heal you and restore your movements points.
@@ -2993,8 +3175,9 @@ a scroll of escape~
 A dark paper covered in arcane writing lies here.~
 ~
 2 0 1
-10 35 43 42
+10 -1 -1 -1
 5 0 0
+'remove curse' 'cure poison' 'word of recall'
 #10333
 adventurer's guide book academy~
 The Adventurer's Guide~
@@ -3068,7 +3251,7 @@ Some god dropped a newly created kobold here.~
 ~
 13 1073741824 0
 0 0 0 0
-0 0 0
+1 0 0
 #10345
 chains Chadoyn bindings~
 the chadoyn's bindings~
@@ -3086,7 +3269,7 @@ Some god dropped a newly created gnoll here.~
 ~
 13 1073741824 0
 0 0 0 0
-0 0 0
+1 0 0
 #10360
 gnoll~
 a newly created gnoll~
@@ -3094,7 +3277,7 @@ Some god dropped a newly created gnoll here.~
 ~
 13 1073741824 0
 0 0 0 0
-0 0 0
+1 0 0
 #10362
 gnoll~
 a newly created gnoll~
@@ -3102,7 +3285,7 @@ Some god dropped a newly created gnoll here.~
 ~
 13 1073741824 0
 0 0 0 0
-0 0 0
+1 0 0
 #10363
 gnoll~
 a newly created gnoll~
@@ -3110,7 +3293,7 @@ Some god dropped a newly created gnoll here.~
 ~
 13 1073741824 0
 0 0 0 0
-0 0 0
+1 0 0
 #10365
 gnoll~
 a newly created gnoll~
@@ -3118,7 +3301,7 @@ Some god dropped a newly created gnoll here.~
 ~
 13 1073741824 0
 0 0 0 0
-0 0 0
+1 0 0
 #10366
 gnoll~
 a newly created gnoll~
@@ -3126,7 +3309,7 @@ Some god dropped a newly created gnoll here.~
 ~
 13 1073741824 0
 0 0 0 0
-0 0 0
+1 0 0
 #10367
 board academy~
 the Newbie Council Noteboard~
@@ -3134,7 +3317,7 @@ A board stands here, ready for your posts.~
 ~
 13 0 0
 0 0 0 0
-0 0 0
+1 0 0
 E
 board newbie~
 This board can be read by typing NOTE LIST and then NOTE READ <#>.
@@ -3146,8 +3329,9 @@ a shimmering, magical staff~
 A magical staff shimmers on the ground.~
 ~
 4 321 16385
-5 1 1 36
+5 1 1 -1
 1 60 6
+'sanctuary'
 #10371
 shield shiny~
 a shiny shield~
@@ -3278,8 +3462,9 @@ an old, decaying map~
 An old map lies here, crushed and decaying.~
 ~
 2 321 1
-50 42 -1 -1
+50 -1 -1 -1
 1 1 0
+'word of recall' 'NONE' 'NONE'
 E
 map~
 Instructions for use:
@@ -3336,8 +3521,9 @@ a wizard's map~
 An absent-minded wizard dropped a map here.~
 ~
 2 321 1
-51 42 -1 -1
+51 -1 -1 -1
 1 100 10
+'word of recall' 'NONE' 'NONE'
 E
 map~
 This map will lead you to a room of magic, from which you can be transported
@@ -3397,7 +3583,7 @@ A pair of black boots lies here.~
 ~
 9 0 65
 0 0 0 0
-0 0 0
+1 0 0
 #10398
 scrobes~
 midnight black robes~
@@ -3405,15 +3591,16 @@ A pile of dark cloth is lieing here.~
 ~
 9 0 1025
 0 0 0 0
-0 0 0
+1 0 0
 #10399
 scstaff~
 staff of the Arcane~
 A staff is here, standing by itself~
 ~
 4 80 16385
-54 100 100 30
-0 0 0
+54 100 100 -1
+1 0 0
+'lightning bolt'
 #10400
 bag wit~
 a bag of wit~
@@ -3492,8 +3679,9 @@ a dirty root~
 A root, covered in dirt, lies here on the ground.~
 ~
 26 537133056 16385
-20 15 84 -1
+20 -1 -1 -1
 3 1200 120
+'cure critical' 'restore mana' 'NONE'
 A
 5 1
 A
@@ -3505,7 +3693,7 @@ Some god dropped a newly created final object here.~
 ~
 13 1073741824 0
 0 0 0 0
-0 0 0
+1 0 0
 #0
 
 

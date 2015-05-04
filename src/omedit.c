@@ -1391,7 +1391,7 @@ void medit_parse( DESCRIPTOR_DATA *d, char *arg )
                 number = atoi( arg1 );
                 number -= 1;
 
-                if ( number < 0 || number > 31 )
+                if ( number < 0 || number > MAX_ACT_FLAGS )
                 {
                     send_to_char( "Invalid flag, try again: ", d->character );
                     return;
