@@ -541,7 +541,7 @@ void medit_disp_mob_flags( DESCRIPTOR_DATA *d )
     int i, columns = 0;
   
     write_to_buffer( d, "50\x1B[;H\x1B[2J", 0 );
-    for (i = 0; i < ITEM_PROTOTYPE+1; i++)
+    for (i = 0; i < MAX_ACT_FLAGS; i++)
     {
 	sprintf(buf, "&g%2d&w) %-20.20s  ",
 	    i+1, act_flags[i]

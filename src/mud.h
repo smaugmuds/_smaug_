@@ -1718,7 +1718,7 @@ struct smaug_affect
 #define ACT_IS_PROJECTION   40	/* Same as PLR_IS_PROJECTION */
 #define ACT_STOP_SCRIPT	    41	/* Don't execute script progs */
 #define ACT_BANKER	    42
-
+#define MAX_ACT_FLAGS       43    /* Always last */
 /*
  * Bits for 'affected_by'.
  * Used in #MOBILES.
