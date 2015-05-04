@@ -1429,7 +1429,7 @@ void medit_parse( DESCRIPTOR_DATA *d, char *arg )
             number = atoi(arg);
             if ( number == 0 )
                 break;
-            if ( (number > 0) || (number < 31) )
+            if ( (number > 0) || (number < 51) )
             {
 		number -= 1; /* offset :P */
                 xTOGGLE_BIT( victim->act, number );
@@ -1460,7 +1460,7 @@ void medit_parse( DESCRIPTOR_DATA *d, char *arg )
             number = atoi(arg);
             if ( number == 0 )
                 break;
-            if ( (number > 0) || (number < 31) )
+            if ( (number > 0) || (number < 51) )
             {
 		number -= 1;
                 TOGGLE_BIT( victim->pcdata->flags, 1 << number );
@@ -1491,7 +1491,7 @@ void medit_parse( DESCRIPTOR_DATA *d, char *arg )
             number = atoi( arg );
             if ( number == 0 )
                 break;
-            if ( (number > 0) || (number < 31) )
+            if ( (number > 0) || (number < 51) )
             {
 		number -= 1;
                 xTOGGLE_BIT( victim->affected_by, number );
