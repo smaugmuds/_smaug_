@@ -569,6 +569,16 @@ if test "$enable_marry" = "yes"; then
 		AC_DEFINE([MARRIAGE], [], [Marriage Support])
 fi
 
+
+# Enable Morgue Support (-DMORGUE) #
+AC_ARG_ENABLE(morgue,
+              AC_HELP_STRING([--enable-morgue],
+                             [enable Morgue Support @<:@default=yes@:>@]),
+              [], [enable_morgue=yes])
+if test "$enable_morgue" = "yes"; then
+		AC_DEFINE([MORGUE], [], [Morgue Support])
+fi
+
 # Player Bleeding (-DBLEEDING) #
 AC_ARG_ENABLE(bleeding,
               AC_HELP_STRING([--enable-bleeding],
@@ -720,6 +730,7 @@ Configured --{SMAUG}-- MUD Server features:
  * Extended Rooms:      <$enable_extrooms>
  * Liquids System:      <$enable_liquids>
  * Act Comm Scramble:   <$enable_scramble>
+ * Morgue:              <$enable_morgue>
  * Banking:             <$enable_bank>
  * Player Marry:        <$enable_marry>
  * DNS Resolver:        <$enable_dns>

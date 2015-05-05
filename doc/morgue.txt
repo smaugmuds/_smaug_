@@ -1,0 +1,35 @@
+                                MORGUE
+
+/* Code adapted from Belar's Rom24 code.( rls1@ra.msstate.edu )
+ Ported to Smaug 1.4 by Desden - Dic 1998 ( jose@luisso.net ) */
+
+1.- Add in MUD.H :
+#define ROOM_VNUM_MORGUE  3647  /*Where XXXX is your chosen room */
+
+2.- Add in MAKEOBJS.C :
+Into the function make_corpse():
+
+  ROOM_INDEX_DATA *location;
+  location = get_room_index ( ROOM_VNUM_MORGUE );
+
+Now look at the end of this function for:
+   obj_to_room( corpse, ch->in_room );
+
+and change it to:
+
+    if (IS_NPC(ch))
+    obj_to_room( corpse, ch->in_room );
+    else
+    obj_to_room (corpse,location);
+
+3.- Note: If you want than only low levels can benefit the Morgue room, you can limit it changing:
+if (IS_NPC(ch))
+
+to
+
+if (IS_NPC(ch)|| ch->level > XX )  /* where XX is max character level */
+
+3.- Now, do a 'make clean' and a 'make'. And that's all. Now when a character dies, the corpse goes to the morgue room.
+
+/* Desden, el Chaman Tibetano (Jose Luis Sogorb), Diciembre de 1998 */ 
+/*              Email: jose@luisso.net                    */

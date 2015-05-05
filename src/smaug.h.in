@@ -414,6 +414,9 @@
 /* Marriage Support */
 #undef MARRIAGE
 
+/* Morgue Support */
+#undef MORGUE
+
 /* New Score Tables */
 #undef NEWSCORE
 

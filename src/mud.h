@@ -2209,6 +2209,10 @@ typedef enum
 #define ROOM_AUTH_START		    100
 #define ROOM_VNUM_HALLOFFALLEN    21195
 
+#ifdef ENABLE_MORGUE
+#define ROOM_VNUM_MORGUE	3647    /* A dust tomb at "grave.are" */
+#endif
+
 /*
  * New bit values for sector types.  Code by Mystaric
  */

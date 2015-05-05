@@ -170,6 +170,11 @@ make_corpse (CHAR_DATA * ch, CHAR_DATA * killer)
   OBJ_DATA *obj;
   OBJ_DATA *obj_next;
   char *name;
+  
+#ifdef ENABLE_MORGUE
+  ROOM_INDEX_DATA *location;
+  location = get_room_index ( ROOM_VNUM_MORGUE );
+#endif
 
   if (IS_NPC (ch))
     {
@@ -254,7 +259,15 @@ make_corpse (CHAR_DATA * ch, CHAR_DATA * killer)
 	obj_to_obj (obj, corpse);
     }
 
-  obj_to_room (corpse, ch->in_room);
+#ifdef ENABLE_MORGUE
+    if ( IS_NPC(ch) )
+        obj_to_room( corpse,ch->in_room );
+    else
+	    obj_to_room( corpse,location );
+#else	
+      obj_to_room (corpse, ch->in_room);
+#endif
+  
   return;
 }
 
