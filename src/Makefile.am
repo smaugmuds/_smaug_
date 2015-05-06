@@ -258,8 +258,8 @@ endif
 # Source Code Headers #
 
 include_HEADERS = \
-smaug.h mud.h bank.h bet.h hint.h i18n.h house.h liquids.h \
-news.h sha256.h gettext.h 
+smaug.h mud.h bet.h hint.h i18n.h house.h \
+liquids.h news.h sha256.h gettext.h 
 
 if HTTPD
 include_HEADERS += mongoose.h
@@ -299,4 +299,8 @@ endif
 
 if ENABLE_OLC2
 include_HEADERS += olc.h
+endif
+
+if BANK_INSTALLED
+include_HEADERS += bank.h
 endif

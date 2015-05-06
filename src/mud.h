@@ -295,13 +295,10 @@ typedef ch_ret SPELL_FUN args ((int sn, int level, CHAR_DATA * ch, void *vo));
 #define MAX_REXITS		   20	/* Maximum exits allowed in 1 room */
 #define MAX_SKILL		  500
 #define SPELL_SILENT_MARKER   "silent"	/* No OK. or Failed. */
-/*#define MAX_CLASS           	   12  */
 #define MAX_CLASS           	   20
 #define MAX_NPC_CLASS		   26
-/*#define MAX_RACE                 20  Trying to fix a bunch of problems-- Scryn*/
-											 /*#define MAX_RACE                   15 *//*  added 6 for new race code */
 #define MAX_RACE                   26
-#define MAX_NPC_RACE		   190
+#define MAX_NPC_RACE		  190
 #define MAX_MSG			   18
 
 extern int MAX_PC_RACE;
@@ -482,6 +479,7 @@ typedef enum
 #define RSV		5	/* right-shift value  ( sqrt(XBM+1) )   */
 #define XBI		4	/* integers in an extended bitvector    */
 #define MAX_BITS	(XBI * INTBITS)
+
 /*
  * Structure for extended bitvectors -- Thoric
  */
@@ -489,10 +487,6 @@ struct extended_bitvector
 {
   unsigned int bits[XBI];
 };
-
-
-
-
 
 
 /*
