@@ -595,6 +595,14 @@ Log         0
 End
 
 #COMMAND
+Name        corpo~
+Code        do_corpse
+Position    100
+Level       1
+Log         0
+End
+
+#COMMAND
 Name        creditos~
 Code        do_credits
 Position    100

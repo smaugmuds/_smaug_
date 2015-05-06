@@ -523,6 +523,16 @@ if test "$enable_buildwalk" = "yes"; then
 fi
 AM_CONDITIONAL([ENABLE_BUILDWALK], [test "$enable_buildwalk" = "yes"])
 
+# Enable Undertaker Support (-DENABLE_UNDERTAKER) #
+AC_ARG_ENABLE(undertaker,
+              AC_HELP_STRING([--enable-undertaker],
+                             [enable Undertaker Support @<:@default=yes@:>@]),
+              [], [enable_undertaker=yes])
+if test "$enable_undertaker" = "yes"; then
+		AC_DEFINE([ENABLE_UNDERTAKER], [], [Undertaker Support])
+fi
+AM_CONDITIONAL([ENABLE_UNDERTAKER], [test "$enable_undertaker" = "yes"])
+
 # Enable Billion MAX_VNUM Support (-DBILLION_VNUM) #
 AC_ARG_ENABLE(bvnum,
               AC_HELP_STRING([--enable-bvnum],
@@ -559,6 +569,7 @@ AC_ARG_ENABLE(bank,
 if test "$enable_bank" = "yes"; then
 		AC_DEFINE([BANK_INSTALLED], [], [Banking Support])
 fi
+AM_CONDITIONAL([BANK_INSTALLED], [test "$enable_bank" = "yes"])
 
 # Enable Marriage Support (-DMARRIAGE) #
 AC_ARG_ENABLE(marry,
@@ -568,7 +579,7 @@ AC_ARG_ENABLE(marry,
 if test "$enable_marry" = "yes"; then
 		AC_DEFINE([MARRIAGE], [], [Marriage Support])
 fi
-
+AM_CONDITIONAL([MARRIAGE], [test "$enable_marry" = "yes"])
 
 # Enable Morgue Support (-DMORGUE) #
 AC_ARG_ENABLE(morgue,
@@ -741,6 +752,7 @@ Configured --{SMAUG}-- MUD Server features:
  * Liquids System:      <$enable_liquids>
  * Act Comm Scramble:   <$enable_scramble>
  * Morgue:              <$enable_morgue>
+ * Undertaker:          <$enable_undertaker>
  * Banking:             <$enable_bank>
  * Player Marry:        <$enable_marry>
  * Dice Game:           <$enable_dice>

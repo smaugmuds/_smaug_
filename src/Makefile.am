@@ -156,10 +156,10 @@ libsmaug_realm_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
 libsmaug_realm_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
 
 libsmaug_realm_la_SOURCES = \
-adminlist.c bank.c build.c clans.c deity.c grub.c house.c \
+adminlist.c build.c clans.c deity.c grub.c house.c \
 ibuild.c liquids.c magic.c makeobjs.c mapout.c mpxset.c planes.c \
 renumber.c reset.c shops.c skills.c special.c stances.c starmap.c \
-stat_obj.c tables.c track.c variables.c marry.c
+stat_obj.c tables.c track.c variables.c
 
 if ENABLE_COLOR
 libsmaug_realm_la_SOURCES += color.c
@@ -169,10 +169,6 @@ endif
 
 if ENABLE_MAPPER
 libsmaug_realm_la_SOURCES += mapper.c
-endif
-
-if ENABLE_DICE
-libsmaug_realm_la_SOURCES += dice.c
 endif
 
 if ENABLE_TIMEZONE
@@ -185,6 +181,22 @@ endif
 
 if ENABLE_WEATHER
 libsmaug_realm_la_SOURCES += weather.c
+endif
+
+if BANK_INSTALLED
+libsmaug_realm_la_SOURCES += bank.c 
+endif
+
+if ENABLE_UNDERTAKER
+libsmaug_realm_la_SOURCES += undertaker.c
+endif
+
+if MARRIAGE
+libsmaug_realm_la_SOURCES += marry.c
+endif
+
+if ENABLE_DICE
+libsmaug_realm_la_SOURCES += dice.c
 endif
 
 # bin/smaug #

@@ -1707,7 +1707,7 @@ struct smaug_affect
 #define ACT_STATSHIELD			29	/* prevent statting */
 #define ACT_PROTOTYPE				30	/* A prototype mob      */
 #define ACT_NOSUMMON		 		31	/* Mob can't be summoned */
-#define ACT_NOSTEAL		 			32	/* Can't steal from mob */
+#define ACT_NOSTEAL		32	/* Can't steal from mob */
 #define ACT_INFEST          34	/* For infested mobs */
 #define ACT_BLOCKING        36	/* Same as PLR_BLOCKING  */
 #define ACT_IS_CLONE        37	/* Same as PLR_IS_CLONE */
@@ -1716,7 +1716,8 @@ struct smaug_affect
 #define ACT_IS_PROJECTION   40	/* Same as PLR_IS_PROJECTION */
 #define ACT_STOP_SCRIPT	    41	/* Don't execute script progs */
 #define ACT_BANKER	    42
-#define MAX_ACT_FLAGS       43    /* Always last */
+#define ACT_UNDERTAKER	    43
+#define MAX_ACT_FLAGS       44  /* Always last */
 /*
  * Bits for 'affected_by'.
  * Used in #MOBILES.
@@ -4331,13 +4332,11 @@ DECLARE_DO_FUN (do_climb);
 DECLARE_DO_FUN (do_close);
 DECLARE_DO_FUN (do_cmdtable);
 DECLARE_DO_FUN (do_cmenu);
-
 #ifdef ENABLE_COLOR
-DECLARE_DO_FUN( do_color );
+DECLARE_DO_FUN (do_color);
 #else
 DECLARE_DO_FUN (do_colorize);	/* Alty */
 #endif
-
 DECLARE_DO_FUN (do_colorscheme);
 DECLARE_DO_FUN (do_commands);
 DECLARE_DO_FUN (do_comment);
@@ -4352,6 +4351,9 @@ DECLARE_DO_FUN (do_council_induct);
 DECLARE_DO_FUN (do_council_outcast);
 DECLARE_DO_FUN (do_councils);
 DECLARE_DO_FUN (do_counciltalk);
+#ifdef ENABLE_UNDERTAKER
+DECLARE_DO_FUN (do_corpse);
+#endif
 DECLARE_DO_FUN (do_credits);
 DECLARE_DO_FUN (do_cset);
 DECLARE_DO_FUN (do_cwho);

@@ -207,6 +207,9 @@ char *const act_flags[] = {
 #ifdef BANK_INSTALLED
   "banker",
 #endif
+#ifdef ENABLE_UNDERTAKER
+  "undertaker",
+#endif
   "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10"
 };
 
@@ -218,7 +221,7 @@ char *const pc_flags[] = {
   "nstart", "dnd", "idle", "nobio", "nodesc", "beckon", "noexp", "nobeckon",
   "hints", "nohttp", "freekill", 
 #ifdef ENABLE_BUILDWALK
-	"buildwalk",
+  "buildwalk",
 #endif
   "r20", "r21", "r22", "r23", "r24", "r25",
   "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10"

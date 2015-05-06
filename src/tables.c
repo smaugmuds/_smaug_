@@ -482,6 +482,10 @@ skill_function (char *name)
 	return do_councils;
       if (!str_cmp (name, "do_counciltalk"))
 	return do_counciltalk;
+#ifdef ENABLE_UNDERTAKER
+      if (!str_cmp (name, "do_corpse"))
+	return do_corpse;
+#endif
       if (!str_cmp (name, "do_credits"))
 	return do_credits;
       if (!str_cmp (name, "do_cset"))
@@ -1951,6 +1955,10 @@ skill_name (DO_FUN * skill)
     return "do_councils";
   if (skill == do_counciltalk)
     return "do_counciltalk";
+#ifdef ENABLE_UNDERTAKER
+  if (skill == do_corpse)
+    return "do_corpse";
+#endif
   if (skill == do_credits)
     return "do_credits";
   if (skill == do_cset)

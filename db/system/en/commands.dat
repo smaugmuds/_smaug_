@@ -588,6 +588,14 @@ Log         0
 End
 
 #COMMAND
+Name        corpse~
+Code        do_corpse
+Position    100
+Level       1
+Log         0
+End
+
+#COMMAND
 Name        credits~
 Code        do_credits
 Position    100
