@@ -1,0 +1,127 @@
+---- Begin "resurrect"
+
+First, stick this into your limbo.are:
+
+#MOBOLD
+#1
+zombie~
+a zombie~
+A zombie is here, slaving away for its master.
+~
+This zombie has a blank look on its face.  Rest assured, it wouldn't stir if
+you held a knife to its throat.
+~
+2 0 0 S
+0 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+#0
+
+The mob is old format because otherwise I'd have to reassign the damage 
+for it... something I really didn't feel like doing, since I couldn't 
+come up with a decent formula.  If it's old format damage is simply 
+calculated by level.
+
+Stick this in merc.h among the mob vnums:
+
+#define MOB_VNUM_ZOMBIE		1
+
+In magic.h, among the DECLARE_SPELL_FUN's:
+
+DECLARE_SPELL_FUN(	spell_resurrect		);
+
+In const.c, in the skill_table:
+
+    {
+	"resurrect",		{ 53, 53, 53, 53 },	{ 1,  1,  2,  2},
+	spell_resurrect,	TAR_IGNORE,		POS_STANDING,
+	NULL,			SLOT(xxx),	100,	15,
+	"",			"!Resurrect!",		"",
+    },
+
+Of course, you will want to lower the levels and change SLOT(xxx) to a 
+free spell slot.
+
+And now, the spell function... stick this in magic.c:
+
+void spell_resurrect( int sn, int level, CHAR_DATA *ch, void *vo,int target)
+{
+    OBJ_DATA *obj;
+    CHAR_DATA *mob;
+    int i;
+
+    obj = get_obj_here( ch, target_name );
+
+    if ( obj == NULL )
+    {
+        send_to_char( "Resurrect what?\n\r", ch );
+        return;
+    }
+
+    /* Nothing but NPC corpses. */
+
+    if( obj->item_type != ITEM_CORPSE_NPC )
+    {
+        if( obj->item_type == ITEM_CORPSE_PC )
+            send_to_char( "You can't resurrect players.\n\r", ch );
+        else
+            send_to_char( "It would serve no purpose...\n\r", ch );
+        return;
+    }
+
+    if( obj->level > (ch->level + 2) )
+    {
+        send_to_char( "You couldn't call forth such a great spirit.\n\r", ch );
+        return;
+    }
+
+    if( ch->pet != NULL )
+    {
+        send_to_char( "You already have a pet.\n\r", ch );
+        return;
+    }
+
+    /* Chew on the zombie a little bit, recalculate level-dependant stats */
+
+    mob = create_mobile( get_mob_index( MOB_VNUM_ZOMBIE ) );
+    mob->level                  = obj->level;
+    mob->max_hit                = mob->level * 8 + number_range(
+                                        mob->level * mob->level/4,
+                                        mob->level * mob->level);
+
+    mob->max_hit *= .9;
+    mob->hit                    = mob->max_hit;
+    mob->max_mana               = 100 + dice(mob->level,10);
+    mob->mana                   = mob->max_mana;
+    for (i = 0; i < 3; i++)
+        mob->armor[i]           = interpolate(mob->level,100,-100);
+    mob->armor[3]               = interpolate(mob->level,100,0);
+
+    for (i = 0; i < MAX_STATS; i++)
+        mob->perm_stat[i] = 11 + mob->level/4;
+
+    /* You rang? */
+    char_to_room( mob, ch->in_room );
+    act( "$p springs to life as a hideous zombie!", ch, obj, NULL, TO_ROOM );
+    act( "$p springs to life as a hideous zombie!", ch, obj, NULL, TO_CHAR );
+
+    extract_obj(obj);
+
+    /* Yessssss, massssssster... */
+    SET_BIT(mob->affected_by, AFF_CHARM);
+    SET_BIT(mob->act, ACT_PET);
+    mob->comm = COMM_NOTELL|COMM_NOSHOUT|COMM_NOCHANNELS;
+    add_follower( mob, ch );
+    mob->leader = ch;
+    ch->pet = mob;
+    /* For a little flavor... */
+    do_say( mob, "How may I serve you, master?" );
+    return;
+}
+
+That's it!  Feel free to use it as you please... a little credit 
+somewhere would be nice, but not necessary.  Oh, and any improvements 
+(*beam*) or bugs (*cringe*), please write to aprocter@mail.coin.missouri.edu.
+
+--Dribble
+---- End "resurrect"

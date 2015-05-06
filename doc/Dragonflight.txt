@@ -1,0 +1,380 @@
++++++++++++++++++++++++++++++++
++  Dragonflight Snippet v1.0  +
++++++++++++++++++++++++++++++++
+
+Written by Ymris of Terahoun
+
+
+
+DESCRIPTION:
+
+This snippet provides dragonflight for use with SMAUG 1.4 and Samson's Overland snippet.
+It provides commands to call, fly, land and release dragons for mounting and flying.
+Flight is done by moving the player and his dragon across the landscape in 10-room steps
+(see TUNABLE PARAMETERS). To keep a player from waiting too long for his dragon to show up,
+a dragon without a rider moves in 50-room steps (See TUNABLE PARAMETERS).
+
+When a player CALLs a dragon, the dragon charges a fee.  In the stock snippet, this is 1000
+coins/player level.  (See TUNABLE PARAMETERS).  A random dragon is spawned at a random location
+on the wilderness and flies to the player.  When the player no longer requires the dragon, he
+may RELEASE it.
+
+A player can direct the dragon to FLY to a cardinal direction (N,S,E or W) or to an area.
+In order to land when flying manually (by direction), the player issues the LAND command.
+In order to fly to an area, a landing site must be created near the area.  Dragons will find
+the landing coordinates for areas from the landing_sites.dat table.  Also, this features uses
+str_prefix, allowing trunctation of names (i.e. FLY MAHN would take you to Mahn Tor, if you
+had such a zone.)
+
+Dragons will also get bored if they sit around.  The handler will warn the player at 100 and
+200 beats that the dragon is getting restless, and at 300 beats, the dragon will fly away of
+its own accord. (See TUNABLE PARAMETERS).
+
+Dragons are also mindful of where they set down their talons.  They will not respond to calls
+from areas shielded from the sky or in water, nor will they land at a player's request in a
+room in which the player may be trapped. (ocean, lava, quicksand, stone, etc).  If the dragon
+is asked to land in these sectortypes, he will be mindful of the player's safety and start
+backtracking, looking for a safe landing site.
+
+The commands LANDING_SITES and SETLANDING are available for immortals to create landing sites
+anywhere across the wilderness.
+
+-----------------------------------------------------------------------------
+
+TUNABLE PARAMETERS:
+
+Draggie Fare: This is set with the variable draggie_dough in the function do_call. 
+
+Draggie Speed: This is set with the variable speed in the function fly_draggie.
+
+Draggie Boredom: The number of beats are set in the function dflight_update.
+
+Safe Landings: This can be changed by looking at the room flags and sector types in the
+functions do_call and land_draggie.
+
+
+-----------------------------------------------------------------------------
+
+TERMS OF USE:
+
+You may use this snippet and modify it in any way you like as long as:
+
+1) The headers in the sourcefiles are left in tact.
+
+2) My explanatory comments remain in the code in case someone else has to decypher it.
+
+3) You drop me an email at the address listed at the bottom of this file, letting me know
+ you are using the snippet.  To be honest, this is just an ego-stroke and a curiosity so
+ I can see where my draggies are :)
+
+4) Give me the credit you feel this snippet deserves (in other words, something between
+ nothing at all and naming your first born child after me).
+
+5) Keep your eyes open for hipwaders.  I really need a new pair.  Do you have any idea what
+ it's like housebreaking a dragon?!?
+
+
+-----------------------------------------------------------------------------
+
+PREREQUISITES:
+
+- SMAUG codebase (written on 1.4a  Anything else may need a little tweaking)
+
+- Samson's Overland snippet 7-14-01 version or later
+
+
+-----------------------------------------------------------------------------
+
+AFFECTED FILES AND FUNCTIONS:
+
+mud.h		char_data structure
+overland.h	entrances_data structure
+act_comm.c	do_quit
+act_info.c	do_look
+act_move.c  move_char
+overland.c	entrance functions; display_map
+skills.c	do_mount; do_dismount
+tables.c	DO_FUN
+update.c	update_handler
+
+
+-----------------------------------------------------------------------------
+
+INCLUDED FILES:
+
+Dragonflight.txt		This file
+dragonflight.c		Dragonflight module
+dragonflight.h		Dragonflight header file
+dragonflight.help		Sample helpfile entries
+room_n_draggie.samp	Sample rooms and draggies.
+landing_sites.dat		Sample landingsites file
+
+-----------------------------------------------------------------------------
+
+INCLUDED FUNCTIONS:
+
+do_call		Calls a dragon
+do_release		Releases a dragon after it's been called
+do_fly		Command to fly a dragon
+do_land		Command to land a dragon
+do_landing_sites	Command for listing landing sites
+do_setlanding	Command for setting landing sites
+
+pop_dragon		Code to create a new dragon
+purge_dragon	Code to expire a dragon
+fly_dragon		Dragonflight movement code
+land_dragon		Code to land a dragon
+dflight_update	Code called by the update handler
+
+fread_landing_sites	Read the landing sites file
+load_landing_sites	Load the landing sites
+save_landing_sites	Save the landing sites
+add_landing		Add new landing sites
+delete_landing_site	Delete a landing site
+
+-----------------------------------------------------------------------------
+
+INSTALLATION INSTRUCTIONS:
+
+Code Changes:
+
+1. Open mud.h
+
+   Find your char_data structure (somewhere around line 2325).  To the end of the structure, add the following lines:
+
+	CHAR_DATA *	my_dragon;		/* Bond dragon to player */
+	CHAR_DATA *	my_rider;		/* Bond player to dragon */
+	bool 		has_dragon;		/* Identifies has dragon */
+	bool 		dragonflight;	/* Dragon is in flight   */
+	int 		zzzzz;		/* Dragon is idling      */
+	int		dmap;			/* Destination map	 */
+	int		dcoordx;		/* Destination X coord	 */
+	int		dcoordy;		/* Destination Y coord	 */
+	bool		backtracking;	/* Unsafe landing flag   */
+	int		lcoordx;		/* Launch X coord	 */
+	int		lcoordy;		/* Launch Y coord	 */
+
+2. Open act_comm.c
+
+Find the lines (around line 1950):
+
+    if ( auction->item != NULL && ((ch == auction->buyer) || (ch == auction->seller) ) )
+    {
+	send_to_char("Wait until you have bought/sold the item on auction.\r\n", ch);
+	return;
+
+    }
+
+Below this, add the lines:
+    if( ch->dragonflight )
+    {
+	send_to_char( "Dragons are not equipped with parachutes.  Wait until you land.\r\n", ch );
+	return;
+
+    }
+
+3. Open act_info.c
+
+Find the lines (around line 953)
+
+      if( IS_PLR_FLAG( ch, PLR_ONMAP ) || IS_ACT_FLAG( ch, ACT_ONMAP ) )
+	{
+	    display_map( ch );
+	    return;
+	}
+
+and change them to:
+
+      if( IS_PLR_FLAG( ch, PLR_ONMAP ) || IS_ACT_FLAG( ch, ACT_ONMAP ) )
+	{
+	    display_map( ch );
+	    if( !ch->dragonflight )
+	    {
+	       show_list_to_char( ch->in_room->first_content, ch, FALSE, FALSE );
+       	 show_char_to_char( ch->in_room->first_person,  ch );
+	    }
+	    return;
+	}
+ 
+4. Open act_move.c
+
+Find the function move_char, and locate these lines:
+
+    if( IS_PLR_FLAG( ch, PLR_ONMAP ) || IS_ACT_FLAG( ch, ACT_ONMAP ) )
+    {
+	int newx = ch->x;
+	int newy = ch->y;
+
+Below this, add the lines:
+
+	if( ch->dragonflight ) 
+	{
+	   send_to_char( "Sit still! You cannot go anywhere until the dragon has landed.\r\n", ch );
+	   return rNONE;
+	}
+
+5. Open skills.c
+
+Find the function do_mount (somewhere around line 3644).  Within this function, find the line:
+
+    if ( victim->position == POS_FIGHTING || victim->fighting )
+    {
+	send_to_char( "Your mount is moving around too much.\r\n", ch );
+	return;
+    }
+
+Below this, add the following lines:
+
+	if( victim->my_rider != ch )	/* prevents dragon theft */
+	{
+		send_to_char( "This is someone else's dragon.\r\n", ch );
+		return;
+	}
+
+A little further down is the function do_dismount.  Within this function, find the lines:
+
+    if ( (victim = ch->mount) == NULL )
+    {
+	send_to_char( "You're not mounted.\r\n", ch );
+	return;	
+    }
+	
+Below this, add the following lines:
+
+	if( ch->dragonflight )
+	{
+		send_to_char( "Dismounting a dragon in midair would send you plummeting to your death.\r\n", ch );
+		return;
+	}
+
+NOTE: Just a consideration: If you are charging people dragon fare, and they may not have the mount
+skill learned, you might want to comment out the chance of failure, since they are tossing away money
+for it.  On the other hand, if they call a draggie once, only to realize they can't mount it, they
+aren't going to do it again.  Perhaps a happy medium is to put an if-check in dragonflight.c:do_call
+to see if they have learned mount before allowing them to call.  I left this open because in Terahoun,
+mount is a command, rather than a skill.
+
+6. Open tables.c
+
+Add the command functions to the skill tables (forward and reverse):
+	
+	do_call
+	do fly
+	do_land
+	do_landing_sites
+	do_release
+	do_setlanding
+
+7. Open update.c 
+
+Find the function update_handler (around line 2171).
+Find the line:
+
+    static  int     pulse_mobile;
+
+and below it, add the line:
+
+    static  int     pulse_dflight;
+
+a few lines down, find the lines:
+
+    if ( --pulse_mobile   <= 0 )
+    {
+	pulse_mobile	= PULSE_MOBILE;
+	mobile_update  ( );
+    }
+
+and below that add the following lines:
+
+    if ( --pulse_dflight   <= 0 )
+    {
+	pulse_dflight	= PULSE_DFLIGHT;
+	dflight_update  ( );
+    }
+
+Other Changes:
+
+Copy the file landing_sites.dat to your map directory (the same directory that has your entrances.dat,
+landmarks.dat, mapresets.dat and raw map files).
+
+Edit your entrances.dat and add a line right before your "End" line in each stanza.  
+The line should look like:
+
+	Area	~
+
+or if you know what area it is for, you can put in the area name, such as:
+
+	Area	Mahn Tor~
+
+Create a room for airborne in one of your areas, most logically in your overland.are or whatever
+your main continent is named.  Link it up basically the same way you did the overland room during overland setup.
+
+Create your draggies.  Again, most logically, this is probably in your overland.are file.  Stats are to your
+taste, just make sure it's mountable.
+
+Edit dragonflight.c and find the line:
+
+   	dnum = number_range( 11072, 11078 );
+
+Alter the statement to reflect your dragons.
+
+And the final works:
+
+Add dragonflight.h, dragonflight.c and dragonflight.o to your Makefile.
+
+Do a clean make.
+
+Copy the dragonflight.help entries into your help.are or create your own.
+
+Start up your mud and do:
+
+cedit call create
+cedit fly create
+cedit land create
+cedit release create
+cedit landing_sites create
+cedit setlanding create
+
+adjust the levels as you like.  The last two should be imm commands.
+
+cedit save cmdtable
+
+Call a draggie and go cruisin'!
+
+-----------------------------------------------------------------------------
+
+CHANGES and COMMENTS:
+
+10 July 2001::
+
+This is the first release of the Dragonflight snippet.  It's my first attempt at a snippet, and the most
+coding I have done on any one feature.  In other words:  NEWBIE-ALERT!  I will gladly accept any critique,
+advice suggestion and correction (and even a degree of mocking laughter).  I just ask that you bear this
+in mind as you scratch your head and mutter: "What the hell was he trying to do here?!?."
+
+I'd also like to take a sec and thank Samson for the overland snippet, and all the folks who put out
+snippets.  They're educational, entertaining and useful.
+
+-----------------------------------------------------------------------------
+
+DISCLAIMER:
+
+This code was developed and implemented on SMAUG 1.4a with Samson's Overland snippet.
+The differences between Terahoun and your mud may cause significant changes in the way dragons
+behave (or even work at all).  While I can try to help sort any quirks out, I cannot guarantee that
+it will work as described, or even at all, and I cannot take responsibility for damages to your code.
+ALWAYS TAKE A BACKUP BEFORE INSTALLING THIS (or any) SNIPPET.
+
+I've tried to think of as many things as possible that can affect dragoonflight (i.e. quitting out
+or loosing link while flying, trying to "walk" while airborne, etc.).  But there are many things a
+player may try to do while in the air that I haven't thought of.  Bear in mind that there could still
+be the possibility for players to do things that cause the dragons or themselves to act irrationally.
+In short: there may still be plenty of bugs to catch you unaware.
+
+Feel free to contact me at william.reinman@notes.sema.se with questions, comments or problems.
+I will try to give you some sort of answer.
+
+Bottom line:  Good luck, hope you like it, hope it helps, hope it WORKS.  But if it doesn't, I can't
+promise anything more than attempts to help.
+
+-----------------------------------------------------------------------------

@@ -1,0 +1,219 @@
+/****************************************************************************
+ * [S]imulated [M]edieval [A]dventure multi[U]ser [G]ame      |   \\._.//   *
+ * -----------------------------------------------------------|   (0...0)   *
+ * SMAUG 1.4 (C) 1994, 1995, 1996, 1998  by Derek Snider      |    ).:.(    *
+ * -----------------------------------------------------------|    {o o}    *
+ * SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,      |   / ' ' \   *
+ * Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,      |~'~.VxvxV.~'~*
+ * Tricops and Fireblade                                      |             *
+ * ------------------------------------------------------------------------ *
+ * Merc 2.1 Diku Mud improvments copyright (C) 1992, 1993 by Michael        *
+ * Chastain, Michael Quan, and Mitchell Tse.                                *
+ * Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,          *
+ * Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.     *
+ * Win32 port by Nick Gammon                                                *
+ * ------------------------------------------------------------------------ *
+ *                          Undertaker Module                               *
+ * ------------------------------------------------------------------------ *
+ * Part of this code is from act_wiz.c : do_owhere(). Structure follows     *
+ * that of the ROM healer port by Desden, el Chaman Tibetano.               *
+ * Brought together by Cyrus & Robcon (ROC2). Please send suggestions to    *
+ *    cyrus@cx.net                                                          *
+ ****************************************************************************/
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "mud.h"
+
+/* Checks room to see if an Undertaker mob is present */
+CHAR_DATA *find_undertaker( CHAR_DATA *ch )
+{
+  CHAR_DATA *undertaker = NULL;
+  
+  /* NOTE TO SMAUG 1.02a USERS: This line is likely to cause errors on compile.
+     Remove the "x" before the IS_SET and the error will be resolved.
+     Smaug 1.4 users should not need to modify this in any way. - Samson */
+  for ( undertaker = ch->in_room->first_person; undertaker; undertaker = undertaker->next_in_room )
+    if ( IS_NPC( undertaker ) && xIS_SET( undertaker->act, ACT_UNDERTAKER ) )
+      break;
+
+  return undertaker;
+}
+
+void do_corpse( CHAR_DATA *ch, char *argument )
+{
+    char buf[MAX_STRING_LENGTH];
+    char arg[MAX_INPUT_LENGTH];
+    OBJ_DATA *obj, *outer_obj;
+    CHAR_DATA *mob;
+    bool found = FALSE;
+    int cost = 0;
+
+    /* Avoids the potential for filling the room with hundreds of mob corpses */
+    if( IS_NPC(ch) )
+    {
+	send_to_char( "Mobs cannot retreive corpses.\n\r", ch );
+	return;
+    }
+
+    /* Search for an act_undertaker */
+    if ( !( mob = find_undertaker( ch ) ) )
+    {
+        send_to_char( "There's no undertaker here!\n\r", ch );
+        return;
+    }
+
+    argument = one_argument( argument, arg );
+
+    if ( arg[0] == '\0' )
+    {
+        act(AT_PLAIN,"$N says 'Ooo Yesss ... I can helpss you.'",ch,NULL,mob,TO_CHAR);
+        send_to_char("  retrieve: Retrieves your corpse   20gp / level\n\r",ch);
+        send_to_char(" Type corpse <type> for the service.\n\r",ch);
+        return;
+    }
+
+    if (!str_cmp(arg,"retrieve"))
+        cost  = 20 * ch->level;
+    else
+    {
+        act(AT_PLAIN,"$N says ' Type 'corpse' for help on what I do.'",
+            ch,NULL,mob,TO_CHAR);
+        return;
+    }
+
+    if (cost > ch->gold )
+    {
+        act(AT_PLAIN,"$N says 'Pah! You do not have enough gold for my services!'",ch,NULL,mob,TO_CHAR);
+        return;
+    }
+
+    strcpy( buf, "the corpse of " );
+    strcat( buf, ch->name ); 			/* Bug fix here by Samson 12-21-00 See below */
+    for ( obj = first_object; obj; obj = obj->next )
+    {
+        if ( !nifty_is_name( buf, obj->short_descr ) ) /* Fix here - Samson 1-26-01 */
+              continue;
+
+	  /* This will prevent NPC corpses from being retreived if the person has a mob's name */
+	  if ( obj->item_type == ITEM_CORPSE_NPC )
+		continue;
+
+        found = TRUE;
+        
+        /* Could be carried by act_scavengers, or other idiots so ... */
+        outer_obj = obj;
+        while ( outer_obj->in_obj )
+              outer_obj = outer_obj->in_obj;
+
+        separate_obj( outer_obj );
+        obj_from_room( outer_obj );
+        obj_to_room( outer_obj, ch->in_room );
+
+        ch->gold -= cost;
+        act(AT_PLAIN,"$N creepily carts in your corpse.",ch,NULL,mob,TO_CHAR);
+        act(AT_PLAIN,"$n creepily carts in the $T.",mob,NULL,buf,TO_ROOM);
+    }
+
+    /* Could've been extracted, so do this */
+    if ( !found )
+        act(AT_PLAIN,"$N says 'Sorry I can't find your corpse. There's nothing more I can do.'",ch,NULL,mob,TO_CHAR);
+
+    return;
+}
+
+UNDERTAKER for Smaug 1.4a
+
+Tested ok. This is basically for corpse retrieval. Pay the mob (undertaker) to
+get back your corpse. I can imagine this would be pretty useful if you died in
+a sadistically aggressive area and you'd really want your eq back. Just pop
+into your local morgue and beg your friendly undertaker! Bring money!
+
+It's very simple code. Room for improvements. I don't know if there's any such
+function out there that's similar to this. But this is for smaug.
+
+                                *****
+
+1. In mud.h look for the mobile ACT_ bits. Do not add more than 31. Use only
+   the unused ones. If there isn't any free 'slots' left, you might want to
+   consider doing away with some act flags that you don't really use.
+
+    #define ACT_UNDERTAKER      ??
+
+Add also: (in the right place and in alphabetical order)
+
+    DECLARE_DO_FUN( do_corpse );
+
+2. In tables.c add in the right places and in alphabetical order:
+      
+    if ( !str_cmp( name, "do_corpse"  ))              return do_corpse;
+    
+    if ( skill == do_corpse  )          return "do_corpse";
+
+3. Add the 2 functions at the beginning of this file to player.c
+
+4. Make sure your mud is not running. Do a 'make clean; make'.
+
+5. Add in ./system/commands.dat:
+
+#COMMAND
+Name        corpse~
+Code        do_corpse
+Position    100
+Level       1
+Log         0
+End
+
+7. Edit build.c, look for 
+char * const act_flags []
+{
+
+and add the new flag in the right place (the order is set by the bit vector values) .
+Example:
+
+If you have 
+#define ACT_HEALER               31    (in mud.h)
+
+change to:
+  {
+  "npc", "sentinel", "scavenger", "r1", "r2", "aggressive", "stayarea",
+  "wimpy", "pet", "train", "practice", "immortal", "deadly", "polyself",
+  "meta_aggr", "guardian", "running", "nowander", "mountable", "mounted",
+ "scholar", "secretive", "hardhat", "mobinvis", "noassist", "autonomous",
+ "pacifist", "noattack", "annoying", "statshield", "prototype", "undertaker"
+  };
+
+Where 'npc' is bitvector 0, 'sentinel' is 1, and so on.
+
+                                *****
+
+A.
+To mset an act_flag to a mob :
+mset <mobname> flags undertaker
+.. blah .. blah .. blah ..
+
+B. PC's usage :
+1. You must have died first of course.
+
+2. Have some money. Visit your undertaker before your corpse decays completely.
+
+3. 'corpse retrieve' or 'corpse' for help.
+
+Bugs?
+
+- You'd be charged x times the amount if you have x corpses around. However, all
+  your corpses will be "retrieved". Even those in already in the morgue. The
+  idea is not to make it a habit of dying; but if you have to, at least get rid
+  of your corpse before you die again ;)
+
+That's it.
+- Cyrus & Robcon (Rage of Carnage 2)
+
+Update from Samson 12-21-00:
+Fixed a major bug where in the buffer holding the name of the object to be
+retrieved only held the character's name. This would cause ANY object in the
+game with that character's name in it to be brought to them, including object
+being held by other players. The statement has been changed to correct this and
+should now only retrieve corpses belonging to the player, regardelss of their
+name.

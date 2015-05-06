@@ -758,6 +758,14 @@ Flags       4
 End
 
 #COMMAND
+Name        dice~
+Code        do_dice
+Position    112
+Level       6
+Log         0
+End
+
+#COMMAND
 Name        dig~
 Code        do_dig
 Position    112

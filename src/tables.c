@@ -512,6 +512,10 @@ skill_function (char *name)
 	return do_devote;
       if (!str_cmp (name, "do_dig"))
 	return do_dig;
+#ifdef ENABLE_DICE
+      if (!str_cmp (name, "do_dice"))
+	return do_dice;
+#endif
       if (!str_cmp (name, "do_die"))
 	return do_die;
       if (!str_cmp (name, "do_disappear"))
@@ -1975,6 +1979,10 @@ skill_name (DO_FUN * skill)
     return "do_devote";
   if (skill == do_dig)
     return "do_dig";
+#ifdef ENABLE_DICE
+  if (skill == do_dice)
+    return "do_dice";
+#endif
   if (skill == do_die)
     return "do_die";
   if (skill == do_disappear)

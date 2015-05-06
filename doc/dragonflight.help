@@ -1,0 +1,56 @@
+0 DRAGON DRAGONS DRAGONFLIGHT~
+Associated help files: call fly land release
+
+While many dragons consider lesser lifeforms flavorful and juicy, some have
+offered their services to the landborne as a means of transportation.  
+Certain dragons may be summoned for assistance.  When a dragon responds to
+your call, he takes a fee for services.  This fee is 1000 gold per level.
+
+Once you have paid your fee and mounted the dragon, you may fly freely 
+across the landscape much faster than any steed could bear you.  Dragons
+are quite familiar with the land and can take you to nearly anyplace by
+name.  
+ 
+~
+
+0 CALL FLY LAND RELEASE~
+Associated help files: dragon dragons dragonflight
+Syntax:  call
+Syntax:  fly <area | direction>
+Syntax:  land 
+Syntax:  release
+ 
+To call a dragon, issue the command CALL.  This will debit you the fee
+of dragon fare and dispatch a dragon to your location.
+
+After you have mounted a dragon, you may fly to any area or direction.
+To do this, issue the command FLY <AREA NAME> or FLY <DIRECTION>.  
+
+If you are flying to an area, the dragon will land in close proximity 
+to the area.  If you fly by direction, you must land the dragon manually.
+To do this, issue the command LAND.  If the dragon deems the terrain below
+as safe, it will land.  Otherwise, it will begin searching for a safer 
+place to set down.
+
+When you no longer require the services of a dragon, you may dismiss them
+with the RELEASE command.
+~
+
+56 LANDING_SITES SETLANDING~
+Syntax:  landing_sites
+Syntax:  setlanding add
+Syntax:  setlanding delete
+Syntax:  setlanding area <area name>
+ 
+The command LANDING_SITES lists all loaded landing sites.
+
+The SETLANDING command manages these sites.  To add a new landing site,
+go to the coordinates on the Overland map where you wish dragons to land 
+and issue the command SETLANDING ADD.  Next, provide the name of the area
+to which these coordinates belong.  To do this, type: SETLANDING AREA 
+<AREANAME>.
+
+To delete a landing site, go to the coordinates of the landing site on the
+Overland map and issue the command SETLANDING DELETE.
+~
+

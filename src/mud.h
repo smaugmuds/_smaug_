@@ -4367,6 +4367,11 @@ DECLARE_DO_FUN (do_destro);
 DECLARE_DO_FUN (do_destroy);
 DECLARE_DO_FUN (do_detrap);
 DECLARE_DO_FUN (do_devote);
+
+#ifdef ENABLE_DICE
+DECLARE_DO_FUN (do_dice);
+#endif
+
 DECLARE_DO_FUN (do_die);
 DECLARE_DO_FUN (do_dig);
 DECLARE_DO_FUN (do_disappear);

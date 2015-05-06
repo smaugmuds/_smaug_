@@ -38,6 +38,9 @@
 /* Color Support */
 #undef ENABLE_COLOR
 
+/* Dice Game Support */
+#undef ENABLE_DICE
+
 /* DNS Resolver */
 #undef ENABLE_DNS_RESOLV
 

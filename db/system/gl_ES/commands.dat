@@ -739,6 +739,14 @@ Log         0
 End
 
 #COMMAND
+Name        dados~
+Code        do_dice
+Position    112
+Level       6
+Log         0
+End
+
+#COMMAND
 Name        denegar~
 Code        do_deny
 Position    100

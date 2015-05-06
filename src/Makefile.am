@@ -171,6 +171,10 @@ if ENABLE_MAPPER
 libsmaug_realm_la_SOURCES += mapper.c
 endif
 
+if ENABLE_DICE
+libsmaug_realm_la_SOURCES += dice.c
+endif
+
 if ENABLE_TIMEZONE
 libsmaug_realm_la_SOURCES += timezone.c
 endif

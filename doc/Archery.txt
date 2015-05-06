@@ -1,0 +1,242 @@
+Enhanced Archery Code
+---------------------
+
+Original code: Bowfire (c)1997-99 Feudal Realms
+Bowfire ported to Smaug 1.4a by Samson of Alsherok
+
+Prerequisite Requirements
+-------------------------
+
+Succesful install of Weapon Profficiency Patch
+
+Terms of Use
+------------
+
+1. You may use this snippet in your code provided that any included
+comment headers in the code are left intact. You may add your own, but
+do not take mine out.
+
+2. This snippet may not be posted for redistribution on any site
+without obtaining prior written consent from the Alsherok team.
+
+3. ( optional ) Register with the forums at http://forums.alsherok.net
+Registration is not required to make use of the snippet, but since I no
+longer provide email support for any of the code I release, forum posts
+are your only avenue for direct support. This may seem overly stupid,
+but you can blame the continuing abuse I suffer from spammers for this.
+Don't post stuff to TMC or TMS asking about my code. I'm highly unlikely
+to ever notice it there on the rare ocassions I skim posts in either place.
+
+If forum registration doesn't appeal to you, then you can try to get ahold
+of me via IMC on the code channel.
+
+If you can't agree to these terms, don't use this code, and don't expect
+me to help if something breaks while installing it. Harsh? Hardly. I'm
+tired of people who come crawling to whine and complain when they haven't
+bothered to comply with the terms first.
+
+What this code does
+-------------------
+
+The main cool feature of this code is the projectile getting lodged in the body
+of the victim. Lodged projectiles will continue to do damage until the victim
+dies, or pulls the projectile out. Of course, it's also possible for the victim
+to die pulling the projectile out... but that's part of getting shot. The need to
+also have a free hand to hold the arrow with before being able to fire it is cool
+too. Combined with the superior archery code already present in Smaug, this makes
+for a much more realistic archery system than either codebase could provide alone.
+
+Installation Instructions
+-------------------------
+
+1. Place the file archery.c in your source directory. 
+   Add archery.o and archery.c to the appropriate sections of the Makefile.
+
+2. Open mud.h
+
+   Locate MAX_WHERE_NAME, increase the value by 3.
+
+   Locate the item wear flags.
+
+   Add the following in available BV slots:
+
+	ITEM_LODGE_RIB	BVXX
+	ITEM_LODGE_ARM	BVXX
+	ITEM_LODGE_LEG	BVXX
+
+   Then increase ITEM_WEAR_MAX by 3.
+
+   Locate the equipment wear locations.
+
+   Add the following to the end of the list, but before MAX_WEAR:
+
+      WEAR_LODGE_RIB, WEAR_LODGE_ARM, WEAR_LODGE_LEG
+
+   Locate the item extra flags.
+
+   Add ITEM_LODGED to the list just before MAX_ITEM_FLAG
+
+   In the appropriate section, add the following:
+
+DECLARE_DO_FUN( do_draw );
+DECLARE_DO_FUN( do_dislodge );
+
+3. Open build.c
+
+   Locate char *	const	item_w_flags	[] =
+
+   Add the following to the list, corresponding to the values used for the equipment wear locations in mud.h:
+
+   "lodge_rib", "lodge_arm", "lodge_leg"
+
+   Locate char *	const	w_flags	[] =
+
+   Add the following to the list, corresponding to the values used for the item wear flags in mud.h:
+
+   "lodge_rib", "lodge_arm", "lodge_leg"
+
+   Locate char *	const	o_flags	[] =
+
+   Add "lodged" to the list, corresponding to the value used for item extra flags in mud.h
+
+4. Open act_info.c
+
+   Locate the following:
+
+char *	const	where_name	[] =
+{
+   "<BUG Inform Nivek>  ",
+   "<BUG Inform Nivek>  ",
+   "<BUG Inform Nivek>  "
+
+   Replace those with the following:
+
+   "<lodged in a rib>   ",
+   "<lodged in an arm>  ",
+   "<lodged in a leg>   "
+
+5. Open act_obj.c and find function wear_obj
+
+   Locate the following:
+
+	default:
+	    bug( "wear_obj: uknown/unused item_wear bit %d. Obj vnum: %d", bit, obj->pIndexData->vnum  );
+	    if ( fReplace )
+		send_to_char( "You can't wear, wield, or hold that.\r\n", ch );
+	    return;
+
+   Directly below that, add the following: 
+
+      case ITEM_LODGE_RIB:
+         act( AT_ACTION, "$p strikes you and deeply imbeds itself in your ribs!", ch, obj, NULL, TO_CHAR );
+         act( AT_ACTION, "$p strikes $n and deeply imbeds itself in $s ribs!", ch, obj, NULL, TO_ROOM );
+         equip_char( ch, obj, WEAR_LODGE_RIB );
+         break;
+
+      case ITEM_LODGE_ARM:
+         act( AT_ACTION, "$p strikes you and deeply imbeds itself in your arm!", ch, obj, NULL, TO_CHAR );
+         act( AT_ACTION, "$p strikes $n and deeply imbeds itself in $s arm!", ch, obj, NULL, TO_ROOM );
+         equip_char( ch, obj, WEAR_LODGE_ARM );
+         break;
+
+      case ITEM_LODGE_LEG:
+         act( AT_ACTION, "$p strikes you and deeply imbeds itself in your leg!", ch, obj, NULL, TO_CHAR );
+         act( AT_ACTION, "$p strikes $n and deeply imbeds itself in $s leg!", ch, obj, NULL, TO_ROOM );
+         equip_char( ch, obj, WEAR_LODGE_LEG );
+         break;
+
+5. Open skills.c
+
+   Find all of the following functions and comment them out:
+
+   scan_for_victim, find_projectile, ranged_got_target, ranged_attack, do_fire, and mob_fire
+
+   Replacements for these functions are in archery.c
+
+6. Open fight.c
+
+   Find projectile_hit and comment it out.
+
+   A replacement for this function is in archery.c
+
+7. Open update.c
+
+   Locate the following code:
+
+         MOBtrigger = FALSE;
+         char_from_room(ch);
+         char_to_room( ch, location );
+         send_to_char( "The gods have released you from hell as your sentance is up!\r\n", ch );
+         do_look(ch, "auto");
+         STRFREE( ch->pcdata->helled_by );
+ 	   ch->pcdata->helled_by = NULL;
+         ch->pcdata->release_date = 0;
+         save_char_obj( ch );
+      }
+
+   Immediately below that, add the following:
+
+      if( !char_died( ch ) )
+      {
+         OBJ_DATA *arrow = NULL;
+         int dam = 0;
+
+         if( ( arrow = get_eq_char( ch, WEAR_LODGE_RIB ) ) != NULL )
+         {
+            dam = number_range( ( 2 * arrow->value[1] ), ( 2 * arrow->value[2] ) );
+            act( AT_CARNAGE, "$n suffers damage from $p stuck in $s rib.", ch, arrow, NULL, TO_ROOM );
+            act( AT_CARNAGE, "You suffer damage from $p stuck in your rib.", ch, arrow, NULL, TO_CHAR );
+            damage( ch, ch, dam, TYPE_UNDEFINED );
+         }
+         if( char_died( ch ) )
+            continue;
+
+         if( ( arrow = get_eq_char( ch, WEAR_LODGE_LEG ) ) != NULL )
+         {
+            dam = number_range( arrow->value[1], arrow->value[2] );
+            act( AT_CARNAGE, "$n suffers damage from $p stuck in $s leg.", ch, arrow, NULL, TO_ROOM );
+            act( AT_CARNAGE, "You suffer damage from $p stuck in your leg.", ch, arrow, NULL, TO_CHAR );
+            damage( ch, ch, dam, TYPE_UNDEFINED );
+         }
+         if( char_died( ch ) )
+            continue;
+
+         if( ( arrow = get_eq_char( ch, WEAR_LODGE_ARM ) ) != NULL )
+         {
+            dam = number_range( arrow->value[1], arrow->value[2] );
+            act( AT_CARNAGE, "$n suffers damage from $p stuck in $s arm.", ch, arrow, NULL, TO_ROOM );
+            act( AT_CARNAGE, "You suffer damage from $p stuck in your arm.", ch, arrow, NULL, TO_CHAR );
+            damage( ch, ch, dam, TYPE_UNDEFINED );
+         }
+         if( char_died( ch ) )
+            continue;
+      }
+
+9. Make the appropriate entries in tables.c for do_draw and do_dislodge
+
+10. Make clean, recompile.
+
+11. After rebooting, create commands for draw and dislodge.
+
+If there are any problems with this installation, feel free to post your
+question to the forums at http://forums.alsherok.net
+
+This code has been installed and tested on Smaug 1.6 FUSS, which is a bugfixed
+and cleaned up version of the base Smaug 1.4a code. The Smaug FUSS Project is
+maintained on servers which run the Redhat and Fedora family of Linux. Limited
+testing has also been done on the Cygwin package under WindowsXP SP1 and SP2.
+Users of BSD, MSVC, MSVC++, or Macintosh platforms are on their own as The
+Smaug FUSS Project does not have access to these development environments for testing.
+The Smaug FUSS Project can be found at: http://www.smaugfuss.org
+
+No guarantees are made that this code will be compatible with your codebase and any
+modifications you may have made to it. No warranty of any kind is expressed or implied
+by the use of this code, and we are not responsible for any damages which may result
+from the application of this snippet to your codebase.
+
+Adventure beckons in the lands of mystique....
+Samson, Implementor of Alsherok
+http://www.alsherok.net
+telnet://alsherok.net:5500
+
+IMC2 contact: Samson@Alsherok

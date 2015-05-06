@@ -579,6 +579,16 @@ if test "$enable_morgue" = "yes"; then
 		AC_DEFINE([MORGUE], [], [Morgue Support])
 fi
 
+# Enable Dice Game Support (-DENABLE_DICE) #
+AC_ARG_ENABLE(dice,
+              AC_HELP_STRING([--enable-dice],
+                             [enable Dice Game Support @<:@default=yes@:>@]),
+              [], [enable_dice=yes])
+if test "$enable_dice" = "yes"; then
+		AC_DEFINE([ENABLE_DICE], [], [Dice Game Support])
+fi
+AM_CONDITIONAL([ENABLE_DICE], [test "$enable_dice" = "yes"])
+
 # Player Bleeding (-DBLEEDING) #
 AC_ARG_ENABLE(bleeding,
               AC_HELP_STRING([--enable-bleeding],
@@ -733,6 +743,7 @@ Configured --{SMAUG}-- MUD Server features:
  * Morgue:              <$enable_morgue>
  * Banking:             <$enable_bank>
  * Player Marry:        <$enable_marry>
+ * Dice Game:           <$enable_dice>
  * DNS Resolver:        <$enable_dns>
  * Web Server:          <$enable_httpd>
 ])
