@@ -210,8 +210,6 @@ typedef struct member_list MEMBER_LIST;
 typedef struct variable_data VARIABLE_DATA;
 typedef struct lmsg_data LMSG_DATA;
 
-
-
 #ifdef ENABLE_OLC2
 typedef struct	olc_data		OLC_DATA;
 #endif
@@ -265,7 +263,7 @@ typedef ch_ret SPELL_FUN args ((int sn, int level, CHAR_DATA * ch, void *vo));
  * String and memory management parameters.
  */
 #define MAX_KEY_HASH		 2048
-#define MAX_STRING_LENGTH	 4096	/* buf */
+#define MAX_STRING_LENGTH	 8192	/* buf */
 #define MAX_INPUT_LENGTH	 1024	/* arg */
 #define MAX_INBUF_SIZE		 1024
 #define MSL                MAX_STRING_LENGTH 

@@ -1,0 +1,2999 @@
+Overland ANSI Maps
+------------------
+
+Written by Samson of Alsherok
+
+Terms of Use
+------------
+
+You may use this snippet provided the following conditions are met:
+
+1. Any included comment headers in the code are left intact. You may
+   add your own, but do not take mine out.
+
+2. This snippet may not be posted for redistribution on any site
+without obtaining prior written consent from the Alsherok team.
+
+If you can't agree to these terms, don't use this code, and don't expect
+me to help if something breaks while installing it. Harsh? Hardly. I'm
+tired of people who come crawling to whine and complain when they haven't
+bothered to comply with the terms first.
+
+NOTE: Special condition for this code: Due to the complex nature of this
+piece of code I will not be offering support for it. The changes needed
+in various places that are not documented should be almost painfully
+obvious if you're skilled enough. If not, well, too bad. It's also one
+way to insure that the coolness factor of this feature is not dulled by
+having it show up on every mud under the sun. Maybe if things go right
+my full codebase will be lying around somewhere for you to use, but
+don't count on that. Things rarely go right for me these days.
+
+What this code does
+-------------------
+
+This adds an ANSI wilderness map system to your mud which is used to fill
+in spaces between areas. Terrain is represented by colored symbols which are
+displayed to the user in a radial view. Areas connect to it and operate as
+usual once players travel to them and enter. This is not a random wilderness 
+generator. You will need to manually edit your maps upon completing this install.
+The code provides OLC support to do this, or you may choose to edit a premade
+image file and have that loaded in as your map ( see rgb.txt for details on this ).
+Currently, the maps can only be read from the .raw file format. If someone
+knows how I can make it read .bmp files instead I'd greatly appreciate
+hearing from you.
+
+This code involves a lot of complex additions to your mud.
+I recommend backing up your entire mud before beginning.
+Make sure you keep these backups in a safe place. One wrong move could
+screw up a lot. These instructions assume you are installing to a
+Smaug 1.4a codebase. If you are using Smaug 1.4 or 1.02a, then take great
+care when making the modifications, since some of the code may not even
+be available in your version. You'll also want to check ahead of time and
+make sure you have enough bitvectors for rooms, objects, players, and mobs
+available. If not, you may need to consider converting those to EXT_BV
+format first.
+
+I also do not recommend attempting to install this code unless you are
+at least of intermediate experience with your mud code. Chances are pretty
+good that some of the sections that need to be edited won't look exactly
+like the ones I have shown here. The more modifications you've made, the
+more likely that you'll need to do some tweaking to this code to make it
+work. You also need someone who is reasonably familiar with manual editing
+of your mud's area files if you've deviated from stock format in any way.
+
+And it bears mentioning, this code eats up LOTS of RAM. If your on a host
+with limited RAM quotas, check with your administrators to see how much
+you're allowed to use. With the 3 map files included in this code, you
+should expect to chew up about 25 megabytes or so. Assuming a medium
+sized world of about 8000 rooms. CPU usage has thus far not presented
+itself to be a major issue. One oddity has surfaced during our use of
+the code - it appears at least some versions of Zmud cause considerable
+delay in displaying a map under certain conditions, but this is usually
+restricted only to the full immortal view. Our players have yet to voice
+any complaints of horrible lag.
+
+Here's the system stats on our game port, to give you an idea:
+
+USER       PID %CPU %MEM   VSZ  RSS TTY      STAT START   TIME COMMAND
+alsherok  7883  0.9  7.1 29656 27616 ?       SN   01:06   0:14 ../src/smaug 5500
+
+As you can see, this indicates we use 7.1% of the RAM and 0.9% of the CPU
+on this system. This is on an AMD Duron 850 with 384 Megs RAM on board.
+Again, check with your host admins on RAM usage. And if you can't use
+this much, don't install this code. Bear in mind we also have just over
+9100 rooms which contributes largely to our size. The maps themselves
+will take up 3MB each.
+[Stats shown assume 3 1000x1000 sector grids, and reflect usage load on
+my system at the time they were taken.]
+
+Also, since this code is tied in pretty closely to information from our
+mud, there may well be alot of things you'll have to change in order to
+make it compatible with your own code. Some of those areas are addressed
+toward the end of the file. Obviously I can't cover every contingency, so
+be aware of what you need to change as your installing this code.
+
+Since this is such a huge undertaking, and I've been working on this
+for several months on my own, I'd appreciate greatly any advice you might have
+as to how to improve this code. Ways to make it more efficient would be of
+great help since I'm quite certain I haven't found the best way to go about
+this.
+
+That said, lets get started :)
+
+Installation Instructions
+-------------------------
+
+1. In your dist directory, create a directory named maps. Copy the included
+   *.bmp files, the entrances.dat file, the landmarks.dat file, and
+   the mapresets.dat file there.
+
+2. Place overland.c and overland.h in your source code directory.
+   Make the appropriate additions to your Makefile for overland.c and overland.o.
+
+   Then be sure -lm is added to your L_FLAGS.
+
+3. Open mud.h
+
+   Locate the following lines:
+
+#define LEVEL_LOG		    LEVEL_LESSER
+#define LEVEL_HIGOD		    LEVEL_GOD
+
+   Immediately below them, add the following:
+
+#include "overland.h"
+
+   Locate the following:
+
+/*
+ * String and memory management parameters.
+ */
+#define MAX_KEY_HASH		 2048
+#define MAX_STRING_LENGTH	 4096  /* buf */
+#define MAX_INPUT_LENGTH	 1024  /* arg */
+#define MAX_INBUF_SIZE		 1024
+
+   Change MAX_STRING_LENGTH to 8192.
+
+   Locate the ACT bits for players, and add PLR_ONMAP and PLR_MAPEDIT
+   to the listing.
+
+   Locate the mob ACT flags, and add ACT_ONMAP to the listing.
+
+   Locate the object extra flags, and add ITEM_ONMAP to the listing.
+
+   Locate the room flags, and add ROOM_MAP to the listing.
+
+   Locate the exit flags, and add EX_OVERLAND to the listing.
+
+   Locate the sector types, and add SECT_EXIT to the listing.
+   Or, if you prefer, replace your entire sector listing with the following:
+
+typedef enum
+{
+   SECT_INSIDE, SECT_CITY, SECT_FIELD, SECT_FOREST, SECT_HILLS, SECT_MOUNTAIN,
+   SECT_WATER_SWIM, SECT_WATER_NOSWIM, SECT_AIR, SECT_UNDERWATER, SECT_DESERT,
+   SECT_RIVER, SECT_OCEANFLOOR, SECT_UNDERGROUND, SECT_JUNGLE, SECT_SWAMP,
+   SECT_TUNDRA, SECT_ICE, SECT_OCEAN, SECT_LAVA, SECT_SHORE, SECT_TREE, SECT_STONE,
+   SECT_QUICKSAND, SECT_WALL, SECT_GLACIER, SECT_EXIT, SECT_TRAIL, SECT_BLANDS,
+   SECT_GRASSLAND, SECT_SCRUB, SECT_BARREN, SECT_BRIDGE, SECT_ROAD,
+#ifdef DRAGONFLIGHT
+   SECT_LANDING,
+#endif
+   SECT_MAX
+} sector_types;
+
+   Locate struct exit_data, and add the following to it:
+
+   short x; /* Coordinates to Overland Map - Samson 7-31-99 */
+   short y;
+
+   Locate struct char_data, and add the following to it:
+
+   short x; /* Coordinates on the overland map - Samson 7-31-99 */
+   short y;
+   short map; /* Which map are they on? - Samson 8-3-99 */
+   short sector; /* Type of terrain to restrict a wandering mob to on overland - Samson 7-27-00 */
+
+   Locate struct obj_data, and add the following to it:
+
+   short x; /* Object coordinates on overland maps - Samson 8-21-99 */
+   short y;
+   short map; /* Which map is it on? - Samson 8-21-99 */
+
+   Locate struct pc_data, and add the following to it:
+
+   short secedit; /* Overland Map OLC - Samson 8-1-99 */
+
+   Locate struct area_data, and add the following to it:
+
+   short continent; /* Added for Overland support - Samson 9-16-00 */
+
+   Locate the #define statement for AREA_VERSION_WRITE and raise it by 1.
+
+   Locate the following in the prototypes section for handler.c:
+
+OD *	obj_to_room	args( ( OBJ_DATA *obj, ROOM_INDEX_DATA *pRoomIndex ) );
+
+   Change it to read as follows:
+
+OD *obj_to_room( OBJ_DATA *obj, ROOM_INDEX_DATA *pRoomIndex, CHAR_DATA *ch );
+
+   Then locate the following prototype:
+
+bool	can_see		args( ( CHAR_DATA *ch, CHAR_DATA *victim ) );
+
+   Change it to read as:
+
+bool can_see( CHAR_DATA *ch, CHAR_DATA *victim, bool override );
+
+   Locate the following in the prototypes section for act_move.c:
+
+ch_ret	move_char	args( ( CHAR_DATA *ch, EXIT_DATA *pexit, int fall ) );
+
+   Change it to read as follows:
+
+ch_ret move_char( CHAR_DATA *ch, EXIT_DATA *pexit, int fall, int direction );
+
+   Locate the following:
+
+/*
+ * Description macros.
+ */
+#define PERS(ch, looker)	( can_see( (looker), (ch) ) ?		\
+				( IS_NPC(ch) ? (ch)->short_descr	\
+				: (ch)->name ) : "someone" )
+
+#define MORPHPERS(ch, looker)   ( can_see( (looker), (ch) ) ?           \
+                                (ch)->morph->morph->short_desc       \
+                                : "someone" )
+
+   Change it to read as follows:
+
+/*
+ * Description macros.
+ */
+#define PERS(ch, looker, from)	( can_see( (looker), (ch), (from) ) ?		\
+				( IS_NPC(ch) ? (ch)->short_descr	\
+				: (ch)->name ) : "someone" )
+
+#define MORPHPERS(ch, looker, from)   ( can_see( (looker), (ch), (from) ) ?           \
+                                (ch)->morph->morph->short_desc       \
+                                : "someone" )
+
+   Then locate the following:
+
+  SUB_PROJ_DESC,
+  /* timer types ONLY below this point */
+  SUB_TIMER_DO_ABORT = 128, SUB_TIMER_CANT_ABORT
+} char_substates;
+
+   Change that to read as follows:
+
+  SUB_PROJ_DESC, SUB_OVERLAND_DESC,
+  /* timer types ONLY below this point */
+  SUB_TIMER_DO_ABORT = 128, SUB_TIMER_CANT_ABORT
+} char_substates;
+
+4. Open act_comm.c
+
+   Locate function do_say, and find the following:
+
+    if ( IS_NPC(ch) )
+	xREMOVE_BIT( ch->act, ACT_SECRETIVE );
+    for ( vch = ch->in_room->first_person; vch; vch = vch->next_in_room )
+    {
+	char *sbuf = argument;
+
+	if ( vch == ch )
+		continue;
+
+    Immediately below that, add the following:
+
+	/* Check to see if a player on a map is at the same coords as the recipient 
+	   don't need to verify the PLR_ONMAP flags here, it's a room occupants check */
+	if( !is_same_map( vch, ch ) )
+		continue;
+
+   Locate function do_emote, and find the following:
+
+    if ( IS_NPC(ch) )
+	xREMOVE_BIT( ch->act, ACT_SECRETIVE );
+    for ( plast = argument; *plast != '\0'; plast++ )
+	;
+
+    strcpy( buf, argument );
+    if ( isalpha(plast[-1]) )
+	strcat( buf, "." );
+	for ( vch = ch->in_room->first_person; vch; vch = vch->next_in_room )
+	{
+		char *sbuf = buf;
+
+    Immediately below that, add the following:
+
+		/* Check to see if a player on a map is at the same coords as the recipient 
+		   don't need to verify the PLR_ONMAP flags here, it's a room occupants check */
+		if( !is_same_map( vch, ch ) )
+			continue;
+
+5. Open act_obj.c
+
+   Locate function do_get, and find the following:
+
+	    /* 'get all' or 'get all.obj' */
+	    found = FALSE;
+	    for ( obj = ch->in_room->last_content; obj; obj = obj_next )
+	    {
+		obj_next = obj->prev_content;
+		if ( ( fAll || nifty_is_name( chk, obj->name ) )
+		   &&   can_see_obj( ch, obj ) )
+		{
+
+    Immediately below that, add the following:
+
+		    if( IS_OBJ_STAT( obj, ITEM_ONMAP ) )
+		    {
+			if( ch->map != obj->map	|| ch->x != obj->x || ch->y != obj->y )
+			{
+			   found = FALSE;
+			   continue;
+			}
+		    }
+
+6. Open act_wiz.c
+
+   Smaug 1.02a users: No functions need to be removed from act_wiz.c
+   Smaug 1.4 users: Remove the functions do_atobj and do_atmob from act_wiz.c
+   Smaug 1.4a users: Remove the function do_atobj from act_wiz.c
+
+   Then locate function do_transfer, and find the following:
+
+    char arg1[MAX_INPUT_LENGTH];
+    char arg2[MAX_INPUT_LENGTH];
+    ROOM_INDEX_DATA *location;
+    DESCRIPTOR_DATA *d;
+    CHAR_DATA *victim;
+
+   Change that to read as follows:
+
+   char arg1[MAX_INPUT_LENGTH];
+   char arg2[MAX_INPUT_LENGTH];
+   ROOM_INDEX_DATA *location, *original;
+   DESCRIPTOR_DATA *d;
+   CHAR_DATA *victim;
+
+   Then locate the following:
+
+    if ( victim->fighting )
+	stop_fighting( victim, TRUE );
+    act( AT_MAGIC, "A swirling vortex arrives to pick up $n!", victim, NULL, NULL, TO_ROOM );
+    victim->retran = victim->in_room->vnum;
+    char_from_room( victim );
+    char_to_room( victim, location );
+
+   Change that to read as follows:
+
+   if ( victim->fighting )
+	stop_fighting( victim, TRUE );
+
+   act( AT_MAGIC, "A swirling vortex arrives to pick up $n!", victim, NULL, NULL, TO_ROOM );
+   victim->retran = victim->in_room->vnum;
+   original = victim->in_room;
+
+   leave_map( victim, ch, location );
+
+   Locate function do_at, and replace it with the following function:
+
+void do_at( CHAR_DATA *ch, char *argument )
+{
+    char arg[MAX_INPUT_LENGTH];
+    ROOM_INDEX_DATA *location;
+    ROOM_INDEX_DATA *original;
+    CHAR_DATA *wch;
+    OBJ_DATA *obj;
+    short origmap, origx, origy;
+
+    argument = one_argument( argument, arg );
+
+    if ( arg[0] == '\0' || argument[0] == '\0' )
+    {
+	send_to_char( "At where what?\r\n", ch );
+	return;
+    }
+
+    if( !is_number( arg ) )
+    {
+      if ( ( wch = get_char_world( ch, arg ) ) != NULL && wch->in_room != NULL )
+      {
+	  atmob( ch, wch, argument );
+	  return;
+      }
+
+      if ( ( obj = get_obj_world( ch, arg ) ) != NULL && obj->in_room != NULL )
+      {
+	  atobj( ch, obj, argument );
+	  return;
+      }
+
+	send_to_char( "No such mob or object.\r\n", ch );
+	return;
+    }
+
+    if ( ( location = find_location( ch, arg ) ) == NULL )
+    {
+	send_to_char( "No such location.\r\n", ch );
+	return;
+    }
+
+    if ( room_is_private( location ) )
+    {
+      if ( get_trust( ch ) < LEVEL_GREATER )
+      {
+	   send_to_char( "That room is private right now.\r\n", ch );
+	   return;
+      }
+      else
+      {
+	   send_to_char( "Overriding private flag!\r\n", ch );
+      }
+      
+    }
+
+    origmap = ch->map;
+    origx = ch->x;
+    origy = ch->y;
+
+    /* Since we're this far down, it's a given that the location isn't on a map since
+	 a vnum had to be specified to get here. Therefore you want to be off map, and
+	 at coords of -1, -1 to avoid problems - Samson */
+    REMOVE_PLR_FLAG( ch, PLR_ONMAP );
+    ch->map = -1;
+    ch->x = -1;
+    ch->y = -1;
+    
+    original = ch->in_room;
+    char_from_room( ch );
+    char_to_room( ch, location );
+
+    interpret( ch, argument );
+
+    /* And even if you weren't on a map to begin with, this will still work fine */
+    if( IS_PLR_FLAG( ch, PLR_ONMAP ) && IS_ROOM_FLAG( original, ROOM_MAP ) )
+	REMOVE_PLR_FLAG( ch, PLR_ONMAP );
+    else if( !IS_PLR_FLAG( ch, PLR_ONMAP ) && IS_ROOM_FLAG( original, ROOM_MAP ) )
+	SET_PLR_FLAG( ch, PLR_ONMAP );
+
+    ch->map = origmap;
+    ch->x = origx;
+    ch->y = origy;
+
+    /*
+     * See if 'ch' still exists before continuing!
+     * Handles 'at XXXX quit' case.
+     */
+    for ( wch = first_char; wch; wch = wch->next )
+    {
+	if ( wch == ch )
+	{
+	    char_from_room( ch );
+	    char_to_room( ch, original );
+	    break;
+	}
+    }
+
+    return;
+}
+
+   Locate function do_ostat, and find the following:
+
+    ch_printf_color( ch, "&cWear_loc: &w%d\r\n", obj->wear_loc );
+    ch_printf_color( ch, "&cCost: &Y%d  ", obj->cost );
+    ch_printf_color( ch, "&cRent: &w%d  ", obj->pIndexData->rent );
+
+   Immediately below that, add the following:
+
+    ch_printf_color( ch, "\r\n&cOn map: &w%s ",
+	IS_OBJ_STAT( obj, ITEM_ONMAP ) ? map_names[obj->map] : "(none)" );
+
+    ch_printf_color( ch, "&cCoords: &w%d %d\r\n", obj->x, obj->y );
+
+   Locate function do_mstat, and find the following:
+
+	if ( victim->pcdata->nuisance  )
+	{
+	  pager_printf_color( ch, "&RNuisance   &cStage: (&R%d&c/%d)  Power:  &w%d  &cTime:  &w%s.\r\n", victim->pcdata->nuisance->flags, 
+	    MAX_NUISANCE_STAGE, victim->pcdata->nuisance->power, 
+	    ctime(&victim->pcdata->nuisance->time));
+	}
+
+   Immediately below that, add the following:
+
+	pager_printf_color( ch, "&RMap   : &c%s &w &cCoords: &w%d %d\r\n",
+		IS_PLR_FLAG( victim, PLR_ONMAP ) ? map_names[victim->map] : "none",
+		victim->x, victim->y );
+
+   Locate function do_minvoke, and find the following:
+
+    if ( ( pMobIndex = get_mob_index( vnum ) ) == NULL )
+    {
+	send_to_char( "No mobile has that vnum.\r\n", ch );
+	return;
+    }
+
+    victim = create_mobile( pMobIndex );
+    char_to_room( victim, ch->in_room );
+
+   Immediately below that, add the following:
+
+    /* If you load one on the map, make sure it gets placed properly - Samson 8-21-99 */
+    fix_maps( ch, victim );
+    victim->sector = get_terrain( ch->map, ch->x, ch->y );
+
+   Locate function do_purge, and find the following in the declarations:
+
+    CHAR_DATA *victim;
+
+   Change it to read:
+
+    CHAR_DATA *victim, *tch;
+
+   Then find the following:
+
+	for ( victim = ch->in_room->first_person; victim; victim = vnext )
+	{
+	    vnext = victim->next_in_room;
+	    if ( IS_NPC(victim) && victim != ch )
+		extract_char( victim, TRUE );
+	}
+
+	for ( obj = ch->in_room->first_content; obj; obj = obj_next )
+	{
+	    obj_next = obj->next_content;
+	    extract_obj( obj );
+	}
+
+   Change the above to the following:
+
+	for ( victim = ch->in_room->first_person; victim; victim = vnext )
+	{
+	    vnext = victim->next_in_room;
+
+	    /* GACK! Why did this get removed?? */
+	    if( !IS_NPC( victim ) )
+		continue;
+
+          for ( tch = ch->in_room->first_person; tch; tch = tch->next_in_room )
+            if ( !IS_NPC(tch) && tch->dest_buf == victim )
+               break;
+
+          if ( tch && !IS_NPC(tch) && tch->dest_buf == victim )
+            continue;
+
+	    /* This will work in normal rooms too since they should always be -1,-1,-1 outside of the maps. */
+          if( is_same_map( ch, victim ) )
+		extract_char( victim, TRUE );
+      }
+
+	for ( obj = ch->in_room->first_content; obj; obj = obj_next )
+	{
+	    obj_next = obj->next_content;
+
+          for ( tch = ch->in_room->first_person; tch; tch = tch->next_in_room )
+              if ( !IS_NPC(tch) && tch->dest_buf == obj )
+                  break;
+          if ( tch && !IS_NPC(tch) && tch->dest_buf == obj )
+             continue;
+
+	    /* This will work in normal rooms too since they should always be -1,-1,-1 outside of the maps. */
+	    if( ch->map == obj->map && ch->x == obj->x && ch->y == obj->y )
+		extract_obj( obj );
+	}
+
+7. Open act_info.c
+
+   Locate function do_look, and find the following:
+
+    argument = one_argument( argument, arg1 );
+    argument = one_argument( argument, arg2 );
+    argument = one_argument( argument, arg3 );
+
+    doexaprog = str_cmp( "noprog", arg2 ) && str_cmp( "noprog", arg3 );
+
+    if ( arg1[0] == '\0' || !str_cmp( arg1, "auto" ) )
+    {
+
+   Immediately below that, add the following:
+
+      if( IS_PLR_FLAG( ch, PLR_ONMAP ) || IS_ACT_FLAG( ch, ACT_ONMAP ) )
+	{
+	    display_map( ch );
+#ifdef DRAGONFLIGHT
+	    if( !ch->inflight )
+	    {
+#endif
+ 	       show_list_to_char( ch->in_room->first_content, ch, FALSE, FALSE );
+       	 show_char_to_char( ch->in_room->first_person,  ch );
+#ifdef DRAGONFLIGHT
+	    }
+#endif
+	    return;
+	}
+
+   Then locate the following ( in two places ):
+
+	    if ( room_is_private( pexit->to_room )
+	    &&   get_trust(ch) < sysdata.level_override_private )
+	    {
+		set_char_color( AT_WHITE, ch );
+		send_to_char( "That room is private buster!\r\n", ch );
+		return;
+	    }
+	    original = ch->in_room;
+	    char_from_room( ch );
+	    char_to_room( ch, pexit->to_room );
+	    do_look( ch, "auto" );
+	    char_from_room( ch );
+	    char_to_room( ch, original );
+
+   Change it to read as follows:
+
+	    if ( room_is_private( pexit->to_room ) && ch->level < sysdata.level_override_private )
+	    {
+		set_char_color( AT_WHITE, ch );
+		send_to_char( "The room ahead is private!\r\n", ch );
+		return;
+	    }
+
+	    if( IS_EXIT_FLAG( pexit, EX_OVERLAND ) )
+	    {
+		original = ch->in_room;
+		enter_map( ch, pexit->x, pexit->y, -1 );
+		leave_map( ch, NULL, original );
+	    }
+	    else
+	    {
+	      original = ch->in_room;
+	      char_from_room( ch );
+	      char_to_room( ch, pexit->to_room );
+	      do_look( ch, "auto" );
+	      char_from_room( ch );
+	      char_to_room( ch, original );
+	    }
+
+   Locate function do_weather, and find the following:
+
+	char *combo, *single;
+	char buf[MAX_INPUT_LENGTH];
+	int temp, precip, wind;	
+
+   Immediately below that, add the following:
+
+      if( !IS_PLR_FLAG( ch, PLR_ONMAP ) )
+      {
+        if ( !IS_OUTSIDE(ch) || INDOOR_SECTOR(ch->in_room->sector_type) )
+        {
+	    send_to_char( "You can't see the sky from here.\r\n", ch );
+	    return;
+        }
+      }
+
+8. Open act_move.c
+
+   Locate function move_char and change the first line to read as follows:
+
+ch_ret move_char( CHAR_DATA *ch, EXIT_DATA *pexit, int fall, int direction )
+
+  NOTE: You will then need to search through your code and modify all calls to
+   move_char to fit the arguments for this modification. The additional argument
+   should be a direction. It should be fairly easy to figure out what the proper
+   direction will be to add on. Documenting each change is not practical, so if
+   your not up to the task of figuring it out, then you aren't advanced enough
+   to be doing something this complex to your code. Sorry, but that's just how
+   it has to be.
+
+   Then find the following:
+
+    if ( !IS_NPC( ch ) )
+    {
+      if ( IS_DRUNK( ch, 2 ) && ( ch->position != POS_SHOVE )
+	&& ( ch->position != POS_DRAG ) )
+	drunk = TRUE;
+    }
+
+   Immediately ABOVE that, add the following:
+
+    if( IS_PLR_FLAG( ch, PLR_ONMAP ) || IS_ACT_FLAG( ch, ACT_ONMAP ) )
+    {
+	int newx = ch->x;
+	int newy = ch->y;
+
+      switch( direction )
+	{
+	   default: 
+		break;
+	   case DIR_NORTH:
+		newy = ch->y - 1; break;
+	   case DIR_EAST:
+		newx = ch->x + 1; break;
+	   case DIR_SOUTH:
+		newy = ch->y + 1; break;
+	   case DIR_WEST:
+		newx = ch->x - 1; break;
+	   case DIR_NORTHEAST:
+		newx = ch->x + 1; newy = ch->y - 1; break;
+	   case DIR_NORTHWEST:
+		newx = ch->x - 1; newy = ch->y - 1; break;
+	   case DIR_SOUTHEAST:
+		newx = ch->x + 1; newy = ch->y + 1; break;
+	   case DIR_SOUTHWEST:
+		newx = ch->x - 1; newy = ch->y + 1; break;
+	}
+	if( newx == ch->x && newy == ch->y )
+	   return rNONE;
+
+	retcode = process_exit( ch, ch->map, newx, newy, direction );
+	return retcode;
+    }
+
+   Then locate the following:
+
+    /*
+     * Exit is only a "window", there is no way to travel in that direction
+     * unless it's a door with a window in it		-Thoric
+     */
+    if ( IS_SET( pexit->exit_info, EX_WINDOW )
+    &&  !IS_SET( pexit->exit_info, EX_ISDOOR ) )
+    {
+	send_to_char( "Alas, you cannot go that way.\r\n", ch );
+	return rNONE;
+    }
+
+   Immediately below that, add the following:
+
+    /* Overland Map stuff - Samson 7-31-99 */
+    /* Upgraded 4-28-00 to allow mounts and charmies to follow PC - Samson */
+    if ( IS_SET( pexit->exit_info, EX_OVERLAND ) )
+    {
+      CHAR_DATA *fch;
+      CHAR_DATA *nextinroom;
+      int chars = 0, count = 0;
+
+      if( pexit->x < 0 || pexit->x >= MAX_X || pexit->y < 0 || pexit->y >= MAX_Y )
+	{
+	  sprintf( log_buf, "move_char: Room #%d - Invalid exit coordinates: %d %d", in_room->vnum, pexit->x, pexit->y );
+	  bug( log_buf, 0 );
+	  send_to_char( "Oops. Something is wrong with this map exit - notify the immortals.\r\n", ch );
+	  return rNONE;
+	}
+
+      if( !IS_NPC( ch ) )
+	{
+	  enter_map( ch, pexit->x, pexit->y, -1 );
+
+        for ( fch = from_room->first_person; fch; fch = fch->next_in_room )
+          chars++;
+
+        for ( fch = from_room->first_person; fch && ( count < chars ); fch = nextinroom )
+        {
+	     nextinroom = fch->next_in_room;
+           count++;
+	     if ( fch != ch		/* loop room bug fix here by Thoric */
+	       && fch->master == ch
+	       && (fch->position == POS_STANDING || fch->position == POS_MOUNTED) )
+	     {
+		  if( !IS_NPC( fch ) )
+		  {
+	          act( AT_ACTION, "You follow $N.", fch, NULL, ch, TO_CHAR );
+		    move_char( fch, pexit, 0, direction );
+		  }
+		  else
+		    enter_map( fch, pexit->x, pexit->y, -1 );
+	     }
+        }
+	}
+	else
+	{
+	  if( !IS_EXIT_FLAG( pexit, EX_NOMOB ) )
+	  {
+	    enter_map( ch, pexit->x, pexit->y, -1 );
+
+          for ( fch = from_room->first_person; fch; fch = fch->next_in_room )
+            chars++;
+
+          for ( fch = from_room->first_person; fch && ( count < chars ); fch = nextinroom )
+          {
+	       nextinroom = fch->next_in_room;
+             count++;
+	       if ( fch != ch		/* loop room bug fix here by Thoric */
+	         && fch->master == ch
+	         && (fch->position == POS_STANDING || fch->position == POS_MOUNTED) )
+	       {
+		   if( !IS_NPC( fch ) )
+		   {
+	           act( AT_ACTION, "You follow $N.", fch, NULL, ch, TO_CHAR );
+		     move_char( fch, pexit, 0, direction );
+		   }
+		   else
+		     enter_map( fch, pexit->x, pexit->y, -1 );
+	       }
+          }
+	  }
+      }
+	return rNONE;
+    }
+
+   Then locate the following:
+
+	  if ( !IS_FLOATING(ch->mount) )
+	    move = movement_loss[UMIN(SECT_MAX-1, in_room->sector_type)];
+	  else
+	    move = 1;
+	  if ( ch->mount->move < move )
+	  {
+	    send_to_char( "Your mount is too exhausted.\r\n", ch );
+	    return rSTOP;
+	  }
+	}
+	else
+	{
+	  if ( !IS_FLOATING(ch) )
+	    move = encumbrance( ch, movement_loss[UMIN(SECT_MAX-1, in_room->sector_type)] );
+	  else
+	    move = 1;
+  
+   Replace it with the following code:
+
+	  if ( !IS_FLOATING(ch->mount) )
+	    move = sect_show[in_room->sector_type].move;
+	  else
+	    move = 1;
+	  if ( ch->mount->move < move )
+	  {
+	    send_to_char( "Your mount is too exhausted.\r\n", ch );
+	    return rNONE;
+	  }
+	}
+	else
+	{
+	  if ( !IS_FLOATING(ch) )
+	    move = encumbrance( ch, sect_show[in_room->sector_type].move );
+	  else
+	    move = 1;
+
+   Locate function do_north.
+   Replace everything from do_north to do_southwest with the following functions:
+
+void do_north( CHAR_DATA *ch, char *argument )
+{
+    move_char( ch, get_exit(ch->in_room, DIR_NORTH), 0, DIR_NORTH );
+    return;
+}
+
+void do_east( CHAR_DATA *ch, char *argument )
+{
+    move_char( ch, get_exit(ch->in_room, DIR_EAST), 0, DIR_EAST );
+    return;
+}
+
+void do_south( CHAR_DATA *ch, char *argument )
+{
+    move_char( ch, get_exit(ch->in_room, DIR_SOUTH), 0, DIR_SOUTH );
+    return;
+}
+
+void do_west( CHAR_DATA *ch, char *argument )
+{
+    move_char( ch, get_exit(ch->in_room, DIR_WEST), 0, DIR_WEST );
+    return;
+}
+
+void do_up( CHAR_DATA *ch, char *argument )
+{
+    move_char( ch, get_exit(ch->in_room, DIR_UP), 0, DIR_UP );
+    return;
+}
+
+void do_down( CHAR_DATA *ch, char *argument )
+{
+    move_char( ch, get_exit(ch->in_room, DIR_DOWN), 0, DIR_DOWN );
+    return;
+}
+
+void do_northeast( CHAR_DATA *ch, char *argument )
+{
+    move_char( ch, get_exit(ch->in_room, DIR_NORTHEAST), 0, DIR_NORTHEAST );
+    return;
+}
+
+void do_northwest( CHAR_DATA *ch, char *argument )
+{
+    move_char( ch, get_exit(ch->in_room, DIR_NORTHWEST), 0, DIR_NORTHWEST );
+    return;
+}
+
+void do_southeast( CHAR_DATA *ch, char *argument )
+{
+    move_char( ch, get_exit(ch->in_room, DIR_SOUTHEAST), 0, DIR_SOUTHEAST );
+    return;
+}
+
+void do_southwest( CHAR_DATA *ch, char *argument )
+{
+    move_char( ch, get_exit(ch->in_room, DIR_SOUTHWEST), 0, DIR_SOUTHWEST );
+    return;
+}
+
+9. Open build.c
+
+   Locate the ex_flags array and add "overland" to the list in the
+   position corresponding to the same position as the BV for EX_OVERLAND in mud.h
+
+   Locate the r_flags array and add "map" to the list in the position
+   corresponding to the same position as the BV for ROOM_MAP in mud.h
+
+   Locate the o_flags array and add "onmap" to the list in the position
+   corresponding to the same position as the BV for ITEM_ONMAP in mud.h
+
+   Locate the act_flags array and add "onmap" to the list in the position
+   corresponding to the same position as the BV for ACT_ONMAP in mud.h
+
+   Locate the plr_flags array and add "onmap" and "mapedit" to the list in the
+   positions that correspond to the BVs for PLR_ONMAP and PLR_MAPEDIT in mud.h
+
+   Locate function can_rmodify, and find the following:
+
+	AREA_DATA *pArea;
+
+	if ( IS_NPC( ch ) )
+	    return FALSE;
+
+   Immediately below that, add the following:
+
+	if( IS_PLR_FLAG( ch, PLR_ONMAP ) )
+	{
+	    send_to_char( "You cannot use redit from the overland maps.\r\n", ch );
+	    return FALSE;
+	}
+
+   Locate function do_aset, and find the following code:
+
+    if ( !str_cmp( arg2, "filename" ) )
+    {
+	DISPOSE( tarea->filename );
+	tarea->filename = str_dup( argument );
+	write_area_list( );
+	send_to_char( "Done.\r\n", ch );
+	return;
+    }
+
+   Immediately below that, add the following code:
+
+    if ( !str_cmp( arg2, "continent" ) )
+    {
+      /* Area continent editing - Samson 8-8-98 */
+    	if ( !argument || argument[0] == '\0' )
+	{
+	    send_to_char( "Set the area's continent.\r\n", ch );
+	    send_to_char( "Usage: aset continent <name>\r\n", ch );
+	    return;
+	}
+	argument = one_argument( argument, arg2 );
+	value = get_continent( arg2 );
+	if ( value < 0 || value > ACON_MAX )
+	{
+	   tarea->continent = 0;
+	   send_to_char( "Invalid area continent, set to 'alsherok' by default.\r\n", ch );
+	}
+	else
+	{
+	   tarea->continent = value;
+	   ch_printf ( ch, "Area continent set to %s.\r\n", arg2 );
+	}
+	return;
+    }
+
+   Locate function do_astat, and find the following code:
+
+    ch_printf_color( ch, "&wResetmsg: &W%s\r\n", tarea->resetmsg ? tarea->resetmsg
+						: "(default)" ); /* Rennard */
+    ch_printf_color( ch, "&wReset frequency: &W%d &wminutes.\r\n",
+		tarea->reset_frequency ? tarea->reset_frequency : 15 );
+
+   Immediately below that, add the following code:
+
+    ch_printf_color( ch, "&wContinent or Plane: &W%s\r\n", continents[tarea->continent] );
+
+   Locate function do_goto, and add the following 2 functions immediately above it:
+
+void goto_char( CHAR_DATA *ch, CHAR_DATA *wch, char *argument )
+{
+    ROOM_INDEX_DATA *location, *in_room;
+
+    set_char_color( AT_IMMORT, ch );
+    location = wch->in_room;
+
+    if( is_ignoring( wch, ch ) )
+    {
+	send_to_char( "No such location.\r\n", ch );
+	return;
+    }
+
+    if ( room_is_private( location ) )
+    {
+      if ( get_trust( ch ) < LEVEL_GREATER )
+      {
+	   send_to_char( "That room is private right now.\r\n", ch );
+	   return;
+      }
+      else
+      {
+	   send_to_char( "Overriding private flag!\r\n", ch );
+      }
+    }
+
+    in_room = ch->in_room;
+    if ( ch->fighting )
+	stop_fighting( ch, TRUE );
+
+    /* Modified bamfout processing by Altrag, installed by Samson 12-10-97 */
+       if (ch->pcdata && ch->pcdata->bamfout[0])
+         act(AT_IMMORT, "$T", ch, NULL,
+         bamf_print(ch->pcdata->bamfout, ch), TO_CANSEE);
+       else
+         act(AT_IMMORT, "$n vanishes suddenly into thin air.", ch, NULL, NULL, TO_CANSEE);
+
+    ch->regoto = ch->in_room->vnum;
+    leave_map( ch, wch, location );
+
+    /* Modified bamfin processing by Altrag, installed by Samson 12-10-97 */
+       if (ch->pcdata && ch->pcdata->bamfin[0])
+          act(AT_IMMORT, "$T", ch, NULL,
+          bamf_print(ch->pcdata->bamfin, ch), TO_CANSEE);
+       else
+          act(AT_IMMORT, "$n appears suddenly out of thin air.", ch, NULL, NULL, TO_CANSEE);
+
+    return;
+}
+
+void goto_obj( CHAR_DATA *ch, OBJ_DATA *obj, char *argument )
+{
+    ROOM_INDEX_DATA *location;
+
+    set_char_color( AT_IMMORT, ch );
+    location = obj->in_room;
+
+    if ( room_is_private( location ) )
+    {
+      if ( get_trust( ch ) < LEVEL_GREATER )
+      {
+	   send_to_char( "That room is private right now.\r\n", ch );
+	   return;
+      }
+      else
+      {
+	   send_to_char( "Overriding private flag!\r\n", ch );
+      }
+    }
+
+    if ( ch->fighting )
+	stop_fighting( ch, TRUE );
+
+    /* Modified bamfout processing by Altrag, installed by Samson 12-10-97 */
+       if (ch->pcdata && ch->pcdata->bamfout[0])
+         act(AT_IMMORT, "$T", ch, NULL,
+         bamf_print(ch->pcdata->bamfout, ch), TO_CANSEE);
+       else
+         act(AT_IMMORT, "$n vanishes suddenly into thin air.", ch, NULL, NULL, TO_CANSEE);
+
+    ch->regoto = ch->in_room->vnum;
+    leave_map( ch, NULL, location );
+
+    /* Modified bamfin processing by Altrag, installed by Samson 12-10-97 */
+       if (ch->pcdata && ch->pcdata->bamfin[0])
+          act(AT_IMMORT, "$T", ch, NULL,
+          bamf_print(ch->pcdata->bamfin, ch), TO_CANSEE);
+       else
+          act(AT_IMMORT, "$n appears suddenly out of thin air.", ch, NULL, NULL, TO_CANSEE);
+
+    return;
+}
+
+   Find function do_goto, and add the following to the list of declarations:
+
+    CHAR_DATA *wch;
+    OBJ_DATA *obj;
+
+   Then, in do_goto, find the following:
+
+    argument = one_argument( argument, arg );
+
+    if ( arg[0] == '\0' )
+    {
+	send_to_char( "Goto where?\r\n", ch );
+	return;
+    }
+
+   Immediately below that, add the following:
+
+    /* Begin Overland Map additions */
+    if ( !str_cmp( arg, "map" ) )
+    {
+	char arg1[MAX_INPUT_LENGTH];
+	char arg2[MAX_INPUT_LENGTH];
+	int x, y;
+	int map = -1;
+
+      argument = one_argument( argument, arg1 );
+      argument = one_argument( argument, arg2 );
+
+	if( arg1[0] == '\0' )
+      {
+	   send_to_char( "Goto which map??\r\n", ch );
+	   return;
+	}
+      
+      if( !str_cmp( arg1, "map1" ) )
+	   map = ACON_C1;
+
+      if( !str_cmp( arg1, "map2" ) )
+	   map = ACON_C2;
+
+	if( !str_cmp( arg1, "map3" ) )
+	   map = ACON_C3;
+
+      if( map == -1 )
+	{
+        ch_printf( ch, "There isn't a map for '%s'.\r\n", arg1 );
+        return;
+	}
+
+	if( arg2[0] == '\0' && argument[0] == '\0' )
+	{
+	   enter_map( ch, 499, 499, map );
+	   return;
+	}
+
+	if( arg2[0] == '\0' || argument[0] == '\0' )
+	{
+	   send_to_char( "Usage: goto map <mapname> <X> <Y>\r\n", ch );
+	   return;
+	}
+
+      x = atoi( arg2 );
+	y = atoi( argument );
+
+      if( x < 0 || x >= MAX_X )
+      {
+	   ch_printf( ch, "Valid x coordinates are 0 to %d.\r\n", MAX_X - 1 );
+	   return;
+      }
+
+      if( y < 0 || y >= MAX_Y )
+      {
+	   ch_printf( ch, "Valid y coordinates are 0 to %d.\r\n", MAX_Y - 1 );
+	   return;
+      }
+
+	enter_map( ch, x, y, map );
+	return;
+    }
+
+    if( !is_number( arg ) )
+    {
+      if ( ( wch = get_char_world( ch, arg ) ) != NULL && wch->in_room != NULL )
+      {
+	  goto_char( ch, wch, arg );
+	  return;
+      }
+
+      if ( ( obj = get_obj_world( ch, arg ) ) != NULL )
+      {
+	  goto_obj( ch, obj, arg );
+	  return;
+      }
+    }
+    /* End of Overland Map additions */
+
+   Then find the following:
+
+    ch->regoto = ch->in_room->vnum;
+    char_from_room( ch );
+    if ( ch->mount )
+    {
+        char_from_room( ch->mount );
+        char_to_room( ch->mount, location );
+    }
+    char_to_room( ch, location );
+         
+    if ( !xIS_SET(ch->act, PLR_WIZINVIS) )
+        act( AT_IMMORT, "$n $T", ch, NULL,
+            (ch->pcdata && ch->pcdata->bamfin[0] != '\0')
+            ? ch->pcdata->bamfin : "appears in a swirling mist.", TO_ROOM );
+            
+    do_look( ch, "auto" );
+
+   Change it to read as follows:
+
+    /* It's assumed that if you've come this far, it's a room vnum you entered */
+    ch->regoto = ch->in_room->vnum;
+    leave_map( ch, NULL, location );
+
+    if ( !xIS_SET(ch->act, PLR_WIZINVIS) )
+        act( AT_IMMORT, "$n $T", ch, NULL,
+            (ch->pcdata && ch->pcdata->bamfin[0] != '\0')
+            ? ch->pcdata->bamfin : "appears in a swirling mist.", TO_ROOM );
+
+   Locate function do_mcreate and find the following:
+
+    pMobIndex = make_mobile( vnum, cvnum, argument );
+    if ( !pMobIndex )
+    {
+	send_to_char( "Error.\r\n", ch );
+	log_string( "do_mcreate: make_mobile failed." );
+	return;
+    }
+    mob = create_mobile( pMobIndex );
+    char_to_room( mob, ch->in_room );
+
+   Immediately below that, add the following:
+
+    /* If you create one on the map, make sure it gets placed properly - Samson 8-21-99 */
+    fix_maps( ch, mob );
+
+   Locate function do_redit and find the following:
+
+	send_to_char( "Field being one of:\r\n",			ch );
+	send_to_char( "  name desc ed rmed\r\n",			ch );
+
+   Change the line below those to read:
+
+	send_to_char( "  exit bexit exdesc exflags exname exkey excoord\r\n",	ch );
+
+   Then find the following:
+
+	value = atoi( arg3 );
+	if ( !xit )
+	{
+	    send_to_char( "No exit in that direction.  Use 'redit exit ...' first.\r\n", ch );
+	    return;
+	}
+	xit->key = value;
+	send_to_char( "Exit key vnum set.\r\n", ch );
+	return;
+    }
+
+   Immediately below that, add the following:
+
+    if ( !str_cmp( arg, "excoord" ) )
+    {
+	int x, y;
+
+	argument = one_argument( argument, arg2 );
+	argument = one_argument( argument, arg3 );
+	if ( arg2[0] == '\0' || arg3[0] == '\0' || argument[0] == '\0' )
+	{
+	    send_to_char( "Usage: redit excoord <dir> <X> <Y>\r\n", ch );
+	    return;
+	}
+	if ( arg2[0] == '#' )
+	{
+	    edir = atoi( arg2+1 );
+	    xit = get_exit_num( location, edir );
+	}
+	else
+	{
+	    edir = get_dir( arg2 );
+	    xit = get_exit( location, edir );
+	}
+
+	x = atoi( arg3 );
+      y = atoi( argument );
+
+      if( x < 0 || x >= MAX_X )
+	{
+	    ch_printf( ch, "Valid X coordinates are 0 to %d.\r\n", MAX_X - 1 );
+	    return;
+	}
+
+	if( y < 0 || y >= MAX_Y )
+	{
+	    ch_printf( ch, "Valid Y coordinates are 0 to %d.\r\n", MAX_Y - 1 );
+	    return;
+	}
+
+	if ( !xit )
+	{
+	    send_to_char( "No exit in that direction.  Use 'redit exit ...' first.\r\n", ch );
+	    return;
+	}
+	xit->x = x;
+	xit->y = y;
+	send_to_char( "Exit coordinates set.\r\n", ch );
+	return;
+    }
+
+   Locate function fold_area, and find the following code:
+
+    if ( tarea->reset_frequency )
+	fprintf( fpout, "#FLAGS\n%d %d\n\n",
+		tarea->flags, tarea->reset_frequency );
+    else
+	fprintf( fpout, "#FLAGS\n%d\n\n", tarea->flags );
+
+    fprintf( fpout, "#ECONOMY %d %d\n\n", tarea->high_economy, tarea->low_economy );
+
+   Immediately below that, add the following code:
+
+    fprintf( fpout, "#CONTINENT %s~\n\n", continents[tarea->continent] );
+
+   Then, find the following:
+
+	   if ( xit->distance > 1 || xit->pull )
+	     fprintf( fpout, "%d %d %d %d %d %d\n",
+	     					xit->exit_info & ~EX_BASHED,
+	   					xit->key,
+	   					xit->vnum,
+	   					xit->distance,
+	   					xit->pulltype,
+	   					xit->pull );
+	   else
+	     fprintf( fpout, "%d %d %d\n",	xit->exit_info & ~EX_BASHED,
+	   					xit->key,
+	   					xit->vnum );
+
+   Change it to read as follows:
+
+	   if ( xit->distance > 1 || xit->pull )
+	     fprintf( fpout, "%d %d %d %d %d %d %d %d\n",
+	     					xit->exit_info & ~EX_BASHED,
+	   					xit->key,
+	   					xit->vnum,
+						xit->distance,
+						xit->x, xit->y,
+	   					xit->pulltype,
+	   					xit->pull );
+
+	   else
+	     fprintf( fpout, "%d %d %d %d %d\n",
+						xit->exit_info & ~EX_BASHED,
+	   					xit->key,
+	   					xit->vnum,
+						xit->x, xit->y );
+
+10. Open comm.c
+
+   Locate function act, and find the following:
+
+        if ( type == TO_CHAR && to != ch )
+            continue;
+
+   Change to read as:
+
+	if( type == TO_CHAR )
+	{
+	   if( to != ch )
+	      continue;
+
+	   if( !is_same_map( ch, to ) )
+	      continue;
+	}
+
+   Then find the following:
+
+        if ( type == TO_ROOM && to == ch )
+            continue;
+
+   Change to read as:
+
+	if( type == TO_ROOM )
+	{
+	   if( to == ch )
+	      continue;
+
+	   if( !is_same_map( ch, to ) )
+	      continue;
+        }
+
+   Then find the following:
+
+        if ( type == TO_NOTVICT && (to == ch || to == vch) )
+            continue;
+
+   Change to read as:
+
+	if( type == TO_NOTVICT )
+	{
+	   if( to == ch || to == vch )
+	      continue;
+
+	   if( !is_same_map( ch, to ) )
+	      continue;
+	}
+
+   Then find the following:
+
+        if ( type == TO_CANSEE && ( to == ch ||
+            (!IS_IMMORTAL(to) && !IS_NPC(ch) && (xIS_SET(ch->act, PLR_WIZINVIS)
+            && (get_trust(to) < (ch->pcdata ? ch->pcdata->wizinvis : 0) ) ) ) ) )
+            continue;
+
+   Change to read as:
+
+	if( type == TO_CANSEE )
+	{
+ 	   if( to == ch )
+		continue;
+
+	   if( IS_IMMORTAL(ch) && IS_PLR_FLAG( ch, PLR_WIZINVIS ) )
+	   {
+ 		if( to->level < ch->pcdata->wizinvis )
+		continue;
+	   }
+
+	   if( !is_same_map( ch, to ) )
+	      continue;
+	}
+
+   Locate function send_to_char_color and find the following line:
+   ( Note that if you are using my custom color code or Smaug FUSS, you don't need to do this )
+
+      while( ( colstr = strpbrk( prevstr, "&^" ) ) != NULL )
+
+   Change it to read as follows:
+
+      while( ( colstr = strpbrk( prevstr, "&{" ) ) != NULL )
+
+   Repeat for function send_to_pager_color
+
+11. Open db.c
+
+   Find the following:
+
+/*
+ * Local booting procedures.
+ */
+void	init_mm		args( ( void ) );
+
+   Immediately below that, add the following:
+
+void load_maps	 args( ( void ) ); /* Load in Overland Maps - Samson 8-1-99 */
+void load_mapresets args( ( void ) ); /* Load resets for Overland Maps - Samson 1-13-01 */
+void load_continent args( ( AREA_DATA *tarea, FILE *fp ) ); /* Continent support - Samson 9-16-00 */
+
+   Locate function load_area and find the following code:
+
+    pArea->low_soft_range = 0;
+    pArea->hi_soft_range  = MAX_LEVEL;
+    pArea->low_hard_range = 0;
+    pArea->hi_hard_range  = MAX_LEVEL;
+    pArea->spelllimit	= 0;
+
+   Immediately below that, add the following code:
+
+    pArea->continent	  = 0;
+
+   Locate function load_economy, and add in the following function below it:
+
+/* Load a continent - Samson 9-16-00 */
+void load_continent( AREA_DATA *tarea, FILE *fp )
+{
+   char *pointer;
+   int value;
+
+   if( !tarea )
+   {
+      bug( "Load_continent: no #AREA seen yet." );
+      if( fBootDb )
+      {
+         shutdown_mud( "No #AREA" );
+         exit( 1 );
+      }
+      else
+         return;
+   }
+
+   pointer = fread_string_nohash(fp);
+   value = get_continent( pointer );
+   DISPOSE( pointer );
+
+   if( value < 0 || value > ACON_MAX )
+   {
+      tarea->continent = 0;
+      bug( "load_continent: Invalid area continent, set to 'alsherok' by default.", 0 );
+   }
+   else
+      tarea->continent = value;
+
+   return;
+}
+
+   Locate function load_area_file and find the following:
+
+	else if ( !str_cmp( word, "RANGES"   ) ) load_ranges  (tarea, fpArea);
+      else if ( !str_cmp( word, "ECONOMY"  ) ) load_economy (tarea, fpArea);
+
+   Immediately below that, add the following:
+
+	else if ( !str_cmp( word, "CONTINENT"  ) ) load_continent (tarea, fpArea);
+
+   Locate function boot_db and find the following:
+
+    if ( !load_systemdata(&sysdata) )
+    {
+	log_string( "Not found.  Creating new configuration." );
+	sysdata.alltimemax = 0;
+	sysdata.mud_name = str_dup("(Name not set)");
+    }
+
+   Immediately below that, add the following:
+
+    log_string("Loading overland maps....");
+    load_maps();
+
+   Further down in boot_db, locate the following:
+
+	fBootDb	= FALSE;
+
+	log_string( "Resetting areas..." );
+	area_update( );
+
+   Immediately below that, add the following:
+
+	log_string( "Loading overland resets..." );
+	load_mapresets();
+
+   Locate function load_rooms, and find the following in the declarations section:
+
+	int x1, x2, x3, x4, x5, x6;
+
+   Change it to read as follows:
+
+	int x1, x2, x3, x4, x5, x6, x7, x8;
+
+   Then find the following:
+
+		else
+		{
+		  pexit = make_exit( pRoomIndex, NULL, door );
+		  pexit->description	= fread_string( fp );
+		  pexit->keyword	= fread_string( fp );
+		  pexit->exit_info	= 0;
+		  ln = fread_line( fp );
+		  x1=x2=x3=x4=x5=x6=0;
+		  sscanf( ln, "%d %d %d %d %d %d",
+		      &x1, &x2, &x3, &x4, &x5, &x6 );
+
+		  locks			= x1;
+		  pexit->key		= x2;
+		  pexit->vnum		= x3;
+		  pexit->vdir		= door;
+		  pexit->distance	= x4;
+		  pexit->pulltype	= x5;
+		  pexit->pull		= x6;
+
+		  switch ( locks )
+		  {
+		    case 1:  pexit->exit_info = EX_ISDOOR;                break;
+		    case 2:  pexit->exit_info = EX_ISDOOR | EX_PICKPROOF; break;
+		    default: pexit->exit_info = locks;
+		  }
+		}
+
+   Change it all to read like this:
+
+		else
+		{
+		  if( area_version < change_to_the_new_value_for_AREA_VERSION_WRITE_in_mud.h )
+		  {
+		  	pexit = make_exit( pRoomIndex, NULL, door );
+		  	pexit->description	= fread_string( fp );
+		  	pexit->keyword	= fread_string( fp );
+		  	pexit->exit_info	= 0;
+		  	ln = fread_line( fp );
+		  	x1=x2=x3=x4=x5=x6=0;
+		  	sscanf( ln, "%d %d %d %d %d %d",
+		        &x1, &x2, &x3, &x4, &x5, &x6 );
+
+		  	locks			= x1;
+		  	pexit->key		= x2;
+		  	pexit->vnum		= x3;
+		  	pexit->vdir		= door;
+			pexit->distance	= x4;
+		  	pexit->pulltype	= x5;
+		  	pexit->pull		= x6;
+		  }
+		  else
+		  {
+		  	pexit = make_exit( pRoomIndex, NULL, door );
+		  	pexit->description	= fread_string( fp );
+		  	pexit->keyword	= fread_string( fp );
+		  	pexit->exit_info	= 0;
+		  	ln = fread_line( fp );
+		  	x1=x2=x3=x4=x5=x6=x7=x8=0;
+		  	sscanf( ln, "%d %d %d %d %d %d %d %d",
+		        &x1, &x2, &x3, &x4, &x5, &x6, &x7, &x8 );
+
+		  	locks			= x1;
+		  	pexit->key		= x2;
+		  	pexit->vnum		= x3;
+		  	pexit->vdir		= door;
+			pexit->distance	= x4;
+			pexit->x		= x5;
+			pexit->y		= x6;
+		  	pexit->pulltype	= x7;
+		  	pexit->pull		= x8;
+		  }
+
+		  switch ( locks )
+		  {
+		    case 1:  pexit->exit_info = EX_ISDOOR;                break;
+		    case 2:  pexit->exit_info = EX_ISDOOR | EX_PICKPROOF; break;
+		    default: pexit->exit_info = locks;
+		  }
+		}
+
+   Locate function create_mobile and find the following:
+
+    mob->mpscriptpos		= 0;
+    mob->level			= number_fuzzy( pMobIndex->level );
+    mob->act			= pMobIndex->act;
+
+   Immediately below that, add the following:
+
+    mob->sector = -1;
+
+   Locate function create_object and find the following:
+
+    obj->weight		= pObjIndex->weight;
+    obj->cost		= pObjIndex->cost;
+    obj->rent		= pObjIndex->rent;
+
+   Immediately below that, add the following:
+
+    obj->x = -1;
+    obj->y = -1;
+    obj->map = -1;
+
+   Locate function clear_char and find the following:
+
+    ch->mod_wis			= 0;
+    ch->mod_cha			= 0;
+    ch->mod_con			= 0;
+    ch->mod_lck			= 0;
+
+   Immediately below that, add the following:
+
+    ch->x				= -1; /* Overland Map - Samson 7-31-99 */
+    ch->y				= -1;
+    ch->map 			= -1;
+
+   Locate function make_exit and find the following:
+
+	CREATE( pexit, EXIT_DATA, 1 );
+	pexit->vdir		= door;
+	pexit->rvnum		= pRoomIndex->vnum;
+	pexit->to_room		= to_room;
+
+   Immediately below that, add the following:
+
+	pexit->x			= 0;
+	pexit->y			= 0;
+
+   Locate function load_objects, and find the following:
+
+   if( area_version == 1 )
+   {
+      switch( pObjIndex->item_type )
+      {
+         case ITEM_PILL:
+         case ITEM_POTION:
+         case ITEM_SCROLL:
+            pObjIndex->value[1] = skill_lookup ( fread_word( fp )) ;
+            pObjIndex->value[2] = skill_lookup ( fread_word( fp )) ;
+            pObjIndex->value[3] = skill_lookup ( fread_word( fp )) ;
+            break;
+
+         case ITEM_STAFF:
+         case ITEM_WAND:
+            pObjIndex->value[3] = skill_lookup ( fread_word( fp )) ;
+            break;
+         case ITEM_SALVE:
+            pObjIndex->value[4] = skill_lookup ( fread_word( fp )) ;
+            pObjIndex->value[5] = skill_lookup ( fread_word( fp )) ;
+            break;
+      }
+   }
+
+   Change the area_version line to read as:
+
+   if( area_version > 0 )
+
+12. Open handler.c
+
+   Locate function group_object and find the following:
+
+    &&  !obj1->first_affect	&& !obj2->first_affect
+    &&  !obj1->first_content	&& !obj2->first_content
+    &&	 obj1->count + obj2->count > 0
+
+   Immediately ABOVE that, add the following:
+
+    && obj1->map == obj2->map && obj1->x == obj2->x && obj1->y == obj2->y
+
+   Locate function obj_to_room and replace it with the following function:
+   ( You will need to modify ALL calls to obj_to_room throughout your code to
+     comply with this new function. Documenting the changes would burden the
+     install instructions too heavily, but they should be almost glaringly
+     obvious. If not, you probably lack the expertise to install this code. )
+
+/*
+ * Move an obj into a room.
+ */
+OBJ_DATA *obj_to_room( OBJ_DATA *obj, ROOM_INDEX_DATA *pRoomIndex, CHAR_DATA *ch )
+{
+    OBJ_DATA *otmp, *oret;
+    short count = obj->count;
+    short item_type = obj->item_type;
+    AFFECT_DATA *paf;
+
+    for ( paf = obj->first_affect; paf; paf = paf->next )
+	room_affect(pRoomIndex, paf, TRUE);
+
+    for ( paf = obj->pIndexData->first_affect; paf; paf = paf->next )
+	room_affect(pRoomIndex, paf, TRUE);
+
+    for ( otmp = pRoomIndex->first_content; otmp; otmp = otmp->next_content )
+	if ( (oret=group_object( otmp, obj )) == otmp )
+	{
+	    if ( item_type == ITEM_FIRE )
+		pRoomIndex->light += count;
+	    return oret;
+	}
+
+    LINK( obj, pRoomIndex->first_content, pRoomIndex->last_content, next_content, prev_content );
+    obj->in_room				= pRoomIndex;
+    obj->carried_by				= NULL;
+    obj->in_obj					= NULL;
+    if ( item_type == ITEM_FIRE )
+	pRoomIndex->light += count;
+    falling++;
+    obj_fall( obj, FALSE );
+    falling--;
+
+/* Hoping that this will cover all instances of objects from character to room - Samson 8-22-99 */
+    if( ch != NULL )
+    {
+	if( IS_ACT_FLAG( ch, ACT_ONMAP ) || IS_PLR_FLAG( ch, PLR_ONMAP ) )
+      {
+	   SET_OBJ_STAT( obj, ITEM_ONMAP );
+	   obj->map = ch->map;
+	   obj->x = ch->x;
+	   obj->y = ch->y;
+	}
+	else
+      {
+	   REMOVE_OBJ_STAT( obj, ITEM_ONMAP );
+	   obj->map = -1;
+	   obj->x = -1;
+	   obj->y = -1;
+	}
+    }
+ 
+    if ( obj->pIndexData->vnum == OBJ_VNUM_CORPSE_PC && falling < 1 )
+	write_corpses( NULL, obj->short_descr+14, NULL );
+
+    return obj;
+}
+
+   Locate function obj_from_obj and replace it with the following function:
+
+/*
+ * Move an object out of an object.
+ */
+void obj_from_obj( OBJ_DATA *obj )
+{
+    OBJ_DATA *obj_from;
+    bool magic;
+
+    if ( (obj_from = obj->in_obj) == NULL )
+    {
+	bug( "Obj_from_obj: null obj_from.", 0 );
+	return;
+    }
+
+    magic = in_magic_container(obj_from);
+
+    UNLINK( obj, obj_from->first_content, obj_from->last_content,	next_content, prev_content );
+
+    /* uncover contents */
+    if ( IS_OBJ_STAT(obj, ITEM_COVERING) && obj->first_content )
+	empty_obj(obj, obj->in_obj, NULL);
+
+    obj->in_obj       = NULL;
+    obj->in_room      = NULL;
+    obj->carried_by   = NULL;
+
+/* This will hopefully cover all objs coming from containers going to the maps - Samson 8-22-99 */
+    if( IS_OBJ_STAT( obj_from, ITEM_ONMAP ) )
+    {
+	SET_OBJ_STAT( obj, ITEM_ONMAP );
+	obj->map = obj_from->map;
+	obj->x = obj_from->x;
+	obj->y = obj_from->y;
+    }
+
+    if ( !magic )
+	for ( ; obj_from; obj_from = obj_from->in_obj )
+	    if ( obj_from->carried_by )
+		obj_from->carried_by->carry_weight -= get_obj_weight( obj );
+
+    return;
+}
+
+   Locate function obj_to_char and replace it with the following function:
+
+/*
+ * Give an obj to a char.
+ */
+OBJ_DATA *obj_to_char( OBJ_DATA *obj, CHAR_DATA *ch )
+{
+    OBJ_DATA *otmp;
+    OBJ_DATA *oret = obj;
+    bool skipgroup, grouped;
+    int oweight = get_obj_weight(obj);
+    int onum = get_obj_number(obj);
+    int wear_loc = obj->wear_loc;
+    EXT_BV extra_flags = obj->extra_flags;
+
+    skipgroup = FALSE;
+    grouped = FALSE;
+
+    if (IS_OBJ_STAT( obj, ITEM_PROTOTYPE ) )
+    {
+	if (!IS_IMMORTAL( ch ) && !IS_ACT_FLAG(ch, ACT_PROTOTYPE) )
+	  return obj_to_room( obj, ch->in_room, ch );
+    }
+
+    /* Should handle all cases of picking stuff up from maps - Samson */
+    REMOVE_OBJ_STAT( obj, ITEM_ONMAP );
+    obj->x = -1;
+    obj->y = -1;
+    obj->map = -1;
+
+    if ( loading_char == ch )
+    {
+	int x,y;
+	for ( x = 0; x < MAX_WEAR; x++ )
+	    for ( y = 0; y < MAX_LAYERS; y++ )
+		if ( save_equipment[x][y] == obj )
+		{
+		    skipgroup = TRUE;
+		    break;
+		}
+    }
+
+    if ( !skipgroup )
+	for ( otmp = ch->first_carrying; otmp; otmp = otmp->next_content )
+	    if ( (oret=group_object( otmp, obj )) == otmp )
+	    {
+		grouped = TRUE;
+		break;
+	    }
+    if ( !grouped )
+    {
+	if (!IS_NPC(ch) || !ch->pIndexData->pShop)
+	{
+	    LINK( obj, ch->first_carrying, ch->last_carrying,	next_content, prev_content );
+	    obj->carried_by                 = ch;
+	    obj->in_room                    = NULL;
+	    obj->in_obj                     = NULL;
+        }
+        else
+        {
+	    /* If ch is a shopkeeper, add the obj using an insert sort */
+	    for ( otmp = ch->first_carrying; otmp; otmp = otmp->next_content)
+	    {
+		if ( obj->level > otmp->level )
+		{
+		    INSERT(obj, otmp, ch->first_carrying,	next_content, prev_content);
+		    break;
+		}
+		else
+		if ( obj->level == otmp->level && strcmp(obj->short_descr,otmp->short_descr) < 0 )
+		{
+		    INSERT(obj, otmp, ch->first_carrying,	next_content, prev_content);
+		    break;
+		}
+	    }
+                
+	    if ( !otmp )
+	    {
+		LINK(obj, ch->first_carrying, ch->last_carrying, next_content, prev_content);
+	    }
+                
+	    obj->carried_by = ch;
+	    obj->in_room = NULL;
+	    obj->in_obj = NULL;
+	}
+    }
+    if (wear_loc == WEAR_NONE)
+    {
+	ch->carry_number	+= onum;
+	ch->carry_weight	+= oweight;
+    }
+    else
+    if ( !xIS_SET(extra_flags, ITEM_MAGIC) )
+	ch->carry_weight	+= oweight;
+    return (oret ? oret : obj);
+}
+
+   Locate the function get_obj_here and replace it with the following function:
+
+/*
+ * Find an obj in the room or in inventory.
+ */
+OBJ_DATA *get_obj_here( CHAR_DATA *ch, char *argument )
+{
+    OBJ_DATA *obj;
+
+    obj = get_obj_list_rev( ch, argument, ch->in_room->last_content );
+    if ( obj && ch->map == obj->map && ch->x == obj->x && ch->y == obj->y )
+	return obj;
+
+    if ( ( obj = get_obj_carry( ch, argument ) ) != NULL )
+	return obj;
+
+    if ( ( obj = get_obj_wear( ch, argument ) ) != NULL )
+	return obj;
+
+    return NULL;
+}
+
+   Locate the fuction can_see and replace it with the following function:
+
+/*
+ * True if char can see victim.
+ */
+bool can_see( CHAR_DATA *ch, CHAR_DATA *victim, bool override )
+{
+    if ( !victim )            /* Gorog - panicked attempt to stop crashes */
+       return FALSE;
+
+    if ( !ch )
+    {
+      if ( IS_AFFECTED(victim, AFF_INVISIBLE) || IS_AFFECTED(victim, AFF_HIDE) || xIS_SET(victim->act, PLR_WIZINVIS) ) 
+	return FALSE;
+      else
+	return TRUE;
+    }
+
+    if ( ch == victim )
+	return TRUE;
+
+    if ( IS_PLR_FLAG( victim, PLR_WIZINVIS ) && ch->level < victim->pcdata->wizinvis )
+	return FALSE;
+
+    /* SB */
+    if ( IS_ACT_FLAG( victim, ACT_MOBINVIS ) && ch->level < victim->mobinvis )
+        return FALSE;
+
+/* Deadlies link-dead over 2 ticks aren't seen by mortals -- Blodkai */
+    if ( !IS_IMMORTAL( ch ) && !IS_NPC( ch ) && !IS_NPC( victim ) && IS_PKILL( victim ) && victim->timer > 1 && !victim->desc )
+	return FALSE;
+
+    if ( ( IS_PLR_FLAG( ch, PLR_ONMAP ) || IS_ACT_FLAG( ch, ACT_ONMAP ) ) && override == FALSE )
+    {
+	if( !is_same_map( ch, victim ) )
+	   return FALSE;
+    }
+
+    if ( IS_PLR_FLAG( ch, PLR_HOLYLIGHT ) )
+	return TRUE;
+
+    /* The miracle cure for blindness? -- Altrag */
+    if ( !IS_AFFECTED(ch, AFF_TRUESIGHT) )
+    {
+	if ( IS_AFFECTED(ch, AFF_BLIND) )
+	  return FALSE;
+
+	if ( room_is_dark( ch->in_room ) && !IS_AFFECTED(ch, AFF_INFRARED) )
+	  return FALSE;
+
+	if ( IS_AFFECTED(victim, AFF_INVISIBLE) && !IS_AFFECTED(ch, AFF_DETECT_INVIS) )
+	  return FALSE;
+
+	if ( IS_AFFECTED(victim, AFF_HIDE)
+	&&   !IS_AFFECTED(ch, AFF_DETECT_HIDDEN)
+	&&   !victim->fighting
+	&&   ( IS_NPC(ch) ? !IS_NPC(victim) : IS_NPC(victim) ) )
+	  return FALSE;
+    }
+
+    return TRUE;
+}
+
+   Then locate ALL calls to can_see in the following functions:
+
+   do_where [act_info.c]
+   indent_whogr [act_info.c]
+   do_who [act_info.c]
+   get_char_world [handler.c]
+   do_transfer [act_wiz.c]
+   do_gwhere [act_wiz.c]
+   do_gfighting [act_wiz.c]
+   do_bodybag [act_wiz.c]
+   do_users [act_wiz.c]
+   do_loadup [act_wiz.c]
+   do_ipcompare [act_wiz.c]
+
+   Add a TRUE argument to the calls. 
+   Then locate ALL other calls to can_see and add a FALSE argument to those.
+
+   Then locate ALL calls to the PERS and MORPHPERS macros in the following functions:
+
+   do_group [act_comm.c]
+   do_where [act_info.c]
+   do_owhere [act_wiz.c]
+   do_owhere [grub.c]
+   do_vsearch [act_wiz.c]
+
+   Add a TRUE argument to the calls.
+   Then locate ALL other calls to the PERS and MORPHPERS macros and add a FALSE argument to those.
+
+   Locate function extract_char and find the following:
+
+	if ( !location )
+	    location = get_room_index( ROOM_VNUM_ALTAR );
+
+	if ( !location )
+	    location = get_room_index( 1 );
+
+	char_to_room( ch, location );
+
+   Immediately below that, add the following:
+
+	if( IS_PLR_FLAG( ch, PLR_ONMAP ) )
+	{
+    	   REMOVE_PLR_FLAG( ch, PLR_ONMAP );
+	   REMOVE_PLR_FLAG( ch, PLR_MAPEDIT ); /* Just in case they were editing */
+
+         ch->x = -1;
+    	   ch->y = -1;
+    	   ch->map = -1;
+	}
+
+   Locate function clone_object and find the following:
+
+    clone->weight	= obj->weight;
+    clone->cost		= obj->cost;
+    clone->level	= obj->level;
+    clone->timer	= obj->timer;
+
+   Immediately below that, add the following:
+
+    clone->map = obj->map;
+    clone->x = obj->x;
+    clone->y = obj->y;
+
+   Locate function can_see_obj and find the following:
+
+bool can_see_obj( CHAR_DATA *ch, OBJ_DATA *obj )
+{
+    if ( !IS_NPC(ch) && xIS_SET(ch->act, PLR_HOLYLIGHT) )
+	return TRUE;
+
+   Immediately ABOVE that, add the following:
+
+    if ( IS_OBJ_STAT( obj, ITEM_ONMAP ) )
+    {
+	if( !IS_NPC( ch ) && !IS_PLR_FLAG( ch, PLR_ONMAP ) )
+	    return FALSE;
+
+	if( IS_NPC( ch ) && !IS_ACT_FLAG( ch, ACT_ONMAP ) )
+	    return FALSE;
+
+	if( ch->map != obj->map || ch->x != obj->x || ch->y != obj->y )
+	    return FALSE;
+    }
+
+13. Open save.c
+
+   Locate function load_char_obj and find the following:
+
+    ch->pcdata->first_ignored		= NULL;    /* Ignore list */
+    ch->pcdata->last_ignored		= NULL;
+    ch->pcdata->tell_history		= NULL;	/* imm only lasttell cmnd */
+    ch->pcdata->lt_index		= 0;	/* last tell index */
+    ch->morph                           = NULL;
+
+   Immediately below that, add the following:
+
+    ch->pcdata->secedit			= SECT_OCEAN; /* Initialize Map OLC sector - Samson 8-1-99 */
+
+   Locate function fread_char and find the following:
+
+	    if ( !strcmp( word, "Condition" ) )
+	    {
+		line = fread_line( fp );
+		sscanf( line, "%d %d %d %d",
+		      &x1, &x2, &x3, &x4 );
+		ch->pcdata->condition[0] = x1;
+		ch->pcdata->condition[1] = x2;
+		ch->pcdata->condition[2] = x3;
+		ch->pcdata->condition[3] = x4;
+		fMatch = TRUE;
+		break;
+	    }
+
+   Immediately below that, add the following:
+
+	    if ( !str_cmp( word, "Coordinates" ) )
+	    {
+		ch->x = fread_number( fp );
+		ch->y = fread_number( fp );
+		ch->map	 = fread_number( fp );
+
+		if( !IS_PLR_FLAG( ch, PLR_ONMAP ) )
+	      {
+		   ch->x = -1;
+		   ch->y = -1;
+		   ch->map	    = -1;
+		}
+
+		fMatch = TRUE;
+		break;
+	    }
+
+   Then find the following:
+
+                /* this disallows chars from being 6', 180lbs, but easier than a flag */
+                if ( ch->height == 72 )
+                   ch->height = number_range(race_table[ch->race]->height *.9, race_table[ch->race]->height *1.1);
+		if ( ch->weight == 180 )
+		   ch->weight = number_range(race_table[ch->race]->weight *.9, race_table[ch->race]->weight *1.1);
+
+   Immediately below that, add the following:
+
+		REMOVE_PLR_FLAG( ch, PLR_MAPEDIT ); /* In case they saved while editing */
+
+   Locate function fread_obj and find the following:
+
+    CREATE( obj, OBJ_DATA, 1 );
+    obj->count		= 1;
+    obj->wear_loc	= -1;
+    obj->weight		= 1;
+
+   Immediately below that, add the following:
+
+    obj->map = -1;
+    obj->x = -1;
+    obj->y = -1;
+
+   Then find the following:
+
+		||   paf->location == APPLY_REMOVESPELL
+		||   paf->location == APPLY_RECURRINGSPELL )
+		  paf->modifier		= slot_lookup( pafmod );
+		else
+		  paf->modifier		= pafmod;
+		LINK(paf, obj->first_affect, obj->last_affect, next, prev );
+		fMatch				= TRUE;
+		break;
+	    }
+	    break;
+
+	case 'C':
+
+   Immediately below that, add the following:
+
+	    if( !strcmp( word, "Coords" ) )
+	    {
+		obj->x = fread_number( fp );
+	 	obj->y = fread_number( fp );
+		obj->map = fread_number( fp );
+	      fMatch = TRUE;
+		break;
+	    }
+
+   Locate function fwrite_char and find the following:
+
+    track = URANGE( 2, ((ch->level+3) * MAX_KILLTRACK)/LEVEL_AVATAR, MAX_KILLTRACK );
+    for ( sn = 0; sn < track; sn++ )
+    {
+	if ( ch->pcdata->killed[sn].vnum == 0 )
+	  break;
+	fprintf( fp, "Killed       %d %d\n",
+		ch->pcdata->killed[sn].vnum,
+		ch->pcdata->killed[sn].count );
+    }
+
+   Immediately below that, add the following:
+
+    /* Overland Map - Samson 7-31-99 */
+    fprintf( fp, "Coordinates	%d %d %d\n", ch->x, ch->y, ch->map );
+
+   Locate function fwrite_obj and find the following:
+
+    if ( obj->timer )
+      fprintf( fp, "Timer        %d\n",	obj->timer		     );
+    if ( obj->cost != obj->pIndexData->cost )
+      fprintf( fp, "Cost         %d\n",	obj->cost		     );
+
+   Immediately below that, add the following:
+
+    fprintf( fp, "Coords	%d %d %d\n", obj->x, obj->y, obj->map );
+
+   Locate fread_mobile and find the following:
+
+	case '#':
+		if ( !strcmp( word, "#OBJECT" ) )
+			fread_obj ( mob, fp, OS_CARRY );
+
+   Immediately below that, add the following:
+
+	case 'C':
+	      if ( !str_cmp( word, "Coordinates" ) )
+	      {
+		  mob->x = fread_number( fp );
+		  mob->y = fread_number( fp );
+		  mob->map	 = fread_number( fp );
+
+		  fMatch = TRUE;
+		  break;
+	      }
+		break;
+
+   Locate fwrite_mobile and find the following:
+
+  if ( mob->in_room )
+	fprintf( fp, "Room	%d\n", 
+       		(  mob->in_room == get_room_index( ROOM_VNUM_LIMBO )
+        		&& mob->was_in_room )
+            		? mob->was_in_room->vnum
+            		: mob->in_room->vnum ); 
+
+   Immediately below that, add the following:
+
+  fprintf( fp, "Coordinates  %d %d %d\n", mob->x, mob->y, mob->map );
+
+14. Open magic.c
+
+   Locate function spell_area_attack and find the following:
+
+    for ( vch = ch->in_room->first_person; vch; vch = vch_next )
+    {
+	vch_next = vch->next_in_room;
+
+	if ( !IS_NPC(vch) && xIS_SET(vch->act, PLR_WIZINVIS)
+	&&    vch->pcdata->wizinvis >= LEVEL_IMMORTAL )
+	   continue;
+
+        if ( vch == ch )
+	   continue;
+
+        if ( is_safe( ch, vch, FALSE) )
+	   continue;
+
+   Immediately below that, add the following:
+
+      /* Verify they're in the same spot */
+      if ( vch == ch || !is_same_map( vch, ch ) )
+	   continue;
+
+   Locate function say_spell and find the following:
+
+    for ( rch = ch->in_room->first_person; rch; rch = rch->next_in_room )
+    {
+	if ( rch != ch )
+	act( AT_MAGIC, ch->class==rch->class ? buf : buf2,
+	     ch, NULL, rch, TO_VICT );
+    }
+
+   Change that to read as follows:
+
+    for ( rch = ch->in_room->first_person; rch; rch = rch->next_in_room )
+    {
+	if ( rch != ch )
+      {
+	   if( is_same_map( ch, rch ) )
+	     act( AT_MAGIC, ch->class == rch->class ? buf : buf2, ch, NULL, rch, TO_VICT );
+	}
+    }
+
+   Locate spell_farsight, and add the following line to the declarations:
+
+    int origmap, origx, origy;
+
+   Then find the following:
+
+    successful_casting( skill, ch, victim, NULL );
+    original = ch->in_room;
+    char_from_room( ch );
+    char_to_room( ch, location );
+    do_look( ch, "auto" );
+    char_from_room( ch );
+    char_to_room( ch, original );
+    return rNONE;
+
+   Change that to read as follows:
+
+    successful_casting( skill, ch, victim, NULL );
+
+    original = ch->in_room;
+    origmap = ch->map;
+    origx = ch->x;
+    origy = ch->y;
+
+    /* Bunch of checks to make sure the caster is on the same grid as the target - Samson */
+    if( IS_ROOM_FLAG( location, ROOM_MAP ) && !IS_PLR_FLAG( ch, PLR_ONMAP ) )
+    {
+	SET_PLR_FLAG( ch, PLR_ONMAP );
+	ch->map = victim->map;
+	ch->x = victim->x;
+	ch->y = victim->y;
+    }
+    else if( IS_ROOM_FLAG( location, ROOM_MAP ) && IS_PLR_FLAG( ch, PLR_ONMAP ) )
+    {
+	ch->map = victim->map;
+	ch->x = victim->x;
+	ch->y = victim->y;
+    }
+    else if( !IS_ROOM_FLAG( location, ROOM_MAP ) && IS_PLR_FLAG( ch, PLR_ONMAP ) )
+    {
+	REMOVE_PLR_FLAG( ch, PLR_ONMAP );
+	ch->map = -1;
+	ch->x = -1;
+	ch->y = -1;
+    }
+
+    char_from_room( ch );
+    char_to_room( ch, location );
+
+    do_look( ch, "auto" );
+    char_from_room( ch );
+    char_to_room( ch, original );
+
+    if( IS_PLR_FLAG( ch, PLR_ONMAP ) && !IS_ROOM_FLAG( original, ROOM_MAP ) )
+	REMOVE_PLR_FLAG( ch, PLR_ONMAP );
+    else if( !IS_PLR_FLAG( ch, PLR_ONMAP ) && IS_ROOM_FLAG( original, ROOM_MAP ) )
+	SET_PLR_FLAG( ch, PLR_ONMAP );
+
+    ch->map = origmap;
+    ch->x = origx;
+    ch->y = origy;
+    return rNONE;
+
+   Locate spell_portal and replace it with the following:
+
+/*
+ * Syntax portal (mob/char) 
+ * opens a 2-way EX_PORTAL from caster's room to room inhabited by  
+ *  mob or character won't mess with existing exits
+ *
+ * do_mp_open_passage, combined with spell_astral
+ */
+ch_ret spell_portal( int sn, int level, CHAR_DATA *ch, void *vo )
+{
+    CHAR_DATA *victim;
+    ROOM_INDEX_DATA *targetRoom, *fromRoom;
+    int targetRoomVnum;
+    OBJ_DATA *portalObj;
+    EXIT_DATA *pexit;
+    char buf[MAX_STRING_LENGTH];
+    SKILLTYPE *skill = get_skilltype(sn);
+
+    if( ( victim = get_char_world( ch, target_name ) ) == NULL )
+    {
+	failed_casting( skill, ch, victim, NULL );
+	return rSPELL_FAILED;
+    }
+
+    if ( victim == ch )
+    {
+	send_to_char( "What?? Make a portal to yourself?\r\n", ch );
+	return rSPELL_FAILED;
+    }
+
+    if( IS_PLR_FLAG( ch, PLR_ONMAP ) || IS_PLR_FLAG( victim, PLR_ONMAP ) 
+     || IS_ACT_FLAG( ch, ACT_ONMAP ) || IS_ACT_FLAG( victim, ACT_ONMAP ) )
+    {
+	send_to_char( "Portals cannot be created to or from overland maps.\r\n", ch );
+	return rSPELL_FAILED;
+    }
+
+    /* No go if all kinds of things aren't just right, including the caster
+       and victim are not both pkill or both peaceful. -- Narn
+    */
+    if ( !victim->in_room
+    ||   IS_SET(victim->in_room->room_flags, ROOM_PRIVATE)
+    ||   IS_SET(victim->in_room->room_flags, ROOM_SOLITARY)
+    ||   IS_SET(victim->in_room->room_flags, ROOM_NO_ASTRAL)
+    ||   IS_SET(victim->in_room->room_flags, ROOM_DEATH)
+    ||   IS_SET(victim->in_room->room_flags, ROOM_NO_RECALL)
+    ||   IS_SET(victim->in_room->room_flags, ROOM_PROTOTYPE)
+    ||   IS_SET(ch->in_room->room_flags, ROOM_NO_RECALL)
+    ||   IS_SET(ch->in_room->room_flags, ROOM_NO_ASTRAL)
+    ||   victim->level >= level + 15
+    ||	(IS_NPC(victim) && xIS_SET(victim->act, ACT_PROTOTYPE))
+    ||  (IS_NPC(victim) && saves_spell_staff( level, victim )) 
+    ||  (!IS_NPC(victim) && CAN_PKILL(ch) != CAN_PKILL(victim)) )
+    {
+	failed_casting( skill, ch, victim, NULL );
+	return rSPELL_FAILED;
+    }
+
+    if (victim->in_room == ch->in_room)
+    {
+	send_to_char("They are right beside you!", ch);
+	return rSPELL_FAILED;
+    }
+    
+    targetRoomVnum = victim->in_room->vnum;
+    fromRoom = ch->in_room;
+    targetRoom = victim->in_room;
+
+    /* Check if there already is a portal in either room. */
+    for ( pexit = fromRoom->first_exit; pexit; pexit = pexit->next )
+    {
+	if ( IS_SET( pexit->exit_info, EX_PORTAL ) ) 
+	{
+	    send_to_char("There is already a portal in this room.\r\n",ch);
+	    return rSPELL_FAILED;
+	}
+ 
+	if ( pexit->vdir == DIR_PORTAL )
+	{
+	    send_to_char("You may not create a portal in this room.\r\n",ch);
+	    return rSPELL_FAILED;
+	}
+    }
+
+    for ( pexit = targetRoom->first_exit; pexit; pexit = pexit->next )
+	if ( pexit->vdir == DIR_PORTAL )
+	{
+	    failed_casting( skill, ch, victim, NULL );
+            return rSPELL_FAILED;
+	}
+
+    pexit = make_exit( fromRoom, targetRoom, DIR_PORTAL ); 
+    pexit->keyword 	= STRALLOC( "portal" );
+    pexit->description	= STRALLOC( "You gaze into the shimmering portal...\r\n" );
+    pexit->key     	= -1;
+    pexit->exit_info	= EX_PORTAL | EX_xENTER | EX_HIDDEN | EX_xLOOK;
+    pexit->vnum    	= targetRoomVnum;
+
+    portalObj = create_object( get_obj_index( OBJ_VNUM_PORTAL ), 0 );
+    portalObj->timer = 3;
+    sprintf( buf, "a portal created by %s", ch->name );
+    STRFREE( portalObj->short_descr );
+    portalObj->short_descr = STRALLOC( buf ); 
+
+    /* support for new casting messages */
+    if ( !skill->hit_char || skill->hit_char[0] == '\0' )
+    {
+	set_char_color( AT_MAGIC, ch );
+	send_to_char("You utter an incantation, and a portal forms in front of you!\r\n", ch);
+    }
+    else
+	act( AT_COLORIZE, skill->hit_char, ch, NULL, victim, TO_CHAR );
+    if ( !skill->hit_room || skill->hit_room[0] == '\0' )
+	act( AT_COLORIZE, "$n utters an incantation, and a portal forms in front of you!", ch, NULL, NULL, TO_ROOM );
+    else
+	act( AT_COLORIZE, skill->hit_room, ch, NULL, victim, TO_ROOM );
+    if ( !skill->hit_vict || skill->hit_vict[0] == '\0' )
+	act( AT_MAGIC, "A shimmering portal forms in front of you!", victim, NULL, NULL, TO_ROOM );
+    else
+	act( AT_COLORIZE, skill->hit_vict, victim, NULL, victim, TO_ROOM );
+    portalObj = obj_to_room( portalObj, ch->in_room, ch );
+
+    pexit = make_exit( targetRoom, fromRoom, DIR_PORTAL );
+    pexit->keyword 	= STRALLOC( "portal" );
+    pexit->description	= STRALLOC( "You gaze into the shimmering portal...\r\n" );
+    pexit->key          = -1;
+    pexit->exit_info    = EX_PORTAL | EX_xENTER | EX_HIDDEN;
+    pexit->vnum         = targetRoomVnum;
+
+    portalObj = create_object( get_obj_index( OBJ_VNUM_PORTAL ), 0 );
+    portalObj->timer = 3;
+    STRFREE( portalObj->short_descr );
+    portalObj->short_descr = STRALLOC( buf ); 
+    portalObj = obj_to_room( portalObj, targetRoom, NULL );
+    return rNONE;
+}
+
+15. Open makeobjs.c
+
+   Locate function make_scraps and find the following:
+
+  separate_obj( obj );
+  scraps	= create_object( get_obj_index( OBJ_VNUM_SCRAPS ), 0 );
+  scraps->timer = number_range( 5, 15 );
+
+   Immediately below that, add the following:
+
+  if( IS_OBJ_STAT( obj, ITEM_ONMAP ) )
+  {
+	SET_OBJ_STAT( scraps, ITEM_ONMAP );
+	scraps->map = obj->map;
+	scraps->x = obj->x;
+	scraps->y = obj->y;
+  }
+
+16. Open mud_comm.c
+
+   Locate function do_mppurge and find the following:
+
+    if ( arg[0] == '\0' )
+    {
+	/* 'purge' */
+	CHAR_DATA *vnext;
+
+	for ( victim = ch->in_room->first_person; victim; victim = vnext )
+	{
+	    vnext = victim->next_in_room;
+	    if ( IS_NPC( victim ) && victim != ch )
+	      extract_char( victim, TRUE );
+	}
+	while ( ch->in_room->first_content )
+	   extract_obj( ch->in_room->first_content );
+
+	return;
+    }
+
+   Change that to read as follows:
+
+    if ( arg[0] == '\0' )
+    {
+	/* 'purge' */
+	CHAR_DATA *vnext;
+	OBJ_DATA *obj_next;
+
+	for ( victim = ch->in_room->first_person; victim; victim = vnext )
+	{
+	    vnext = victim->next_in_room;
+	    if ( IS_NPC( victim ) && victim != ch && is_same_map( victim, ch ) )
+	      extract_char( victim, TRUE );
+	}
+	for( obj = ch->in_room->first_content; obj; obj = obj_next )
+	{
+	   obj_next = obj->next_content;
+
+	   if( ch->map == obj->map && ch->x == obj->x && ch->y == obj->y )
+	      extract_obj( obj );
+	}
+	return;
+    }
+
+17. Open mud_prog.c
+
+   Locate function set_supermob and find the following:
+
+  if(room != NULL)
+  {
+    char_from_room ( supermob );
+    char_to_room( supermob, room );
+
+   Immediately below that, add the following:
+
+    if( IS_OBJ_STAT( obj, ITEM_ONMAP ) )
+    {
+	SET_ACT_FLAG( supermob, ACT_ONMAP );
+	supermob->map = obj->map;
+	supermob->x = obj->x;
+	supermob->y = obj->y;
+    }
+
+   Locate function release_supermob and find the following:
+
+  char_from_room( supermob );
+  char_to_room( supermob, get_room_index( 3 ) );
+
+   Immediately below that, add the following:
+
+  if( IS_ACT_FLAG( supermob, ACT_ONMAP ) )
+  {
+     REMOVE_ACT_FLAG( supermob, ACT_ONMAP );
+     supermob->map = -1;
+     supermob->x = -1;
+     supermob->y = -1;
+  }
+
+18. Open skills.c
+
+   Locate function do_dig and find the following:
+
+	  else
+	  {
+	      switch( ch->in_room->sector_type )
+	      {
+		  case SECT_CITY:
+		  case SECT_INSIDE:
+		    send_to_char( "The floor is too hard to dig through.\r\n", ch );
+		    return;
+		  case SECT_WATER_SWIM:
+		  case SECT_WATER_NOSWIM:
+		  case SECT_UNDERWATER:
+		    send_to_char( "You cannot dig here.\r\n", ch );
+		    return;
+		  case SECT_AIR:
+		    send_to_char( "What?  In the air?!\r\n", ch );
+		    return;
+	      }
+	  }
+
+   Change that to read as follows:
+
+	  else
+	  {
+	      int sector;
+
+		if( IS_PLR_FLAG(ch, PLR_ONMAP) || IS_ACT_FLAG(ch, ACT_ONMAP) )
+		    sector = map_sector[ch->map][ch->x][ch->y];
+		else
+		    sector = ch->in_room->sector_type;
+		
+	      switch( sector )
+	      {
+		  case SECT_CITY:
+		    send_to_char( "The road is too hard to dig through.\r\n", ch );
+		    return;
+		  case SECT_INSIDE:
+		    send_to_char( "The floor is too hard to dig through.\r\n", ch );
+		    return;
+		  case SECT_WATER_SWIM:
+		  case SECT_WATER_NOSWIM:
+		  case SECT_UNDERWATER:
+		    send_to_char( "You cannot dig here.\r\n", ch );
+		    return;
+		  case SECT_AIR:
+		    send_to_char( "What?  In the air?!\r\n", ch );
+		    return;
+	      }
+	  }
+
+19. Open deity.c
+
+    Locate function do_supplicate and find the following:
+
+    	act( AT_MAGIC, "$n disappears in a column of divine power.", ch, NULL, NULL, TO_ROOM );
+    	char_from_room( ch );
+    	char_to_room( ch, location );
+    	if ( ch->mount )
+    	{
+            char_from_room( ch->mount );
+            char_to_room( ch->mount, location );
+    	}
+    	act( AT_MAGIC, "$n appears in the room from a column of divine mist.", ch, NULL, NULL, TO_ROOM );
+    	do_look( ch, "auto" );
+    	ch->pcdata->favor -= ch->pcdata->deity->srecall; 
+
+    Change it to read as follows:
+
+    	act( AT_MAGIC, "$n disappears in a column of divine power.", ch, NULL, NULL, TO_ROOM );
+
+      leave_map( ch, NULL, location );
+
+    	act( AT_MAGIC, "$n appears in the room from a column of divine mist.", ch, NULL, NULL, TO_ROOM );
+    	do_look( ch, "auto" );
+    	ch->pcdata->favor -= ch->pcdata->deity->srecall; 
+
+20. Open fight.c and find the following code:
+
+    if ( retcode == rNONE )
+    {
+	int move;
+
+	if ( !IS_AFFECTED(ch, AFF_FLYING)
+	&&   !IS_AFFECTED(ch, AFF_FLOATING) )
+	  move = encumbrance( ch, movement_loss[UMIN(SECT_MAX-1, ch->in_room->sector_type)] );
+	else
+	  move = encumbrance( ch, 1 );
+	if ( ch->move )
+	  ch->move = UMAX( 0, ch->move - move );
+    }
+
+    Replace it with the following code:
+
+    if ( retcode == rNONE && !char_died(ch) )
+    {
+        int move;
+        
+        if ( !IS_AFFECTED(ch, AFF_FLYING) && !IS_AFFECTED(ch, AFF_FLOATING) )
+            move = encumbrance( ch, sect_show[ch->in_room->sector_type].move );
+        else
+            move = encumbrance( ch, 1 );
+        if ( ch->move > 0 )
+            ch->move = UMAX( 0, ch->move - move );
+    }
+
+    Locate function do_flee and add the following to the declarations at the top:
+
+    int oldmap = ch->map;
+    int oldx = ch->x;
+    int oldy = ch->y;
+
+    Then find the following code:
+
+	if ( ch->mount && ch->mount->fighting )
+	    stop_fighting( ch->mount, TRUE );
+	move_char( ch, pexit, 0 );
+	if ( ( now_in = ch->in_room ) == was_in )
+	    continue;
+	ch->in_room = was_in;
+	act( AT_FLEE, "$n flees head over heels!", ch, NULL, NULL, TO_ROOM );
+	ch->in_room = now_in;
+	act( AT_FLEE, "$n glances around for signs of pursuit.", ch, NULL, NULL, TO_ROOM );
+
+    Change it to read as follows:
+
+	if ( ch->mount && ch->mount->fighting )
+	    stop_fighting( ch->mount, TRUE );
+
+	move_char( ch, pexit, 0, door );
+	if( IS_PLR_FLAG( ch, PLR_ONMAP ) || IS_ACT_FLAG( ch, ACT_ONMAP ) )
+	{
+	   now_in = ch->in_room;
+	   if( ch->map == oldmap && ch->x == oldx && ch->y == oldy )
+		continue;
+	}
+	else
+	{
+	   if ( ( now_in = ch->in_room ) == was_in )
+	     continue;
+	}
+
+	ch->in_room = was_in;
+	act( AT_FLEE, "$n flees head over heels!", ch, NULL, NULL, TO_ROOM );
+	ch->in_room = now_in;
+	act( AT_FLEE, "$n glances around for signs of pursuit.", ch, NULL, NULL, TO_ROOM );
+
+21. Open update.c and locate the following code:
+
+void	char_check	args( ( void ) );
+void    drunk_randoms	args( ( CHAR_DATA *ch ) );
+void    hallucinations	args( ( CHAR_DATA *ch ) );
+void	subtract_times	args( ( struct timeval *etime, struct timeval *stime ) );
+
+    Immediately below that, add the following code:
+
+/* Overland Map movement - Samson 7-31-99 */
+bool map_wander( CHAR_DATA *ch, short map, short x, short y, short sector );
+    
+    Locate the following code in mobile_update:
+
+	/* Wander */
+	if ( !xIS_SET(ch->act, ACT_RUNNING)
+	&&   !xIS_SET(ch->act, ACT_SENTINEL)
+	&&   !xIS_SET(ch->act, ACT_PROTOTYPE)
+	&& ( door = number_bits( 5 ) ) <= 9
+	&& ( pexit = get_exit(ch->in_room, door) ) != NULL
+	&&   pexit->to_room
+
+    Immediately above that, add the following code:
+
+      /* Map wanderers - Samson 7-29-00 */
+      if( IS_ACT_FLAG( ch, ACT_ONMAP ) )
+	{
+	   short sector = get_terrain( ch->map, ch->x, ch->y );
+	   short map = ch->map;
+	   short x = ch->x;
+	   short y = ch->y;
+           short dir = number_bits( 5 );
+
+	   if( dir < DIR_SOMEWHERE && dir != DIR_UP && dir != DIR_DOWN )
+	   {
+		switch( dir )
+		{
+		   case DIR_NORTH:
+			if( map_wander( ch, map, x, y-1, sector ) )
+			   move_char( ch, NULL, 0, DIR_NORTH );
+		   break;
+		   case DIR_NORTHEAST:
+			if( map_wander( ch, map, x+1, y-1, sector ) )
+			   move_char( ch, NULL, 0, DIR_NORTHEAST );
+		   break;
+		   case DIR_EAST:
+			if( map_wander( ch, map, x+1, y, sector ) )
+			   move_char( ch, NULL, 0, DIR_EAST );
+		   break;
+		   case DIR_SOUTHEAST:
+			if( map_wander( ch, map, x+1, y+1, sector ) )
+			   move_char( ch, NULL, 0, DIR_SOUTHEAST );
+		   break;
+		   case DIR_SOUTH:
+			if( map_wander( ch, map, x, y+1, sector ) )
+			   move_char( ch, NULL, 0, DIR_SOUTH );
+		   break;
+		   case DIR_SOUTHWEST:
+			if( map_wander( ch, map, x-1, y+1, sector ) )
+			   move_char( ch, NULL, 0, DIR_SOUTHWEST );
+		   break;
+		   case DIR_WEST:
+			if( map_wander( ch, map, x-1, y, sector ) )
+			   move_char( ch, NULL, 0, DIR_WEST );
+		   break;
+		   case DIR_NORTHWEST:
+			if( map_wander( ch, map, x-1, y-1, sector ) )
+			   move_char( ch, NULL, 0, DIR_NORTHWEST );
+		   break;
+		}
+	   }
+	   if( char_died(ch) )
+		continue;
+	}
+
+    Locate the following code in function char_check:
+
+		if ( !xIS_SET(ch->act, ACT_SENTINEL)
+		&&   !ch->fighting && ch->hunting )
+		{
+		    WAIT_STATE( ch, 2 * PULSE_VIOLENCE );
+		    hunt_victim( ch );
+		    continue;
+		}
+
+		if ( ch->spec_fun )
+		{
+                    if ( (*ch->spec_fun) ( ch ) )
+                        continue;
+                    if ( char_died(ch) )
+                        continue;
+		}
+
+    Immediately below that, add the following code:
+
+      	/* Map wanderers - Samson 7-28-00 */
+      	if( IS_ACT_FLAG( ch, ACT_ONMAP ) )
+		{
+	   	   short sector = ch->sector;
+	   	   short map = ch->map;
+	   	   short x = ch->x;
+	   	   short y = ch->y;
+         	   int dir = number_bits( 5 );
+
+	   	   if( dir < DIR_SOMEWHERE && dir != DIR_UP && dir != DIR_DOWN )
+	   	   {
+			switch( dir )
+			{
+		   	   case DIR_NORTH:
+				if( map_wander( ch, map, x, y-1, sector ) )
+			   	   move_char( ch, NULL, 0, DIR_NORTH );
+		   		break;
+		   	   case DIR_NORTHEAST:
+				if( map_wander( ch, map, x+1, y-1, sector ) )
+			   	   move_char( ch, NULL, 0, DIR_NORTHEAST );
+		   		break;
+		   	   case DIR_EAST:
+				if( map_wander( ch, map, x+1, y, sector ) )
+			   	   move_char( ch, NULL, 0, DIR_EAST );
+		   		break;
+		   	   case DIR_SOUTHEAST:
+				if( map_wander( ch, map, x+1, y+1, sector ) )
+			   	   move_char( ch, NULL, 0, DIR_SOUTHEAST );
+		   		break;
+		   	   case DIR_SOUTH:
+				if( map_wander( ch, map, x, y+1, sector ) )
+			   	   move_char( ch, NULL, 0, DIR_SOUTH );
+		   		break;
+		   	   case DIR_SOUTHWEST:
+				if( map_wander( ch, map, x-1, y+1, sector ) )
+			   	   move_char( ch, NULL, 0, DIR_SOUTHWEST );
+		   		break;
+		   	   case DIR_WEST:
+				if( map_wander( ch, map, x-1, y, sector ) )
+			   	   move_char( ch, NULL, 0, DIR_WEST );
+		   		break;
+		   	   case DIR_NORTHWEST:
+				if( map_wander( ch, map, x-1, y-1, sector ) )
+			   	   move_char( ch, NULL, 0, DIR_NORTHWEST );
+		   		break;
+			}
+	   	   }
+	   	   if( char_died(ch) )
+			continue;
+		}
+
+   Locate the following code in char_update:
+
+	    if ( ch->in_room )
+	      switch( ch->in_room->sector_type )
+	      {
+		default:
+		    gain_condition( ch, COND_THIRST, -1 + race_table[ch->race]->thirst_mod);  break;
+		case SECT_DESERT:
+		    gain_condition( ch, COND_THIRST, -3 + race_table[ch->race]->thirst_mod);  break;
+		case SECT_UNDERWATER:
+		case SECT_OCEANFLOOR:
+		    if ( number_bits(1) == 0 )
+			gain_condition( ch, COND_THIRST, -1 + race_table[ch->race]->thirst_mod);  break;
+	      }
+
+
+   Replace that code with the following code:
+
+	   if ( ch->in_room )
+	   {
+	      int sector;
+
+	      if( IS_PLR_FLAG( ch, PLR_ONMAP ) )
+		   sector = get_terrain( ch->map, ch->x, ch->y );
+	      else
+	         sector = ch->in_room->sector_type;
+
+	      switch( sector )
+	      {
+	         default:
+	            gain_condition( ch, COND_THIRST, -1 + race_table[ch->race]->thirst_mod);  break;
+	         case SECT_DESERT:
+		    gain_condition( ch, COND_THIRST, -3 + race_table[ch->race]->thirst_mod);  break;
+	         case SECT_UNDERWATER:
+	         case SECT_OCEANFLOOR:
+	         if ( number_bits(1) == 0 )
+		    gain_condition( ch, COND_THIRST, -1 + race_table[ch->race]->thirst_mod);  break;
+	      }
+	   }
+
+22. Open special.c, locate function spec_fido, and find the following code:
+
+    for ( corpse = ch->in_room->first_content; corpse; corpse = c_next )
+    {
+	c_next = corpse->next_content;
+	if ( corpse->item_type != ITEM_CORPSE_NPC )
+	    continue;
+
+    Immediately below that, add the following code:
+
+      if( IS_ACT_FLAG( ch, ACT_ONMAP ) )
+	{
+	   if( ch->map != corpse->map || ch->x != corpse->x || ch->y != corpse->y )
+	    	continue;
+	}
+
+
+    Locate function spec_janitor and find the following code:
+
+	if ( !IS_SET( trash->wear_flags, ITEM_TAKE )
+	||    IS_OBJ_STAT( trash, ITEM_BURIED ) )
+	    continue;
+
+    Immediately below that, add the following code:
+
+      if( IS_ACT_FLAG( ch, ACT_ONMAP ) )
+	{
+	   if( ch->map != trash->map || ch->x != trash->x || ch->y != trash->y )
+	    	continue;
+	}
+
+23. Add the help table entries from overland.help to your help.are file.
+    Adjust them as needed to fit your mud.
+
+24. For testing purposes, add the room in overland.gods to your
+    gods.are file. Change the vnum if room 1202 is occupied.
+
+25. Add the files map1.are, map2.are, and map3.are to your area
+    directory. Add the filenames to the area.lst file.
+
+26. Add the appropriate entries in tables.c for do_mapedit, do_survey,
+    do_coords, do_landmarks, do_setexit, and do_setmark.
+
+27. And the moment we've all been waiting for.....
+    Make clean, and recompile :)
+
+28. After rebooting, add commands for mapedit, survey, landmarks, coords,
+    setexit, and setmark.
+
+WHEW! Assuming everything went ok, the code should be up and running.
+You may need to do some manual editing in each of the *.are files
+included with this snippet before they'll work. It shouldn't be
+too difficult to tell what needs to be done though. Hopefully you or your
+head builder is fluent enough in your area file format to make the necessary
+changes, and if not, I woudn't recommend trying this out. As far as changing
+names on the maps, it should be obvious where to change them in the overland.c
+file, under the map_names array. Gamewise, that's where it pulls the names
+to use in the displays. Each map file is a 1000x1000 grid of sectors. Should
+this prove to be too large for your purposes, editing the MAX_X and MAX_Y
+variables in overland.h will resize your maps for you. The only problem I can
+forsee from this is that the map files that were included are all based on
+1000x1000 map grids and could cause problems when being reloaded with a smaller
+grid size. Also along a similar line, if 3 maps is too many for you, you'll need
+to remove the extras and adjust the code accordingly to handle that.
+
+This code has been installed and tested on Smaug 1.6 FUSS, which is a bugfixed
+and cleaned up version of the base Smaug 1.4a code. The Smaug FUSS Project is
+maintained on servers which run the Redhat and Fedora family of Linux. Limited
+testing has also been done on the Cygwin package under WindowsXP SP1 and SP2.
+Users of BSD, MSVC, MSVC++, or Macintosh platforms are on their own as The
+Smaug FUSS Project does not have access to these development environments for testing.
+The Smaug FUSS Project can be found at: http://www.smaugfuss.org
+
+No guarantees are made that this code will be compatible with your codebase and any
+modifications you may have made to it. No warranty of any kind is expressed or implied
+by the use of this code, and we are not responsible for any damages which may result
+from the application of this snippet to your codebase.
+
+Adventure beckons in the lands of mystique....
+Samson, Implementor of Alsherok
+http://www.alsherok.net
+telnet://alsherok.net:5500
+
+IMC2 contact: Samson@Alsherok

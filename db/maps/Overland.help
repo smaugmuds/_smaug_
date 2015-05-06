@@ -1,0 +1,288 @@
+0 SURVEY~
+The survey command is used on the overland maps to scan your
+surroundings for visible landmarks. You will get a rough
+estimate of distance to the landmark, and its general direction
+from where you are standing. Some landmarks will be more visible
+than others. If you are within range of more than one landmark,
+all of the ones you can see will be displayed.
+
+Example:
+
+To the north, in the near vicinity, a pitch black monolith rises toward the sky.
+To the southeast, in the near vicinity, whisps of smoke rise up from a small cabin in the woods.
+
+The above example is what you would see when surveying from the
+intersection of the two trails near the hermit's cabin in the
+Haon Dor Forest.
+~
+
+0 OVERLAND WILDERNESS 'ANSI MAP' 'ASCII MAP'~
+<Your mud name here> now features an ANSI map which represents the
+terrain features of the area between zones. There are 3 maps, one
+for each of the 3 continents of the planet. Travelling on them is much
+the same as wandering through an area, except that you can see several
+spaces around you as you travel.
+
+It looks something like this:
+
+&w^^^^^^^^^
+^&g*******&w^
+^&g***&WX&g***&w^
+^&g**&WX&R@&WX&g**&w^
+^&g*******&w^
+^&g*******&w^
+^^^^^^^^^&z
+
+Each of the colored symbols represents a different kind of terrain.
+The &R@&z symbol is you, and the &WX&z symbols are exits off of the map, either
+to other maps, or to regular zones such as Darkhaven. It is possible to
+encounter random monsters roaming the map.
+
+The map is best viewed with ANSI color turned on.
+~
+
+51 COORDS~
+Syntax: coords <x> <y>
+
+The coords command simply lets you jump to a new set of coordinates
+on the overland map. All you need to do is type 'coords <x> <y>'
+where x and y are the target coordinates on the map. Note that this
+only moves you to new coordinates on the map you are currently on.
+If you want to change maps, use the 'goto' command to accomplish this.
+
+See also: GOTO
+~
+
+51 GOTO~
+Syntax: goto map <mapname> [x] [y]
+Syntax: goto <location>
+
+If you are going to an overland map, type 'goto map <mapname> [x] [y]'
+where mapname is the name you gave to the target map, x and y are the
+target coordinates on that map. The x and y coordinates can be left out,
+in which case you will be sent to the geographical center of that overland
+map.
+
+You can also specify a location. This location can be the vnum of a room,
+a name of a mob, or a name of an object. 
+
+If the location is a mob or object, you will be transported directly to
+it weather it is in a normal room or on the overland.
+
+If the location is a vnum, does not yet exist, you have an area assigned,
+and the vnum is within your range, it will be created with default data 
+so that the room can then be edited with the 'redit' command.
+ 
+You may not GOTO a room if it is PRIVATE and has two (or more) characters
+already present, or if it is SOLITARY and has one (or more) characters
+already present.
+
+You may also "GOTO pk" to go to the site of the most recent illegal pkill.
+
+See also: REDIT
+~
+
+63 SETEXIT~
+Syntax: setexit create
+Syntax: setexit delete
+Syntax: setexit <vnum>
+Syntax: setexit map <mapname> <X-coord> <Y-coord>
+
+The setexit command allows you to manipulate exits from the overland
+to rooms or other maps. The command is fairly straightforward.
+
+To create a new exit, simply type 'setexit create' while standing on
+your overland map.
+
+To delete an existing exit, simply type 'setexit delete' while standing
+on the coordinates of the exit sector. You will probably need to use the
+'coords' command to move onto the exit sector.
+
+To set an exit from the map into a regular zone, type
+'setexit <vnum>' where vnum is the target room's vnum.
+
+To set an exit from one map to another map, type
+'setexit map <mapname> <X> <Y>' where mapname is the name you gave to
+the target map, x is the target x coordinate, and y is the target y
+coordinate.
+
+Any manipulation of an exit automatically saves the entrances.dat file
+to disk, so there is no need to worry about saving that file.
+
+See also: COORDS, MAPEDIT
+~
+
+63 MAPEDIT~
+Syntax: mapedit
+Syntax: mapedit sector <type>
+Syntax: mapedit save <mapname>
+
+The mapedit command is used to make changes to the overland map system.
+It's a fairly involved portion of the OLC code as a whole, but is not
+terribly difficult to use.
+
+Typing 'mapedit' with no other arguments toggles your editor on or off.
+When on, any movement you make will change the sector you're moving to
+into whatever you have yourself set for. Think of it as "painting".
+
+To set yourself to create a sector, simply type 'mapedit sector <type>' 
+where the type is something from the sectortypes list. Also note that
+while you are in edit mode, typing 'look' will cause the sector you are
+in to be changed.
+
+To save changes to a map, type 'mapedit save <mapname>'. If you leave out
+the mapname, the map you are currently on will be the one saved.
+
+For details on using the floodfill option, see 'help floodfill'.
+
+For details on manipulating exits on the map, see 'help setexit'.
+
+For details on manipulating landmarks on the map, see 'help setmark'.
+
+See also: SECTORTYPES, REDIT, FLOODFILL, SETMARK, SETEXIT
+~
+
+63 SETMARK~
+Syntax: setmark add
+Syntax: setmark delete
+Syntax: setmark desc <destription>
+Syntax: setmark distance <distance>
+
+Landmarks are the points on the overland maps that the survey command uses
+to display its information to players. The data is stored in a simple text
+file in the directory with the ANSI maps.
+
+To add a landmark, go to the coordinates you want it to be at and simply
+type: setmark add
+
+To remove one, go to the coordinates it is at and simply type:
+setmark delete
+
+The description is just a short line of text to describe what the survey
+command sees. When editing the description, keep it as short as possible,
+do not capitalize words unless referring to names, and do not add punctuation
+to the end of the line. To change the description, go to the landmark
+coordinates and type: setmark desc <text>, Where <text> is the
+description you want.
+
+Distance is the number of spaces the landmark is visible from on the overland.
+Try not to make the distance too large, or too small. Anything visible for
+more than 50 or so spaces is most likely too large - unless the landmark is
+intended to display a large geographical feature such as a mountain.
+
+To see the existing list of landmarks and their locations, type: landmarks
+
+See also: MAPEDIT
+~
+
+63 FLOODFILL~
+Syntax: mapedit fill <sectortype>
+Syntax: mapedit undo
+
+Floodfilling is the process of changing all of the terrain within a contained
+section of the map into another kind of terrain. It operates much the same way
+as Windows Paint, or any other floodfill function in a graphics editor would.
+
+You will first need to use the mapedit command to walk an outline on the map
+in the shape you'd like it to be. Once you've done this, turn off your mapedit
+flag and then step to the inside of the area you've just surrounded ( or to
+the outside if you want to fill what's on the outside instead ).
+Then, type: mapedit fill <sectortype> where sectortype is any sector in the
+sectortypes list, except exits. The floodfill function will the proceed to 
+change everything inside the boundry from what your standing on, into what you 
+want it to be.
+
+So if your standing on oceans, and you want to fill grassland inside the boundry,
+type: mapedit fill grassland. That will change all the oceans into grasslands.
+
+Note that you CANNOT specify a terrain type to fill in that is the same as what
+you are standing on. To force the code to allow for that would create an infinite
+loop, and so the fill operation will just fail instead.
+
+If for some reason you need to undo what you've just filled in, simply type:
+'mapedit undo' and your last floodfill will be reversed.
+
+See also: SECTORTYPES, MAPEDIT
+~
+
+53 REDIT~
+Syntax: redit <field> [parameter list]
+        redit on
+ 
+FIELD   | PARAMETERS             -- DESCRIPTION / NOTES
+---------------------------------------------------------------------
+name    | <room name>            -- sets the room name / short description
+exit    | <direction> [vnum] [exit-type] [key] [keywords]
+bexit   | same as above, but does the exit in both directions
+desc    | none                   -- you will be placed into the buffer editor
+exdesc  | <direction> [text]     -- sets/clears an exit's description
+ed      | <keyword(s)>           -- adds/edits an extra description to the room
+rmed    | <keyword(s)>           -- removes an extra description from the room
+sector  | <value>                -- sets the sector type
+flags   | <flag> [flag]          -- toggles room flags
+exflags | <direction> [flags]    -- displays/toggles exit flags
+exname  | <direction> [keywords] -- sets an exit's keywords
+exkey   | <direction> <key vnum> -- sets an exit's key vnum/value
+excoord | <direction> <x> <y>    -- sets an exit's coordinates onto a map
+
+Note: When setting exit coordinates, be sure the exit is flagged "overland"
+      or it will not work. The exit will lead out to whichever map covers
+      the continent the area is on.
+
+Note: Put a '+' before the direction to force ADDing of that exit
+      and use a '#' to specify the exit by sequential order.
+ 
+REDIT ON will lock you into a mode in which 'redit' is implied in each command
+sequence, and hitting enter will give you an instant rstat of whichever room
+you are in at the time. To get out of REDIT ON, simply type the word DONE.
+Example:
+ 
+        redit on
+        name A dark and forboding hallway
+        flags dark indoors
+        done
+ 
+ 
+See also: EXITTYPES, EXFLAGS, EXITMAKING, SECTORTYPES, ROOMFLAGS 
+~
+
+53 SECTORTYPES~
+Indoors *     - Represents a room which is sheltered from the weather.
+City          - Room is either part of a city, or part of a roadway.
+Field         - Room is a farm, or other grassland type area.
+Forest        - Room is part of a forest.
+Hills         - Room is in the hills, or other rocky terrain.
+Mountains     - Room is in steep mountains, or other equally rugged terrain.
+Water_swim    - Room is shallow freshwater. Freezes in winter.
+Water_noswim  - Room is deep freshwater, requiring a boat. Freezes in winter.
+Underwater *  - Room is underwater, requiring an aqua-breath spell.
+Air *         - Room is in mid-air, and requires some kind of flight.
+Desert        - Room is a desert, increases rate of thirst.
+River         - Room is a flowing river, characters can drift.
+Oceanfloor *  - Room is on the ocean floor, requires aqua-breath,
+                and allows digging.
+Underground * - Room is underground, and allows digging.
+Jungle        - Room is in a jungle.
+Swamp         - Room is in a swamp or other marshy area.
+Tundra        - Room is part of an arctic tundra. Does cold damage if
+                character is not sufficiently protected from cold.
+Ice           - Internal sector type for winter, all freshwater sectors
+                become frozen in winter months allowing people to walk
+                on them at that point.
+Ocean         - Room is part of any large body of saltwater, which does not
+                freeze during winter.
+Lava          - Room is molten lava, does fire damage to character's who
+                are not properly protected.
+Shore         - Room is a beach or other non-desert sandy area.
+
+The following are for use ONLY on the overland maps:
+Tree          - Impassable forest terrain.
+Stone         - Impassable mountain terrain.
+Quicksand     - Impassable swamp terrain.
+Wall          - High stone walls, typically used to surround zone locations.
+Glacier       - Impassable ice terrain ( does not melt ).
+
+Sectors marked with a * above are NOT allowed on the overland maps.
+
+See also: MAPEDIT, REDIT
+~

@@ -1,0 +1,81 @@
+#ENTRANCE
+ToMap	0
+OnMap	2
+Here	449 449
+There	499 499
+Vnum	-1
+End
+
+#ENTRANCE
+ToMap	0
+OnMap	1
+Here	499 498
+There	499 499
+Vnum	-1
+End
+
+#ENTRANCE
+ToMap	-1
+OnMap	1
+Here	498 499
+There	-1 -1
+Vnum	51499
+End
+
+#ENTRANCE
+ToMap	2
+OnMap	1
+Here	500 499
+There	499 499
+Vnum	-1
+End
+
+#ENTRANCE
+ToMap	-1
+OnMap	0
+Here	498 499
+There	-1 -1
+Vnum	50499
+End
+
+#ENTRANCE
+ToMap	2
+OnMap	0
+Here	500 499
+There	499 499
+Vnum	-1
+End
+
+#ENTRANCE
+ToMap	0
+OnMap	2
+Here	500 499
+There	499 499
+Vnum	-1
+End
+
+#ENTRANCE
+ToMap	-1
+OnMap	2
+Here	498 499
+There	-1 -1
+Vnum	50999
+End
+
+#ENTRANCE
+ToMap	1
+OnMap	0
+Here	499 498
+There	499 499
+Vnum	-1
+End
+
+#ENTRANCE
+ToMap	1
+OnMap	2
+Here	499 498
+There	499 499
+Vnum	-1
+End
+
+#END

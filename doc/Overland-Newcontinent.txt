@@ -1,0 +1,182 @@
+How to add a new continent to the Overland - Version 3.01
+---------------------------------------------------------
+
+Further typo and logic fixes provided by RazorZero 9/23/03
+Modified by Kilroy of The Obsidian Palace 6/13/2003
+Modified by Kilroy of The Obsidian Palace 5/9/2002
+part 2.2 Contibuted to by Kilroy of OP & Dwip of Alsherok 5/9/2002
+
+Keep in mind that adding an additional continent will increase your
+RAM and disk usage. You should check to see that your site quotas
+will allow you to do this before beginning.
+
+1. Perhaps the most time consuming step - create a graphic image of
+the new continent using colors for terrain that conform to the table
+in RGB.txt. This will no doubt require ALOT of time, patience, and
+effort. Once done, follow the proceedure to convert it into a .raw file.
+
+2. In overland.h 
+
+2.1 In the Definitions at the Top add
+#define OVERLAND_XXXXXXX VNUMS under the other #definitions
+where XXXXXXX is the name of the Continent, and VNUMS is the 1st VNUM assigned
+into your continent.are file
+
+2.2 Then just below that, in this enum:
+
+typedef enum
+{
+   MAP_C1, MAP_C2, MAP_C3, MAP_MAX
+} map_types;
+
+Add MAP_something to the listing, before MAP_MAX.
+
+"something" should be a code identifier that you will be able to remember.
+
+3. In overland.c 
+
+3.1 In this list, add the filename you generated in step 1.
+
+char *      const map_filenames[] =
+{
+   "map1.bmp", "map2.bmp", "map3.bmp"
+};
+
+3.2: In these lists:
+
+char *	const map_names[] =
+{
+  "Map 1", "Map 2", "Map 3"
+};
+
+char *	const map_name[] =
+{
+  "map1", "map2", "map3"
+};
+
+Add your new continent's name to them.
+
+3.3: Further down in void_mapreset find:
+            case MAP_C3:
+                toroom = get_room_index( OVERLAND_MAP3 );
+		break;
+
+And add another for your new continent you will also have to add the break: so it should look like this:
+
+            case MAP_C3:
+                toroom = get_room_index( OVERLAND_MAP3 );
+                break;
+            case MAP_MAINLAND:
+                toroom = get_room_index( OVERLAND_MAINLAND );
+		break;
+            default:
+                bug( "mapreset: Bad overland map in resets.", 0 );
+                continue;
+        }
+
+3.4: In void enter_map
+Find:
+void enter_map( CHAR_DATA *ch, EXIT_DATA *pexit, int x, int y, int continent )
+{
+    ROOM_INDEX_DATA *maproom = NULL, *original;
+    
+    if ( continent < 0 ) /* -1 means you came in from a regular area exit */
+       maproom = find_continent( ch, ch->in_room );
+         
+    else /* Means you are either an immortal using the goto command, or a mortal who teleported */
+    {
+        switch( continent )
+        {
+           case ACON_C1:
+                maproom = get_room_index( OVERLAND_MAP1 );
+                ch->map = MAP_C1;
+                break;
+           case ACON_C2:
+                maproom = get_room_index( OVERLAND_MAP2 );
+                ch->map = MAP_C2;
+                break;
+           case ACON_C3:
+                maproom = get_room_index( OVERLAND_MAP3 );
+                ch->map = MAP_C3;
+                break;
+
+And Change it to look like:
+void enter_map( CHAR_DATA *ch, EXIT_DATA *pexit, int x, int y, int continent )
+{
+    ROOM_INDEX_DATA *maproom = NULL, *original;
+    
+    if ( continent < 0 ) /* -1 means you came in from a regular area exit */
+       maproom = find_continent( ch, ch->in_room );
+         
+    else /* Means you are either an immortal using the goto command, or a mortal who teleported */
+    {
+        switch( continent )
+        {
+           case ACON_C1:
+                maproom = get_room_index( OVERLAND_MAP1 );
+                ch->map = MAP_C1;
+                break;
+           case ACON_C2:
+                maproom = get_room_index( OVERLAND_MAP2 );
+                ch->map = MAP_C2;
+                break;
+           case ACON_C3:
+                maproom = get_room_index( OVERLAND_MAP3 );
+                ch->map = MAP_C3;
+                break;
+          case ACON_XXXXX:
+                maproom = get_room_index( OVERLAND_XXXXXX );
+                ch->map = MAP_XXXXXX;
+                break;
+
+Where XXXXXX is the name of your new Continent.
+
+3.5: In void do_mapedit
+Find:
+	if( !str_cmp( argument, "map3" ) )
+	   map = MAP_C3;
+
+And add below that 
+        if( !str_cmp( argument, "xxxxxxx" ) )
+           map = MAP_XXXXXX;
+
+Where xxxxxx = your continent name & XXXXXX = the MAP that you defined in overland.h
+
+3.6 In void do_setexit
+
+Find the Following:
+        if( !str_cmp( arg2, "map3" ) )
+           map = ACON_C3;
+
+And add below that 
+        if( !str_cmp( arg2, "xxxxxxx" ) )
+           map = ACON_XXXXXX;
+
+Where xxxxxx = your continent name & XXXXXX = the ACON that you will define in step 5.
+
+4. In build.c:
+
+4.1 Beneath this section:
+
+      if( !str_cmp( arg1, "map1" ) )
+	   map = ACON_C1;
+
+      if( !str_cmp( arg1, "map2" ) )
+	   map = ACON_C2;
+
+	if( !str_cmp( arg1, "map3" ) )
+	   map = ACON_C3;
+
+Add another check for your new continent's values.
+
+5. In overland.h, in this section:
+
+typedef enum
+{
+  ACON_C1, ACON_C2, ACON_C3, ACON_MAX
+} acon_types;
+
+Add your continent between ACON_C3 and ACON_MAX.
+
+6. Make clean, recompile. With any luck you should now have yourself
+a nice shiny new continent :)

@@ -1,0 +1,121 @@
+#AREA   Continent 2~
+
+#VERSION 2
+#AUTHOR Samson~
+
+#RANGES
+0 60 0 60
+$
+
+#FLAGS
+0
+
+#ECONOMY 0 31250000
+
+#CONTINENT continent2~
+
+#CLIMATE 2 2 2
+
+#MOBILES
+#30100
+top placeholder~
+a newly created top placeholder~
+Some god abandoned a newly created top placeholder here.
+~
+~
+1073741825 0 0 S
+1 0 0 0d0+0 0d0+0
+0 0
+112 112 0
+#30199
+c2 portal guardian~
+The guardian~
+The guardian of the C2 portal stands watch over the continent below.
+~
+~
+3 0 0 S
+1 0 0 0d0+0 0d0+0
+0 0
+112 112 0
+#0
+
+
+#OBJECTS
+#0
+
+
+#ROOMS
+#30100
+Somewhere on the Continent of C2~
+If you can read this description online, then something REALLY
+bad has happened, contact the immortals at once.
+You should be seeing the ASCII color map of the continent instead
+of this lousy description :)
+~
+0 268435464 0
+D0
+~
+~
+0 -1 30100
+D1
+~
+~
+0 -1 30100
+D2
+~
+~
+0 -1 30100
+D3
+~
+~
+0 -1 30100
+D6
+~
+~
+0 -1 30100
+D7
+~
+~
+0 -1 30100
+D8
+~
+~
+0 -1 30100
+D9
+~
+~
+0 -1 30100
+S
+#30199
+The C2 Portal~
+The shimmering green light of the portal is almost blinding, yet below
+you the view of C2 is completely unobstructed and breathtaking to
+behold.
+~
+0 8 0
+D0
+~
+~
+0 -1 1202
+S
+#0
+
+
+#RESETS
+M 1 30199 1 30199
+S
+
+
+#SHOPS
+0
+
+
+#REPAIRS
+0
+
+
+#SPECIALS
+S
+
+
+#$

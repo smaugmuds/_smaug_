@@ -125,7 +125,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "merc.h"
+#include "mud.h"
 #include "interp.h"
 #include "recycle.h"
 #include "tables.h"
