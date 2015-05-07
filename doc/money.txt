@@ -1,0 +1,4495 @@
+Gold/Silver/Copper snippet for Smaug 1.4a
+
+Comments
+--------
+I wrote this snippet because 1) I wanted to expand my currency
+base 2) I couldn't find one publicly available. This is not for
+the begining coder to implement. Although I have done all the work,
+it is necessary to modify almost *ALL* source & header files,
+inevitably there will be a missed ';' or something. I have followed
+my own instructions, and installed this snippet in an 'out-of-box'
+smaug 1.4a and it functions just fine.
+
+Mathmatics
+----------
+100 copper = 1 silver
+100 silver = 1 gold
+1 gold = 10000 copper
+
+Description
+-----------
+Although the currency 'appears' to be gold/silver/copper it is
+really copper based. Although it is really not apparent, until a 
+player buys something that costs 2 silver and they only have 2
+gold coins, they make the purchase then suddenly have 1 gold coin
+and 98 silver coins. This is accomplished by 1) converting the
+players 'money' to copper(2 gold = 20000 copper). 2) converting 
+the cost of the item to copper (2 silver = 200 copper). 3) subtracting
+the cost from the money (20000 - 200 = 19800). 4) converting the
+players money back to g/s/c base using the following code:
+ tmpvalue = money; 
+ ch->gold = tmpvalue/10000; 
+ tmpvalue=tmpvalue%10000; 
+ ch->silver = tmpvalue/100; 
+ tmpvalue=tmpvalue%100; 		
+ ch->copper = tmpvalue;
+I don't have a banker system setup so the amounts are converted
+back and forth when needed. It shouldn't be too terribly hard to 
+implement a banker to convert a chars g/s/c and forcing them to 
+use exact currency. You will want to leave the portion of code that 
+handles the mobs money on this system.
+
+Major Changes
+-------------
+The only big changes had to do with the auctioning code. I ended up
+changing 'parse_bet' to handle 'g' & 's' (gold & silver). An item 
+can be up for auction with the amount of 1 gold 23 silver 10 copper, a 
+player placing a bet of 2 gold would have to enter 'auc bid 2g', a bid
+of 35 gold 21 silver 29 copper would be placed as 'auc bid 35g21s29'.
+It may take some time for the players to get used to the system. 'auc
+bid +<percent>' still functions.
+There was also a minor change to mprog_bribe, I added a mprog_bribe_silver
+and mprog_bribe_copper, they work the same as mprog_bribe (gold) only
+with the different coinage. Currently you can only have one or the other.
+The economy is copper based, so when setting economy limits remember
+this fact.
+
+Minor Changes
+-------------
+Alot!!
+ Oset -> gcost = gold_cost, scost = silver_cost, ccost = copper_cost
+ Prompt -> 's' = silver, 'd' = copper (can't use 'c' or 'C')
+ Players may complain about the 'You dont see .... in the corpse'
+ when you kill something, this is because they are attempting to get the
+ coins from the corpse (plr_autogold) and it has to do this 3 times, one
+ for each coin type, so they may see the message 3 times instead of the 
+ normal once. Maybe in the future I will write a coin_get to handle the 
+ coins (or if someone wants to do it and share it?) 
+
+Other Notes
+-----------
+I didn't bother updating the menuing system (omenu, mmenu, rmenu), they
+are pretty much junk.. I also did not check 'grub' if anyone has any 
+problems with it let me know...
+Some of the lines I have listed as CHANGE: & TO: should really be 
+REMOVE: & REPLACE WITH: keep that in mind... 
+I included several complete functions becuause there were too many 
+changes to the function, and it will be easier to cut & paste the entire
+function, be sure to remove the old function first.
+
+Area Files
+----------
+Aside from limbo.are, the area files *DO NOT* need to be changed. The
+conversions are done upon loadup. When you do a foldarea or savearea
+the will be written out as 'VERSION 2' and use the g/s/c system. Thereby
+relegating unreadable by off-line room builders.
+
+License
+-------
+This is being released under the BEERWARE license. Terms are as follows:
+1) If you have a 'credits' or 'snippets' help/page you must credit me there.
+2) All comments made by me in the code must remain intact.
+3) Don't take credit for my work.
+4) And most importantly, If you ever meet me in person you are hearby
+   obligated to buy me a beer of my choice of no less than 16 oz. Home
+   brews are a plus (if they are good, otherwise you still owe me).
+   
+Brought to you by The Dark Druid, *NSA*, and PirateMud
+*Line numbers included for convience, but I'm positive that they 
+are way off.
+
+**STOP**
+--------
+Before you go any farther make backups. Here is a simple script I use
+to make backups. Copy this into a file named 'mkbackup' in the main mud
+directory. Be sure to do a 'chmod u+x mkbackup' it will put the backup
+in your home directory with the filename mudback.tar.gz.
+ 
+#!/bin/tcsh
+cd src
+make clean
+cd ../area
+if ( -e smaug ) then
+ rm -f smaug
+ endif
+cd ../log
+rm -f *.log
+cd ..
+if ( -e $HOME/mudback.tar.gz ) then
+ rm -f $HOME/mudback.tar.gz
+ endif
+tar -cvf mudback.tar *
+gzip -9 mudback.tar
+mv mudback.tar.gz $HOME
+
+Bug fixes
+---------
+Drop 10 copper then drop 1 gold and end up with 11 gold.
+Reported by: Ellryion icewind@cyberinternet.com.au
+
+Now onto the fun stuff
+----------------------
+File: bet.h
+Function: advatoi()
+COMPLETELY REMOVE THIS FUNCTION:
+
+REPLACE WITH:
+int advatoi (char *s)
+{   
+    int tmpnumber = 0; /* temporary number */
+    int number = 0;   /* Total */
+    
+
+    /*
+     * as long as the current character is a digit add to current number
+     */
+ for ( ; ; ){
+    while ( isdigit(s[0]) ) {
+	 tmpnumber = tmpnumber + atoi(s);
+	 s++;
+    }
+    switch (UPPER(s[0]))
+    {
+	case 'S'  : 
+	   tmpnumber *= 100; /* silver */
+	   ++s;
+	   break;
+	case 'G'  : 
+	  tmpnumber *= 10000; /* gold */
+		++s; 
+		break;
+	case '\0' :
+	  number += tmpnumber; /* Copper */
+	  return number;
+	default   : return 0; /* not k nor m nor NULL - return 0! */
+    }
+  number+=tmpnumber;
+  tmpnumber = 0;
+ } 
+}
+
+File: mud.h
+Around line 294 
+CHANGE:
+#define AREA_VERSION_WRITE 1
+
+TO:
+#define AREA_VERSION_WRITE 2
+
+Around line 1623 
+CHANGE:
+#define OBJ_VNUM_MONEY_ONE	      2
+#define OBJ_VNUM_MONEY_SOME	      3
+
+TO:
+#define OBJ_VNUM_GOLD_ONE	      2
+#define OBJ_VNUM_GOLD_SOME	    3
+
+Around line 1654 
+AFTER:
+#define OBJ_VNUM_NOTE		     36
+#define OBJ_VNUM_DEITY		     64
+
+ADD:
+#define OBJ_VNUM_SILVER_ONE		76
+#define OBJ_VNUM_SILVER_SOME		77
+#define OBJ_VNUM_COPPER_ONE		78
+#define OBJ_VNUM_COPPER_SOME		79
+
+Around line 1678 
+CHANGE:
+ITEM_NOTE, ITEM_DRINK_CON, ITEM_KEY, ITEM_FOOD, ITEM_MONEY, ITEM_PEN,
+
+TO:
+ITEM_NOTE, ITEM_DRINK_CON, ITEM_KEY, ITEM_FOOD, ITEM_GOLD, ITEM_PEN,
+
+Around line 1682 
+CHANGE:
+ITEM_SHOVEL, ITEM_SALVE, ITEM_COOK, ITEM_KEYRING, ITEM_ODOR, ITEM_CHANCE
+} item_types;
+
+TO:
+ITEM_SHOVEL, ITEM_SALVE, ITEM_COOK, ITEM_KEYRING, ITEM_ODOR, ITEM_CHANCE,
+ITEM_SILVER, ITEM_COPPER
+} item_types;
+
+Around line 1690 
+CHANGE:
+#define MAX_ITEM_TYPE		     ITEM_CHANCE
+
+TO:
+#define MAX_ITEM_TYPE		     ITEM_COPPER
+
+Around line 1803
+CHANGE:
+APPLY_TELEDELAY, MAX_APPLY_TYPE
+} apply_types;
+
+TO:
+APPLY_TELEDELAY, APPLY_SILVER, APPLY_COPPER, MAX_APPLY_TYPE
+} apply_types;
+
+Around line 2181 
+AFTER:
+sh_int		saving_breath;
+sh_int		saving_spell_staff;
+    
+ADD:
+int			silver;
+int			copper;
+
+Around line 2352 
+AFTER:
+int			regoto;
+sh_int		mobinvis;	/* Mobinvis level SB */
+
+ADD:
+int			silver;
+int 		copper;
+
+Around line 2513 
+CHANGE:
+sh_int		count;
+sh_int		weight;
+int		cost;
+
+TO: (changed cost to gold_cost & added sil & cop)
+sh_int		count;
+sh_int		weight;
+int			gold_cost;
+int			silver_cost;
+int			copper_cost;
+
+Around line 2555 
+CHANGE:
+sh_int		wear_loc;
+sh_int		weight;
+int			cost;
+
+TO: (same as above)
+sh_int		wear_loc;
+sh_int		weight;
+int			gold_cost;
+int			silver_cost;
+int			copper_cost;
+
+Around line 2680
+AFTER:
+WEATHER_DATA *	weather; /* FB */
+
+ADD:
+int			silver_looted;
+int			copper_looted;
+
+Around line 2711
+CHANGE:
+int		global_looted;		/* Gold looted this boot */
+
+TO:
+int		global_gold_looted;		/* Gold looted this boot */
+
+Around line 2761
+AFTER:
+sh_int ident_retries;	/* Number of times to retry broken pipes. */
+sh_int pk_loot;		/* Pkill looting allowed? */
+
+ADD:
+int	global_silver_looted; /* Global Silver taken */
+int	global_copper_looted; /* Global copper taken */ 
+
+Around line 3087 
+AFTER:
+void	ext_remove_bits		args( ( EXT_BV *var, EXT_BV *bits) );
+void	ext_toggle_bits		args( ( EXT_BV *var, EXT_BV *bits) );
+
+ADD:
+int	get_value	args((int gval, int sval, int cval));
+void conv_currency args (( CHAR_DATA *ch, int tmpvalue ));
+
+Around line 4736 
+CHANGE:
+OD *	create_money	args( ( int amount ) );
+
+TO:
+OD *	create_money	args( ( int amount, int type ) );
+
+Around line 4764 
+AFTER:
+void	mprog_bribe_trigger     args ( ( CHAR_DATA* mob, CHAR_DATA* ch,
+		                        int amount) );
+
+ADD:		                        
+void	mprog_bribe_trigger_silver     args ( ( CHAR_DATA* mob, CHAR_DATA* ch,
+		                        int amount) );
+void	mprog_bribe_trigger_copper     args ( ( CHAR_DATA* mob, CHAR_DATA* ch,
+		                        int amount) );   
+
+Around line 5336 
+CHANGE:
+ USE_PROG
+} prog_types;
+
+TO:
+ USE_PROG, BRIBE_COPPER_PROG, BRIBE_SILVER_PROG
+} prog_types;
+
+
+File: act_comm.c
+Function: do_split
+Around line 2738
+COMPLETELY REMOVE THIS FUNCTION
+
+REPLACE WITH:
+/*
+ * 'Split' originally by Gnort, God of Chaos.
+ * Gold, Silver, Copper, support by The Dark Druid
+ */
+void do_split( CHAR_DATA *ch, char *argument )
+{
+    char buf[MAX_STRING_LENGTH];
+    char arg1[MAX_INPUT_LENGTH];
+    char arg2[MAX_INPUT_LENGTH];
+    CHAR_DATA *gch;
+    int members;
+    int amount;
+    int share;
+    int extra;
+    int type;
+
+    argument = one_argument( argument, arg1 );
+    argument = one_argument( argument, arg2 );
+    
+	
+    if ( arg1[0] == '\0' || arg2[0] == '\0' )
+    {
+	send_to_char( "Split <Amount> <Coin Type>\n\r", ch );
+	send_to_char( "\n\rValid coin types: Gold, Silver, Copper\n\r",ch);
+	return;
+    }
+    
+    /*
+     * type 0 = gold
+     * type 1 = silver
+     * type 2 = copper
+     */
+	if ( !str_cmp("gold",arg2)) 		type = 0;
+	else if ( !str_cmp("silver",arg2))  type = 1;
+	else if ( !str_cmp("silv",arg2))	type = 1;
+	else if ( !str_cmp("copper",arg2))  type = 2;
+	else if ( !str_cmp("cop",arg2)) 	type = 2;
+	else {
+		sprintf(buf,"%s is not a valid coin type.\n\r",arg2);
+		send_to_char(buf,ch);
+		return;
+		}
+    amount = atoi( arg1 );
+
+    if ( amount < 0 )
+    {
+	send_to_char( "Your group wouldn't like that.\n\r", ch );
+	return;
+    }
+
+    if ( amount == 0 )
+    {
+	send_to_char( "You hand out zero coins, but no one notices.\n\r", ch );
+	return;
+    }
+	/*
+	 * Check for amount of Gold/Silver/Copper -Druid
+	 */
+	if (type == 0)	
+    if ( ch->gold < amount )
+    {
+	send_to_char( "You don't have that much gold.\n\r", ch );
+	return;
+    }
+    if (type == 1)	
+    if ( ch->silver < amount )
+    {
+	send_to_char( "You don't have that much silver.\n\r", ch );
+	return;
+    }
+    if (type == 2)	
+    if ( ch->copper < amount )
+    {
+	send_to_char( "You don't have that much copper.\n\r", ch );
+	return;
+    }
+	
+	if (type<0 || type >3)
+	{
+	send_to_char( "Invalid coin type, please try again\n\r",ch);
+	bug("Invalid coin type: in do_split",0);
+	return;
+	}	
+    members = 0;
+    for ( gch = ch->in_room->first_person; gch; gch = gch->next_in_room )
+    {
+	if ( is_same_group( gch, ch ) )
+	    members++;
+    }
+    
+    if ( xIS_SET(ch->act, PLR_AUTOGOLD) && members < 2 )
+	return;
+
+    if ( members < 2 )
+    {
+	send_to_char( "Just keep it all.\n\r", ch );
+	return;
+    }
+
+    share = amount / members;
+    extra = amount % members;
+
+    if ( share == 0 )
+    {
+	send_to_char( "Don't even bother, cheapskate.\n\r", ch );
+	return;
+    }
+	if (type ==0)
+	{
+    ch->gold -= amount;
+    ch->gold += share + extra;
+	}
+	if (type == 1)
+	{
+		ch->silver -= amount;
+		ch->silver += share + extra;
+	}
+	if (type == 2)
+	{
+		ch->copper -= amount;
+		ch->copper += share + extra;
+	}
+    set_char_color( AT_GOLD, ch );
+    if (type == 0){
+    ch_printf( ch,
+	"You split %d gold coins.  Your share is %d gold coins.\n\r",
+	amount, share + extra );
+
+    sprintf( buf, "$n splits %d gold coins.  Your share is %d gold coins.",
+	amount, share );
+	}
+	if (type == 1){
+    ch_printf( ch,
+	"You split %d silver coins.  Your share is %d silver coins.\n\r",
+	amount, share + extra );
+
+    sprintf( buf, "$n splits %d silver coins.  Your share is %d silver coins.",
+	amount, share );
+	}
+	if (type == 2){
+    ch_printf( ch,
+	"You split %d copper coins.  Your share is %d copper coins.\n\r",
+	amount, share + extra );
+
+    sprintf( buf, "$n splits %d copper coins.  Your share is %d copper coins.",
+	amount, share );
+	}
+    for ( gch = ch->in_room->first_person; gch; gch = gch->next_in_room )
+    {
+	if ( gch != ch && is_same_group( gch, ch ) )
+	{
+	    act( AT_GOLD, buf, ch, NULL, gch, TO_VICT );
+	    if (type == 0) gch->gold += share;
+	    if (type == 1) gch->silver += share;
+	    if (type == 2) gch->copper += share;
+	}
+    }
+    return;
+}
+
+
+File: act_info.c
+Function: show_list_to_char()
+Around line 384 
+CHANGE:
+case ITEM_MONEY:
+case ITEM_TREASURE:
+set_char_color( AT_YELLOW, ch );
+break;
+
+TO: (added support for item_silver)
+case ITEM_GOLD:
+case ITEM_TREASURE:
+set_char_color( AT_YELLOW, ch );
+break;
+case ITEM_SILVER:
+set_char_color( AT_WHITE, ch);
+break;
+
+Around line 405 
+CHANGE:
+case ITEM_FIRE:
+set_char_color( AT_FIRE, ch );
+break;
+
+TO:
+case ITEM_COPPER:
+case ITEM_FIRE:
+set_char_color( AT_FIRE, ch );
+break;
+
+
+File: act_obj.c
+Function:	get_obj()
+Around line 191 
+CHANGE:
+if ( obj->item_type == ITEM_MONEY )
+    {
+
+TO:
+if ( obj->item_type == ITEM_GOLD 
+|| obj->item_type == ITEM_COPPER 
+|| obj->item_type == ITEM_SILVER )
+    {	    
+
+Around line 223 
+CHANGE:
+ch->gold += amt;
+extract_obj( obj ); 
+
+TO:
+if(obj->item_type == ITEM_GOLD) ch->gold += amt;
+if(obj->item_type == ITEM_COPPER) ch->copper += amt;
+if(obj->item_type == ITEM_SILVER) ch->silver +=amt;
+extract_obj( obj ); 
+
+Function do_drop()
+Around line 875 
+AFTER:
+CLAN_DATA *clan;
+int number;
+
+ADD:
+int type = 3;
+
+Around line 922
+COMPLETELY REMOVE THE FOLLOWING CODE:
+if ( !str_cmp( arg, "coins" ) || !str_cmp( arg, "coin" ) )
+	{
+	    if ( ch->gold < number )
+	    {
+		send_to_char( "You haven't got that many coins.\n\r", ch );
+		return;
+	    }
+
+	    ch->gold -= number;
+
+	    for ( obj = ch->in_room->first_content; obj; obj = obj_next )
+	    {
+		obj_next = obj->next_content;
+
+		switch ( obj->pIndexData->vnum )
+		{
+		case OBJ_VNUM_MONEY_ONE:
+		   number += 1;
+		   extract_obj( obj );
+		   break;
+
+		case OBJ_VNUM_MONEY_SOME:
+		   number += obj->value[0];
+		   extract_obj( obj );
+		   break;
+		}
+	    }
+
+	    act( AT_ACTION, "$n drops some gold.", ch, NULL, NULL, TO_ROOM );
+	    obj_to_room( create_money( number ), ch->in_room );
+	    send_to_char( "You let the gold slip from your hand.\n\r", ch );
+	    if ( IS_SET( sysdata.save_flags, SV_DROP ) )
+		save_char_obj( ch );
+	    return;
+	}
+    }
+
+Replace with:
+/* Support for gold, copper, and silver -Druid */
+	if ( !str_cmp( arg, "gold" ) || !str_cmp( arg, "copper" ) || !str_cmp(arg, "silver"))
+	{
+		/*
+		 * type 0 = gold
+		 * type 1 = silver
+		 * type 2 = copper
+		 */
+		if ( !str_cmp( arg, "gold" ))  type = 0;
+		if ( !str_cmp( arg, "silver")) type = 1;
+		if ( !str_cmp( arg, "copper")) type = 2;
+		
+	    if ( type == 0 && ch->gold < number )
+	    {
+		send_to_char( "You haven't got that many coins.\n\r", ch );
+		return;
+	    }
+		if ( type == 1 && ch->silver < number )
+	    {
+		send_to_char( "You haven't got that many coins.\n\r", ch );
+		return;
+	    }
+	    if ( type == 2 && ch->copper < number )
+	    {
+		send_to_char( "You haven't got that many coins.\n\r", ch );
+		return;
+	    }
+	    
+	    if ( type >2 || type <0){
+	    send_to_char(" <BUG> invalid type, Report to Ddruid\n\r",ch);
+	    return;
+	    }
+	    if ( type == 0 ) ch->gold -= number;
+	    if ( type == 1 ) ch->silver -= number;
+	    if ( type == 2 ) ch->copper -= number;
+
+	    for ( obj = ch->in_room->first_content; obj; obj = obj_next )
+	    {
+		obj_next = obj->next_content;
+
+		switch ( obj->pIndexData->vnum )
+		{
+		case OBJ_VNUM_GOLD_ONE:
+		   if(type ==0){
+		   number += 1;
+		   extract_obj( obj );
+		   }
+		   break;
+
+		case OBJ_VNUM_GOLD_SOME: 
+		   if(type ==0){
+		   number += obj->value[0];
+		   extract_obj( obj ); 
+		   }
+		   break;
+		case OBJ_VNUM_SILVER_ONE:  
+		   if(type ==1){
+		   number += 1;
+		   extract_obj( obj );
+		   }
+		   break;
+
+		case OBJ_VNUM_SILVER_SOME: 
+		   if(type ==1){
+		   number += obj->value[0];
+		   extract_obj( obj );
+		   }
+		   break;
+		case OBJ_VNUM_COPPER_ONE:
+		   if(type ==2){
+		   number += 1;
+		   extract_obj( obj ); 
+		   }
+		   break;
+
+		case OBJ_VNUM_COPPER_SOME:  
+		   if(type ==2){
+		   number += obj->value[0];
+		   extract_obj( obj );
+		   }
+		   break;
+		}
+	    }
+		if ( type == 0) {
+	    act( AT_ACTION, "$n drops some gold.", ch, NULL, NULL, TO_ROOM );
+	    obj_to_room( create_money( number, 0 ), ch->in_room );
+	    send_to_char( "You let the gold slip from your hand.\n\r", ch );
+	    }
+	    if ( type == 1) {
+	    act( AT_ACTION, "$n drops some silver.", ch, NULL, NULL, TO_ROOM );
+	    obj_to_room( create_money( number, 1 ), ch->in_room );
+	    send_to_char( "You let the silver slip from your hand.\n\r", ch );
+	    }
+	    if ( type == 2) {
+	    act( AT_ACTION, "$n drops some copper.", ch, NULL, NULL, TO_ROOM );
+	    obj_to_room( create_money( number, 2 ), ch->in_room );
+	    send_to_char( "You let the copper slip from your hand.\n\r", ch );
+	    }
+	    if ( IS_SET( sysdata.save_flags, SV_DROP ) )
+		save_char_obj( ch );
+	    return;
+	}
+    }
+
+Function: do_give()
+Around line 1129 
+AFTER:
+CHAR_DATA *victim;
+OBJ_DATA  *obj;
+
+ADD:
+int type=3;
+
+Arround line 1171 remove the following:
+if ( amount <= 0
+	|| ( str_cmp( arg2, "coins" ) && str_cmp( arg2, "coin" ) ) )
+	{
+	    send_to_char( "Sorry, you can't do that.\n\r", ch );
+	    return;
+	}
+
+	argument = one_argument( argument, arg2 );
+	if ( !str_cmp( arg2, "to" ) && argument[0] != '\0' )
+	    argument = one_argument( argument, arg2 );
+	if ( arg2[0] == '\0' )
+	{
+	    send_to_char( "Give what to whom?\n\r", ch );
+	    return;
+	}
+
+	if ( ( victim = get_char_room( ch, arg2 ) ) == NULL )
+	{
+	    send_to_char( "They aren't here.\n\r", ch );
+	    return;
+	}
+
+	if ( ch->gold < amount )
+	{
+	    send_to_char( "Very generous of you, but you haven't got that much gold.\n\r", ch );
+	    return;
+	}
+
+	ch->gold     -= amount;
+	victim->gold += amount;
+        strcpy(buf, "$n gives you ");
+        strcat(buf, arg1 );
+        strcat(buf, (amount > 1) ? " coins." : " coin.");
+
+	act( AT_ACTION, buf, ch, NULL, victim, TO_VICT    );
+	act( AT_ACTION, "$n gives $N some gold.",  ch, NULL, victim, TO_NOTVICT );
+	act( AT_ACTION, "You give $N some gold.",  ch, NULL, victim, TO_CHAR    );
+	mprog_bribe_trigger( victim, ch, amount );
+
+Replace with:
+if ( amount <= 0
+	|| ( str_cmp( arg2, "gold" ) && str_cmp( arg2, "silver" ) && str_cmp( arg2, "copper") ) )
+	{
+	    send_to_char( "Sorry, you can't do that.\n\r", ch );
+	    return;
+	}
+	/*
+	 * type 0 = gold
+	 * type 1 = silver
+	 * type 2 = copper
+	 * -Druid
+	 */
+	 
+	if (!str_cmp( arg2, "gold")) type = 0;
+	if (!str_cmp( arg2, "silver")) type = 1;
+	if (!str_cmp( arg2, "copper")) type = 2;
+	
+	if (type >2 || type <0){
+	   send_to_char( "<BUG> invalid coin type, report to Ddruid.\n\r",ch);
+	   return;
+	   }
+	argument = one_argument( argument, arg2 );
+	if ( !str_cmp( arg2, "to" ) && argument[0] != '\0' )
+	    argument = one_argument( argument, arg2 );
+	if ( arg2[0] == '\0' )
+	{
+	    send_to_char( "Give what to whom?\n\r", ch );
+	    return;
+	}
+
+	if ( ( victim = get_char_room( ch, arg2 ) ) == NULL )
+	{
+	    send_to_char( "They aren't here.\n\r", ch );
+	    return;
+	}
+
+	if ( type == 0 && ch->gold < amount )
+	{
+	    send_to_char( "Very generous of you, but you haven't got that much gold.\n\r", ch );
+	    return;
+	}
+	if ( type == 1 && ch->silver < amount )
+	{
+	    send_to_char( "Very generous of you, but you haven't got that much silver.\n\r", ch );
+	    return;
+	}
+	if ( type == 2 && ch->copper < amount )
+	{
+	    send_to_char( "Very generous of you, but you haven't got that much copper.\n\r", ch );
+	    return;
+	}
+	if ( type == 0){
+	ch->gold     -= amount;
+	victim->gold += amount;
+        strcpy(buf, "$n gives you ");
+        strcat(buf, arg1 );
+        strcat(buf, (amount > 1) ? " gold coins." : " gold coin.");
+        act( AT_ACTION, buf, ch, NULL, victim, TO_VICT    );
+	act( AT_ACTION, "$n gives $N some gold.",  ch, NULL, victim, TO_NOTVICT );
+	act( AT_ACTION, "You give $N some gold.",  ch, NULL, victim, TO_CHAR    );
+	mprog_bribe_trigger( victim, ch, amount);
+    }
+    if ( type == 1){
+	ch->silver     -= amount;
+	victim->silver += amount;
+        strcpy(buf, "$n gives you ");
+        strcat(buf, arg1 );
+        strcat(buf, (amount > 1) ? " silver coins." : " silver coin.");
+        act( AT_ACTION, buf, ch, NULL, victim, TO_VICT    );
+	act( AT_ACTION, "$n gives $N some silver.",  ch, NULL, victim, TO_NOTVICT );
+	act( AT_ACTION, "You give $N some silver.",  ch, NULL, victim, TO_CHAR    );
+	mprog_bribe_trigger_silver( victim, ch, amount); 
+    }
+    if ( type == 2){
+	ch->copper     -= amount;
+	victim->copper += amount;
+        strcpy(buf, "$n gives you ");
+        strcat(buf, arg1 );
+        strcat(buf, (amount > 1) ? " copper coins." : " copper coin.");
+        act( AT_ACTION, buf, ch, NULL, victim, TO_VICT    );
+	act( AT_ACTION, "$n gives $N some copper.",  ch, NULL, victim, TO_NOTVICT );
+	act( AT_ACTION, "You give $N some copper.",  ch, NULL, victim, TO_CHAR    );
+	mprog_bribe_trigger_copper( victim, ch, amount); 
+    } 
+    
+Function: do_sacrafice()
+Around line 2339 
+CHANGE:
+ch->gold += 1;
+
+TO:
+ch->copper += 1;
+
+Around line 2324 
+CHANGE:
+sprintf( buf, "%s gives you one gold coin for your sacrifice.\n\r", name );
+
+TO:
+sprintf( buf, "%s gives you one copper coin for your sacrifice.\n\r", name );  
+
+Function: do_auction()
+Around line 2585
+COMPLETELY REMOVE THIS FUNCTION:
+
+REPLACE WITH:
+void do_auction (CHAR_DATA *ch, char *argument)
+{
+    OBJ_DATA *obj;
+    char arg1[MAX_INPUT_LENGTH];
+    char arg2[MAX_INPUT_LENGTH];
+    char arg3[MAX_INPUT_LENGTH];
+    char buf[MAX_STRING_LENGTH];
+    int i;
+    int gbid = 0;
+    int sbid = 0;
+    int cbid = 0;
+    int tmpvalue = 0;
+
+    argument = one_argument (argument, arg1);
+    argument = one_argument (argument, arg2);
+    argument = one_argument (argument, arg3);
+
+    set_char_color( AT_LBLUE, ch );
+
+    if (IS_NPC(ch)) /* NPC can be extracted at any time and thus can't auction! */
+	return;
+
+    if ( ch->level < 3 )
+    {
+	send_to_char( "You must be at least level three to use the auction...\n\r", ch );
+	return;
+    }
+
+    if ( ( time_info.hour > 19 || time_info.hour < 7 )
+    && auction->item == NULL
+    && !IS_IMMORTAL( ch ) )
+    {
+	send_to_char ("\n\rThe auctioneer works between the hours of 7 AM and 7 PM\n\r", ch );
+        return;
+    }
+
+    if (arg1[0] == '\0')
+    {
+        if (auction->item != NULL)
+        {
+	    AFFECT_DATA *paf;
+	    
+	    	    
+  	  obj = auction->item;
+  	  
+  	  tmpvalue = auction->bet;  
+	    gbid = tmpvalue/10000;
+	    tmpvalue=tmpvalue%10000;
+	    sbid = tmpvalue/100;
+	    tmpvalue=tmpvalue%100;		
+	    cbid = tmpvalue;
+            /* show item data here */
+            if (auction->bet > 0){
+              if(gbid <= 0 && sbid <= 0 && cbid > 0)
+                sprintf (buf, "\n\rCurrent bid on this item is %d copper\n\r", cbid);
+              else if(gbid > 0 && sbid <= 0 && cbid > 0)
+                sprintf (buf, "\n\rCurrent bid on this item is %d gold and %d copper\n\r", gbid, cbid);
+              else if(gbid > 0 && sbid > 0 && cbid > 0)
+                sprintf (buf, "\n\rCurrent bid is %d gold, %d silver, and %d copper\n\r", gbid,sbid,cbid);
+              else if(gbid <= 0 && sbid > 0 && cbid > 0)
+                sprintf (buf, "\n\rCurrent bid on this item is %d silver and %d copper\n\r", sbid, cbid);
+              else if(gbid > 0 && sbid <= 0 && cbid <= 0)
+                sprintf (buf, "\n\rCurrent bid on this item is %d gold\n\r", gbid);
+              else if(gbid <= 0 && sbid > 0 && cbid <= 0)
+                sprintf (buf, "\n\rCurrent bid on this item is %d silver\n\r", sbid);
+              else if(gbid > 0 && sbid > 0 && cbid <= 0)
+                sprintf (buf, "\n\rCurrent bid on this item is %d gold and %d silver\n\r", gbid, sbid);
+              else sprintf(buf, "Error! report to Ddruid.\n\r");
+           } else
+                sprintf (buf, "\n\rNo bids on this item have been received.\n\r");
+	    set_char_color ( AT_BLUE, ch );
+            send_to_char (buf,ch);
+/*          spell_identify (0, LEVEL_HERO - 1, ch, auction->item); */
+
+	    sprintf( buf,
+		"Object '%s' is %s, special properties: %s\n\rIts weight is %d,\n\r",
+		obj->name,
+		aoran( item_type_name( obj ) ),
+		extra_bit_name( &obj->extra_flags ),
+/*		magic_bit_name( obj->magic_flags ), -- currently unused */
+		obj->weight);
+	    set_char_color( AT_LBLUE, ch );
+	    send_to_char( buf, ch );
+	    sprintf(buf,
+	    "It value is: %d gold, %d silver, and %d copper\n\rLevel: %d\n\r",
+	    obj->gold_cost, obj->silver_cost, obj->copper_cost, obj->level);
+	    set_char_color( AT_LBLUE,ch);
+	    send_to_char( buf, ch);
+	    if ( obj->item_type != ITEM_LIGHT && obj->wear_flags-1 > 0 )
+	      ch_printf( ch, "Item's wear location: %s\n\r",
+		flag_string(obj->wear_flags -1, w_flags ) );
+
+	    set_char_color( AT_BLUE, ch );
+
+	    switch ( obj->item_type )
+	    {
+		case ITEM_CONTAINER:
+		case ITEM_KEYRING:
+		case ITEM_QUIVER:
+                  ch_printf( ch, "%s appears to %s.\n\r", capitalize(obj->short_descr),
+   	                obj->value[0] < 76  ? "have a small capacity"           :
+	                obj->value[0] < 150 ? "have a small to medium capacity" :
+			obj->value[0] < 300 ? "have a medium capacity"          :
+	                obj->value[0] < 500 ? "have a medium to large capacity" :
+	                obj->value[0] < 751 ? "have a large capacity"           :
+	                                      "have a giant capacity" );
+	          break;
+
+		case ITEM_PILL:
+		case ITEM_SCROLL:
+		case ITEM_POTION:
+		  sprintf( buf, "Level %d spells of:", obj->value[0] );
+		  send_to_char( buf, ch );
+        
+		  if ( obj->value[1] >= 0 && obj->value[1] < top_sn )
+		  {
+		     send_to_char( " '", ch );
+		     send_to_char( skill_table[obj->value[1]]->name, ch );
+		     send_to_char( "'", ch );
+		  }
+    
+		  if ( obj->value[2] >= 0 && obj->value[2] < top_sn )
+		  {
+		     send_to_char( " '", ch );
+		     send_to_char( skill_table[obj->value[2]]->name, ch );
+		     send_to_char( "'", ch );
+		  }
+    
+		  if ( obj->value[3] >= 0 && obj->value[3] < top_sn )
+		  {
+		     send_to_char( " '", ch );
+		     send_to_char( skill_table[obj->value[3]]->name, ch );
+		     send_to_char( "'", ch );
+		  }
+
+		  send_to_char( ".\n\r", ch );
+		  break;
+    
+		case ITEM_WAND:
+		case ITEM_STAFF:
+		  sprintf( buf, "Has %d(%d) charges of level %d",
+			obj->value[1], obj->value[2], obj->value[0] );
+		  send_to_char( buf, ch );
+         
+		  if ( obj->value[3] >= 0 && obj->value[3] < top_sn )
+		  {
+		     send_to_char( " '", ch );
+		     send_to_char( skill_table[obj->value[3]]->name, ch );
+		     send_to_char( "'", ch );
+		  }
+
+		  send_to_char( ".\n\r", ch );
+		  break;
+        
+		case ITEM_MISSILE_WEAPON:
+		case ITEM_WEAPON:
+		  sprintf( buf, "Damage is %d to %d (average %d).%s\n\r",
+			obj->value[1], obj->value[2],
+			( obj->value[1] + obj->value[2] ) / 2,
+			IS_OBJ_STAT( obj, ITEM_POISONED) ?
+			"\n\rThis weapon is poisoned." : "" );
+		  send_to_char( buf, ch );
+		  break;
+
+		case ITEM_ARMOR:
+		  sprintf( buf, "Armor class is %d.\n\r", obj->value[0] );
+		  send_to_char( buf, ch );
+		  break;
+	    }
+         
+	    for ( paf = obj->pIndexData->first_affect; paf; paf = paf->next )
+		showaffect( ch, paf );
+        
+	    for ( paf = obj->first_affect; paf; paf = paf->next )
+		showaffect( ch, paf );
+	    if ( ( obj->item_type == ITEM_CONTAINER || obj->item_type == ITEM_KEYRING
+	    ||     obj->item_type == ITEM_QUIVER)   && obj->first_content )
+	    {
+		set_char_color( AT_OBJECT, ch );
+		send_to_char( "Contents:\n\r", ch );
+		show_list_to_char( obj->first_content, ch, TRUE, FALSE );
+	    }
+
+	    if (IS_IMMORTAL(ch))
+	    {
+		sprintf(buf, "Seller: %s.  Bidder: %s.  Round: %d.\n\r",
+                        auction->seller->name, auction->buyer->name,
+                        (auction->going + 1));
+		send_to_char(buf, ch);
+		sprintf(buf, "Time left in round: %d.\n\r", auction->pulse);
+		send_to_char(buf, ch);
+	    }
+            return;
+	}
+	else
+	{
+	    set_char_color ( AT_LBLUE, ch );
+	    send_to_char ( "\n\rThere is nothing being auctioned right now.  What would you like to auction?\n\r", ch );
+	    return;
+	}
+    }
+
+    if ( IS_IMMORTAL(ch) && !str_cmp(arg1,"stop"))
+    if (auction->item == NULL)
+    {
+        send_to_char ("There is no auction to stop.\n\r",ch);
+        return;
+    }
+    else /* stop the auction */
+    {
+     int gbid = 0;
+	   int sbid = 0;
+	   int cbid = 0;
+	   int tmpvalue = 0;	    
+	          
+	   tmpvalue = auction->bet;  
+	   gbid = tmpvalue/10000;
+	   tmpvalue=tmpvalue%10000;
+	   sbid = tmpvalue/100;
+	   tmpvalue=tmpvalue%100;		
+	   cbid = tmpvalue; 
+	   
+	set_char_color ( AT_LBLUE, ch );
+        sprintf (buf,"Sale of %s has been stopped by an Immortal.",
+                        auction->item->short_descr);
+        talk_auction (buf);
+        obj_to_char (auction->item, auction->seller);
+        ch_printf_color(auction->seller,"&C%s is returned to you\n\r",auction->item->short_descr);
+	if ( IS_SET( sysdata.save_flags, SV_AUCTION ) )
+	    save_char_obj(auction->seller);
+        auction->item = NULL;
+        if (auction->buyer != NULL && auction->buyer != auction->seller) /* return money to the buyer */
+        {
+            auction->buyer->gold += gbid;
+            auction->buyer->silver += sbid;
+            auction->buyer->copper += cbid;
+            send_to_char ("Your money has been returned.\n\r",auction->buyer);
+        }
+        return;
+    }
+
+    if (!str_cmp(arg1,"bid") )
+        if (auction->item != NULL)
+        {
+            int newbet;
+            int chwealth;
+          	     	              
+  	            tmpvalue = auction->bet;  
+	              gbid = tmpvalue/10000;
+	              tmpvalue=tmpvalue%10000;
+	              sbid = tmpvalue/100;
+	              tmpvalue=tmpvalue%100;		
+	              cbid = tmpvalue;
+
+	    if ( ch->level < auction->item->level )
+	    {
+		send_to_char("This object's level is too high for your use.\n\r", ch );
+		return;
+	    }
+
+	    if ( ch == auction->seller)
+	    {
+		send_to_char("You can't bid on your own item!\n\r", ch);
+		return;
+	    }
+
+            /* make - perhaps - a bet now */
+            if (arg2[0] == '\0')
+            {
+                send_to_char ("Bid how much?\n\r",ch);
+                return;
+            }
+
+            newbet = parsebet (auction->bet, arg2);
+/*	    ch_printf( ch, "Bid: %d\n\r",newbet);	*/
+
+	    if (newbet < auction->starting)
+	    {
+		send_to_char("You must place a bid that is higher than the starting bet.\n\r", ch);
+		return;
+	    }
+
+	    /* to avoid slow auction, use a bigger amount than 100 if the bet
+ 	       is higher up - changed to 10000 for our high economy
+            */
+
+            if (newbet < (auction->bet + 100))
+            {
+                send_to_char ("You must at least bid 1 silver coin over the current bid.\n\r",ch);
+                return;
+            }
+          chwealth = get_value(ch->gold, ch->silver, ch->copper);
+            if (newbet > chwealth)
+            {
+                send_to_char ("You don't have that much money!\n\r",ch);
+                return;
+            }
+
+	    if (newbet > 2000000000)
+	    {
+		send_to_char("You can't bid over 2 billion coins.\n\r", ch);
+		return;
+	    }
+
+	    /* Is it the item they really want to bid on? --Shaddai */
+	    if ( arg3[0] != '\0' &&
+	 	 !nifty_is_name( arg3, auction->item->name ) )
+	    {
+	     send_to_char("That item is not being auctioned right now.\n\r",ch);
+	     return;
+	    }
+            /* the actual bet is OK! */
+
+            /* return the coins to the last buyer, if one exists */
+            if (auction->buyer != NULL && auction->buyer != auction->seller){
+                send_to_char("The auctioneer returns your money.\n\r",auction->buyer);	                           
+                auction->buyer->gold += gbid;
+                auction->buyer->silver += sbid;
+                auction->buyer->copper += cbid;  	              
+                }
+                         
+  	            tmpvalue = newbet;  
+	              gbid = tmpvalue/10000;
+	              tmpvalue=tmpvalue%10000;
+	              sbid = tmpvalue/100;
+	              tmpvalue=tmpvalue%100;		
+	              cbid = tmpvalue;
+	     act(AT_ACTION,"The auctioneer appears before $n, demanding some money.",ch,NULL,NULL,TO_ROOM);
+	     act(AT_ACTION,"The auctioneer appears before you demanding your bidded money.",ch,NULL,NULL,TO_CHAR);
+	     if(ch->gold < gbid || ch->silver < sbid || ch->copper < cbid){
+	     send_to_char("You give your money to the auctioneer who quickly makes change\n\r",ch);
+	         chwealth -= newbet;
+	         conv_currency(ch, chwealth);
+        } else {
+       send_to_char("You give your money to the auctioneer.\n\r",ch);
+          ch->gold -= gbid;
+          ch->silver -= sbid;
+          ch->copper -= cbid;
+          }
+              
+                
+	    if ( IS_SET( sysdata.save_flags, SV_AUCTION ) )
+		save_char_obj(ch);
+            auction->buyer = ch;
+            auction->bet   = newbet;
+            auction->going = 0;
+            auction->pulse = PULSE_AUCTION; /* start the auction over again */
+            
+            if( gbid > 0 && sbid > 0 && cbid > 0 )
+            sprintf (buf,"A bid of %d gold, %d silver, and %d copper has been received on %s.\n\r",gbid,sbid,cbid,auction->item->short_descr);
+            else if( gbid > 0 && sbid > 0 && cbid <= 0 )
+            sprintf (buf,"A bid of %d gold and %d silver has been received on %s.\n\r",gbid,sbid,auction->item->short_descr);
+            else if( gbid > 0 && sbid <= 0 && cbid <= 0 )
+            sprintf (buf,"A bid of %d gold has been received on %s.\n\r",gbid,auction->item->short_descr);
+            else if( gbid <= 0 && sbid > 0 && cbid <= 0 )
+            sprintf (buf,"A bid of %d silver has been received on %s.\n\r",sbid,auction->item->short_descr);
+            else if( gbid <= 0 && sbid <= 0 && cbid > 0 )
+            sprintf (buf,"A bid of %d copper has been received on %s.\n\r",cbid,auction->item->short_descr);
+            else if( gbid > 0 && sbid <= 0 && cbid > 0 )
+            sprintf (buf,"A bid of %d gold and %d copper has been received on %s.\n\r",gbid,cbid,auction->item->short_descr);
+            else if( gbid <= 0 && sbid > 0 && cbid > 0 )
+            sprintf (buf,"A bid of %d silver and %d copper has been received on %s.\n\r",sbid,cbid,auction->item->short_descr);
+            else sprintf( buf, "Error! report to Ddruid\n\r");
+            talk_auction (buf);
+            return;
+
+
+        }
+        else
+        {
+            send_to_char ("There isn't anything being auctioned right now.\n\r",ch);
+            return;
+        }
+
+/* finally... */
+    if ( ms_find_obj(ch) )
+	return;
+
+    obj = get_obj_carry (ch, arg1); /* does char have the item ? */
+
+    if (obj == NULL)
+    {
+        send_to_char ("You aren't carrying that.\n\r",ch);
+        return;
+    }
+
+    if (obj->timer > 0)
+    {
+	send_to_char ("You can't auction objects that are decaying.\n\r", ch);
+	return;
+    }
+
+    /* prevent repeat auction items */	
+    for(i = 0; i < AUCTION_MEM && auction->history[i]; i++)
+    {
+    	if(auction->history[i] == obj->pIndexData)
+    	{
+	    send_to_char("Such an item has been auctioned "
+	    	"recently, try again later.\n\r", ch);
+	    return;
+    	}
+    }
+    
+
+    if (arg2[0] == '\0')
+    {
+      auction->starting = 0;
+      strcpy(arg2, "0");
+    }
+  /* 
+    if ( !is_number(arg2) )
+    {
+	send_to_char("You must input a number at which to start the auction.\n\r", ch);
+	return;
+    }
+  
+    if ( atoi(arg2) < 0 )
+    {
+	send_to_char("You can't auction something for less than 0 gold!\n\r", ch);
+ 	return;
+    }
+    */
+    if (auction->item == NULL)
+    switch (obj->item_type)
+    {
+
+    default:
+        act (AT_TELL, "You cannot auction $Ts.",ch, NULL, item_type_name (obj), TO_CHAR);
+        return;
+
+/* insert any more item types here... items with a timer MAY NOT BE 
+   AUCTIONED! 
+*/
+    case ITEM_LIGHT:
+    case ITEM_TREASURE:    
+    case ITEM_POTION:
+    case ITEM_CONTAINER:
+    case ITEM_KEYRING:
+    case ITEM_QUIVER:
+    case ITEM_DRINK_CON:
+    case ITEM_FOOD:
+    case ITEM_COOK:
+    case ITEM_PEN:
+    case ITEM_BOAT:
+    case ITEM_PILL:
+    case ITEM_PIPE:
+    case ITEM_HERB_CON:
+    case ITEM_INCENSE:
+    case ITEM_FIRE:
+    case ITEM_RUNEPOUCH:
+    case ITEM_MAP:
+    case ITEM_BOOK:
+    case ITEM_RUNE:
+    case ITEM_MATCH:
+    case ITEM_HERB:
+    case ITEM_WEAPON:
+    case ITEM_MISSILE_WEAPON:
+    case ITEM_ARMOR:
+    case ITEM_STAFF:
+    case ITEM_WAND:
+    case ITEM_SCROLL:
+	separate_obj(obj);
+	obj_from_char (obj);
+	if ( IS_SET( sysdata.save_flags, SV_AUCTION ) )
+	    save_char_obj(ch);
+	auction->item = obj;
+	auction->bet = 0;
+	auction->buyer = ch;
+	auction->seller = ch;
+	auction->pulse = PULSE_AUCTION;
+	auction->going = 0;
+	if (arg2[0] != '\0')
+	auction->starting = advatoi(arg2);
+  else auction->starting = 0;
+    	/* add the new item to the history */
+    	if(AUCTION_MEM > 0)
+        {
+     		memmove((char *) auction->history+sizeof(OBJ_INDEX_DATA *),
+                      	auction->history, (AUCTION_MEM - 1)*sizeof(OBJ_INDEX_DATA *));
+                auction->history[0] = obj->pIndexData;
+	}
+
+	/* reset the history timer */
+	auction->hist_timer = 0;
+                                                        
+
+	if (auction->starting > 0)
+	  auction->bet = auction->starting;
+	  
+  tmpvalue = auction->starting;  
+	gbid = tmpvalue/10000;
+	tmpvalue=tmpvalue%10000;
+	sbid = tmpvalue/100;
+	tmpvalue=tmpvalue%100;		
+	cbid = tmpvalue;
+	
+	if (auction->starting == 0)
+	sprintf (buf, "A new item is being auctioned: %s at 0 coins.", obj->short_descr);
+	else if ( gbid > 0 && sbid > 0 && cbid > 0 )
+	sprintf (buf, "A new item is being auctioned: %s at %d gold, %d silver, and %d copper.", obj->short_descr, gbid,sbid,cbid);
+	else if ( gbid > 0 && sbid > 0 && cbid <= 0 )
+	sprintf (buf, "A new item is being auctioned: %s at %d gold and %d silver.", obj->short_descr, gbid,sbid);
+	else if ( gbid > 0 && sbid <= 0 && cbid <= 0 )
+	sprintf (buf, "A new item is being auctioned: %s at %d gold.", obj->short_descr, gbid);
+	else if ( gbid <= 0 && sbid > 0 && cbid <= 0 )
+	sprintf (buf, "A new item is being auctioned: %s at %d silver.", obj->short_descr, sbid);
+	else if ( gbid <= 0 && sbid <= 0 && cbid > 0 )
+	sprintf (buf, "A new item is being auctioned: %s at %d copper.", obj->short_descr, cbid);
+	else if ( gbid > 0 && sbid <= 0 && cbid > 0 )
+	sprintf (buf, "A new item is being auctioned: %s at %d gold and %d copper.", obj->short_descr, gbid,cbid);
+	else if ( gbid > 0 && sbid > 0 && cbid > 0 )
+	sprintf (buf, "A new item is being auctioned: %s at %d silver and %d copper", obj->short_descr, sbid, cbid);
+	else sprintf(buf, "Error! report to Ddruid.\n\r");
+	talk_auction (buf);
+
+	return;
+
+    } /* switch */
+    else
+    {
+        act (AT_TELL, "Try again later - $p is being auctioned right now!",ch,auction->item,NULL,TO_CHAR);
+	if ( !IS_IMMORTAL(ch) )
+          WAIT_STATE( ch, PULSE_VIOLENCE );
+        return;
+    }
+}
+
+
+
+File: act_wiz.c
+Function: do_ostat()
+Around line 1763
+CHANGE:
+ch_printf_color( ch, "&cCost: &Y%d  ", obj->cost );
+
+TO:
+ch_printf_color( ch, 
+  "&cCost:  &Y%d &cGold,  &Y%d &cSilver,  &Y%d &cCopper\n\r", 
+  obj->gold_cost, obj->silver_cost, obj->copper_cost );
+
+Function: do_mstat()
+Around line 1971 
+CHANGE:
+pager_printf_color( ch, "&cYear: &w%-5d  &cSecs: &w%d  &cTimer: &w%d  &cGold: &Y%d\n\r",
+get_age( victim ), (int) victim->played, victim->timer, victim->gold );
+
+TO:
+pager_printf_color( ch, "&cYear: &w%-5d  &cSecs: &w%d  &cTimer: &w%d\n\r",
+get_age( victim ), (int) victim->played, victim->timer );
+pager_printf_color( ch, "&cGold: &Y%d  &cSilver: &Y%d  &cCopper: &Y%d\n\r",
+victim->gold, victim->silver, victim->copper);  
+
+Function: do_strew()
+Around line 3701 
+CHANGE:
+if ( victim->gold < 1) {
+send_to_char( "Drat, this one's got no gold to start with.\n\r", ch );
+
+TO:
+if ( victim->gold < 1 && victim->silver < 1 && victim->copper < 1) {
+send_to_char( "Drat, this one's got no money to start with.\n\r", ch ); 
+
+Around line 3705 
+AFTER:
+victim->gold = 0;
+
+ADD:
+victim->silver = 0;
+victim->copper = 0; 
+
+
+File: boards.c
+Function: do_note()
+Around line 687 
+CHANGE:
+if ( ch->gold < 10
+  &&   get_trust(ch) < sysdata.read_mail_free )
+	{
+	 send_to_char("It costs 10 gold coins to read a message.\n\r", ch);
+	 return;
+	 }
+  if (get_trust(ch) < sysdata.read_mail_free)
+  ch->gold -= 10;
+	 
+TO:
+if ( ch->copper < 10
+  &&   get_trust(ch) < sysdata.read_mail_free )
+  {
+  send_to_char("It costs 10 copper coins to read a message.\n\r", ch);
+  return;
+  }
+  if (get_trust(ch) < sysdata.read_mail_free)
+  ch->copper -= 10;
+
+Around line 1233 
+CHANGE:
+if ( ch->gold < 50 && get_trust(ch) < sysdata.read_mail_free )
+  {
+  if ( take == 1 )
+  send_to_char("It costs 50 coins to take your mail.\n\r", ch);
+    else
+    send_to_char("It costs 50 coins to copy your mail.\n\r", ch);
+    return;
+    }
+  if ( get_trust(ch) < sysdata.read_mail_free )
+  ch->gold -= 50;
+
+TO:
+if ( ch->copper < 50 && get_trust(ch) < sysdata.read_mail_free )
+  {
+    if ( take == 1 )
+    send_to_char("It costs 50 copper coins to take your mail.\n\r", ch);
+    else
+    send_to_char("It costs 50 copper coins to copy your mail.\n\r", ch);
+    return;
+  }
+  if ( get_trust(ch) < sysdata.read_mail_free )
+  ch->copper -= 50;
+  
+
+File: build.c
+Around line 120
+CHANGE:
+"container", "_note", "drinkcon", "key", "food", "money", "pen", "boat",
+
+TO:
+"container", "_note", "drinkcon", "key", "food", "gold", "pen", "boat",
+
+Around line 126
+CHANGE:
+"salve", "cook", "keyring", "odor", "chance"
+
+TO:
+"salve", "cook", "keyring", "odor", "chance", "silver", "copper"
+
+Around line 141
+CHANGE:
+"roomlight", "televnum", "teledelay"
+
+
+TO:
+"roomlight", "televnum", "teledelay", "silver", "copper"
+
+Function: do_mset()
+Around line 1172
+CHANGE:
+send_to_char( "  gold hp mana move practice align race\n\r",	ch );
+
+TO:
+send_to_char( "  hp mana move practice align race\n\r",	ch );
+
+Around line 1174
+AFTER:
+send_to_char( "  thirst drunk full blood flags\n\r",		ch );
+
+ADD:
+send_to_char( "  gold silver copper\n\r", ch);
+
+Around line 1576
+AFTER:
+victim->pIndexData->gold = value;
+	return;
+    }
+
+ADD:
+if ( !str_cmp( arg2, "silver" ) )
+  {
+  if ( !can_mmodify( ch, victim ) )
+  return;
+  victim->silver = value;
+  if ( IS_NPC(victim) && xIS_SET(victim->act, ACT_PROTOTYPE) )
+   victim->pIndexData->silver = value;
+  return;
+  }
+if ( !str_cmp( arg2, "copper" ) )
+  {
+  if ( !can_mmodify( ch, victim ) )
+  return;
+  victim->copper = value;
+  if ( IS_NPC(victim) && xIS_SET(victim->act, ACT_PROTOTYPE) )
+   victim->pIndexData->copper = value;
+  return;
+  }
+  
+Function: do_oset()
+Around line 3100
+CHANGE:
+send_to_char( "  flags wear level weight cost rent timer\n\r",	ch );
+
+TO:
+send_to_char( "  flags wear level weight rent timer\n\r",	ch );
+send_to_char( "  gcost scost ccost", ch);
+
+Around line 3463
+CHANGE:
+if ( !str_cmp( arg2, "cost" ) )
+  {
+  if ( !can_omodify( ch, obj ) )
+  return;
+  obj->cost = value;
+  if ( IS_OBJ_STAT(obj, ITEM_PROTOTYPE) )
+  obj->pIndexData->cost = value;
+  return;
+  }
+
+TO: 
+if ( !str_cmp( arg2, "gcost" ) )
+  {
+  if ( !can_omodify( ch, obj ) )
+  return;
+  obj->gold_cost = value;
+  if ( IS_OBJ_STAT(obj, ITEM_PROTOTYPE) )
+  obj->pIndexData->gold_cost = value;
+  return;
+  }
+if ( !str_cmp( arg2, "scost" ) )
+   {
+  if ( !can_omodify( ch, obj ) )
+  return;
+  obj->silver_cost = value;
+  if ( IS_OBJ_STAT(obj, ITEM_PROTOTYPE) )
+  obj->pIndexData->silver_cost = value;
+  return;
+  }
+if ( !str_cmp( arg2, "ccost" ) )
+  {
+  if ( !can_omodify( ch, obj ) )
+  return;
+  obj->copper_cost = value;
+  if ( IS_OBJ_STAT(obj, ITEM_PROTOTYPE) )
+  obj->pIndexData->copper_cost = value;
+  return;
+  }
+
+Function: fold_area()
+Around line 5945
+CHANGE:
+if ( AREA_VERSION_WRITE > 1 )
+  fprintf( fpout, "#SPELLLIMIT %d\n", tarea->spelllimit );
+  
+TO:
+/* 
+ * Not currently Used -Druid
+ * In future this may need to be changed
+ */
+/* if ( AREA_VERSION_WRITE > 1 )
+  fprintf( fpout, "#SPELLLIMIT %d\n", tarea->spelllimit ); */
+
+Around line 6011
+CHANGE:
+fprintf( fpout, "%d %d\n",	pMobIndex->gold,
+  pMobIndex->exp			);
+
+TO:
+fprintf( fpout, "%d\n", pMobIndex->exp);
+fprintf( fpout, "%d %d %d\n", pMobIndex->gold, pMobIndex->silver, 
+  pMobIndex->copper);
+
+Around line 6138
+CHANGE:
+fprintf( fpout, "%d %d %d\n",	pObjIndex->weight,
+      pObjIndex->cost,
+      pObjIndex->rent ? pObjIndex->rent :
+      (int) (pObjIndex->cost / 10)		);
+
+TO:
+fprintf( fpout, "%d %d %d %d %d\n",	pObjIndex->weight,
+      pObjIndex->gold_cost,
+      pObjIndex->silver_cost,
+      pObjIndex->copper_cost,
+      pObjIndex->rent ? pObjIndex->rent :
+      (int) (pObjIndex->gold_cost / 10)		);
+
+Function: do_astat()      
+Around line 6996
+CHANGE:
+ch_printf_color( ch,  "&wArea economy: &W%d &wbillion and &W%d gold.\n\r",
+
+TO:
+ch_printf_color( ch,  "&wArea economy: &W%d &wbillion and &W%d coins.\n\r",
+
+Around line 7000
+CHANGE:
+ch_printf_color( ch, "&wArea economy: &W%d &wgold coins.\n\r",
+ 
+TO:
+ch_printf_color( ch, "&wArea economy: &W%d &wcoins.\n\r",
+
+Around line 7002
+AFTER:
+ch_printf_color( ch, "&wGold Looted:  &W%d\n\r",
+  tarea->gold_looted );
+
+ADD:
+ch_printf_color( ch, "&wSilver Looted: &W%d\n\r",
+  tarea->silver_looted );
+ch_printf_color( ch,"&wCopper Looted: &W%d\n\r",
+  tarea->copper_looted );
+
+File: comm.c
+Function: display_prompt()
+Around line 3396
+AFTER:
+case 'g':
+stat = ch->gold;
+break;
+
+ADD:
+case 's':
+stat = ch->silver;
+break;
+case 'd':
+stat = ch->copper;
+break; 
+
+File: db.c
+Function: load_mobiles()
+Around line 1021
+AFTER:
+bool oldmob;
+bool tmpBootDb;
+
+ADD:
+int tmpgold = 0;
+
+Around line 1104
+REMOVE:
+pMobIndex->gold			= fread_number( fp );
+pMobIndex->exp			= fread_number( fp );
+
+ADD IN ITS PLACE: 
+if (area_version <= 1){
+  tmpgold			= fread_number( fp );
+  pMobIndex->exp			= fread_number( fp );
+	
+ /* 
+	* Convert to new system -Druid
+	*/
+  pMobIndex->gold=0;
+  pMobIndex->silver = 0;
+  pMobIndex->copper = 0;
+	
+  pMobIndex->gold = tmpgold/10000;
+  tmpgold=tmpgold%10000;
+  pMobIndex->silver = tmpgold/100;
+  tmpgold=tmpgold%100;	
+  pMobIndex->copper = tmpgold;
+  }
+  else {
+  pMobIndex->exp		= fread_number(fp);
+  pMobIndex->gold		= fread_number(fp);
+  pMobIndex->silver		= fread_number(fp);
+  pMobIndex->copper		= fread_number(fp);
+  }
+
+Function: load_objects()
+Around line 1300
+AFTER:
+int x1, x2, x3, x4, x5, x6;
+
+ADD:
+int tempcost;
+
+Around line 1405
+REMOVE:
+pObjIndex->cost			= fread_number( fp );
+pObjIndex->rent		  	= fread_number( fp ); /* unused */
+    if ( area_version == 1 )
+
+REPLACE WITH:
+if(area_version >=2){
+pObjIndex->gold_cost			= fread_number( fp );
+pObjIndex->silver_cost		= fread_number(fp);
+pObjIndex->copper_cost		= fread_number(fp);
+pObjIndex->rent		  	= fread_number( fp ); /* unused */
+if(pObjIndex->rent<0)
+  pObjIndex=0;
+} else {
+tempcost		= fread_number( fp );
+pObjIndex->gold_cost		= 0;
+pObjIndex->silver_cost	= 0;
+pObjIndex->copper_cost	= 0;
+pObjIndex->rent			= fread_number(fp);
+if(pObjIndex->rent <0)
+  pObjIndex->rent=0;
+	/*
+	 * Convert to new currency. -Druid
+	 */	
+	pObjIndex->gold_cost = tempcost/10000;
+	tempcost=tempcost%10000;	
+	pObjIndex->silver_cost = tempcost/100;
+	tempcost=tempcost%100;			
+	pObjIndex->copper_cost = tempcost;
+  }
+    if ( area_version >= 1 )
+
+Function: initialize_economy()
+Around line 2256
+CHANGE:
+int idx, gold, rng;
+
+TO:
+int idx, gold, rng, mobmoney;
+
+Around line 2271
+CHANGE:
+if ( (mob=get_mob_index(idx)) != NULL )
+		boost_economy( tarea, mob->gold * 10 );
+
+TO:
+if ( (mob=get_mob_index(idx)) != NULL ){
+  /* Gold/Silver/copper Support -Druid */
+  mobmoney=get_value(mob->gold,mob->silver,mob->copper);
+  boost_economy( tarea, mobmoney * 10 );
+  }
+
+Function: create_mobile()
+Around line 2566
+AFTER:
+/* lets put things back the way they used to be! -Thoric */
+mob->gold			= pMobIndex->gold;
+
+ADD:
+mob->silver		= pMobIndex->silver;
+mob->copper		= pMobIndex->copper;
+
+Function: create_object()
+Around line 2661
+CHANGE:
+obj->cost		= pObjIndex->cost;
+
+TO:
+obj->gold_cost		= pObjIndex->gold_cost;
+obj->silver_cost	= pObjIndex->silver_cost;
+obj->copper_cost	= pObjIndex->copper_cost;
+
+Around line 2779
+REMOVE:
+case ITEM_MONEY:
+  obj->value[0]	= obj->cost;
+  if ( obj->value[0] == 0 )
+   obj->value[0] = 1;
+  break;
+
+REPLACE WITH:
+case ITEM_GOLD:
+obj->value[0]	= obj->gold_cost;
+if ( obj->value[0] == 0 )
+ obj->value[0] = 1;
+break;
+
+case ITEM_SILVER:   
+obj->value[0]	= obj->silver_cost;
+if ( obj->value[0] == 0 )
+ obj->value[0] = 1;
+break;
+
+case ITEM_COPPER:
+obj->value[0]	= obj->copper_cost;
+if ( obj->value[0] == 0 )
+ obj->value[0] = 1;
+break;
+
+Function: do_memory()
+Around line 3552
+CHANGE:
+ch_printf_color( ch, "&wPill Val:    &W%-16d   &wGlobal loot: &W%d\n\r",
+ sysdata.upill_val, sysdata.global_looted );
+
+TO:
+ch_printf_color( ch, "&wPill Val:    &W%-16d   &wGlobal gold loot: &W%d\n\r",
+  sysdata.upill_val, sysdata.global_gold_looted );
+ch_printf_color(ch,"&wGlobal silver loot: &W%d    &wGlobal copper loot: &W%d\n\r",
+  sysdata.global_silver_looted,sysdata.global_copper_looted);
+
+Function: mprog_name_to_type()
+Around line 4446
+AFTER:
+if ( !str_cmp( name, "use_prog"	) )	return USE_PROG;
+   
+ADD:
+/* Copper/Silver Support -Druid */
+if ( !str_cmp( name, "bribe_silver_prog"     ) )	return BRIBE_SILVER_PROG;
+if ( !str_cmp( name, "bribe_copper_prog"     ) )	return BRIBE_COPPER_PROG;
+
+Function: make_object()
+Around line 5369
+CHANGE:
+pObjIndex->cost		= 0;
+
+TO:
+pObjIndex->gold_cost		= 0;
+pObjIndex->silver_cost	= 0;
+pObjIndex->copper_cost	= 0;
+
+Around line 5390
+CHANGE:
+pObjIndex->cost   = cObjIndex->cost;
+
+TO:
+pObjIndex->gold_cost		= cObjIndex->gold_cost;
+pObjIndex->silver_cost	= cObjIndex->silver_cost;
+pObjIndex->copper_cost	= cObjIndex->copper_cost;
+
+Function: make_mobile
+Around line 5472
+AFTER:
+pMobIndex->gold		= 0;
+
+ADD:
+pMobIndex->silver		= 0;
+pMobIndex->copper		= 0;
+
+Around line 5523
+AFTER:
+pMobIndex->gold		= cMobIndex->gold;
+
+ADD:
+pMobIndex->silver		= cMobIndex->silver;
+pMobIndex->copper		= cMobIndex->copper;
+
+File: fight.c
+Function: damage()
+Around line 1766
+AFTER:
+int init_gold, new_gold, gold_diff;
+
+ADD:
+int init_silver, new_silver, silver_diff;
+int init_copper, new_copper, copper_diff;
+
+Around line 2409
+REMOVE:
+/* Autogold by Scryn 8/12 */
+if ( xIS_SET(ch->act, PLR_AUTOGOLD) )
+  {
+  init_gold = ch->gold;
+  do_get( ch, "coins corpse" );
+  new_gold = ch->gold;
+  gold_diff = (new_gold - init_gold);
+  if (gold_diff > 0)
+  {
+    sprintf(buf1,"%d",gold_diff);
+    do_split( ch, buf1 );
+    } 
+}
+
+REPLACE WITH:
+/* Autogold by Scryn 8/12 */
+/* Gold/Copper/Silver Support -Druid */
+if ( xIS_SET(ch->act, PLR_AUTOGOLD) )
+{
+  init_gold = ch->gold;
+  init_silver = ch->silver;
+  init_copper = ch->copper;
+  do_get( ch, "'gold coins' corpse" );
+  do_get( ch, "'silver coins' corpse" );
+  do_get( ch, "'copper coins' corpse" );
+  new_gold = ch->gold;
+  new_silver = ch->silver;
+  new_copper = ch->copper;
+  gold_diff = (new_gold - init_gold);
+  silver_diff = (new_silver - init_silver);
+  copper_diff = (new_copper - init_copper);
+  if (gold_diff > 0)
+  {
+    sprintf(buf1,"%d gold",gold_diff);
+    do_split( ch, buf1 );
+  }
+  if (silver_diff > 0)
+  {
+    sprintf(buf1,"%d silver",silver_diff);
+    do_split( ch, buf1 );
+  }
+  if (copper_diff > 0)
+  {
+    sprintf(buf1,"%d copper",copper_diff);
+    do_split( ch, buf1 );
+  } 
+}
+
+
+File: grub.c
+Around line 473
+CHANGE:
+enum gr_field_type          /* enumerates the fields in the input record */
+   {name, sex, class, race, level, room, gold, clan, council,
+    site, last, pkill};
+
+TO:
+enum gr_field_type          /* enumerates the fields in the input record */
+   {name, sex, class, race, level, room, gold, silver, copper, clan,
+    council, site, last, pkill};
+
+Around line 486
+AFTER:
+long    gold;
+
+ADD:
+long  silver;
+long  copper;
+
+Function: gr_eval_and()
+Around line 1322
+AFTER:
+case gold:
+if ( !go_eval_num (r.gold, gr_op[cou].op, gr_op[cou].nval) )
+return FALSE;
+else break;
+
+ADD:
+case silver:
+if (!go_eval_num (r.silver, gr_op[cou].op, gr_op[cou].nval) )
+return FALSE;
+else break;
+case copper:
+if (!go_eval_num (r.copper, gr_op[cou].op, gr_op[cou].nval) )
+return FALSE;
+else break;
+
+Function: gr_eval_or()
+Around line 1393
+AFTER:
+case gold:
+if ( go_eval_num (r.gold, gr_op[cou].op, gr_op[cou].nval) )
+return TRUE;
+else break;
+
+ADD:
+case silver:
+if ( go_eval_num(r.silver, gr_op[cou].op, gr_op[cou].nval) )
+return TRUE;
+else break;
+case copper:
+if ( go_eval_num(r.copper, gr_op[cou].op, gr_op[cou].nval) )
+return TRUE;
+else break;
+
+Function: gr_init()
+Around line 1439
+REMOVE:
+strcpy(gr_fd[ 6].nam, "gold"   ); gr_fd[ 6].num=TRUE;
+strcpy(gr_fd[ 7].nam, "clan"   ); gr_fd[ 7].num=TRUE;
+strcpy(gr_fd[ 8].nam, "council"); gr_fd[ 8].num=TRUE;
+strcpy(gr_fd[ 9].nam, "site"   ); gr_fd[ 9].num=FALSE;
+strcpy(gr_fd[10].nam, "last"   ); gr_fd[10].num=TRUE;
+strcpy(gr_fd[11].nam, "pkill"  ); gr_fd[11].num=FALSE;
+
+REPLACE WITH:
+strcpy(gr_fd[ 6].nam, "gold"   ); gr_fd[ 6].num=TRUE;
+strcpy(gr_fd[ 7].nam, "silver" ); gr_fd[ 7].num=TRUE;
+strcpy(gr_fd[ 8].nam, "copper" ); gr_fd[ 8].num=TRUE;
+strcpy(gr_fd[ 9].nam, "clan"   ); gr_fd[ 9].num=TRUE;
+strcpy(gr_fd[10].nam, "council"); gr_fd[10].num=TRUE;
+strcpy(gr_fd[11].nam, "site"   ); gr_fd[11].num=FALSE;
+strcpy(gr_fd[12].nam, "last"   ); gr_fd[12].num=TRUE;
+strcpy(gr_fd[13].nam, "pkill"  ); gr_fd[13].num=FALSE;
+
+Function: gr_read()
+Around line 1556
+CHANGE:
+ch_printf(ch,
+"\n\r%-12s %-2s %1s %-2s %1s %3s %3s %5s %11s %-15s %-6s %s\n\r",
+"Name", "Lv", "S", "R", "C", "Cln", "Cou", "Room", "Gold",
+"Site", "Last", "Pk");
+
+TO:
+ch_printf(ch,
+"\n\r%-12s %-2s %1s %-2s %1s %3s %3s %5s %11s %11s %11s %-15s %-6s %s\n\r",
+"Name", "Lv", "S", "R", "C", "Cln", "Cou", "Room", "Gold","Silver",
+"Copper", "Site", "Last", "Pk");
+
+Around line 1563
+CHANGE:
+ch_printf(ch,
+"%-12s %2hd %c %2s %c %3s %3s %5hd %11ld %-15s %6lu %c\n\r", 
+r.name, r.level, sex[(unsigned char) r.sex],
+race[(unsigned char) r.race], class[(unsigned char) r.class],
+clan[(unsigned char) r.clan],
+council[(unsigned char) r.council],
+r.room, r.gold, r.site, r.last, r.pkill);
+
+TO:
+ch_printf(ch,
+"%-12s %2hd %c %2s %c %3s %3s %5hd %11ld %5ld %5ld %-15s %6lu %c\n\r", 
+r.name, r.level, sex[(unsigned char) r.sex],
+race[(unsigned char) r.race], class[(unsigned char) r.class],
+clan[(unsigned char) r.clan],
+council[(unsigned char) r.council],
+r.room, r.gold, r.silver, r.copper, r.site, r.last, r.pkill);
+
+
+File: handler.c
+Function: affect_modify()
+Aroundline 608
+AFTER:
+case APPLY_AGE:						break;
+case APPLY_GOLD:						break;
+
+ADD:
+case APPLY_SILVER:          break;
+case APPLY_COPPER:          break;
+
+Function: clean_obj()
+Around line 3201
+CHANGE:
+obj->cost		= 0;
+
+TO:
+obj->gold_cost		= 0;
+obj->silver_cost	= 0;
+obj->copper_cost	= 0;
+
+Function: clean_mob()
+Around line 3261
+AFTER:
+mob->weight	 = 0;	/* mob->vnum		= 0;	*/
+
+ADD:
+mob->silver = 0; mob->copper=0;
+
+Function: clone_obj()
+Around line 3817
+CHANGE:
+clone->cost		= obj->cost;
+
+TO:
+clone->gold_cost		= obj->gold_cost;
+clone->silver_cost		= obj->silver_cost;
+clone->copper_cost		= obj->copper_cost;
+
+Function: group_object()
+Around line 3868
+CHANGE:
+&&  obj1->cost    == obj2->cost
+
+TO:
+&&  obj1->gold_cost   == obj2->gold_cost
+&&	obj1->silver_cost == obj2->silver_cost
+&&	obj1->copper_cost == obj2->copper_cost
+
+Function: economize_mobgold()
+Around line 4147
+REMOVE ENTIRE FUNCTION
+
+REPLACE WITH:
+/* Gold/Silver/Copper Support -Druid */
+void economize_mobgold( CHAR_DATA *mob )
+{
+    int gold, wealth;    
+    AREA_DATA *tarea;
+    
+    /* make sure it isn't way too much */
+    wealth = get_value(mob->gold, mob->silver, mob->copper);
+    wealth = UMIN( wealth, mob->level * mob->level * 400 );	
+		conv_currency(mob,wealth);
+    if ( !mob->in_room )
+	return;
+    tarea = mob->in_room->area;
+
+    gold = ((tarea->high_economy > 0) ? 1 : 0) * 1000000000 + tarea->low_economy;
+    wealth = URANGE( 0, wealth, gold / 10 );	
+		conv_currency(mob,wealth);
+		wealth = get_value(mob->gold, mob->silver, mob->copper); 
+    if ( wealth )
+	lower_economy( tarea, wealth );
+}
+
+
+File: ibuild.c
+Around line 732
+CHANGE:
+"3", "b", 10, 59, "%5.5hd", NULL, SH_INT, 2, "oset %s cost %s"
+
+TO:
+"3", "b", 10, 59, "%5.5hd", NULL, SH_INT, 2, "oset %s gcost %s"
+
+Around line 2903
+CHANGE:
+obj_page_b_data[5].data = ((idx->item_type == ITEM_MONEY) ? check : space);
+
+TO:
+obj_page_b_data[5].data = ((idx->item_type == ITEM_GOLD) ? check : space);
+
+Around line 2970
+CHANGE:
+obj_page_a_data[13].data = &(idx->cost);
+
+TO:
+obj_page_a_data[13].data = &(idx->gold_cost);
+
+
+File: magic.c
+Function: spell_identify()
+Around line 3191
+CHANGE:
+ch_printf( ch,
+"Special properties:  %s\n\rIts weight is %d, value is %d, and level is %d.\n\r",
+extra_bit_name( &obj->extra_flags ),
+/*	magic_bit_name( obj->magic_flags ), -- unused for now */
+  obj->weight,
+  obj->cost,
+  obj->level );
+  
+TO:
+ch_printf( ch,
+"Special properties:  %s\n\rIts weight is %d, and level is %d.\n\r",
+extra_bit_name( &obj->extra_flags ),
+/*	magic_bit_name( obj->magic_flags ), -- unused for now */
+obj->weight,
+obj->level );
+ch_printf(ch,"Its value is: ");
+if (obj->gold_cost > 0 && obj->silver_cost > 0 && obj->copper_cost >0 )
+  ch_printf(ch,"%d Gold, %d Silver, and %d Copper\n\r",
+  obj->gold_cost, obj->silver_cost, obj->copper_cost);
+else if (obj->gold_cost <= 0 && obj->silver_cost > 0 && obj->copper_cost >0 )
+  ch_printf(ch,"%d Silver and %d Copper\n\r",
+  obj->silver_cost, obj->copper_cost);
+else if (obj->gold_cost <= 0 && obj->silver_cost <= 0 && obj->copper_cost >0 )
+  ch_printf(ch,"%d Copper\n\r",obj->copper_cost);
+else if (obj->gold_cost <= 0 && obj->silver_cost > 0 && obj->copper_cost <=0 )
+  ch_printf(ch,"%d Silver\n\r",obj->silver_cost);
+else if (obj->gold_cost > 0 && obj->silver_cost <= 0 && obj->copper_cost <=0 )
+  ch_printf(ch,"%d Gold\n\r",obj->gold_cost);
+else if (obj->gold_cost > 0 && obj->silver_cost <= 0 && obj->copper_cost >0 )
+  ch_printf(ch,"%d Gold and %d Copper\n\r",
+	obj->gold_cost,obj->copper_cost);
+else if (obj->gold_cost > 0 && obj->silver_cost > 0 && obj->copper_cost <=0 )
+  ch_printf(ch,"%d Gold, and %d Silver\n\r",
+  obj->gold_cost, obj->silver_cost);
+else ch_printf(ch,"0 coins\n\r");
+
+Function: spell_acid_breath()
+Around line 4172
+CHANGE:
+obj_lose->cost      = 0;
+
+TO:
+obj_lose->gold_cost   = 0;
+obj_lose->silver_cost	= 0;
+obj_lose->copper_cost	= 0;
+
+Function: animate_dead()
+Around line 4963
+CHANGE:
+if (corpse->item_type == ITEM_CORPSE_NPC && corpse->cost != -5)
+
+TO:
+if (corpse->item_type == ITEM_CORPSE_NPC && ((corpse->gold_cost != -5) 
+	|| (corpse->silver_cost != -5) || (corpse->copper_cost != -5)))
+
+Around line 4984
+CHANGE:
+if ( (pMobIndex = get_mob_index((sh_int) abs(corpse->cost) )) == NULL )
+
+TO:
+if ( (pMobIndex = get_mob_index((sh_int) abs(corpse->gold_cost) )) == NULL )
+
+Fnction: spell_obj_inv()
+Around line 5921
+CHANGE:
+if ( ch->level - obj->level < 10
+||   obj->cost > ch->level * get_curr_int(ch) * get_curr_wis(ch) ) 
+
+TO:
+if ( ch->level - obj->level < 10
+||   get_value(obj->gold_cost,obj->silver_cost,obj->copper_cost) > 
+  ch->level * get_curr_int(ch) * get_curr_wis(ch) )
+
+Around line 5930
+CHANGE:
+if ( ch->level - obj->level < 20
+||   obj->cost > ch->level * get_curr_int(ch) / 5 ) 
+
+TO:
+if ( ch->level - obj->level < 20
+||   get_value(obj->gold_cost,obj->silver_cost,obj->copper_cost) > 
+  ch->level * get_curr_int(ch) / 5 )
+
+Around line 5939
+CHANGE:
+if ( ch->level - obj->level < 5
+||   obj->cost > ch->level * 10 * get_curr_int(ch) * get_curr_wis(ch) )
+
+TO:
+if ( ch->level - obj->level < 5
+||   get_value(obj->gold_cost,obj->silver_cost,obj->copper_cost) > 
+  ch->level * 10 * get_curr_int(ch) * get_curr_wis(ch) )
+
+Around line 5948
+CHANGE:
+if ( ch->level - obj->level < 0
+||   obj->cost > ch->level * 50 * get_curr_int(ch) * get_curr_wis(ch) )
+
+TO:
+if ( ch->level - obj->level < 0
+||   get_value(obj->gold_cost,obj->silver_cost,obj->copper_cost) > 
+  ch->level * 50 * get_curr_int(ch) * get_curr_wis(ch) ) 
+
+Function: spell_create_mob()
+Around line 6093
+AFTER:
+mob->hit	 = mob->max_hit;
+mob->gold	 = 0;
+
+ADD:
+mob->silver = 0;
+mob->copper = 0;
+
+Function: spell_midas_touch()
+Around line 6497
+CHANGE:
+int val;
+
+TO:
+int gval, sval, cval;
+
+Around line 6524
+CHANGE:
+val = obj->cost/2;
+val = UMAX(0, val);
+
+TO:
+gval = obj->gold_cost/10; /* was 2 */
+gval = UMAX(0, gval);
+sval = obj->silver_cost/5;
+sval = UMAX(0, sval);
+cval = obj->copper_cost/2;
+cval = UMAX(0, cval);
+
+Around line 6582
+CHANGE:
+ch->gold += val;
+
+TO:
+ch->gold += gval;
+ch->silver += sval;
+ch->copper += cval;
+	
+Around line 6599
+CHANGE:
+ch->gold += val;
+
+TO:
+ch->gold += gval;
+ch->silver += sval;
+ch->copper += cval;
+
+Around line 6613
+CHANGE:
+ch->gold += val;
+
+TO:
+ch->gold += gval;
+ch->silver += sval;
+ch->copper += cval;
+
+
+File: makeobjs.c
+Function: make_corpse()
+Around line 149
+REMOVE:
+if ( ch->gold > 0 )
+{
+  if ( ch->in_room )
+  {
+  ch->in_room->area->gold_looted += ch->gold;
+  sysdata.global_looted += ch->gold/100;
+  }
+  obj_to_obj( create_money( ch->gold ), corpse );
+  ch->gold = 0;
+}
+
+REPLACE WITH:
+if ( ch->gold > 0 )
+{
+  if ( ch->in_room )
+  {
+  ch->in_room->area->gold_looted += ch->gold;
+  sysdata.global_gold_looted += ch->gold/100;
+  }
+  obj_to_obj( create_money( ch->gold,0 ), corpse );
+  ch->gold = 0;
+}
+if ( ch->silver > 0 )
+{
+  if ( ch->in_room )
+  {
+  ch->in_room->area->silver_looted += ch->silver;
+  sysdata.global_silver_looted += ch->silver/100;
+  }
+  obj_to_obj( create_money( ch->silver,1 ), corpse );
+  ch->silver = 0;
+}
+if ( ch->copper > 0 )
+{
+  if ( ch->in_room )
+  {
+  ch->in_room->area->copper_looted += ch->copper;
+  sysdata.global_copper_looted += ch->copper/100;
+  }
+  obj_to_obj( create_money( ch->copper,2 ), corpse );
+  ch->copper = 0;
+}
+
+Around line 185
+CHANGE:
+corpse->cost     = (-(int)ch->pIndexData->vnum);
+
+TO:
+corpse->gold_cost    = (-(int)ch->pIndexData->vnum);
+corpse->silver_cost  = (-(int)ch->pIndexData->vnum);
+corpse->copper_cost  = (-(int)ch->pIndexData->vnum);
+
+Function: create_money()
+Around line 271
+REMOVE ENTIRE FUNCTION
+
+REPLACE WITH:
+/*
+ * make some coinage
+ * G/S/C support -Druid
+ * type:
+ * 0 = gold
+ * 1 = silver
+ * 2 = copper
+ */
+OBJ_DATA *create_money( int amount, int type )
+{
+    char buf[MAX_STRING_LENGTH];
+    OBJ_DATA *obj;
+
+    if ( amount <= 0 )
+    {
+	bug( "Create_money: zero or negative money %d.", amount );
+	amount = 1;
+    }
+    
+    if( type>3 || type<0)
+    {
+    	bug("Create_money: wrong type: %d!",type);
+    	type=2;
+    }
+
+	if (type ==0)
+	{
+    	if ( amount == 1 )
+    	{
+		obj = create_object( get_obj_index( OBJ_VNUM_GOLD_ONE ), 0 );
+		return obj;
+    	}
+    	else
+    	{
+		obj = create_object( get_obj_index( OBJ_VNUM_GOLD_SOME ), 0 );	
+		sprintf( buf, obj->short_descr, amount );
+		STRFREE( obj->short_descr );
+		obj->short_descr = STRALLOC( buf );
+		obj->value[0]	 = amount;
+		return obj;
+    	}
+	}
+	
+	if (type ==1)
+	{
+    	if ( amount == 1 )
+    	{
+		obj = create_object( get_obj_index( OBJ_VNUM_SILVER_ONE ), 0 );
+		return obj;
+    	}
+    	else
+    	{
+		obj = create_object( get_obj_index( OBJ_VNUM_SILVER_SOME ), 0 );	
+		sprintf( buf, obj->short_descr, amount );
+		STRFREE( obj->short_descr );
+		obj->short_descr = STRALLOC( buf );
+		obj->value[0]	 = amount;
+		return obj;
+    	}
+	}
+	
+	if (type == 2)
+	{
+    	if ( amount == 1 )
+   	 {
+		obj = create_object( get_obj_index( OBJ_VNUM_COPPER_ONE ), 0 );
+		return obj;
+    	}
+    	else
+    	{
+		obj = create_object( get_obj_index( OBJ_VNUM_COPPER_SOME ), 0 );	
+		sprintf( buf, obj->short_descr, amount );
+		STRFREE( obj->short_descr );
+		obj->short_descr = STRALLOC( buf );
+		obj->value[0]	 = amount;
+		return obj;
+    	}
+	}
+	obj = create_object( get_obj_index( OBJ_VNUM_COPPER_ONE ), 0 );
+	return obj;    
+}
+
+
+File: misc.c
+Function: do_fill()
+Around line 189
+REMOVE:
+if ( source->item_type == ITEM_MONEY )
+  {
+  ch->gold += source->value[0];
+  extract_obj( source );
+  }
+
+REPLACE WITH:
+if ( source->item_type == ITEM_GOLD )
+  {
+  ch->gold += source->value[0];
+  extract_obj( source );
+  }
+else if ( source->item_type == ITEM_SILVER )
+  {
+  ch->silver += source->value[0];
+  extract_obj( source );
+  }
+else if ( source->item_type == ITEM_COPPER )
+  {
+  ch->copper += source->value[0];
+  extract_obj( source );
+  }
+
+Around line 279
+CHANGE:
+case ITEM_MONEY:
+
+TO:
+case ITEM_GOLD:
+case ITEM_SILVER:
+case ITEM_COPPER:
+
+Function: do_eat()
+Around line 810
+CHANGE:
+sysdata.upill_val += obj->cost/100;
+
+TO:
+sysdata.upill_val += 
+  get_value(obj->gold_cost,obj->silver_cost,obj->copper_cost)/100;
+
+Function: do_quaff()
+Around line 963
+CHANGE:
+sysdata.upotion_val += obj->cost/100;
+
+TO:
+sysdata.upotion_val += 
+  get_value(obj->gold_cost, obj->silver_cost, obj->copper_cost)/100;
+
+AT THE END OF THE FILE AFTER THE #endif
+ADD:
+/*
+ * Return total value.. in copper
+ */
+int get_value( int gval, int sval, int cval)
+{
+	int tempvalue=0;
+	
+	
+	tempvalue=gval*10000;
+	tempvalue+=sval*100;
+	tempvalue+=cval;
+
+	
+	return tempvalue;
+}
+
+/*
+ * Convert from copper back to g/s/c
+ */
+void conv_currency( CHAR_DATA *ch, int tmpvalue )
+{
+  ch->gold = tmpvalue/10000;
+	tmpvalue=tmpvalue%10000;
+	ch->silver = tmpvalue/100;
+	tmpvalue=tmpvalue%100;		
+	ch->copper = tmpvalue;
+}
+
+
+File: mpxset.c
+Function: do_mposet()
+Around line 1171
+REMOVE:
+if ( !str_cmp( arg2, "cost" ) )
+  {
+  obj->cost = value;
+  return;
+  }
+
+REPLACE WITH:
+/* Cost left for compatibility -Druid */
+if ( !str_cmp( arg2, "cost" ) )
+  {
+	obj->gold_cost = value;
+	return;
+  }
+if ( !str_cmp( arg2, "gcost" ) )
+  {
+  obj->gold_cost = value;
+  return;
+  }
+if ( !str_cmp( arg2, "scost" ) )
+  {
+  obj->silver_cost = value;
+  return;
+  }
+if ( !str_cmp( arg2, "ccost" ) )
+  {
+  obj->copper_cost = value;
+  return;
+  }
+  
+
+File: mud_comm.c
+Function: do_mpstat()
+Around line 117
+CHANGE:
+ch_printf( ch,
+  "Lv: %d.  Class: %d.  Align: %d.  AC: %d.  Gold: %d.  Exp: %d.\n\r",
+  victim->level,       victim->class,        victim->alignment,
+  GET_AC( victim ),    victim->gold,         victim->exp );
+
+TO:
+ch_printf( ch,
+  "Lv: %d.  Class: %d.  Align: %d.  AC: %d.  Exp: %d.\n\r",
+  victim->level,       victim->class,        victim->alignment,
+  GET_AC( victim ),            victim->exp );
+ch_printf( ch,"Gold: %d    Silver: %d   Copper: %d\n\r",
+  victim->gold, victim->silver, victim->copper);
+
+Function: do_mp_deposit()
+Around line 2707
+CHANGE:
+int gold;
+
+TO:
+int gold, money, tmpvalue;
+
+Around line 2722
+CHANGE:
+gold = atoi( arg );
+  if ( gold <= ch->gold && ch->in_room )
+  {
+  ch->gold -= gold;
+  boost_economy( ch->in_room->area, gold );
+  }
+
+TO:
+gold = atoi( arg );
+money = get_value(ch->gold, ch->silver, ch->copper);
+if ( gold <= money && ch->in_room )
+  {
+  tmpvalue = money - gold;
+  conv_currency(ch, tmpvalue);	
+  boost_economy( ch->in_room->area, gold );
+  }
+
+Function: do_mp_withdraw()
+Around line 2742
+CHANGE:
+int gold;
+
+TO:
+int gold, money, tmpvalue;
+
+Around line 2762
+CHANGE:
+ch->gold += gold;
+lower_economy( ch->in_room->area, gold );
+
+TO:
+money=get_value(ch->gold, ch->silver, ch->copper);
+tmpvalue = money + gold;
+conv_currency(ch, tmpvalue);	
+lower_economy( ch->in_room->area, gold );
+
+
+File: mud_prog.c
+Function: mprog_do_ifcheck()
+Around line 951
+AFTER:
+return mprog_veval(chkchar->gold, opr, atoi(rval), mob);
+}
+
+ADD:	
+if ( !str_cmp(chck, "silvamt") )
+  {
+  return mprog_veval(chkchar->silver, opr, atoi(rval), mob);
+  }
+if ( !str_cmp(chck, "coppamt") )
+  {
+  return mprog_veval(chkchar->copper, opr, atoi(rval), mob);
+  }
+
+Function: mprog_bribe_trigger()
+Around line 2409
+CHANGE:
+obj = create_object( get_obj_index( OBJ_VNUM_MONEY_SOME ), 0 );
+
+TO:
+obj = create_object( get_obj_index( OBJ_VNUM_GOLD_SOME ), 0 );
+
+AT THE END OF THE FILE ADD:
+void mprog_bribe_trigger_silver( CHAR_DATA *mob, CHAR_DATA *ch, int amount)
+{
+
+  char        buf[ MAX_STRING_LENGTH ];
+  MPROG_DATA *mprg;
+  OBJ_DATA   *obj;
+
+  if ( IS_NPC( mob )
+      && can_see( mob, ch )
+      && HAS_PROG( mob->pIndexData, BRIBE_SILVER_PROG ) )
+    {
+      /* Don't let a mob trigger itself, nor one instance of a mob
+         trigger another instance. */
+      if ( IS_NPC( ch ) && ch->pIndexData == mob->pIndexData )
+        return;
+
+      obj = create_object( get_obj_index( OBJ_VNUM_SILVER_SOME ), 0 );
+      sprintf( buf, obj->short_descr, amount );
+      STRFREE( obj->short_descr );
+      obj->short_descr = STRALLOC( buf );
+      obj->value[0]    = amount;
+      obj = obj_to_char( obj, mob );
+      mob->silver -= amount;
+
+      for ( mprg = mob->pIndexData->mudprogs; mprg; mprg = mprg->next )
+	if ( ( mprg->type == BRIBE_SILVER_PROG )
+	&& ( amount >= atoi( mprg->arglist ) ) )
+	{
+	    mprog_driver( mprg->comlist, mob, ch, obj, NULL, FALSE );
+	    break;
+	}
+    }
+  
+  return;
+
+}
+
+void mprog_bribe_trigger_copper( CHAR_DATA *mob, CHAR_DATA *ch, int amount)
+{
+
+  char        buf[ MAX_STRING_LENGTH ];
+  MPROG_DATA *mprg;
+  OBJ_DATA   *obj;
+
+  if ( IS_NPC( mob )
+      && can_see( mob, ch )
+      && HAS_PROG( mob->pIndexData, BRIBE_SILVER_PROG ) )
+    {
+      /* Don't let a mob trigger itself, nor one instance of a mob
+         trigger another instance. */
+      if ( IS_NPC( ch ) && ch->pIndexData == mob->pIndexData )
+        return;
+
+      obj = create_object( get_obj_index( OBJ_VNUM_COPPER_SOME ), 0 );
+      sprintf( buf, obj->short_descr, amount );
+      STRFREE( obj->short_descr );
+      obj->short_descr = STRALLOC( buf );
+      obj->value[0]    = amount;
+      obj = obj_to_char( obj, mob );
+      mob->copper -= amount;
+
+      for ( mprg = mob->pIndexData->mudprogs; mprg; mprg = mprg->next )
+	if ( ( mprg->type == BRIBE_SILVER_PROG )
+	&& ( amount >= atoi( mprg->arglist ) ) )
+	{
+	    mprog_driver( mprg->comlist, mob, ch, obj, NULL, FALSE );
+	    break;
+	}
+    }
+  
+  return;
+
+}
+
+
+File: player.c
+Function: do_gold()
+Around line 33
+CHANGE:
+ch_printf( ch,  "You have %s gold pieces.\n\r", num_punct(ch->gold) );
+
+TO:
+ch_printf( ch,  "You have %s gold, ", num_punct(ch->gold) );
+ch_printf( ch,"%s silver",num_punct(ch->silver));
+ch_printf(ch,", and %s copper coins.\n\r",num_punct(ch->copper) );
+
+Function: do_worth()
+Around line 105
+AFTER:
+pager_printf(ch, "|Glory: %-4d |Weight: %-9d |Style: %-13s |Gold: %-14s |\n\r",
+  ch->pcdata->quest_curr, ch->carry_weight, buf, num_punct(ch->gold) );
+
+ADD:
+pager_printf(ch, "|            |Silver: %-9s",
+  num_punct(ch->silver));
+pager_printf(ch, " |Copper: %-13s|                     |\n\r",
+  num_punct(ch->copper));
+
+Function: do_score()
+Around line 324
+CHANGE:
+pager_printf(ch, "GOLD : %-13s    Move: %-5d of %5d   Mdeaths: %-5.5d    AutoSac (%c)\n\r",
+num_punct(ch->gold), ch->move, ch->max_move, ch->pcdata->mdeaths, xIS_SET(ch->act, PLR_AUTOSAC) ? 'X' : ' ');
+
+TO:
+pager_printf(ch, "Move: %-5d of %5d   Mdeaths: %-5.5d    AutoSac (%c)\n\r",
+ch->move, ch->max_move, ch->pcdata->mdeaths, xIS_SET(ch->act, PLR_AUTOSAC) ? 'X' : ' ');
+pager_printf(ch, "Gold: %s  ",num_punct(ch->gold));
+pager_printf(ch, "Silver: %s	",num_punct(ch->silver));
+pager_printf(ch, "Copper: %s\n\r",num_punct(ch->copper));
+
+Function: do_newscore()
+Around line 746
+CHANGE:
+pager_printf_color(ch, "&CGOLD : &Y%-13s    &CMove: &W%-5d &Cof &w%5d   &CMdeaths: &W%5d    &CAutoSac (&W%c&C)\n\r",
+num_punct(ch->gold), ch->move, ch->max_move, ch->pcdata->mdeaths, xIS_SET(ch->act, PLR_AUTOSAC) ? 'X' : ' ');
+
+TO:
+pager_printf_color(ch, "&CMove: &W%-5d &Cof &w%5d   &CMdeaths: &W%5d    &CAutoSac (&W%c&C)\n\r",
+ch->move, ch->max_move, ch->pcdata->mdeaths, xIS_SET(ch->act, PLR_AUTOSAC) ? 'X' : ' ');
+pager_printf_color(ch,"&CGold: &Y%s ",num_punct(ch->gold));
+pager_printf_color(ch,"&CSilver: &Y%s	",num_punct(ch->silver));
+pager_printf_color(ch,"&CCopper: &Y%s\n\r",num_punct(ch->copper));
+
+Function: tiny_affect_loc_name()
+Around line 1032
+AFTER:
+case APPLY_TELEDELAY:		return " TELEDY";
+
+ADD:
+case APPLY_SILVER:      return " SILVER";
+case APPLY_COPPER:      return " COPPER";
+
+Function: do_oldscore()
+Around line 1114
+CHANGE:
+pager_printf( ch,
+  "You have scored %s exp, and have %s gold coins.\n\r",
+  num_punct(ch->exp), num_punct(ch->gold) );
+
+TO:
+pager_printf(ch,"You have scored %s exp, and have ",num_punct(ch->exp));
+pager_printf(ch,"%s gold, ", num_punct(ch->gold) );
+pager_printf(ch,"%s silver, and ",num_punct(ch->silver));
+pager_printf(ch,"%s copper coins.\n\r",num_punct(ch->copper));
+
+
+File: reset.c
+Function: reset_area()
+Around line 1424
+CHANGE:
+obj->cost = 0;
+
+TO:
+obj->gold_cost = 0;
+obj->silver_cost = 0;
+obj->copper_cost = 0;
+
+
+File: save.c
+Function: fwrite_char()
+Around line 299
+AFTER:
+fprintf( fp, "Gold         %d\n",	ch->gold		);
+
+ADD:
+fprintf( fp, "Silver	   %d\n", ch->silver);
+fprintf( fp, "Copper	   %d\n", ch->copper);
+
+Function: fwrite_obj()
+Around line 621
+CHANGE:
+if ( obj->cost != obj->pIndexData->cost )
+  fprintf( fp, "Cost         %d\n",	obj->cost		     );
+  
+TO:
+if ( obj->gold_cost != obj->pIndexData->gold_cost )
+fprintf( fp, "Gold_Cost         %d\n",	obj->gold_cost		     );
+if ( obj->silver_cost != obj->pIndexData->silver_cost )
+fprintf( fp, "Silver_Cost         %d\n",	obj->silver_cost		     );
+if ( obj->copper_cost != obj->pIndexData->copper_cost )
+fprintf( fp, "Copper_Cost         %d\n",	obj->copper_cost		     );
+
+Function: fread_char()
+Around line 1029
+AFTER:
+file_ver = 0;
+killcnt = 0;
+
+ADD:
+ch->silver=0;
+ch->copper=0;
+
+Around line 1201
+BEFORE:
+if ( !strcmp( word, "Council" ) )
+  {
+  ch->pcdata->council_name = fread_string( fp );
+
+ADD:
+KEY("Copper",	ch->copper,	fread_number(fp));
+
+Around line 1513
+AFTER:
+KEY( "Sex",		ch->sex,		fread_number( fp ) );
+KEY( "ShortDescr",	ch->short_descr,	fread_string( fp ) );
+
+ADD:
+KEY( "Silver",	ch->silver,	fread_number(fp));
+
+Function: fread_obj()
+Around line 1868
+CHANGE:
+KEY( "Cost",	obj->cost,		fread_number( fp ) );
+
+TO:
+/* Leave cost for compatibility -Druid */
+KEY( "Cost",	obj->gold_cost,		fread_number( fp ) );
+KEY( "Copper_cost", obj->copper_cost, fread_number( fp ) );
+
+Around line 1997
+BEFORE:
+case 'I':
+  KEY( "ItemType",	obj->item_type,		fread_number( fp ) );
+
+ADD:
+case 'G':
+  KEY( "Gold_cost",	obj->gold_cost,	fread_number(fp ) );
+  break;
+
+Around line 2027
+AFTER:
+case 'S':
+  KEY( "ShortDescr",	obj->short_descr,	fread_string( fp ) );
+
+ADD:
+KEY( "Silver_cost", 	obj->silver_cost,	fread_number( fp ));
+
+
+Around line 2087
+CHANGE:
+obj->cost = obj->pIndexData->cost;
+  
+TO:
+obj->gold_cost = obj->pIndexData->gold_cost;
+obj->silver_cost = obj->pIndexData->silver_cost;
+obj->copper_cost = obj->pIndexData->copper_cost;
+
+
+File: shops.c
+Function: get_cost()
+Around line 313
+CHANGE:
+if ( ch->gold > (ch->level * ch->level * 100000) )
+
+TO:
+if ( get_value(ch->gold, ch->silver, ch->copper) > 
+  (ch->level * ch->level * 100000) )
+
+Around line 323
+CHANGE:
+cost = (int) (obj->cost
+  * UMAX( (pShop->profit_sell+1), pShop->profit_buy+profitmod ) )
+  / 100;
+
+TO:
+cost = (int) (get_value(obj->gold_cost, obj->silver_cost,obj->copper_cost)
+  * UMAX( (pShop->profit_sell+1), pShop->profit_buy+profitmod ) )
+  / 100;
+
+Around line 357
+CHANGE:
+cost = (int) (obj->cost
+  * UMIN( (pShop->profit_buy-1),
+  pShop->profit_sell+profitmod) ) / 100;
+
+TO:
+cost = (int) (get_value(obj->gold_cost, obj->silver_cost,obj->copper_cost)
+  * UMIN( (pShop->profit_buy-1),
+  pShop->profit_sell+profitmod) ) / 100;
+
+Function: get_repaircost()
+Around line 396
+CHANGE:
+cost = (int) (obj->cost * rShop->profit_fix / 1000);
+
+TO:
+cost = (int) (get_value(obj->gold_cost, obj->silver_cost, obj->copper_cost)
+  * rShop->profit_fix / 1000);
+
+Function: do_buy()
+Around line 446
+COMPLETELY REMOVE THIS FUNCTION
+
+REPLACE WITH:
+/*
+ * Gold/Silver/Copper Support -Druid
+ */
+
+void do_buy( CHAR_DATA *ch, char *argument )
+{
+    char arg[MAX_INPUT_LENGTH];
+    int maxgold;
+
+    argument = one_argument( argument, arg );
+
+    if ( arg[0] == '\0' )
+    {
+	send_to_char( "Buy what?\n\r", ch );
+	return;
+    }
+
+    if ( IS_SET(ch->in_room->room_flags, ROOM_PET_SHOP) )
+    {
+	char buf[MAX_STRING_LENGTH];
+	CHAR_DATA *pet;
+	ROOM_INDEX_DATA *pRoomIndexNext;
+	ROOM_INDEX_DATA *in_room;
+	int tmpvalue = 0;
+	int wealth = 0;
+	int gcost, scost, ccost = 0 ;
+
+	if ( IS_NPC(ch) )
+	    return;
+
+	pRoomIndexNext = get_room_index( ch->in_room->vnum + 1 );
+	if ( !pRoomIndexNext )
+	{
+	    bug( "Do_buy: bad pet shop at vnum %d.", ch->in_room->vnum );
+	    send_to_char( "Sorry, you can't buy that here.\n\r", ch );
+	    return;
+	}
+
+	in_room     = ch->in_room;
+	ch->in_room = pRoomIndexNext;
+	pet         = get_char_room( ch, arg );
+	ch->in_room = in_room;
+
+	if ( pet == NULL || !IS_NPC( pet ) || !xIS_SET(pet->act, ACT_PET) )
+	{
+	    send_to_char( "Sorry, you can't buy that here.\n\r", ch );
+	    return;
+	}
+
+	if ( xIS_SET(ch->act, PLR_BOUGHT_PET) )
+	{
+	    send_to_char( "You already bought one pet this level.\n\r", ch );
+	    return;
+	}
+  wealth = get_value(ch->gold, ch->silver ,ch->copper);
+  maxgold = 10 * pet->level * pet->level;
+	if (wealth < maxgold )
+	{
+	    send_to_char( "You can't afford it.\n\r", ch );
+	    return;
+	}
+
+	if ( ch->level < pet->level )
+	{
+	    send_to_char( "You're not ready for this pet.\n\r", ch );
+	    return;
+	}
+	/* convert cost to g/s/c */
+	tmpvalue = maxgold;
+	gcost = tmpvalue/10000;
+	tmpvalue = tmpvalue%10000;
+	scost = tmpvalue/100;
+	tmpvalue = tmpvalue%100;
+	ccost = tmpvalue;
+	if(ch->gold < gcost || ch->silver < scost || ch->copper < ccost){
+    tmpvalue = wealth - maxgold;
+		conv_currency( ch, tmpvalue);
+    send_to_char("You hand your coins to the shopkeeper who quickly makes change.\n\r",ch);
+	} else {
+	  ch->gold -= gcost;
+	  ch->silver -= scost;
+	  ch->copper -= ccost;
+	  }
+	boost_economy( ch->in_room->area, maxgold );
+	pet		= create_mobile( pet->pIndexData );
+	xSET_BIT(ch->act, PLR_BOUGHT_PET);
+	xSET_BIT(pet->act, ACT_PET);
+	xSET_BIT(pet->affected_by, AFF_CHARM);
+/*	This isn't needed anymore since you can order your pets --Shaddai
+	xSET_BIT(pet->affected_by, AFF_CHARM);
+*/
+
+	argument = one_argument( argument, arg );
+	if ( arg[0] != '\0' )
+	{
+	    sprintf( buf, "%s %s", pet->name, arg );
+	    STRFREE( pet->name );
+	    pet->name = STRALLOC( buf );
+	}
+
+	sprintf( buf, "%sA neck tag says 'I belong to %s'.\n\r",
+	    pet->description, ch->name );
+	STRFREE( pet->description );
+	pet->description = STRALLOC( buf );
+
+	char_to_room( pet, ch->in_room );
+	add_follower( pet, ch );
+	send_to_char( "Enjoy your pet.\n\r", ch );
+    	act( AT_ACTION, "$n bought $N as a pet.", ch, NULL, pet, TO_ROOM );
+	return;
+    }
+    else
+    {
+	CHAR_DATA *keeper;
+	OBJ_DATA *obj;
+	int gcost = 0;
+	int scost = 0;
+	int ccost = 0;
+	int tvalue = 0;
+	int tmpvalue = 0;
+	int plrmoney = 0;
+	int noi = 1;		/* Number of items */
+	sh_int mnoi = 20;	/* Max number of items to be bought at once */
+
+	if ( ( keeper = find_keeper( ch ) ) == NULL )
+	    return;
+
+	maxgold = keeper->level * keeper->level * 50000;
+
+	if ( is_number( arg ) )
+	{
+	    noi = atoi( arg );
+	    argument = one_argument( argument, arg );
+	    if ( noi > mnoi )
+	    {
+		act( AT_TELL, "$n tells you 'I don't sell that many items at"
+		  " once.'", keeper, NULL, ch, TO_VICT );
+		ch->reply = keeper;
+		return;
+	    }
+	}
+
+	obj  = get_obj_carry( keeper, arg );
+	tvalue = ( get_cost( ch, keeper, obj, TRUE)*noi);
+	tmpvalue = tvalue;
+	
+	gcost = tmpvalue/10000;
+	tmpvalue=tmpvalue%10000;
+	scost = tmpvalue/100;
+	tmpvalue=tmpvalue%100;		
+	ccost = tmpvalue;
+	
+	
+	if ( (tvalue <=0) || !can_see_obj( ch, obj ) )
+	{
+	    act( AT_TELL, "$n tells you 'I don't sell that -- try 'list'.'",
+		keeper, NULL, ch, TO_VICT );
+	    ch->reply = keeper;
+	    return;
+	}
+
+	if ( !IS_OBJ_STAT( obj, ITEM_INVENTORY ) && ( noi > 1 ) )
+	{
+	    interpret( keeper, "laugh" );
+	    act( AT_TELL, "$n tells you 'I don't have enough of those in stock"
+	     " to sell more than one at a time.'", keeper, NULL, ch, TO_VICT );
+	    ch->reply = keeper;
+	    return;
+	}
+	plrmoney = get_value(ch->gold,ch->silver,ch->copper);
+	if ( plrmoney < tvalue )
+	{
+	    act( AT_TELL, "$n tells you 'You can't afford to buy $p.'",
+		keeper, obj, ch, TO_VICT );
+	    ch->reply = keeper;
+	    return;
+	}
+	
+	if ( obj->level > ch->level )
+	{
+	    act( AT_TELL, "$n tells you 'You can't use $p yet.'",
+		keeper, obj, ch, TO_VICT );
+	    ch->reply = keeper;
+	    return;
+	}
+
+	if ( IS_OBJ_STAT(obj, ITEM_PROTOTYPE) 
+             && get_trust( ch ) < LEVEL_IMMORTAL )
+	{
+	    act( AT_TELL, "$n tells you 'This is a only a prototype!  I can't sell you that...'", 
+		keeper, NULL, ch, TO_VICT );
+      	    ch->reply = keeper;
+	    return;
+	}
+
+	if ( ch->carry_number + get_obj_number( obj ) > can_carry_n( ch ) )
+	{
+	    send_to_char( "You can't carry that many items.\n\r", ch );
+	    return;
+	}
+
+	if ( ch->carry_weight + ( get_obj_weight( obj ) * noi )
+		+ (noi > 1 ? 2 : 0) > can_carry_w( ch ) )
+	{
+	    send_to_char( "You can't carry that much weight.\n\r", ch );
+	    return;
+	}
+
+	if ( noi == 1 )
+	{
+	    act( AT_ACTION, "$n buys $p.", ch, obj, NULL, TO_ROOM );
+    	    act( AT_ACTION, "You buy $p.", ch, obj, NULL, TO_CHAR );
+	}
+        else
+	{
+	    sprintf( arg, "$n buys %d $p%s.", noi,
+		( obj->short_descr[strlen(obj->short_descr)-1] == 's'
+		? "" : "s" ) );
+	    act( AT_ACTION, arg, ch, obj, NULL, TO_ROOM );
+	    sprintf( arg, "You buy %d $p%s.", noi,
+		( obj->short_descr[strlen(obj->short_descr)-1] == 's'
+		? "" : "s" ) );
+	    act( AT_ACTION, arg, ch, obj, NULL, TO_CHAR );
+	    act( AT_ACTION, "$N puts them into a bag and hands it to you.",
+		ch, NULL, keeper, TO_CHAR );
+	}
+	
+
+		if(ch->gold < gcost || ch->silver < scost || ch->copper < ccost){
+    plrmoney = get_value(ch->gold, ch->silver, ch->copper);
+    plrmoney-=tvalue;
+		conv_currency( ch, plrmoney);
+    send_to_char("You hand your coins to the shopkeeper who quickly makes change.\n\r",ch);
+	} else {
+	  ch->gold -= gcost;
+	  ch->silver -= scost;
+	  ch->copper -= ccost;
+	  }
+	keeper->silver += scost;
+	keeper->gold += gcost;
+	keeper->copper += ccost;
+
+			
+  plrmoney = get_value(keeper->gold, keeper->silver, keeper->copper);
+	if ( plrmoney > maxgold )
+	{
+	    boost_economy( keeper->in_room->area, plrmoney - maxgold/2 );
+	    tmpvalue = maxgold/2;
+			conv_currency(keeper, tmpvalue);
+	    act( AT_ACTION, "$n puts some coins into a large safe.", keeper, NULL, NULL, TO_ROOM );
+	}
+
+	if ( IS_OBJ_STAT( obj, ITEM_INVENTORY ) )
+	{
+	    OBJ_DATA *buy_obj, *bag;
+
+	    buy_obj = create_object( obj->pIndexData, obj->level );
+
+	    /*
+	     * Due to grouped objects and carry limitations in SMAUG
+	     * The shopkeeper gives you a bag with multiple-buy,
+	     * and also, only one object needs be created with a count
+	     * set to the number bought.		-Thoric
+	     */
+	    if ( noi > 1 )
+	    {
+		bag = create_object( get_obj_index( OBJ_VNUM_SHOPPING_BAG ), 1 );
+		xSET_BIT(bag->extra_flags, ITEM_GROUNDROT);
+		bag->timer = 10; /* Blodkai, 4/97 */
+		/* perfect size bag ;) */
+		bag->value[0] = bag->weight + (buy_obj->weight * noi);
+		buy_obj->count = noi;
+		obj->pIndexData->count += (noi - 1);
+		numobjsloaded += (noi - 1);
+		obj_to_obj( buy_obj, bag );
+		obj_to_char( bag, ch );
+	    }
+	    else
+		obj_to_char( buy_obj, ch );
+	}
+        else
+	{
+	    obj_from_char( obj );
+	    obj_to_char( obj, ch );
+	}
+
+	return;
+    }
+}
+
+Function: do_list()
+Around line 757
+AFTER:
+bool found;
+
+ADD:
+int gcost, scost, ccost, tmpvalue;
+
+Around line 780
+CHANGE:
+pager_printf( ch, "[%2d] %8d - %s\n\r",
+  pet->level,
+  10 * pet->level * pet->level,
+  pet->short_descr );
+
+TO:
+tmpvalue = 10 * pet->level * pet->level;
+gcost = tmpvalue/10000;
+tmpvalue=tmpvalue%10000;
+scost = tmpvalue/100;
+tmpvalue=tmpvalue%100;		
+ccost = tmpvalue;
+pager_printf( ch, "[%2d] %4dg %2ds %2dc - %s\n\r",
+pet->level, gcost,scost,ccost, pet->short_descr );
+
+Around line 803
+AFTER:
+int lower, upper;
+
+ADD:
+int gcost = 0;
+int scost = 0;
+int ccost = 0;
+int tvalue = 0;
+int tmpvalue = 0;
+
+Around line 846
+CHANGE:
+if ( obj->wear_loc == WEAR_NONE
+  &&   can_see_obj( ch, obj )
+  && ( cost = get_cost( ch, keeper, obj, TRUE ) ) > 0
+  && ( arg[0] == '\0' || nifty_is_name( arg, obj->name ) ) )
+
+TO:
+tvalue=get_cost(ch,keeper,obj, TRUE);
+tmpvalue = tvalue;		
+gcost = tmpvalue/10000;
+tmpvalue=tmpvalue%10000;	
+scost = tmpvalue/100;
+tmpvalue=tmpvalue%100;		
+ccost = tmpvalue;
+if ( obj->wear_loc == WEAR_NONE
+  &&   can_see_obj( ch, obj )
+  && ((gcost>0)||(scost>0)||(ccost>0) )
+  && ( arg[0] == '\0' || nifty_is_name( arg, obj->name ) ) )
+  
+Around line 861
+CHANGE:
+send_to_pager( "[Lv Price] Item\n\r", ch );
+
+TO:
+send_to_pager( "[Lv Price G/S/C] Item\n\r", ch );
+
+Around line 878
+CHANGE:
+pager_printf( ch, "[%2d %5d] %s.\n\r",
+  obj->level, cost, capitalize( obj->short_descr ) );
+
+TO:
+pager_printf( ch, "[%2d %5dg/%3ds/%3dc] %s.\n\r",
+  obj->level, gcost, scost, ccost, capitalize( obj->short_descr ) );
+
+Function: do_sell()
+Around line 901
+COMPLETELY REMOVE THIS FUNCTION
+
+REPLACE WITH:
+/*
+ * Gold/Silver/Copper Support -Druid
+ */
+void do_sell( CHAR_DATA *ch, char *argument )
+{
+    char buf[MAX_STRING_LENGTH];
+    char arg[MAX_INPUT_LENGTH];
+    CHAR_DATA *keeper;
+    OBJ_DATA *obj;
+    int tvalue =0;
+    int tmpvalue=0;
+    int gcost =0;
+    int scost=0;
+    int ccost =0;
+    int mobmoney = 0;
+    
+
+    one_argument( argument, arg );
+
+    if ( arg[0] == '\0' )
+    {
+	send_to_char( "Sell what?\n\r", ch );
+	return;
+    }
+
+    if ( ( keeper = find_keeper( ch ) ) == NULL )
+	return;
+
+    if ( ( obj = get_obj_carry( ch, arg ) ) == NULL )
+    {
+	act( AT_TELL, "$n tells you 'You don't have that item.'",
+		keeper, NULL, ch, TO_VICT );
+	ch->reply = keeper;
+	return;
+    }
+	/* Bug report and solution thanks to animal@netwin.co.nz */
+    if ( !can_see_obj( keeper, obj) ) {
+        send_to_char("What are you trying to sell me? I don't buy thin air!\n\r", ch );
+        return;
+    }
+    if ( !can_drop_obj( ch, obj ) )
+    {
+	send_to_char( "You can't let go of it!\n\r", ch );
+	return;
+    }
+
+    if ( obj->timer > 0 )
+    {
+	act( AT_TELL, "$n tells you, '$p is depreciating in value too quickly...'", keeper, obj, ch, TO_VICT );
+	return;
+    }
+
+	tvalue=get_cost(ch,keeper,obj, FALSE);
+     	tmpvalue = tvalue;		
+			gcost = tmpvalue/10000;
+			tmpvalue=tmpvalue%10000;	
+			scost = tmpvalue/100;
+			tmpvalue=tmpvalue%100;		
+			ccost = tmpvalue;
+	
+    if ( tvalue <=0)
+    {
+	act( AT_ACTION, "$n looks uninterested in $p.", keeper, obj, ch, TO_VICT );
+	return;
+    }
+    mobmoney = get_value(keeper->gold, keeper->silver, keeper->copper);
+    if (tvalue >= mobmoney)
+    {
+    	act( AT_TELL, "$n tells you, '$p is worth more money than I have...'", keeper,obj,ch,TO_VICT);
+    	return;
+    	}
+
+    separate_obj( obj );
+    act( AT_ACTION, "$n sells $p.", ch, obj, NULL, TO_ROOM );
+    if(gcost >0 && scost >0 && ccost >0)
+    sprintf( buf, "You sell $p for %d gold, %d silver, %d copper coins.",gcost,scost,ccost);
+	else if (gcost > 0 && scost >0 && ccost <= 0)
+	 sprintf( buf, "You sell $p for %d gold, and %d silver coins.",gcost,scost);
+	else if(gcost >0 && scost <=0 && ccost <=0)
+    sprintf( buf, "You sell $p for %d gold coin%s.",
+	gcost, gcost == 1 ? "" : "s" );
+	else if(gcost <=0 && scost >0 && ccost <=0)
+    sprintf( buf, "You sell $p for %d silver coin%s.",
+	scost, scost == 1 ? "" : "s" );
+	else if(gcost <=0 && scost <=0 && ccost >0)
+    sprintf( buf, "You sell $p for %d copper coin%s.",
+	ccost, ccost == 1 ? "" : "s" );
+	else if(gcost <=0 && scost >0 && ccost >0)
+    sprintf( buf, "You sell $p for %d silver, and %d copper coins.",
+	scost,ccost);
+	else if(gcost >0 && scost <=0 && ccost >0)
+    sprintf( buf, "You sell $p for %d gold, and %d copper coins.",
+	gcost,ccost);
+	else sprintf( buf, "Error, in if check!");
+    act( AT_ACTION, buf, ch, obj, NULL, TO_CHAR );
+    ch->gold     += gcost;
+    ch->silver	+= scost;
+    ch->copper	+= ccost;
+	mobmoney = get_value(keeper->gold,keeper->silver,keeper->copper);
+	mobmoney-=tvalue;   
+	conv_currency(keeper, mobmoney);
+  if ( keeper->gold < 0 )
+	keeper->gold = 0;
+	if (keeper->silver < 0 )
+	keeper->silver=0;
+	if(keeper->copper < 0 )
+	keeper->copper=0;
+    if ( obj->item_type == ITEM_TRASH )
+	extract_obj( obj );
+    else
+    {
+	obj_from_char( obj );
+	obj_to_char( obj, keeper );
+    }
+
+    return;
+}
+
+
+Function: do_value()
+Around line 1026
+AFTER:
+OBJ_DATA *obj;
+
+ADD:
+int tvalue = 0;
+int tmpvalue = 0;
+int gcost=0;
+int scost=0;
+int ccost=0;
+
+Around line 1049
+AFTER:
+send_to_char( "You can't let go of it!\n\r", ch );
+  return;
+  }
+
+ADD:
+tvalue=get_cost(ch,keeper,obj, FALSE);
+  tmpvalue = tvalue;	
+  gcost = tmpvalue/10000;
+  tmpvalue=tmpvalue%10000;			
+  scost = tmpvalue/100;
+  tmpvalue=tmpvalue%100;		
+  ccost = tmpvalue;
+
+Around line 1061
+CHANGE:
+if ( ( cost = get_cost( ch, keeper, obj, FALSE ) ) <= 0 )
+
+TO:
+if( tvalue <= 0 )
+
+Around line 1067
+REMOVE:
+sprintf( buf, "$n tells you 'I'll give you %d gold coins for $p.'", cost );
+
+REPLACE WITH:
+if( gcost > 0 && scost > 0 && ccost > 0)
+sprintf( buf, "$n tells you 'I'll give you %d gold, %d silver, and %d copper coins for $p.'",
+  gcost, scost, ccost );
+else if( gcost > 0 && scost > 0 && ccost <= 0)
+sprintf( buf, "$n tells you 'I'll give you %d gold, and %d silver coins for $p.'",
+  gcost, scost );
+else if( gcost > 0 && scost <= 0 && ccost <= 0)
+sprintf( buf, "$n tells you 'I'll give you %d gold coins for $p.'",gcost);
+else if( gcost <= 0 && scost > 0 && ccost <= 0)
+sprintf( buf, "$n tells you 'I'll give you %d silver coins for $p.'",scost );
+else if( gcost <= 0 && scost <= 0 && ccost > 0)
+sprintf( buf, "$n tells you 'I'll give you %d copper coins for $p.'",ccost ); 
+else if( gcost <= 0 && scost > 0 && ccost > 0)
+sprintf( buf, "$n tells you 'I'll give you %d silver, and %d copper coins for $p.'",
+  scost, ccost );
+else if( gcost > 0 && scost <= 0 && ccost > 0)
+sprintf( buf, "$n tells you 'I'll give you %d gold, and %d copper coins for $p.'",
+  gcost, ccost );
+else sprintf(buf,"Error in ifcheck report to Ddruid");
+
+Function: repair_one_obj()
+Around line 1095
+COMPLETELY REMOVE THIS FUNCTION:
+
+REPLACE WITH:
+/*
+ * Repair a single object. Used when handling "repair all" - Gorog
+ * Support for Gold/Silver/Copper -Druid
+ */
+void repair_one_obj( CHAR_DATA *ch, CHAR_DATA *keeper, OBJ_DATA *obj,
+                 char *arg, int maxgold, char *fixstr, char*fixstr2 )
+{
+   char buf[MAX_STRING_LENGTH];
+   int cost;
+   int gcost=0;
+   int scost=0;
+   int ccost=0;
+   int plrmoney=0;
+   int tmpvalue=0;
+   
+   plrmoney=get_value(ch->gold, ch->silver, ch->copper);
+   cost=get_repaircost( keeper, obj );
+   	
+	tmpvalue = cost;
+	if(!str_cmp("all",arg)) tmpvalue=11*tmpvalue/10;
+	gcost = tmpvalue/10000;
+	tmpvalue=tmpvalue%10000;
+	scost = tmpvalue/100;
+	tmpvalue=tmpvalue%100;		
+	ccost = tmpvalue;
+
+   if ( !can_drop_obj( ch, obj ) )
+       ch_printf( ch, "You can't let go of %s.\n\r", obj->name );
+   else if ( cost < 0 )
+   {
+       if (cost != -2)
+       act( AT_TELL, "$n tells you, 'Sorry, I can't do anything with $p.'", 
+            keeper, obj, ch, TO_VICT );
+       else
+	  act( AT_TELL, "$n tells you, '$p looks fine to me!'", keeper, obj, ch, TO_VICT );
+   }
+               /* "repair all" gets a 10% surcharge - Gorog */
+
+   else if ( (cost = strcmp("all",arg) ? cost : 11*cost/10) > plrmoney )
+   {
+   	if( gcost > 0 && scost > 0 && ccost > 0)
+     sprintf( buf,
+       "$N tells you, 'It will cost %d gold, %d silver, and %d copper coins to %s %s...'", gcost,
+        scost,ccost, fixstr, obj->name );
+    else if( gcost > 0 && scost > 0 && ccost <= 0)
+     sprintf( buf, "$N tells you, 'It will cost %d gold, and %d silver coins to %s %s...'", 
+     gcost, scost, fixstr, obj->name );
+    else if( gcost > 0 && scost <= 0 && ccost <= 0)
+     sprintf( buf,"$N tells you, 'It will cost %d gold coin%s to %s %s...'",
+      gcost,gcost == 1 ? "" : "s", fixstr, obj->name );
+    else if( gcost <= 0 && scost > 0 && ccost <= 0)
+     sprintf( buf,"$N tells you, 'It will cost %d silver coin%s to %s %s...'",
+     scost,scost == 1 ? "" : "s", fixstr, obj->name );
+    else if( gcost <= 0 && scost <= 0 && ccost > 0)
+      sprintf( buf, "$N tells you, 'It will cost %d copper coin%s to %s %s...'",
+      ccost,ccost == 1 ? "" : "s", fixstr, obj->name );
+    else if( gcost <= 0 && scost > 0 && ccost > 0)
+     sprintf( buf, "$N tells you, 'It will cost %d silver, and %d copper coins to %s %s...'",
+        scost,ccost, fixstr, obj->name );
+    else if( gcost > 0 && scost <= 0 && ccost > 0)
+     sprintf( buf, "$N tells you, 'It will cost %d gold, and %d copper coins to %s %s...'", gcost,
+        ccost,fixstr, obj->name );
+    else sprintf(buf,"Error in ifcheck report to Ddruid");
+      act( AT_TELL, buf, ch, NULL, keeper, TO_CHAR );
+      act( AT_TELL, "$N tells you, 'Which I see you can't afford.'", ch,
+              NULL, keeper, TO_CHAR );
+   }
+   else
+   {
+      sprintf( buf, "$n gives $p to $N, who quickly %s it.", fixstr2 );
+      act( AT_ACTION, buf, ch, obj, keeper, TO_ROOM );
+      if( gcost > 0 && scost > 0 && ccost > 0)
+      sprintf( buf, "$N charges you %d gold, %d silver, and %d copper coins to %s $p.",
+        gcost,scost,ccost,fixstr );
+      else if( gcost > 0 && scost > 0 && ccost <= 0)
+      sprintf( buf, "$N charges you %d gold, and %d silver coins to %s $p.",
+        gcost,scost,fixstr );
+      else if( gcost > 0 && scost <= 0 && ccost <= 0)
+      sprintf( buf, "$N charges you %d gold coin%s to %s $p.",
+        gcost,gcost == 1 ? "" : "s", fixstr );
+      else if( gcost <= 0 && scost > 0 && ccost <=0)
+      sprintf( buf, "$N charges you %d silver coin%s to %s $p.",
+        scost,scost == 1 ? "" : "s", fixstr );
+      else if( gcost <=0 && scost <= 0 && ccost > 0)
+      sprintf( buf, "$N charges you %d copper coin%s to %s $p.",
+        ccost, ccost == 1 ? "" : "s", fixstr );
+      else if( gcost <= 0 && scost > 0 && ccost > 0)
+      sprintf( buf, "$N charges you %d silver, and %d copper coins to %s $p.",
+        scost,ccost,fixstr );
+      else if( gcost > 0 && scost <= 0 && ccost > 0)
+      sprintf( buf, "$N charges you %d gold, and %d copper coinss to %s $p.",
+        gcost,ccost, fixstr );
+      else sprintf(buf,"Error in ifcheck report to Ddruid");
+      act( AT_ACTION, buf, ch, obj, keeper, TO_CHAR );
+    if(ch->gold < gcost || ch->silver < scost || ch->copper < ccost){
+    plrmoney = get_value(ch->gold, ch->silver, ch->copper);
+    plrmoney-=cost;
+		conv_currency( ch, plrmoney);
+    send_to_char("You hand your coins to the shopkeeper who quickly makes change.\n\r",ch);
+	  } else {
+	  ch->gold -= gcost;
+	  ch->silver -= scost;
+	  ch->copper -= ccost;
+	  }
+      keeper->gold += gcost;
+      keeper->silver += scost;
+      keeper->copper += ccost;
+      if ( keeper->gold < 0 )
+          keeper->gold = 0;
+      else       
+      if ( plrmoney > maxgold )
+      {
+        plrmoney = get_value(keeper->gold, keeper->silver, keeper->copper);
+          boost_economy( keeper->in_room->area, plrmoney - maxgold/2 );
+          tmpvalue = maxgold/2;	
+			    conv_currency(keeper, tmpvalue);
+          act( AT_ACTION, "$n puts some coins into a large safe.", keeper, 
+		NULL, NULL, TO_ROOM );
+      }
+    
+      switch ( obj->item_type )
+      {
+          default:
+            send_to_char( "For some reason, you think you got ripped off...\n\r", ch);
+            break;
+          case ITEM_ARMOR:
+            obj->value[0] = obj->value[1];
+            break;
+          case ITEM_WEAPON:
+            obj->value[0] = INIT_WEAPON_CONDITION;
+            break;
+          case ITEM_WAND:
+          case ITEM_STAFF:
+            obj->value[2] = obj->value[1];
+            break;
+      }
+
+      oprog_repair_trigger( ch, obj );
+   }
+}
+
+Function: appraise_all()
+Around line 1292
+COMPLETELY REMOVE THIS FUNCTION:
+
+REPLACE WITH:
+/*
+ * Gold/Silver/Copper Support -Druid
+ */
+void appraise_all( CHAR_DATA *ch, CHAR_DATA *keeper, char *fixstr )
+{
+    OBJ_DATA *obj;
+    char buf[MAX_STRING_LENGTH], *pbuf=buf;
+    int cost=0, total=0;
+    int gcost=0, scost=0, ccost=0, tmpvalue=0;
+
+    for ( obj = ch->first_carrying; obj != NULL ; obj = obj->next_content )
+    {
+        if ( obj->wear_loc  == WEAR_NONE
+        &&   can_see_obj( ch, obj )
+        && ( obj->item_type == ITEM_ARMOR
+        ||   obj->item_type == ITEM_WEAPON
+        ||   obj->item_type == ITEM_WAND
+        ||   obj->item_type == ITEM_STAFF ) )
+
+            if ( !can_drop_obj( ch, obj ) )
+            ch_printf( ch, "You can't let go of %s.\n\r", obj->name );
+            else if ( ( cost = get_repaircost( keeper, obj ) ) < 0 )
+            {
+               if (cost != -2)
+               act( AT_TELL,
+                    "$n tells you, 'Sorry, I can't do anything with $p.'",
+                    keeper, obj, ch, TO_VICT );
+               else
+               act( AT_TELL, "$n tells you, '$p looks fine to me!'",
+                    keeper, obj, ch, TO_VICT );
+            }
+            else 
+            {
+    tmpvalue = cost;
+	  gcost = tmpvalue/10000;
+	  tmpvalue=tmpvalue%10000;
+	  scost = tmpvalue/100;
+	  tmpvalue=tmpvalue%100;		
+	  ccost = tmpvalue;        
+    if( gcost > 0 && scost > 0 && ccost > 0)
+      sprintf( buf,
+      "$N tells you, 'It will cost %d gold, %d silver, and %d copper coins to %s %s.'", gcost,
+      scost,ccost, fixstr, obj->name );
+    else if( gcost > 0 && scost > 0 && ccost <= 0)
+      sprintf( buf, "$N tells you, 'It will cost %d gold, and %d silver coins to %s %s.'", 
+      gcost, scost, fixstr, obj->name );
+    else if( gcost > 0 && scost <= 0 && ccost <= 0)
+      sprintf( buf,"$N tells you, 'It will cost %d gold coin%s to %s %s.'",
+      gcost,gcost == 1 ? "" : "s", fixstr, obj->name );
+    else if( gcost <= 0 && scost > 0 && ccost <= 0)
+      sprintf( buf,"$N tells you, 'It will cost %d silver coin%s to %s %s.'",
+      scost,scost == 1 ? "" : "s", fixstr, obj->name );
+    else if( gcost <= 0 && scost <= 0 && ccost > 0)
+      sprintf( buf, "$N tells you, 'It will cost %d copper coin%s to %s %s.'",
+      ccost,ccost == 1 ? "" : "s", fixstr, obj->name );
+    else if( gcost <= 0 && scost > 0 && ccost > 0)
+      sprintf( buf, "$N tells you, 'It will cost %d silver, and %d copper coins to %s %s.'",
+      scost,ccost, fixstr, obj->name );
+    else if( gcost > 0 && scost <= 0 && ccost > 0)
+      sprintf( buf, "$N tells you, 'It will cost %d gold, and %d copper coins to %s %s.'", gcost,
+      ccost,fixstr, obj->name );
+            
+            
+            act( AT_TELL, buf, ch, NULL, keeper, TO_CHAR );
+            total += cost;
+            }
+    }
+    if ( total > 0 )
+    {
+       send_to_char ("\n\r", ch);
+    tmpvalue = total;
+	  gcost = tmpvalue/10000;
+	  tmpvalue=tmpvalue%10000;
+	  scost = tmpvalue/100;
+	  tmpvalue=tmpvalue%100;		
+	  ccost = tmpvalue;
+	
+    if( gcost > 0 && scost > 0 && ccost > 0)
+      sprintf( buf,
+      "$N tells you, 'It will cost %d gold, %d silver, and %d copper coins in total.'", gcost,
+      scost,ccost );
+    else if( gcost > 0 && scost > 0 && ccost <= 0)
+      sprintf( buf, "$N tells you, 'It will cost %d gold, and %d silver coins in total.'", 
+      gcost, scost );
+    else if( gcost > 0 && scost <= 0 && ccost <= 0)
+      sprintf( buf,"$N tells you, 'It will cost %d gold coin%s in total.'",
+      gcost,gcost == 1 ? "" : "s" );
+    else if( gcost <= 0 && scost > 0 && ccost <= 0)
+      sprintf( buf,"$N tells you, 'It will cost %d silver coin%s in total.'",
+      scost,scost == 1 ? "" : "s" );
+    else if( gcost <= 0 && scost <= 0 && ccost > 0)
+      sprintf( buf, "$N tells you, 'It will cost %d copper coin%s in total.'",
+      ccost,ccost == 1 ? "" : "s" );
+    else if( gcost <= 0 && scost > 0 && ccost > 0)
+      sprintf( buf, "$N tells you, 'It will cost %d silver, and %d copper coins in total.'",
+      scost,ccost );
+    else if( gcost > 0 && scost <= 0 && ccost > 0)
+      sprintf( buf, "$N tells you, 'It will cost %d gold, and %d copper coins in total.'", gcost,
+      ccost );
+       act( AT_TELL, buf, ch, NULL, keeper, TO_CHAR );
+  if ( total > get_value(ch->gold,ch->silver,ch->copper ))
+  act( AT_TELL, "$N tells you, 'Which I see you can't afford.'", ch,NULL, keeper, TO_CHAR );
+       strcpy( pbuf,
+       "$N tells you, 'Remember there is a 10% surcharge for repair all.'");
+       act( AT_TELL, buf, ch, NULL, keeper, TO_CHAR );
+    }
+}
+
+Function: do_appraise()
+Around line 1400
+COMPLETELY REMOVE THIS FUNCTION:
+
+REPLACE WITH:
+/*
+ * Gold/Silver/Copper Support -Druid
+ */
+void do_appraise( CHAR_DATA *ch, char *argument )
+{
+    char buf[MAX_STRING_LENGTH];
+    char arg[MAX_INPUT_LENGTH];
+    CHAR_DATA *keeper;
+    OBJ_DATA *obj;
+    int cost;
+    char *fixstr;
+    int gcost=0, scost=0, ccost=0, tmpvalue=0;
+
+    one_argument( argument, arg );
+
+    if ( arg[0] == '\0' )
+    {
+	send_to_char( "Appraise what?\n\r", ch );
+	return;
+    }
+
+    if ( ( keeper = find_fixer( ch ) ) == NULL )
+	return;
+
+    switch( keeper->pIndexData->rShop->shop_type )
+    {
+	default:
+	case SHOP_FIX:
+	  fixstr  = "repair";
+	  break;
+	case SHOP_RECHARGE:
+	  fixstr  = "recharge";
+	  break;
+    }
+
+    if ( !strcmp( arg, "all") )
+    {
+    appraise_all( ch, keeper, fixstr );
+    return;
+    }
+
+    if ( ( obj = get_obj_carry( ch, arg ) ) == NULL )
+    {
+	act( AT_TELL, "$n tells you 'You don't have that item.'",
+		keeper, NULL, ch, TO_VICT );
+	ch->reply = keeper;
+	return;
+    }
+
+    if ( !can_drop_obj( ch, obj ) )
+    {
+	send_to_char( "You can't let go of it.\n\r", ch );
+	return;
+    }
+
+    if ( ( cost = get_repaircost( keeper, obj ) ) < 0 )
+    {
+      if (cost != -2)
+	act( AT_TELL, "$n tells you, 'Sorry, I can't do anything with $p.'", keeper, obj, ch, TO_VICT );
+      else
+	act( AT_TELL, "$n tells you, '$p looks fine to me!'", keeper, obj, ch, TO_VICT );
+      return;
+    }
+    tmpvalue = cost;
+	  gcost = tmpvalue/10000;
+	  tmpvalue=tmpvalue%10000;
+	  scost = tmpvalue/100;
+	  tmpvalue=tmpvalue%100;		
+	  ccost = tmpvalue;  
+    if( gcost > 0 && scost > 0 && ccost > 0)
+      sprintf( buf,
+      "$N tells you, 'It will cost %d gold, %d silver, and %d copper coins to %s %s.'", gcost,
+      scost,ccost, fixstr, obj->name );
+    else if( gcost > 0 && scost > 0 && ccost <= 0)
+      sprintf( buf, "$N tells you, 'It will cost %d gold, and %d silver coins to %s %s.'", 
+      gcost, scost, fixstr, obj->name );
+    else if( gcost > 0 && scost <= 0 && ccost <= 0)
+      sprintf( buf,"$N tells you, 'It will cost %d gold coin%s to %s %s.'",
+      gcost,gcost == 1 ? "" : "s", fixstr, obj->name );
+    else if( gcost <= 0 && scost > 0 && ccost <= 0)
+      sprintf( buf,"$N tells you, 'It will cost %d silver coin%s to %s %s.'",
+      scost,scost == 1 ? "" : "s", fixstr, obj->name );
+    else if( gcost <= 0 && scost <= 0 && ccost > 0)
+      sprintf( buf, "$N tells you, 'It will cost %d copper coin%s to %s %s.'",
+      ccost,ccost == 1 ? "" : "s", fixstr, obj->name );
+    else if( gcost <= 0 && scost > 0 && ccost > 0)
+      sprintf( buf, "$N tells you, 'It will cost %d silver, and %d copper coins to %s %s.'",
+      scost,ccost, fixstr, obj->name );
+    else if( gcost > 0 && scost <= 0 && ccost > 0)
+      sprintf( buf, "$N tells you, 'It will cost %d gold, and %d copper coins to %s %s.'", gcost,
+      ccost,fixstr, obj->name );
+    
+    act( AT_TELL, buf, ch, NULL, keeper, TO_CHAR );
+    if ( cost > get_value(ch->gold,ch->silver,ch->copper ) )
+      act( AT_TELL, "$N tells you, 'Which I see you can't afford.'", ch,
+	 NULL, keeper, TO_CHAR );
+
+    return;
+}
+
+
+File: skills.c
+Function: do_poison_weapon()
+Around line 3815
+AFTER:
+int       percent;
+
+ADD:
+int tmpvalue = 0;
+
+Around line 3923
+REMOVE:
+obj->cost *=2;
+
+REPLACE WITH:
+/* Gold/Copper/Silver support -Druid */   
+tmpvalue = get_value(obj->gold_cost, obj->silver_cost, obj->copper_cost)*2;
+obj->gold_cost = tmpvalue/10000;
+tmpvalue = tmpvalue % 10000;
+obj->silver_cost = tmpvalue/100;
+tmpvalue = tmpvalue % 100;
+obj->copper_cost = tmpvalue;
+
+
+File: special.c
+Function: spec_janitor()
+Around line 678
+CHANGE:
+|| trash->cost < 10
+
+TO:
+||  trash->gold_cost < 10
+||  trash->silver_cost < 10
+||  trash->copper_cost < 10
+
+Function: spec_thief()
+Around line 823
+COMPLETE REMOVE THIS FUNCTION:
+
+REPLACE WITH:
+/* Gold/Silver/Copper support -Druid */
+bool spec_thief( CHAR_DATA *ch )
+{
+    CHAR_DATA *victim;
+    CHAR_DATA *v_next;
+    int gold=0, maxgold, money, copper=0, silver=0, tmpvalue=0;
+
+    if ( ch->position != POS_STANDING )
+	return FALSE;
+
+    for ( victim = ch->in_room->first_person; victim; victim = v_next )
+    {
+	v_next = victim->next_in_room;
+
+	if ( IS_NPC(victim)
+	||   victim->level >= LEVEL_IMMORTAL
+	||   number_bits( 2 ) != 0
+	||   !can_see( ch, victim ) )	/* Thx Glop */
+	    continue;
+
+	if ( IS_AWAKE(victim) && number_range( 0, ch->level ) == 0 )
+	{
+	    act( AT_ACTION, "You discover $n's hands in your sack of coins!",
+		ch, NULL, victim, TO_VICT );
+	    act( AT_ACTION, "$N discovers $n's hands in $S sack of coins!",
+		ch, NULL, victim, TO_NOTVICT );
+	    return TRUE;
+	}
+	else
+	{
+	    /*
+	     * Had to modify this a bit.. Didn't want the thief
+	     * always grabbing all three types of coins, now
+	     * there is a 50/50 change for each coin type. if none
+	     * are grabbed, then randomly grab any coin. -Druid
+	     */
+	    maxgold = ch->level * ch->level * 1000;
+	    if(number_range(0,1)==0){
+	    gold = victim->gold
+	    	 * number_range( 1, URANGE(2, ch->level/4, 10) ) / 100;
+	    ch->gold     += 9 * gold / 10;
+	    victim->gold -= gold;
+	    }
+	    if(number_range(0,1)==0) {
+	    silver = victim->silver
+	    	 * number_range( 1, URANGE(2, ch->level/4, 10) ) / 100;
+	    ch->silver     += 9 * silver / 10;
+	    victim->silver -= silver;
+	    }
+	    if(number_range(0,1)==0) {
+	    copper = victim->copper
+	    	 * number_range( 1, URANGE(2, ch->level/4, 10) ) / 100;
+	    ch->copper     += 9 * copper / 10;
+	    victim->copper -= copper;
+	    }
+	    if(gold <= 0 && silver <= 0 && copper <=0)
+	    switch(number_range(0,2)) {
+	      case 0:
+	        gold = victim->gold
+	    	  * number_range( 1, URANGE(2, ch->level/4, 10) ) / 100;
+	        ch->gold     += 9 * gold / 10;
+	        victim->gold -= gold;
+	        break;
+        case 1:   
+	        silver = victim->silver
+	    	  * number_range( 1, URANGE(2, ch->level/4, 10) ) / 100;
+	        ch->silver     += 9 * silver / 10;
+	        victim->silver -= silver;
+	        break;
+	      case 2:
+	        copper = victim->copper
+	    	  * number_range( 1, URANGE(2, ch->level/4, 10) ) / 100;
+	        ch->copper     += 9 * copper / 10;
+	        victim->copper -= copper;
+	        break;
+	    }
+	    money=get_value(ch->gold, ch->silver, ch->copper);
+	    if ( money > maxgold )
+	    {
+		boost_economy( ch->in_room->area, money - maxgold/2 );
+		tmpvalue = maxgold/2;
+		conv_currency(ch, tmpvalue);
+	    }
+	    return TRUE;
+	}
+    }
+
+    return FALSE;
+}
+
+
+File: stat_obj.c
+Around line 26
+CHANGE:
+int cost;
+
+TO:
+int                 gold_cost;
+int				silver_cost;
+int				copper_cost; 
+
+Function: gaso_level()
+Around line 82
+CHANGE:
+stats[type].weight = stats[type].cost = stats[type].count = 0;
+
+TO:
+stats[type].weight = stats[type].gold_cost = stats[type].count = 0;
+stats[type].silver_cost = stats[type].copper_cost = 0;
+
+Around line 100
+CHANGE:
+stats[obj->item_type].cost+=obj->cost;
+
+TO:
+stats[obj->item_type].gold_cost+=obj->gold_cost;
+stats[obj->item_type].silver_cost+=obj->silver_cost;
+stats[obj->item_type].copper_cost+=obj->copper_cost;
+
+Around line 128
+CHANGE:
+sprintf(buf,"%d,%d,%d,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f",
+
+TO:
+sprintf(buf,"%d,%d,%d,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f",
+
+Around line 134
+CHANGE:
+(double) (TODUB(stats[type].gold_cost) /dcount),    /* average cost of this item_type for lev*/
+		
+TO:
+(double) (TODUB(stats[type].gold_cost) /dcount),    /* average cost of this item_type for lev*/
+(double) (TODUB(stats[type].silver_cost) /dcount),
+(double) (TODUB(stats[type].copper_cost) /dcount),
+
+
+File: update.c
+Function: mobile_update()
+Around line 772
+CHANGE:
+int max;
+
+max  = 1;
+
+TO:
+int gmax;
+int smax;
+int cmax;
+
+gmax = 1;
+smax = 1;
+cmax = 1;
+
+Around line 782
+REMOVE:
+if ( CAN_WEAR(obj, ITEM_TAKE) && obj->cost > max 
+  && !IS_OBJ_STAT( obj, ITEM_BURIED ) )
+  {
+  obj_best    = obj;
+  max         = obj->cost;
+  }
+
+REPLACE WITH:
+if ( CAN_WEAR(obj, ITEM_TAKE) && ((obj->gold_cost > gmax)
+  || (obj->silver_cost > smax) || (obj->copper_cost > cmax)) 
+  && !IS_OBJ_STAT( obj, ITEM_BURIED ) )
+  {
+  obj_best  = obj;
+  gmax  = obj->gold_cost;
+  smax  = obj->silver_cost;
+  cmax  = obj->copper_cost;
+  }
+
+Function: reboot_check()
+Around line 2170
+CHANGE:
+sprintf(buf, "%.24s:  %dptn  %dpll  %dsc %dbr  %d global loot",
+ctime(&current_time),
+sysdata.upotion_val,
+sysdata.upill_val,
+sysdata.scribed_used,
+sysdata.brewed_used,
+sysdata.global_looted );
+
+TO:
+sprintf(buf, "%.24s:  %dptn  %dpll  %dsc %dbr  %d gold loot  %d silver loot   %d Copper loot",
+ctime(&current_time),
+sysdata.upotion_val,
+sysdata.upill_val,
+sysdata.scribed_used,
+sysdata.brewed_used,
+sysdata.global_gold_looted, 
+sysdata.global_silver_looted,
+sysdata.global_copper_looted);
+
+Function: auction_update()
+Around line 2225
+COMPLETELY REMOVE THIS FUNCTION:
+
+REPLACE WITH:
+/* the auction update*/
+/* 
+ * Gold/Silver/Copper Support -Druid
+ * This was nasty to work with...
+ */
+
+void auction_update (void)
+{
+    int tax, pay;
+    char buf[MAX_STRING_LENGTH];
+    char buf2[MAX_STRING_LENGTH];
+    int gbid = 0;
+    int sbid = 0;
+    int cbid = 0;
+    int wealth = 0;
+    int tmpvalue = 0;
+    
+    if(!auction->item)
+    {
+    	if(AUCTION_MEM > 0 && auction->history[0] &&
+    			++auction->hist_timer == 6*AUCTION_MEM)
+    	{
+    		int i;
+    		
+    		for(i = AUCTION_MEM - 1; i >= 0; i--)
+    		{
+    			if(auction->history[i])
+    			{
+    				auction->history[i] = NULL;
+    				auction->hist_timer = 0;
+    				break;
+    			}
+    		}
+    	}
+    	return;
+    }
+
+    switch (++auction->going) /* increase the going state */
+    {
+	case 1 : /* going once */
+	case 2 : /* going twice */
+	    if (auction->bet > auction->starting){
+	    tmpvalue = auction->bet;  
+	    gbid = tmpvalue/10000;
+	    tmpvalue=tmpvalue%10000;
+	    sbid = tmpvalue/100;
+	    tmpvalue=tmpvalue%100;		
+	    cbid = tmpvalue;
+		sprintf (buf, "%s: going %s for ", auction->item->short_descr,
+			((auction->going == 1) ? "once" : "twice") );
+			if( gbid > 0 && sbid > 0 && cbid > 0)
+			sprintf( buf2, "%d gold, %d silver, and %d copper.",gbid,sbid,cbid);
+			else if( gbid > 0 && sbid > 0 && cbid <= 0)
+			sprintf( buf2, "%d gold and %d silver.",gbid,sbid);
+			else if( gbid > 0 && sbid <= 0 && cbid > 0)
+			sprintf( buf2, "%d gold and %d copper.",gbid,cbid);
+			else if( gbid > 0 && sbid <= 0 && cbid <= 0)
+			sprintf( buf2, "%d gold.",gbid);
+			else if( gbid <= 0 && sbid > 0 && cbid <= 0)
+			sprintf( buf2, "%d silver.",sbid);
+			else if( gbid <= 0 && sbid <= 0 && cbid > 0)
+			sprintf( buf2, "%d copper.",cbid);
+			else if( gbid <= 0 && sbid > 0 && cbid > 0)
+			sprintf( buf2, "%d silver and %d copper.",sbid,cbid);
+			else sprintf( buf2, "Error in update_auction report to Ddruid!");
+			strcat(buf,buf2);
+	    } else
+		sprintf (buf, "%s: going %s (bid not received yet).",  auction->item->short_descr,
+			((auction->going == 1) ? "once" : "twice"));
+
+	    talk_auction (buf);
+	    break;
+
+	case 3 : /* SOLD! */
+	    if (!auction->buyer && auction->bet)
+	    {
+		bug( "Auction code reached SOLD, with NULL buyer, but %d gold bid", auction->bet );
+		auction->bet = 0;
+	    }
+	    if (auction->bet > 0 && auction->buyer != auction->seller)
+	    {
+	    tmpvalue = auction->bet;  
+	    gbid = tmpvalue/10000;
+	    tmpvalue=tmpvalue%10000;
+	    sbid = tmpvalue/100;
+	    tmpvalue=tmpvalue%100;		
+	    cbid = tmpvalue;
+	    
+		sprintf (buf, "%s sold to %s for ",
+			auction->item->short_descr,
+			IS_NPC(auction->buyer) ? auction->buyer->short_descr : auction->buyer->name);
+		if( gbid > 0 && sbid > 0 && cbid > 0)
+			sprintf( buf2, "%d gold, %d silver, and %d copper.",gbid,sbid,cbid);
+			else if( gbid > 0 && sbid > 0 && cbid <= 0)
+			sprintf( buf2, "%d gold and %d silver.",gbid,sbid);
+			else if( gbid > 0 && sbid <= 0 && cbid > 0)
+			sprintf( buf2, "%d gold and %d copper.",gbid,cbid);
+			else if( gbid > 0 && sbid <= 0 && cbid <= 0)
+			sprintf( buf2, "%d gold.",gbid);
+			else if( gbid <= 0 && sbid > 0 && cbid <= 0)
+			sprintf( buf2, "%d silver.",sbid);
+			else if( gbid <= 0 && sbid <= 0 && cbid > 0)
+			sprintf( buf2, "%d copper.",cbid);
+			else if( gbid <= 0 && sbid > 0 && cbid > 0)
+			sprintf( buf2, "%d silver and %d copper.",sbid,cbid);
+			else sprintf( buf2, "Error in update_auction report to Ddruid!");
+			strcat(buf,buf2);
+		talk_auction(buf);
+
+		act(AT_ACTION, "The auctioneer materializes before you, and hands you $p.",
+			auction->buyer, auction->item, NULL, TO_CHAR);
+		act(AT_ACTION, "The auctioneer materializes before $n, and hands $m $p.",
+			auction->buyer, auction->item, NULL, TO_ROOM);
+
+		if ( (auction->buyer->carry_weight 
+		+     get_obj_weight( auction->item ))
+		>     can_carry_w( auction->buyer ) )
+		{
+		    act( AT_PLAIN, "$p is too heavy for you to carry with your current inventory.", auction->buyer, auction->item, NULL, TO_CHAR );
+    		    act( AT_PLAIN, "$n is carrying too much to also carry $p, and $e drops it.", auction->buyer, auction->item, NULL, TO_ROOM );
+		    obj_to_room( auction->item, auction->buyer->in_room );
+		}
+		else
+		    obj_to_char( auction->item, auction->buyer );
+	        pay = (int)auction->bet * 0.9;
+		tax = (int)auction->bet * 0.1;
+		tmpvalue = pay;  
+	    gbid = tmpvalue/10000;
+	    tmpvalue=tmpvalue%10000;
+	    sbid = tmpvalue/100;
+	    tmpvalue=tmpvalue%100;		
+	    cbid = tmpvalue;
+		boost_economy( auction->seller->in_room->area, tax );
+                auction->seller->gold += gbid; /* give him the money, tax 10 % */
+                auction->seller->silver += sbid;
+                auction->seller->copper += cbid;
+		ch_printf( auction->seller, "The auctioneer pays you ");
+		if( gbid > 0 && sbid > 0 && cbid > 0)
+			ch_printf( auction->seller, "%d gold, %d silver, and %d copper.\n\r",gbid,sbid,cbid);
+			else if( gbid > 0 && sbid > 0 && cbid <= 0)
+		ch_printf( auction->seller, "%d gold and %d silver.\n\r",gbid,sbid);
+			else if( gbid > 0 && sbid <= 0 && cbid > 0)
+			ch_printf( auction->seller, "%d gold and %d copper.\n\r",gbid,cbid);
+			else if( gbid > 0 && sbid <= 0 && cbid <= 0)
+			ch_printf( auction->seller, "%d gold.\n\r",gbid);
+			else if( gbid <= 0 && sbid > 0 && cbid <= 0)
+			ch_printf( auction->seller, "%d silver.\n\r",sbid);
+			else if( gbid <= 0 && sbid <= 0 && cbid > 0)
+		ch_printf( auction->seller, "%d copper.\n\r",cbid);
+			else if( gbid <= 0 && sbid > 0 && cbid > 0)
+			ch_printf( auction->seller, "%d silver and %d copper.\n\r",sbid,cbid);
+			else bug("Error in update_auction report to Ddruid!");
+		 tmpvalue = tax;  
+	    gbid = tmpvalue/10000;
+	    tmpvalue=tmpvalue%10000;
+	    sbid = tmpvalue/100;
+	    tmpvalue=tmpvalue%100;		
+	    cbid = tmpvalue;
+		 ch_printf(auction->seller,"The auctioneer charged a fee of ");
+		if( gbid > 0 && sbid > 0 && cbid > 0)
+			ch_printf( auction->seller, "%d gold, %d silver, and %d copper.\n\r",gbid,sbid,cbid);
+			else if( gbid > 0 && sbid > 0 && cbid <= 0)
+		  ch_printf( auction->seller, "%d gold and %d silver.\n\r",gbid,sbid);
+			else if( gbid > 0 && sbid <= 0 && cbid > 0)
+			ch_printf( auction->seller, "%d gold and %d copper.\n\r",gbid,cbid);
+			else if( gbid > 0 && sbid <= 0 && cbid <= 0)
+			ch_printf( auction->seller, "%d gold.\n\r",gbid);
+			else if( gbid <= 0 && sbid > 0 && cbid <= 0)
+			ch_printf( auction->seller, "%d silver.\n\r",sbid);
+			else if( gbid <= 0 && sbid <= 0 && cbid > 0)
+		  ch_printf( auction->seller, "%d copper.\n\r",cbid);
+			else if( gbid <= 0 && sbid > 0 && cbid > 0)
+			ch_printf( auction->seller, "%d silver and %d copper.\n\r",sbid,cbid);
+			else bug("Error in update_auction report to Ddruid!");
+		
+                auction->item = NULL; /* reset item */
+		if ( IS_SET( sysdata.save_flags, SV_AUCTION ) )
+		{
+		    save_char_obj( auction->buyer );
+		    save_char_obj( auction->seller );
+		}
+            }
+            else /* not sold */
+            {
+                sprintf (buf, "No bids received for %s - removed from auction.\n\r",auction->item->short_descr);
+                talk_auction(buf);
+                act (AT_ACTION, "The auctioneer appears before you to return $p to you.",
+                      auction->seller,auction->item,NULL,TO_CHAR);
+                act (AT_ACTION, "The auctioneer appears before $n to return $p to $m.",
+                      auction->seller,auction->item,NULL,TO_ROOM);
+		if ( (auction->seller->carry_weight
+		+     get_obj_weight( auction->item ))
+		>     can_carry_w( auction->seller ) )
+		{
+		    act( AT_PLAIN, "You drop $p as it is just too much to carry"
+			" with everything else you're carrying.", auction->seller,
+			auction->item, NULL, TO_CHAR );
+		    act( AT_PLAIN, "$n drops $p as it is too much extra weight"
+			" for $m with everything else.", auction->seller,
+			auction->item, NULL, TO_ROOM );
+		    obj_to_room( auction->item, auction->seller->in_room );
+		}
+		else
+		    obj_to_char (auction->item,auction->seller);
+		tax = (int)get_value(auction->item->gold_cost, auction->item->silver_cost, auction->item->copper_cost) * 0.05;
+		/*tax = (int)cost * 0.05;*/
+		boost_economy( auction->seller->in_room->area, tax );
+		ch_printf(auction->seller, "The auctioneer charges you an auction fee of ");
+		tmpvalue = tax;  
+	    gbid = tmpvalue/10000;
+	    tmpvalue=tmpvalue%10000;
+	    sbid = tmpvalue/100;
+	    tmpvalue=tmpvalue%100;		
+	    cbid = tmpvalue;
+		if( gbid > 0 && sbid > 0 && cbid > 0)
+			ch_printf( auction->seller, "%d gold, %d silver, and %d copper.\n\r",gbid,sbid,cbid);
+			else if( gbid > 0 && sbid > 0 && cbid <= 0)
+		  ch_printf( auction->seller, "%d gold and %d silver.\n\r",gbid,sbid);
+			else if( gbid > 0 && sbid <= 0 && cbid > 0)
+			ch_printf( auction->seller, "%d gold and %d copper.\n\r",gbid,cbid);
+			else if( gbid > 0 && sbid <= 0 && cbid <= 0)
+			ch_printf( auction->seller, "%d gold.\n\r",gbid);
+			else if( gbid <= 0 && sbid > 0 && cbid <= 0)
+			ch_printf( auction->seller, "%d silver.\n\r",sbid);
+			else if( gbid <= 0 && sbid <= 0 && cbid > 0)
+		  ch_printf( auction->seller, "%d copper.\n\r",cbid);
+			else if( gbid <= 0 && sbid > 0 && cbid > 0)
+			ch_printf( auction->seller, "%d silver and %d copper.\n\r",sbid,cbid);
+			else bug("Error in update_auction report to Ddruid!");
+		wealth = get_value(auction->seller->gold, auction->seller->silver, auction->seller->copper);
+		if ((wealth - tax) < 0){
+		  auction->seller->gold = 0;
+		  auction->seller->silver = 0;
+		  auction->seller->copper = 0;
+		} 
+		else if(auction->seller->gold < gbid 
+		   || auction->seller->silver < sbid 
+		   || auction->seller->copper < cbid){
+    tmpvalue = wealth - tax;
+		conv_currency( auction->seller, tmpvalue);
+    send_to_char("You hand your coins to the auctioneer who quickly makes change.\n\r",auction->seller);
+	  } else {
+	  auction->seller->gold -= gbid;
+	  auction->seller->silver -= sbid;
+	  auction->seller->copper -= cbid;
+	  }
+		if ( IS_SET( sysdata.save_flags, SV_AUCTION ) )
+		    save_char_obj( auction->seller );
+	    } /* else */
+	    auction->item = NULL; /* clear auction */
+    } /* switch */
+} /* func */
+
+
+
+
+ALMOST THERE
+------------
+Congratulations you are almost done (finally!) be sure to do a make 
+clean before recompiling.
+Start the mud, log in as your imm and do a 'foldarea limbo.are'
+to write the limbo.are file in the new format. Then either create
+the instances of silver & copper coins by copying the gold coins
+or just do the following:
+File: limbo.are
+Add the following to #OBJECTS, in order ofcourse.
+*MUST BE DONE AFTER LIMBO.ARE HAS BEEN FOLDED*
+
+#76
+silver coin~
+a silver coin~
+One miserable silver coin.~
+~
+65 0 1
+1 0 0 0
+1 0 0 0 0
+#77
+silver coins~
+%d silver coins~
+A pile of silver coins.~
+~
+65 0 1
+0 0 0 0
+1 0 0 0 0
+#78
+copper coin~
+a copper coin~
+One measly copper coin.~
+~
+66 0 1
+1 0 0 0
+1 0 0 0 0
+#79
+copper coins~
+%d copper coins~
+A pile of copper coins.~
+~
+66 0 1
+0 0 0 0
+1 0 0 0 0
+
+
+THATS ALL FOLKS!!
+-----------------
+The Dark Druid 
+http://www.defcon.org/html/defcon-1.html
+http://www.infowar.com/iwftp/Phrack/P44-07.txt
+http://venus.soci.niu.edu/~cudigest/CUDS5/cud582.txt
+http://www.phreak.org/archives/underground/phrack/phrack41/p41-06
+  PirateMud '90 - '92 http://www.game.org/heirarchy.html
+  (listed as 'Pirate')
+  The National Security Anarchists '89-??
+  http://www.eff.org/pub/Publications/CuD/NSA/
+  http://www.ncs.gov/n5_hp/Customer_Service/tbl_cnt.htm
+  http://www.attrition.org/~modify/texts/hacking_texts/ugorg.txt
+
+
+********************************************************************************
+
+BUGFIX POSTED LATER, BY DRUID:
+
+
+Bug fix:
+File act_obj.c
+Around line: ?
+Function: do_drop
+
+In do_drop you will find a series of case statements like
+the ones below, remove them, and replace with the
+ones below:
+
+case OBJ_VNUM_GOLD_ONE:
+     if(type == 0){
+     number += 1;
+     extract_obj( obj );
+     }
+     break;
+case OBJ_VNUM_GOLD_SOME:
+     if(type == 0){
+     number += obj->value[0];
+     extract_obj( obj );
+     }
+     break;
+case OBJ_VNUM_SILVER_ONE:
+     if(type == 1){
+     number += 1;
+     extract_obj( obj );
+     }
+     break;
+case OBJ_VNUM_SILVER_SOME:
+     if(type == 1){
+     number += obj->value[0];
+     extract_obj( obj );
+     }
+     break;
+case OBJ_VNUM_COPPER_ONE:
+     if(type == 2){
+     number += 1;
+     extract_obj( obj );
+     }
+     break;
+case OBJ_VNUM_COPPER_SOME:
+     if(type == 2){
+     number += obj->value[0];
+     extract_obj( obj );
+     }
+     break;
+
+Sorry for not responding sooner, I've been on a business trip..
+
+-Druid
+  Ugh, its a bad hangover kinda day...
+
+

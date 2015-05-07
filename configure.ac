@@ -310,10 +310,52 @@ AC_SUBST([NEON_CFLAGS])
 # sockets
 
 case "$host_os" in
-   mingw*)
+	*mingw*)
+	  AC_MSG_NOTICE([OS MinGW detected])
+      AC_DEFINE_UNQUOTED(MINGW,1,[This is a MinGW system])
+      AC_DEFINE_UNQUOTED(WIN32,1,[This is a Windows system])
+      AC_DEFINE_UNQUOTED(WINDOWS,1,[This is a Windows system])
+      LIBS="$LIBS -lws2_32"
+      AC_CHECK_HEADERS([winsock2.h ws2tcpip.h],, AC_MSG_ERROR([[Winsock2 headers are required for W32]]))
+      AC_CACHE_CHECK([for MS lib utility], [ac_cv_use_ms_lib_tool],
+       [[mslibcheck=`lib 2>&1`
+        if [[ $mslibcheck = "Microsoft (R) Library Manager"* ]]; then
+          ac_cv_use_ms_lib_tool="yes"
+        else
+          ac_cv_use_ms_lib_tool="no"
+        fi
+         ]])
+      if test "x$ac_cv_use_ms_lib_tool" = "xyes"; then
+        AC_SUBST([MS_LIB_TOOL], [[lib]])
+      fi
+      AC_SUBST([lt_cv_objdir])
+      os_is_windows="yes"
+      os_is_native_w32="yes"
       have_socket="no"
+	  enable_crypt="no"
       ;;
-   *solaris*)
+	freebsd*)
+	  AC_MSG_NOTICE([OS FreeBSD detected])
+      AC_DEFINE_UNQUOTED(SOMEBSD,1,[This is a BSD system])
+      AC_DEFINE_UNQUOTED(FREEBSD,1,[This is a FreeBSD system])
+      ;;
+	openbsd*)
+	  AC_MSG_NOTICE([OS OpenBSD detected])
+      AC_DEFINE_UNQUOTED(SOMEBSD,1,[This is a BSD system])
+      AC_DEFINE_UNQUOTED(OPENBSD,1,[This is an OpenBSD system])
+      ;;
+	netbsd*)
+	  AC_MSG_NOTICE([OS NetBSD detected])
+      AC_DEFINE_UNQUOTED(SOMEBSD,1,[This is a BSD system])
+      AC_DEFINE_UNQUOTED(NETBSD,1,[This is a NetBSD system])
+      ;;
+
+	*solaris*)
+	  AC_MSG_NOTICE([OS Solaris detected])
+      AC_DEFINE_UNQUOTED(SOLARIS,1,[This is a Solaris system])
+      AC_DEFINE_UNQUOTED(_REENTRANT,1,[Need with solaris or errno doesnt work])
+      AC_SEARCH_LIBS(gethostbyname, nsl)
+      AC_SEARCH_LIBS(socket, socket)
       AC_CHECK_LIB([socket], [connect],
          [
           have_socket="yes"
@@ -321,10 +363,37 @@ case "$host_os" in
          ],
          [have_socket="no"])
       ;;
-   darwin*)
+    *darwin* | *rhapsody* | *macosx*)
+	  AC_MSG_NOTICE([OS MacOSX detected])
+      AC_DEFINE_UNQUOTED(OSX,1,[This is an OS X system])
+      CFLAGS="-no-cpp-precomp -fno-common $CFLAGS"
       have_socket="yes"
       ;;
+	*arm-linux*)
+	  AC_MSG_NOTICE([OS ARM GNU/Linux detected])
+      AC_DEFINE_UNQUOTED(LINUX,1,[This is a Linux kernel])
+      AC_DEFINE_UNQUOTED(HAVE_LISTEN_SHUTDOWN,1,[can use shutdown on listen sockets])
+      CFLAGS="-fPIC -pipe $CFLAGS"
+      ;;
+	*linux*)
+	  AC_MSG_NOTICE([OS GNU/Linux detected])
+      AC_DEFINE_UNQUOTED(LINUX,1,[This is a Linux kernel])
+      AC_DEFINE_UNQUOTED(HAVE_LISTEN_SHUTDOWN,1,[can use shutdown on listen sockets])
+      ;;
+	*cygwin*)
+	  AC_MSG_NOTICE([OS Cygwin detected])
+      AC_DEFINE_UNQUOTED(__CYGWIN__,1,[This is a Cygwin system])
+      os_is_windows="yes"
+      have_socket="no"
+	  enable_crypt="no"
+      ;;
+    *openedition*)
+	  AC_MSG_NOTICE([OS Open Edition detected])
+      AC_DEFINE_UNQUOTED(OS390,1,[This is a OS/390 system])
+      ;;
    *)
+      AC_MSG_WARN([Unrecognised OS $host_os])
+      AC_DEFINE_UNQUOTED(OTHEROS,1,[Some strange OS])
       have_socket="yes"
       ;;
 esac
@@ -428,7 +497,7 @@ if test "$enable_regex" = "yes"; then
 		# LDFLAGS="$LDFLAGS -lgnuregex"
 fi
 
-# Password Encription Support (-DNOCRYPT) #
+# Enable Password Encription Support (-DCRYPT) #
 AC_ARG_ENABLE(crypt,
               AC_HELP_STRING([--enable-crypt],
                              [enable Password Encryption support @<:@default=yes@:>@]),

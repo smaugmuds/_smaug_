@@ -2,6 +2,14 @@
 
 	* Makefile.in.in: New file, from gettext-0.19.4.
 
+2015-05-07  gettextize  <bug-gnu-gettext@gnu.org>
+
+	* Makefile.in.in: New file, from gettext-0.19.4.
+
+2015-05-07  gettextize  <bug-gnu-gettext@gnu.org>
+
+	* Makefile.in.in: New file, from gettext-0.19.4.
+
 2015-05-06  gettextize  <bug-gnu-gettext@gnu.org>
 
 	* Makefile.in.in: New file, from gettext-0.19.3.

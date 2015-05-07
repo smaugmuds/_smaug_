@@ -52,7 +52,7 @@
 #include "mud.h"
 
 #ifndef WIN32
-#if !defined(__CYGWIN__)
+#ifndef __CYGWIN__
 #include <regex.h>
 int re_exec (char *);
 #endif
