@@ -52,8 +52,10 @@
 #include "mud.h"
 
 #ifndef WIN32
+#if !defined(__CYGWIN__)
 #include <regex.h>
 int re_exec (char *);
+#endif
 #endif
 
 /*
@@ -4593,11 +4595,13 @@ int
 is_profane (char *what)
 {
 #ifndef WIN32
+#if defined(__CYGWIN__)
   int ret;
 
   ret = re_exec (what);
   if (ret == 1)
     return (1);
+#endif
 #endif
   return (0);
 }

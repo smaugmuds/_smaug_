@@ -151,6 +151,7 @@ Here are just some of the features **--{SMAUG II}--** has:
 	- Mounts and much much more
 	- Fixed Liquids & Mixtures.
 	- Banking System.
+    - Undertaker.
 	- Player marriage system.
 	- A Dice Game.
 	- Mongoose web server with jta26 as Online MUD Web Client.
@@ -191,7 +192,8 @@ Realm Areas:
 	* Changes from **SMAUG 1.8b** to **--{SMAUG II}--**:
 ```
 		- Moved all "KEY" definitions to "mud.h".
-		- Added a dice game.
+		- Added Undertaker snippet (ACT_UNDERTAKER).
+		- Added a Dice game.
 		- Added Oasis OLCII Online editor, new features and "do_buildwalk".
 		- Defined new MUD default colors.
 		- Adapted Room Mapper, Colors, Weather, Timezone, Holidays systems from AFKMud.
