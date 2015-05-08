@@ -4078,6 +4078,14 @@ display_prompt (DESCRIPTOR_DATA * d)
 	    case 'g':
 	      stat = ch->gold;
 	      break;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+      case 's':
+        stat = ch->silver;
+        break;
+      case 'd':
+        stat = ch->copper;
+        break;
+#endif
 	    case 'r':
 	      if (IS_IMMORTAL (och))
 		stat = ch->in_room->vnum;

@@ -870,8 +870,8 @@ void do_altscore( CHAR_DATA *ch, char *argument )
 
     pager_printf ( ch, " ----------------------------------------------------------\n");
 
-    pager_printf ( ch, _("| You have %ld gold and your bank balance is %ld coins.\n"),
-		ch->gold, ch->pcdata->balance);
+    pager_printf ( ch, _("| You have %ld gold and your bank balance is %ld gold, %ld silver, %ld copper coins.\n"),
+		ch->gold, ch->pcdata->gbalance, ch->pcdata->sbalance, ch->pcdata->cbalance);
     
 		if (!IS_NPC(ch)) {
 			pager_printf ( ch, _("| You have scored %ld exp.\n"),

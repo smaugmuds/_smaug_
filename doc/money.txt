@@ -213,6 +213,8 @@ ITEM_SHOVEL, ITEM_SALVE, ITEM_COOK, ITEM_KEYRING, ITEM_ODOR, ITEM_CHANCE,
 ITEM_SILVER, ITEM_COPPER
 } item_types;
 
+
+
 Around line 1690 
 CHANGE:
 #define MAX_ITEM_TYPE		     ITEM_CHANCE
@@ -228,6 +230,8 @@ APPLY_TELEDELAY, MAX_APPLY_TYPE
 TO:
 APPLY_TELEDELAY, APPLY_SILVER, APPLY_COPPER, MAX_APPLY_TYPE
 } apply_types;
+
+
 
 Around line 2181 
 AFTER:
@@ -296,6 +300,7 @@ sh_int pk_loot;		/* Pkill looting allowed? */
 ADD:
 int	global_silver_looted; /* Global Silver taken */
 int	global_copper_looted; /* Global copper taken */ 
+
 
 Around line 3087 
 AFTER:
@@ -531,6 +536,7 @@ case ITEM_FIRE:
 set_char_color( AT_FIRE, ch );
 break;
 
+---------------------------
 
 File: act_obj.c
 Function:	get_obj()
@@ -1426,6 +1432,7 @@ TO:
 if ( victim->gold < 1 && victim->silver < 1 && victim->copper < 1) {
 send_to_char( "Drat, this one's got no money to start with.\n\r", ch ); 
 
+
 Around line 3705 
 AFTER:
 victim->gold = 0;
@@ -1457,6 +1464,7 @@ if ( ch->copper < 10
   }
   if (get_trust(ch) < sysdata.read_mail_free)
   ch->copper -= 10;
+
 
 Around line 1233 
 CHANGE:
@@ -1507,6 +1515,8 @@ CHANGE:
 TO:
 "roomlight", "televnum", "teledelay", "silver", "copper"
 
+
+
 Function: do_mset()
 Around line 1172
 CHANGE:
@@ -1521,6 +1531,7 @@ send_to_char( "  thirst drunk full blood flags\n\r",		ch );
 
 ADD:
 send_to_char( "  gold silver copper\n\r", ch);
+
 
 Around line 1576
 AFTER:
@@ -1598,6 +1609,10 @@ if ( !str_cmp( arg2, "ccost" ) )
   return;
   }
 
+
+
+============================
+
 Function: fold_area()
 Around line 5945
 CHANGE:
@@ -1621,6 +1636,7 @@ TO:
 fprintf( fpout, "%d\n", pMobIndex->exp);
 fprintf( fpout, "%d %d %d\n", pMobIndex->gold, pMobIndex->silver, 
   pMobIndex->copper);
+
 
 Around line 6138
 CHANGE:
@@ -1663,6 +1679,8 @@ ch_printf_color( ch, "&wSilver Looted: &W%d\n\r",
 ch_printf_color( ch,"&wCopper Looted: &W%d\n\r",
   tarea->copper_looted );
 
+
+
 File: comm.c
 Function: display_prompt()
 Around line 3396
@@ -1678,6 +1696,9 @@ break;
 case 'd':
 stat = ch->copper;
 break; 
+
+
+
 
 File: db.c
 Function: load_mobiles()
@@ -1719,6 +1740,7 @@ if (area_version <= 1){
   pMobIndex->copper		= fread_number(fp);
   }
 
+
 Function: load_objects()
 Around line 1300
 AFTER:
@@ -1759,6 +1781,10 @@ if(pObjIndex->rent <0)
 	pObjIndex->copper_cost = tempcost;
   }
     if ( area_version >= 1 )
+
+================================
+============= db.c =================
+================================
 
 Function: initialize_economy()
 Around line 2256

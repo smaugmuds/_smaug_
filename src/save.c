@@ -365,7 +365,9 @@ fwrite_char (CHAR_DATA * ch, FILE * fp)
 	   ch->pcdata->stances[10], ch->pcdata->stances[11]);
   fprintf (fp, "Gold         %d\n", ch->gold);
 #ifdef BANK_INSTALLED
-  fprintf (fp, "Balance      %d\n", ch->pcdata->balance);
+  fprintf (fp, "Gold Balance      %d\n", ch->pcdata->gbalance);
+  fprintf (fp, "Silver Balance    %d\n", ch->pcdata->sbalance);
+  fprintf (fp, "Copper Balance    %d\n", ch->pcdata->cbalance);
 #endif
   fprintf (fp, "Exp          %d\n", ch->exp);
   fprintf (fp, "Height          %d\n", ch->height);
@@ -1324,7 +1326,9 @@ fread_char (CHAR_DATA * ch, FILE * fp, bool preload)
 
 	case 'B':
 #ifdef BANK_INSTALLED
-	  KEY ("Balance", ch->pcdata->balance, fread_number (fp));
+	  KEY ("Gold Balance", ch->pcdata->gbalance, fread_number (fp));
+	  KEY ("Silver Balance", ch->pcdata->sbalance, fread_number (fp));
+	  KEY ("Copper Balance", ch->pcdata->cbalance, fread_number (fp));
 #endif
 	  KEY ("Bamfin", ch->pcdata->bamfin, fread_string_nohash (fp));
 	  KEY ("Bamfout", ch->pcdata->bamfout, fread_string_nohash (fp));

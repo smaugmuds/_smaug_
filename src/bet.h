@@ -81,6 +81,41 @@
   once.
 */
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+int advatoi (char *s)
+{   
+    int tmpnumber = 0; /* temporary number */
+    int number = 0;   /* Total */
+    
+
+    /*
+     * as long as the current character is a digit add to current number
+     */
+ for ( ; ; ){
+    while ( isdigit(s[0]) ) {
+	 tmpnumber = tmpnumber + atoi(s);
+	 s++;
+    }
+    switch (UPPER(s[0]))
+    {
+	case 'S'  : 
+	   tmpnumber *= 100; /* silver */
+	   ++s;
+	   break;
+	case 'G'  : 
+	  tmpnumber *= 10000; /* gold */
+		++s; 
+		break;
+	case '\0' :
+	  number += tmpnumber; /* Copper */
+	  return number;
+	default   : return 0; /* not k nor m nor NULL - return 0! */
+    }
+  number+=tmpnumber;
+  tmpnumber = 0;
+ } 
+}
+#else
 int
 advatoi (char *s)
 {
@@ -125,7 +160,7 @@ advatoi (char *s)
 
   return number;
 }
-
+#endif
 
 /*
   This function allows the following kinds of bets to be made:

@@ -151,7 +151,11 @@ char *const o_types[] = {
   "none", "light", "scroll", "wand", "staff", "weapon", "_fireweapon",
   "_missile",
   "treasure", "armor", "potion", "_worn", "furniture", "trash", "_oldtrap",
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  "container", "_note", "drinkcon", "key", "food", "gold", "pen", "boat",
+#else
   "container", "_note", "drinkcon", "key", "food", "money", "pen", "boat",
+#endif
   "corpse", "corpse_pc", "fountain", "pill", "blood", "bloodstain",
   "scraps", "pipe", "herbcon", "herb", "incense", "fire", "book", "switch",
   "lever", "pullchain", "button", "dial", "rune", "runepouch", "match",
@@ -159,7 +163,11 @@ char *const o_types[] = {
   "map", "portal", "paper", "tinder", "lockpick", "spike", "disease", "oil",
   "fuel", "puddle", "abacus", "missileweapon", "projectile", "quiver",
   "shovel",
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  "salve", "cook", "keyring", "odor", "chance", "piece", "housekey", "silver", "copper"
+#else
   "salve", "cook", "keyring", "odor", "chance", "piece", "housekey",
+#endif
   "journal",
   "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10"
 };
@@ -181,7 +189,11 @@ char *const a_types[] = {
   "stripsn", "remove", "dig", "full", "thirst", "drunk", "blood", "cook",
   "recurringspell", "contagious", "xaffected", "odor", "roomflag",
   "sectortype",
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  "roomlight", "televnum", "teledelay", "silver", "copper"
+#else
   "roomlight", "televnum", "teledelay",
+#endif
   "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10"
 };
 
@@ -1398,9 +1410,16 @@ do_mset (CHAR_DATA * ch, char *argument)
       send_to_char ("\n\r", ch);
       send_to_char ("Field being one of:\n\r", ch);
       send_to_char ("  str int wis dex con cha lck sex class\n\r", ch);
+#ifdef ENABLE_GOLD_SILVER_COPPER
+      send_to_char ("  hp mana move practice align race\n\r",	ch);
+#else
       send_to_char ("  gold hp mana move practice align race\n\r", ch);
+#endif
       send_to_char ("  hitroll damroll armor affected level\n\r", ch);
       send_to_char ("  thirst drunk full blood flags\n\r", ch);
+#ifdef ENABLE_GOLD_SILVER_COPPER
+      send_to_char ("  gold silver copper\n\r", ch);
+#endif
       send_to_char ("  pos defpos part (see BODYPARTS)\n\r", ch);
       send_to_char ("  sav1 sav2 sav4 sav4 sav5 (see SAVINGTHROWS)\n\r", ch);
       send_to_char ("  resistant immune susceptible (see RIS)\n\r", ch);
@@ -1829,6 +1848,28 @@ do_mset (CHAR_DATA * ch, char *argument)
 	victim->pIndexData->gold = value;
       return;
     }
+
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  if (!str_cmp (arg2, "silver"))
+    {
+    if (!can_mmodify (ch, victim))
+    return;
+    victim->silver = value;
+    if ( IS_NPC(victim) && xIS_SET(victim->act, ACT_PROTOTYPE) )
+     victim->pIndexData->silver = value;
+    return;
+    }
+
+  if ( !str_cmp( arg2, "copper" ) )
+    {
+    if ( !can_mmodify( ch, victim ) )
+    return;
+    victim->copper = value;
+    if ( IS_NPC(victim) && xIS_SET(victim->act, ACT_PROTOTYPE) )
+     victim->pIndexData->copper = value;
+    return;
+    }
+#endif
 
   if (!str_cmp (arg2, "hitroll"))
     {
@@ -3443,7 +3484,12 @@ do_oset (CHAR_DATA * ch, char *argument)
 	send_to_char ("Syntax: oset <object> <field>  <value>\n\r", ch);
       send_to_char ("\n\r", ch);
       send_to_char ("Field being one of:\n\r", ch);
+#ifdef ENABLE_GOLD_SILVER_COPPER
+      send_to_char ("  flags wear level weight rent timer\n\r",	ch );
+      send_to_char ("  gcost scost ccost\n\r", ch);
+#else
       send_to_char ("  flags wear level weight cost rent timer\n\r", ch);
+#endif
       send_to_char ("  name short long ed rmed actiondesc\n\r", ch);
       send_to_char ("  type value0 value1 value2 value3 value4 value5\n\r",
 		    ch);
@@ -3756,6 +3802,35 @@ do_oset (CHAR_DATA * ch, char *argument)
       return;
     }
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  if ( !str_cmp( arg2, "gcost" ) )
+    {
+    if ( !can_omodify( ch, obj ) )
+    return;
+    obj->gold_cost = value;
+    if ( IS_OBJ_STAT(obj, ITEM_PROTOTYPE) )
+    obj->pIndexData->gold_cost = value;
+    return;
+    }
+  if ( !str_cmp( arg2, "scost" ) )
+     {
+    if ( !can_omodify( ch, obj ) )
+    return;
+    obj->silver_cost = value;
+    if ( IS_OBJ_STAT(obj, ITEM_PROTOTYPE) )
+    obj->pIndexData->silver_cost = value;
+    return;
+    }
+  if ( !str_cmp( arg2, "ccost" ) )
+    {
+    if ( !can_omodify( ch, obj ) )
+    return;
+    obj->copper_cost = value;
+    if ( IS_OBJ_STAT(obj, ITEM_PROTOTYPE) )
+    obj->pIndexData->copper_cost = value;
+    return;
+    }
+#else
   if (!str_cmp (arg2, "cost"))
     {
       if (!can_omodify (ch, obj))
@@ -3765,6 +3840,7 @@ do_oset (CHAR_DATA * ch, char *argument)
 	obj->pIndexData->cost = value;
       return;
     }
+#endif
 
   if (!str_cmp (arg2, "rent"))
     {
@@ -7020,7 +7096,13 @@ fold_area (AREA_DATA * tarea, char *filename, bool install)
 	       pMobIndex->hitsizedice, pMobIndex->hitplus);
       fprintf (fpout, "%dd%d+%d\n", pMobIndex->damnodice,
 	       pMobIndex->damsizedice, pMobIndex->damplus);
+#ifdef ENABLE_GOLD_SILVER_COPPER
+      fprintf( fpout, "%d\n", pMobIndex->exp);
+      fprintf( fpout, "%d %d %d\n", pMobIndex->gold, pMobIndex->silver, 
+        pMobIndex->copper);
+#else
       fprintf (fpout, "%d %d\n", pMobIndex->gold, pMobIndex->exp);
+#endif
 /* Need to convert to new positions correctly on loadup sigh -Shaddai */
       fprintf (fpout, "%d %d %d\n", pMobIndex->position + 100,
 	       pMobIndex->defposition + 100, pMobIndex->sex);
@@ -7171,10 +7253,19 @@ fold_area (AREA_DATA * tarea, char *filename, bool install)
       else
 	fprintf (fpout, "%d %d %d %d\n", val0, val1, val2, val3);
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+fprintf( fpout, "%d %d %d %d %d\n",	pObjIndex->weight,
+      pObjIndex->gold_cost,
+      pObjIndex->silver_cost,
+      pObjIndex->copper_cost,
+      pObjIndex->rent ? pObjIndex->rent :
+      (int) (pObjIndex->gold_cost / 10)		);
+#else
       fprintf (fpout, "%d %d %d\n", pObjIndex->weight,
 	       pObjIndex->cost,
 	       pObjIndex->rent ? pObjIndex->rent :
 	       (int) (pObjIndex->cost / 10));
+#endif
 
       if (AREA_VERSION_WRITE > 0)
 	switch (pObjIndex->item_type)
@@ -8031,13 +8122,27 @@ do_astat (CHAR_DATA * ch, char *argument)
   if (!proto)
     {
       if (tarea->high_economy)
-	ch_printf_color (ch,
-			 "&wArea economy: &W%d &wbillion and &W%d gold coins.\n\r",
+#ifdef ENABLE_GOLD_SILVER_COPPER
+        ch_printf_color (ch,
+              "&wArea economy: &W%d &wbillion and &W%d coins.\n\r",
+#else
+	      ch_printf_color (ch,
+			       "&wArea economy: &W%d &wbillion and &W%d gold coins.\n\r",
+#endif
 			 tarea->high_economy, tarea->low_economy);
       else
-	ch_printf_color (ch, "&wArea economy: &W%d &wgold coins.\n\r",
+#ifdef ENABLE_GOLD_SILVER_COPPER
+        ch_printf_color (ch, "&wArea economy: &W%d &wcoins.\n\r",
+#else
+	      ch_printf_color (ch, "&wArea economy: &W%d &wgold coins.\n\r",
+#endif
+
 			 tarea->low_economy);
-      ch_printf_color (ch, "&wGold Looted:  &W%d\n\r", tarea->gold_looted);
+      ch_printf_color (ch, "&wGold   Looted: &W%d\n\r", tarea->gold_looted);
+#ifdef ENABLE_GOLD_SILVER_COPPER
+      ch_printf_color (ch, "&wSilver Looted: &W%d\n\r", tarea->silver_looted);
+      ch_printf_color (ch, "&wCopper Looted: &W%d\n\r", tarea->copper_looted);
+#endif
       ch_printf_color (ch,
 		       "&wMdeaths: &W%d   &wMkills: &W%d   &wPdeaths: &W%d   &wPkills: &W%d   &wIllegalPK: &W%d\n\r",
 		       tarea->mdeaths, tarea->mkills, tarea->pdeaths,

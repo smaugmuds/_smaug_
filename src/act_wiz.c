@@ -2054,7 +2054,13 @@ do_ostat (CHAR_DATA * ch, char *argument)
 		   get_obj_weight (obj));
   ch_printf_color (ch, "&cLayers: &w%d   ", obj->pIndexData->layers);
   ch_printf_color (ch, "&cWear_loc: &w%d\n\r", obj->wear_loc);
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  ch_printf_color( ch, 
+    "&cCost:  &Y%d &cGold,  &Y%d &cSilver,  &Y%d &cCopper\n\r", 
+    obj->gold_cost, obj->silver_cost, obj->copper_cost );
+#else
   ch_printf_color (ch, "&cCost: &Y%d  ", obj->cost);
+#endif
   ch_printf_color (ch, "&cRent: &w%d  ", obj->pIndexData->rent);
   send_to_char_color ("&cTimer: ", ch);
   if (obj->timer > 0)
@@ -2400,10 +2406,21 @@ do_mstat (CHAR_DATA * ch, char *argument)
 		      victim->saving_spell_staff, victim->carry_number,
 		      can_carry_n (victim), victim->carry_weight,
 		      can_carry_w (victim));
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  pager_printf_color( ch,
+          "&cYear: &w%-5d  &cSecs: &w%d  &cTimer: &w%d\n\r",
+          get_age( victim ), (int) victim->played, victim->timer );
+          pager_printf_color( ch, 
+          "&cGold: &Y%d  &cSilver: &Y%d  &cCopper: &Y%d\n\r",
+          victim->gold,
+          victim->silver,
+          victim->copper);  
+#else
   pager_printf_color (ch,
 		      "&cYear: &w%-5d  &cSecs: &w%d  &cTimer: &w%d  &cGold: &Y%d\n\r",
 		      get_age (victim), (int) victim->played, victim->timer,
 		      victim->gold);
+#endif
   if (get_timer (victim, TIMER_PKILLED))
     pager_printf_color (ch, "&cTimerPkilled:  &R%d\n\r",
 			get_timer (victim, TIMER_PKILLED));
@@ -4847,13 +4864,22 @@ do_strew (CHAR_DATA * ch, char *argument)
     }
   if (!str_cmp (arg2, "coins"))
     {
+#ifdef ENABLE_GOLD_SILVER_COPPER
+    if ( victim->gold < 1 && victim->silver < 1 && victim->copper < 1) {
+    send_to_char( "Drat, this one's got no money to start with.\n\r", ch ); 
+#else
       if (victim->gold < 1)
 	{
 	  send_to_char ("Drat, this one's got no gold to start with.\n\r",
 			ch);
+#endif
 	  return;
 	}
       victim->gold = 0;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+      victim->silver = 0;
+      victim->copper = 0; 
+#endif
       act (AT_MAGIC,
 	   "$n gestures and an unearthly gale sends $N's coins flying!", ch,
 	   NULL, victim, TO_NOTVICT);

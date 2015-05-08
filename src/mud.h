@@ -1981,16 +1981,21 @@ typedef enum
  * Well known object virtual numbers.
  * Defined in #OBJECTS.
  */
+#ifdef ENABLE_GOLD_SILVER_COPPER
+#define OBJ_VNUM_GOLD_ONE	      2
+#define OBJ_VNUM_GOLD_SOME	      3
+#else
 #define OBJ_VNUM_MONEY_ONE	      2
 #define OBJ_VNUM_MONEY_SOME	      3
+#endif
 
 #define OBJ_VNUM_CORPSE_NPC	     10
 #define OBJ_VNUM_CORPSE_PC	     11
-#define OBJ_VNUM_SEVERED_HEAD	     12
+#define OBJ_VNUM_SEVERED_HEAD	 12
 #define OBJ_VNUM_TORN_HEART	     13
 #define OBJ_VNUM_SLICED_ARM	     14
 #define OBJ_VNUM_SLICED_LEG	     15
-#define OBJ_VNUM_SPILLED_GUTS	     16
+#define OBJ_VNUM_SPILLED_GUTS	 16
 #define OBJ_VNUM_BLOOD		     17
 #define OBJ_VNUM_BLOODSTAIN	     18
 #define OBJ_VNUM_SCRAPS		     19
@@ -2001,7 +2006,7 @@ typedef enum
 
 #define OBJ_VNUM_SKIN		     23
 #define OBJ_VNUM_SLICE		     24
-#define OBJ_VNUM_SHOPPING_BAG	     25
+#define OBJ_VNUM_SHOPPING_BAG	 25
 
 #define OBJ_VNUM_BLOODLET	     26
 
@@ -2015,7 +2020,14 @@ typedef enum
 #define OBJ_VNUM_NOTE		     36
 #define OBJ_VNUM_DEITY		     64
 
-#define OBJ_VNUM_BLOOD_SPLATTER	     94
+#ifdef ENABLE_GOLD_SILVER_COPPER
+#define OBJ_VNUM_SILVER_ONE		76
+#define OBJ_VNUM_SILVER_SOME	77
+#define OBJ_VNUM_COPPER_ONE		78
+#define OBJ_VNUM_COPPER_SOME	79
+#endif
+
+#define OBJ_VNUM_BLOOD_SPLATTER	 94
 #define OBJ_VNUM_PUDDLE		     95
 
 #ifdef MARRIAGE
@@ -2040,7 +2052,11 @@ typedef enum
   ITEM_NONE, ITEM_LIGHT, ITEM_SCROLL, ITEM_WAND, ITEM_STAFF, ITEM_WEAPON,
   ITEM_FIREWEAPON, ITEM_MISSILE, ITEM_TREASURE, ITEM_ARMOR, ITEM_POTION,
   ITEM_WORN, ITEM_FURNITURE, ITEM_TRASH, ITEM_OLDTRAP, ITEM_CONTAINER,
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  ITEM_NOTE, ITEM_DRINK_CON, ITEM_KEY, ITEM_FOOD, ITEM_GOLD, ITEM_PEN,
+#else
   ITEM_NOTE, ITEM_DRINK_CON, ITEM_KEY, ITEM_FOOD, ITEM_MONEY, ITEM_PEN,
+#endif
   ITEM_BOAT, ITEM_CORPSE_NPC, ITEM_CORPSE_PC, ITEM_FOUNTAIN, ITEM_PILL,
   ITEM_BLOOD, ITEM_BLOODSTAIN, ITEM_SCRAPS, ITEM_PIPE, ITEM_HERB_CON,
   ITEM_HERB, ITEM_INCENSE, ITEM_FIRE, ITEM_BOOK, ITEM_SWITCH, ITEM_LEVER,
@@ -2049,10 +2065,18 @@ typedef enum
   ITEM_TINDER, ITEM_LOCKPICK, ITEM_SPIKE, ITEM_DISEASE, ITEM_OIL, ITEM_FUEL,
   ITEM_PUDDLE, ITEM_ABACUS, ITEM_MISSILE_WEAPON, ITEM_PROJECTILE, ITEM_QUIVER,
   ITEM_SHOVEL, ITEM_SALVE, ITEM_COOK, ITEM_KEYRING, ITEM_ODOR, ITEM_CHANCE,
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  ITEM_PIECE, ITEM_HOUSEKEY, ITEM_JOURNAL, ITEM_DRINK_MIX, ITEM_SILVER, ITEM_COPPER
+#else
   ITEM_PIECE, ITEM_HOUSEKEY, ITEM_JOURNAL, ITEM_DRINK_MIX
+#endif
 } item_types;
 
-#define MAX_ITEM_TYPE		     ITEM_JOURNAL
+#ifdef ENABLE_GOLD_SILVER_COPPER
+#define MAX_ITEM_TYPE		     ITEM_COPPER
+#else
+#define MAX_ITEM_TYPE		     ITEM_DRINK_MIX
+#endif
 
 /*
  * Extra flags.
@@ -2174,6 +2198,9 @@ typedef enum
   APPLY_RECURRINGSPELL, APPLY_CONTAGIOUS, APPLY_EXT_AFFECT, APPLY_ODOR,
   APPLY_ROOMFLAG, APPLY_SECTORTYPE, APPLY_ROOMLIGHT, APPLY_TELEVNUM,
   APPLY_TELEDELAY,
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  APPLY_SILVER, APPLY_COPPER,
+#endif
   MAX_APPLY_TYPE,
 } apply_types;
 
@@ -2563,6 +2590,10 @@ struct mob_index_data
   sh_int saving_para_petri;
   sh_int saving_breath;
   sh_int saving_spell_staff;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  int			silver;
+  int			copper;
+#endif
   sh_int stances[MAX_STANCE];
 };
 
@@ -2738,12 +2769,13 @@ struct char_data
   int retran;
   int regoto;
   sh_int mobinvis;		/* Mobinvis level SB */
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  int			silver;
+  int 		copper;
+#endif
   sh_int stance;		/* Stances */
 #ifdef ENABLE_HOTBOOT
   int home_vnum; /* hotboot tracker */
-#endif
-#ifdef BANK_INSTALLED
-  int balance;
 #endif
 #ifdef MARRIAGE
 	char *spouse;
@@ -2867,7 +2899,9 @@ struct pc_data
   int month;
 #endif
 #ifdef BANK_INSTALLED
-  int balance;
+  int gbalance;
+  int sbalance;
+  int cbalance;
 #endif
 #ifdef MARRIAGE
 	char *spouse;
@@ -2942,7 +2976,13 @@ struct obj_index_data
   int wear_flags;
   sh_int count;
   sh_int weight;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  int			gold_cost;
+  int			silver_cost;
+  int			copper_cost;
+#else
   int cost;
+#endif
   int value[6];
   int serial;
   sh_int layers;
@@ -2989,7 +3029,13 @@ struct obj_data
   int mpactnum;			/* mudprogs */
   sh_int wear_loc;
   sh_int weight;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  int			gold_cost;
+  int			silver_cost;
+  int			copper_cost;
+#else
   int cost;
+#endif
   sh_int level;
   sh_int timer;
   int value[6];
@@ -3116,6 +3162,10 @@ struct area_data
   int high_economy;
   int low_economy;
   WEATHER_DATA *weather;	/* FB */
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  int	silver_looted;
+  int	copper_looted;
+#endif
 #ifdef ENABLE_WEATHER
   int weatherx;
   int weathery;
@@ -3148,7 +3198,13 @@ struct system_data
 {
   int maxplayers;		/* Maximum players this boot   */
   int alltimemax;		/* Maximum players ever   */
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  int	global_gold_looted;		/* Gold looted this boot */
+int	global_silver_looted; /* Global Silver taken */
+int	global_copper_looted; /* Global copper taken */ 
+#else
   int global_looted;		/* Gold looted this boot */
+#endif
   int upill_val;		/* Used pill value */
   int upotion_val;		/* Used potion value */
   int brewed_used;		/* Brewed potions used */
@@ -3205,6 +3261,10 @@ struct system_data
   sh_int ban_class_level;	/* Level to ban classes */
   sh_int ban_race_level;	/* Level to ban races */
   sh_int ident_retries;		/* Number of times to retry broken pipes. */
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  int	global_silver_looted; /* Global Silver taken */
+  int	global_copper_looted; /* Global copper taken */ 
+#endif
   sh_int pk_loot;		/* Pkill looting allowed? */
   char *news_html_path;		/* news path to posting file -Nopey */
   int max_html_news;		/* max number of news shown on html printout    -Nopey */
@@ -3571,6 +3631,11 @@ bool ext_same_bits args ((EXT_BV * var, EXT_BV * bits));
 void ext_set_bits args ((EXT_BV * var, EXT_BV * bits));
 void ext_remove_bits args ((EXT_BV * var, EXT_BV * bits));
 void ext_toggle_bits args ((EXT_BV * var, EXT_BV * bits));
+
+#ifdef ENABLE_GOLD_SILVER_COPPER
+int	get_value	args((int gval, int sval, int cval));
+void conv_currency args (( CHAR_DATA *ch, int tmpvalue ));
+#endif
 
 /*
  * Here are the extended bitvector macros:
@@ -5541,7 +5606,11 @@ void make_puddle args ((CHAR_DATA * ch, OBJ_DATA * cont));
 void make_scraps args ((OBJ_DATA * obj));
 void make_fire args ((ROOM_INDEX_DATA * in_room, sh_int timer));
 OD *make_trap args ((int v0, int v1, int v2, int v3));
+#ifdef ENABLE_GOLD_SILVER_COPPER
+OD *create_money args ((int amount, int type));
+#else
 OD *create_money args ((int amount));
+#endif
 
 /* misc.c */
 // This void *vo doesnt seem to be used in the function, so I'll just leave it
@@ -5590,6 +5659,12 @@ void mprog_act_trigger
 args ((char *buf, CHAR_DATA * mob, CHAR_DATA * ch, OBJ_DATA * obj,
        CHAR_DATA * victim, OBJ_DATA * target));
 void mprog_bribe_trigger args ((CHAR_DATA * mob, CHAR_DATA * ch, int amount));
+#ifdef ENABLE_GOLD_SILVER_COPPER
+void	mprog_bribe_trigger_silver     args ( ( CHAR_DATA* mob, CHAR_DATA* ch,
+		                        int amount) );
+void	mprog_bribe_trigger_copper     args ( ( CHAR_DATA* mob, CHAR_DATA* ch,
+		                        int amount) );   
+#endif
 bool mprog_command_trigger args ((CHAR_DATA * ch, char *argument));
 void mprog_entry_trigger args ((CHAR_DATA * mob));
 void mprog_give_trigger args ((CHAR_DATA * mob, CHAR_DATA * ch,
@@ -6204,6 +6279,9 @@ typedef enum
   PULL_PROG, PUSH_PROG, SLEEP_PROG, REST_PROG, LEAVE_PROG, SCRIPT_PROG,
   USE_PROG, LOAD_PROG, LOGIN_PROG, VOID_PROG, TELL_PROG, IMMINFO_PROG,
   GREET_IN_FIGHT_PROG, MOVE_PROG, CMD_PROG, SELL_PROG, EMOTE_PROG
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  , BRIBE_COPPER_PROG, BRIBE_SILVER_PROG
+#endif
 } prog_types;
 
 /*

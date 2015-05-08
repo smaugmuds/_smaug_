@@ -778,16 +778,27 @@ do_note (CHAR_DATA * ch, char *arg_passed, bool IS_MAIL)
 		  vnum++;
 		  if (vnum == anum || fAll)
 		    {
+#ifdef ENABLE_GOLD_SILVER_COPPER
+          if ( ch->copper < 10
+            &&   get_trust(ch) < sysdata.read_mail_free )
+            {
+            send_to_char("It costs 10 copper coins to read a message.\n\r", ch);
+            return;
+            }
+            if (get_trust(ch) < sysdata.read_mail_free)
+            ch->copper -= 10;
+#else
 		      if (ch->gold < 10
-			  && get_trust (ch) < sysdata.read_mail_free)
-			{
-			  send_to_char
-			    ("It costs 10 gold coins to read a message.\n\r",
-			     ch);
-			  return;
-			}
-		      if (get_trust (ch) < sysdata.read_mail_free)
-			ch->gold -= 10;
+			        && get_trust (ch) < sysdata.read_mail_free)
+			      {
+			        send_to_char
+			          ("It costs 10 gold coins to read a message.\n\r",
+			           ch);
+			        return;
+			      }
+		            if (get_trust (ch) < sysdata.read_mail_free)
+			      ch->gold -= 10;
+#endif
 		      pager_printf (ch, "[%3d] %s: %s\n\r%s\n\rTo: %s\n\r%s",
 				    vnum,
 				    pnote->sender,
@@ -1503,6 +1514,18 @@ do_note (CHAR_DATA * ch, char *arg_passed, bool IS_MAIL)
 		}
 	      if (take != 0)
 		{
+#ifdef ENABLE_GOLD_SILVER_COPPER
+      if ( ch->copper < 50 && get_trust(ch) < sysdata.read_mail_free )
+        {
+          if ( take == 1 )
+          send_to_char("It costs 50 copper coins to take your mail.\n\r", ch);
+          else
+          send_to_char("It costs 50 copper coins to copy your mail.\n\r", ch);
+          return;
+        }
+        if ( get_trust(ch) < sysdata.read_mail_free )
+        ch->copper -= 50;
+#else
 		  if (ch->gold < 50
 		      && get_trust (ch) < sysdata.read_mail_free)
 		    {
@@ -1516,6 +1539,8 @@ do_note (CHAR_DATA * ch, char *arg_passed, bool IS_MAIL)
 		    }
 		  if (get_trust (ch) < sysdata.read_mail_free)
 		    ch->gold -= 50;
+#endif
+
 		  paper = create_object (get_obj_index (OBJ_VNUM_NOTE), 0);
 		  ed = SetOExtra (paper, "_sender_");
 		  STRFREE (ed->description);

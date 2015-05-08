@@ -3881,6 +3881,167 @@ do_group (CHAR_DATA * ch, char *argument)
 
 
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+/*
+ * 'Split' originally by Gnort, God of Chaos.
+ * Gold, Silver, Copper, support by The Dark Druid
+ */
+void do_split( CHAR_DATA *ch, char *argument )
+{
+    char buf[MAX_STRING_LENGTH];
+    char arg1[MAX_INPUT_LENGTH];
+    char arg2[MAX_INPUT_LENGTH];
+    CHAR_DATA *gch;
+    int members;
+    int amount;
+    int share;
+    int extra;
+    int type;
+
+    argument = one_argument( argument, arg1 );
+    argument = one_argument( argument, arg2 );
+    
+	
+    if ( arg1[0] == '\0' || arg2[0] == '\0' )
+    {
+	send_to_char( "Split <Amount> <Coin Type>\n\r", ch );
+	send_to_char( "\n\rValid coin types: Gold, Silver, Copper\n\r",ch);
+	return;
+    }
+    
+    /*
+     * type 0 = gold
+     * type 1 = silver
+     * type 2 = copper
+     */
+	if ( !str_cmp("gold",arg2)) 		type = 0;
+	else if ( !str_cmp("silver",arg2))  type = 1;
+	else if ( !str_cmp("silv",arg2))	type = 1;
+	else if ( !str_cmp("copper",arg2))  type = 2;
+	else if ( !str_cmp("cop",arg2)) 	type = 2;
+	else {
+		sprintf(buf,"%s is not a valid coin type.\n\r",arg2);
+		send_to_char(buf,ch);
+		return;
+		}
+    amount = atoi( arg1 );
+
+    if ( amount < 0 )
+    {
+	send_to_char( "Your group wouldn't like that.\n\r", ch );
+	return;
+    }
+
+    if ( amount == 0 )
+    {
+	send_to_char( "You hand out zero coins, but no one notices.\n\r", ch );
+	return;
+    }
+	/*
+	 * Check for amount of Gold/Silver/Copper -Druid
+	 */
+	if (type == 0)	
+    if ( ch->gold < amount )
+    {
+	send_to_char( "You don't have that much gold.\n\r", ch );
+	return;
+    }
+    if (type == 1)	
+    if ( ch->silver < amount )
+    {
+	send_to_char( "You don't have that much silver.\n\r", ch );
+	return;
+    }
+    if (type == 2)	
+    if ( ch->copper < amount )
+    {
+	send_to_char( "You don't have that much copper.\n\r", ch );
+	return;
+    }
+	
+	if (type<0 || type >3)
+	{
+	send_to_char( "Invalid coin type, please try again\n\r",ch);
+	bug("Invalid coin type: in do_split",0);
+	return;
+	}	
+    members = 0;
+    for ( gch = ch->in_room->first_person; gch; gch = gch->next_in_room )
+    {
+	if ( is_same_group( gch, ch ) )
+	    members++;
+    }
+    
+    if ( xIS_SET(ch->act, PLR_AUTOGOLD) && members < 2 )
+	return;
+
+    if ( members < 2 )
+    {
+	send_to_char( "Just keep it all.\n\r", ch );
+	return;
+    }
+
+    share = amount / members;
+    extra = amount % members;
+
+    if ( share == 0 )
+    {
+	send_to_char( "Don't even bother, cheapskate.\n\r", ch );
+	return;
+    }
+	if (type ==0)
+	{
+    ch->gold -= amount;
+    ch->gold += share + extra;
+	}
+	if (type == 1)
+	{
+		ch->silver -= amount;
+		ch->silver += share + extra;
+	}
+	if (type == 2)
+	{
+		ch->copper -= amount;
+		ch->copper += share + extra;
+	}
+    set_char_color( AT_GOLD, ch );
+    if (type == 0){
+    ch_printf( ch,
+	"You split %d gold coins.  Your share is %d gold coins.\n\r",
+	amount, share + extra );
+
+    sprintf( buf, "$n splits %d gold coins.  Your share is %d gold coins.",
+	amount, share );
+	}
+	if (type == 1){
+    ch_printf( ch,
+	"You split %d silver coins.  Your share is %d silver coins.\n\r",
+	amount, share + extra );
+
+    sprintf( buf, "$n splits %d silver coins.  Your share is %d silver coins.",
+	amount, share );
+	}
+	if (type == 2){
+    ch_printf( ch,
+	"You split %d copper coins.  Your share is %d copper coins.\n\r",
+	amount, share + extra );
+
+    sprintf( buf, "$n splits %d copper coins.  Your share is %d copper coins.",
+	amount, share );
+	}
+    for ( gch = ch->in_room->first_person; gch; gch = gch->next_in_room )
+    {
+	if ( gch != ch && is_same_group( gch, ch ) )
+	{
+	    act( AT_GOLD, buf, ch, NULL, gch, TO_VICT );
+	    if (type == 0) gch->gold += share;
+	    if (type == 1) gch->silver += share;
+	    if (type == 2) gch->copper += share;
+	}
+    }
+    return;
+}
+#else
 /*
  * 'Split' originally by Gnort, God of Chaos.
  */
@@ -3970,8 +4131,7 @@ do_split (CHAR_DATA * ch, char *argument)
     }
   return;
 }
-
-
+#endif
 
 void
 do_gtell (CHAR_DATA * ch, char *argument)

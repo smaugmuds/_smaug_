@@ -504,10 +504,19 @@ show_list_to_char (OBJ_DATA * list, CHAR_DATA * ch, bool fShort,
 	case ITEM_CORPSE_NPC:
 	  set_char_color (AT_ORANGE, ch);
 	  break;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  case ITEM_GOLD:
+#else
 	case ITEM_MONEY:
-	case ITEM_TREASURE:
-	  set_char_color (AT_YELLOW, ch);
-	  break;
+#endif
+  case ITEM_TREASURE:
+  set_char_color( AT_YELLOW, ch );
+  break;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  case ITEM_SILVER:
+  set_char_color( AT_WHITE, ch);
+  break;
+#endif
 	case ITEM_COOK:
 	case ITEM_FOOD:
 	  set_char_color (AT_HUNGRY, ch);
@@ -517,6 +526,9 @@ show_list_to_char (OBJ_DATA * list, CHAR_DATA * ch, bool fShort,
 	case ITEM_PUDDLE:
 	  set_char_color (AT_THIRSTY, ch);
 	  break;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  case ITEM_COPPER:
+#endif
 	case ITEM_FIRE:
 	  set_char_color (AT_FIRE, ch);
 	  break;

@@ -245,7 +245,13 @@ get_obj (CHAR_DATA * ch, OBJ_DATA * obj, OBJ_DATA * container)
   if (char_died (ch))
     return;
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+if ( obj->item_type == ITEM_GOLD 
+|| obj->item_type == ITEM_COPPER 
+|| obj->item_type == ITEM_SILVER )
+#else
   if (obj->item_type == ITEM_MONEY)
+#endif
     {
       /* Handle grouping -- noticed by Guy Petty */
       amt = obj->value[0] * obj->count;
@@ -294,7 +300,13 @@ get_obj (CHAR_DATA * ch, OBJ_DATA * obj, OBJ_DATA * container)
 	}
 #endif
 
+#define ENABLE_GOLD_SILVER_COPPER
+    if(obj->item_type == ITEM_GOLD) ch->gold += amt;
+    if(obj->item_type == ITEM_COPPER) ch->copper += amt;
+    if(obj->item_type == ITEM_SILVER) ch->silver +=amt;
+#else
       ch->gold += amt;
+#endif
       extract_obj (obj);
     }
   else
@@ -1139,6 +1151,10 @@ do_drop (CHAR_DATA * ch, char *argument)
   char buf[20];
   int number;
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  int type=3;
+#endif
+
   argument = one_argument (argument, arg);
   if (is_number (arg))
     {
@@ -1182,7 +1198,111 @@ do_drop (CHAR_DATA * ch, char *argument)
   if (number > 0)
     {
       /* 'drop NNNN coins' */
+#ifdef ENABLE_GOLD_SILVER_COPPER
+/* Support for gold, copper, and silver -Druid */
+	if ( !str_cmp( arg, "gold" ) || !str_cmp( arg, "copper" ) || !str_cmp(arg, "silver"))
+	{
+		/*
+		 * type 0 = gold
+		 * type 1 = silver
+		 * type 2 = copper
+		 */
+		if ( !str_cmp( arg, "gold" ))  type = 0;
+		if ( !str_cmp( arg, "silver")) type = 1;
+		if ( !str_cmp( arg, "copper")) type = 2;
+		
+	    if ( type == 0 && ch->gold < number )
+	    {
+		send_to_char( "You haven't got that many coins.\n\r", ch );
+		return;
+	    }
+		if ( type == 1 && ch->silver < number )
+	    {
+		send_to_char( "You haven't got that many coins.\n\r", ch );
+		return;
+	    }
+	    if ( type == 2 && ch->copper < number )
+	    {
+		send_to_char( "You haven't got that many coins.\n\r", ch );
+		return;
+	    }
+	    
+	    if ( type >2 || type <0){
+	    send_to_char(" <BUG> invalid type, Report to Ddruid\n\r",ch);
+	    return;
+	    }
+	    if ( type == 0 ) ch->gold -= number;
+	    if ( type == 1 ) ch->silver -= number;
+	    if ( type == 2 ) ch->copper -= number;
 
+	    for ( obj = ch->in_room->first_content; obj; obj = obj_next )
+	    {
+		obj_next = obj->next_content;
+
+		switch ( obj->pIndexData->vnum )
+		{
+		case OBJ_VNUM_GOLD_ONE:
+		   if(type ==0){
+		   number += 1;
+		   extract_obj( obj );
+		   }
+		   break;
+
+		case OBJ_VNUM_GOLD_SOME: 
+		   if(type ==0){
+		   number += obj->value[0];
+		   extract_obj( obj ); 
+		   }
+		   break;
+		case OBJ_VNUM_SILVER_ONE:  
+		   if(type ==1){
+		   number += 1;
+		   extract_obj( obj );
+		   }
+		   break;
+
+		case OBJ_VNUM_SILVER_SOME: 
+		   if(type ==1){
+		   number += obj->value[0];
+		   extract_obj( obj );
+		   }
+		   break;
+		case OBJ_VNUM_COPPER_ONE:
+		   if(type ==2){
+		   number += 1;
+		   extract_obj( obj ); 
+		   }
+		   break;
+
+		case OBJ_VNUM_COPPER_SOME:  
+		   if(type ==2){
+		   number += obj->value[0];
+		   extract_obj( obj );
+		   }
+		   break;
+		}
+	    }
+		if ( type == 0) {
+	    act( AT_ACTION, "$n drops some gold.", ch, NULL, NULL, TO_ROOM );
+	    obj_to_room( create_money( number, 0 ), ch->in_room );
+	    send_to_char( "You let the gold slip from your hand.\n\r", ch );
+	    }
+	    if ( type == 1) {
+	    act( AT_ACTION, "$n drops some silver.", ch, NULL, NULL, TO_ROOM );
+	    obj_to_room( create_money( number, 1 ), ch->in_room );
+	    send_to_char( "You let the silver slip from your hand.\n\r", ch );
+	    }
+	    if ( type == 2) {
+	    act( AT_ACTION, "$n drops some copper.", ch, NULL, NULL, TO_ROOM );
+	    obj_to_room( create_money( number, 2 ), ch->in_room );
+	    send_to_char( "You let the copper slip from your hand.\n\r", ch );
+	    }
+	    if ( IS_SET( sysdata.save_flags, SV_DROP ) )
+		save_char_obj( ch );
+	    return;
+	}
+    }
+#else
       if (!str_cmp (arg, "coins") || !str_cmp (arg, "coin"))
 	{
 	  if (ch->gold < number)
@@ -1231,6 +1351,7 @@ do_drop (CHAR_DATA * ch, char *argument)
 	  return;
 	}
     }
+#endif
 
   if (number <= 1 && str_cmp (arg, "all") && str_prefix ("all.", arg))
     {
@@ -1374,6 +1495,10 @@ do_give (CHAR_DATA * ch, char *argument)
   OBJ_DATA *obj;
   bool immgive;
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  int type=3;
+#endif
+
   argument = one_argument (argument, arg1);
   argument = one_argument (argument, arg2);
   if (!str_cmp (arg2, "to") && argument[0] != '\0')
@@ -1396,6 +1521,93 @@ do_give (CHAR_DATA * ch, char *argument)
       int amount;
 
       amount = atoi (arg1);
+
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  if ( amount <= 0
+	|| ( str_cmp( arg2, "gold" ) && str_cmp( arg2, "silver" ) && str_cmp( arg2, "copper") ) )
+	{
+	    send_to_char( "Sorry, you can't do that.\n\r", ch );
+	    return;
+	}
+	/*
+	 * type 0 = gold
+	 * type 1 = silver
+	 * type 2 = copper
+	 * -Druid
+	 */
+	 
+	if (!str_cmp( arg2, "gold")) type = 0;
+	if (!str_cmp( arg2, "silver")) type = 1;
+	if (!str_cmp( arg2, "copper")) type = 2;
+	
+	if (type >2 || type <0){
+	   send_to_char( "<BUG> invalid coin type, report to Ddruid.\n\r",ch);
+	   return;
+	   }
+	argument = one_argument( argument, arg2 );
+	if ( !str_cmp( arg2, "to" ) && argument[0] != '\0' )
+	    argument = one_argument( argument, arg2 );
+	if ( arg2[0] == '\0' )
+	{
+	    send_to_char( "Give what to whom?\n\r", ch );
+	    return;
+	}
+
+	if ( ( victim = get_char_room( ch, arg2 ) ) == NULL )
+	{
+	    send_to_char( "They aren't here.\n\r", ch );
+	    return;
+	}
+
+	if ( type == 0 && ch->gold < amount )
+	{
+	    send_to_char( "Very generous of you, but you haven't got that much gold.\n\r", ch );
+	    return;
+	}
+	if ( type == 1 && ch->silver < amount )
+	{
+	    send_to_char( "Very generous of you, but you haven't got that much silver.\n\r", ch );
+	    return;
+	}
+	if ( type == 2 && ch->copper < amount )
+	{
+	    send_to_char( "Very generous of you, but you haven't got that much copper.\n\r", ch );
+	    return;
+	}
+	if ( type == 0){
+	ch->gold     -= amount;
+	victim->gold += amount;
+        strcpy(buf, "$n gives you ");
+        strcat(buf, arg1 );
+        strcat(buf, (amount > 1) ? " gold coins." : " gold coin.");
+        act( AT_ACTION, buf, ch, NULL, victim, TO_VICT    );
+	act( AT_ACTION, "$n gives $N some gold.",  ch, NULL, victim, TO_NOTVICT );
+	act( AT_ACTION, "You give $N some gold.",  ch, NULL, victim, TO_CHAR    );
+	mprog_bribe_trigger( victim, ch, amount);
+    }
+    if ( type == 1){
+	ch->silver     -= amount;
+	victim->silver += amount;
+        strcpy(buf, "$n gives you ");
+        strcat(buf, arg1 );
+        strcat(buf, (amount > 1) ? " silver coins." : " silver coin.");
+        act( AT_ACTION, buf, ch, NULL, victim, TO_VICT    );
+	act( AT_ACTION, "$n gives $N some silver.",  ch, NULL, victim, TO_NOTVICT );
+	act( AT_ACTION, "You give $N some silver.",  ch, NULL, victim, TO_CHAR    );
+	mprog_bribe_trigger_silver( victim, ch, amount); 
+    }
+    if ( type == 2){
+	ch->copper     -= amount;
+	victim->copper += amount;
+        strcpy(buf, "$n gives you ");
+        strcat(buf, arg1 );
+        strcat(buf, (amount > 1) ? " copper coins." : " copper coin.");
+        act( AT_ACTION, buf, ch, NULL, victim, TO_VICT    );
+	act( AT_ACTION, "$n gives $N some copper.",  ch, NULL, victim, TO_NOTVICT );
+	act( AT_ACTION, "You give $N some copper.",  ch, NULL, victim, TO_CHAR    );
+	mprog_bribe_trigger_copper( victim, ch, amount); 
+    } 
+#else
       if (amount <= 0 || (str_cmp (arg2, "coins") && str_cmp (arg2, "coin")))
 	{
 	  send_to_char ("Sorry, you can't do that.\n\r", ch);
@@ -1448,6 +1660,7 @@ do_give (CHAR_DATA * ch, char *argument)
       strcat (buf, " to $N.");
       act (AT_ACTION, buf, ch, NULL, victim, TO_CHAR);
       mprog_bribe_trigger (victim, ch, amount);
+#endif
       if (IS_SET (sysdata.save_flags, SV_GIVE) && !char_died (ch))
 	save_char_obj (ch);
       if (IS_SET (sysdata.save_flags, SV_RECEIVE) && !char_died (victim))
@@ -2688,11 +2901,20 @@ do_sacrifice (CHAR_DATA * ch, char *argument)
       };
       strcpy (name, god_name_table[number_range (0, 6)]);
     }
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  ch->copper += 1;
+#else
   ch->gold += 1;
+#endif
   if (obj->item_type == ITEM_CORPSE_NPC || obj->item_type == ITEM_CORPSE_PC)
     adjust_favor (ch, 5, 1);
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  sprintf (buf, "%s gives you one copper coin for your sacrifice.\n\r", name);  
+#else
   sprintf (buf, "%s gives you one gold coin for your sacrifice.\n\r", name);
+#endif
+
   send_to_char (buf, ch);
   if (obj->item_type == ITEM_PAPER)
     {
@@ -2966,6 +3188,534 @@ save_storeroom (CHAR_DATA * ch, char *vnum)
 }
 
 /* put an item on auction, or see the stats on the current item or bet */
+#ifdef ENABLE_GOLD_SILVER_COPPER
+void do_auction (CHAR_DATA *ch, char *argument)
+{
+    OBJ_DATA *obj;
+    char arg1[MAX_INPUT_LENGTH];
+    char arg2[MAX_INPUT_LENGTH];
+    char arg3[MAX_INPUT_LENGTH];
+    char buf[MAX_STRING_LENGTH];
+    int i;
+    int gbid = 0;
+    int sbid = 0;
+    int cbid = 0;
+    int tmpvalue = 0;
+
+    argument = one_argument (argument, arg1);
+    argument = one_argument (argument, arg2);
+    argument = one_argument (argument, arg3);
+
+    set_char_color( AT_LBLUE, ch );
+
+    if (IS_NPC(ch)) /* NPC can be extracted at any time and thus can't auction! */
+	return;
+
+    if ( ch->level < 3 )
+    {
+	send_to_char( "You must be at least level three to use the auction...\n\r", ch );
+	return;
+    }
+
+    if ( ( time_info.hour > 19 || time_info.hour < 7 )
+    && auction->item == NULL
+    && !IS_IMMORTAL( ch ) )
+    {
+	send_to_char ("\n\rThe auctioneer works between the hours of 7 AM and 7 PM\n\r", ch );
+        return;
+    }
+
+    if (arg1[0] == '\0')
+    {
+        if (auction->item != NULL)
+        {
+	    AFFECT_DATA *paf;
+	    
+	    	    
+  	  obj = auction->item;
+  	  
+  	  tmpvalue = auction->bet;  
+	    gbid = tmpvalue/10000;
+	    tmpvalue=tmpvalue%10000;
+	    sbid = tmpvalue/100;
+	    tmpvalue=tmpvalue%100;		
+	    cbid = tmpvalue;
+            /* show item data here */
+            if (auction->bet > 0){
+              if(gbid <= 0 && sbid <= 0 && cbid > 0)
+                sprintf (buf, "\n\rCurrent bid on this item is %d copper\n\r", cbid);
+              else if(gbid > 0 && sbid <= 0 && cbid > 0)
+                sprintf (buf, "\n\rCurrent bid on this item is %d gold and %d copper\n\r", gbid, cbid);
+              else if(gbid > 0 && sbid > 0 && cbid > 0)
+                sprintf (buf, "\n\rCurrent bid is %d gold, %d silver, and %d copper\n\r", gbid,sbid,cbid);
+              else if(gbid <= 0 && sbid > 0 && cbid > 0)
+                sprintf (buf, "\n\rCurrent bid on this item is %d silver and %d copper\n\r", sbid, cbid);
+              else if(gbid > 0 && sbid <= 0 && cbid <= 0)
+                sprintf (buf, "\n\rCurrent bid on this item is %d gold\n\r", gbid);
+              else if(gbid <= 0 && sbid > 0 && cbid <= 0)
+                sprintf (buf, "\n\rCurrent bid on this item is %d silver\n\r", sbid);
+              else if(gbid > 0 && sbid > 0 && cbid <= 0)
+                sprintf (buf, "\n\rCurrent bid on this item is %d gold and %d silver\n\r", gbid, sbid);
+              else sprintf(buf, "Error! report to Ddruid.\n\r");
+           } else
+                sprintf (buf, "\n\rNo bids on this item have been received.\n\r");
+	    set_char_color ( AT_BLUE, ch );
+            send_to_char (buf,ch);
+/*          spell_identify (0, LEVEL_HERO - 1, ch, auction->item); */
+
+	    sprintf( buf,
+		"Object '%s' is %s, special properties: %s\n\rIts weight is %d,\n\r",
+		obj->name,
+		aoran( item_type_name( obj ) ),
+		extra_bit_name( &obj->extra_flags ),
+/*		magic_bit_name( obj->magic_flags ), -- currently unused */
+		obj->weight);
+	    set_char_color( AT_LBLUE, ch );
+	    send_to_char( buf, ch );
+	    sprintf(buf,
+	    "It value is: %d gold, %d silver, and %d copper\n\rLevel: %d\n\r",
+	    obj->gold_cost, obj->silver_cost, obj->copper_cost, obj->level);
+	    set_char_color( AT_LBLUE,ch);
+	    send_to_char( buf, ch);
+	    if ( obj->item_type != ITEM_LIGHT && obj->wear_flags-1 > 0 )
+	      ch_printf( ch, "Item's wear location: %s\n\r",
+		flag_string(obj->wear_flags -1, w_flags ) );
+
+	    set_char_color( AT_BLUE, ch );
+
+	    switch ( obj->item_type )
+	    {
+		case ITEM_CONTAINER:
+		case ITEM_KEYRING:
+		case ITEM_QUIVER:
+                  ch_printf( ch, "%s appears to %s.\n\r", capitalize(obj->short_descr),
+   	                obj->value[0] < 76  ? "have a small capacity"           :
+	                obj->value[0] < 150 ? "have a small to medium capacity" :
+			obj->value[0] < 300 ? "have a medium capacity"          :
+	                obj->value[0] < 500 ? "have a medium to large capacity" :
+	                obj->value[0] < 751 ? "have a large capacity"           :
+	                                      "have a giant capacity" );
+	          break;
+
+		case ITEM_PILL:
+		case ITEM_SCROLL:
+		case ITEM_POTION:
+		  sprintf( buf, "Level %d spells of:", obj->value[0] );
+		  send_to_char( buf, ch );
+        
+		  if ( obj->value[1] >= 0 && obj->value[1] < top_sn )
+		  {
+		     send_to_char( " '", ch );
+		     send_to_char( skill_table[obj->value[1]]->name, ch );
+		     send_to_char( "'", ch );
+		  }
+    
+		  if ( obj->value[2] >= 0 && obj->value[2] < top_sn )
+		  {
+		     send_to_char( " '", ch );
+		     send_to_char( skill_table[obj->value[2]]->name, ch );
+		     send_to_char( "'", ch );
+		  }
+    
+		  if ( obj->value[3] >= 0 && obj->value[3] < top_sn )
+		  {
+		     send_to_char( " '", ch );
+		     send_to_char( skill_table[obj->value[3]]->name, ch );
+		     send_to_char( "'", ch );
+		  }
+
+		  send_to_char( ".\n\r", ch );
+		  break;
+    
+		case ITEM_WAND:
+		case ITEM_STAFF:
+		  sprintf( buf, "Has %d(%d) charges of level %d",
+			obj->value[1], obj->value[2], obj->value[0] );
+		  send_to_char( buf, ch );
+         
+		  if ( obj->value[3] >= 0 && obj->value[3] < top_sn )
+		  {
+		     send_to_char( " '", ch );
+		     send_to_char( skill_table[obj->value[3]]->name, ch );
+		     send_to_char( "'", ch );
+		  }
+
+		  send_to_char( ".\n\r", ch );
+		  break;
+        
+		case ITEM_MISSILE_WEAPON:
+		case ITEM_WEAPON:
+		  sprintf( buf, "Damage is %d to %d (average %d).%s\n\r",
+			obj->value[1], obj->value[2],
+			( obj->value[1] + obj->value[2] ) / 2,
+			IS_OBJ_STAT( obj, ITEM_POISONED) ?
+			"\n\rThis weapon is poisoned." : "" );
+		  send_to_char( buf, ch );
+		  break;
+
+		case ITEM_ARMOR:
+		  sprintf( buf, "Armor class is %d.\n\r", obj->value[0] );
+		  send_to_char( buf, ch );
+		  break;
+	    }
+         
+	    for ( paf = obj->pIndexData->first_affect; paf; paf = paf->next )
+		showaffect( ch, paf );
+        
+	    for ( paf = obj->first_affect; paf; paf = paf->next )
+		showaffect( ch, paf );
+	    if ( ( obj->item_type == ITEM_CONTAINER || obj->item_type == ITEM_KEYRING
+	    ||     obj->item_type == ITEM_QUIVER)   && obj->first_content )
+	    {
+		set_char_color( AT_OBJECT, ch );
+		send_to_char( "Contents:\n\r", ch );
+		show_list_to_char( obj->first_content, ch, TRUE, FALSE );
+	    }
+
+	    if (IS_IMMORTAL(ch))
+	    {
+		sprintf(buf, "Seller: %s.  Bidder: %s.  Round: %d.\n\r",
+                        auction->seller->name, auction->buyer->name,
+                        (auction->going + 1));
+		send_to_char(buf, ch);
+		sprintf(buf, "Time left in round: %d.\n\r", auction->pulse);
+		send_to_char(buf, ch);
+	    }
+            return;
+	}
+	else
+	{
+	    set_char_color ( AT_LBLUE, ch );
+	    send_to_char ( "\n\rThere is nothing being auctioned right now.  What would you like to auction?\n\r", ch );
+	    return;
+	}
+    }
+
+    if ( IS_IMMORTAL(ch) && !str_cmp(arg1,"stop"))
+    if (auction->item == NULL)
+    {
+        send_to_char ("There is no auction to stop.\n\r",ch);
+        return;
+    }
+    else /* stop the auction */
+    {
+     int gbid = 0;
+	   int sbid = 0;
+	   int cbid = 0;
+	   int tmpvalue = 0;	    
+	          
+	   tmpvalue = auction->bet;  
+	   gbid = tmpvalue/10000;
+	   tmpvalue=tmpvalue%10000;
+	   sbid = tmpvalue/100;
+	   tmpvalue=tmpvalue%100;		
+	   cbid = tmpvalue; 
+	   
+	set_char_color ( AT_LBLUE, ch );
+        sprintf (buf,"Sale of %s has been stopped by an Immortal.",
+                        auction->item->short_descr);
+        talk_auction (buf);
+        obj_to_char (auction->item, auction->seller);
+        ch_printf_color(auction->seller,"&C%s is returned to you\n\r",auction->item->short_descr);
+	if ( IS_SET( sysdata.save_flags, SV_AUCTION ) )
+	    save_char_obj(auction->seller);
+        auction->item = NULL;
+        if (auction->buyer != NULL && auction->buyer != auction->seller) /* return money to the buyer */
+        {
+            auction->buyer->gold += gbid;
+            auction->buyer->silver += sbid;
+            auction->buyer->copper += cbid;
+            send_to_char ("Your money has been returned.\n\r",auction->buyer);
+        }
+        return;
+    }
+
+    if (!str_cmp(arg1,"bid") )
+        if (auction->item != NULL)
+        {
+            int newbet;
+            int chwealth;
+          	     	              
+  	            tmpvalue = auction->bet;  
+	              gbid = tmpvalue/10000;
+	              tmpvalue=tmpvalue%10000;
+	              sbid = tmpvalue/100;
+	              tmpvalue=tmpvalue%100;		
+	              cbid = tmpvalue;
+
+	    if ( ch->level < auction->item->level )
+	    {
+		send_to_char("This object's level is too high for your use.\n\r", ch );
+		return;
+	    }
+
+	    if ( ch == auction->seller)
+	    {
+		send_to_char("You can't bid on your own item!\n\r", ch);
+		return;
+	    }
+
+            /* make - perhaps - a bet now */
+            if (arg2[0] == '\0')
+            {
+                send_to_char ("Bid how much?\n\r",ch);
+                return;
+            }
+
+            newbet = parsebet (auction->bet, arg2);
+/*	    ch_printf( ch, "Bid: %d\n\r",newbet);	*/
+
+	    if (newbet < auction->starting)
+	    {
+		send_to_char("You must place a bid that is higher than the starting bet.\n\r", ch);
+		return;
+	    }
+
+	    /* to avoid slow auction, use a bigger amount than 100 if the bet
+ 	       is higher up - changed to 10000 for our high economy
+            */
+
+            if (newbet < (auction->bet + 100))
+            {
+                send_to_char ("You must at least bid 1 silver coin over the current bid.\n\r",ch);
+                return;
+            }
+          chwealth = get_value(ch->gold, ch->silver, ch->copper);
+            if (newbet > chwealth)
+            {
+                send_to_char ("You don't have that much money!\n\r",ch);
+                return;
+            }
+
+	    if (newbet > 2000000000)
+	    {
+		send_to_char("You can't bid over 2 billion coins.\n\r", ch);
+		return;
+	    }
+
+	    /* Is it the item they really want to bid on? --Shaddai */
+	    if ( arg3[0] != '\0' &&
+	 	 !nifty_is_name( arg3, auction->item->name ) )
+	    {
+	     send_to_char("That item is not being auctioned right now.\n\r",ch);
+	     return;
+	    }
+            /* the actual bet is OK! */
+
+            /* return the coins to the last buyer, if one exists */
+            if (auction->buyer != NULL && auction->buyer != auction->seller){
+                send_to_char("The auctioneer returns your money.\n\r",auction->buyer);	                           
+                auction->buyer->gold += gbid;
+                auction->buyer->silver += sbid;
+                auction->buyer->copper += cbid;  	              
+                }
+                         
+  	            tmpvalue = newbet;  
+	              gbid = tmpvalue/10000;
+	              tmpvalue=tmpvalue%10000;
+	              sbid = tmpvalue/100;
+	              tmpvalue=tmpvalue%100;		
+	              cbid = tmpvalue;
+	     act(AT_ACTION,"The auctioneer appears before $n, demanding some money.",ch,NULL,NULL,TO_ROOM);
+	     act(AT_ACTION,"The auctioneer appears before you demanding your bidded money.",ch,NULL,NULL,TO_CHAR);
+	     if(ch->gold < gbid || ch->silver < sbid || ch->copper < cbid){
+	     send_to_char("You give your money to the auctioneer who quickly makes change\n\r",ch);
+	         chwealth -= newbet;
+	         conv_currency(ch, chwealth);
+        } else {
+       send_to_char("You give your money to the auctioneer.\n\r",ch);
+          ch->gold -= gbid;
+          ch->silver -= sbid;
+          ch->copper -= cbid;
+          }
+              
+                
+	    if ( IS_SET( sysdata.save_flags, SV_AUCTION ) )
+		save_char_obj(ch);
+            auction->buyer = ch;
+            auction->bet   = newbet;
+            auction->going = 0;
+            auction->pulse = PULSE_AUCTION; /* start the auction over again */
+            
+            if( gbid > 0 && sbid > 0 && cbid > 0 )
+            sprintf (buf,"A bid of %d gold, %d silver, and %d copper has been received on %s.\n\r",gbid,sbid,cbid,auction->item->short_descr);
+            else if( gbid > 0 && sbid > 0 && cbid <= 0 )
+            sprintf (buf,"A bid of %d gold and %d silver has been received on %s.\n\r",gbid,sbid,auction->item->short_descr);
+            else if( gbid > 0 && sbid <= 0 && cbid <= 0 )
+            sprintf (buf,"A bid of %d gold has been received on %s.\n\r",gbid,auction->item->short_descr);
+            else if( gbid <= 0 && sbid > 0 && cbid <= 0 )
+            sprintf (buf,"A bid of %d silver has been received on %s.\n\r",sbid,auction->item->short_descr);
+            else if( gbid <= 0 && sbid <= 0 && cbid > 0 )
+            sprintf (buf,"A bid of %d copper has been received on %s.\n\r",cbid,auction->item->short_descr);
+            else if( gbid > 0 && sbid <= 0 && cbid > 0 )
+            sprintf (buf,"A bid of %d gold and %d copper has been received on %s.\n\r",gbid,cbid,auction->item->short_descr);
+            else if( gbid <= 0 && sbid > 0 && cbid > 0 )
+            sprintf (buf,"A bid of %d silver and %d copper has been received on %s.\n\r",sbid,cbid,auction->item->short_descr);
+            else sprintf( buf, "Error! report to Ddruid\n\r");
+            talk_auction (buf);
+            return;
+
+
+        }
+        else
+        {
+            send_to_char ("There isn't anything being auctioned right now.\n\r",ch);
+            return;
+        }
+
+/* finally... */
+    if ( ms_find_obj(ch) )
+	return;
+
+    obj = get_obj_carry (ch, arg1); /* does char have the item ? */
+
+    if (obj == NULL)
+    {
+        send_to_char ("You aren't carrying that.\n\r",ch);
+        return;
+    }
+
+    if (obj->timer > 0)
+    {
+	send_to_char ("You can't auction objects that are decaying.\n\r", ch);
+	return;
+    }
+
+    /* prevent repeat auction items */	
+    for(i = 0; i < AUCTION_MEM && auction->history[i]; i++)
+    {
+    	if(auction->history[i] == obj->pIndexData)
+    	{
+	    send_to_char("Such an item has been auctioned "
+	    	"recently, try again later.\n\r", ch);
+	    return;
+    	}
+    }
+    
+
+    if (arg2[0] == '\0')
+    {
+      auction->starting = 0;
+      strcpy(arg2, "0");
+    }
+  /* 
+    if ( !is_number(arg2) )
+    {
+	send_to_char("You must input a number at which to start the auction.\n\r", ch);
+	return;
+    }
+  
+    if ( atoi(arg2) < 0 )
+    {
+	send_to_char("You can't auction something for less than 0 gold!\n\r", ch);
+ 	return;
+    }
+    */
+    if (auction->item == NULL)
+    switch (obj->item_type)
+    {
+
+    default:
+        act (AT_TELL, "You cannot auction $Ts.",ch, NULL, item_type_name (obj), TO_CHAR);
+        return;
+
+/* insert any more item types here... items with a timer MAY NOT BE 
+   AUCTIONED! 
+*/
+    case ITEM_LIGHT:
+    case ITEM_TREASURE:    
+    case ITEM_POTION:
+    case ITEM_CONTAINER:
+    case ITEM_KEYRING:
+    case ITEM_QUIVER:
+    case ITEM_DRINK_CON:
+    case ITEM_FOOD:
+    case ITEM_COOK:
+    case ITEM_PEN:
+    case ITEM_BOAT:
+    case ITEM_PILL:
+    case ITEM_PIPE:
+    case ITEM_HERB_CON:
+    case ITEM_INCENSE:
+    case ITEM_FIRE:
+    case ITEM_RUNEPOUCH:
+    case ITEM_MAP:
+    case ITEM_BOOK:
+    case ITEM_RUNE:
+    case ITEM_MATCH:
+    case ITEM_HERB:
+    case ITEM_WEAPON:
+    case ITEM_MISSILE_WEAPON:
+    case ITEM_ARMOR:
+    case ITEM_STAFF:
+    case ITEM_WAND:
+    case ITEM_SCROLL:
+	separate_obj(obj);
+	obj_from_char (obj);
+	if ( IS_SET( sysdata.save_flags, SV_AUCTION ) )
+	    save_char_obj(ch);
+	auction->item = obj;
+	auction->bet = 0;
+	auction->buyer = ch;
+	auction->seller = ch;
+	auction->pulse = PULSE_AUCTION;
+	auction->going = 0;
+	if (arg2[0] != '\0')
+	auction->starting = advatoi(arg2);
+  else auction->starting = 0;
+    	/* add the new item to the history */
+    	if(AUCTION_MEM > 0)
+        {
+     		memmove((char *) auction->history+sizeof(OBJ_INDEX_DATA *),
+                      	auction->history, (AUCTION_MEM - 1)*sizeof(OBJ_INDEX_DATA *));
+                auction->history[0] = obj->pIndexData;
+	}
+
+	/* reset the history timer */
+	auction->hist_timer = 0;
+                                                        
+
+	if (auction->starting > 0)
+	  auction->bet = auction->starting;
+	  
+  tmpvalue = auction->starting;  
+	gbid = tmpvalue/10000;
+	tmpvalue=tmpvalue%10000;
+	sbid = tmpvalue/100;
+	tmpvalue=tmpvalue%100;		
+	cbid = tmpvalue;
+	
+	if (auction->starting == 0)
+	sprintf (buf, "A new item is being auctioned: %s at 0 coins.", obj->short_descr);
+	else if ( gbid > 0 && sbid > 0 && cbid > 0 )
+	sprintf (buf, "A new item is being auctioned: %s at %d gold, %d silver, and %d copper.", obj->short_descr, gbid,sbid,cbid);
+	else if ( gbid > 0 && sbid > 0 && cbid <= 0 )
+	sprintf (buf, "A new item is being auctioned: %s at %d gold and %d silver.", obj->short_descr, gbid,sbid);
+	else if ( gbid > 0 && sbid <= 0 && cbid <= 0 )
+	sprintf (buf, "A new item is being auctioned: %s at %d gold.", obj->short_descr, gbid);
+	else if ( gbid <= 0 && sbid > 0 && cbid <= 0 )
+	sprintf (buf, "A new item is being auctioned: %s at %d silver.", obj->short_descr, sbid);
+	else if ( gbid <= 0 && sbid <= 0 && cbid > 0 )
+	sprintf (buf, "A new item is being auctioned: %s at %d copper.", obj->short_descr, cbid);
+	else if ( gbid > 0 && sbid <= 0 && cbid > 0 )
+	sprintf (buf, "A new item is being auctioned: %s at %d gold and %d copper.", obj->short_descr, gbid,cbid);
+	else if ( gbid > 0 && sbid > 0 && cbid > 0 )
+	sprintf (buf, "A new item is being auctioned: %s at %d silver and %d copper", obj->short_descr, sbid, cbid);
+	else sprintf(buf, "Error! report to Ddruid.\n\r");
+	talk_auction (buf);
+
+	return;
+
+    } /* switch */
+    else
+    {
+        act (AT_TELL, "Try again later - $p is being auctioned right now!",ch,auction->item,NULL,TO_CHAR);
+	if ( !IS_IMMORTAL(ch) )
+          WAIT_STATE( ch, PULSE_VIOLENCE );
+        return;
+    }
+}
+#else
 void
 do_auction (CHAR_DATA * ch, char *argument)
 {
@@ -3433,8 +4183,7 @@ do_auction (CHAR_DATA * ch, char *argument)
       return;
     }
 }
-
-
+#endif
 
 /* Make objects in rooms that are nofloor fall - Scryn 1/23/96 */
 

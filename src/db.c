@@ -1230,6 +1230,9 @@ load_mobiles (AREA_DATA * tarea, FILE * fp)
       int iHash, i;
       bool oldmob;
       bool tmpBootDb;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+      int tmpgold = 0;
+#endif
 
       letter = fread_letter (fp);
       if (letter != '#')
@@ -1314,8 +1317,34 @@ load_mobiles (AREA_DATA * tarea, FILE * fp)
       pMobIndex->damsizedice = fread_number (fp);
       /* '+'          */ fread_letter (fp);
       pMobIndex->damplus = fread_number (fp);
+#ifdef ENABLE_GOLD_SILVER_COPPER
+      if (area_version <= 1){
+        tmpgold			= fread_number( fp );
+        pMobIndex->exp			= fread_number( fp );
+	
+       /* 
+	      * Convert to new system -Druid
+	      */
+        pMobIndex->gold=0;
+        pMobIndex->silver = 0;
+        pMobIndex->copper = 0;
+	
+        pMobIndex->gold = tmpgold/10000;
+        tmpgold=tmpgold%10000;
+        pMobIndex->silver = tmpgold/100;
+        tmpgold=tmpgold%100;	
+        pMobIndex->copper = tmpgold;
+        }
+        else {
+        pMobIndex->exp		= fread_number(fp);
+        pMobIndex->gold		= fread_number(fp);
+        pMobIndex->silver		= fread_number(fp);
+        pMobIndex->copper		= fread_number(fp);
+        }
+#else
       pMobIndex->gold = fread_number (fp);
       pMobIndex->exp = fread_number (fp);
+#endif
 
       /* pMobIndex->position          = fread_number( fp ); */
       pMobIndex->position = fread_number (fp);
@@ -1574,6 +1603,10 @@ load_objects (AREA_DATA * tarea, FILE * fp)
   char *ln;
   int x1, x2, x3, x4, x5, x6;
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  int tempcost;
+#endif
+
   if (!tarea)
     {
       bug ("Load_objects: no #AREA seen yet.");
@@ -1693,8 +1726,35 @@ load_objects (AREA_DATA * tarea, FILE * fp)
       pObjIndex->value[5] = x6;
       pObjIndex->weight = fread_number (fp);
       pObjIndex->weight = UMAX (1, pObjIndex->weight);
+#ifdef ENABLE_GOLD_SILVER_COPPER
+      if(area_version >=2){
+      pObjIndex->gold_cost			= fread_number( fp );
+      pObjIndex->silver_cost		= fread_number(fp);
+      pObjIndex->copper_cost		= fread_number(fp);
+      pObjIndex->rent		  	= fread_number( fp ); /* unused */
+      if(pObjIndex->rent<0)
+        pObjIndex=0;
+      } else {
+      tempcost		= fread_number( fp );
+      pObjIndex->gold_cost		= 0;
+      pObjIndex->silver_cost	= 0;
+      pObjIndex->copper_cost	= 0;
+      pObjIndex->rent			= fread_number(fp);
+      if(pObjIndex->rent <0)
+        pObjIndex->rent=0;
+	      /*
+	       * Convert to new currency. -Druid
+	       */	
+	      pObjIndex->gold_cost = tempcost/10000;
+	      tempcost=tempcost%10000;	
+	      pObjIndex->silver_cost = tempcost/100;
+	      tempcost=tempcost%100;			
+	      pObjIndex->copper_cost = tempcost;
+        }
+#else
       pObjIndex->cost = fread_number (fp);
       pObjIndex->rent = fread_number (fp);	/* unused */
+#endif
       if (area_version > 0)
 	{
 	  switch (pObjIndex->item_type)
