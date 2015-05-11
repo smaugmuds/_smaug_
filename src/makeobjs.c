@@ -181,23 +181,62 @@ make_corpse (CHAR_DATA * ch, CHAR_DATA * killer)
       name = ch->short_descr;
       corpse = create_object (get_obj_index (OBJ_VNUM_CORPSE_NPC), 0);
       corpse->timer = 6;
-      if (ch->gold > 0)
-	{
-	  if (ch->in_room)
-	    {
-	      ch->in_room->area->gold_looted += ch->gold;
-	      sysdata.global_looted += ch->gold / 100;
-	    }
-	  obj_to_obj (create_money (ch->gold), corpse);
-	  ch->gold = 0;
-	}
 
-/* Cannot use these!  They are used.
-	corpse->value[0] = (int)ch->pIndexData->vnum;
-	corpse->value[1] = (int)ch->max_hit;
-*/
-/*	Using corpse cost to cheat, since corpses not sellable */
+#ifdef ENABLE_GOLD_SILVER_COPPER
+			if ( ch->gold > 0 )
+			{
+				if ( ch->in_room )
+				{
+				ch->in_room->area->gold_looted += ch->gold;
+				sysdata.global_gold_looted += ch->gold/100;
+				}
+				obj_to_obj( create_money( ch->gold,0 ), corpse );
+				ch->gold = 0;
+			}
+			if ( ch->silver > 0 )
+			{
+				if ( ch->in_room )
+				{
+				ch->in_room->area->silver_looted += ch->silver;
+				sysdata.global_silver_looted += ch->silver/100;
+				}
+				obj_to_obj( create_money( ch->silver,1 ), corpse );
+				ch->silver = 0;
+			}
+			if ( ch->copper > 0 )
+			{
+				if ( ch->in_room )
+				{
+				ch->in_room->area->copper_looted += ch->copper;
+				sysdata.global_copper_looted += ch->copper/100;
+				}
+				obj_to_obj( create_money( ch->copper,2 ), corpse );
+				ch->copper = 0;
+			}
+
+			corpse->gold_cost    = (-(int)ch->pIndexData->vnum);
+			corpse->silver_cost  = (-(int)ch->pIndexData->vnum);
+			corpse->copper_cost  = (-(int)ch->pIndexData->vnum);
+#else
+      if (ch->gold > 0)
+				{
+					if (ch->in_room)
+						{
+							ch->in_room->area->gold_looted += ch->gold;
+							sysdata.global_looted += ch->gold / 100;
+						}
+					obj_to_obj (create_money (ch->gold), corpse);
+					ch->gold = 0;
+				}
+
+			/*	Using corpse cost to cheat, since corpses not sellable */
       corpse->cost = (-(int) ch->pIndexData->vnum);
+#endif
+
+			/* Cannot use these!  They are used.
+				corpse->value[0] = (int)ch->pIndexData->vnum;
+				corpse->value[1] = (int)ch->max_hit;
+			*/
       corpse->value[2] = corpse->timer;
     }
   else
@@ -260,7 +299,7 @@ make_corpse (CHAR_DATA * ch, CHAR_DATA * killer)
     }
 
 #ifdef ENABLE_MORGUE
-    if ( IS_NPC(ch) )
+    if ( IS_NPC(ch) || ch->level > MAX_MORGUE_LEVEL )
         obj_to_room( corpse,ch->in_room );
     else
 	    obj_to_room( corpse,location );
@@ -362,7 +401,88 @@ make_bloodstain (CHAR_DATA * ch)
 
 /*
  * make some coinage
+ * G/S/C support -Druid
+ * type:
+ * 0 = gold
+ * 1 = silver
+ * 2 = copper
  */
+#ifdef ENABLE_GOLD_SILVER_COPPER
+OBJ_DATA *
+create_money( int amount, int type )
+{
+    char buf[MAX_STRING_LENGTH];
+    OBJ_DATA *obj;
+
+    if ( amount <= 0 )
+    {
+	bug( "Create_money: zero or negative money %d.", amount );
+	amount = 1;
+    }
+    
+    if( type>3 || type<0)
+    {
+    	bug("Create_money: wrong type: %d!",type);
+    	type=2;
+    }
+
+	if (type ==0)
+	{
+    	if ( amount == 1 )
+    	{
+		obj = create_object( get_obj_index( OBJ_VNUM_GOLD_ONE ), 0 );
+		return obj;
+    	}
+    	else
+    	{
+		obj = create_object( get_obj_index( OBJ_VNUM_GOLD_SOME ), 0 );	
+		sprintf( buf, obj->short_descr, amount );
+		STRFREE( obj->short_descr );
+		obj->short_descr = STRALLOC( buf );
+		obj->value[0]	 = amount;
+		return obj;
+    	}
+	}
+	
+	if (type ==1)
+	{
+    	if ( amount == 1 )
+    	{
+		obj = create_object( get_obj_index( OBJ_VNUM_SILVER_ONE ), 0 );
+		return obj;
+    	}
+    	else
+    	{
+		obj = create_object( get_obj_index( OBJ_VNUM_SILVER_SOME ), 0 );	
+		sprintf( buf, obj->short_descr, amount );
+		STRFREE( obj->short_descr );
+		obj->short_descr = STRALLOC( buf );
+		obj->value[0]	 = amount;
+		return obj;
+    	}
+	}
+	
+	if (type == 2)
+	{
+    	if ( amount == 1 )
+   	 {
+		obj = create_object( get_obj_index( OBJ_VNUM_COPPER_ONE ), 0 );
+		return obj;
+    	}
+    	else
+    	{
+		obj = create_object( get_obj_index( OBJ_VNUM_COPPER_SOME ), 0 );	
+		sprintf( buf, obj->short_descr, amount );
+		STRFREE( obj->short_descr );
+		obj->short_descr = STRALLOC( buf );
+		obj->value[0]	 = amount;
+		return obj;
+    	}
+	}
+	obj = create_object( get_obj_index( OBJ_VNUM_COPPER_ONE ), 0 );
+	return obj;    
+}
+#else
 OBJ_DATA *
 create_money (int amount)
 {
@@ -390,3 +510,4 @@ create_money (int amount)
 
   return obj;
 }
+#endif

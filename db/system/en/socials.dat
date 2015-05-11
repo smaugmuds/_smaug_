@@ -775,17 +775,6 @@ OthersAuto  $n looks confused, grunting to $mself.~
 End
 
 #SOCIAL
-Name        challenge~
-CharNoArg   Challenge who?~
-OthersNoArg $n is looking for someone to challenge to a fight to the death!~
-CharFound   You challenge $N to a fight to the death.~
-OthersFound $n challenges $N to a fight to the death.~
-VictFound   $n challenges you to a fight to the death.~
-CharAuto    Challenge YOURSELF to a fight to the death?  I think not...~
-OthersAuto  $n tries to challenge $mself, how odd.~
-End
-
-#SOCIAL
 Name        charge~
 CharNoArg   Geronimo!!!~
 OthersNoArg $n runs smack dab into a nearby wall.  Oh, sweet victory...~

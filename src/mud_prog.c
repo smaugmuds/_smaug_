@@ -1113,58 +1113,68 @@ doneargs:
 			   mob);
 	}
       if (!str_cmp (chck, "ishelled"))
-	{
-	  return IS_NPC (chkchar) ? FALSE
-	    : mprog_veval (chkchar->pcdata->release_date, opr, atoi (rval),
-			   mob);
-	}
+				{
+					return IS_NPC (chkchar) ? FALSE
+						: mprog_veval (chkchar->pcdata->release_date, opr, atoi (rval),
+							 mob);
+				}
 
       if (!str_cmp (chck, "level"))
-	{
-	  return mprog_veval (get_trust (chkchar), opr, atoi (rval), mob);
-	}
+				{
+					return mprog_veval (get_trust (chkchar), opr, atoi (rval), mob);
+				}
       if (!str_cmp (chck, "goldamt"))
-	{
-	  return mprog_veval (chkchar->gold, opr, atoi (rval), mob);
-	}
+				{
+					return mprog_veval (chkchar->gold, opr, atoi (rval), mob);
+				}
+#ifdef ENABLE_GOLD_SILVER_COPPER
+			if ( !str_cmp(chck, "silvamt") )
+				{
+				return mprog_veval(chkchar->silver, opr, atoi(rval), mob);
+				}
+			if ( !str_cmp(chck, "coppamt") )
+				{
+				return mprog_veval(chkchar->copper, opr, atoi(rval), mob);
+				}
+#endif
       if (!str_cmp (chck, "class"))
-	{
-	  if (IS_NPC (chkchar))
-	    return mprog_seval (npc_class[chkchar->class], opr, rval, mob);
-	  return mprog_seval ((char *) class_table[chkchar->class]->who_name,
-			      opr, rval, mob);
-	}
+				{
+					if (IS_NPC (chkchar))
+						return mprog_seval (npc_class[chkchar->class], opr, rval, mob);
+					return mprog_seval ((char *) class_table[chkchar->class]->who_name,
+									opr, rval, mob);
+				}
       if (!str_cmp (chck, "weight"))
-	{
-	  return mprog_veval (chkchar->carry_weight, opr, atoi (rval), mob);
-	}
+				{
+					return mprog_veval (chkchar->carry_weight, opr, atoi (rval), mob);
+				}
       if (!str_cmp (chck, "hostdesc"))
-	{
-	  if (IS_NPC (chkchar) || !chkchar->desc->host)
-	    return FALSE;
-	  return mprog_seval (chkchar->desc->host, opr, rval, mob);
-	}
+				{
+					if (IS_NPC (chkchar) || !chkchar->desc->host)
+						return FALSE;
+					return mprog_seval (chkchar->desc->host, opr, rval, mob);
+				}
       if (!str_cmp (chck, "areamulti"))
-	{
-	  CHAR_DATA *ch;
-	  int lhsvl = 0;
+				{
+					CHAR_DATA *ch;
+					int lhsvl = 0;
 
-	  for (ch = first_char; ch; ch = ch->next)
-	    if (!IS_NPC (chkchar) && !IS_NPC (ch)
-		&& ch->in_room
-		&& chkchar->in_room
-		&& ch->in_room->area == chkchar->in_room->area
-		&& ch->desc
-		&& chkchar->desc
-		&& QUICKMATCH (ch->desc->host, chkchar->desc->host))
-	      lhsvl++;
-	  rhsvl = atoi (rval);
-	  if (rhsvl < 0)
-	    rhsvl = 0;
-	  if (!*opr)
-	    strcpy (opr, "==");
-	  return mprog_veval (lhsvl, opr, rhsvl, mob);
-	}
+					for (ch = first_char; ch; ch = ch->next)
+						if (!IS_NPC (chkchar) && !IS_NPC (ch)
+					&& ch->in_room
+					&& chkchar->in_room
+					&& ch->in_room->area == chkchar->in_room->area
+					&& ch->desc
+					&& chkchar->desc
+					&& QUICKMATCH (ch->desc->host, chkchar->desc->host))
+							lhsvl++;
+					rhsvl = atoi (rval);
+					if (rhsvl < 0)
+						rhsvl = 0;
+					if (!*opr)
+						strcpy (opr, "==");
+					return mprog_veval (lhsvl, opr, rhsvl, mob);
+				}
       if (!str_cmp (chck, "multi"))
 	{
 	  CHAR_DATA *ch;
@@ -2897,7 +2907,11 @@ mprog_bribe_trigger (CHAR_DATA * mob, CHAR_DATA * ch, int amount)
       if (IS_NPC (ch) && ch->pIndexData == mob->pIndexData)
 	return;
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+			obj = create_object (get_obj_index (OBJ_VNUM_GOLD_SOME), 0);
+#else
       obj = create_object (get_obj_index (OBJ_VNUM_MONEY_SOME), 0);
+#endif
       sprintf (buf, obj->short_descr, amount);
       STRFREE (obj->short_descr);
       obj->short_descr = STRALLOC (buf);
@@ -4211,3 +4225,79 @@ obj_act_update (void)
     }
   return;
 }
+
+#ifdef ENABLE_GOLD_SILVER_COPPER
+void mprog_bribe_trigger_silver( CHAR_DATA *mob, CHAR_DATA *ch, int amount)
+{
+
+  char buf[ MAX_STRING_LENGTH ];
+  MPROG_DATA *mprg;
+  OBJ_DATA   *obj;
+
+  if ( IS_NPC( mob )
+      && can_see( mob, ch )
+      && HAS_PROG( mob->pIndexData, BRIBE_SILVER_PROG ) )
+    {
+      /* Don't let a mob trigger itself, nor one instance of a mob
+         trigger another instance. */
+      if ( IS_NPC( ch ) && ch->pIndexData == mob->pIndexData )
+        return;
+
+      obj = create_object( get_obj_index( OBJ_VNUM_SILVER_SOME ), 0 );
+      sprintf( buf, obj->short_descr, amount );
+      STRFREE( obj->short_descr );
+      obj->short_descr = STRALLOC( buf );
+      obj->value[0]    = amount;
+      obj = obj_to_char( obj, mob );
+      mob->silver -= amount;
+
+      for ( mprg = mob->pIndexData->mudprogs; mprg; mprg = mprg->next )
+	if ( ( mprg->type == BRIBE_SILVER_PROG )
+	&& ( amount >= atoi( mprg->arglist ) ) )
+	{
+	    mprog_driver( mprg->comlist, mob, ch, obj, NULL, NULL, FALSE );
+	    break;
+	}
+    }
+  
+  return;
+
+}
+
+void mprog_bribe_trigger_copper( CHAR_DATA *mob, CHAR_DATA *ch, int amount)
+{
+
+  char        buf[ MAX_STRING_LENGTH ];
+  MPROG_DATA *mprg;
+  OBJ_DATA   *obj;
+
+  if ( IS_NPC( mob )
+      && can_see( mob, ch )
+      && HAS_PROG( mob->pIndexData, BRIBE_SILVER_PROG ) )
+    {
+      /* Don't let a mob trigger itself, nor one instance of a mob
+         trigger another instance. */
+      if ( IS_NPC( ch ) && ch->pIndexData == mob->pIndexData )
+        return;
+
+      obj = create_object( get_obj_index( OBJ_VNUM_COPPER_SOME ), 0 );
+      sprintf( buf, obj->short_descr, amount );
+      STRFREE( obj->short_descr );
+      obj->short_descr = STRALLOC( buf );
+      obj->value[0]    = amount;
+      obj = obj_to_char( obj, mob );
+      mob->copper -= amount;
+
+      for ( mprg = mob->pIndexData->mudprogs; mprg; mprg = mprg->next )
+	if ( ( mprg->type == BRIBE_SILVER_PROG )
+	&& ( amount >= atoi( mprg->arglist ) ) )
+	{
+	    mprog_driver( mprg->comlist, mob, ch, obj, NULL, NULL, FALSE );
+	    break;
+	}
+    }
+  
+  return;
+
+}
+#endif

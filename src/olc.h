@@ -45,7 +45,7 @@
 */
 
 #define MAX_RIS_FLAG 21
-#define MAX_OLC_ITEMS_LIST 51
+#define MAX_OLC_ITEMS_LIST 61
 
 /* Global function definitions */
 void oedit_parse( DESCRIPTOR_DATA *d, char *arg );
@@ -56,7 +56,6 @@ void redit_parse( DESCRIPTOR_DATA *d, char *arg );
 void strip_string( char * );
 void cleanup_olc( DESCRIPTOR_DATA *d );
 void olc_log( DESCRIPTOR_DATA *d, char *format, ... );
-
 
 /*. OLC structs .*/
 
@@ -149,7 +148,6 @@ struct olc_save_info
 #define OEDIT_MPROGS_DELETE		35
 #define OEDIT_MPROGS_TYPE		36
 #define OEDIT_MPROGS_ARG		37
-
 
 /* Submodes of REDIT connectedness */
 #define REDIT_MAIN_MENU 		1
@@ -259,6 +257,8 @@ struct olc_save_info
 #define MEDIT_SAV5			59
 #define MEDIT_CLASS			60
 #define MEDIT_RACE			61
+#define MEDIT_SILVER		62
+#define MEDIT_COPPER		63
 
 /*. Submodes of SEDIT connectedness 	.*/
 #define SEDIT_MAIN_MENU              	0

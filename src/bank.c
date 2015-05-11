@@ -50,12 +50,9 @@
 
 #include "mud.h"
 
-#ifndef ENABLE_GOLD_SILVER_COPPER
-#include "bank.h"
-#endif
-
 #ifdef ENABLE_GOLD_SILVER_COPPER
-void do_bank( CHAR_DATA *ch, const char *argument )
+void
+do_bank (CHAR_DATA * ch, char *argument)
 {
 	CHAR_DATA *banker, *vch;
 	char arg[MIL], arg2[MIL], arg3[MIL], arg4[MIL], buf[MSL];
@@ -316,11 +313,17 @@ do_bank (CHAR_DATA * ch, char *argument)
   char buf[MAX_STRING_LENGTH];
   int amount;
 
-  if (!(banker = find_banker (ch)))
-    {
-      send_to_char ("You can't seem to find a banker.\n\r", ch);
-      return;
-    }
+	for( banker = ch->in_room->first_person; banker; banker = banker->next_in_room )
+		if( IS_NPC( banker ) && xIS_SET( banker->act, ACT_BANKER ) )
+			break;
+
+	set_char_color( AT_GREEN, ch );
+
+	if (!banker)
+	{
+		send_to_char( "You can't seem to find a banker.\n\r", ch );
+		return;
+	}
 
   if (IS_NPC (ch))
     {

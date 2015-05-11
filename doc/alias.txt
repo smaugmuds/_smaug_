@@ -1,0 +1,228 @@
+Alias Code
+----------
+
+Taken from the DOTD codebase.
+Desolation of the Dragon MUD <dotd@dotd.com>
+
+NOTE: It is not necessary to install this snippet if you are
+already running the DOTD codebase. This code will already be
+included.
+
+Terms of Use
+------------
+
+This snippet may not be redistributed on any site without obtaining prior
+written consent from the author.
+
+What this code does
+-------------------
+
+This code allows your players to create command aliases which
+are shortcuts for longer commands. The aliases are stored on
+their pfiles. These are controlled in-game and will work even
+if the player isn't using something like Zmud.
+
+Installation Instructions
+-------------------------
+
+1. To install the code:
+
+    Place the alias.c and alias.h files in your src directory, 
+    and make the appropriate modifications to the Makefile for 
+    alias.c, alias.o, and alias.h.
+
+2. In mud.h, following:
+
+	#define LEVEL_HIGOD		    LEVEL_GOD
+
+	add: #include "alias.h"
+
+   In the char_data struct, add the following to the end:
+
+   short cmd_recurse;
+
+   In the pc_data struct, add the following to the end:
+
+   ALIAS_DATA *first_alias;
+   ALIAS_DATA *last_alias;
+
+3. In comm.c, function game_loop:
+
+   Find the following section of code:
+
+		read_from_buffer( d );
+		if ( d->incomm[0] != '\0' )
+		{
+			d->fcommand	= TRUE;
+			stop_idling( d->character );
+
+			strcpy( cmdline, d->incomm );
+			d->incomm[0] = '\0';
+			
+			if ( d->character )
+			  set_cur_char( d->character );
+
+			if ( d->pagepoint )
+			  set_pager_input(d, cmdline);
+			else
+			  switch( d->connected )
+			  {
+			   default:
+ 				nanny( d, cmdline );
+				break;
+			   case CON_PLAYING:
+				interpret( d->character, cmdline );
+				break;
+			   case CON_EDITING:
+				edit_buffer( d->character, cmdline );
+				break;
+
+   On the line immediately following case CON_PLAYING, add:
+
+                        d->character->cmd_recurse = 0;
+
+4. In interp.c, function interpret:
+
+   Find the following section of code:
+
+    /*
+     * Look for command in skill and socials table.
+     */
+    if ( !found )
+    {
+	if ( !check_skill( ch, command, argument )
+	&&   !check_social( ch, command, argument )
+	&&   !icec_command_hook( ch, command, argument ) )
+	{
+
+   Alter it to read like this:
+
+    /*
+     * Look for command in skill and socials table.
+     */
+   if( !found )
+   {
+      if( !check_skill( ch, command, argument )
+          && !check_social( ch, command, argument )
+          && !check_alias( ch, command, argument )
+          && !icec_command_hook( ch, command, argument ) )
+          )
+
+5. In save.c, function fwrite_char:
+
+   Add the following to the declarations section:
+ 
+   ALIAS_DATA *pal;
+
+   Find the following line:
+
+            fprintf( fp, "Pagerlen%d\n",ch->pcdata->pagerlen    );
+
+   Below it, add:
+
+   for( pal = ch->pcdata->first_alias; pal; pal = pal->next )
+   {
+      if( !pal->name || !pal->cmd || !*pal->name || !*pal->cmd )
+         continue;
+      fprintf( fp, "Alias        %s~ %s~\n", pal->name, pal->cmd );
+   }
+
+   Locate function load_char_obj, and find the following code:
+
+        ch->pcdata->council_name 	= STRALLOC( "" );
+        ch->pcdata->council 		= NULL;
+        ch->pcdata->deity_name		= STRALLOC( "" );
+        ch->pcdata->deity		= NULL;
+
+   Add the following on the next line:
+
+   ch->pcdata->first_alias = NULL;
+   ch->pcdata->last_alias = NULL;
+
+   Locate function fread_char:
+   
+   Following this code:
+
+            if ( !str_cmp( word, "AttrMod"  ) )
+		{
+			line = fread_line( fp );
+			x1=x2=x3=x4=x5=x6=x7=13;
+			sscanf( line, "%d %d %d %d %d %d %d", &x1, &x2, &x3, &x4, &x5, &x6, &x7 );
+			ch->mod_str = x1;
+			ch->mod_int = x2;
+			ch->mod_wis = x3;
+			ch->mod_dex = x4;
+			ch->mod_con = x5;
+			ch->mod_cha = x6;
+			ch->mod_lck = x7;
+			if (!x7)
+				ch->mod_lck = 0;
+				fMatch = TRUE;
+				break;
+		}
+
+   Add this code:
+            if( !str_cmp( word, "Alias" ) )
+            {
+               ALIAS_DATA *pal;
+
+               if( preload )
+               {
+                  fMatch = TRUE;
+                  fread_to_eol( fp );
+                  break;
+               }
+               CREATE( pal, ALIAS_DATA, 1 );
+
+               pal->name = fread_string( fp );
+               pal->cmd = fread_string( fp );
+               LINK( pal, ch->pcdata->first_alias, ch->pcdata->last_alias, next, prev );
+               fMatch = TRUE;
+               break;
+            }
+
+6. In db.c, locate function free_char, and find the following lines:
+
+	STRFREE( ch->pcdata->authed_by	);
+	STRFREE( ch->pcdata->prompt	);
+	STRFREE( ch->pcdata->fprompt	);
+	if ( ch->pcdata->helled_by )
+		STRFREE( ch->pcdata->helled_by );
+	if ( ch->pcdata->subprompt )
+	   STRFREE( ch->pcdata->subprompt );
+
+   Below them, add the following line:
+
+      free_aliases( ch );
+
+7. In tables.c, add the appropriate entry for:
+   do_alias
+
+8. Make clean, then recompile.
+
+9. Add a command for 'alias'.
+
+10. Add the help text included in Alias.help to your help.are file.
+
+If there are any problems with this installation, feel free to post your
+question to the forums at http://forums.alsherok.net
+
+This code has been installed and tested on Smaug 1.6 FUSS, which is a bugfixed
+and cleaned up version of the base Smaug 1.4a code. The Smaug FUSS Project is
+maintained on servers which run the Redhat and Fedora family of Linux. Limited
+testing has also been done on the Cygwin package under WindowsXP SP1 and SP2.
+Users of BSD, MSVC, MSVC++, or Macintosh platforms are on their own as The
+Smaug FUSS Project does not have access to these development environments for testing.
+The Smaug FUSS Project can be found at: http://www.smaugfuss.org
+
+No guarantees are made that this code will be compatible with your codebase and any
+modifications you may have made to it. No warranty of any kind is expressed or implied
+by the use of this code, and we are not responsible for any damages which may result
+from the application of this snippet to your codebase.
+
+Adventure beckons in the lands of mystique....
+Samson, Implementor of Alsherok
+http://www.alsherok.net
+telnet://alsherok.net:5500
+
+IMC2 contact: Samson@Alsherok

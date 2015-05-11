@@ -841,7 +841,11 @@ do_accessories (CHAR_DATA * ch, char *argument)
 	}
       else
 	{
+#ifdef ENABLE_GOLD_SILVER_COPPER
+		newacc->price = (int) (get_value(obj->gold_cost, obj->silver_cost, obj->copper_cost));
+#else
 	  newacc->price = obj->cost;
+#endif
 	  newacc->mob = FALSE;
 	}
 

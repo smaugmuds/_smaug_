@@ -1571,7 +1571,13 @@ reset_area (AREA_DATA * pArea)
 			   number_fuzzy (generate_itemlevel
 					 (pArea, pObjIndex)));
 	  obj->level = UMIN (obj->level, LEVEL_AVATAR);
+#ifdef ENABLE_GOLD_SILVER_COPPER
+obj->gold_cost = 0;
+obj->silver_cost = 0;
+obj->copper_cost = 0;
+#else
 	  obj->cost = 0;
+#endif
 	  obj_to_room (obj, pRoomIndex);
 	  lastobj = obj;
 	  break;

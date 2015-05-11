@@ -128,6 +128,21 @@ AUCTION_DATA *auction;		/* auctions */
 FILE *fpLOG;
 
 /* weaponry */
+#ifdef ENABLE_WEAPONPROF
+/* changed to reflect new weapon types - Grimm */
+short gsn_pugilism;
+short gsn_swords;
+short gsn_daggers;
+short gsn_whips;
+short gsn_talonous_arms;
+short gsn_maces_hammers;
+short gsn_blowguns;
+short gsn_slings;
+short gsn_axes;
+short gsn_spears;
+short gsn_staves;
+short gsn_archery;
+#else
 sh_int gsn_pugilism;
 sh_int gsn_long_blades;
 sh_int gsn_short_blades;
@@ -135,6 +150,7 @@ sh_int gsn_flexible_arms;
 sh_int gsn_talonous_arms;
 sh_int gsn_bludgeons;
 sh_int gsn_missile_weapons;
+#endif
 
 /* thief */
 sh_int gsn_detrap;
@@ -687,6 +703,23 @@ else
     ASSIGN_GSN (gsn_style_aggressive, "aggressive style");
     ASSIGN_GSN (gsn_style_berserk, "berserk style");
 
+#ifdef ENABLE_WEAPONPROF
+    /*
+     * new gsn assigns for the new weapon skills - Grimm 
+     */
+    ASSIGN_GSN (gsn_pugilism, "pugilism");
+    ASSIGN_GSN (gsn_swords, "swords");
+    ASSIGN_GSN (gsn_daggers, "daggers");
+    ASSIGN_GSN (gsn_whips, "whips");
+    ASSIGN_GSN (gsn_talonous_arms, "talonous arms");
+    ASSIGN_GSN (gsn_maces_hammers, "maces and hammers");
+    ASSIGN_GSN (gsn_blowguns, "blowguns");
+    ASSIGN_GSN (gsn_slings, "slings");
+    ASSIGN_GSN (gsn_axes, "axes");
+    ASSIGN_GSN (gsn_spears, "spears");
+    ASSIGN_GSN (gsn_staves, "staves");
+    ASSIGN_GSN (gsn_archery, "archery");
+#else
     ASSIGN_GSN (gsn_pugilism, "pugilism");
     ASSIGN_GSN (gsn_long_blades, "long blades");
     ASSIGN_GSN (gsn_short_blades, "short blades");
@@ -694,6 +727,8 @@ else
     ASSIGN_GSN (gsn_talonous_arms, "talonous arms");
     ASSIGN_GSN (gsn_bludgeons, "bludgeons");
     ASSIGN_GSN (gsn_missile_weapons, "missile weapons");
+#endif
+
     ASSIGN_GSN (gsn_detrap, "detrap");
     ASSIGN_GSN (gsn_backstab, "backstab");
     ASSIGN_GSN (gsn_circle, "circle");
@@ -1286,7 +1321,7 @@ load_mobiles (AREA_DATA * tarea, FILE * fp)
 	    tarea->hi_m_vnum = vnum;
 	}
       for (i = 0; i < MAX_STANCE; i++)	/* Make sure the are reset -Shaddai */
-	pMobIndex->stances[i] = 0;
+			pMobIndex->stances[i] = 0;
 
       pMobIndex->player_name = fread_string (fp);
       pMobIndex->short_descr = fread_string (fp);
@@ -1318,7 +1353,7 @@ load_mobiles (AREA_DATA * tarea, FILE * fp)
       /* '+'          */ fread_letter (fp);
       pMobIndex->damplus = fread_number (fp);
 #ifdef ENABLE_GOLD_SILVER_COPPER
-      if (area_version <= 1){
+      if (area_version <= 1) {
         tmpgold			= fread_number( fp );
         pMobIndex->exp			= fread_number( fp );
 	
@@ -2608,6 +2643,10 @@ initialize_economy (void)
   MOB_INDEX_DATA *mob;
   int idx, gold, rng;
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	int mobmoney;
+#endif
+
   for (tarea = first_area; tarea; tarea = tarea->next)
     {
       /* skip area if they already got some gold */
@@ -2622,7 +2661,15 @@ initialize_economy (void)
       boost_economy (tarea, gold);
       for (idx = tarea->low_m_vnum; idx < tarea->hi_m_vnum; idx++)
 	if ((mob = get_mob_index (idx)) != NULL)
-	  boost_economy (tarea, mob->gold * 10);
+#ifdef ENABLE_GOLD_SILVER_COPPER
+			{
+				/* Gold/Silver/copper Support -Druid */
+				mobmoney=get_value(mob->gold,mob->silver,mob->copper);
+				boost_economy( tarea, mobmoney * 10 );
+			}
+#else
+	  	boost_economy (tarea, mob->gold * 10);
+#endif
     }
 }
 
@@ -2926,6 +2973,10 @@ create_mobile (MOB_INDEX_DATA * pMobIndex)
   mob->hit = mob->max_hit;
   /* lets put things back the way they used to be! -Thoric */
   mob->gold = pMobIndex->gold;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	mob->silver	= pMobIndex->silver;
+	mob->copper	= pMobIndex->copper;
+#endif
   mob->exp = pMobIndex->exp;
   mob->position = pMobIndex->position;
   mob->defposition = pMobIndex->defposition;
@@ -3020,11 +3071,17 @@ create_object (OBJ_INDEX_DATA * pObjIndex, int level)
   obj->value[4] = pObjIndex->value[4];
   obj->value[5] = pObjIndex->value[5];
   obj->weight = pObjIndex->weight;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	obj->gold_cost = pObjIndex->gold_cost;
+	obj->silver_cost = pObjIndex->silver_cost;
+	obj->copper_cost = pObjIndex->copper_cost;
+#else
   obj->cost = pObjIndex->cost;
   /*
      obj->cost                = number_fuzzy( 10 )
      * number_fuzzy( level ) * number_fuzzy( level );
    */
+#endif
 
   /*
    * Mess with object properties.
@@ -3141,11 +3198,31 @@ create_object (OBJ_INDEX_DATA * pObjIndex, int level)
       obj->value[0] = number_fuzzy (number_fuzzy (obj->value[0]));
       break;
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+		case ITEM_GOLD:
+		obj->value[0]	= obj->gold_cost;
+		if ( obj->value[0] == 0 )
+		 obj->value[0] = 1;
+		break;
+
+		case ITEM_SILVER:   
+		obj->value[0]	= obj->silver_cost;
+		if ( obj->value[0] == 0 )
+		 obj->value[0] = 1;
+		break;
+
+		case ITEM_COPPER:
+		obj->value[0]	= obj->copper_cost;
+		if ( obj->value[0] == 0 )
+		 obj->value[0] = 1;
+		break;
+#else
     case ITEM_MONEY:
       obj->value[0] = obj->cost;
       if (obj->value[0] == 0)
 	obj->value[0] = 1;
       break;
+#endif
     }
 
   LINK (obj, first_object, last_object, next, prev);
@@ -3329,6 +3406,10 @@ free_char (CHAR_DATA * ch)
 	STRFREE (ch->pcdata->helled_by);
       if (ch->pcdata->subprompt)
 	STRFREE (ch->pcdata->subprompt);
+
+#ifdef ENABLE_ALIAS
+      free_aliases( ch );
+#endif
       if (ch->pcdata->tell_history)
 	{
 	  int i;
@@ -4002,9 +4083,15 @@ do_memory (CHAR_DATA * ch, char *argument)
   ch_printf_color (ch, "&wPotion Val:  &W%-16d   &wScribe/Brew: &W%d/%d\n\r",
 		   sysdata.upotion_val, sysdata.scribed_used,
 		   sysdata.brewed_used);
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	ch_printf_color (ch, "&wPill Val:    &W%-16d   &wGlobal gold loot: &W%d\n\r",
+				sysdata.upill_val, sysdata.global_gold_looted);
+	ch_printf_color (ch, "&wGlobal silver loot: &W%d    &wGlobal copper loot: &W%d\n\r",
+				sysdata.global_silver_looted, sysdata.global_copper_looted);
+#else
   ch_printf_color (ch, "&wPill Val:    &W%-16d   &wGlobal loot: &W%d\n\r",
 		   sysdata.upill_val, sysdata.global_looted);
-
+#endif
 
   if (!str_cmp (arg, "check"))
     {
@@ -5195,6 +5282,13 @@ mprog_name_to_type (char *name)
     return SCRIPT_PROG;
   if (!str_cmp (name, "use_prog"))
     return USE_PROG;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+/* Copper/Silver Support -Druid */
+	if (!str_cmp (name, "bribe_silver_prog"))
+		return BRIBE_SILVER_PROG;
+	if (!str_cmp (name, "bribe_copper_prog"))
+		return BRIBE_COPPER_PROG;
+#endif
   if (!str_cmp (name, "load_prog"))
     return LOAD_PROG;
   if (!str_cmp (name, "imminfo_prog"))
@@ -6137,7 +6231,13 @@ make_object (int vnum, int cvnum, char *name)
       pObjIndex->value[2] = 0;
       pObjIndex->value[3] = 0;
       pObjIndex->weight = 1;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+			pObjIndex->gold_cost = 0;
+			pObjIndex->silver_cost = 0;
+			pObjIndex->copper_cost = 0;
+#else
       pObjIndex->cost = 0;
+#endif
       pObjIndex->level = 0;
     }
   else
@@ -6157,8 +6257,14 @@ make_object (int vnum, int cvnum, char *name)
       pObjIndex->value[2] = cObjIndex->value[2];
       pObjIndex->value[3] = cObjIndex->value[3];
       pObjIndex->weight = cObjIndex->weight;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+			pObjIndex->gold_cost = cObjIndex->gold_cost;
+			pObjIndex->silver_cost = cObjIndex->silver_cost;
+			pObjIndex->copper_cost = cObjIndex->copper_cost;
+#else
       pObjIndex->cost = cObjIndex->cost;
       pObjIndex->level = cObjIndex->level;
+#endif
       for (ced = cObjIndex->first_extradesc; ced; ced = ced->next)
 	{
 	  CREATE (ed, EXTRA_DESCR_DATA, 1);
@@ -6240,6 +6346,10 @@ make_mobile (int vnum, int cvnum, char *name)
       pMobIndex->damsizedice = 0;
       pMobIndex->damplus = 0;
       pMobIndex->gold = 0;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+			pMobIndex->silver = 0;
+			pMobIndex->copper = 0;
+#endif
       pMobIndex->exp = 0;
       /*
        * Bug noticed by Sevoreria Dragonlight
@@ -6289,6 +6399,10 @@ make_mobile (int vnum, int cvnum, char *name)
       pMobIndex->damsizedice = cMobIndex->damsizedice;
       pMobIndex->damplus = cMobIndex->damplus;
       pMobIndex->gold = cMobIndex->gold;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+			pMobIndex->silver	= cMobIndex->silver;
+			pMobIndex->copper	= cMobIndex->copper;
+#endif
       pMobIndex->exp = cMobIndex->exp;
       pMobIndex->position = cMobIndex->position;
       pMobIndex->defposition = cMobIndex->defposition;

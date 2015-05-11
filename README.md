@@ -150,8 +150,10 @@ Here are just some of the features **--{SMAUG II}--** has:
 	- Room Planes
 	- Mounts and much much more
 	- Fixed Liquids & Mixtures.
+  - Gold, Silver and Copper based economy.
+  - Gold loot rate by race.
 	- Banking System.
-    - Undertaker.
+  - Undertaker.
 	- Player marriage system.
 	- A Dice Game.
 	- Mongoose web server with jta26 as Online MUD Web Client.
@@ -192,7 +194,14 @@ Realm Areas:
 	* Changes from **SMAUG 1.8b** to **--{SMAUG II}--**:
 ```
 		- Moved all "KEY" definitions to "mud.h".
+		- Added Customizable Command Aliases.
+		- Added Arena Challenge.
+		- Added Weapon Proficency snippet and Archery.
+		- Added Gold, Silver and Copper based economy.
+		- Enabled Gold loot multirate by race.
 		- Added Undertaker snippet (ACT_UNDERTAKER).
+		- Added "Banking" code snippet.
+		- Added "Marriage" code snippet.
 		- Added a Dice game.
 		- Added Oasis OLCII Online editor, new features and "do_buildwalk".
 		- Defined new MUD default colors.
@@ -203,8 +212,6 @@ Realm Areas:
 		- Renamed "services.c" to "win32srv.c".
 		- Renamed "comm.c" to "smaug.c".
 		- Removed all InterMud code: "IMC2" & "ICE(D)". If you want Intermud support maybe you can implement I3 or any other Intermud Chat source snippet.
-		- Added "Banking" code snippet.
-		- Added "Marriage" code snippet.
 		- Fixed "Liquids & Mixtures" system, replaces old "do_drink", "do_empty" & "do_fill" from "misc.c" routines.
 		- Fixed many bugs and redundant definitions.
 		- Indented code with GNU style.
@@ -218,38 +225,50 @@ Realm Areas:
 		- Configure checks for "cc", "gcc", "g++", "(g)awk", "-ldl", "-lz", "-lcrypt", "-lssl", "basic C# libraries", "C# headers & functions", "bash", "env", "perl".
 		- Configure options to include required definitions for enabling or disabling code snippets and flags:
 
-				Configured --{SMAUG II}-- build flags:
+			Configured --{SMAUG}-- build flags:
 
-				 * Time Format fix:     <no>
-				 * RE_EXEC fix:         <yes>
-				 * Profiling flags:     <no>
-				 * Developer flags:     <no>
-				 * Performance flags:   <yes>
+			 * Time Format fix:     <no>
+			 * RE_EXEC fix:         <yes>
+			 * Profiling flags:     <yes>
+			 * Developer flags:     <no>
+			 * Performance flags:   <yes>
 
-				Configured --{SMAUG II}-- MUD Server basic features:
+			Configured --{SMAUG}-- MUD Server features:
 
-				 * Password Encryption: <yes>
-				 * Request Support:     <no>
-				 * Planes:              <yes>
-				 * Who arguments:       <no>
-				 * Honour Code:         <yes>
-				 * Housing:             <yes>
-				 * House Mobs:          <yes>
-				 * Extended Rooms:      <yes>
-				 * Act Comm Scramble:   <no>
-				 * Liquids System:      <yes>
+			 * SMAUG 2.0:           <yes>
+			 * Oasis OLC:           <yes>
+			 * Oasis OLC Extras:    <yes>
+			 * Buildwalk:           <yes>
+			 * Billion MAX_VNUM:    <yes>
+			 * Password Encryption: <yes>
+			 * Request Support:     <no>
+			 * Room Planes:         <yes>
+			 * Who Arguments:       <no>
+			 * MUD HotBoot:         <yes>
+			 * New Score Tables:    <yes>
+			 * Show Stance Info:    <yes>
+			 * Player Bleeding:     <yes>
+			 * New Colors:          <yes>
+			 * New MUD Mapper:      <yes>
+			 * MSSP Support:        <yes>
+			 * New Weather:         <yes>
+			 * Timezone:            <yes>
+			 * Holidays:            <yes>
+			 * Honour Code:         <yes>
+			 * Player Houses:       <yes>
+			 * House Mobs:          <yes>
+			 * Extended Rooms:      <yes>
+			 * Liquids System:      <yes>
+			 * Act Comm Scramble:   <no>
+			 * Undertaker:          <yes>
+			 * Gold Silver Copper:  <yes>
+			 * Gold Race Rate:      <yes>
+			 * Bank:                <yes>
+			 * Player Marry:        <yes>
+			 * Dice Game:           <yes>
+			 * DNS Resolver:        <yes>
+			 * Web Server:          <yes>
 
-				Configured --{SMAUG II}-- MUD Server extra features:
-
-				 * SMAUG II:           <yes>
-				 * New Score Tables:    <yes>
-				 * Show Stance Info:    <yes>
-				 * Banking:             <no>
-				 * Marry:               <no>
-				 * Player Bleeding:     <yes>
-				 * DNS Resolver:        <yes>
-				 * Web Server:          <yes>
-				 * HotBoot:             <no>
 ```
 
 #### TODO

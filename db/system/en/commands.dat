@@ -58,6 +58,14 @@ Log         0
 End
 
 #COMMAND
+Name        accept~
+Code        do_accept
+Position    100
+Level       5
+Log         1
+End
+
+#COMMAND
 Name        authorize~
 Code        do_authorize
 Position    100
@@ -246,6 +254,14 @@ Position    100
 Level       51
 Log         0
 Flags       4
+End
+
+#COMMAND
+Name        alias~
+Code        do_alias
+Position    100
+Level       1
+Log         0
 End
 
 #COMMAND
@@ -462,6 +478,14 @@ Code        do_consider
 Position    106
 Level       0
 Log         0
+End
+
+#COMMAND
+Name        challenge~
+Code        do_challenge
+Position    100
+Level       5
+Log         1
 End
 
 #COMMAND
@@ -806,6 +830,14 @@ Log         0
 End
 
 #COMMAND
+Name        draw~
+Code        do_draw
+Position    100
+Level       1
+Log         0
+End
+
+#COMMAND
 Name        devote~
 Code        do_devote
 Position    106
@@ -892,6 +924,14 @@ Name        disappear~
 Code        do_disappear
 Position    100
 Level       64
+Log         0
+End
+
+#COMMAND
+Name        dislodge~
+Code        do_dislodge
+Position    100
+Level       1
 Log         0
 End
 
@@ -2172,6 +2212,14 @@ Name        mmenu~
 Code        do_mmenu
 Position    100
 Level       60
+Log         0
+End
+
+#COMMAND
+Name        mount~
+Code        do_mount
+Position    100
+Level       0
 Log         0
 End
 
@@ -4561,6 +4609,14 @@ Code        do_weather
 Position    106
 Level       0
 Log         0
+End
+
+#COMMAND
+Name        withdraw~
+Code        do_withdraw
+Position    100
+Level       5
+Log         1
 End
 
 #COMMAND

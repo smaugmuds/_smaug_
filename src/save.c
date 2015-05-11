@@ -334,6 +334,9 @@ fwrite_char (CHAR_DATA * ch, FILE * fp)
   sh_int pos;
   SKILLTYPE *skill = NULL;
   HOME_DATA *tmphome;
+#ifdef ENABLE_ALIAS
+  ALIAS_DATA *pal;
+#endif
 
   fprintf (fp, "#PLAYER\n");
 
@@ -364,10 +367,18 @@ fwrite_char (CHAR_DATA * ch, FILE * fp)
 	   ch->pcdata->stances[8], ch->pcdata->stances[9],
 	   ch->pcdata->stances[10], ch->pcdata->stances[11]);
   fprintf (fp, "Gold         %d\n", ch->gold);
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	fprintf (fp, "Silver	     %d\n", ch->silver);
+	fprintf (fp, "Copper	     %d\n", ch->copper);
 #ifdef BANK_INSTALLED
-  fprintf (fp, "Gold Balance      %d\n", ch->pcdata->gbalance);
-  fprintf (fp, "Silver Balance    %d\n", ch->pcdata->sbalance);
-  fprintf (fp, "Copper Balance    %d\n", ch->pcdata->cbalance);
+  fprintf (fp, "BalanceGold      %d\n", ch->pcdata->gbalance);
+  fprintf (fp, "BalanceSilver    %d\n", ch->pcdata->sbalance);
+  fprintf (fp, "BalanceCopper    %d\n", ch->pcdata->cbalance);
+#endif
+#else
+#ifdef BANK_INSTALLED
+  fprintf (fp, "Balance      %d\n", ch->pcdata->balance);
+#endif
 #endif
   fprintf (fp, "Exp          %d\n", ch->exp);
   fprintf (fp, "Height          %d\n", ch->height);
@@ -468,6 +479,15 @@ fwrite_char (CHAR_DATA * ch, FILE * fp)
     fprintf (fp, "FPrompt	     %s~\n", ch->pcdata->fprompt);
   if (ch->pcdata->pagerlen != 24)
     fprintf (fp, "Pagerlen     %d\n", ch->pcdata->pagerlen);
+
+#ifdef ENABLE_ALIAS
+   for( pal = ch->pcdata->first_alias; pal; pal = pal->next )
+   {
+      if( !pal->name || !pal->cmd || !*pal->name || !*pal->cmd )
+         continue;
+      fprintf( fp, "Alias        %s~ %s~\n", pal->name, pal->cmd );
+   }
+#endif
 
   /* If ch is ignoring players then store those players */
   {
@@ -786,8 +806,17 @@ fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest, sh_int os_type
     fprintf (fp, "Level        %d\n", obj->level);
   if (obj->timer)
     fprintf (fp, "Timer        %d\n", obj->timer);
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	if (obj->gold_cost != obj->pIndexData->gold_cost )
+		fprintf (fp, "Gold_Cost         %d\n", obj->gold_cost);
+	if (obj->silver_cost != obj->pIndexData->silver_cost )
+		fprintf (fp, "Silver_Cost         %d\n", obj->silver_cost);
+	if (obj->copper_cost != obj->pIndexData->copper_cost )
+		fprintf (fp, "Copper_Cost         %d\n", obj->copper_cost);
+#else
   if (obj->cost != obj->pIndexData->cost)
     fprintf (fp, "Cost         %d\n", obj->cost);
+#endif
   if (obj->value[0] || obj->value[1] || obj->value[2]
       || obj->value[3] || obj->value[4] || obj->value[5])
     fprintf (fp, "Values       %d %d %d %d %d %d\n",
@@ -1074,6 +1103,10 @@ load_char_obj (DESCRIPTOR_DATA * d, char *name, bool preload)
       ch->pcdata->council = NULL;
       ch->pcdata->deity_name = STRALLOC ("");
       ch->pcdata->deity = NULL;
+#ifdef ENABLE_ALIAS
+			ch->pcdata->first_alias = NULL;
+			ch->pcdata->last_alias = NULL;
+#endif
       ch->pcdata->pet = NULL;
       ch->pcdata->pwd = str_dup ("");
       ch->pcdata->bamfin = str_dup ("");
@@ -1206,6 +1239,14 @@ fread_char (CHAR_DATA * ch, FILE * fp, bool preload)
   file_ver = 0;
   killcnt = 0;
 
+/*
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	ch->gold = 0;
+	ch->silver = 0;
+	ch->copper = 0;
+#endif
+*/
+
 #ifdef ENABLE_COLOR
   int max_colors = 0;
 
@@ -1303,6 +1344,27 @@ fread_char (CHAR_DATA * ch, FILE * fp, bool preload)
 	      break;
 	    }
 
+#ifdef ENABLE_ALIAS
+    if( !str_cmp( word, "Alias" ) )
+    {
+       ALIAS_DATA *pal;
+
+        if( preload )
+        {
+          fMatch = TRUE;
+          fread_to_eol( fp );
+          break;
+        }
+        CREATE( pal, ALIAS_DATA, 1 );
+
+        pal->name = fread_string( fp );
+        pal->cmd = fread_string( fp );
+        LINK( pal, ch->pcdata->first_alias, ch->pcdata->last_alias, next, prev );
+        fMatch = TRUE;
+        break;
+    }
+#endif
+
 	  if (!strcmp (word, "AttrPerm"))
 	    {
 	      line = fread_line (fp);
@@ -1326,9 +1388,13 @@ fread_char (CHAR_DATA * ch, FILE * fp, bool preload)
 
 	case 'B':
 #ifdef BANK_INSTALLED
-	  KEY ("Gold Balance", ch->pcdata->gbalance, fread_number (fp));
-	  KEY ("Silver Balance", ch->pcdata->sbalance, fread_number (fp));
-	  KEY ("Copper Balance", ch->pcdata->cbalance, fread_number (fp));
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	  KEY ("BalanceGold", ch->pcdata->gbalance, fread_number (fp));
+	  KEY ("BalanceSilver", ch->pcdata->sbalance, fread_number (fp));
+	  KEY ("BalanceCopper", ch->pcdata->cbalance, fread_number (fp));
+#else
+	  KEY ("Balance", ch->pcdata->balance, fread_number (fp));
+#endif
 #endif
 	  KEY ("Bamfin", ch->pcdata->bamfin, fread_string_nohash (fp));
 	  KEY ("Bamfout", ch->pcdata->bamfout, fread_string_nohash (fp));
@@ -1429,6 +1495,9 @@ fread_char (CHAR_DATA * ch, FILE * fp, bool preload)
 	      fMatch = TRUE;
 	      break;
 	    }
+#ifdef ENABLE_GOLD_SILVER_COPPER
+		KEY("Copper",	ch->copper,	fread_number(fp));
+#endif
 	  break;
 
 	case 'D':
@@ -1785,6 +1854,9 @@ fread_char (CHAR_DATA * ch, FILE * fp, bool preload)
 	  KEY ("SeeMe", ch->pcdata->see_me, fread_string (fp));	// Alty
 	  KEY ("Sex", ch->sex, fread_number (fp));
 	  KEY ("ShortDescr", ch->short_descr, fread_string (fp));
+#ifdef ENABLE_GOLD_SILVER_COPPER
+		KEY( "Silver",	ch->silver,	fread_number(fp));
+#endif
 #ifdef MARRIAGE
 	  KEY ("Spouse", ch->pcdata->spouse, fread_string (fp));
 #endif
@@ -2211,7 +2283,13 @@ fread_obj (CHAR_DATA * ch, FILE * fp, sh_int os_type)
 	  break;
 
 	case 'C':
+#ifdef ENABLE_GOLD_SILVER_COPPER
+		/* Leave cost for compatibility -Druid */
+		KEY( "Cost",	obj->gold_cost,		fread_number( fp ) );
+		KEY( "Copper_cost", obj->copper_cost, fread_number( fp ) );
+#else
 	  KEY ("Cost", obj->cost, fread_number (fp));
+#endif
 	  KEY ("Count", obj->count, fread_number (fp));
 	  break;
 
@@ -2368,6 +2446,12 @@ fread_obj (CHAR_DATA * ch, FILE * fp, sh_int os_type)
 	  KEY ("ItemType", obj->item_type, fread_number (fp));
 	  break;
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	case 'G':
+		KEY( "Gold_cost",	obj->gold_cost,	fread_number(fp ) );
+		break;
+#endif
+
 	case 'L':
 	  KEY ("Level", obj->level, fread_number (fp));
 	  break;
@@ -2402,6 +2486,9 @@ fread_obj (CHAR_DATA * ch, FILE * fp, sh_int os_type)
 	case 'S':
 	  KEY ("ShortDescr", obj->short_descr, fread_string (fp));
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+		KEY( "Silver_cost", obj->silver_cost,	fread_number( fp ));
+#endif
 	  if (!strcmp (word, "Spell"))
 	    {
 	      char *sword;
@@ -2460,7 +2547,13 @@ fread_obj (CHAR_DATA * ch, FILE * fp, sh_int os_type)
 	      else
 		{
 		  fVnum = TRUE;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+			obj->gold_cost = obj->pIndexData->gold_cost;
+			obj->silver_cost = obj->pIndexData->silver_cost;
+			obj->copper_cost = obj->pIndexData->copper_cost;
+#else
 		  obj->cost = obj->pIndexData->cost;
+#endif
 		  obj->weight = obj->pIndexData->weight;
 		  obj->item_type = obj->pIndexData->item_type;
 		  obj->wear_flags = obj->pIndexData->wear_flags;

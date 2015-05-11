@@ -1782,10 +1782,6 @@ if(pObjIndex->rent <0)
   }
     if ( area_version >= 1 )
 
-================================
-============= db.c =================
-================================
-
 Function: initialize_economy()
 Around line 2256
 CHANGE:
@@ -2534,8 +2530,7 @@ CHANGE:
 sysdata.upill_val += obj->cost/100;
 
 TO:
-sysdata.upill_val += 
-  get_value(obj->gold_cost,obj->silver_cost,obj->copper_cost)/100;
+sysdata.upill_val += get_value(obj->gold_cost,obj->silver_cost,obj->copper_cost)/100;
 
 Function: do_quaff()
 Around line 963
@@ -2543,8 +2538,7 @@ CHANGE:
 sysdata.upotion_val += obj->cost/100;
 
 TO:
-sysdata.upotion_val += 
-  get_value(obj->gold_cost, obj->silver_cost, obj->copper_cost)/100;
+sysdata.upotion_val += get_value(obj->gold_cost, obj->silver_cost, obj->copper_cost)/100;
 
 AT THE END OF THE FILE AFTER THE #endif
 ADD:

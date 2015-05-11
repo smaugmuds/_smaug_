@@ -395,6 +395,30 @@ const struct liq_type liq_table[LIQ_MAX] = {
   {"grog", "thick brown", {3, 2, 5}}	/* 17 */
 };
 
+#ifdef ENABLE_WEAPONPROF
+/* removed "pea" and added chop, spear, smash - Grimm */
+/* Removed duplication in damage types - Samson 1-9-00 */
+char *attack_table[DAM_MAX_TYPE] =
+{
+   "hit", "slash", "stab", "hack", "crush", "lash", "pierce", "thrust"
+};
+
+char *attack_table_plural[DAM_MAX_TYPE] =
+{
+   "hits", "slashes", "stabs",  "hacks", "crushes", "lashes", "pierces", "thrusts"
+};
+
+char *weapon_skills[WEP_MAX] =
+{
+  "Barehand", "Sword", "Dagger", "Whip", "Talon",
+  "Mace", "Archery", "Blowgun", "Sling", "Axe", "Spear", "Staff"
+};
+
+char *projectiles[PROJ_MAX] =
+{
+   "Bolt", "Arrow", "Dart", "Stone"
+};
+#else
 char *const attack_table[18] = {
   "hit",
   "slice", "stab", "slash", "whip", "claw",
@@ -402,6 +426,7 @@ char *const attack_table[18] = {
   "pierce", "suction", "bolt", "arrow", "dart",
   "stone", "pea"
 };
+#endif
 
 char *s_blade_messages[24] = {
   "miss", "barely scratch", "scratch", "nick", "cut", "hit", "tear",
@@ -450,6 +475,32 @@ char *p_generic_messages[24] = {
   "**** SMITES ****"
 };
 
+#ifdef ENABLE_WEAPONPROF
+
+char **const s_message_table[DAM_MAX_TYPE] =
+{
+   s_generic_messages,     /* hit */
+   s_blade_messages,       /* slash */
+   s_blade_messages,       /* stab */
+   s_blade_messages,       /* hack */
+   s_blunt_messages,       /* crush */
+   s_blunt_messages,       /* lash */
+   s_blade_messages,       /* pierce */
+   s_blade_messages,       /* thrust */
+};
+
+char **const p_message_table[DAM_MAX_TYPE] =
+{
+   p_generic_messages,     /* hit */
+   p_blade_messages,       /* slash */
+   p_blade_messages,       /* stab */
+   p_blade_messages,       /* hack */
+   p_blunt_messages,       /* crush */
+   p_blunt_messages,       /* lash */
+   p_blade_messages,       /* pierce */
+   p_blade_messages,       /* thrust */
+};
+#else
 char **const s_message_table[18] = {
   s_generic_messages,		/* hit */
   s_blade_messages,		/* slice */
@@ -491,6 +542,7 @@ char **const p_message_table[18] = {
   p_generic_messages,		/* stone */
   p_generic_messages		/* pea */
 };
+#endif
 
 /* Weather constants - FB */
 char *const temp_settings[MAX_CLIMATE] = {

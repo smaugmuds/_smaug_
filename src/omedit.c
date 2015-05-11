@@ -303,6 +303,10 @@ void do_mcopy( CHAR_DATA *ch, char *argument )
     copy->damsizedice	        = orig->damsizedice;
     copy->damplus		= orig->damplus;
     copy->gold		        = orig->gold;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+    copy->silver		      = orig->silver;
+    copy->copper		      = orig->copper;
+#endif
     copy->exp		        = orig->exp;
     copy->position		= orig->position;
     copy->defposition	        = orig->defposition;
@@ -856,8 +860,13 @@ void medit_disp_npc_menu( DESCRIPTOR_DATA *d )
         mob->pIndexData->damnodice, mob->pIndexData->damsizedice, mob->pIndexData->damplus, damestimate );
     ch_printf_color( ch, "&gK&w) HitNumDice:  [&c%5d&w], &gL&w) HitSizeDice:  [&c%5d&w], &gM&w) HitPlus:  [&c%5d&w]=[&c%5d&w]\r\n",
         mob->pIndexData->hitnodice, mob->pIndexData->hitsizedice, mob->pIndexData->hitplus, hitestimate );
+#ifdef ENABLE_GOLD_SILVER_COPPER
+    ch_printf_color( ch, "&gN&w) G/S/C: [&c%8dg&w||&c%8ds&w||&c%8dc&w], &gO&w) Spec: &O%-22.22s\n\r",
+        mob->gold, mob->silver, mob->copper, lookup_spec( mob->spec_fun ) );
+#else
     ch_printf_color( ch, "&gN&w) Gold:     [&c%8d&w], &gO&w) Spec: &O%-22.22s\n\r",
         mob->gold, lookup_spec( mob->spec_fun ) );
+#endif
     ch_printf_color( ch, "&gP&w) Saving Throws\n\r" );
     ch_printf_color( ch, "&gR&w) Resistant   : &O%s\n\r", flag_string( mob->resistant, ris_flags ) );
     ch_printf_color( ch, "&gS&w) Immune      : &O%s\n\r", flag_string( mob->immune, ris_flags ) );
@@ -894,8 +903,13 @@ void medit_disp_pc_menu( DESCRIPTOR_DATA *d )
 	get_curr_con(victim), get_curr_cha(victim), get_curr_lck(victim) );
     ch_printf_color( ch, "&gF&w) Hps:   [&c%5d&w/&c%5d&w],  &gG&w) Mana:   [&c%5d&w/&c%5d&w],  &gH&w) Move:[&c%5d&w/&c%-5d&w]\n\r",
 	victim->hit, victim->max_hit, victim->mana, victim->max_mana, victim->move, victim->max_move );
+#ifdef ENABLE_GOLD_SILVER_COPPER
+    ch_printf_color( ch, "&gI&w) G/S/C: [&c%11d&w||&c%11d&w||&c%11d&w],  &gJ&w) Mentalstate:  [&c%5d&w],  &gK&w) Emotional: [&c%5d&w]\n\r",
+        victim->gold, victim->silver, victim->copper, victim->mental_state, victim->emotional_state );
+#else
     ch_printf_color( ch, "&gI&w) Gold:  [&c%11d&w],  &gJ&w) Mentalstate:  [&c%5d&w],  &gK&w) Emotional: [&c%5d&w]\n\r",
         victim->gold, victim->mental_state, victim->emotional_state );
+#endif
     ch_printf_color( ch, "&gL&w) Thirst:      [&c%5d&w],  &gM&w) Full:         [&c%5d&w],  &gN&w) Drunk:     [&c%5d&w]\n\r",
 	victim->pcdata->condition[COND_THIRST], victim->pcdata->condition[COND_FULL], victim->pcdata->condition[COND_DRUNK] );
     ch_printf_color( ch, "&gO&w) Favor:       [&c%5d&w]\n\r", victim->pcdata->favor );
@@ -1143,8 +1157,13 @@ void medit_parse( DESCRIPTOR_DATA *d, char *arg )
 	    send_to_char( "\n\rEnter amount to add to hitpoints: ", d->character );
 	    return;
 	case 'N':
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	    OLC_MODE(d) = MEDIT_COPPER;
+	    send_to_char( "\n\rEnter amount of copper mobile carries: ", d->character );
+#else
 	    OLC_MODE(d) = MEDIT_GOLD;
 	    send_to_char( "\n\rEnter amount of gold mobile carries: ", d->character );
+#endif
 	    return;
 	case 'O':
 	    OLC_MODE(d) = MEDIT_SPEC;
@@ -1281,8 +1300,13 @@ void medit_parse( DESCRIPTOR_DATA *d, char *arg )
 	    send_to_char( "\n\rEnter moves: ", d->character );
 	    return;
 	case 'I':
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	    OLC_MODE(d) = MEDIT_COPPER;
+	    send_to_char( "\n\rEnter amount of copper player carries: ", d->character );
+#else
 	    OLC_MODE(d) = MEDIT_GOLD;
 	    send_to_char( "\n\rEnter amount of gold player carries: ", d->character );
+#endif
 	    return;
 	case 'J':
 	    OLC_MODE(d) = MEDIT_MENTALSTATE;
@@ -1753,6 +1777,18 @@ void medit_parse( DESCRIPTOR_DATA *d, char *arg )
 	victim->gold = UMAX( 0, atoi(arg) );
 	olc_log( d, "Changed gold to %d", victim->gold );
 	break;
+
+#ifdef ENABLE_GOLD_SILVER_COPPER
+    case MEDIT_SILVER:
+	victim->silver = UMAX( 0, atoi(arg) );
+	olc_log( d, "Changed silver to %d", victim->silver );
+	break;
+
+    case MEDIT_COPPER:
+	victim->copper = UMAX( 0, atoi(arg) );
+	olc_log( d, "Changed copper to %d", victim->copper );
+	break;
+#endif
 
     case MEDIT_POS:
 	victim->position = URANGE( 0, atoi(arg), POS_STANDING );

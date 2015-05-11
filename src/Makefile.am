@@ -128,7 +128,11 @@ libsmaug_player_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
 libsmaug_player_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
 
 libsmaug_player_la_SOURCES = \
-player.c polymorph.c update.c save.c ban.c 
+player.c polymorph.c update.c save.c ban.c
+
+if ENABLE_ALIAS
+libsmaug_player_la_SOURCES += alias.c
+endif
 
 # lib/libsmaug-mudprog.so (shared lib) #
 libsmaug_mudprog_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
@@ -189,6 +193,14 @@ endif
 
 if ENABLE_UNDERTAKER
 libsmaug_realm_la_SOURCES += undertaker.c
+endif
+
+if ENABLE_ARCHERY
+libsmaug_realm_la_SOURCES += archery.c
+endif
+
+if ENABLE_ARENA
+libsmaug_realm_la_SOURCES += arena.c
 endif
 
 if MARRIAGE
@@ -301,6 +313,6 @@ if ENABLE_OLC2
 include_HEADERS += olc.h
 endif
 
-if BANK_INSTALLED
-include_HEADERS += bank.h
+if ENABLE_ALIAS
+include_HEADERS += alias.h
 endif

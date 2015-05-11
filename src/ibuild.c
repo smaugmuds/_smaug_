@@ -593,7 +593,11 @@ MENU_DATA obj_page_a_data[] = { {
 {
  "3", "a", 9, 59, "%5.5hd", NULL, SH_INT, 2, "oset %s weight %s"},
 {
+#ifdef ENABLE_GOLD_SILVER_COPPER
+ "3", "b", 10, 59, "%5.5hd", NULL, SH_INT, 2, "oset %s gcost %s"},
+#else
  "3", "b", 10, 59, "%5.5hd", NULL, SH_INT, 2, "oset %s cost %s"},
+#endif
 {"-", "a", 13, 2, "", NULL, STRING, 1, "omenu %s a"},
 {"-", "b", 13, 2, "", NULL, STRING, 1, "omenu %s b"},
 {"-", "c", 13, 2, "", NULL, STRING, 1, "omenu %s c"},
@@ -2703,7 +2707,11 @@ fill_in_obj_page (CHAR_DATA * ch, OBJ_INDEX_DATA * idx, char page)
       obj_page_b_data[4].data =
 	((idx->item_type == ITEM_FOOD) ? check : space);
       obj_page_b_data[5].data =
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	((idx->item_type == ITEM_GOLD) ? check : space);
+#else
 	((idx->item_type == ITEM_MONEY) ? check : space);
+#endif
       obj_page_b_data[6].data =
 	((idx->item_type == ITEM_POTION) ? check : space);
       obj_page_b_data[7].data =
@@ -2805,9 +2813,12 @@ fill_in_obj_page (CHAR_DATA * ch, OBJ_INDEX_DATA * idx, char page)
       obj_page_a_data[11].data = get_item_strings (idx->item_type, 4);
 
       obj_page_a_data[12].data = &(idx->weight);
+
+#ifdef ENABLE_GOLD_SILVER_COPPER
+			obj_page_a_data[13].data = &(idx->gold_cost);
+#else
       obj_page_a_data[13].data = &(idx->cost);
-
-
+#endif
     }
 
   for (i = 0; m_data[i].ptrType != (int) NULL; i++)
@@ -2840,11 +2851,6 @@ fill_in_obj_page (CHAR_DATA * ch, OBJ_INDEX_DATA * idx, char page)
 
   send_to_char ("\n\r", ch);
 }
-
-
-
-
-
 
 void
 fill_in_mob_page (CHAR_DATA * ch, MOB_INDEX_DATA * idx, char page)

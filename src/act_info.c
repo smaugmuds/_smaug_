@@ -100,9 +100,15 @@ char *const where_name[] = {
   ___("<worn over face>     "),
   ___("<worn around ankle>  "),
   ___("<worn around ankle>  "),
+#ifdef ENABLE_ARCHERY
+  ___("<lodged in a rib>    "),
+  ___("<lodged in an arm>   "),
+  ___("<lodged in a leg>    ")
+#else
   ___("<BUG Inform Nivek>  "),
   ___("<BUG Inform Nivek>  "),
   ___("<BUG Inform Nivek>  ")
+#endif
 };
 
 

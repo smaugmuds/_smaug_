@@ -105,6 +105,9 @@ char *const o_flags[] = {
   "hidden", "poisoned", "covering", "deathrot", "buried", "prototype",
   "nolocate", "groundrot", "lootable", "permanent", "multi_invoke",
   "deathdrop", "skinned", "nofill", "blackened", "noscavenge",
+#ifdef ENABLE_ARCHERY
+	"lodged",
+#endif
   "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10"
 };
 
@@ -127,15 +130,20 @@ char *const mag_flags[] = {
 char *const w_flags[] = {
   "take", "finger", "neck", "body", "head", "legs", "feet", "hands", "arms",
   "shield", "about", "waist", "wrist", "wield", "hold", "_dual_", "ears",
-  "eyes",
-  "missile", "back", "face", "ankle", "r4", "r5", "r6",
-  "r7", "r8", "r9", "r10", "r11", "r12", "r13"
+  "eyes", "missile", "back", "face", "ankle",
+#ifdef ENABLE_ARCHERY
+  "lodge_rib", "lodge_arm", "lodge_leg",
+#endif
+  "r4", "r5", "r6",  "r7", "r8", "r9", "r10", "r11", "r12", "r13"
 };
 
 char *const item_w_flags[] = {
   "take", "finger", "neck", "neck", "neck", "body", "head", "legs", "feet",
   "hands", "arms", "shield", "about", "waist", "wrist", "wrist", "wield",
   "hold", "dual", "ears", "eyes", "missile", "back", "face", "ankle", "ankle",
+#ifdef ENABLE_ARCHERY
+  "lodge_rib", "lodge_arm", "lodge_leg",
+#endif
   "r4", "r5", "r6", "r7", "r8", "r9", "r10", "r11", "r12", "r13"
 };
 
@@ -222,6 +230,9 @@ char *const act_flags[] = {
 #ifdef ENABLE_UNDERTAKER
   "undertaker",
 #endif
+#ifdef ENABLE_ARENA
+  "challenged", "challenger"
+#endif
   "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10"
 };
 
@@ -275,9 +286,12 @@ char *const wear_locs[] = {
 
 char *const ris_flags[] = {
   "fire", "cold", "electricity", "energy", "blunt", "pierce", "slash", "acid",
-  "poison", "drain", "sleep", "charm", "hold", "nonmagic", "plus1", "plus2",
-  "plus3", "plus4", "plus5", "plus6", "magic", "paralysis", "r1", "r2", "r3",
-  "r4", "r5", "r6", "r7", "r8", "r9", "r10"
+  "poison", "drain", "sleep", "charm", "hold", "nonmagic",
+  "plus1", "plus2", "plus3", "plus4", "plus5", "plus6", "magic", "paralysis",
+#ifdef ENABLE_WEAPONPROF
+	"hack", "lash",
+#endif
+  "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10"
 };
 
 char *const trig_flags[] = {
@@ -4153,6 +4167,79 @@ do_oset (CHAR_DATA * ch, char *argument)
   tmp = -1;
   switch (obj->item_type)
     {
+#ifdef ENABLE_WEAPONPROF
+     case ITEM_PROJECTILE:
+         if( !str_cmp( arg2, "missiletype" ) )
+         {
+            unsigned int x;
+
+            value = -1;
+            for( x = 0; x < sizeof( projectiles ) / sizeof( projectiles[0] ); x++ )
+               if( !str_cmp( arg3, projectiles[x] ) )
+                  value = x;
+            if( value < 0 )
+            {
+               send_to_char( "Unknown projectile type.\r\n", ch );
+               return;
+            }
+            tmp = 4;
+            break;
+         }
+
+         if( !str_cmp( arg2, "damtype" ) )
+         {
+            unsigned int x;
+
+            value = -1;
+            for( x = 0; x < sizeof( attack_table ) / sizeof( attack_table[0] ); x++ )
+               if( !str_cmp( arg3, attack_table[x] ) )
+                  value = x;
+            if( value < 0 )
+            {
+               send_to_char( "Unknown damage type.\r\n", ch );
+               return;
+            }
+            tmp = 3;
+            break;
+         }
+      case ITEM_WEAPON:
+         if( !str_cmp( arg2, "weapontype" ) )
+         {
+            unsigned int x;
+
+            value = -1;
+            for( x = 0; x < sizeof( weapon_skills ) / sizeof( weapon_skills[0] ); x++ )
+               if( !str_cmp( arg3, weapon_skills[x] ) )
+                  value = x;
+            if( value < 0 )
+            {
+               send_to_char( "Unknown weapon type.\r\n", ch );
+               return;
+            }
+            tmp = 4;
+            break;
+         }
+
+         if( !str_cmp( arg2, "damtype" ) )
+         {
+            unsigned int x;
+
+            value = -1;
+            for( x = 0; x < sizeof( attack_table ) / sizeof( attack_table[0] ); x++ )
+               if( !str_cmp( arg3, attack_table[x] ) )
+                  value = x;
+            if( value < 0 )
+            {
+               send_to_char( "Unknown damage type.\r\n", ch );
+               return;
+            }
+            tmp = 3;
+            break;
+         }
+         if( !str_cmp( arg2, "condition" ) )
+            tmp = 0;
+         break;
+#else
     case ITEM_WEAPON:
       if (!str_cmp (arg2, "weapontype"))
 	{
@@ -4174,6 +4261,7 @@ do_oset (CHAR_DATA * ch, char *argument)
       if (!str_cmp (arg2, "condition"))
 	tmp = 0;
       break;
+#endif
     case ITEM_ARMOR:
       if (!str_cmp (arg2, "condition"))
 	tmp = 3;
@@ -7103,6 +7191,7 @@ fold_area (AREA_DATA * tarea, char *filename, bool install)
 #else
       fprintf (fpout, "%d %d\n", pMobIndex->gold, pMobIndex->exp);
 #endif
+
 /* Need to convert to new positions correctly on loadup sigh -Shaddai */
       fprintf (fpout, "%d %d %d\n", pMobIndex->position + 100,
 	       pMobIndex->defposition + 100, pMobIndex->sex);

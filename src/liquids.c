@@ -1828,11 +1828,29 @@ do_fill (CHAR_DATA * ch, char *argument)
 		  && !nifty_is_name (&arg2[4], source->name))
 		continue;
 	      obj_from_room (source);
+#ifdef ENABLE_GOLD_SILVER_COPPER
+				if ( source->item_type == ITEM_GOLD )
+					{
+					ch->gold += source->value[0];
+					extract_obj( source );
+					}
+				else if ( source->item_type == ITEM_SILVER )
+					{
+					ch->silver += source->value[0];
+					extract_obj( source );
+					}
+				else if ( source->item_type == ITEM_COPPER )
+					{
+					ch->copper += source->value[0];
+					extract_obj( source );
+					}
+#else
 	      if (source->item_type == ITEM_MONEY)
-		{
-		  ch->gold += source->value[0];
-		  extract_obj (source);
-		}
+					{
+						ch->gold += source->value[0];
+						extract_obj (source);
+					}
+#endif
 	      else
 		obj_to_obj (source, obj);
 	      found = TRUE;
@@ -1911,7 +1929,13 @@ do_fill (CHAR_DATA * ch, char *argument)
 	  obj_from_room (source);
 	  obj_to_obj (source, obj);
 	  break;
-	case ITEM_MONEY:
+#ifdef ENABLE_GOLD_SILVER_COPPER
+			case ITEM_GOLD:
+			case ITEM_SILVER:
+			case ITEM_COPPER:
+#else
+	    case ITEM_MONEY:
+#endif
 	  send_to_char ("You can't do that... yet.\n\r", ch);
 	  break;
 	case ITEM_CORPSE_PC:

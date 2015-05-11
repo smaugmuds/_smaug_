@@ -700,6 +700,9 @@ game_loop ()
 			nanny (d, cmdline);
 			break;
 		      case CON_PLAYING:
+#ifdef ENABLE_ALIAS
+	    d->character->cmd_recurse = 0;
+#endif
 			interpret (d->character, cmdline);
 			break;
 		      case CON_EDITING:
@@ -2405,6 +2408,10 @@ nanny (DESCRIPTOR_DATA * d, char *argument)
 	  ch->mana = UMAX (1, ch->max_mana);
 	  ch->move = ch->max_move;
 	  ch->gold = 0;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	  ch->silver = 0;
+	  ch->copper = 0;
+#endif
 	  sprintf (buf, "the %s",
 		   title_table[ch->class][ch->level]
 		   [ch->sex == SEX_FEMALE ? 1 : 0]);

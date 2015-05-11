@@ -113,8 +113,13 @@ fi;
 
 test -x configure || exit
 
-echo "Launching: ./configure --prefix=/opt/smaug --disable-static --enable-shared --enable-nls ...";
-./configure --prefix=/opt/smaug --disable-static --enable-shared --enable-nls
+CONFIGURE_USER_OPTIONS=$*;
+
+echo "Running: ./configure --prefix=/opt/smaug --disable-static --enable-shared --enable-nls $CONFIGURE_USER_OPTIONS";
+
+sleep 2;
+
+./configure --prefix=/opt/smaug --disable-static --enable-shared --enable-nls $CONFIGURE_USER_OPTIONS;
 
 exit
 

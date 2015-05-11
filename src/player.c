@@ -55,7 +55,13 @@ void
 do_gold (CHAR_DATA * ch, char *argument)
 {
   set_char_color (AT_GOLD, ch);
-  ch_printf (ch, "You have %s gold pieces.\n\r", num_punct (ch->gold));
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	ch_printf (ch, _("You have %s gold, "), num_punct(ch->gold));
+	ch_printf (ch, _("%s silver"), num_punct(ch->silver));
+	ch_printf (ch, _(", and %s copper coins.\n"), num_punct(ch->copper));
+#else
+  ch_printf (ch, _("You have %s gold pieces.\n"), num_punct (ch->gold));
+#endif
   return;
 }
 
@@ -184,10 +190,15 @@ do_worth (CHAR_DATA * ch, char *argument)
       sprintf (buf, "standard");
       break;
     }
-  pager_printf_color
-    (ch,
+  pager_printf_color (ch,
      "&g|&GGlory: &w%-4d &g|&GWeight: &w%-9d &g|&GStyle: &w%-13s &g|&GGold: &w%-14s &g|\n\r",
      ch->pcdata->quest_curr, ch->carry_weight, buf, num_punct (ch->gold));
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	pager_printf_color (ch, "|            |Silver: %-9s",
+		num_punct (ch->silver));
+	pager_printf_color (ch, " |Copper: %-13s|                     |\n\r",
+		num_punct (ch->copper));
+#endif
   send_to_pager_color
     ("&g ----------------------------------------------------------------------------\n\r",
      ch);
@@ -459,11 +470,19 @@ do_score (CHAR_DATA * ch, char *argument)
 		  ch->exp, ch->mana, ch->max_mana, ch->pcdata->mkills,
 		  xIS_SET (ch->act, PLR_AUTOLOOT) ? 'X' : ' ');
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	pager_printf (ch, _("Move: %-5d of %5d   Mdeaths: %-5.5d    AutoSac (%c)\n"),
+		ch->move, ch->max_move, ch->pcdata->mdeaths, xIS_SET(ch->act, PLR_AUTOSAC) ? 'X' : ' ');
+	pager_printf (ch, _("Gold: %s  "), num_punct(ch->gold));
+	pager_printf (ch, _("Silver: %s	"), num_punct(ch->silver));
+	pager_printf (ch, _("Copper: %s\n"), num_punct(ch->copper));
+#else
   pager_printf (ch,
 		_("GOLD : %-13s    Move: %-5d of %5d   Mdeaths: %-5.5d    AutoSac (%c)\n"),
 		num_punct (ch->gold), ch->move, ch->max_move,
 		ch->pcdata->mdeaths, xIS_SET (ch->act,
 					      PLR_AUTOSAC) ? 'X' : ' ');
+#endif
   if (!IS_NPC (ch) && ch->pcdata->condition[COND_DRUNK] > 10)
     send_to_pager ("You are drunk.\n\r", ch);
   if (!IS_NPC (ch) && ch->pcdata->condition[COND_THIRST] == 0)
@@ -870,8 +889,19 @@ void do_altscore( CHAR_DATA *ch, char *argument )
 
     pager_printf ( ch, " ----------------------------------------------------------\n");
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+    pager_printf ( ch, _("| You have %ld gold, %ld silver and %ld copper coins.\n"), ch->gold, ch->silver, ch->copper);
+#ifdef BANK_INSTALLED
     pager_printf ( ch, _("| You have %ld gold and your bank balance is %ld gold, %ld silver, %ld copper coins.\n"),
 		ch->gold, ch->pcdata->gbalance, ch->pcdata->sbalance, ch->pcdata->cbalance);
+#endif
+#else
+    pager_printf ( ch, _("| You have %ld gold coins.\n"), ch->gold);
+#ifdef BANK_INSTALLED
+    pager_printf ( ch, _("| You have %ld gold and your bank balance is %ld gold coins.\n"),
+		ch->gold, ch->pcdata->balance);
+#endif
+#endif
     
 		if (!IS_NPC(ch)) {
 			pager_printf ( ch, _("| You have scored %ld exp.\n"),
@@ -1354,11 +1384,19 @@ do_score (CHAR_DATA * ch, char *argument)
 			ch->exp, ch->mana, ch->max_mana, ch->pcdata->mkills,
 			xIS_SET (ch->act, PLR_AUTOLOOT) ? 'X' : ' ');
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	pager_printf_color (ch, _("&CMove: &W%-5d &Cof &w%5d   &CMdeaths: &W%5d    &CAutoSac (&W%c&C)\n"),
+		ch->move, ch->max_move, ch->pcdata->mdeaths, xIS_SET(ch->act, PLR_AUTOSAC) ? 'X' : ' ');
+	pager_printf_color (ch, _("&CGold: &Y%s "), num_punct(ch->gold));
+	pager_printf_color (ch, _("&CSilver: &Y%s	"), num_punct(ch->silver));
+	pager_printf_color (ch, _("&CCopper: &Y%s\n"), num_punct(ch->copper));
+#else
   pager_printf_color (ch,
 		      _("&GGOLD : &Y%-13s    &GMove: &w%-5d &Gof &w%5d   &GMdeaths: &w%-5.5d    &GAutoSac &g(&w%c&g)\n"),
 		      num_punct (ch->gold), ch->move, ch->max_move,
 		      ch->pcdata->mdeaths, xIS_SET (ch->act,
 						    PLR_AUTOSAC) ? 'X' : ' ');
+#endif
 
   set_char_color (AT_GREEN, ch);
   if (!IS_NPC (ch) && ch->pcdata->condition[COND_DRUNK] > 10)
@@ -1900,11 +1938,19 @@ do_altscore (CHAR_DATA * ch, char *argument)
 			ch->exp, ch->mana, ch->max_mana, ch->pcdata->mkills,
 			xIS_SET (ch->act, PLR_AUTOLOOT) ? 'X' : ' ');
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	pager_printf_color(ch, "&GMove: &O%-5d &Gof &O%5d   &GMdeaths: &W%5d    &GAutoSac (&W%c&g)\n\r",
+	ch->move, ch->max_move, ch->pcdata->mdeaths, xIS_SET(ch->act, PLR_AUTOSAC) ? 'X' : ' ');
+	pager_printf_color(ch,"&GGold: &Y%s ",num_punct(ch->gold));
+	pager_printf_color(ch,"&GSilver: &Y%s	",num_punct(ch->silver));
+	pager_printf_color(ch,"&GCopper: &Y%s\n\r",num_punct(ch->copper));
+#else
   pager_printf_color (ch,
 		      _("&GGOLD : &Y%-13s    &GMove: &O%-5d &Gof &O%5d   &GMdeaths: &W%5d    &GAutoSac &g(&W%c&g)\n"),
 		      num_punct (ch->gold), ch->move, ch->max_move,
 		      ch->pcdata->mdeaths, xIS_SET (ch->act,
 						    PLR_AUTOSAC) ? 'X' : ' ');
+#endif
 
   if (!IS_NPC (ch) && ch->pcdata->condition[COND_DRUNK] > 10)
     send_to_pager (_("You are drunk.\n"), ch);
@@ -2333,6 +2379,12 @@ tiny_affect_loc_name (int location)
       return " TELEVN";
     case APPLY_TELEDELAY:
       return " TELEDY";
+#ifdef ENABLE_GOLD_SILVER_COPPER
+		case APPLY_SILVER:
+      return " SILVER";
+		case APPLY_COPPER:
+      return " COPPER";
+#endif
     };
 
   bug (_("Affect_location_name: unknown location %d."), location);
@@ -2407,7 +2459,13 @@ do_oldscore (CHAR_DATA * ch, char *argument)
 
   /* Can no longer have 2 occurences of num_punct on the same line -Shaddai */
   pager_printf (ch, _("You have scored %s exp, and have "), num_punct (ch->exp));
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	pager_printf (ch, _("%s gold, "), num_punct(ch->gold) );
+	pager_printf (ch, _("%s silver, and "), num_punct(ch->silver));
+	pager_printf (ch, _("%s copper coins.\n"), num_punct(ch->copper));
+#else
   pager_printf (ch, _("%s gold coins.\n"), num_punct (ch->gold));
+#endif
 
   if (!IS_NPC (ch))
     pager_printf (ch,

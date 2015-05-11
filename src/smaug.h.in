@@ -32,6 +32,15 @@
 /* Password Encryption Support */
 #undef CRYPT
 
+/* Command Alias Support */
+#undef ENABLE_ALIAS
+
+/* Archery Support */
+#undef ENABLE_ARCHERY
+
+/* Arena Challenge Support */
+#undef ENABLE_ARENA
+
 /* BuildWalk Support */
 #undef ENABLE_BUILDWALK
 
@@ -44,6 +53,9 @@
 /* DNS Resolver */
 #undef ENABLE_DNS_RESOLV
 
+/* Gold, Silver & Copper Support */
+#undef ENABLE_GOLD_SILVER_COPPER
+
 /* Holidays Support */
 #undef ENABLE_HOLIDAYS
 
@@ -52,6 +64,9 @@
 
 /* Mapper Support */
 #undef ENABLE_MAPPER
+
+/* Morgue Support */
+#undef ENABLE_MORGUE
 
 /* MSSP Support */
 #undef ENABLE_MSSP
@@ -72,6 +87,9 @@
 /* Undertaker Support */
 #undef ENABLE_UNDERTAKER
 
+/* Weapon Proficency Support */
+#undef ENABLE_WEAPONPROF
+
 /* New Weather Support */
 #undef ENABLE_WEATHER
 
@@ -80,6 +98,9 @@
 
 /* This is a FreeBSD system */
 #undef FREEBSD
+
+/* Gold Race Rate Support */
+#undef GOLD_MULT
 
 /* Define to 1 if you have the `alarm' function. */
 #undef HAVE_ALARM
@@ -99,11 +120,11 @@
 /* Define to 1 if you have the `bzero' function. */
 #undef HAVE_BZERO
 
-/* Define to 1 if you have the Mac OS X function CFLocaleCopyCurrent in the
+/* Define to 1 if you have the MacOS X function CFLocaleCopyCurrent in the
    CoreFoundation framework. */
 #undef HAVE_CFLOCALECOPYCURRENT
 
-/* Define to 1 if you have the Mac OS X function CFPreferencesCopyAppValue in
+/* Define to 1 if you have the MacOS X function CFPreferencesCopyAppValue in
    the CoreFoundation framework. */
 #undef HAVE_CFPREFERENCESCOPYAPPVALUE
 
@@ -428,7 +449,8 @@
 /* Define to log directory. */
 #undef LOGDIR
 
-/* Define to the sub-directory where libtool stores uninstalled libraries. */
+/* Define to the sub-directory in which libtool stores uninstalled libraries.
+   */
 #undef LT_OBJDIR
 
 /* Marriage Support */
@@ -436,9 +458,6 @@
 
 /* This is a MinGW system */
 #undef MINGW
-
-/* Morgue Support */
-#undef MORGUE
 
 /* This is a NetBSD system */
 #undef NETBSD
@@ -448,6 +467,9 @@
 
 /* Disable Password Encryption Support */
 #undef NOCRYPT
+
+/* Define to 1 if your C compiler doesn't accept -c and -o together. */
+#undef NO_MINUS_C_MINUS_O
 
 /* This is an OpenBSD system */
 #undef OPENBSD

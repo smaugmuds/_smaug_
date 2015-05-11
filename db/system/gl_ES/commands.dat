@@ -58,6 +58,14 @@ Log         0
 End
 
 #COMMAND
+Name        aceptar~
+Code        do_accept
+Position    100
+Level       5
+Log         1
+End
+
+#COMMAND
 Name        autorizar~
 Code        do_authorize
 Position    100
@@ -253,6 +261,14 @@ Position    100
 Level       51
 Log         0
 Flags       4
+End
+
+#COMMAND
+Name        alias~
+Code        do_alias
+Position    100
+Level       1
+Log         0
 End
 
 #COMMAND
@@ -469,6 +485,14 @@ Code        do_consider
 Position    106
 Level       0
 Log         0
+End
+
+#COMMAND
+Name        retar~
+Code        do_challenge
+Position    100
+Level       5
+Log         1
 End
 
 #COMMAND
@@ -821,6 +845,14 @@ Log         0
 End
 
 #COMMAND
+Name        draw~
+Code        do_draw
+Position    100
+Level       1
+Log         0
+End
+
+#COMMAND
 Name        devote~
 Code        do_devote
 Position    106
@@ -849,6 +881,14 @@ Name        diagnose~
 Code        do_diagnose
 Position    100
 Level       62
+Log         0
+End
+
+#COMMAND
+Name        dislodge~
+Code        do_dislodge
+Position    100
+Level       1
 Log         0
 End
 
@@ -1620,7 +1660,7 @@ Log         0
 End
 
 #COMMAND
-Name        lume~
+Name        disparar~
 Code        do_fire
 Position    100
 Level       5
@@ -2147,6 +2187,14 @@ Name        mmenu~
 Code        do_mmenu
 Position    100
 Level       60
+Log         0
+End
+
+#COMMAND
+Name        montar~
+Code        do_mount
+Position    100
+Level       0
 Log         0
 End
 
@@ -2982,7 +3030,7 @@ Log         3
 End
 
 #COMMAND
-Name        poñer~
+Name        ponher~
 Code        do_put
 Position    106
 Level       0
@@ -4585,6 +4633,14 @@ Code        do_weather
 Position    106
 Level       0
 Log         0
+End
+
+#COMMAND
+Name        rexeitar~
+Code        do_withdraw
+Position    100
+Level       5
+Log         1
 End
 
 #COMMAND

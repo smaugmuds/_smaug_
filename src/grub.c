@@ -530,9 +530,13 @@ struct				/* operand table - info about each op    */
 } go_op[MAX_NUM_OPS];
 
 enum gr_field_type		/* enumerates the fields in the input record */
+#ifdef ENABLE_GOLD_SILVER_COPPER
+{name, sex, class, race, level, room, gold, silver, copper, clan,
+	council, site, last, pkill};
+#else
 { name, sex, class, race, level, room, gold, clan, council,
-  site, last, pkill
-};
+  site, last, pkill};
+#endif
 
 struct gr_struct		/* input record containing pfile info    */
 {
@@ -543,6 +547,10 @@ struct gr_struct		/* input record containing pfile info    */
   char level;
   short room;
   long gold;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	long silver;
+	long copper;
+#endif
   char clan;
   char council;
   char site[MAX_SITE_LENGTH];
@@ -1645,6 +1653,18 @@ gr_eval_and (GR_STRUCT r, int op_num)
 	    return FALSE;
 	  else
 	    break;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	case silver:
+		if (!go_eval_num (r.silver, gr_op[cou].op, gr_op[cou].nval) )
+			return FALSE;
+		else
+			break;
+	case copper:
+		if (!go_eval_num (r.copper, gr_op[cou].op, gr_op[cou].nval) )
+			return FALSE;
+		else
+			break;
+#endif
 	case clan:
 	  if (!go_eval_num (r.clan, gr_op[cou].op, gr_op[cou].nval))
 	    return FALSE;
@@ -1722,6 +1742,18 @@ gr_eval_or (GR_STRUCT r, int op_num)
 	    return TRUE;
 	  else
 	    break;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	case silver:
+		if ( go_eval_num(r.silver, gr_op[cou].op, gr_op[cou].nval) )
+			return TRUE;
+		else
+			break;
+	case copper:
+		if ( go_eval_num(r.copper, gr_op[cou].op, gr_op[cou].nval) )
+			return TRUE;
+		else
+			break;
+#endif
 	case clan:
 	  if (go_eval_num (r.clan, gr_op[cou].op, gr_op[cou].nval))
 	    return TRUE;
@@ -1756,30 +1788,28 @@ gr_eval_or (GR_STRUCT r, int op_num)
 void
 gr_init (void)
 {
-  strcpy (gr_fd[0].nam, "name");
-  gr_fd[0].num = FALSE;
-  strcpy (gr_fd[1].nam, "sex");
-  gr_fd[1].num = TRUE;
-  strcpy (gr_fd[2].nam, "class");
-  gr_fd[2].num = TRUE;
-  strcpy (gr_fd[3].nam, "race");
-  gr_fd[3].num = TRUE;
-  strcpy (gr_fd[4].nam, "level");
-  gr_fd[4].num = TRUE;
-  strcpy (gr_fd[5].nam, "room");
-  gr_fd[5].num = TRUE;
-  strcpy (gr_fd[6].nam, "gold");
-  gr_fd[6].num = TRUE;
-  strcpy (gr_fd[7].nam, "clan");
-  gr_fd[7].num = TRUE;
-  strcpy (gr_fd[8].nam, "council");
-  gr_fd[8].num = TRUE;
-  strcpy (gr_fd[9].nam, "site");
-  gr_fd[9].num = FALSE;
-  strcpy (gr_fd[10].nam, "last");
-  gr_fd[10].num = TRUE;
-  strcpy (gr_fd[11].nam, "pkill");
-  gr_fd[11].num = FALSE;
+  strcpy (gr_fd[0].nam, "name"		); gr_fd[0].num = FALSE;
+  strcpy (gr_fd[1].nam, "sex"			); gr_fd[1].num = TRUE;
+  strcpy (gr_fd[2].nam, "class"		); gr_fd[2].num = TRUE;
+  strcpy (gr_fd[3].nam, "race"		); gr_fd[3].num = TRUE;
+  strcpy (gr_fd[4].nam, "level"		); gr_fd[4].num = TRUE;
+  strcpy (gr_fd[5].nam, "room"		); gr_fd[5].num = TRUE;
+  strcpy (gr_fd[6].nam, "gold"		); gr_fd[6].num = TRUE;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	strcpy(gr_fd[ 7].nam, "silver" 	); gr_fd[ 7].num=TRUE;
+	strcpy(gr_fd[ 8].nam, "copper" 	); gr_fd[ 8].num=TRUE;
+	strcpy(gr_fd[ 9].nam, "clan"   	); gr_fd[ 9].num=TRUE;
+	strcpy(gr_fd[10].nam, "council"	); gr_fd[10].num=TRUE;
+	strcpy(gr_fd[11].nam, "site"   	); gr_fd[11].num=FALSE;
+	strcpy(gr_fd[12].nam, "last"  	); gr_fd[12].num=TRUE;
+	strcpy(gr_fd[13].nam, "pkill"  	); gr_fd[13].num=FALSE;
+#else
+  strcpy (gr_fd[7].nam, "clan"		); gr_fd[7].num = TRUE;
+  strcpy (gr_fd[8].nam, "council"	); gr_fd[8].num = TRUE;
+  strcpy (gr_fd[9].nam, "site"		); gr_fd[9].num = FALSE;
+  strcpy (gr_fd[10].nam, "last"		); gr_fd[10].num = TRUE;
+  strcpy (gr_fd[11].nam, "pkill"	); gr_fd[11].num = FALSE;
+#endif
 }
 
 /*
@@ -1907,13 +1937,27 @@ gr_read (CHAR_DATA * ch, int op_num, bool or_sw, int dis_num)
 	  if (!title_sw && dis_num > 0)	/* print title if applicable */
 	    {
 	      ch_printf (ch,
+#ifdef ENABLE_GOLD_SILVER_COPPER
+				"\n\r%-12s %-2s %1s %-2s %1s %3s %3s %5s %11s %11s %11s %-15s %-6s %s\n\r",
+				"Name", "Lv", "S", "R", "C", "Cln", "Cou", "Room", "Gold","Silver",
+				"Copper", "Site", "Last", "Pk");
+#else
 			 "\n\r%-12s %-2s %1s %-2s %1s %3s %3s %5s %11s %-15s %-6s %s\n\r",
 			 "Name", "Lv", "S", "R", "C", "Cln", "Cou", "Room",
 			 "Gold", "Site", "Last", "Pk");
+#endif
 	      title_sw = TRUE;
 	    }
 	  if (tot_match <= dis_num)	/* print record if applicable */
 	    ch_printf (ch,
+#ifdef ENABLE_GOLD_SILVER_COPPER
+						"%-12s %2hd %c %2s %c %3s %3s %5hd %11ld %5ld %5ld %-15s %6lu %c\n\r", 
+						r.name, r.level, sex[(unsigned char) r.sex],
+						race[(unsigned char) r.race], class[(unsigned char) r.class],
+						clan[(unsigned char) r.clan],
+						council[(unsigned char) r.council],
+						r.room, r.gold, r.silver, r.copper, r.site, r.last, r.pkill);
+#else
 		       "%-12s %2hd %c %2s %c %3s %3s %5hd %11ld %-15s %6lu %c\n\r",
 		       r.name, r.level, sex[(unsigned char) r.sex],
 		       race[(unsigned char) r.race],
@@ -1921,6 +1965,7 @@ gr_read (CHAR_DATA * ch, int op_num, bool or_sw, int dis_num)
 		       clan[(unsigned char) r.clan],
 		       council[(unsigned char) r.council], r.room, r.gold,
 		       r.site, r.last, r.pkill);
+#endif
 	}
       fread (&r, sizeof (r), 1, fp);
     }

@@ -313,7 +313,11 @@ extern int MAX_PC_CLASS;
 #define MAX_PC_STANCE             200	/* PC's Master stance at this number */
 #define	MAX_DISEASE		   20
 #define MAX_PERSONAL		    5	/* Maximum personal skills */
+#ifdef ENABLE_ARCHERY
+#define MAX_WHERE_NAME             32
+#else
 #define MAX_WHERE_NAME             29
+#endif
 #define MAX_OINVOKE_QUANTITY	   50	/* Max number of objects that can be oinvoked at once */
 #define LEVEL_HERO		   (MAX_LEVEL - 15)
 #define LEVEL_IMMORTAL		   (MAX_LEVEL - 14)
@@ -336,12 +340,20 @@ extern int MAX_PC_CLASS;
 #define LEVEL_LOG		    LEVEL_LESSER
 #define LEVEL_HIGOD		    LEVEL_GOD
 
+#ifdef ENABLE_ALIAS
+#include "alias.h"
+#endif
+
 #ifdef ENABLE_DNS_RESOLV
 #include "dns.h"
 #endif
 
 #ifdef ENABLE_COLOR
 #include "color.h"
+#endif
+
+#ifdef OVERLANDCODE
+#include "overland.h"
 #endif
 
 #ifdef ENABLE_HOTBOOT
@@ -1701,7 +1713,7 @@ struct smaug_affect
 #define ACT_STATSHIELD			29	/* prevent statting */
 #define ACT_PROTOTYPE				30	/* A prototype mob      */
 #define ACT_NOSUMMON		 		31	/* Mob can't be summoned */
-#define ACT_NOSTEAL		32	/* Can't steal from mob */
+#define ACT_NOSTEAL		      32	/* Can't steal from mob */
 #define ACT_INFEST          34	/* For infested mobs */
 #define ACT_BLOCKING        36	/* Same as PLR_BLOCKING  */
 #define ACT_IS_CLONE        37	/* Same as PLR_IS_CLONE */
@@ -1709,9 +1721,12 @@ struct smaug_affect
 #define ACT_IS_SPIRITFORM   39	/* Same as PLR_IS_SPIRITFORM */
 #define ACT_IS_PROJECTION   40	/* Same as PLR_IS_PROJECTION */
 #define ACT_STOP_SCRIPT	    41	/* Don't execute script progs */
-#define ACT_BANKER	    42
-#define ACT_UNDERTAKER	    43
-#define MAX_ACT_FLAGS       44  /* Always last */
+#define ACT_BANKER	        42  /* Banker */
+#define ACT_UNDERTAKER	    43  /* Undertaker */
+#define ACT_CHALLENGED	    44  /* Arena Challenged */
+#define ACT_CHALLENGER	    45  /* Arena Challenger */
+#define MAX_ACT_FLAGS       46  /* Always last */
+
 /*
  * Bits for 'affected_by'.
  * Used in #MOBILES.
@@ -1757,7 +1772,12 @@ typedef enum
 #define RIS_PLUS6		  BV19
 #define RIS_MAGIC		  BV20
 #define RIS_PARALYSIS		  BV21
-/* 21 RIS's*/
+#ifdef ENABLE_WEAPONPROF
+#define RIS_HACK      BV22
+#define RIS_LASH      BV23
+#endif
+
+/* 23 RIS's*/
 
 /* 
  * Attack types
@@ -2096,6 +2116,9 @@ typedef enum
   ITEM_PERMANENT,
   ITEM_MULTI_INVOKE, ITEM_DEATHDROP, ITEM_SKINNED, ITEM_NOFILL,
   ITEM_BLACKENED, ITEM_NOSCAVANGE,
+#ifdef ENABLE_ARCHERY
+	ITEM_LODGED,
+#endif
   MAX_ITEM_FLAG
 } item_extra_flags;
 
@@ -2172,7 +2195,14 @@ typedef enum
 #define ITEM_WEAR_BACK		BV19
 #define ITEM_WEAR_FACE		BV20
 #define ITEM_WEAR_ANKLE		BV21
+#ifdef ENABLE_ARCHERY
+#define ITEM_LODGE_RIB	BV22
+#define ITEM_LODGE_ARM	BV23
+#define ITEM_LODGE_LEG	BV24
+#define ITEM_WEAR_MAX		24
+#else
 #define ITEM_WEAR_MAX		21
+#endif
 
 /*
  * Apply types (for affects).
@@ -2230,7 +2260,13 @@ typedef enum
 #define ROOM_VNUM_HALLOFFALLEN    21195
 
 #ifdef ENABLE_MORGUE
-#define ROOM_VNUM_MORGUE	3647    /* A dust tomb at "grave.are" */
+#define ROOM_VNUM_MORGUE	21194   /* Cathedral Altar at newdark.are */
+#define MAX_MORGUE_LEVEL  30      /* Max level to benefit Morgue */
+#endif
+
+#ifdef ENABLE_ARENA
+#define ROOM_VNUM_ARENA_MIN 10366
+#define ROOM_VNUM_ARENA_MAX 10382
 #endif
 
 /*
@@ -2367,6 +2403,9 @@ typedef enum
   WEAR_ARMS, WEAR_SHIELD, WEAR_ABOUT, WEAR_WAIST, WEAR_WRIST_L, WEAR_WRIST_R,
   WEAR_WIELD, WEAR_HOLD, WEAR_DUAL_WIELD, WEAR_EARS, WEAR_EYES,
   WEAR_MISSILE_WIELD, WEAR_BACK, WEAR_FACE, WEAR_ANKLE_L, WEAR_ANKLE_R,
+#ifdef ENABLE_ARCHERY
+  WEAR_LODGE_RIB, WEAR_LODGE_ARM, WEAR_LODGE_LEG,
+#endif
   MAX_WEAR
 } wear_locations;
 
@@ -2591,8 +2630,8 @@ struct mob_index_data
   sh_int saving_breath;
   sh_int saving_spell_staff;
 #ifdef ENABLE_GOLD_SILVER_COPPER
-  int			silver;
-  int			copper;
+  int	silver;
+  int	copper;
 #endif
   sh_int stances[MAX_STANCE];
 };
@@ -2769,9 +2808,12 @@ struct char_data
   int retran;
   int regoto;
   sh_int mobinvis;		/* Mobinvis level SB */
+#ifdef ENABLE_ALIAS
+  short cmd_recurse;
+#endif
 #ifdef ENABLE_GOLD_SILVER_COPPER
-  int			silver;
-  int 		copper;
+  int	silver;
+  int copper;
 #endif
   sh_int stance;		/* Stances */
 #ifdef ENABLE_HOTBOOT
@@ -2885,6 +2927,10 @@ struct pc_data
   char *see_me;			/* who can see me (imm only) */
   char *recent_site;		/* site a player started their most recent session from */
   char *prev_site;		/* site a player last quit from */
+#ifdef ENABLE_ALIAS
+  ALIAS_DATA *first_alias;
+  ALIAS_DATA *last_alias;
+#endif
 #ifdef ENABLE_COLOR
   sh_int colorize[MAX_COLORS];
 #else
@@ -2899,12 +2945,20 @@ struct pc_data
   int month;
 #endif
 #ifdef BANK_INSTALLED
+#ifdef ENABLE_GOLD_SILVER_COPPER
   int gbalance;
   int sbalance;
   int cbalance;
+#else
+	int balance;
+#endif
 #endif
 #ifdef MARRIAGE
 	char *spouse;
+#endif
+#ifdef ENABLE_ARENA
+	int akills;
+	int adeaths;
 #endif
 };
 
@@ -2924,6 +2978,31 @@ struct liq_type
 };
 
 
+#ifdef ENABLE_WEAPONPROF
+/*
+ * Damage types from the attack_table[]
+ */
+/* modified for new weapon_types - Grimm */
+/* Trimmed down to reduce duplicated types - Samson 1-9-00 */
+typedef enum
+{
+   DAM_HIT, DAM_SLASH, DAM_STAB, DAM_HACK, DAM_CRUSH, DAM_LASH,
+   DAM_PIERCE, DAM_THRUST, DAM_MAX_TYPE
+} damage_types;
+
+/* New Weapon type array for profficiency checks - Samson 11-20-99 */
+typedef enum
+{
+   WEP_BAREHAND, WEP_SWORD, WEP_DAGGER, WEP_WHIP, WEP_TALON, WEP_MACE,
+   WEP_ARCHERY, WEP_BLOWGUN, WEP_SLING, WEP_AXE, WEP_SPEAR, WEP_STAFF, WEP_MAX
+} weapon_types;
+
+/* New projectile type array for archery weapons - Samson 1-9-00 */
+typedef enum
+{
+   PROJ_BOLT, PROJ_ARROW, PROJ_DART, PROJ_STONE, PROJ_MAX
+} projectile_types;
+#else
 /*
  * Damage types from the attack_table[]
  */
@@ -2933,7 +3012,7 @@ typedef enum
   DAM_BLAST, DAM_POUND, DAM_CRUSH, DAM_GREP, DAM_BITE, DAM_PIERCE,
   DAM_SUCTION, DAM_BOLT, DAM_ARROW, DAM_DART, DAM_STONE, DAM_PEA
 } damage_types;
-
+#endif
 
 /*
  * Extra description data for a room or object.
@@ -2977,9 +3056,9 @@ struct obj_index_data
   sh_int count;
   sh_int weight;
 #ifdef ENABLE_GOLD_SILVER_COPPER
-  int			gold_cost;
-  int			silver_cost;
-  int			copper_cost;
+  int	gold_cost;
+  int	silver_cost;
+  int	copper_cost;
 #else
   int cost;
 #endif
@@ -3030,9 +3109,9 @@ struct obj_data
   sh_int wear_loc;
   sh_int weight;
 #ifdef ENABLE_GOLD_SILVER_COPPER
-  int			gold_cost;
-  int			silver_cost;
-  int			copper_cost;
+  int gold_cost;
+  int	silver_cost;
+  int	copper_cost;
 #else
   int cost;
 #endif
@@ -3200,8 +3279,8 @@ struct system_data
   int alltimemax;		/* Maximum players ever   */
 #ifdef ENABLE_GOLD_SILVER_COPPER
   int	global_gold_looted;		/* Gold looted this boot */
-int	global_silver_looted; /* Global Silver taken */
-int	global_copper_looted; /* Global copper taken */ 
+	int	global_silver_looted; /* Global Silver taken */
+	int	global_copper_looted; /* Global copper taken */ 
 #else
   int global_looted;		/* Gold looted this boot */
 #endif
@@ -3261,10 +3340,6 @@ int	global_copper_looted; /* Global copper taken */
   sh_int ban_class_level;	/* Level to ban classes */
   sh_int ban_race_level;	/* Level to ban races */
   sh_int ident_retries;		/* Number of times to retry broken pipes. */
-#ifdef ENABLE_GOLD_SILVER_COPPER
-  int	global_silver_looted; /* Global Silver taken */
-  int	global_copper_looted; /* Global copper taken */ 
-#endif
   sh_int pk_loot;		/* Pkill looting allowed? */
   char *news_html_path;		/* news path to posting file -Nopey */
   int max_html_news;		/* max number of news shown on html printout    -Nopey */
@@ -3560,6 +3635,21 @@ extern sh_int gsn_scribe;
 extern sh_int gsn_brew;
 extern sh_int gsn_climb;
 
+#ifdef ENABLE_WEAPONPROF
+/* changed to new weapon types - Grimm */
+extern short gsn_pugilism;
+extern short gsn_swords;
+extern short gsn_daggers;
+extern short gsn_whips;
+extern short gsn_talonous_arms;
+extern short gsn_maces_hammers;
+extern short gsn_blowguns;
+extern short gsn_slings;
+extern short gsn_axes;
+extern short gsn_spears;
+extern short gsn_staves;
+extern short gsn_archery;
+#else
 extern sh_int gsn_pugilism;
 extern sh_int gsn_long_blades;
 extern sh_int gsn_short_blades;
@@ -3567,6 +3657,8 @@ extern sh_int gsn_flexible_arms;
 extern sh_int gsn_talonous_arms;
 extern sh_int gsn_bludgeons;
 extern sh_int gsn_missile_weapons;
+#endif
+
 extern sh_int gsn_shieldwork;
 
 extern sh_int gsn_grip;
@@ -4103,10 +4195,19 @@ extern struct race_type *race_table[MAX_RACE];
 extern struct at_color_type at_color_table[AT_MAXCOLOR];
 #endif
 extern const struct liq_type liq_table[LIQ_MAX];
-extern char *const attack_table[18];
 
+#ifdef ENABLE_WEAPONPROF
+extern char *attack_table[DAM_MAX_TYPE];
+extern char *attack_table_plural[DAM_MAX_TYPE];
+extern char **const s_message_table[DAM_MAX_TYPE];
+extern char **const p_message_table[DAM_MAX_TYPE];
+extern char *weapon_skills[WEP_MAX]; /* Used in spell_identify */
+extern char *projectiles[PROJ_MAX]; /* For archery weapons */
+#else
+extern char *const attack_table[18];
 extern char **const s_message_table[18];
 extern char **const p_message_table[18];
+#endif
 
 extern char *const imm_badge[15];
 extern char *const skill_tname[];
@@ -4304,6 +4405,9 @@ extern struct act_prog_data *mob_act_list;
  */
 DECLARE_DO_FUN (skill_notfound);
 DECLARE_DO_FUN (do_aassign);
+#ifdef ENABLE_ARENA
+DECLARE_DO_FUN (do_accept);
+#endif
 DECLARE_DO_FUN (do_add_change);
 DECLARE_DO_FUN (do_add_imm_host);
 DECLARE_DO_FUN (do_add_imm_news);
@@ -4314,6 +4418,9 @@ DECLARE_DO_FUN (do_aecho);
 DECLARE_DO_FUN (do_affected);
 DECLARE_DO_FUN (do_afk);
 DECLARE_DO_FUN (do_aid);
+#ifdef ENABLE_ALIAS
+DECLARE_DO_FUN (do_alias);
+#endif
 DECLARE_DO_FUN (do_alinks);
 DECLARE_DO_FUN (do_allow);
 DECLARE_DO_FUN (do_altscore);
@@ -4351,6 +4458,9 @@ DECLARE_DO_FUN (do_bloodlet);
 DECLARE_DO_FUN (do_boards);
 DECLARE_DO_FUN (do_bodybag);
 DECLARE_DO_FUN (do_bolt);
+#ifdef ENABLE_ARCHERY
+DECLARE_DO_FUN (do_bowfire);
+#endif
 DECLARE_DO_FUN (do_brandish);
 DECLARE_DO_FUN (do_brew);
 DECLARE_DO_FUN (do_broach);
@@ -4377,6 +4487,9 @@ DECLARE_DO_FUN (do_casinos);
 
 DECLARE_DO_FUN (do_cast);
 DECLARE_DO_FUN (do_cedit);
+#ifdef ENABLE_ARENA
+DECLARE_DO_FUN (do_challenge);
+#endif
 DECLARE_DO_FUN (do_changes);
 DECLARE_DO_FUN (do_channels);
 DECLARE_DO_FUN (do_chat);
@@ -4447,9 +4560,15 @@ DECLARE_DO_FUN (do_dmesg);
 DECLARE_DO_FUN (do_dnd);
 DECLARE_DO_FUN (do_down);
 DECLARE_DO_FUN (do_drag);
+#ifdef ENABLE_ARCHERY
+DECLARE_DO_FUN (do_draw);
+#endif
 DECLARE_DO_FUN (do_drink);
 DECLARE_DO_FUN (do_drop);
 DECLARE_DO_FUN (do_diagnose);
+#ifdef ENABLE_ARCHERY
+DECLARE_DO_FUN (do_dislodge);
+#endif
 DECLARE_DO_FUN (do_east);
 DECLARE_DO_FUN (do_eat);
 DECLARE_DO_FUN (do_ech);
@@ -4635,7 +4754,7 @@ DECLARE_DO_FUN (do_nslay);
 DECLARE_DO_FUN (do_nuisance);
 DECLARE_DO_FUN (do_oassign);
 #ifdef ENABLE_OLC2
-DECLARE_DO_FUN( do_ocopy	); /* OLC - Tagith */
+DECLARE_DO_FUN (do_ocopy); /* OLC - Tagith */
 #endif
 DECLARE_DO_FUN (do_oclaim);
 DECLARE_DO_FUN (do_ocreate);
@@ -4646,9 +4765,9 @@ DECLARE_DO_FUN (do_oinvoke);
 DECLARE_DO_FUN (do_oldscore);
 DECLARE_DO_FUN (do_olist);
 #ifdef ENABLE_OLC2
-DECLARE_DO_FUN( do_omedit	); /* OLC - Tagith */
-DECLARE_DO_FUN( do_ooedit	); /* OLC - Tagith */
-DECLARE_DO_FUN( do_oredit	); /* OLC - Tagith */
+DECLARE_DO_FUN (do_omedit); /* OLC - Tagith */
+DECLARE_DO_FUN (do_ooedit); /* OLC - Tagith */
+DECLARE_DO_FUN (do_oredit); /* OLC - Tagith */
 #endif
 DECLARE_DO_FUN (do_oowner);
 DECLARE_DO_FUN (do_opcopy);
@@ -4768,14 +4887,14 @@ DECLARE_DO_FUN (do_setclass);
 DECLARE_DO_FUN (do_setcouncil);
 DECLARE_DO_FUN (do_setdeity);
 #ifdef LIQUIDSYSTEM
-DECLARE_DO_FUN ( do_setmixture );
-DECLARE_DO_FUN ( do_setliquid );
+DECLARE_DO_FUN (do_setmixture);
+DECLARE_DO_FUN (do_setliquid);
 #endif
 #ifdef ENABLE_MSSP
-DECLARE_DO_FUN ( do_setmssp );
+DECLARE_DO_FUN (do_setmssp);
 #endif
 #ifdef ENABLE_HOLIDAYS
-DECLARE_DO_FUN ( do_setholiday );
+DECLARE_DO_FUN (do_setholiday);
 #endif
 DECLARE_DO_FUN (do_setrace);
 DECLARE_DO_FUN (do_setvault);
@@ -4874,6 +4993,9 @@ DECLARE_DO_FUN (do_whisper);
 DECLARE_DO_FUN (do_who);
 DECLARE_DO_FUN (do_whois);
 DECLARE_DO_FUN (do_wimpy);
+#ifdef ENABLE_ARENA
+DECLARE_DO_FUN (do_withdraw);
+#endif
 DECLARE_DO_FUN (do_wizhelp);
 DECLARE_DO_FUN (do_wizlist);
 DECLARE_DO_FUN (do_wizlock);
@@ -5369,7 +5491,7 @@ bool is_lootable args ((OBJ_DATA * obj));
 bool create_new_race args ((int index, char *argument));
 bool create_new_class args ((int index, char *argument));
 RID *find_location args ((CHAR_DATA * ch, char *arg));
-void echo_to_all args ((sh_int AT_COLOR, char *argument, sh_int tar));
+void echo_to_all args ((sh_int AT_COLOR, const char *argument, sh_int tar));
 void get_reboot_string args ((void));
 struct tm *update_time args ((struct tm * old_time));
 void free_social args ((SOCIALTYPE * social));
@@ -5420,8 +5542,8 @@ void write_to_buffer args ((DESCRIPTOR_DATA * d, const char *txt,
 void write_to_pager args ((DESCRIPTOR_DATA * d, const char *txt, int length));
 void send_to_char args ((const char *txt, CHAR_DATA * ch));
 void send_to_pager args ((const char *txt, CHAR_DATA * ch));
-void ch_printf args ((CHAR_DATA * ch, char *fmt, ...));
-void pager_printf args ((CHAR_DATA * ch, char *fmt, ...));
+void ch_printf args ((CHAR_DATA * ch, const char *fmt, ...));
+void pager_printf args ((CHAR_DATA * ch, const char *fmt, ...));
 
 #ifndef ENABLE_COLOR
 void send_to_char_color args ((const char *txt, CHAR_DATA * ch));
@@ -5430,8 +5552,8 @@ void send_to_pager_color args ((const char *txt, CHAR_DATA * ch));
 
 void set_char_color args ((sh_int AType, CHAR_DATA * ch));
 void set_pager_color args ((sh_int AType, CHAR_DATA * ch));
-void ch_printf_color args ((CHAR_DATA * ch, char *fmt, ...));
-void pager_printf_color args ((CHAR_DATA * ch, char *fmt, ...));
+void ch_printf_color args ((CHAR_DATA * ch, const char *fmt, ...));
+void pager_printf_color args ((CHAR_DATA * ch, const char *fmt, ...));
 
 void act args ((sh_int AType, const char *format, CHAR_DATA * ch,
 		const void *arg1, const void *arg2, int type));
@@ -5597,6 +5719,9 @@ bool check_illegal_pk args ((CHAR_DATA * ch, CHAR_DATA * victim));
 void raw_kill args ((CHAR_DATA * ch, CHAR_DATA * victim));
 bool in_arena args ((CHAR_DATA * ch));
 bool can_astral args ((CHAR_DATA * ch, CHAR_DATA * victim));
+#ifdef ENABLE_ARENA
+bool arena_is_busy;
+#endif
 
 /* makeobjs.c */
 void make_corpse args ((CHAR_DATA * ch, CHAR_DATA * killer));
@@ -6015,12 +6140,17 @@ void casino_update args ((void));
 void remove_portal args ((OBJ_DATA * portal));
 void weather_update args ((void));
 
+#ifdef ENABLE_ARENA
+bool challenge_tme;
+bool is_challenge;
+#endif
+
 /* variables.c */
 VD *get_tag args ((CHAR_DATA * ch, char *tag, int vnum));
 
 
 /* hashstr.c */
-char *str_alloc args ((char *str));
+char *str_alloc args ((const char *str));
 char *quick_link args ((char *str));
 int str_free args ((char *str));
 void show_hash args ((int count));

@@ -27,27 +27,12 @@
 
 #include "mud.h"
 
-/* Checks room to see if an Undertaker mob is present */
-CHAR_DATA *find_undertaker( CHAR_DATA *ch )
-{
-  CHAR_DATA *undertaker = NULL;
-  
-  /* NOTE TO SMAUG 1.02a USERS: This line is likely to cause errors on compile.
-     Remove the "x" before the IS_SET and the error will be resolved.
-     Smaug 1.4 users should not need to modify this in any way. - Samson */
-  for ( undertaker = ch->in_room->first_person; undertaker; undertaker = undertaker->next_in_room )
-    if ( IS_NPC( undertaker ) && xIS_SET( undertaker->act, ACT_UNDERTAKER ) )
-      break;
-
-  return undertaker;
-}
-
 void do_corpse( CHAR_DATA *ch, char *argument )
 {
     char buf[MAX_STRING_LENGTH];
     char arg[MAX_INPUT_LENGTH];
     OBJ_DATA *obj, *outer_obj;
-    CHAR_DATA *mob;
+    CHAR_DATA *undertaker;
     bool found = FALSE;
     int cost = 0;
 
@@ -58,8 +43,12 @@ void do_corpse( CHAR_DATA *ch, char *argument )
 	return;
     }
 
-    /* Search for an act_undertaker */
-    if ( !( mob = find_undertaker( ch ) ) )
+		for( undertaker = ch->in_room->first_person; undertaker; undertaker = undertaker->next_in_room )
+			if( IS_NPC( undertaker ) && xIS_SET( undertaker->act, ACT_UNDERTAKER ) )
+				break;
+
+		set_char_color( AT_GREEN, ch );
+		if( !undertaker )
     {
         send_to_char( "There's no undertaker here!\n\r", ch );
         return;
@@ -69,24 +58,29 @@ void do_corpse( CHAR_DATA *ch, char *argument )
 
     if ( arg[0] == '\0' )
     {
-        act(AT_PLAIN,"$N says 'Ooo Yesss ... I can helpss you.'",ch,NULL,mob,TO_CHAR);
-        send_to_char("  retrieve: Retrieves your corpse   20gp / level\n\r",ch);
-        send_to_char(" Type corpse <type> for the service.\n\r",ch);
+        act (AT_PLAIN, "$N says 'Ooo Yesss ... I can helpss you.'", ch, NULL, undertaker, TO_CHAR);
+        send_to_char ("  retrieve: Retrieves your corpse worths 20 coins per level.\n\r", ch);
+        send_to_char (" Type corpse <type> for the service.\n\r", ch);
         return;
     }
 
-    if (!str_cmp(arg,"retrieve"))
+    if (!str_cmp(arg, "retrieve"))
         cost  = 20 * ch->level;
     else
     {
-        act(AT_PLAIN,"$N says ' Type 'corpse' for help on what I do.'",
-            ch,NULL,mob,TO_CHAR);
+        act (AT_PLAIN,"$N says ' Type 'corpse' for help on what I do.'", ch, NULL, undertaker, TO_CHAR);
         return;
     }
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+    if (cost > ch->copper )
+    {
+        act(AT_PLAIN,"$N says 'Pah! You do not have enough copper for my services!'", ch, NULL, undertaker, TO_CHAR);
+#else
     if (cost > ch->gold )
     {
-        act(AT_PLAIN,"$N says 'Pah! You do not have enough gold for my services!'",ch,NULL,mob,TO_CHAR);
+        act(AT_PLAIN,"$N says 'Pah! You do not have enough gold for my services!'", ch, NULL, undertaker, TO_CHAR);
+#endif
         return;
     }
 
@@ -112,14 +106,18 @@ void do_corpse( CHAR_DATA *ch, char *argument )
         obj_from_room( outer_obj );
         obj_to_room( outer_obj, ch->in_room );
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+        ch->copper -= cost;
+#else
         ch->gold -= cost;
-        act(AT_PLAIN,"$N creepily carts in your corpse.",ch,NULL,mob,TO_CHAR);
-        act(AT_PLAIN,"$n creepily carts in the $T.",mob,NULL,buf,TO_ROOM);
+#endif
+        act (AT_PLAIN, "$N creepily carts in your corpse.", ch, NULL, undertaker, TO_CHAR);
+        act (AT_PLAIN, "$n creepily carts in the $T.", undertaker, NULL, buf, TO_ROOM);
     }
 
     /* Could've been extracted, so do this */
     if ( !found )
-        act(AT_PLAIN,"$N says 'Sorry I can't find your corpse. There's nothing more I can do.'",ch,NULL,mob,TO_CHAR);
+        act (AT_PLAIN, "$N says 'Sorry I can't find your corpse. There's nothing more I can do.'", ch, NULL, undertaker, TO_CHAR);
 
     return;
 }

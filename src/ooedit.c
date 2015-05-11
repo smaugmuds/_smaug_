@@ -277,7 +277,13 @@ void do_ocopy( CHAR_DATA *ch, char *argument )
     copy->value[4]		= orig->value[4];
     copy->value[5]		= orig->value[5];
     copy->weight		= orig->weight;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+    copy->gold_cost			= orig->gold_cost;
+    copy->silver_cost		= orig->silver_cost;
+    copy->copper_cost		= orig->copper_cost;
+#else
     copy->cost			= orig->cost;
+#endif
     copy->rent			= orig->rent;
     copy->layers		= orig->layers;
 
@@ -651,8 +657,18 @@ void oedit_disp_val1_menu( DESCRIPTOR_DATA *d )
     case ITEM_FOOD:
  	send_to_char("Hours to fill stomach : ", d->character);
 	break;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+		case ITEM_GOLD:
+#else
     case ITEM_MONEY:
-	send_to_char("Amount of gold coins : ", d->character);
+#endif
+	send_to_char("Amount of Gold coins : ", d->character);
+#ifdef ENABLE_GOLD_SILVER_COPPER
+		case ITEM_SILVER:
+	send_to_char("Amount of Silver coins : ", d->character);
+		case ITEM_COPPER:
+	send_to_char("Amount of Copper coins : ", d->character);
+#endif
 	break;
     case ITEM_HERB:
 	/* Value 0 unused, skip to 1 */
@@ -946,7 +962,11 @@ void oedit_disp_menu( DESCRIPTOR_DATA *d )
 
             flag_string( obj->wear_flags, w_flags ),
             obj->weight,
+#ifdef ENABLE_GOLD_SILVER_COPPER
+						get_value(obj->gold_cost,obj->silver_cost,obj->copper_cost),
+#else
             obj->cost,
+#endif
             obj->pIndexData->rent,
             obj->timer,
             obj->level,
@@ -1437,16 +1457,23 @@ void oedit_parse( DESCRIPTOR_DATA *d, char *arg )
 
     case OEDIT_COST:
         number = atoi(arg);
+#ifdef ENABLE_GOLD_SILVER_COPPER
+        obj->copper_cost = number;
+				olc_log( d, "Changed cost to %d", obj->copper_cost );
+        if ( IS_OBJ_STAT(obj, ITEM_PROTOTYPE) )
+            obj->pIndexData->copper_cost = obj->copper_cost;
+#else
         obj->cost = number;
-	olc_log( d, "Changed cost to %d", obj->cost );
+				olc_log( d, "Changed cost to %d", obj->cost );
         if ( IS_OBJ_STAT(obj, ITEM_PROTOTYPE) )
             obj->pIndexData->cost = obj->cost;
+#endif
         break;
 
     case OEDIT_COSTPERDAY:
         number = atoi(arg);
         obj->pIndexData->rent = number;
-	olc_log( d, "Changed rent to %d", obj->pIndexData->rent );
+				olc_log( d, "Changed rent to %d", obj->pIndexData->rent );
         break;
 
     case OEDIT_TIMER:

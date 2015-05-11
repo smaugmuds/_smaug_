@@ -3663,15 +3663,44 @@ spell_identify (int sn, int level, CHAR_DATA * ch, void *vo)
 /*		obj->name,*/
 		 obj->short_descr, aoran (item_type_name (obj)));
       if (obj->item_type != ITEM_LIGHT && obj->wear_flags - 1 > 0)
-	ch_printf (ch, ", with wear location:  %s\n\r",
-		   flag_string (obj->wear_flags - 1, w_flags));
+				ch_printf (ch, ", with wear location:  %s\n\r",
+		  	flag_string (obj->wear_flags - 1, w_flags));
       else
-	send_to_char (".\n\r", ch);
-      ch_printf (ch,
-		 "Special properties:  %s\n\rIts weight is %d, value is %d, and level is %d.\n\r",
-		 extra_bit_name (&obj->extra_flags),
-		 /*      magic_bit_name( obj->magic_flags ), -- unused for now */
-		 obj->weight, obj->cost, obj->level);
+				send_to_char (".\n\r", ch);
+				ch_printf (ch,
+#ifdef ENABLE_GOLD_SILVER_COPPER
+					"Special properties:  %s\n\rIts weight is %d, and level is %d.\n\r",
+					extra_bit_name( &obj->extra_flags ),
+					/*	magic_bit_name( obj->magic_flags ), -- unused for now */
+					obj->weight,
+					obj->level );
+					ch_printf(ch,"Its value is: ");
+					if (obj->gold_cost > 0 && obj->silver_cost > 0 && obj->copper_cost >0 )
+						ch_printf(ch,"%d Gold, %d Silver, and %d Copper\n\r",
+						obj->gold_cost, obj->silver_cost, obj->copper_cost);
+					else if (obj->gold_cost <= 0 && obj->silver_cost > 0 && obj->copper_cost >0 )
+						ch_printf(ch,"%d Silver and %d Copper\n\r",
+						obj->silver_cost, obj->copper_cost);
+					else if (obj->gold_cost <= 0 && obj->silver_cost <= 0 && obj->copper_cost >0 )
+						ch_printf(ch,"%d Copper\n\r",obj->copper_cost);
+					else if (obj->gold_cost <= 0 && obj->silver_cost > 0 && obj->copper_cost <=0 )
+						ch_printf(ch,"%d Silver\n\r",obj->silver_cost);
+					else if (obj->gold_cost > 0 && obj->silver_cost <= 0 && obj->copper_cost <=0 )
+						ch_printf(ch,"%d Gold\n\r",obj->gold_cost);
+					else if (obj->gold_cost > 0 && obj->silver_cost <= 0 && obj->copper_cost >0 )
+						ch_printf(ch,"%d Gold and %d Copper\n\r",
+						obj->gold_cost,obj->copper_cost);
+					else if (obj->gold_cost > 0 && obj->silver_cost > 0 && obj->copper_cost <=0 )
+						ch_printf(ch,"%d Gold, and %d Silver\n\r",
+						obj->gold_cost, obj->silver_cost);
+					else ch_printf(ch,"0 coins\n\r");
+#else
+					"Special properties:  %s\n\rIts weight is %d, value is %d, and level is %d.\n\r",
+					extra_bit_name (&obj->extra_flags),
+					/*      magic_bit_name( obj->magic_flags ), -- unused for now */
+					obj->weight, obj->cost, obj->level);
+#endif
+
       if (obj->owner[0] != '\0')
 	ch_printf_color (ch, "&cOwner: &Y%s\n\r", obj->owner);
       set_char_color (AT_MAGIC, ch);
@@ -3758,12 +3787,37 @@ spell_identify (int sn, int level, CHAR_DATA * ch, void *vo)
 	  break;
 
 	case ITEM_WEAPON:
+#ifdef ENABLE_WEAPONPROF
+    ch_printf( ch, "Damage is %d to %d (average %d)%s\r\n",
+               obj->value[1], obj->value[2],
+               ( obj->value[1] + obj->value[2] ) / 2,
+               IS_OBJ_STAT( obj, ITEM_POISONED ) ? ", and is poisonous." : "." );
+    ch_printf( ch, "Skill needed: %s\r\n", weapon_skills[obj->value[4]] );
+    ch_printf( ch, "Damage type:  %s\r\n", attack_table[obj->value[3]] );
+    break;
+
+ case ITEM_MISSILE_WEAPON:
+    ch_printf( ch, "Bonus damage added to projectiles is %d to %d (average %d).\r\n",
+               obj->value[1], obj->value[2], ( obj->value[1] + obj->value[2] ) / 2 );
+    ch_printf( ch, "Skill needed:      %s\r\n", weapon_skills[obj->value[4]] );
+    ch_printf( ch, "Projectiles fired: %s\r\n", projectiles[obj->value[5]] );
+    break;
+
+ case ITEM_PROJECTILE:
+    ch_printf( ch, "Damage is %d to %d (average %d)%s\r\n",
+               obj->value[1], obj->value[2],
+               ( obj->value[1] + obj->value[2] ) / 2,
+               IS_OBJ_STAT( obj, ITEM_POISONED ) ? ", and is poisonous." : "." );
+    ch_printf( ch, "Damage type: %s\r\n", attack_table[obj->value[3]] );
+    ch_printf( ch, "Projectile type: %s\r\n", projectiles[obj->value[4]] );
+#else
 	  ch_printf (ch, "Damage is %d to %d (average %d)%s\n\r",
 		     obj->value[1], obj->value[2],
 		     (obj->value[1] + obj->value[2]) / 2,
 		     IS_OBJ_STAT (obj,
 				  ITEM_POISONED) ? ", and is poisonous." :
 		     ".");
+#endif
 	  break;
 
 	case ITEM_ARMOR:
@@ -5253,7 +5307,13 @@ spell_acid_breath (int sn, int level, CHAR_DATA * ch, void *vo)
 		  if ((iWear = obj_lose->wear_loc) != WEAR_NONE)
 		    victim->armor -= apply_ac (obj_lose, iWear);
 		  obj_lose->value[0] -= 1;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+			obj_lose->gold_cost = 0;
+			obj_lose->silver_cost	= 0;
+			obj_lose->copper_cost	= 0;
+#else
 		  obj_lose->cost = 0;
+#endif
 		  if (iWear != WEAR_NONE)
 		    victim->armor += apply_ac (obj_lose, iWear);
 		}
@@ -6226,11 +6286,16 @@ spell_animate_dead (int sn, int level, CHAR_DATA * ch, void *vo)
     {
       corpse_next = corpse->next_content;
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+			if (corpse->item_type == ITEM_CORPSE_NPC && ((corpse->gold_cost != -5) 
+				|| (corpse->silver_cost != -5) || (corpse->copper_cost != -5)))
+#else
       if (corpse->item_type == ITEM_CORPSE_NPC && corpse->cost != -5)
-	{
-	  found = TRUE;
-	  break;
-	}
+#endif
+			{
+				found = TRUE;
+				break;
+			}
     }
 
   if (!found)
@@ -6245,8 +6310,11 @@ spell_animate_dead (int sn, int level, CHAR_DATA * ch, void *vo)
       return rNONE;
     }
 
-
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	if ((pMobIndex = get_mob_index ((sh_int) abs(corpse->gold_cost))) == NULL)
+#else
   if ((pMobIndex = get_mob_index ((int) abs (corpse->cost))) == NULL)
+#endif
     {
       bug ("Can not find mob for cost of corpse, spell_animate_dead", 0);
       return rSPELL_FAILED;
@@ -7339,9 +7407,13 @@ spell_obj_inv (int sn, int level, CHAR_DATA * ch, void *vo)
 
 	default:
 	case SP_NONE:
-	  if (ch->level - obj->level < 10
-	      || obj->cost >
-	      ch->level * get_curr_int (ch) * get_curr_wis (ch))
+		if ( ch->level - obj->level < 10
+#ifdef ENABLE_GOLD_SILVER_COPPER
+				|| get_value(obj->gold_cost,obj->silver_cost,obj->copper_cost) > 
+					ch->level * get_curr_int(ch) * get_curr_wis(ch) )
+#else
+	      || obj->cost > ch->level * get_curr_int (ch) * get_curr_wis (ch))
+#endif
 	    {
 	      failed_casting (skill, ch, NULL, obj);
 	      return rNONE;
@@ -7349,7 +7421,12 @@ spell_obj_inv (int sn, int level, CHAR_DATA * ch, void *vo)
 	  break;
 	case SP_MINOR:
 	  if (ch->level - obj->level < 20
+#ifdef ENABLE_GOLD_SILVER_COPPER
+				|| get_value(obj->gold_cost,obj->silver_cost,obj->copper_cost) > 
+					ch->level * get_curr_int(ch) / 5 )
+#else
 	      || obj->cost > ch->level * get_curr_int (ch) / 5)
+#endif
 	    {
 	      failed_casting (skill, ch, NULL, obj);
 	      return rNONE;
@@ -7357,8 +7434,13 @@ spell_obj_inv (int sn, int level, CHAR_DATA * ch, void *vo)
 	  break;
 	case SP_GREATER:
 	  if (ch->level - obj->level < 5
+#ifdef ENABLE_GOLD_SILVER_COPPER
+				|| get_value(obj->gold_cost,obj->silver_cost,obj->copper_cost) > 
+					ch->level * 10 * get_curr_int(ch) * get_curr_wis(ch))
+#else
 	      || obj->cost >
-	      ch->level * 10 * get_curr_int (ch) * get_curr_wis (ch))
+	      	ch->level * 10 * get_curr_int (ch) * get_curr_wis (ch))
+#endif
 	    {
 	      failed_casting (skill, ch, NULL, obj);
 	      return rNONE;
@@ -7366,8 +7448,13 @@ spell_obj_inv (int sn, int level, CHAR_DATA * ch, void *vo)
 	  break;
 	case SP_MAJOR:
 	  if (ch->level - obj->level < 0
+#ifdef ENABLE_GOLD_SILVER_COPPER
+				|| get_value(obj->gold_cost,obj->silver_cost,obj->copper_cost) > 
+					ch->level * 50 * get_curr_int(ch) * get_curr_wis(ch)) 
+#else
 	      || obj->cost >
 	      ch->level * 50 * get_curr_int (ch) * get_curr_wis (ch))
+#endif
 	    {
 	      failed_casting (skill, ch, NULL, obj);
 	      return rNONE;
@@ -7532,6 +7619,10 @@ spell_create_mob (int sn, int level, CHAR_DATA * ch, void *vo)
 						mob->level * mob->level);
   mob->hit = mob->max_hit;
   mob->gold = 0;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	mob->silver = 0;
+	mob->copper = 0;
+#endif
   successful_casting (skill, ch, mob, NULL);
   char_to_room (mob, ch->in_room);
   add_follower (mob, ch);
@@ -7955,7 +8046,12 @@ spell_midas_touch (int sn, int level, CHAR_DATA * ch, void *vo)
   char buf2[MAX_STRING_LENGTH];
   char buf3[MAX_STRING_LENGTH];
   CHAR_DATA *victim = NULL;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	int gval, sval, cval;
+#else
   int val;
+#endif
+
   OBJ_DATA *obj = (OBJ_DATA *) vo;
 
   if (IS_OBJ_STAT (obj, ITEM_NODROP) || IS_OBJ_STAT (obj, ITEM_PERMANENT))
@@ -7980,8 +8076,17 @@ spell_midas_touch (int sn, int level, CHAR_DATA * ch, void *vo)
 
   separate_obj (obj);		/* nice, alty :) */
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	gval = obj->gold_cost/10; /* was 2 */
+	gval = UMAX(0, gval);
+	sval = obj->silver_cost/5;
+	sval = UMAX(0, sval);
+	cval = obj->copper_cost/2;
+	cval = UMAX(0, cval);
+#else
   val = obj->cost / 3;
   val = UMAX (0, val);
+#endif
 
   if (obj->item_type == ITEM_WEAPON)
     {
@@ -8106,7 +8211,13 @@ spell_midas_touch (int sn, int level, CHAR_DATA * ch, void *vo)
 	      obj->value[3] = 0;
 	      obj->value[4] = 0;
 	      obj->value[5] = 0;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	      obj->gold_cost = obj->gold_cost * 2;
+	      obj->silver_cost = obj->silver_cost * 2;
+	      obj->copper_cost = obj->copper_cost * 2;
+#else
 	      obj->cost = obj->cost * 2;
+#endif
 	      obj->weight = obj->weight * 2;
 	      ch_printf_color (ch,
 			       "&YA yellowish glow slowly seeps over the item, leaving behind pure gold.\n\r");
@@ -8144,7 +8255,13 @@ spell_midas_touch (int sn, int level, CHAR_DATA * ch, void *vo)
 	  obj->value[3] = 0;
 	  obj->value[4] = 0;
 	  obj->value[5] = 0;
-	  obj->cost = obj->cost * 2;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	      obj->gold_cost = obj->gold_cost * 2;
+	      obj->silver_cost = obj->silver_cost * 2;
+	      obj->copper_cost = obj->copper_cost * 2;
+#else
+	      obj->cost = obj->cost * 2;
+#endif
 	  obj->weight = obj->weight * 2;
 	  ch_printf_color (ch,
 			   "&YA yellowish glow slowly seeps over the item, leaving behind pure gold.\n\r");
@@ -8174,7 +8291,13 @@ spell_midas_touch (int sn, int level, CHAR_DATA * ch, void *vo)
 
   if (victim == NULL || !IS_NPC (victim))
     {
+#ifdef ENABLE_GOLD_SILVER_COPPER
+			ch->gold += gval;
+			ch->silver += sval;
+			ch->copper += cval;
+#else
       ch->gold += val;
+#endif
 
       if (obj_extracted (obj))
 	return rNONE;
@@ -8189,7 +8312,13 @@ spell_midas_touch (int sn, int level, CHAR_DATA * ch, void *vo)
   if ((victim->carry_weight + get_obj_weight (obj)) > can_carry_w (victim)
       || (IS_NPC (victim) && xIS_SET (victim->act, ACT_PROTOTYPE)))
     {
+#ifdef ENABLE_GOLD_SILVER_COPPER
+			ch->gold += gval;
+			ch->silver += sval;
+			ch->copper += cval;
+#else
       ch->gold += val;
+#endif
 
       if (obj_extracted (obj))
 	return rNONE;
@@ -8200,7 +8329,13 @@ spell_midas_touch (int sn, int level, CHAR_DATA * ch, void *vo)
       return rNONE;
     }
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	ch->gold += gval;
+	ch->silver += sval;
+	ch->copper += cval;
+#else
   ch->gold += val;
+#endif
   obj_from_char (obj);
   obj_to_char (obj, victim);
 

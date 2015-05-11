@@ -1,0 +1,20 @@
+2 ALIAS UNALIAS~
+Syntax: alias <shortcut> <command>
+Syntax: alias <shortcut>
+ 
+The ALIAS command allows you to set shortcuts for commands or long
+strings of text. These can be quite useful for shortening routinely
+entered commands. Example: alias heal cast heal samson
+This assigns the command 'cast heal samson' to the alias 'heal'
+so that typing in 'heal' will issue the full command.
+
+Typing ALIAS with no arguments will list your current aliases.
+Your aliases will save with your character upon leaving the game.
+An alias may only contain a shortcut for a single command. If more
+sophisticated aliases are needed, a mud client package would probably
+serve the purpose better.
+ 
+To remove an alias, type 'alias' followed by the shortcut you
+wish to remove.
+
+~

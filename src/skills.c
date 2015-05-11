@@ -2482,17 +2482,18 @@ do_steal (CHAR_DATA * ch, char *argument)
     }
 
   if (!str_cmp (arg1, "coin")
-      || !str_cmp (arg1, "coins") || !str_cmp (arg1, "gold"))
+      || !str_cmp (arg1, "coins")
+			|| !str_cmp (arg1, "gold"))
     {
       int amount;
 
       amount = (int) (victim->gold * number_range (1, 10) / 100);
       if (amount <= 0)
-	{
-	  send_to_char ("You couldn't get any gold.\n\r", ch);
-	  learn_from_failure (ch, gsn_steal);
-	  return;
-	}
+				{
+					send_to_char ("You couldn't get any gold.\n\r", ch);
+					learn_from_failure (ch, gsn_steal);
+					return;
+				}
 
       ch->gold += amount;
       victim->gold -= amount;
@@ -2500,6 +2501,50 @@ do_steal (CHAR_DATA * ch, char *argument)
       learn_from_success (ch, gsn_steal);
       return;
     }
+
+#ifdef ENABLE_GOLD_SILVER_COPPER
+  if (!str_cmp (arg1, "coin")
+      || !str_cmp (arg1, "coins")
+			|| !str_cmp (arg1, "silver"))
+    {
+      int amount;
+
+      amount = (int) (victim->silver * number_range (1, 10) / 100);
+      if (amount <= 0)
+				{
+					send_to_char ("You couldn't get any silver.\n\r", ch);
+					learn_from_failure (ch, gsn_steal);
+					return;
+				}
+
+      ch->silver += amount;
+      victim->silver -= amount;
+      ch_printf (ch, "Aha!  You got %d silver coins.\n\r", amount);
+      learn_from_success (ch, gsn_steal);
+      return;
+    }
+
+  if (!str_cmp (arg1, "coin")
+      || !str_cmp (arg1, "coins")
+			|| !str_cmp (arg1, "copper"))
+    {
+      int amount;
+
+      amount = (int) (victim->copper * number_range (1, 10) / 100);
+      if (amount <= 0)
+				{
+					send_to_char ("You couldn't get any copper.\n\r", ch);
+					learn_from_failure (ch, gsn_steal);
+					return;
+				}
+
+      ch->copper += amount;
+      victim->copper -= amount;
+      ch_printf (ch, "Aha!  You got %d copper coins.\n\r", amount);
+      learn_from_success (ch, gsn_steal);
+      return;
+    }
+#endif
 
   if ((obj = get_obj_carry (victim, arg1)) == NULL)
     {
@@ -2683,7 +2728,23 @@ do_backstab (CHAR_DATA * ch, char *argument)
   if (is_safe (ch, victim, TRUE))
     return;
 
+#ifdef ENABLE_WEAPONPROF
+   /* Added stabbing weapon. -Narn */
+   if( !( obj = get_eq_char( ch, WEAR_WIELD ) ) )
+   {
+      send_to_char( "You need to wield a piercing or stabbing weapon.\r\n", ch );
+      return;
+   }
 
+   if( obj->value[4] != WEP_DAGGER )
+   {
+      if( ( obj->value[4] == WEP_SWORD && obj->value[3] != DAM_PIERCE ) || obj->value[4] != WEP_SWORD )
+      {
+         send_to_char( "You need to wield a piercing or stabbing weapon.\r\n", ch );
+         return;
+      }
+   }
+#else
   /* Added stabbing weapon. -Narn */
   if ((obj = get_eq_char (ch, WEAR_WIELD)) == NULL
       || (obj->value[3] != 11 && obj->value[3] != 2))
@@ -2692,6 +2753,7 @@ do_backstab (CHAR_DATA * ch, char *argument)
 		    ch);
       return;
     }
+#endif
 
   if (victim->fighting)
     {
@@ -4600,6 +4662,9 @@ do_poison_weapon (CHAR_DATA * ch, char *argument)
   OBJ_DATA *wobj;
   char arg[MAX_INPUT_LENGTH];
   int percent;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	int tmpvalue = 0;
+#endif
 
   if (!IS_NPC (ch)
       && ch->level < skill_table[gsn_poison_weapon]->skill_level[ch->class])
@@ -4713,7 +4778,17 @@ do_poison_weapon (CHAR_DATA * ch, char *argument)
   act (AT_GREEN, "$n pours the poison over $p, which glistens wickedly!", ch,
        obj, NULL, TO_ROOM);
   xSET_BIT (obj->extra_flags, ITEM_POISONED);
+#ifdef ENABLE_GOLD_SILVER_COPPER
+/* Gold/Copper/Silver support -Druid */   
+	tmpvalue = get_value(obj->gold_cost, obj->silver_cost, obj->copper_cost)*2;
+	obj->gold_cost = tmpvalue/10000;
+	tmpvalue = tmpvalue % 10000;
+	obj->silver_cost = tmpvalue/100;
+	tmpvalue = tmpvalue % 100;
+	obj->copper_cost = tmpvalue;
+#else
   obj->cost *= 2;
+#endif
   /* Set an object timer.  Don't want proliferation of poisoned weapons */
   obj->timer = UMIN (obj->level, ch->level);
 
@@ -5077,6 +5152,22 @@ do_circle (CHAR_DATA * ch, char *argument)
   if (is_safe (ch, victim, TRUE))
     return;
 
+#ifdef ENABLE_WEAPONPROF
+   if( !( obj = get_eq_char( ch, WEAR_WIELD ) ) )
+   {
+      send_to_char( "You need to wield a piercing or stabbing weapon.\r\n", ch );
+      return;
+   }
+
+   if( obj->value[4] != WEP_DAGGER )
+   {
+      if( ( obj->value[4] == WEP_SWORD && obj->value[3] != DAM_PIERCE ) || obj->value[4] != WEP_SWORD )
+      {
+         send_to_char( "You need to wield a piercing or stabbing weapon.\r\n", ch );
+         return;
+      }
+   }
+#else
   if ((obj = get_eq_char (ch, WEAR_WIELD)) == NULL
       || (obj->value[3] != 11 && obj->value[3] != 2))
     {
@@ -5084,6 +5175,7 @@ do_circle (CHAR_DATA * ch, char *argument)
 		    ch);
       return;
     }
+#endif
 
   if (!ch->fighting)
     {
@@ -5401,6 +5493,7 @@ do_scan (CHAR_DATA * ch, char *argument)
 }
 
 
+#ifndef ENABLE_ARCHERY
 /*
  * Basically the same guts as do_scan() from above (please keep them in
  * sync) used to find the victim we're firing at.	-Thoric
@@ -5520,10 +5613,11 @@ find_projectile (CHAR_DATA * ch, int type)
 
   return NULL;
 }
-
+#endif
 
 ch_ret spell_attack (int, int, CHAR_DATA *, void *);
 
+#ifndef ENABLE_ARCHERY
 /*
  * Perform the actual attack on a victim			-Thoric
  */
@@ -5532,6 +5626,11 @@ ranged_got_target (CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * weapon,
 		   OBJ_DATA * projectile, sh_int dist, sh_int dt, char *stxt,
 		   sh_int color)
 {
+#ifdef ENABLE_WEAPONPROF
+    /* added wtype for check to determine skill used for ranged attacks - Grimm */
+    short wtype = 0;
+#endif
+
   if (xIS_SET (ch->in_room->room_flags, ROOM_SAFE))
     {
       /* safe room, bubye projectile */
@@ -5567,7 +5666,26 @@ ranged_got_target (CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * weapon,
 
       if (projectile)
 	{
+#ifdef ENABLE_WEAPONPROF
+         /* check dam type of projectile to determine skill to use - Grimm */
+         switch( projectile->value[3] )
+         {
+            case 13:
+            case 14:
+               learn_from_failure( ch, gsn_archery );
+               break;
+
+            case 15:                           
+               learn_from_failure( ch, gsn_blowguns );
+               break;
+
+            case 16:
+               learn_from_failure( ch, gsn_slings );
+               break;
+         }
+#else
 	  learn_from_failure (ch, gsn_missile_weapons);
+#endif
 
 	  /* 50% chance of projectile getting lost */
 	  if (number_percent () < 50)
@@ -5584,9 +5702,25 @@ ranged_got_target (CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * weapon,
       return damage (ch, victim, 0, dt);
     }
 
+#ifdef ENABLE_WEAPONPROF
+   /* check dam type of projectile to determine value of wtype 
+    * wtype points to same "sh_int" as the skill assigned to that
+    * range by the code and as such the proper skill will be used. 
+    * Grimm 
+    */
+   switch( projectile->value[3] )
+   {
+      case 13: case 14: wtype = gsn_archery; break;
+      case 15: wtype = gsn_blowguns; break;
+      case 16: wtype = gsn_slings; break;
+   }
+ 
+   if( number_percent() > 50 || (projectile && weapon && can_use_skill(ch, number_percent(), wtype)) )
+#else
   if (number_percent () > 50 || (projectile && weapon
 				 && can_use_skill (ch, number_percent (),
 						   gsn_missile_weapons)))
+#endif
     {
       if (projectile)
 	global_retcode =
@@ -5596,7 +5730,25 @@ ranged_got_target (CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * weapon,
     }
   else
     {
+#ifdef ENABLE_WEAPONPROF
+      switch( projectile->value[3] )
+      {
+         case 13:
+         case 14:
+            learn_from_failure( ch, gsn_archery );
+            break;
+
+         case 15:
+            learn_from_failure( ch, gsn_blowguns );
+            break;
+
+         case 16:
+            learn_from_failure( ch, gsn_slings );
+            break;
+      }
+#else
       learn_from_failure (ch, gsn_missile_weapons);
+#endif
       global_retcode = damage (ch, victim, 0, dt);
 
       if (projectile)
@@ -6058,6 +6210,27 @@ do_fire (CHAR_DATA * ch, char *argument)
   /* modify maximum distance based on bow-type and ch's class/str/etc */
   max_dist = URANGE (1, bow->value[4], 10);
 
+#ifdef ENABLE_WEAPONPROF
+   if( !( arrow = find_projectile( ch, bow->value[4] ) ) )
+   {
+      char *msg = "You have nothing to fire...\r\n";
+
+      switch( bow->value[5] )
+      {
+         case PROJ_BOLT:
+				 	msg = "You have no bolts...\r\n";
+					break;
+         case PROJ_ARROW:
+					msg = "You have no arrows...\r\n";
+					break;
+         case PROJ_DART:
+				  msg = "You have no darts...\r\n";
+					break;
+         case PROJ_STONE:
+					msg = "You have no slingstones...\r\n";
+					break;
+      }
+#else
   if ((arrow = find_projectile (ch, bow->value[3])) == NULL)
     {
       char *msg = "You have nothing to fire...\n\r";
@@ -6080,6 +6253,7 @@ do_fire (CHAR_DATA * ch, char *argument)
 	  msg = "You have no peas...\n\r";
 	  break;
 	}
+#endif
       send_to_char (msg, ch);
       return;
     }
@@ -6125,6 +6299,7 @@ mob_fire (CHAR_DATA * ch, char *name)
 
   return TRUE;
 }
+#endif
 
 /* -- working on -- 
  * Syntaxes: throw object  (assumed already fighting)

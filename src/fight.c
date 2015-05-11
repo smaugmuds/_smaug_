@@ -1136,7 +1136,82 @@ multi_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
   return retcode;
 }
 
+#ifdef ENABLE_WEAPONPROF
+/*
+ * Weapon types, haus
+ */
+int weapon_prof_bonus_check( CHAR_DATA * ch, OBJ_DATA * wield, int *gsn_ptr )
+{
+   int bonus;
 
+   bonus = 0;
+   *gsn_ptr = gsn_pugilism;   /* Change back to -1 if this fails horribly */
+   if( !IS_NPC( ch ) && wield )
+   {
+      switch ( wield->value[4] )
+      {
+            /*
+             * Restructured weapon system - Samson 11-20-99 
+             */
+         default:
+            *gsn_ptr = -1;
+            break;
+         case WEP_BAREHAND:
+            *gsn_ptr = gsn_pugilism;
+            break;
+         case WEP_SWORD:
+            *gsn_ptr = gsn_swords;
+            break;
+         case WEP_DAGGER:
+            *gsn_ptr = gsn_daggers;
+            break;
+         case WEP_WHIP:
+            *gsn_ptr = gsn_whips;
+            break;
+         case WEP_TALON:
+            *gsn_ptr = gsn_talonous_arms;
+            break;
+         case WEP_MACE:
+            *gsn_ptr = gsn_maces_hammers;
+            break;
+         case WEP_ARCHERY:
+            *gsn_ptr = gsn_archery;
+            break;
+         case WEP_BLOWGUN:
+            *gsn_ptr = gsn_blowguns;
+            break;
+         case WEP_SLING:
+            *gsn_ptr = gsn_slings;
+            break;
+         case WEP_AXE:
+            *gsn_ptr = gsn_axes;
+            break;
+         case WEP_SPEAR:
+            *gsn_ptr = gsn_spears;
+            break;
+         case WEP_STAFF:
+            *gsn_ptr = gsn_staves;
+            break;
+      }
+      if( *gsn_ptr != -1 )
+         bonus = ( int )( ( LEARNED( ch, *gsn_ptr ) - 50 ) / 10 );
+
+      /*
+       * Reduce weapon bonuses for misaligned clannies.
+       * if ( IS_CLANNED(ch) )
+       * {
+       * bonus = bonus / 
+       * ( 1 + abs( ch->alignment - ch->pcdata->clan->alignment ) / 1000 );
+       * }
+       */
+
+      if( IS_DEVOTED( ch ) )
+         bonus -= ch->pcdata->favor / -400;
+
+   }
+   return bonus;
+}
+#else
 /*
  * Weapon types, haus
  */
@@ -1203,6 +1278,7 @@ weapon_prof_bonus_check (CHAR_DATA * ch, OBJ_DATA * wield, int *gsn_ptr)
     }
   return bonus;
 }
+#endif
 
 /*
  * Calculate the tohit bonus on the object and return RIS values.
@@ -1671,6 +1747,7 @@ one_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
   return retcode;
 }
 
+#ifndef ENABLE_WEAPONPROF
 /*
  * Hit one guy with a projectile.
  * Handles use of missile weapons (wield = missile weapon)
@@ -1996,6 +2073,7 @@ projectile_hit (CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * wield,
   tail_chain ();
   return retcode;
 }
+#endif
 
 /*
  * Calculate damage based on resistances, immunities and suceptibilities
@@ -2049,9 +2127,12 @@ damage (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt)
   sh_int dampmod;
   CHAR_DATA *gch /*, *lch */ ;
   int init_gold, new_gold, gold_diff;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	int init_silver, new_silver, silver_diff;
+	int init_copper, new_copper, copper_diff;
+#endif
   sh_int anopc = 0;		/* # of (non-pkill) pc in a (ch) */
   sh_int bnopc = 0;		/* # of (non-pkill) pc in b (victim) */
-
 
   retcode = rNONE;
 
@@ -2077,32 +2158,49 @@ damage (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt)
   if (dam && dt != TYPE_UNDEFINED)
     {
       if (IS_FIRE (dt))
-	dam = ris_damage (victim, dam, RIS_FIRE);
+				dam = ris_damage (victim, dam, RIS_FIRE);
       else if (IS_COLD (dt))
-	dam = ris_damage (victim, dam, RIS_COLD);
+				dam = ris_damage (victim, dam, RIS_COLD);
       else if (IS_ACID (dt))
-	dam = ris_damage (victim, dam, RIS_ACID);
+				dam = ris_damage (victim, dam, RIS_ACID);
       else if (IS_ELECTRICITY (dt))
-	dam = ris_damage (victim, dam, RIS_ELECTRICITY);
+				dam = ris_damage (victim, dam, RIS_ELECTRICITY);
       else if (IS_ENERGY (dt))
-	dam = ris_damage (victim, dam, RIS_ENERGY);
+				dam = ris_damage (victim, dam, RIS_ENERGY);
       else if (IS_DRAIN (dt))
-	dam = ris_damage (victim, dam, RIS_DRAIN);
+				dam = ris_damage (victim, dam, RIS_DRAIN);
       else if (dt == gsn_poison || IS_POISON (dt))
-	dam = ris_damage (victim, dam, RIS_POISON);
+				dam = ris_damage (victim, dam, RIS_POISON);
       else
+#ifdef ENABLE_WEAPONPROF
+         /*
+          * Added checks for the 3 new dam types, and removed DAM_PEA - Grimm 
+          * Removed excess duplication, added hack and lash RIS types - Samson 1-9-00 
+          */
+  if( dt == ( TYPE_HIT + DAM_CRUSH ) )
+	  dam = ris_damage( victim, dam, RIS_BLUNT );
+  else if( dt == ( TYPE_HIT + DAM_STAB ) || dt == ( TYPE_HIT + DAM_PIERCE ) || dt == ( TYPE_HIT + DAM_THRUST ) )
+    dam = ris_damage( victim, dam, RIS_PIERCE );
+  else if( dt == ( TYPE_HIT + DAM_SLASH ) )
+    dam = ris_damage( victim, dam, RIS_SLASH );
+  else if( dt == ( TYPE_HIT + DAM_HACK ) )
+    dam = ris_damage( victim, dam, RIS_HACK );
+  else if( dt == ( TYPE_HIT + DAM_LASH ) )
+    dam = ris_damage( victim, dam, RIS_LASH );
+#else
 	if (dt == (TYPE_HIT + DAM_POUND) || dt == (TYPE_HIT + DAM_CRUSH)
 	    || dt == (TYPE_HIT + DAM_STONE) || dt == (TYPE_HIT + DAM_PEA))
-	dam = ris_damage (victim, dam, RIS_BLUNT);
+		dam = ris_damage (victim, dam, RIS_BLUNT);
       else
 	if (dt == (TYPE_HIT + DAM_STAB) || dt == (TYPE_HIT + DAM_PIERCE)
 	    || dt == (TYPE_HIT + DAM_BITE) || dt == (TYPE_HIT + DAM_BOLT)
 	    || dt == (TYPE_HIT + DAM_DART) || dt == (TYPE_HIT + DAM_ARROW))
-	dam = ris_damage (victim, dam, RIS_PIERCE);
+		dam = ris_damage (victim, dam, RIS_PIERCE);
       else
 	if (dt == (TYPE_HIT + DAM_SLICE) || dt == (TYPE_HIT + DAM_SLASH)
 	    || dt == (TYPE_HIT + DAM_WHIP) || dt == (TYPE_HIT + DAM_CLAW))
-	dam = ris_damage (victim, dam, RIS_SLASH);
+		dam = ris_damage (victim, dam, RIS_SLASH);
+#endif
 
       if (dam == -1)
 	{
@@ -2703,6 +2801,62 @@ damage (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt)
 	stop_fighting (victim, FALSE);
     }
 
+#ifdef ENABLE_ARENA
+    if (victim->position == POS_DEAD && !IS_NPC(victim) && !IS_NPC(ch)
+    && (xIS_SET(victim->in_room->room_flags, ROOM_ARENA)))
+    {
+    ch->pcdata->akills += 1;
+    victim->pcdata->adeaths += 1;
+
+    /* the dead man */
+    stop_fighting(victim,TRUE);
+    char_from_room(victim);
+    char_to_room(victim,get_room_index(ROOM_VNUM_ALTAR));
+    send_to_char("You lost haha!\n\r",victim);
+    victim->hit = victim->max_hit;
+    victim->mana = victim->max_mana;
+//    affect_strip(victim,gsn_plague);
+    affect_strip(victim,gsn_poison);
+    affect_strip(victim,gsn_blindness);
+    affect_strip(victim,gsn_sleep);
+    affect_strip(victim,gsn_curse);
+    victim->move = victim->max_move;
+    update_pos( victim );
+    do_look(victim, "auto");
+
+    /* the winner :) */
+    stop_fighting(ch,TRUE);
+    char_from_room(ch);
+    char_to_room(ch,get_room_index(ROOM_VNUM_TEMPLE));
+    send_to_char("You won are you sure you didn't cheat?!? heh\n\r",ch);
+    ch->hit = ch->max_hit;
+    ch->mana = ch->max_mana;
+//    affect_strip(ch,gsn_plague);
+    affect_strip(ch,gsn_poison);
+    affect_strip(ch,gsn_blindness);
+    affect_strip(ch,gsn_sleep);
+    affect_strip(ch,gsn_curse);
+    ch->move = ch->max_move;
+    update_pos( ch );
+    do_look(ch, "auto");
+  
+    if (xIS_SET(ch->act,ACT_CHALLENGER))
+    xREMOVE_BIT(ch->act,ACT_CHALLENGER);
+    if (xIS_SET(victim->act,ACT_CHALLENGER))
+    xREMOVE_BIT(victim->act,ACT_CHALLENGER);
+    if (xIS_SET(victim->act,ACT_CHALLENGED))
+    xREMOVE_BIT(victim->act,ACT_CHALLENGED);
+    if (xIS_SET(ch->act,ACT_CHALLENGED))
+    xREMOVE_BIT(ch->act,ACT_CHALLENGED);
+    xREMOVE_BIT(ch->act,PLR_SILENCE);
+//    xREMOVE_BIT(ch->act,PLR_NORESTORE);
+    xREMOVE_BIT(victim->act,PLR_SILENCE);
+//    xREMOVE_BIT(victim->act,PLR_NORESTORE);
+    arena_is_busy = FALSE;
+    return TRUE;
+    }
+#endif
+
   /*
    * Payoff for killing things.
    */
@@ -2710,7 +2864,7 @@ damage (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt)
     {
       group_gain (ch, victim);
 
-      if (!npcvict)
+    if (!npcvict)
 	{
 	  if (!victim->desc)
 	    add_loginmsg (victim->name, 17,
@@ -2802,15 +2956,45 @@ damage (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt)
 	  /* Autogold by Scryn 8/12 */
 	  if (xIS_SET (ch->act, PLR_AUTOGOLD))
 	    {
+#ifdef ENABLE_GOLD_SILVER_COPPER
+				init_gold = ch->gold;
+				init_silver = ch->silver;
+				init_copper = ch->copper;
+				do_get( ch, "'gold coins' corpse" );
+				do_get( ch, "'silver coins' corpse" );
+				do_get( ch, "'copper coins' corpse" );
+				new_gold = ch->gold;
+				new_silver = ch->silver;
+				new_copper = ch->copper;
+				gold_diff = (new_gold - init_gold);
+				silver_diff = (new_silver - init_silver);
+				copper_diff = (new_copper - init_copper);
+				if (gold_diff > 0)
+				{
+					sprintf(buf1,"%d gold",gold_diff);
+					do_split( ch, buf1 );
+				}
+				if (silver_diff > 0)
+				{
+					sprintf(buf1,"%d silver",silver_diff);
+					do_split( ch, buf1 );
+				}
+				if (copper_diff > 0)
+				{
+					sprintf(buf1,"%d copper",copper_diff);
+					do_split( ch, buf1 );
+				} 
+#else
 	      init_gold = ch->gold;
 	      do_get (ch, "coins corpse");
 	      new_gold = ch->gold;
 	      gold_diff = (new_gold - init_gold);
 	      if (gold_diff > 0)
-		{
-		  sprintf (buf1, "%d", gold_diff);
-		  do_split (ch, buf1);
-		}
+				{
+					sprintf (buf1, "%d", gold_diff);
+					do_split (ch, buf1);
+				}
+#endif
 	    }
 	  if (xIS_SET (ch->act, PLR_AUTOLOOT) && victim != ch)	/* prevent nasty obj problems -- Blodkai */
 	    do_get (ch, "all corpse");
@@ -2984,24 +3168,32 @@ is_safe (CHAR_DATA * ch, CHAR_DATA * victim, bool show_messg)
   if (get_timer (victim, TIMER_PKILLED) > 0)
     {
       if (show_messg)
-	{
-	  set_char_color (AT_GREEN, ch);
-	  send_to_char
-	    ("That character has died within the last 5 minutes.\n\r", ch);
-	}
+			{
+				set_char_color (AT_GREEN, ch);
+				send_to_char
+					("That character has died within the last 5 minutes.\n\r", ch);
+			}
       return TRUE;
     }
 
   if (get_timer (ch, TIMER_PKILLED) > 0)
     {
       if (show_messg)
-	{
-	  set_char_color (AT_GREEN, ch);
-	  send_to_char ("You have been killed within the last 5 minutes.\n\r",
-			ch);
-	}
+			{
+				set_char_color (AT_GREEN, ch);
+				send_to_char ("You have been killed within the last 5 minutes.\n\r",
+					ch);
+			}
       return TRUE;
     }
+
+#ifdef ENABLE_ARENA
+  if (xIS_SET(ch->in_room->room_flags, ROOM_ARENA)
+		&& xIS_SET(victim->in_room->room_flags, ROOM_ARENA))
+		{
+	    return FALSE;
+		}
+#endif
 
   return FALSE;
 }

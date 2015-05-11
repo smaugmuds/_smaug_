@@ -845,7 +845,13 @@ spec_janitor (CHAR_DATA * ch)
 	continue;
       if (trash->item_type == ITEM_DRINK_CON
 	  || trash->item_type == ITEM_TRASH
+#ifdef ENABLE_GOLD_SILVER_COPPER
+		|| trash->gold_cost < 10
+		|| trash->silver_cost < 10
+		|| trash->copper_cost < 10
+#else
 	  || trash->cost < 10
+#endif
 	  || (trash->pIndexData->vnum == OBJ_VNUM_SHOPPING_BAG
 	      && !trash->first_content))
 	{
@@ -990,8 +996,97 @@ spec_poison (CHAR_DATA * ch)
   return TRUE;
 }
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+/* Gold/Silver/Copper support -Druid */
+bool spec_thief( CHAR_DATA *ch )
+{
+    CHAR_DATA *victim;
+    CHAR_DATA *v_next;
+    int gold=0, maxgold, money, copper=0, silver=0, tmpvalue=0;
 
+    if ( ch->position != POS_STANDING )
+	return FALSE;
 
+    for ( victim = ch->in_room->first_person; victim; victim = v_next )
+    {
+	v_next = victim->next_in_room;
+
+	if ( IS_NPC(victim)
+	||   victim->level >= LEVEL_IMMORTAL
+	||   number_bits( 2 ) != 0
+	||   !can_see( ch, victim ) )	/* Thx Glop */
+	    continue;
+
+	if ( IS_AWAKE(victim) && number_range( 0, ch->level ) == 0 )
+	{
+	    act( AT_ACTION, "You discover $n's hands in your sack of coins!",
+		ch, NULL, victim, TO_VICT );
+	    act( AT_ACTION, "$N discovers $n's hands in $S sack of coins!",
+		ch, NULL, victim, TO_NOTVICT );
+	    return TRUE;
+	}
+	else
+	{
+	    /*
+	     * Had to modify this a bit.. Didn't want the thief
+	     * always grabbing all three types of coins, now
+	     * there is a 50/50 change for each coin type. if none
+	     * are grabbed, then randomly grab any coin. -Druid
+	     */
+	    maxgold = ch->level * ch->level * 1000;
+	    if(number_range(0,1)==0){
+	    gold = victim->gold
+	    	 * number_range( 1, URANGE(2, ch->level/4, 10) ) / 100;
+	    ch->gold     += 9 * gold / 10;
+	    victim->gold -= gold;
+	    }
+	    if(number_range(0,1)==0) {
+	    silver = victim->silver
+	    	 * number_range( 1, URANGE(2, ch->level/4, 10) ) / 100;
+	    ch->silver     += 9 * silver / 10;
+	    victim->silver -= silver;
+	    }
+	    if(number_range(0,1)==0) {
+	    copper = victim->copper
+	    	 * number_range( 1, URANGE(2, ch->level/4, 10) ) / 100;
+	    ch->copper     += 9 * copper / 10;
+	    victim->copper -= copper;
+	    }
+	    if(gold <= 0 && silver <= 0 && copper <=0)
+	    switch(number_range(0,2)) {
+	      case 0:
+	        gold = victim->gold
+	    	  * number_range( 1, URANGE(2, ch->level/4, 10) ) / 100;
+	        ch->gold     += 9 * gold / 10;
+	        victim->gold -= gold;
+	        break;
+        case 1:   
+	        silver = victim->silver
+	    	  * number_range( 1, URANGE(2, ch->level/4, 10) ) / 100;
+	        ch->silver     += 9 * silver / 10;
+	        victim->silver -= silver;
+	        break;
+	      case 2:
+	        copper = victim->copper
+	    	  * number_range( 1, URANGE(2, ch->level/4, 10) ) / 100;
+	        ch->copper     += 9 * copper / 10;
+	        victim->copper -= copper;
+	        break;
+	    }
+	    money=get_value(ch->gold, ch->silver, ch->copper);
+	    if ( money > maxgold )
+	    {
+		boost_economy( ch->in_room->area, money - maxgold/2 );
+		tmpvalue = maxgold/2;
+		conv_currency(ch, tmpvalue);
+	    }
+	    return TRUE;
+	}
+    }
+
+    return FALSE;
+}
+#else
 bool
 spec_thief (CHAR_DATA * ch)
 {
@@ -1035,7 +1130,7 @@ spec_thief (CHAR_DATA * ch)
 
   return FALSE;
 }
-
+#endif
 
 /*****
  * A wanderer (nomad) that arm's itself and discards what it doesnt.. Kinda fun

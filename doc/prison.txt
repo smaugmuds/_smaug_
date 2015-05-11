@@ -1,0 +1,195 @@
+Have you ever wished to punish a lower immortal? This code also fixes the problem
+of people dying while in prison and going back to recall. This code creates a prison
+flag for your deepest, darkest dungeons. It uses a low level movement function to
+prevent anybody, even imp's, from escaping. The only way to free somebody is to use
+the release command that is included (for IMP's only).
+
+Code written by Thales, imp of Islands of Exile (funcity.org port 9999)
+Email me at gph2076@crosswinds.net if you have any trouble/questions/comments
+
+--merc.h--
+
+Add this to the room flag definitions:
+
+#define ROOM_PRISON		(??)
+
+where ?? is the next free letter.
+
+--tables.c--
+
+Add this to the room_flags[] structure:
+
+    {	"prison",		ROOM_PRISON,		TRUE	},
+
+--handler.c--
+
+Place this code in the char_from_room function, between the first
+if check (if ( ch->in_room == NULL )) and the   if ( !IS_NPC(ch) ) 
+check:
+
+    //If you are in prison, you ain't getting out!
+    if ( IS_SET( ch->in_room->room_flags, ROOM_PRISON))
+	return; 
+
+Place this in char_to_room after     OBJ_DATA *obj; 
+
+    //For prison situations only
+    if ( ch->in_room != NULL )
+    {
+	if ( IS_SET( ch->in_room->room_flags , ROOM_PRISON ))
+	    return;
+    }
+
+--interp.c--
+
+Put this at the bottom of the 'immortal commands':
+
+    { "release",	do_release,	POS_DEAD,	ML,  LOG_ALWAYS, 1 },
+
+--interp.h--
+
+Put this somewhere, preferably to fit the alphabetical order:
+DECLARE_DO_FUN( do_release	);
+
+--act_wiz.c--
+
+Add this to the bottom:
+
+void do_release( CHAR_DATA* ch, char * argument )
+{
+   CHAR_DATA *victim;
+   char arg[MAX_INPUT_LENGTH];
+	ROOM_INDEX_DATA *pRoomIndex;
+    OBJ_DATA *obj; 
+
+   one_argument( argument, arg );
+    if ( arg[0] == '\0' )
+    {
+        send_to_char( "Syntax:release  <character name> \n\r", ch );
+	return;
+    }
+
+    if ( ( victim = get_char_world( ch, arg ) ) == NULL )
+    {
+	send_to_char( "They are not logged on.\n\r", ch );
+	return;
+    }
+
+
+    if ( victim->in_room == NULL ) 
+    { 
+	bug( "Release: NULL room.", 0 ); 
+	return; 
+    } 
+
+    if ( !IS_SET( victim->in_room->room_flags, ROOM_PRISON ))
+    {
+	send_to_char( "They aren't in prison!\n\r", ch );
+	return;
+    }
+
+	act( "You hear a few footsteps. A guard unlocks the bars and says in a cold voice '$n, your sentence is up'.\n\r", victim, NULL, NULL, TO_ROOM );
+	act( "You hear a few footsteps. A guard unlocks the bars and says in a cold voice '$n, your sentence is up'.\n\r", victim, NULL, NULL, TO_CHAR );
+
+	act( "The guard slams the bars shut and escorts $n to freedom.\n\r", victim, NULL, NULL, TO_ROOM );
+	act( "The guard slams the bars shut and transports you back to the outside world!\n\r", victim, NULL, NULL, TO_CHAR );
+
+    if ( !IS_NPC(victim) ) 
+	--victim->in_room->area->nplayer; 
+ 
+    if ( ( obj = get_eq_char( victim, WEAR_LIGHT ) ) != NULL 
+    &&   obj->item_type == ITEM_LIGHT 
+    &&   obj->value[2] != 0 
+    &&   victim->in_room->light > 0 ) 
+	--victim->in_room->light; 
+ 
+    if ( victim == victim->in_room->people ) 
+    { 
+	victim->in_room->people = victim->next_in_room; 
+    } 
+    else 
+    { 
+	CHAR_DATA *prev; 
+ 
+	for ( prev = victim->in_room->people; prev; prev = prev->next_in_room ) 
+	{ 
+	    if ( prev->next_in_room == victim ) 
+	    { 
+		prev->next_in_room = victim->next_in_room; 
+		break; 
+	    } 
+	} 
+ 
+	if ( prev == NULL ) 
+	    bug( "Char_from_room: victim not found.", 0 ); 
+    } 
+ 
+    victim->in_room      = NULL; 
+    victim->next_in_room = NULL; 
+    victim->on 	     = NULL;  /* sanity check! */ 
+  
+    pRoomIndex = get_room_index(ROOM_VNUM_TEMPLE);
+
+    victim->in_room		= pRoomIndex; 
+    victim->next_in_room	= pRoomIndex->people; 
+    pRoomIndex->people	= victim; 
+ 
+//All the goodies that follow when moving a char
+    if ( !IS_NPC(victim) ) 
+    { 
+	if (victim->in_room->area->empty) 
+	{ 
+	    victim->in_room->area->empty = FALSE; 
+	    victim->in_room->area->age = 0; 
+	} 
+	++victim->in_room->area->nplayer; 
+    } 
+ 
+    if ( ( obj = get_eq_char( ch, WEAR_LIGHT ) ) != NULL 
+    &&   obj->item_type == ITEM_LIGHT 
+    &&   obj->value[2] != 0 ) 
+	++victim->in_room->light; 
+	 
+    if (IS_AFFECTED(victim,AFF_PLAGUE)) 
+    { 
+        AFFECT_DATA *af, plague; 
+        CHAR_DATA *vch; 
+         
+        for ( af = victim->affected; af != NULL; af = af->next ) 
+        { 
+            if (af->type == gsn_plague) 
+                break; 
+        } 
+         
+        if (af == NULL) 
+        { 
+            REMOVE_BIT(victim->affected_by,AFF_PLAGUE); 
+            return; 
+        } 
+         
+        if (af->level == 1) 
+            return; 
+         
+	plague.where		= TO_AFFECTS; 
+        plague.type 		= gsn_plague; 
+        plague.level 		= af->level - 1;  
+        plague.duration 	= number_range(1,2 * plague.level); 
+        plague.location		= APPLY_STR; 
+        plague.modifier 	= -5; 
+        plague.bitvector 	= AFF_PLAGUE; 
+         
+        for ( vch = victim->in_room->people; vch != NULL; vch = vch->next_in_room) 
+        { 
+            if (!saves_spell(plague.level - 2,vch,DAM_DISEASE)  
+	    &&  !IS_IMMORTAL(vch) && 
+            	!IS_AFFECTED(vch,AFF_PLAGUE) && number_bits(6) == 0) 
+            { 
+            	send_to_char("You feel hot and feverish.\n\r",vch); 
+            	act("$n shivers and looks very ill.",vch,NULL,NULL,TO_ROOM); 
+            	affect_join(vch,&plague); 
+            } 
+        } 
+    } 
+
+
+}

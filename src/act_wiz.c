@@ -1303,7 +1303,7 @@ do_pardon (CHAR_DATA * ch, char *argument)
 }
 
 void
-echo_to_all (sh_int AT_COLOR, char *argument, sh_int tar)
+echo_to_all (sh_int AT_COLOR, const char *argument, sh_int tar)
 {
   DESCRIPTOR_DATA *d;
 

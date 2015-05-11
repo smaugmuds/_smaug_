@@ -2,8 +2,10 @@
 
 
 
-#VERSION 1
+#VERSION 3
 #AUTHOR Rennard~
+
+#CREDITS ~
 
 #RANGES
 0 60 0 60
@@ -14,7 +16,7 @@ $
 #FLAGS
 1
 
-#ECONOMY 0 87824366
+#ECONOMY 0 79029846
 
 #CLIMATE 2 2 2
 
@@ -25,322 +27,379 @@ the cathedral priestess~
 A priestess of the cathedral bestows blessings from the altar.
 ~
 ~
-3 4194472 1000 C
+3 4194472 1000 V
 50 0 0 25d500+300 0d0+0
-0 0
+0
+0 0 0
 112 112 2
 18 13 13 13 13 13 13
 0 0 0 0 0
 0 1 0 0 262143 1 0
 0 0 2047 0 3156992 0 0 263
+1 240 240 240 240 240 240 0 0 0 0 0 
 #21001
 wizard shopkeeper~
 the wizard shopkeeper~
 The wizard shopkeeper stands here.
 ~
 ~
-3 4194344 0 C
+3 4194344 0 V
 50 0 -300 1d1+30000 20d100+100
-700000 0
+0
+70 0 0
 112 112 1
 18 18 18 18 13 13 18
 0 0 0 0 0
 1 0 0 0 3 3 6
 34 4 2047 0 3156992 0 48 3
+2 240 240 240 240 240 240 0 0 0 0 0 
 #21002
 blacksmith~
 the blacksmith~
 The blacksmith stands here.
 ~
 ~
-3 4194344 0 C
+3 4194344 0 V
 50 0 -300 1d1+30000 1d1+1000
-0 0
+0
+0 0 0
 112 112 1
 18 18 18 18 13 13 18
 0 0 0 0 0
 2 22 0 0 5 5 5
 0 0 2047 0 3156992 0 32 3
+3 240 240 240 240 240 240 0 0 0 0 0 
 #21003
 alchemist~
 the alchemist~
 The alchemist stands behind the counter.
 ~
 ~
-3 4194344 0 C
+3 4194344 0 V
 50 0 0 1d1+30000 4d5+100
-1000000 0
+0
+100 0 0
 112 112 2
 18 18 18 18 13 13 18
 0 0 0 0 0
 1 0 0 0 3 3 6
 0 0 2047 0 3156992 0 48 3
+5 240 240 240 240 240 240 0 0 0 0 0 
 #21004
 scribe~
 the scribe~
 The scribe sits here.
 ~
 ~
-3 4194344 0 C
+3 4194344 0 V
 50 0 0 1d1+30000 4d5+100
-1000000 0
+0
+100 0 0
 112 112 1
 18 18 18 18 13 13 18
 0 0 0 0 0
 1 0 0 0 3 3 6
 0 0 2047 0 3156992 0 48 3
+1 240 240 240 240 240 240 0 0 0 0 0 
+#21005
+Undertaker~
+The Undertaker~
+This is an undertaker, you can retrieve your corpse from him.
+~
+~
+1073741827&2048 0 0 S
+1 0 0 0d0+0 0d0+0
+0
+0 0 0
+112 112 0
 #21006
 vampire trainer~
 the vampire trainer~
 The vampire trainer awaits a student.
 ~
 ~
-1091 4718632 -1000 C
+1091 4718632 -1000 V
 50 0 0 1d1+30000 1d1+20
-0 0
+0
+0 0 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 4 0 0 1 1 3
 0 0 2047 1048594 3072 33 1054784 2
+5 240 240 240 240 240 240 0 0 0 0 0 
 #21007
 blood doll~
 the blood doll~
 A blood doll hangs limply here.
 ~
 ~
-3 0 1000 C
+3 0 1000 V
 1 0 0 1d1+100 0d0+0
-0 0
+0
+0 0 0
 112 112 2
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 1 0 0 1 1 0
 0 0 2047 0 4194303 0 0 0
+6 25 25 25 25 25 25 0 0 0 0 0 
 #21009
 man sailor~
 the sailor~
 A sailor offers you his selection of boats.
 ~
 ~
-67 4194344 0 C
+67 4194344 0 V
 50 0 0 1d1+30000 0d0+0
-100000 0
+0
+10 0 0
 112 112 1
 13 18 18 18 13 13 18
 0 0 0 0 0
 0 3 0 0 1 1 5
 0 0 2047 0 3156992 0 32 0
+4 240 240 240 240 240 240 0 0 0 0 0 
 #21010
 waitress~
 the waitress~
 The waitress awaits your order.
 ~
 ~
-7 4194344 0 C
+7 4194344 0 V
 50 0 0 1d1+30000 0d0+0
-0 0
+0
+0 0 0
 112 112 2
 18 18 18 18 18 18 18
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 2047 0 3156992 0 0 0
+2 240 240 240 240 240 240 0 0 0 0 0 
 #21011
 printer~
 the printer~
 A thin man sits behind a stack of papers.
 ~
 ~
-67 4194344 0 C
+67 4194344 0 V
 50 0 0 1d1+30000 0d0+0
-10000 0
+0
+1 0 0
 112 112 1
 18 18 18 18 13 13 18
 0 0 0 0 0
 0 3 0 0 1 1 3
 0 0 2047 0 3156992 0 0 0
+6 240 240 240 240 240 240 0 0 0 0 0 
 #21012
 trainer father~
 the Guild Father~
 The Guild's trainer meditates here.
 ~
 ~
-1091 4194472 1000 C
+1091 4194472 1000 V
 50 0 0 1d1+30000 100d5+800
-0 0
+0
+0 0 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 1 0 0 1 1 5
 0 0 2047 0 2100224 0 0 0
+2 240 240 240 240 240 240 0 0 0 0 0 
 #21013
 bartender~
 the bartender~
 The bartender stands behind his counter.
 ~
 ~
-3 4194344 0 C
+3 4194344 0 V
 50 0 0 1d1+30000 5d100+800
-10000 0
+0
+1 0 0
 112 112 1
 13 18 18 18 13 13 18
 0 0 0 0 0
 0 3 0 0 1 1 5
 0 0 2047 0 3156992 0 48 3
+2 240 240 240 240 240 240 0 0 0 0 0 
 #21014
 jeweler~
 the jeweler~
 The jeweler smiles warmly.
 ~
 ~
-3 4194344 0 C
+3 4194344 0 V
 50 0 0 1d1+30000 0d0+0
-5000000 0
+0
+500 0 0
 112 112 2
 13 18 18 18 13 13 18
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 2047 0 3156992 0 32 0
+4 240 240 240 240 240 240 0 0 0 0 0 
 #21015
 armourer~
 the armourer~
 The armourer is here fitting a mail helm.
 ~
 ~
-3 4194344 0 C
+3 4194344 0 V
 50 0 0 1d1+30000 1d1+1000
-5000000 0
+0
+500 0 0
 112 112 2
 13 18 18 18 13 13 18
 0 0 0 0 0
 0 22 0 0 1 1 5
 0 0 2047 0 3156992 0 32 3
+6 240 240 240 240 240 240 0 0 0 0 0 
 #21016
 smith weaponsmith~
 the weaponsmith~
 The weaponsmith labors over a lengthy blade.
 ~
 ~
-3 4194344 0 C
+3 4194344 0 V
 50 0 0 1d1+30000 0d0+0
-5000000 0
+0
+500 0 0
 112 112 1
 13 18 18 18 13 13 18
 0 0 0 0 0
 0 22 0 0 1 1 5
 0 0 2047 0 3156992 0 32 0
+4 240 240 240 240 240 240 0 0 0 0 0 
 #21017
 postmaster~
 the postmaster~
 The postmaster sorts the day's mail.
 ~
 ~
-3 4194344 0 C
+3 4194344 0 V
 50 0 0 1d1+30000 0d0+0
-1000000 0
+0
+100 0 0
 112 112 1
 13 18 18 18 13 13 18
 0 0 0 0 0
 0 3 0 0 1 1 3
 0 0 2047 0 3156992 0 0 0
+3 240 240 240 240 240 240 0 0 0 0 0 
 #21018
 butcher~
 the butcher~
 A butcher greets you.
 ~
 ~
-3 4194344 0 C
+3 4194344 0 V
 50 0 0 1d1+30000 1d1+800
-0 0
+0
+0 0 0
 112 112 1
 13 18 18 18 13 13 18
 0 0 0 0 0
 0 21 0 0 1 1 3
 0 0 2047 0 3156992 0 32 0
+0 240 240 240 240 240 240 0 0 0 0 0 
 #21019
 baker~
 the baker~
 The baker is here, covered in flour.
 ~
 ~
-3 4194344 0 C
+3 4194344 0 V
 50 0 0 1d1+30000 1d1+500
-0 0
+0
+0 0 0
 112 112 1
 13 18 18 18 13 13 18
 0 0 0 0 0
 0 20 0 0 1 1 3
 0 0 2047 0 3156992 0 32 0
+3 240 240 240 240 240 240 0 0 0 0 0 
 #21020
 farmer girl~
 the farmer girl~
 A young farmer girl smiles as you enter.
 ~
 ~
-3 4194344 0 C
+3 4194344 0 V
 50 0 0 1d1+30000 1d1+250
-0 0
+0
+0 0 0
 112 112 2
 13 18 18 18 13 13 18
 0 0 0 0 0
 0 3 0 0 1 1 3
 0 0 2047 0 3156992 0 32 0
+3 240 240 240 240 240 240 0 0 0 0 0 
 #21021
 tailor~
 the tailor~
 The tailor is here, showing off his wares.
 ~
 ~
-3 4194344 0 C
+3 4194344 0 V
 50 0 0 1d1+30000 4d5+100
-1000000 0
+0
+100 0 0
 112 112 1
 18 18 18 18 13 13 18
 0 0 0 0 0
 0 3 0 0 1 1 6
 0 0 2047 0 3156992 0 48 3
+5 240 240 240 240 240 240 0 0 0 0 0 
 #21022
 stable keeper~
 the stable keeper~
 The stable keeper tends to his animals.
 ~
 ~
-3 4194344 0 C
+3 4194344 0 V
 50 0 0 1d1+30000 4d5+100
-1000000 0
+0
+100 0 0
 112 112 1
 13 18 18 18 13 13 18
 0 0 0 0 0
 0 3 0 0 1 1 6
 0 0 2047 0 3156992 0 48 3
+1 240 240 240 240 240 240 0 0 0 0 0 
 #21023
 thief master~
 the Master Thief~
 A master thief is here to demonstrate the ways of thievery.
 ~
 ~
-1027 4194344 0 C
+1027 4194344 0 V
 50 0 0 1d1+30000 0d0+0
-0 0
+0
+0 0 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 2 0 0 1 1 0
 0 0 2047 0 3156992 0 576 524290
+0 240 240 240 240 240 240 0 0 0 0 0 
 #21025
 innkeeper~
 the innkeeper~
 The Innkeeper stands here, looking rather gruff.
 ~
 ~
-3 4194344 0 C
+3 4194344 0 V
 50 0 0 1d1+30000 100d15+1000
-0 0
+0
+0 0 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 4
 0 0 2047 0 3156992 0 48 3
+1 240 240 240 240 240 240 0 0 0 0 0 
 > bribe_prog 200~
 if inroom($i) == 21069
   say Go on back and pick a room.
@@ -366,154 +425,176 @@ the sage~
 A pensive sage mulls over new sorcery.
 ~
 ~
-1027 4194344 0 C
+1027 4194344 0 V
 50 0 0 1d1+30000 100d5+800
-100 0
+0
+0 1 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 0 0 0 1 1 5
 0 0 2047 0 3156992 0 0 0
+2 240 240 240 240 240 240 0 0 0 0 0 
 #21029
 storekeeper~
 the storekeeper~
 A large man stands here, selling equipment for adventurers.
 ~
 ~
-3 4194344 0 C
+3 4194344 0 V
 50 0 0 1d1+30000 100d10+1000
-0 0
+0
+0 0 0
 112 112 1
 25 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 4
 0 0 2047 0 3156992 0 0 3
+3 240 240 240 240 240 240 0 0 0 0 0 
 #21031
 man ranger~
 the ranger trainer~
 The ranger trainer demonstrates combat maneuvers.
 ~
 ~
-1027 4194344 0 C
+1027 4194344 0 V
 50 0 0 1d1+30000 100d5+800
-0 0
+0
+0 0 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 6 0 0 1 1 5
 0 0 2047 0 3156992 0 0 0
+5 240 240 240 240 240 240 0 0 0 0 0 
 #21034
 woman trainer~
 the Druid trainer~
 A robed woman is here, training initiate druids.
 ~
 ~
-1027 4194344 0 C
+1027 4194344 0 V
 50 0 0 1d1+30000 100d10+1000
-0 0
+0
+0 0 0
 112 112 2
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 5 0 0 1 1 4
 0 0 2047 0 3156992 0 0 0
+1 240 240 240 240 240 240 0 0 0 0 0 
 #21035
 man trainer~
 the Warrior trainer~
 A giant man stands here, waiting to train young warriors.
 ~
 ~
-1027 4194344 0 C
+1027 4194344 0 V
 50 0 0 1d1+30000 5d100+800
-0 0
+0
+0 0 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 5
 0 0 2047 0 3156992 0 0 0
+6 240 240 240 240 240 240 0 0 0 0 0 
 #21037
 guard man~
 the guard~
 A guard patrols the streets of the city.
 ~
 ~
-65 32 1000 C
+65 32 1000 V
 15 0 0 15d15+300 1d1+20
-500 0
+0
+0 5 0
 112 112 1
 16 13 13 16 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 3
 2 2 2047 0 3072 0 0 3
+6 50 50 50 50 50 50 0 0 0 0 0 
 #21041
 guard~
 the guard~
 A tired guard is here.
 ~
 ~
-3 0 1000 C
+3 0 1000 V
 5 0 90 1d10+20 2d3+3
-100 0
+0
+0 1 0
 104 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 2
 0 0 2047 0 0 0 0 0
+5 25 25 25 25 25 25 0 0 0 0 0 
 #21043
 bowman~
 the bowman~
 A bowman stares out over the ramparts.
 ~
 ~
-65 32 0 C
+65 32 0 V
 15 0 0 15d15+300 1d4+10
-500 0
+0
+0 5 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 2
 0 0 2047 0 0 0 0 2
+5 50 50 50 50 50 50 0 0 0 0 0 
 #21044
 executioner~
 the Executioner~
 A executioner stands silently before you.
 ~
 ~
-3 4202668 0 C
+3 4202668 0 V
 50 0 0 1d1+30000 1d1+800
-0 0
+0
+0 0 0
 112 112 1
 18 18 18 18 18 15 18
 0 0 0 0 0
 0 3 0 0 1 1 4
 0 0 2047 0 2100224 0 0 3
+3 240 240 240 240 240 240 0 0 0 0 0 
 #21045
 dog stray~
 a stray~
 A stray dog noses along the street.
 ~
 ~
-65 0 0 C
+65 0 0 V
 5 0 100 1d1+35 2d5+2
-10 0
+0
+0 0 10
 112 112 2
 13 13 13 13 13 13 13
 0 0 0 0 0
 30 3 0 0 1634468353 513 0
 0 0 1725 0 0 0 0 2
+1 25 25 25 25 25 25 0 0 0 0 0 
 #21052
 thief figure~
 the thief~
 A strange figure lurks furtively.
 ~
 ~
-65 98336 0 C
+65 98336 0 V
 8 0 0 3d40+50 3d2+5
-0 0
+0
+0 0 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 2
 0 0 2047 2048 0 0 0 0
+5 25 25 25 25 25 25 0 0 0 0 0 
 #21055
 beggar man beggarprog~
 the beggar~
@@ -522,14 +603,16 @@ A decrepit old beggar sits on the cobbles of the road, pleading.
 The old man is clad in the rags of what was once a nobleman's clothes.
 He eyes you warily and holds out a tin cup in supplication...
 ~
-3 0 300 C
+3 0 300 V
 3 0 100 1d1+20 2d3+3
-0 0
+0
+0 0 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 2047 0 0 0 0 0
+6 25 25 25 25 25 25 0 0 0 0 0 
 > all_greet_prog 100~
 if name($n) == dog stray
   emote pets the dog.
@@ -570,14 +653,16 @@ A proud hawk perches regally here, defiant to all.
 The hawk returns your stare with unfeeling eyes.  Its beak and talons
 appear as though they could rend even the toughest of flesh.
 ~
-3 4718632 0 C
+3 4718632 0 V
 15 0 -20 3d75+100 3d10+10
-0 0
+0
+0 0 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 78 3 0 0 513 512 2
 0 0 296125 0 0 0 1 2
+3 50 50 50 50 50 50 0 0 0 0 0 
 #21057
 mare horse~
 the beautiful mare~
@@ -586,14 +671,16 @@ A beautiful white mare slowly trots in a circle.
 This white mare sports a brilliant white coat and whinnies at your approach.
 She appears ready to serve anyone.
 ~
-262147 0 0 C
+262147 0 0 V
 20 0 80 2d100+100 3d10+10
-0 0
+0
+0 0 0
 112 112 2
 13 13 13 13 13 13 13
 0 0 0 0 0
 86 3 0 0 262656 374272 2
 0 0 67261 2 0 2048 32 2
+2 100 100 100 100 100 100 0 0 0 0 0 
 #21058
 horse warhorse~
 the warhorse~
@@ -603,14 +690,16 @@ The black steed snorts as you examine him.  His fine black coat shines
 brightly regardless of light and the warhorse seems as though it could
 run tirelessly for days.
 ~
-262147 0 0 C
+262147 0 0 V
 25 0 80 3d100+250 3d10+30
-0 0
+0
+0 0 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 86 3 0 0 395675 373248 2
 0 0 67261 2 0 2048 32 2
+4 100 100 100 100 100 100 0 0 0 0 0 
 #21059
 cat~
 the cat~
@@ -618,14 +707,16 @@ A black cat scampers away from your booted feet.
 ~
 The black cat appears frightened out of its mind...
 ~
-3 0 0 C
+3 0 0 V
 5 0 20 2d75+50 3d10+20
-0 0
+0
+0 0 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 74 3 0 0 513 512 2
 0 0 67261 0 0 2048 0 0
+0 25 25 25 25 25 25 0 0 0 0 0 
 #21060
 hound dog~
 the hound~
@@ -633,42 +724,48 @@ A hunting dog paces in circles here, sniffing the ground.
 ~
 The hunting dog constantly sniffs the ground, searching for its prey.
 ~
-3 0 0 C
+3 0 0 V
 10 0 30 3d75+85 5d5+10
-0 0
+0
+0 0 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 73 3 0 0 395987 2688 2
 0 0 67261 0 0 2048 0 2
+4 50 50 50 50 50 50 0 0 0 0 0 
 #21061
 guard man~
 the guard~
 A heavy guard walks the wall of the city.
 ~
 ~
-65 32 1000 C
+65 32 1000 V
 15 0 5 15d15+300 1d4+10
-500 0
+0
+0 5 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 3
 2 2 2047 0 3072 0 0 1
+3 50 50 50 50 50 50 0 0 0 0 0 
 #21062
 guard~
 the gate guard~
 A gate guard tends the western gate.
 ~
 ~
-3 32 1000 C
+3 32 1000 V
 15 0 0 15d15+150 1d4+10
-500 0
+0
+0 5 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 2
 2 2 2047 0 3072 0 0 0
+1 50 50 50 50 50 50 0 0 0 0 0 
 > time_prog 6~
 un w
 op w
@@ -684,14 +781,16 @@ the guard~
 A gate guard tends the outer gate.
 ~
 ~
-3 32 1000 C
+3 32 1000 V
 15 0 0 15d15+300 1d4+10
-500 0
+0
+0 5 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 2
 2 2 2047 0 3072 0 0 3
+5 50 50 50 50 50 50 0 0 0 0 0 
 > time_prog 6~
 un e
 op e
@@ -707,14 +806,16 @@ the guard~
 A gate guard tends the north gate.
 ~
 ~
-3 32 1000 C
+3 32 1000 V
 15 0 0 15d15+300 1d4+10
-500 0
+0
+0 5 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 2
 2 2 2047 0 3072 0 0 3
+0 50 50 50 50 50 50 0 0 0 0 0 
 > time_prog 6~
 un n
 op n
@@ -730,14 +831,16 @@ the guard~
 A gate guard tends the outer gate.
 ~
 ~
-3 32 1000 C
+3 32 1000 V
 15 0 0 15d15+300 3d4+15
-500 0
+0
+0 5 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 2
 2 2 2047 0 3072 0 0 1
+5 50 50 50 50 50 50 0 0 0 0 0 
 > time_prog 20~
 close s
 lock s
@@ -753,14 +856,16 @@ the guard~
 A guard of watches you as you move by.
 ~
 ~
-3 32 1000 C
+3 32 1000 V
 15 0 0 15d15+300 1d4+10
-500 0
+0
+0 5 0
 112 112 1
 16 13 13 16 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 3
 2 2 2047 0 3072 0 0 3
+5 50 50 50 50 50 50 0 0 0 0 0 
 > time_prog 6~
 un e
 op e
@@ -776,14 +881,16 @@ the guard~
 A guard of the city stands here.
 ~
 ~
-3 8224 1000 C
+3 8224 1000 V
 15 0 0 15d15+300 1d4+10
-500 0
+0
+0 5 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 2
 2 2 2047 1059840 3072 0 0 3
+4 50 50 50 50 50 50 0 0 0 0 0 
 > time_prog 6~
 un w
 op w
@@ -799,14 +906,16 @@ the guard~
 A guard of the city stands at the ready.
 ~
 ~
-3 32 1000 C
+3 32 1000 V
 15 0 0 15d15+150 1d4+10
-500 0
+0
+0 5 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 2
 2 2 2047 0 3072 0 0 0
+2 50 50 50 50 50 50 0 0 0 0 0 
 > time_prog 6~
 un s
 op s
@@ -822,14 +931,16 @@ the guard~
 An guard keeps vigilant watch here.
 ~
 ~
-3 32 1000 C
+3 32 1000 V
 15 0 0 15d15+300 1d4+10
-500 0
+0
+0 5 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 2
 2 2 2047 0 3072 0 0 3
+5 50 50 50 50 50 50 0 0 0 0 0 
 > time_prog 6~
 un n
 op n
@@ -848,128 +959,192 @@ A pack mule lumbers about, carrying its master's belongings.
 This fat, lumbering creature is dirty and unkept. You find yourself
 wondering what it carries.
 ~
-262147 0 0 C
+262147 0 0 V
 6 0 150 1d1+40 3d3+8
-0 0
+0
+0 0 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 86 3 0 0 390727 374272 2
 0 0 67261 0 0 0 0 0
+6 25 25 25 25 25 25 0 0 0 0 0 
 #21071
 archer~
 the bowman~
 A bowman peers over the ramparts.
 ~
 ~
-65 32 1000 C
+65 32 1000 V
 15 0 0 15d15+300 1d4+10
-500 0
+0
+0 5 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 3
 2 2 2047 0 3072 0 0 0
+5 50 50 50 50 50 50 0 0 0 0 0 
 #21073
 key~
 a newly created key~
 Some god abandoned a newly created key here.
 ~
 ~
-1 0 0 S
+1 0 0 V
 1 0 0 0d0+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+4 25 25 25 25 25 25 0 0 0 0 0 
 #21074
 key~
 a newly created key~
 Some god abandoned a newly created key here.
 ~
 ~
-1 0 0 S
+1 0 0 V
 1 0 0 0d0+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+1 25 25 25 25 25 25 0 0 0 0 0 
 #21075
 key~
 a newly created key~
 Some god abandoned a newly created key here.
 ~
 ~
-1 0 0 S
+1 0 0 V
 1 0 0 0d0+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+5 25 25 25 25 25 25 0 0 0 0 0 
 #21076
 key~
 a newly created key~
 Some god abandoned a newly created key here.
 ~
 ~
-1 0 0 S
+1 0 0 V
 1 0 0 0d0+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+6 25 25 25 25 25 25 0 0 0 0 0 
 #21077
 key~
 a newly created key~
 Some god abandoned a newly created key here.
 ~
 ~
-1 0 0 S
+1 0 0 V
 1 0 0 0d0+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+4 25 25 25 25 25 25 0 0 0 0 0 
 #21078
 key~
 a newly created key~
 Some god abandoned a newly created key here.
 ~
 ~
-1 0 0 S
+1 0 0 V
 1 0 0 0d0+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+3 25 25 25 25 25 25 0 0 0 0 0 
 #21079
 key~
 a newly created key~
 Some god abandoned a newly created key here.
 ~
 ~
-1 0 0 S
+1 0 0 V
 1 0 0 0d0+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 25 25 25 25 25 25 0 0 0 0 0 
 #21080
 key~
 a newly created key~
 Some god abandoned a newly created key here.
 ~
 ~
-1 0 0 S
+1 0 0 V
 1 0 0 0d0+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+4 25 25 25 25 25 25 0 0 0 0 0 
 #21415
 newbie mob~
 a newly created newbie mob~
 Some god abandoned a newly created newbie mob here.
 ~
 ~
-1073741825 0 0 S
+1073741825 0 0 V
 1 0 0 0d0+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+3 25 25 25 25 25 25 0 0 0 0 0 
 #21416
 newbie mob~
 a newly created newbie mob~
 Some god abandoned a newly created newbie mob here.
 ~
 ~
-1073741825 0 0 S
+1073741825 0 0 V
 1 0 0 0d0+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 25 25 25 25 25 25 0 0 0 0 0 
 #21420
 dark figure assassin~
 the assassin~
@@ -980,14 +1155,16 @@ like a cloak.  His gaze bores into your soul, and he appears to beckon
 you over to speak with him.  The glint of steel by his side alerts you
 that this man is probably an assassin.
 ~
-3 4227112 0 C
+3 4227112 0 V
 10 0 0 1d1+200 0d0+0
-0 0
+0
+0 0 0
 112 112 0
 18 13 13 16 13 13 13
 0 0 0 0 -10
 0 3 0 0 1 1 1
 0 0 0 0 3072 0 0 2
+3 50 50 50 50 50 50 0 0 0 0 0 
 > all_greet_prog 25~
 if isnpc($n)
 else
@@ -1051,28 +1228,32 @@ Kinalsta~
 A proud man stands here, deliberating over his theories.
 ~
 ~
-1073742851 4194344 0 C
+1073742851 4194344 0 V
 51 0 0 1d1+30000 100d10+1000
-0 0
+0
+0 0 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 7 0 0 1 1 0
 0 0 47 0 3156992 0 0 0
+4 240 240 240 240 240 240 0 0 0 0 0 
 #21434
 woman demon female~
 The woman~
 A pitiful demon cowers behind a failed aura of evil.
 ~
 ~
-3 128 -750 C
+3 128 -750 V
 1 0 0 1d0+100 0d0+0
-1 0
+0
+0 0 1
 112 112 2
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 1 0 0 1 1 0
 0 0 9 0 4194303 0 0 0
+0 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 100~
 mpechoat $n You hear a ghastly howl.
 say You think you may have killed me, but I will be avenged!
@@ -1091,10 +1272,16 @@ a newly created final mob~
 Some god abandoned a newly created final mob here.
 ~
 ~
-1073741825 0 0 S
+1073741825 0 0 V
 1 0 0 0d0+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+3 25 25 25 25 25 25 0 0 0 0 0 
 #0
 
 
@@ -1106,7 +1293,7 @@ A glowing violet potion has been carelessly left here.~
 ~
 10 321 1
 25 -1 -1 -1
-2 61000 6100
+2 6 10 0 6100
 'heal' 'NONE' 'NONE'
 E
 violet~
@@ -1119,7 +1306,7 @@ A glowing purple potion has been carelessly left here.~
 ~
 10 65 1
 25 -1 -1 -1
-2 6500 650
+2 0 65 0 650
 'cure critical' 'NONE' 'NONE'
 #21002
 puce potion glowing~
@@ -1128,7 +1315,7 @@ A glowing puce potion has been carelessly left here.~
 ~
 10 65 1
 10 -1 -1 -1
-2 2400 240
+2 0 24 0 240
 'cure serious' 'NONE' 'NONE'
 #21003
 potion maroon glowing~
@@ -1137,7 +1324,7 @@ A glowing maroon potion has been carelessly left here.~
 ~
 10 65 1
 1 -1 -1 -1
-2 750 75
+2 0 7 50 75
 'cure light' 'NONE' 'NONE'
 #21004
 potion blue glowing~
@@ -1145,8 +1332,8 @@ glowing blue potion~
 A glowing blue potion has been carelessly left here.~
 ~
 10 65 1
-22 -1 131 -1
-2 15000 1500
+22 -1 -1 -1
+2 1 50 0 1500
 'restore mana' 'restore mana' 'NONE'
 #21005
 scroll recall~
@@ -1155,7 +1342,7 @@ A scroll of recall has been carelessly left here.~
 ~
 2 64 1
 1 -1 -1 -1
-1 200 20
+1 0 2 0 20
 'word of recall' 'NONE' 'NONE'
 #21006
 tablet magical identify~
@@ -1164,7 +1351,7 @@ A magical tablet has been carelessly left here.~
 ~
 2 64 1
 1 -1 -1 -1
-1 400 40
+1 0 4 0 40
 'identify' 'NONE' 'NONE'
 #21007
 scroll detect invis~
@@ -1173,7 +1360,7 @@ A scroll of detect invisibility has been left here.~
 ~
 2 64 1
 5 -1 -1 -1
-1 2000 200
+1 0 20 0 200
 'detect invis' 'NONE' 'NONE'
 #21008
 beer bottle~
@@ -1182,7 +1369,7 @@ A small bottle, tipped on its side, drips on the ground.~
 ~
 17 0 16385
 5 5 1 0
-1 100 10
+1 0 1 0 10
 #21009
 whiskey bottle~
 a bottle of whiskey~
@@ -1190,7 +1377,7 @@ A bottle of whiskey spills drops on the ground.~
 ~
 17 0 16385
 10 10 5 0
-1 50 5
+1 0 0 50 5
 #21010
 mug ale~
 a mug of ale~
@@ -1198,7 +1385,7 @@ A large mug of ale sits here.~
 ~
 17 0 16385
 12 12 4 0
-1 75 7
+1 0 0 75 7
 #21014
 salami~
 a slice of salami~
@@ -1206,7 +1393,7 @@ A slice of salami sits in the dirt.~
 ~
 19 0 1
 1 0 0 0
-1 50 5
+1 0 0 50 5
 #21015
 beef~
 a big chunk of beef~
@@ -1214,7 +1401,7 @@ A large chunk of raw beef lies here.~
 ~
 19 0 1
 5 0 0 0
-5 100 10
+5 0 1 0 10
 #21016
 turkey~
 a cooked turkey~
@@ -1222,7 +1409,7 @@ A cooked bird, which looks quite edible, lies in the dirt.~
 ~
 19 0 1
 10 0 0 0
-2 200 20
+2 0 2 0 20
 #21017
 bottle milk~
 a bottle of milk~
@@ -1230,7 +1417,7 @@ A bottle of milk sits upright on the ground.~
 ~
 17 0 16385
 10 10 10 0
-3 100 10
+3 0 1 0 10
 #21018
 wheel cheese~
 a wheel of cheese~
@@ -1238,7 +1425,7 @@ A round wheel of cheese looks very good.~
 ~
 19 0 16385
 5 0 0 0
-3 250 25
+3 0 2 50 25
 #21019
 lemonade cup~
 a cup of lemonade~
@@ -1246,7 +1433,7 @@ A cup of lemonade makes your thirst quench easily.~
 ~
 17 0 16385
 2 2 6 0
-1 50 5
+1 0 0 50 5
 #21020
 cake~
 a chocolate cake~
@@ -1254,7 +1441,7 @@ A large chocolate cake awaits someone to eat it.~
 ~
 19 0 16385
 10 0 0 0
-1 150 15
+1 0 1 50 15
 #21021
 loaf bread~
 a loaf of bread~
@@ -1262,7 +1449,7 @@ A scrumptious loaf of bread lies here, making your taste buds swirl.~
 ~
 19 0 1
 4 0 0 0
-2 150 15
+2 0 1 50 15
 #21022
 cherry pie~
 a cherry pie~
@@ -1270,7 +1457,7 @@ A cherry pie makes your mouth water.~
 ~
 19 0 16385
 4 0 0 0
-1 100 10
+1 0 1 0 10
 #21023
 quill~
 a writing quill~
@@ -1278,7 +1465,7 @@ A writing quill lies on the ground, unowned.~
 ~
 21 0 1
 0 0 0 0
-1 30 3
+1 0 0 30 3
 #21024
 raft~
 a sturdy raft~
@@ -1286,7 +1473,7 @@ A large raft blocks a little of the road.~
 ~
 22 0 1
 0 0 0 0
-5 100 10
+5 0 1 0 10
 #21025
 canoe~
 a canoe~
@@ -1294,7 +1481,7 @@ A large canoe has been left here, looking as though it just went over rapids.~
 ~
 22 0 1
 0 0 0 0
-10 500 50
+10 0 5 0 50
 #21034
 warrior guild board~
 the board of the warrior guild~
@@ -1302,7 +1489,7 @@ The board of the Warrior Guild hangs here.~
 ~
 12 6 0
 0 0 0 0
-1 0 0
+1 0 0 0 0
 #21035
 ranger guild board~
 the ranger guild board~
@@ -1310,7 +1497,7 @@ The board of the Ranger Guild hangs here.~
 ~
 12 0 0
 0 0 0 0
-1001 0 0
+1001 0 0 0 0
 #21037
 mage guild board~
 the board of the mage guild~
@@ -1318,7 +1505,7 @@ The board of the Mage Guild hangs here.~
 ~
 12 1 0
 0 0 0 0
-1001 0 0
+1001 0 0 0 0
 #21038
 tome board nature~
 the Tome of Nature~
@@ -1326,7 +1513,7 @@ A mystical tome with sickened yellow pages rests here.~
 ~
 12 262144 0
 0 0 0 0
-1001 0 0
+1001 0 0 0 0
 #21039
 cleric guild board~
 the board of the cleric guild~
@@ -1334,7 +1521,7 @@ The board of the Cleric Guild hangs here.~
 ~
 12 257 0
 0 0 0 0
-1001 0 0
+1001 0 0 0 0
 #21040
 thief guild board~
 the board of the thief guild~
@@ -1342,7 +1529,7 @@ The board of the Thief Guild hangs here.~
 ~
 12 4 0
 0 0 0 0
-1001 0 0
+1001 0 0 0 0
 #21041
 vampire guild board~
 the board of the vampire guild~
@@ -1350,7 +1537,7 @@ The board of the Vampire Guild hangs here.~
 ~
 12 20 0
 0 0 0 0
-1001 0 0
+1001 0 0 0 0
 #21042
 board general~
 the general board~
@@ -1358,7 +1545,7 @@ The Darkhaven board hangs here.~
 ~
 12 0 0
 0 0 0 0
-1001 0 0
+1001 0 0 0 0
 E
 book~
 ~
@@ -1369,7 +1556,7 @@ A sparkling crystal wand has been left lying here.~
 ~
 3 65 16385
 12 3 3 -1
-1 1000 100
+1 0 10 0 100
 'refresh'
 #21046
 bag rune-covered~
@@ -1378,7 +1565,7 @@ A strange bag, covered in runes, has been left here.~
 ~
 15 65 1
 75 1 0 1
-1 1000 100
+1 0 10 0 100
 #21048
 mail board stack~
 a stack of mail~
@@ -1386,7 +1573,7 @@ A stack of mail is piled high here.~
 ~
 12 0 0
 0 0 0 0
-1001 0 0
+1001 0 0 0 0
 #21049
 ball light~
 a bright ball of light~
@@ -1394,7 +1581,7 @@ A bright ball of light shimmers in the air.~
 ~
 1 65 1
 0 0 -1 0
-1 100 10
+1 0 1 0 10
 #21055
 thief ring~
 a thief's ring~
@@ -1402,7 +1589,7 @@ A ring which will bring good luck lies here.~
 ~
 9 1074479104 3
 3 3 0 0
-1 500 50
+1 0 5 0 50
 A
 31 2
 #21056
@@ -1412,7 +1599,7 @@ An iron ring has fallen here.~
 ~
 9 65 3
 3 3 0 0
-1 500 50
+1 0 5 0 50
 E
 ring~
 Rumors say that these rings protect from magical enchantments...
@@ -1428,7 +1615,7 @@ An iron neck guard has fallen here.~
 ~
 9 0 5
 5 5 0 0
-3 600 60
+3 0 6 0 60
 #21058
 crested plate~
 a crested breastplate~
@@ -1436,7 +1623,7 @@ A breastplate has fallen here.~
 ~
 9 0 9
 6 6 0 0
-8 1000 100
+8 0 10 0 100
 #21059
 iron helm~
 an iron helm~
@@ -1444,7 +1631,7 @@ An iron helm has fallen here.~
 ~
 9 0 17
 5 5 0 0
-8 800 80
+8 0 8 0 80
 #21060
 mail leggings~
 mail leggings~
@@ -1452,7 +1639,7 @@ A set of mail leggings has fallen here.~
 ~
 9 0 33
 4 4 0 0
-4 300 30
+4 0 3 0 30
 #21061
 boots black~
 black boots~
@@ -1460,7 +1647,7 @@ A set of boots has fallen here.~
 ~
 9 0 65
 4 4 0 0
-2 200 20
+2 0 2 0 20
 #21062
 chain sleeves~
 chain sleeves~
@@ -1468,7 +1655,7 @@ A set of chain sleeves has fallen here.~
 ~
 9 0 257
 5 5 0 0
-3 400 40
+3 0 4 0 40
 #21063
 iron gauntlets~
 iron gauntlets~
@@ -1476,7 +1663,7 @@ Some iron gauntlets have fallen here.~
 ~
 9 0 129
 5 5 0 0
-4 400 40
+4 0 4 0 40
 #21064
 iron bracer~
 an iron bracer~
@@ -1484,7 +1671,7 @@ An iron bracer has fallen here.~
 ~
 9 0 4097
 4 4 0 0
-2 100 10
+2 0 1 0 10
 #21065
 iron shield~
 an iron shield~
@@ -1492,7 +1679,7 @@ An iron shield has fallen here.~
 ~
 9 0 513
 7 7 0 0
-6 600 60
+6 0 6 0 60
 #21066
 iron visor~
 an iron visor~
@@ -1500,7 +1687,7 @@ An iron visor has fallen here.~
 ~
 9 0 131073
 3 4 0 0
-1 100 10
+1 0 1 0 10
 #21067
 torch~
 a torch~
@@ -1508,7 +1695,7 @@ A plain wooden torch has been left lying here.~
 ~
 1 0 1
 0 0 24 0
-1 10 1
+1 0 0 10 1
 #21068
 wooden bow~
 a wooden bow~
@@ -1516,7 +1703,7 @@ A wooden bow has fallen here.~
 ~
 56 0 262145
 10 0 0 14 1 0
-3 300 30
+3 0 3 0 30
 A
 18 1
 A
@@ -1528,7 +1715,7 @@ A longsword has fallen here.~
 ~
 5 524288 8193
 10 0 0 3
-6 300 30
+6 0 3 0 30
 #21070
 key~
 the key to the western gate of Darkhaven~
@@ -1536,7 +1723,7 @@ The key to the western gate of Darkhaven lies here.~
 ~
 9 0 16385
 0 0 0 0
-1 1000 100
+1 0 10 0 100
 #21071
 key~
 the key to the northern gate of Darkhaven~
@@ -1544,7 +1731,7 @@ The key to Darkhaven's northern gate lies here.~
 ~
 9 0 16385
 0 0 0 0
-1 1000 100
+1 0 10 0 100
 #21072
 key~
 the key to the eastern gate of Darkhaven~
@@ -1552,7 +1739,7 @@ The key to Darkhaven's eastern gate lies here.~
 ~
 9 0 16385
 0 0 0 0
-1 1000 100
+1 0 10 0 100
 #21073
 key~
 the key to the southern gate of Darkhaven~
@@ -1560,7 +1747,7 @@ The key to Darkhaven's southern gate lies here.~
 ~
 9 0 16385
 0 0 0 0
-1 1000 100
+1 0 10 0 100
 #21076
 leather shirt~
 a leather shirt~
@@ -1568,7 +1755,7 @@ Someone has left a leather shirt lying here.~
 ~
 9 0 9
 3 3 0 0
-4 200 20
+4 0 2 0 20
 #21077
 pants leather~
 some leather pants~
@@ -1576,7 +1763,7 @@ Some leather pants are lying here.~
 ~
 9 0 33
 2 3 0 0
-2 150 15
+2 0 1 50 15
 #21078
 leather sleeves~
 some leather sleeves~
@@ -1584,7 +1771,7 @@ Some leather sleeves have been abandoned here.~
 ~
 9 0 257
 1 3 0 0
-1 75 7
+1 0 0 75 7
 #21079
 leather boots~
 some leather boots~
@@ -1592,7 +1779,7 @@ A pair of leather boots are lying here.~
 ~
 9 0 65
 2 2 0 0
-2 125 12
+2 0 1 25 12
 #21080
 leather gloves pair~
 a pair of leather gloves~
@@ -1600,7 +1787,7 @@ Two leather gloves are lying on the ground.~
 ~
 9 0 129
 1 3 0 0
-1 100 10
+1 0 1 0 10
 #21081
 steel dagger~
 a steel dagger~
@@ -1608,7 +1795,7 @@ A gleaming dagger shines brightly here.~
 ~
 5 524288 8193
 0 0 0 11
-1 100 10
+1 0 1 0 10
 #21082
 iron mace~
 an iron mace~
@@ -1616,7 +1803,7 @@ An iron mace has been carelessly left here.~
 ~
 5 524288 8193
 7 4 0 0
-4 200 20
+4 0 2 0 20
 #21083
 key~
 inn key~
@@ -1624,7 +1811,7 @@ This item doesn't need a long :P~
 ~
 18 0 1
 0 0 0 0
-1 0 0
+1 0 0 0 0
 #21084
 salve~
 Sample Salve~
@@ -1632,7 +1819,7 @@ A sample of Salve lies here~
 ~
 60 0 16385
 10 5 5 5 -1 -1
-1 0 0
+1 0 0 0 0
 'heal' 'cure poison'
 #21085
 arrow~
@@ -1641,7 +1828,7 @@ A magical arrow lies here.~
 ~
 57 64 278529
 0 0 0 14
-1 0 0
+1 0 0 0 0
 #21086
 flint~
 A shard of flint~
@@ -1649,7 +1836,7 @@ A shard of flint lies here.~
 ~
 8 64 1
 0 0 0 0
-1 0 0
+1 0 0 0 0
 #21087
 bow~
 a newly created bow~
@@ -1657,7 +1844,7 @@ Some god dropped a newly created bow here.~
 ~
 13 1073741824 0
 0 0 0 0
-1 0 0
+1 0 0 0 0
 #21094
 ring golden band~
 a strange golden band~
@@ -1665,7 +1852,7 @@ A strange golden band has been left lying here.~
 ~
 9 65 3
 2 2 0 0
-1 10000 1000
+1 1 0 0 1000
 A
 27 3072
 #21111
@@ -1675,7 +1862,7 @@ A painting of a glorious manor house hangs on the wall, catching your eye.~
 ~
 12 256 0
 0 0 0 0
-1 0 0
+1 0 0 0 0
 E
 painting manor house~
 You move closer to take a look at the image in the painting.  The home is
@@ -1697,7 +1884,7 @@ A dark, solemn painting hangs here in the shadows, collecting dust.~
 ~
 12 4 0
 0 0 0 0
-50 0 0
+50 0 0 0 0
 E
 solemn painting unholy~
 Gazing at the painting, you find yourself entranced by the image of a
@@ -1724,7 +1911,7 @@ A freshly smoked rabbit lies here giving off a hickory scent.~
 %s savour$q a piece of $p.~
 19 0 1
 10 0 0 0
-2 200 20
+2 0 2 0 20
 #21134
 roast quail~
 Roast Quail~
@@ -1732,7 +1919,7 @@ A plump roast quail has been carelessly left on the ground here.~
 %s delicately nibble$q on a piece of $p.~
 19 0 1
 10 0 0 0
-2 200 20
+2 0 2 0 20
 #21135
 chanterelle mushrooms~
 some freshly picked chanterelle mushrooms~
@@ -1740,7 +1927,7 @@ Some freshly picked chanterelle mushrooms have been left behind here.~
 %s savor$q $p.~
 19 0 1
 10 0 0 0
-2 200 20
+2 0 2 0 20
 #21136
 bag black walnuts~
 a bag of fresh black walnuts~
@@ -1748,7 +1935,7 @@ Walnut shells lie discarded around a small burlap bag left here.~
 %s quickly down$q $p.~
 19 0 1
 10 0 0 0
-2 200 20
+2 0 2 0 20
 #21137
 leg lamb~
 a leg of lamb~
@@ -1756,7 +1943,7 @@ A freshly cooked leg of lamb has been dropped here.~
 %s savagely gnaw$q on $p.~
 19 8192 1
 10 0 0 0
-2 200 20
+2 0 2 0 20
 #21138
 wild mustard greens~
 some wild mustard greens~
@@ -1764,7 +1951,7 @@ Some freshly gathered wild mustard greens have been forgotten here.~
 %s quickly eat$q $p.~
 19 0 1
 10 0 0 0
-2 200 20
+2 0 2 0 20
 #21139
 sunflower seeds~
 a handful of sunflower seeds~
@@ -1772,7 +1959,7 @@ A handfull of salty sunflower seeds has been left hhere.~
 %s quickly consume$q $p.~
 19 0 1
 10 0 0 0
-2 200 20
+2 0 2 0 20
 #21420
 parchment opaque~
 an opaque parchment~
@@ -1780,7 +1967,7 @@ A piece of opaque parchment lies here absorbing the light.~
 ~
 35 2 1
 0 0 0 0
-1 45000 4500
+1 4 50 0 4500
 E
 parchment~
 You find you are suddenly able to read the ancient words transcribed upon the
@@ -1978,7 +2165,7 @@ The board of the Augurer Guild hangs here.~
 ~
 12 0 0
 0 0 0 0
-1 0 0
+1 0 0 0 0
 #0
 
 
@@ -8151,6 +8338,7 @@ M 0 21070 1 21340
 M 0 21431 1 21439
 O 0 21042 1 21174
 O 0 21435 1 21433
+M 0 21005 1 21194
 S
 
 

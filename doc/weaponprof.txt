@@ -1,0 +1,828 @@
+Weapon proficiencies patch
+---------------------------
+
+Written by Grimm <tacton@ns.utk.edu>
+Enhancements and upgrades by Samson of Alsherok
+
+Terms of Use
+------------
+
+1. You may use this snippet in your code provided that any included
+comment headers in the code are left intact. You may add your own, but
+do not take mine out.
+
+2. This snippet may not be posted for redistribution on any site
+without obtaining prior written consent from the Alsherok team.
+
+3. ( optional ) Register with the forums at http://forums.alsherok.net
+Registration is not required to make use of the snippet, but since I no
+longer provide email support for any of the code I release, forum posts
+are your only avenue for direct support. This may seem overly stupid,
+but you can blame the continuing abuse I suffer from spammers for this.
+Don't post stuff to TMC or TMS asking about my code. I'm highly unlikely
+to ever notice it there on the rare ocassions I skim posts in either place.
+
+If forum registration doesn't appeal to you, then you can try to get ahold
+of me via IMC on the code channel.
+
+If you can't agree to these terms, don't use this code, and don't expect
+me to help if something breaks while installing it. Harsh? Hardly. I'm
+tired of people who come crawling to whine and complain when they haven't
+bothered to comply with the terms first.
+
+What this code does
+-------------------
+
+This code changes the way weapon profficiencies are dealt with.
+Instead of relying on the type of damage a weapon or projectile does,
+it simply creates a new set of weapon types, which can then have
+different damage types assigned to them. This allows for much greater
+flexibility in weapon and projectile design. You can now have things
+like piercing swords, or slashing daggers, etc. since the weapon type
+has been separated from its damage type.
+
+After you've installed this code, you will need to go over all your
+existing weapons and projectiles to make them work properly. If you do
+not fix the weapons and projectiles, then the skills each one requires
+for profficiency will be completely out of whack. It will, as Grimm says,
+also cause temporary skill shuffling for your players. They will be
+compensated by the code with extra practices so they can go and learn
+the new skills.
+
+Installation Instructions
+-------------------------
+
+1. Open fight.c and locate the function weapon_prof_bonus_check
+   Comment it out, and replace it with the following:
+
+/*
+ * Weapon types, haus
+ */
+int weapon_prof_bonus_check( CHAR_DATA * ch, OBJ_DATA * wield, int *gsn_ptr )
+{
+   int bonus;
+
+   bonus = 0;
+   *gsn_ptr = gsn_pugilism;   /* Change back to -1 if this fails horribly */
+   if( !IS_NPC( ch ) && wield )
+   {
+      switch ( wield->value[4] )
+      {
+            /*
+             * Restructured weapon system - Samson 11-20-99 
+             */
+         default:
+            *gsn_ptr = -1;
+            break;
+         case WEP_BAREHAND:
+            *gsn_ptr = gsn_pugilism;
+            break;
+         case WEP_SWORD:
+            *gsn_ptr = gsn_swords;
+            break;
+         case WEP_DAGGER:
+            *gsn_ptr = gsn_daggers;
+            break;
+         case WEP_WHIP:
+            *gsn_ptr = gsn_whips;
+            break;
+         case WEP_TALON:
+            *gsn_ptr = gsn_talonous_arms;
+            break;
+         case WEP_MACE:
+            *gsn_ptr = gsn_maces_hammers;
+            break;
+         case WEP_ARCHERY:
+            *gsn_ptr = gsn_archery;
+            break;
+         case WEP_BLOWGUN:
+            *gsn_ptr = gsn_blowguns;
+            break;
+         case WEP_SLING:
+            *gsn_ptr = gsn_slings;
+            break;
+         case WEP_AXE:
+            *gsn_ptr = gsn_axes;
+            break;
+         case WEP_SPEAR:
+            *gsn_ptr = gsn_spears;
+            break;
+         case WEP_STAFF:
+            *gsn_ptr = gsn_staves;
+            break;
+      }
+      if( *gsn_ptr != -1 )
+         bonus = ( int )( ( LEARNED( ch, *gsn_ptr ) - 50 ) / 10 );
+
+      /*
+       * Reduce weapon bonuses for misaligned clannies.
+       * if ( IS_CLANNED(ch) )
+       * {
+       * bonus = bonus / 
+       * ( 1 + abs( ch->alignment - ch->pcdata->clan->alignment ) / 1000 );
+       * }
+       */
+
+      if( IS_DEVOTED( ch ) )
+         bonus -= ch->pcdata->favor / -400;
+
+   }
+   return bonus;
+}
+
+     Locate the following code:
+
+        if ( dt == (TYPE_HIT + DAM_POUND) || dt == (TYPE_HIT + DAM_CRUSH)
+        ||   dt == (TYPE_HIT + DAM_STONE) || dt == (TYPE_HIT + DAM_PEA) )
+          dam = ris_damage(victim, dam, RIS_BLUNT);
+        else
+        if ( dt == (TYPE_HIT + DAM_STAB) || dt == (TYPE_HIT + DAM_PIERCE)
+        ||   dt == (TYPE_HIT + DAM_BITE) || dt == (TYPE_HIT + DAM_BOLT)
+        ||   dt == (TYPE_HIT + DAM_DART) || dt == (TYPE_HIT + DAM_ARROW) )
+          dam = ris_damage(victim, dam, RIS_PIERCE);
+        else
+        if ( dt == (TYPE_HIT + DAM_SLICE) || dt == (TYPE_HIT + DAM_SLASH)
+        ||   dt == (TYPE_HIT + DAM_WHIP)  || dt == (TYPE_HIT + DAM_CLAW) )
+          dam = ris_damage(victim, dam, RIS_SLASH);
+      
+     And replace it with this:
+
+         /*
+          * Added checks for the 3 new dam types, and removed DAM_PEA - Grimm 
+          * Removed excess duplication, added hack and lash RIS types - Samson 1-9-00 
+          */
+      if( dt == ( TYPE_HIT + DAM_CRUSH ) )
+         dam = ris_damage( victim, dam, RIS_BLUNT );
+      else if( dt == ( TYPE_HIT + DAM_STAB ) || dt == ( TYPE_HIT + DAM_PIERCE ) || dt == ( TYPE_HIT + DAM_THRUST ) )
+         dam = ris_damage( victim, dam, RIS_PIERCE );
+      else if( dt == ( TYPE_HIT + DAM_SLASH ) )
+         dam = ris_damage( victim, dam, RIS_SLASH );
+      else if( dt == ( TYPE_HIT + DAM_HACK ) )
+         dam = ris_damage( victim, dam, RIS_HACK );
+      else if( dt == ( TYPE_HIT + DAM_LASH ) )
+         dam = ris_damage( victim, dam, RIS_LASH );
+
+2. In db.c, locate the following code:
+
+     /* weaponry */
+sh_int                  gsn_pugilism;
+sh_int                  gsn_long_blades;
+sh_int                  gsn_short_blades;
+sh_int                  gsn_flexible_arms;
+sh_int                  gsn_talonous_arms;
+sh_int                  gsn_bludgeons;
+sh_int                  gsn_shieldwork;
+sh_int                  gsn_missile_weapons;
+
+   And replace it with this:
+
+/* weaponry */
+/* changed to reflect new weapon types - Grimm */
+short gsn_pugilism;
+short gsn_swords;
+short gsn_daggers;
+short gsn_whips;
+short gsn_talonous_arms;
+short gsn_maces_hammers;
+short gsn_blowguns;
+short gsn_slings;
+short gsn_axes;
+short gsn_spears;
+short gsn_staves;
+short gsn_archery;
+
+    Also in db.c, locate the following code:
+
+        ASSIGN_GSN( gsn_pugilism,       "pugilism" );
+        ASSIGN_GSN( gsn_long_blades,    "long blades" );
+        ASSIGN_GSN( gsn_short_blades,   "short blades" );
+        ASSIGN_GSN( gsn_flexible_arms,  "flexible arms" );
+        ASSIGN_GSN( gsn_talonous_arms,  "talonous arms" );
+        ASSIGN_GSN( gsn_bludgeons,      "bludgeons" );
+        ASSIGN_GSN( gsn_missile_weapons,"missile weapons" );
+
+    And replace it with this:
+
+      /*
+       * new gsn assigns for the new weapon skills - Grimm 
+       */
+      ASSIGN_GSN( gsn_pugilism, "pugilism" );
+      ASSIGN_GSN( gsn_swords, "swords" );
+      ASSIGN_GSN( gsn_daggers, "daggers" );
+      ASSIGN_GSN( gsn_whips, "whips" );
+      ASSIGN_GSN( gsn_talonous_arms, "talonous arms" );
+      ASSIGN_GSN( gsn_maces_hammers, "maces and hammers" );
+      ASSIGN_GSN( gsn_blowguns, "blowguns" );
+      ASSIGN_GSN( gsn_slings, "slings" );
+      ASSIGN_GSN( gsn_axes, "axes" );
+      ASSIGN_GSN( gsn_spears, "spears" );
+      ASSIGN_GSN( gsn_staves, "staves" );
+      ASSIGN_GSN( gsn_archery, "archery" );
+
+3. In skills.c, locate the following code:
+
+ch_ret ranged_got_target( CHAR_DATA *ch, CHAR_DATA *victim, OBJ_DATA *weapon,
+        OBJ_DATA *projectile, sh_int dist, sh_int dt, char *stxt, sh_int color )
+{
+
+    And on the next line add this:
+
+    /* added wtype for check to determine skill used for ranged attacks - Grimm */
+    short wtype = 0;
+
+    Locate the following code in the same function:
+
+            learn_from_failure( ch, gsn_missile_weapons );
+
+            /* 50% chance of projectile getting lost */
+            if ( number_percent() < 50 )
+                extract_obj(projectile);
+            else
+
+    And replace it with this:
+
+         /* check dam type of projectile to determine skill to use - Grimm */
+         switch( projectile->value[3] )
+         {
+            case 13:
+            case 14:
+               learn_from_failure( ch, gsn_archery );
+               break;
+
+            case 15:                           
+               learn_from_failure( ch, gsn_blowguns );
+               break;
+
+            case 16:
+               learn_from_failure( ch, gsn_slings );
+               break;
+         }
+
+         /* 50% chance of projectile getting lost */
+         if( number_percent() < 50 )
+            extract_obj(projectile);
+         else
+
+
+    Still within the same function, locate the following code:
+ 
+    if ( number_percent() > 50 || (projectile && weapon
+    &&   can_use_skill(ch, number_percent(), gsn_missile_weapons)) )
+
+    And replace it with the following:
+
+   /* check dam type of projectile to determine value of wtype 
+    * wtype points to same "sh_int" as the skill assigned to that
+    * range by the code and as such the proper skill will be used. 
+    * Grimm 
+    */
+   switch( projectile->value[3] )
+   {
+      case 13: case 14: wtype = gsn_archery; break;
+      case 15: wtype = gsn_blowguns; break;
+      case 16: wtype = gsn_slings; break;
+   }
+ 
+   if( number_percent() > 50 || (projectile && weapon && can_use_skill(ch, number_percent(), wtype)) )
+
+
+    Also still in the same function find the next occurance of:
+
+        learn_from_failure( ch, gsn_missile_weapons );
+        global_retcode = damage( ch, victim, 0, dt );
+
+    And replace it with this:
+
+      switch( projectile->value[3] )
+      {
+         case 13:
+         case 14:
+            learn_from_failure( ch, gsn_archery );
+            break;
+
+         case 15:
+            learn_from_failure( ch, gsn_blowguns );
+            break;
+
+         case 16:
+            learn_from_failure( ch, gsn_slings );
+            break;
+      }
+      global_retcode = damage( ch, victim, 0, dt );
+
+    Locate function do_backstab and find the following code:
+
+    /* Added stabbing weapon. -Narn */
+    if ( ( obj = get_eq_char( ch, WEAR_WIELD ) ) == NULL
+    ||   ( obj->value[3] != 11 && obj->value[3] != 2 ) )
+    {
+	send_to_char( "You need to wield a piercing or stabbing weapon.\r\n", ch );
+	return;
+    }
+
+    Replace that with the following code:
+
+   /* Added stabbing weapon. -Narn */
+   if( !( obj = get_eq_char( ch, WEAR_WIELD ) ) )
+   {
+      send_to_char( "You need to wield a piercing or stabbing weapon.\r\n", ch );
+      return;
+   }
+
+   if( obj->value[4] != WEP_DAGGER )
+   {
+      if( ( obj->value[4] == WEP_SWORD && obj->value[3] != DAM_PIERCE ) || obj->value[4] != WEP_SWORD )
+      {
+         send_to_char( "You need to wield a piercing or stabbing weapon.\r\n", ch );
+         return;
+      }
+   }
+
+    Locate function do_circle and find the following code:
+
+    if ( ( obj = get_eq_char( ch, WEAR_WIELD ) ) == NULL
+    ||   ( obj->value[3] != 11 && obj->value[3] != 2 ) )
+    {
+	send_to_char( "You need to wield a piercing or stabbing weapon.\r\n", ch );
+	return;
+    }
+
+    Replace that with the following code:
+
+   if( !( obj = get_eq_char( ch, WEAR_WIELD ) ) )
+   {
+      send_to_char( "You need to wield a piercing or stabbing weapon.\r\n", ch );
+      return;
+   }
+
+   if( obj->value[4] != WEP_DAGGER )
+   {
+      if( ( obj->value[4] == WEP_SWORD && obj->value[3] != DAM_PIERCE ) || obj->value[4] != WEP_SWORD )
+      {
+         send_to_char( "You need to wield a piercing or stabbing weapon.\r\n", ch );
+         return;
+      }
+   }
+
+   Locate function do_fire and find the following:
+
+    if ( (arrow=find_projectile(ch, bow->value[3])) == NULL )
+    {
+	char *msg = "You have nothing to fire...\r\n";
+
+	switch( bow->value[3] )
+	{
+	    case DAM_BOLT:	msg = "You have no bolts...\r\n";	break;
+	    case DAM_ARROW:	msg = "You have no arrows...\r\n";	break;
+	    case DAM_DART:	msg = "You have no darts...\r\n";	break;
+	    case DAM_STONE:	msg = "You have no slingstones...\r\n";	break;
+	    case DAM_PEA:	msg = "You have no peas...\r\n";	break;
+	}
+	send_to_char( msg, ch );
+	return;
+    }
+
+   Change that code to read as follows:
+
+   if( !( arrow = find_projectile( ch, bow->value[4] ) ) )
+   {
+      char *msg = "You have nothing to fire...\r\n";
+
+      switch( bow->value[5] )
+      {
+         case PROJ_BOLT:  msg = "You have no bolts...\r\n";	break;
+         case PROJ_ARROW: msg = "You have no arrows...\r\n";	break;
+         case PROJ_DART:  msg = "You have no darts...\r\n";	break;
+         case PROJ_STONE: msg = "You have no slingstones...\r\n";	break;
+      }
+      send_to_char( msg, ch );
+      return;
+   }
+
+4. In mud.h, 
+
+   Locate the RIS flags and add RIS_HACK and RIS_LASH in the next available BV slots.
+
+Then locate the following section:
+
+/*
+ * Damage types from the attack_table[]
+ */
+typedef enum
+{
+   DAM_HIT, DAM_SLICE, DAM_STAB, DAM_SLASH, DAM_WHIP, DAM_CLAW,
+   DAM_BLAST, DAM_POUND, DAM_CRUSH, DAM_GREP, DAM_BITE, DAM_PIERCE,
+   DAM_SUCTION, DAM_BOLT, DAM_ARROW, DAM_DART, DAM_STONE, DAM_PEA
+} damage_types;
+
+Replace it with this:
+
+/*
+ * Damage types from the attack_table[]
+ */
+/* modified for new weapon_types - Grimm */
+/* Trimmed down to reduce duplicated types - Samson 1-9-00 */
+typedef enum
+{
+   DAM_HIT, DAM_SLASH, DAM_STAB, DAM_HACK, DAM_CRUSH, DAM_LASH,
+   DAM_PIERCE, DAM_THRUST, DAM_MAX_TYPE
+} damage_types;
+
+Directly following the above, place this:
+
+/* New Weapon type array for profficiency checks - Samson 11-20-99 */
+typedef enum
+{
+   WEP_BAREHAND, WEP_SWORD, WEP_DAGGER, WEP_WHIP, WEP_TALON, WEP_MACE,
+   WEP_ARCHERY, WEP_BLOWGUN, WEP_SLING, WEP_AXE, WEP_SPEAR, WEP_STAFF, WEP_MAX
+} weapon_types;
+
+/* New projectile type array for archery weapons - Samson 1-9-00 */
+typedef enum
+{
+   PROJ_BOLT, PROJ_ARROW, PROJ_DART, PROJ_STONE, PROJ_MAX
+} projectile_types;
+
+Locate the following section:
+
+extern  char *  const                   attack_table    [18];
+ 
+extern  char ** const                   s_message_table [18];
+extern  char ** const                   p_message_table [18];
+
+Replace it with this:
+
+extern char *attack_table[DAM_MAX_TYPE];
+extern char *attack_table_plural[DAM_MAX_TYPE];
+extern char **const s_message_table[DAM_MAX_TYPE];
+extern char **const p_message_table[DAM_MAX_TYPE];
+extern char *weapon_skills[WEP_MAX]; /* Used in spell_identify */
+extern char *projectiles[PROJ_MAX]; /* For archery weapons */
+
+
+Locate the following section:
+
+extern  sh_int  gsn_pugilism;
+extern  sh_int  gsn_long_blades;
+extern  sh_int  gsn_short_blades;
+extern  sh_int  gsn_flexible_arms;
+extern  sh_int  gsn_talonous_arms;
+extern  sh_int  gsn_bludgeons;
+extern  sh_int  gsn_missile_weapons;
+
+Replace it with this:
+
+/* changed to new weapon types - Grimm */
+extern short gsn_pugilism;
+extern short gsn_swords;
+extern short gsn_daggers;
+extern short gsn_whips;
+extern short gsn_talonous_arms;
+extern short gsn_maces_hammers;
+extern short gsn_blowguns;
+extern short gsn_slings;
+extern short gsn_axes;
+extern short gsn_spears;
+extern short gsn_staves;
+extern short gsn_archery;
+
+5. In const.c, locate the following code:
+
+char *  const   attack_table    [18] =
+{
+    "hit",
+    "slice",  "stab",    "slash", "whip",  "claw",
+    "blast",  "pound",   "crush", "grep",  "bite",
+    "pierce", "suction", "bolt",  "arrow", "dart",
+    "stone",  "pea"
+};
+
+  And replace it with this:
+
+/* removed "pea" and added chop, spear, smash - Grimm */
+/* Removed duplication in damage types - Samson 1-9-00 */
+char *attack_table[DAM_MAX_TYPE] =
+{
+   "hit", "slash", "stab", "hack", "crush", "lash", "pierce", "thrust"
+};
+
+char *attack_table_plural[DAM_MAX_TYPE] =
+{
+   "hits", "slashes", "stabs",  "hacks", "crushes", "lashes", "pierces", "thrusts"
+};
+
+char *weapon_skills[WEP_MAX] =
+{
+  "Barehand", "Sword", "Dagger", "Whip", "Talon",
+  "Mace", "Archery", "Blowgun", "Sling", "Axe", "Spear", "Staff"
+};
+
+char *projectiles[PROJ_MAX] =
+{
+   "Bolt", "Arrow", "Dart", "Stone"
+};
+
+  Locate the following:
+
+char ** const s_message_table[18] =
+{
+        s_generic_messages,     /* hit */
+        s_blade_messages,       /* slice */
+        s_blade_messages,       /* stab */
+        s_blade_messages,       /* slash */
+        s_blunt_messages,       /* whip */
+        s_blade_messages,       /* claw */
+        s_generic_messages,     /* blast */
+        s_blunt_messages,       /* pound */
+        s_blunt_messages,       /* crush */
+        s_generic_messages,     /* grep */
+        s_blade_messages,       /* bite */
+        s_blade_messages,       /* pierce */
+        s_blunt_messages,       /* suction */
+        s_generic_messages,     /* bolt */
+        s_generic_messages,     /* arrow */
+        s_generic_messages,     /* dart */
+        s_generic_messages,     /* stone */
+        s_generic_messages      /* pea */
+};
+ 
+char ** const p_message_table[18] =
+{
+        p_generic_messages,     /* hit */
+        p_blade_messages,       /* slice */
+        p_blade_messages,       /* stab */
+        p_blade_messages,       /* slash */
+        p_blunt_messages,       /* whip */
+        p_blade_messages,       /* claw */
+        p_generic_messages,     /* blast */
+        p_blunt_messages,       /* pound */
+        p_blunt_messages,       /* crush */
+        p_generic_messages,     /* grep */
+        p_blade_messages,       /* bite */
+        p_blade_messages,       /* pierce */
+        p_blunt_messages,       /* suction */
+        p_generic_messages,     /* bolt */
+        p_generic_messages,     /* arrow */
+        p_generic_messages,     /* dart */
+        p_generic_messages,     /* stone */
+        p_generic_messages      /* pea */
+};
+
+  And replace it with:
+
+char **const s_message_table[DAM_MAX_TYPE] =
+{
+   s_generic_messages,     /* hit */
+   s_blade_messages,       /* slash */
+   s_blade_messages,       /* stab */
+   s_blade_messages,       /* hack */
+   s_blunt_messages,       /* crush */
+   s_blunt_messages,       /* lash */
+   s_blade_messages,       /* pierce */
+   s_blade_messages,       /* thrust */
+};
+
+char **const p_message_table[DAM_MAX_TYPE] =
+{
+   p_generic_messages,     /* hit */
+   p_blade_messages,       /* slash */
+   p_blade_messages,       /* stab */
+   p_blade_messages,       /* hack */
+   p_blunt_messages,       /* crush */
+   p_blunt_messages,       /* lash */
+   p_blade_messages,       /* pierce */
+   p_blade_messages,       /* thrust */
+};
+
+6. Open update.c and locate the following code:
+
+	    /* backstabbing mobs (Thoric) */
+	    if ( IS_NPC(ch) && xIS_SET(ch->attacks, ATCK_BACKSTAB ) )
+	    {
+		OBJ_DATA *obj;
+
+		if ( !ch->mount
+    		&& (obj = get_eq_char( ch, WEAR_WIELD )) != NULL
+    		&& (obj->value[3] == 11 || obj->value[3] == 2)
+		&& !victim->fighting
+		&& victim->hit >= victim->max_hit )
+
+    Replace that with the following code:
+
+         /*
+          * backstabbing mobs (Thoric)
+          */
+         if ( IS_NPC(ch) && xIS_SET(ch->attacks, ATCK_BACKSTAB ) )
+         {
+            OBJ_DATA *obj;
+
+            if( !ch->mount
+             && (obj = get_eq_char( ch, WEAR_WIELD )) != NULL
+             && (obj->value[4] == WEP_DAGGER)
+             && !victim->fighting
+             && victim->hit >= victim->max_hit )
+
+7. Open magic.c and locate the following code in spell_identify:
+
+    case ITEM_WEAPON:
+	ch_printf( ch, "Damage is %d to %d (average %d)%s\r\n",
+	    obj->value[1], obj->value[2],
+	    ( obj->value[1] + obj->value[2] ) / 2,
+	    IS_OBJ_STAT( obj, ITEM_POISONED) ? ", and is poisonous." :
+	    "." );
+	break;
+
+    Replace that with the following code:
+
+         case ITEM_WEAPON:
+            ch_printf( ch, "Damage is %d to %d (average %d)%s\r\n",
+                       obj->value[1], obj->value[2],
+                       ( obj->value[1] + obj->value[2] ) / 2,
+                       IS_OBJ_STAT( obj, ITEM_POISONED ) ? ", and is poisonous." : "." );
+            ch_printf( ch, "Skill needed: %s\r\n", weapon_skills[obj->value[4]] );
+            ch_printf( ch, "Damage type:  %s\r\n", attack_table[obj->value[3]] );
+            break;
+
+         case ITEM_MISSILE_WEAPON:
+            ch_printf( ch, "Bonus damage added to projectiles is %d to %d (average %d).\r\n",
+                       obj->value[1], obj->value[2], ( obj->value[1] + obj->value[2] ) / 2 );
+            ch_printf( ch, "Skill needed:      %s\r\n", weapon_skills[obj->value[4]] );
+            ch_printf( ch, "Projectiles fired: %s\r\n", projectiles[obj->value[5]] );
+            break;
+
+         case ITEM_PROJECTILE:
+            ch_printf( ch, "Damage is %d to %d (average %d)%s\r\n",
+                       obj->value[1], obj->value[2],
+                       ( obj->value[1] + obj->value[2] ) / 2,
+                       IS_OBJ_STAT( obj, ITEM_POISONED ) ? ", and is poisonous." : "." );
+            ch_printf( ch, "Damage type: %s\r\n", attack_table[obj->value[3]] );
+            ch_printf( ch, "Projectile type: %s\r\n", projectiles[obj->value[4]] );
+            break;
+
+8. Open build.c and find the ris_flags array.
+
+Add "hack" and "lash" to the list in the spaces corresponding to where you added
+RIS_HACK and RIS_LASH in mud.h
+
+Then locate the following code in do_oset:
+
+    switch( obj->item_type )
+    {
+	case ITEM_WEAPON:
+	    if ( !str_cmp( arg2, "weapontype" ) )
+	    {
+		int x;
+
+		value = -1;
+		for ( x = 0; x < sizeof( attack_table ) / sizeof( attack_table[0] ); x++ )
+		  if ( !str_cmp( arg3, attack_table[x] ) )
+		    value = x;
+		if ( value < 0 )
+		{
+		    send_to_char( "Unknown weapon type.\r\n", ch );
+		    return;
+		}
+		tmp = 3;
+		break;
+	    }
+	    if ( !str_cmp( arg2, "condition" ) )	tmp = 0;
+	    break;
+
+    Replace that with the following code:
+
+   switch ( obj->item_type )
+   {
+      case ITEM_PROJECTILE:
+         if( !str_cmp( arg2, "missiletype" ) )
+         {
+            unsigned int x;
+
+            value = -1;
+            for( x = 0; x < sizeof( projectiles ) / sizeof( projectiles[0] ); x++ )
+               if( !str_cmp( arg3, projectiles[x] ) )
+                  value = x;
+            if( value < 0 )
+            {
+               send_to_char( "Unknown projectile type.\r\n", ch );
+               return;
+            }
+            tmp = 4;
+            break;
+         }
+
+         if( !str_cmp( arg2, "damtype" ) )
+         {
+            unsigned int x;
+
+            value = -1;
+            for( x = 0; x < sizeof( attack_table ) / sizeof( attack_table[0] ); x++ )
+               if( !str_cmp( arg3, attack_table[x] ) )
+                  value = x;
+            if( value < 0 )
+            {
+               send_to_char( "Unknown damage type.\r\n", ch );
+               return;
+            }
+            tmp = 3;
+            break;
+         }
+      case ITEM_WEAPON:
+         if( !str_cmp( arg2, "weapontype" ) )
+         {
+            unsigned int x;
+
+            value = -1;
+            for( x = 0; x < sizeof( weapon_skills ) / sizeof( weapon_skills[0] ); x++ )
+               if( !str_cmp( arg3, weapon_skills[x] ) )
+                  value = x;
+            if( value < 0 )
+            {
+               send_to_char( "Unknown weapon type.\r\n", ch );
+               return;
+            }
+            tmp = 4;
+            break;
+         }
+
+         if( !str_cmp( arg2, "damtype" ) )
+         {
+            unsigned int x;
+
+            value = -1;
+            for( x = 0; x < sizeof( attack_table ) / sizeof( attack_table[0] ); x++ )
+               if( !str_cmp( arg3, attack_table[x] ) )
+                  value = x;
+            if( value < 0 )
+            {
+               send_to_char( "Unknown damage type.\r\n", ch );
+               return;
+            }
+            tmp = 3;
+            break;
+         }
+         if( !str_cmp( arg2, "condition" ) )
+            tmp = 0;
+         break;
+
+9. Cut/paste this help text to replace the current "help weapontypes":
+   ( Change 104 to whatever level of player can make objects )
+
+104 WEAPONTYPES~
+For items of type "weapon", the value4 field specifies the weapon type:
+ 
+Value4 | Type
+---------------------------------------------------------
+   00  | barehand
+   01  | sword
+   02  | dagger
+   03  | whip
+   04  | talon (talonous arms)
+   05  | mace (includes hammer)
+   06  | archery (includes arrows and crossbow bolts)
+   07  | blowgun
+   08  | sling
+   09  | axe
+   10  | spear
+   11  | staff
+
+See also: OSET, MISSILES, WEAPONCONDITION, ITEMVALUES, DAMAGETYPES
+~
+
+10. Make clean, then recompile.
+
+11. The following list of skills will need to be created using sset, or
+   manually entered into skills.dat and each class file that needs them:
+
+daggers
+maces and hammers
+swords
+spears
+axes
+whips
+archery
+staves
+slings
+blowguns
+
+If there are any problems with this installation, feel free to post your
+question to the forums at http://forums.alsherok.net
+
+This code has been installed and tested on Smaug 1.6 FUSS, which is a bugfixed
+and cleaned up version of the base Smaug 1.4a code. The Smaug FUSS Project is
+maintained on servers which run the Redhat and Fedora family of Linux. Limited
+testing has also been done on the Cygwin package under WindowsXP SP1 and SP2.
+Users of BSD, MSVC, MSVC++, or Macintosh platforms are on their own as The
+Smaug FUSS Project does not have access to these development environments for testing.
+The Smaug FUSS Project can be found at: http://www.smaugfuss.org
+
+No guarantees are made that this code will be compatible with your codebase and any
+modifications you may have made to it. No warranty of any kind is expressed or implied
+by the use of this code, and we are not responsible for any damages which may result
+from the application of this snippet to your codebase.
+
+Adventure beckons in the lands of mystique....
+Samson, Implementor of Alsherok
+http://www.alsherok.net
+telnet://alsherok.net:5500
+
+IMC2 contact: Samson@Alsherok

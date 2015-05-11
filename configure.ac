@@ -561,6 +561,7 @@ AC_ARG_ENABLE(smaug2,
 if test "$enable_smaug2" = "yes"; then
 		AC_DEFINE([SMAUG2], [], [SMAUG Support])
 fi
+AM_CONDITIONAL([SMAUG2], [test "$enable_smaug2" = "yes"])
 
 # Enable OasisOLC Support (-DENABLE_OLC2) #
 AC_ARG_ENABLE(olc2,
@@ -592,16 +593,6 @@ if test "$enable_buildwalk" = "yes"; then
 fi
 AM_CONDITIONAL([ENABLE_BUILDWALK], [test "$enable_buildwalk" = "yes"])
 
-# Enable Undertaker Support (-DENABLE_UNDERTAKER) #
-AC_ARG_ENABLE(undertaker,
-              AC_HELP_STRING([--enable-undertaker],
-                             [enable Undertaker Support @<:@default=yes@:>@]),
-              [], [enable_undertaker=yes])
-if test "$enable_undertaker" = "yes"; then
-		AC_DEFINE([ENABLE_UNDERTAKER], [], [Undertaker Support])
-fi
-AM_CONDITIONAL([ENABLE_UNDERTAKER], [test "$enable_undertaker" = "yes"])
-
 # Enable Billion MAX_VNUM Support (-DBILLION_VNUM) #
 AC_ARG_ENABLE(bvnum,
               AC_HELP_STRING([--enable-bvnum],
@@ -620,6 +611,7 @@ AC_ARG_ENABLE(newscore,
 if test "$enable_newscore" = "yes"; then
 		AC_DEFINE([NEWSCORE], [], [New Score Tables])
 fi
+AM_CONDITIONAL([NEWSCORE], [test "$enable_newscore" = "yes"])
 
 # Player Show Stance (-DPLRSHOWSTANCE) #
 AC_ARG_ENABLE(showstance,
@@ -629,6 +621,17 @@ AC_ARG_ENABLE(showstance,
 if test "$enable_showstance" = "yes"; then
 		AC_DEFINE([PLRSHOWSTANCE], [], [Show Stances Score])
 fi
+AM_CONDITIONAL([PLRSHOWSTANCE], [test "$enable_showstance" = "yes"])
+
+# Enable Gold, Silver & Copper Support (-DENABLE_GOLD_SILVER_COPPER) #
+AC_ARG_ENABLE(gsc,
+              AC_HELP_STRING([--enable-gsc],
+                             [enable Gold, Silver & Copper Support @<:@default=yes@:>@]),
+              [], [enable_gsc=yes])
+if test "$enable_gsc" = "yes"; then
+		AC_DEFINE([ENABLE_GOLD_SILVER_COPPER], [], [Gold, Silver & Copper Support])
+fi
+AM_CONDITIONAL([ENABLE_GOLD_SILVER_COPPER], [test "$enable_gsc" = "yes"])
 
 # Enable Banking Support (-DBANK_INSTALLED) #
 AC_ARG_ENABLE(bank,
@@ -640,6 +643,16 @@ if test "$enable_bank" = "yes"; then
 fi
 AM_CONDITIONAL([BANK_INSTALLED], [test "$enable_bank" = "yes"])
 
+# Enable Gold Race Rate Support (-DGOLD_MULT) #
+AC_ARG_ENABLE(gmult,
+              AC_HELP_STRING([--enable-gmult],
+                             [enable Gold Race Rate Support @<:@default=yes@:>@]),
+              [], [enable_gmult=yes])
+if test "$enable_gmult" = "yes"; then
+		AC_DEFINE([GOLD_MULT], [], [Gold Race Rate Support])
+fi
+AM_CONDITIONAL([GOLD_MULT], [test "$enable_gmult" = "yes"])
+
 # Enable Marriage Support (-DMARRIAGE) #
 AC_ARG_ENABLE(marry,
               AC_HELP_STRING([--enable-marry],
@@ -650,14 +663,24 @@ if test "$enable_marry" = "yes"; then
 fi
 AM_CONDITIONAL([MARRIAGE], [test "$enable_marry" = "yes"])
 
-# Enable Morgue Support (-DMORGUE) #
+# Enable Morgue Support (-DENABLE_MORGUE) #
 AC_ARG_ENABLE(morgue,
               AC_HELP_STRING([--enable-morgue],
                              [enable Morgue Support @<:@default=yes@:>@]),
               [], [enable_morgue=yes])
 if test "$enable_morgue" = "yes"; then
-		AC_DEFINE([MORGUE], [], [Morgue Support])
+		AC_DEFINE([ENABLE_MORGUE], [], [Morgue Support])
 fi
+
+# Enable Undertaker Support (-DENABLE_UNDERTAKER) #
+AC_ARG_ENABLE(undertaker,
+              AC_HELP_STRING([--enable-undertaker],
+                             [enable Undertaker Support @<:@default=yes@:>@]),
+              [], [enable_undertaker=yes])
+if test "$enable_undertaker" = "yes"; then
+		AC_DEFINE([ENABLE_UNDERTAKER], [], [Undertaker Support])
+fi
+AM_CONDITIONAL([ENABLE_UNDERTAKER], [test "$enable_undertaker" = "yes"])
 
 # Enable Dice Game Support (-DENABLE_DICE) #
 AC_ARG_ENABLE(dice,
@@ -687,6 +710,46 @@ if test "$enable_hotboot" = "yes"; then
 		AC_DEFINE([ENABLE_HOTBOOT], [], [Hotboot Support])
 fi
 AM_CONDITIONAL([ENABLE_HOTBOOT], [test "$enable_hotboot" = "yes"])
+
+# Enable Command Alias Support (-DENABLE_ALIAS) #
+AC_ARG_ENABLE(alias,
+              AC_HELP_STRING([--enable-alias],
+                             [enable Command Alias Support @<:@default=yes@:>@]),
+              [], [enable_alias=yes])
+if test "$enable_alias" = "yes"; then
+		AC_DEFINE([ENABLE_ALIAS], [], [Command Alias Support])
+fi
+AM_CONDITIONAL([ENABLE_ALIAS], [test "$enable_alias" = "yes"])
+
+# Enable Weapon Proficency (-DENABLE_WEAPONPROF) #
+AC_ARG_ENABLE(weaponprof,
+              AC_HELP_STRING([--enable-weaponprof],
+                             [enable Weapon Proficency @<:@default=yes@:>@]),
+              [], [enable_weaponprof=yes])
+if test "$enable_weaponprof" = "yes"; then
+		AC_DEFINE([ENABLE_WEAPONPROF], [], [Weapon Proficency Support])
+fi
+AM_CONDITIONAL([ENABLE_WEAPONPROF], [test "$enable_weaponprof" = "yes"])
+
+# Enable Archery (-DENABLE_ARCHERY) #
+AC_ARG_ENABLE(archery,
+              AC_HELP_STRING([--enable-archery],
+                             [enable Archery @<:@default=yes@:>@]),
+              [], [enable_archery=yes])
+if test "$enable_archery" = "yes"; then
+		AC_DEFINE([ENABLE_ARCHERY], [], [Archery Support])
+fi
+AM_CONDITIONAL([ENABLE_ARCHERY], [test "$enable_archery" = "yes"])
+
+# Enable Arena Challenge (-DENABLE_ARENA) #
+AC_ARG_ENABLE(arena,
+              AC_HELP_STRING([--enable-arena],
+                             [enable Arena Challenge @<:@default=yes@:>@]),
+              [], [enable_arena=yes])
+if test "$enable_arena" = "yes"; then
+		AC_DEFINE([ENABLE_ARENA], [], [Arena Challenge Support])
+fi
+AM_CONDITIONAL([ENABLE_ARENA], [test "$enable_arena" = "yes"])
 
 # Enable Color Support (-DENABLE_COLOR) #
 AC_ARG_ENABLE(color,
@@ -805,6 +868,7 @@ Configured --{SMAUG}-- MUD Server features:
  * Room Planes:         <$enable_planes>
  * Who Arguments:       <$enable_whoarg>
  * MUD HotBoot:         <$enable_hotboot>
+ * Command Aliases:     <$enable_alias>
  * New Score Tables:    <$enable_newscore>
  * Show Stance Info:    <$enable_showstance>
  * Player Bleeding:     <$enable_bleeding>
@@ -820,9 +884,14 @@ Configured --{SMAUG}-- MUD Server features:
  * Extended Rooms:      <$enable_extrooms>
  * Liquids System:      <$enable_liquids>
  * Act Comm Scramble:   <$enable_scramble>
+ * Arena Challenge:     <$enable_arena>
  * Morgue:              <$enable_morgue>
  * Undertaker:          <$enable_undertaker>
- * Banking:             <$enable_bank>
+ * Gold/Silver/Copper:  <$enable_gsc>
+ * Bank (/G/S/C):       <$enable_bank>
+ * Gold Race Multirate: <$enable_gmult>
+ * Weapon Proficency:   <$enable_weaponprof>
+ * Archery:             <$enable_archery>
  * Player Marry:        <$enable_marry>
  * Dice Game:           <$enable_dice>
  * DNS Resolver:        <$enable_dns>

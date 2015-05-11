@@ -52,7 +52,7 @@ ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = etc bin src po
 
-EXTRA_DIST = config.rpath m4/ChangeLog autogen.sh data tools \
+EXTRA_DIST = m4/ChangeLog  config.rpath m4/ChangeLog autogen.sh data tools \
 	doc etc src man db README.md LICENSE m4 libtool bin autom4te.cache \
 	missing compile config.guess config.sub depcomp aclocal.m4 \
 	Doxyfile.in doc/html po ABOUT-NLS *.m4 TODO

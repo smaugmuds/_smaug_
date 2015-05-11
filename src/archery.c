@@ -1,26 +1,43 @@
-/****************************************************************************
- *                   ^     +----- |  / ^     ^ |     | +-\                  *
- *                  / \    |      | /  |\   /| |     | |  \                 *
- *                 /   \   +---   |<   | \ / | |     | |  |                 *
- *                /-----\  |      | \  |  v  | |     | |  /                 *
- *               /       \ |      |  \ |     | +-----+ +-/                  *
- ****************************************************************************
- * AFKMud Copyright 1997-2003 by Roger Libiez (Samson),                     *
- * Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),           *
- * Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine, and Adjani.    *
- * All Rights Reserved.                                                     *
- *                                                                          *
- * Original SMAUG 1.4a written by Thoric (Derek Snider) with Altrag,        *
- * Blodkai, Haus, Narn, Scryn, Swordbearer, Tricops, Gorog, Rennard,        *
- * Grishnakh, Fireblade, and Nivek.                                         *
- *                                                                          *
- * Original MERC 2.1 code by Hatchet, Furey, and Kahn.                      *
- *                                                                          *
- * Original DikuMUD code by: Hans Staerfeldt, Katja Nyboe, Tom Madsen,      *
- * Michael Seifert, and Sebastian Hammer.                                   *
- ****************************************************************************
- *                             Archery Module                               *
- ****************************************************************************/
+/*
+                     R E A L M S    O F    D E S P A I R  !
+   ___________________________________________________________________________
+  //            /                                                            \\
+ [|_____________\   ********   *        *   ********   *        *   *******   |]
+ [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
+ [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
+ [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
+ [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
+ [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
+ [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
+ [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
+ [|_____________\  **********  **      **  **      **  **********  *********  |]
+ [|             /  *********   *        *  *        *   ********    *******   |]
+  \\____________\____________________________________________________________//
+     |                                                                     |
+     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
+     |_____________________________________________________________________|
+     |                                                                     |
+     |                         -*- Archery Module -*-                      |
+     |_____________________________________________________________________|
+    //                                                                     \\
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+   [|                                                                       |]
+   [|  AFKMud Copyright 1997-2007 by Roger Libiez (Samson),                 |]
+   [|  Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),       |]
+   [|  Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine,            |]
+   [|  Xorith, and Adjani.                                                  |]
+   [|  All Rights Reserved. External contributions from Remcon, Quixadhal,  |]
+   [|  Zarius and many others.                                              |]
+   [|                                                                       |]
+   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
+   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
+   [|                                                                       |]
+   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
+   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
+   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
+   [|  Nyboe. Win32 port Nick Gammon.                                       |]
+    \\_____________________________________________________________________//
+*/
 
 /*
 Bowfire Code v1.0 (c)1997-99 Feudal Realms 
@@ -296,8 +313,8 @@ ch_ret projectile_hit( CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * wield, OBJ
    }
    else
    {
-      thac0_00 = class_table[ch->Class]->thac0_00;
-      thac0_32 = class_table[ch->Class]->thac0_32;
+      thac0_00 = class_table[ch->class]->thac0_00;
+      thac0_32 = class_table[ch->class]->thac0_32;
    }
    thac0 = interpolate( ch->level, thac0_00, thac0_32 ) - GET_HITROLL( ch ) + ( dist * 2 );
 
@@ -573,7 +590,7 @@ ch_ret projectile_hit( CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * wield, OBJ
    }
 
 /* weapon spells	-Thoric */
-   if( wield && !IS_SET( victim->immune, RIS_MAGIC ) && !IS_SET( victim->in_room->room_flags, ROOM_NO_MAGIC ) )
+   if( wield && !IS_SET( victim->immune, RIS_MAGIC ) && !xIS_SET( victim->in_room->room_flags, ROOM_NO_MAGIC ) )
    {
       AFFECT_DATA *aff;
 
@@ -612,7 +629,7 @@ ch_ret ranged_got_target( CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * weapon,
     */
    short wtype = 0;
 
-   if( IS_SET( ch->in_room->room_flags, ROOM_SAFE ) )
+   if( xIS_SET( ch->in_room->room_flags, ROOM_SAFE ) )
    {
       /*
        * safe room, bubye projectile 
@@ -886,7 +903,7 @@ ch_ret ranged_attack( CHAR_DATA * ch, char *argument, OBJ_DATA * weapon, OBJ_DAT
     */
    if( !victim )
    {
-      if( IS_SET( ch->in_room->room_flags, ROOM_PRIVATE ) || IS_SET( ch->in_room->room_flags, ROOM_SOLITARY ) )
+      if( xIS_SET( ch->in_room->room_flags, ROOM_PRIVATE ) || xIS_SET( ch->in_room->room_flags, ROOM_SOLITARY ) )
       {
          send_to_char( "You cannot perform a ranged attack from a private room.\r\n", ch );
          return rNONE;
@@ -957,7 +974,7 @@ ch_ret ranged_attack( CHAR_DATA * ch, char *argument, OBJ_DATA * weapon, OBJ_DAT
       /*
        * don't allow attacks on mobs that are in a no-missile room --Shaddai 
        */
-      if( IS_SET( vch->in_room->room_flags, ROOM_NOMISSILE ) )
+      if( xIS_SET( vch->in_room->room_flags, ROOM_NOMISSILE ) )
       {
          send_to_char( "You can't get a clean shot off.\r\n", ch );
          return rNONE;
@@ -1288,7 +1305,7 @@ bool mob_fire( CHAR_DATA * ch, char *name )
    OBJ_DATA *arrow, *bow;
    short max_dist;
 
-   if( IS_SET( ch->in_room->room_flags, ROOM_SAFE ) )
+   if( xIS_SET( ch->in_room->room_flags, ROOM_SAFE ) )
       return FALSE;
 
    if( !( bow = get_eq_char( ch, WEAR_MISSILE_WIELD ) ) )

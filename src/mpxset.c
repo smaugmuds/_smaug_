@@ -1198,11 +1198,35 @@ do_mposet (CHAR_DATA * ch, char *argument)
       return;
     }
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	/* Cost left for compatibility -Druid */
+	if ( !str_cmp( arg2, "cost" ) )
+		{
+		obj->gold_cost = value;
+		return;
+		}
+	if ( !str_cmp( arg2, "gcost" ) )
+		{
+		obj->gold_cost = value;
+		return;
+		}
+	if ( !str_cmp( arg2, "scost" ) )
+		{
+		obj->silver_cost = value;
+		return;
+		}
+	if ( !str_cmp( arg2, "ccost" ) )
+		{
+		obj->copper_cost = value;
+		return;
+		}
+#else
   if (!str_cmp (arg2, "cost"))
     {
       obj->cost = value;
       return;
     }
+#endif
 
   if (!str_cmp (arg2, "timer"))
     {

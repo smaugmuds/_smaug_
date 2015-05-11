@@ -246,9 +246,9 @@ get_obj (CHAR_DATA * ch, OBJ_DATA * obj, OBJ_DATA * container)
     return;
 
 #ifdef ENABLE_GOLD_SILVER_COPPER
-if ( obj->item_type == ITEM_GOLD 
-|| obj->item_type == ITEM_COPPER 
-|| obj->item_type == ITEM_SILVER )
+	if ( obj->item_type == ITEM_GOLD 
+	|| obj->item_type == ITEM_COPPER 
+	|| obj->item_type == ITEM_SILVER)
 #else
   if (obj->item_type == ITEM_MONEY)
 #endif
@@ -300,7 +300,7 @@ if ( obj->item_type == ITEM_GOLD
 	}
 #endif
 
-#define ENABLE_GOLD_SILVER_COPPER
+#ifdef ENABLE_GOLD_SILVER_COPPER
     if(obj->item_type == ITEM_GOLD) ch->gold += amt;
     if(obj->item_type == ITEM_COPPER) ch->copper += amt;
     if(obj->item_type == ITEM_SILVER) ch->silver +=amt;
@@ -1241,45 +1241,42 @@ do_drop (CHAR_DATA * ch, char *argument)
 
 		switch ( obj->pIndexData->vnum )
 		{
-		case OBJ_VNUM_GOLD_ONE:
-		   if(type ==0){
-		   number += 1;
-		   extract_obj( obj );
-		   }
-		   break;
-
-		case OBJ_VNUM_GOLD_SOME: 
-		   if(type ==0){
-		   number += obj->value[0];
-		   extract_obj( obj ); 
-		   }
-		   break;
-		case OBJ_VNUM_SILVER_ONE:  
-		   if(type ==1){
-		   number += 1;
-		   extract_obj( obj );
-		   }
-		   break;
-
-		case OBJ_VNUM_SILVER_SOME: 
-		   if(type ==1){
-		   number += obj->value[0];
-		   extract_obj( obj );
-		   }
-		   break;
-		case OBJ_VNUM_COPPER_ONE:
-		   if(type ==2){
-		   number += 1;
-		   extract_obj( obj ); 
-		   }
-		   break;
-
-		case OBJ_VNUM_COPPER_SOME:  
-		   if(type ==2){
-		   number += obj->value[0];
-		   extract_obj( obj );
-		   }
-		   break;
+			case OBJ_VNUM_GOLD_ONE:
+					 if(type == 0){
+					 number += 1;
+					 extract_obj( obj );
+					 }
+					 break;
+			case OBJ_VNUM_GOLD_SOME:
+					 if(type == 0){
+					 number += obj->value[0];
+					 extract_obj( obj );
+					 }
+					 break;
+			case OBJ_VNUM_SILVER_ONE:
+					 if(type == 1){
+					 number += 1;
+					 extract_obj( obj );
+					 }
+					 break;
+			case OBJ_VNUM_SILVER_SOME:
+					 if(type == 1){
+					 number += obj->value[0];
+					 extract_obj( obj );
+					 }
+					 break;
+			case OBJ_VNUM_COPPER_ONE:
+					 if(type == 2){
+					 number += 1;
+					 extract_obj( obj );
+					 }
+					 break;
+			case OBJ_VNUM_COPPER_SOME:
+					 if(type == 2){
+					 number += obj->value[0];
+					 extract_obj( obj );
+					 }
+					 break;
 		}
 	    }
 		if ( type == 0) {
@@ -2124,6 +2121,26 @@ wear_obj (CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace, sh_int wear_bit)
       if (fReplace)
 	send_to_char ("You can't wear, wield, or hold that.\n\r", ch);
       return;
+
+#ifdef ENABLE_ARCHERY
+      case ITEM_LODGE_RIB:
+         act( AT_ACTION, "$p strikes you and deeply imbeds itself in your ribs!", ch, obj, NULL, TO_CHAR );
+         act( AT_ACTION, "$p strikes $n and deeply imbeds itself in $s ribs!", ch, obj, NULL, TO_ROOM );
+         equip_char( ch, obj, WEAR_LODGE_RIB );
+         break;
+
+      case ITEM_LODGE_ARM:
+         act( AT_ACTION, "$p strikes you and deeply imbeds itself in your arm!", ch, obj, NULL, TO_CHAR );
+         act( AT_ACTION, "$p strikes $n and deeply imbeds itself in $s arm!", ch, obj, NULL, TO_ROOM );
+         equip_char( ch, obj, WEAR_LODGE_ARM );
+         break;
+
+      case ITEM_LODGE_LEG:
+         act( AT_ACTION, "$p strikes you and deeply imbeds itself in your leg!", ch, obj, NULL, TO_CHAR );
+         act( AT_ACTION, "$p strikes $n and deeply imbeds itself in $s leg!", ch, obj, NULL, TO_ROOM );
+         equip_char( ch, obj, WEAR_LODGE_LEG );
+         break;
+#endif
 
     case ITEM_WEAR_FINGER:
       if (get_eq_char (ch, WEAR_FINGER_L)

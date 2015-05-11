@@ -2,7 +2,10 @@
 
 
 
+#VERSION 3
 #AUTHOR RoD~
+
+#CREDITS ~
 
 #RANGES
 0 60 0 60
@@ -11,7 +14,9 @@ $
 #FLAGS
 0
 
-#ECONOMY 0 45260000
+#ECONOMY 0 45240000
+
+#CLIMATE 2 2 2
 
 #MOBILES
 #1
@@ -20,14 +25,16 @@ Puff~
 Puff the Fractal Dragon is here, contemplating a higher reality.
 ~
 ~
-3 4194856 1000 C
+3 4194856 1000 V
 50 20 -30 5d10+30550 4d10+200
-10000 1000
-8 8 2
+1000
+1 0 0
+112 112 2
 13 13 13 13 13 13 13
 0 0 0 0 0
 31 0 0 0 3420515 3420515 0
 0 0 0 0 3156992 0 2 3
+0 240 240 240 240 240 240 0 0 0 0 0 
 > speech_prog test~
 say triggered by (name):	$n
 say triggered by (name&title): 	$N
@@ -61,10 +68,16 @@ A demon imp hovers nearby...drooling constantly with a fiendish grin.
 This demon is clearly something that you don't want to mess with...
 It appears to be very agile, and very strong.  
 ~
-3 40 -1000 S
+3 40 -1000 V
 50 1 -300 5d10+31550 1d2+2
-10000 155000
-8 8 0
+155000
+1 0 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p is dying~
 mpforce $n drink
 c heal $n
@@ -102,10 +115,16 @@ The supermob is here.  He looks busy as hell.
 ~
 How clever he looks!
 ~
-2105345 4259882 -1000 S
+2105345 4259882 -1000 V
 50 1 -300 5d10+31550 1d2+2
-10000 155000
-8 8 0
+155000
+1 0 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 240 240 240 240 240 240 0 0 0 0 0 
 > rand_prog 25~
 mpinvis 51
 ~
@@ -120,14 +139,16 @@ powerful energies of its master.  It exists on the precipice between life
 and unlife, even as its physical body rots and decays under the strain of
 its tasks.
 ~
-1 0 0 C
+1 0 0 V
 1 0 0 0d0+0 0d0+0
-0 0
-8 8 0
+0
+0 0 0
+112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 7 0 0 0 0 0
+6 25 25 25 25 25 25 0 0 0 0 0 
 #10
 wolf~
 a deadly wolf~
@@ -138,14 +159,16 @@ fangs and its sharp claws.  The wolf's eyes are small, black and have
 the aura of a deadly intent.  Its raggedy coat tells of a recent battle         
 with something.
 ~
-1073741825 0 0 C
+1073741825 0 0 V
 1 0 0 0d0+0 0d0+0
-0 0
-8 8 0
+0
+0 0 0
+112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 69 3 0 0 135445263 135445263 2
 0 0 0 0 0 0 3 0
+0 25 25 25 25 25 25 0 0 0 0 0 
 #11
 mist~
 mist~
@@ -155,14 +178,16 @@ Is it the fog you see?  Or are your eyes playing deadly tricks on you.  The
 mist swirls around you and then quickly disappears before you can blink.  You
 suddenly find yourself overcome with an unknown power.
 ~
-1073741825 2129920 0 C
+1073741825 2129920 0 V
 1 0 0 0d0+0 0d0+0
-0 0
-8 8 0
+0
+0 0 0
+112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 85 3 0 0 135447947 135447947 2
 0 0 0 0 0 0 35651584 0
+0 25 25 25 25 25 25 0 0 0 0 0 
 #12
 bat~
 bat~
@@ -172,14 +197,16 @@ As this bloodsucking creature flies past you, you notice the tiny black
 eyes that stare at your jugular vein.  This little black bat has the
 intentions of drinking your blood until there is none left in your body.
 ~
-1073741825 524288 0 C
+1073741825 524288 0 V
 1 0 0 0d0+0 0d0+0
-0 0
-8 8 0
+0
+0 0 0
+112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 23 3 0 0 1996514925 1996514924 2
 0 0 0 0 0 0 3 0
+0 25 25 25 25 25 25 0 0 0 0 0 
 #13
 hawk~
 hawk~
@@ -190,14 +217,16 @@ eyes.  Any movement made by you could make it flare its wings in disapproval
 and open its beak to scream its intent.  Its long beak open and before you
 know what has happened, it comes flying towards you.
 ~
-1073741825 524288 0 C
+1073741825 524288 0 V
 1 0 0 0d0+0 0d0+0
-0 0
-8 8 0
+0
+0 0 0
+112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 78 3 0 0 135448667 135448666 2
 0 0 0 0 0 0 2 0
+0 25 25 25 25 25 25 0 0 0 0 0 
 #14
 black cat~
 black cat~
@@ -207,14 +236,16 @@ With a furry black coat, and big yellow eyes, this cat gracefully walks
 across your path, bringing you several years of bad luck.  Its tail moves
 slowly to tell you that it is laughing at your misfortune.
 ~
-1073741825 8 0 C
+1073741825 8 0 V
 1 0 0 0d0+0 0d0+0
-0 0
-8 8 0
+0
+0 0 0
+112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 29 3 0 0 6645091 6645090 2
 0 0 0 0 0 0 3 0
+6 25 25 25 25 25 25 0 0 0 0 0 
 #15
 dove~
 dove~
@@ -225,14 +256,16 @@ delicate creature sings you a tune full of romance.  The tune it sings comes
 from the small breast that rises and falls with every chorus it sings.  You
 are at peace as you listen to this lovable creature.
 ~
-1073741825 524288 0 C
+1073741825 524288 0 V
 1 0 0 0d0+0 0d0+0
-0 0
-8 8 0
+0
+0 0 0
+112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 78 3 0 0 135448667 135448666 1
 0 0 0 0 0 0 2 0
+0 25 25 25 25 25 25 0 0 0 0 0 
 #16
 fish~
 fish~
@@ -243,14 +276,16 @@ It swims with a speed no beast, human or animal can compete with.  It's
 tiny eyes, move with every breath.  It blows several large bubbles as it
 quickly swims past you.
 ~
-1073741825 -2147483648 0 C
+1073741825 -2147483648 0 V
 1 0 0 0d0+0 0d0+0
-0 0
-8 8 0
+0
+0 0 0
+112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 81 3 0 0 135448379 135448378 1
 0 0 0 0 0 0 0 0
+6 25 25 25 25 25 25 0 0 0 0 0 
 #80
 guardian vampire~
 a guardian vampire~
@@ -260,24 +295,32 @@ Before you stands a guardian vampire, looking quite evil to say the least.
 The hair on your arms is raised by its presence alone, and it seems to you
 that he appears too formidable to be a minor minion.
 ~
-35 40 -1000 C
+35 40 -1000 V
 25 0 -4 1d1+385 4d5+15
-0 105000
-8 8 1
+105000
+0 0 0
+112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
-67 3 0 0 0 0 0
+67 3 0 0 1 1 0
 0 0 1735 0 0 0 33558528 0
+6 100 100 100 100 100 100 0 0 0 0 0 
 #99
 final mob~
 a newly created final mob~
 Some god abandoned a newly created final mob here.
 ~
 ~
-1073741825 0 0 S
+1073741825 0 0 V
 1 0 0 0d0+0 0d0+0
-0 0
-8 8 0
+0
+0 0 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+4 25 25 25 25 25 25 0 0 0 0 0 
 #0
 
 
@@ -289,7 +332,7 @@ One miserable gold coin.~
 ~
 20 0 1
 1 0 0 0
-1 0 0
+1 0 0 0 0
 #3
 coins gold~
 %d gold coins~
@@ -297,7 +340,7 @@ A pile of gold coins.~
 ~
 20 0 1
 0 0 0 0
-1 0 0
+1 0 0 0 0
 #10
 corpse~
 the corpse of %s~
@@ -305,7 +348,7 @@ The corpse of %s lies here.~
 ~
 23 0 1
 0 0 0 1
-100 0 0
+100 0 0 0 0
 #11
 corpse~
 the corpse of %s~
@@ -313,7 +356,7 @@ The corpse of %s is lying here.~
 ~
 24 0 0
 0 0 0 1
-100 0 0
+100 0 0 0 0
 #12
 head~
 the head of %s~
@@ -321,7 +364,7 @@ The severed head of %s is lying here.~
 %s gobble$q down $p with gusto... disgusting!~
 19 0 1
 10 0 0 0
-5 0 0
+5 0 0 0 0
 #13
 heart~
 the heart of %s~
@@ -329,7 +372,7 @@ The torn-out heart of %s is lying here.~
 %s savagely devour$q $p!~
 19 0 1
 16 0 0 0
-2 0 0
+2 0 0 0 0
 #14
 arm~
 the arm of %s~
@@ -337,7 +380,7 @@ The sliced-off arm of %s is lying here.~
 %s chomp$q on $p.~
 19 0 1
 20 0 0 0
-5 0 0
+5 0 0 0 0
 #15
 leg~
 the leg of %s~
@@ -345,7 +388,7 @@ The sliced-off leg of %s is lying here.~
 %s chomp$q on $p.~
 19 0 1
 20 0 0 0
-5 0 0
+5 0 0 0 0
 #16
 guts~
 the spilled guts of %s~
@@ -353,7 +396,7 @@ The spilled guts of %s makes you lose your appetite.~
 ~
 13 0 0
 5 0 0 1
-1 0 0
+1 0 0 0 0
 #17
 blood~
 the spilled blood~
@@ -361,7 +404,7 @@ A pool of spilled blood lies here.~
 ~
 27 0 0
 5 0 0 1
-1 0 0
+1 0 0 0 0
 #18
 bloodstain~
 the bloodstain~
@@ -369,7 +412,7 @@ Blood stains the ground.~
 ~
 28 0 0
 5 0 0 1
-1 0 0
+1 0 0 0 0
 #19
 scraps~
 the scraps of %s~
@@ -377,7 +420,7 @@ The scraps of %s lie here.~
 ~
 29 0 1
 5 0 0 1
-1 0 0
+1 0 0 0 0
 #20
 mushroom~
 a magic mushroom~
@@ -385,7 +428,7 @@ A delicious magic mushroom is here.~
 %s enjoy$q $p.~
 19 0 1
 5 0 0 0
-1 10 1
+1 0 0 10 1
 #21
 ball light~
 a bright ball of light~
@@ -393,7 +436,7 @@ A bright ball of light shimmers in the air.~
 ~
 1 0 1
 0 0 -1 0
-1 0 0
+1 0 0 0 0
 #22
 spring~
 a magical spring~
@@ -401,7 +444,7 @@ A magical spring flows here.~
 ~
 25 64 0
 100000 100000 0 0
-10 10 1
+10 0 0 10 1
 #24
 meat fresh slice~
 a slice of raw meat from %s~
@@ -409,7 +452,7 @@ A slice of raw meat from %s lies lies on the ground.~
 ~
 19 262144 1
 15 0 0 0
-2 0 0
+2 0 0 0 0
 #25
 shopping bag~
 a bag~
@@ -417,7 +460,7 @@ A shopping bag lies discarded on the ground nearby.~
 ~
 15 0 1
 50 0 0 0
-2 20 2
+2 0 0 20 2
 #30
 fire~
 a magical fire~
@@ -425,7 +468,7 @@ A magical fire burns brightly.~
 ~
 34 64 0
 0 0 0 0
-10 10 1
+10 0 0 10 1
 #31
 trap~
 a trap~
@@ -433,7 +476,7 @@ You detect a trap.~
 ~
 44 0 0
 0 0 0 0
-100 10 1
+100 0 0 10 1
 #32
 portal~
 a portal~
@@ -441,7 +484,7 @@ A misty portal beckons you to the unknown.~
 ~
 46 64 0
 0 0 0 0
-100 10 1
+100 0 0 10 1
 #33
 black poison powder~
 black poisoning powder~
@@ -449,7 +492,7 @@ A small amount of black poisoning powder sits in a small container on the ground
 ~
 13 0 16385
 0 0 0 0
-1 48000 4800
+1 4 80 0 4800
 #34
 scroll scribing blank~
 a blank scroll~
@@ -457,7 +500,8 @@ A blank scroll lays here gathering dust.~
 ~
 2 0 16385
 0 -1 -1 -1
-2 10000 1000
+2 1 0 0 1000
+'NONE' 'NONE' 'NONE'
 #35
 flask empty~
 an empty flask~
@@ -465,7 +509,8 @@ An empty flask lays here gathering dust.~
 ~
 10 0 16385
 1 -1 -1 -1
-1 15000 1500
+1 1 50 0 1500
+'NONE' 'NONE' 'NONE'
 #36
 parchment paper note~
 a note~
@@ -473,7 +518,7 @@ A note has been discarded here.~
 ~
 47 0 16385
 0 0 0 0
-1 1500 150
+1 0 15 0 150
 #37
 quill pen~
 a quill~
@@ -481,7 +526,7 @@ A feather dipped in ink here lies.~
 ~
 21 0 1
 15 15 0 0
-2 2000 200
+2 0 20 0 200
 #43
 holy symbol faith~
 a symbol of faith~
@@ -489,9 +534,41 @@ A holy symbol lies here, shining.~
 ~
 9 0 16385
 5 5 0 0
-5 0 0
+5 0 0 0 0
 A
 4 2
+#76
+silver coin~
+a silver coin~
+One miserable silver coin.~
+~
+65 0 1
+1 0 0 0
+1 0 0 0 0
+#77
+silver coins~
+%d silver coins~
+A pile of silver coins.~
+~
+65 0 1
+0 0 0 0
+1 0 0 0 0
+#78
+copper coin~
+a copper coin~
+One measly copper coin.~
+~
+66 0 1
+1 0 0 0
+1 0 0 0 0
+#79
+copper coins~
+%d copper coins~
+A pile of copper coins.~
+~
+66 0 1
+0 0 0 0
+1 0 0 0 0
 #99
 final object~
 a newly created final object~
@@ -499,7 +576,7 @@ Some god dropped a newly created final object here.~
 ~
 13 1073741824 0
 0 0 0 0
-1 0 0
+1 0 0 0 0
 #0
 
 

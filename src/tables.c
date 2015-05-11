@@ -283,6 +283,10 @@ skill_function (char *name)
     case 'a':
       if (!str_cmp (name, "do_aassign"))
 	return do_aassign;
+#ifdef ENABLE_ARENA
+      if (!str_cmp (name, "do_accept"))
+	return do_accept;
+#endif
       if (!str_cmp (name, "do_accessories"))
 	return do_accessories;
       if (!str_cmp (name, "do_add_change"))
@@ -305,6 +309,10 @@ skill_function (char *name)
 	return do_afk;
       if (!str_cmp (name, "do_aid"))
 	return do_aid;
+#ifdef ENABLE_ALIAS
+      if (!str_cmp (name, "do_alias"))
+	return do_alias;
+#endif
       if (!str_cmp (name, "do_alinks"))
 	return do_alinks;
       if (!str_cmp (name, "do_allow"))
@@ -421,6 +429,10 @@ skill_function (char *name)
 	return do_cedit;
       if (!str_cmp (name, "do_changes"))
 	return do_changes;
+#ifdef ENABLE_ARENA
+      if (!str_cmp (name, "do_challenge"))
+	return do_challenge;
+#endif
       if (!str_cmp (name, "do_channels"))
 	return do_channels;
       if (!str_cmp (name, "do_chat"))
@@ -544,12 +556,20 @@ skill_function (char *name)
 	return do_down;
       if (!str_cmp (name, "do_drag"))
 	return do_drag;
+#ifdef ENABLE_ARCHERY
+      if (!str_cmp (name, "do_draw"))
+	return do_draw;
+#endif
       if (!str_cmp (name, "do_drink"))
 	return do_drink;
       if (!str_cmp (name, "do_drop"))
 	return do_drop;
       if (!str_cmp (name, "do_diagnose"))
 	return do_diagnose;
+#ifdef ENABLE_ARCHERY
+      if (!str_cmp (name, "do_dislodge"))
+	return do_dislodge;
+#endif
       break;
     case 'e':
       if (!str_cmp (name, "do_east"))
@@ -1537,6 +1557,10 @@ skill_function (char *name)
 	return do_whois;
       if (!str_cmp (name, "do_wimpy"))
 	return do_wimpy;
+#ifdef ENABLE_ARENA
+      if (!str_cmp (name, "do_withdraw"))
+	return do_withdraw;
+#endif
       if (!str_cmp (name, "do_wizhelp"))
 	return do_wizhelp;
       if (!str_cmp (name, "do_wizlist"))
@@ -1768,6 +1792,10 @@ skill_name (DO_FUN * skill)
     return "do_aassign";
   if (skill == do_accessories)
     return "do_accessories";
+#ifdef ENABLE_ARENA
+  if (skill == do_accept)
+    return "do_accept";
+#endif
   if (skill == do_add_change)
     return "do_add_change";
   if (skill == do_add_imm_news)
@@ -1786,6 +1814,10 @@ skill_name (DO_FUN * skill)
     return "do_afk";
   if (skill == do_aid)
     return "do_aid";
+#ifdef ENABLE_ALIAS
+  if (skill == do_alias)
+    return "do_alias";
+#endif
   if (skill == do_alinks)
     return "do_alinks";
   if (skill == do_allow)
@@ -1892,6 +1924,10 @@ skill_name (DO_FUN * skill)
     return "do_cast";
   if (skill == do_cedit)
     return "do_cedit";
+#ifdef ENABLE_ARENA
+  if (skill == do_challenge)
+    return "do_challenge";
+#endif
   if (skill == do_changes)
     return "do_changes";
   if (skill == do_channels)
@@ -2011,12 +2047,20 @@ skill_name (DO_FUN * skill)
     return "do_down";
   if (skill == do_drag)
     return "do_drag";
+#ifdef ENABLE_ARCHERY
+  if (skill == do_draw)
+    return "do_draw";
+#endif
   if (skill == do_drink)
     return "do_drink";
   if (skill == do_drop)
     return "do_drop";
   if (skill == do_diagnose)
     return "do_diagnose";
+#ifdef ENABLE_ARCHERY
+  if (skill == do_dislodge)
+    return "do_dislodge";
+#endif
   if (skill == do_east)
     return "do_east";
   if (skill == do_eat)
@@ -2961,6 +3005,10 @@ skill_name (DO_FUN * skill)
     return "do_whois";
   if (skill == do_wimpy)
     return "do_wimpy";
+#ifdef ENABLE_ARENA
+  if (skill == do_withdraw)
+    return "do_withdraw";
+#endif
   if (skill == do_wizhelp)
     return "do_wizhelp";
   if (skill == do_wizlist)

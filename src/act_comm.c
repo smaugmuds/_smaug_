@@ -2799,6 +2799,14 @@ do_quit (CHAR_DATA * ch, char *argument)
   if (IS_NPC (ch))
     return;
 
+#ifdef ENABLE_ARENA
+	if (xIS_SET(ch->in_room->room_flags, ROOM_ARENA))
+	{
+	    send_to_char ("You may not leave while in the arena.\n\r", ch);
+	    return;
+	}
+#endif
+
   if (ch->position == POS_FIGHTING
       || ch->position == POS_EVASIVE
       || ch->position == POS_DEFENSIVE

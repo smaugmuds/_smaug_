@@ -1,0 +1,200 @@
+
+* This is has been censored even though I hate censorship           *
+*********************************************************************
+*  Hello I would first like to say hello and thanks for using this  *
+*  well that is if you use it. :p  All I have to say is that this   *
+*  is a base foundation for a good arena system why i say good is   *
+*  because as far as I know with the testing I have done is that    *
+*  works without any bugs in the functions I am releasing to you in *
+*  this version.  Anyways this is the installation.  So what I say  *
+*  in here is what you MUST follow not really I am sure there is a  *
+*  better way to do what I did heh anyways.  DONT SEND ME SHIT      *
+*  TELLING ME THAT I SUCK AT CODING AND HOW MUCH BETTER THIS COULDA *
+*  BEEN WRITTEN.  The reason I say that is because for some reason  *
+*  all the arena snippets I have downloaded always had mass ass     *
+*  bugs and shit and its easier to write your own after fixing all  *
+*  of them.  After all if your looking at this your prolly conside- *
+*  using this in your mud so dont say SHIT! heh now that I have     *
+*  outta my system lets get on with it!  oh yea have fun :)         *
+*********************************************************************
+*                                                                   *
+*********************************************************************
+BTW if your using ROM just take out the norestore crap because 
+I am using RoT and we have that unless you wanna add it in
+Also this *SHOULD* work on ROM heh so yea heh. :p
+
+Alright first in the makefile stick arena.o in there :)
+
+******************#####$$$$$[merc.h]$$$$$#####********************
+
+define these somewhere where you have free bits
+
+#define ACT2_CHALLENGED  (A)
+#define ACT2_CHALLENGER  (B)
+
+Then in room flags stick this stuff in there
+
+#define ROOM_ARENA      (Y) /*use whatever is next :p */
+
+in pc_data struct stick these somewhere
+
+	int         akills;
+	int         adeaths;
+
+******************#####$$$$$[update.c]$$$$$#####********************
+stick this in char_update I put it right after this 
+-->
+	if ( ch->position == POS_STUNNED )
+	    update_pos( ch );
+<-- after that I have this 
+
+	if ( challenge_tme != 0)
+		challenge_tme--;
+	if (challenge_tme == 0 && IS_SET(ch->act2,ACT2_CHALLENGER)
+	&& !IS_SET(ch->in_room->room_flags,ROOM_ARENA))
+	{
+		send_to_char("{RThey have not responded challenge canceled.{x\n\r",ch);
+		REMOVE_BIT(ch->act2,ACT2_CHALLENGER);
+		is_challenge = FALSE;
+		return;
+    }
+
+******************#####$$$$$[tables.c]$$$$$#####********************
+Stick this in the room_flags spot I have it last :p
+
+	{   "arena",		ROOM_ARENA,		    TRUE	},
+
+
+*************[handler.c]***********(so what I got lazy :p)
+This is in the room_bit_name thing or wahtever it is :p
+
+	if (room_flags & ROOM_ARENA 	) strcat(buf, " arena");
+
+
+*************************************************************************
+*  Now this is the hard part if you **** up here it wont work correctly *
+*  do exactly as I say here or your players will get pissed when they   *
+*  get pked in the arena and loose their **** in there                  *
+*************************************************************************
+$                                                                       $
+#########################################################################
+  This is where I put it is right after the sleeping spells
+s**t this is how mine is.  So stick this in damage and damage_old(If you dont use RoT
+dont worry about damage_old)
+
+    /*
+     * Sleep spells and extremely wounded folks.
+     */
+    if ( !IS_AWAKE(victim) )
+	stop_fighting( victim, FALSE );
+<-----------from here on down stick this piece of code
+
+    if (victim->position == POS_DEAD && !IS_NPC(victim) && !IS_NPC(ch)
+    && (IS_SET(victim->in_room->room_flags,ROOM_ARENA)))
+    {
+    ch->pcdata->akills += 1;
+    victim->pcdata->adeaths += 1;
+
+    /* the dead man */
+    stop_fighting(victim,TRUE);
+    char_from_room(victim);
+    char_to_room(victim,get_room_index(ROOM_VNUM_ALTAR));
+    send_to_char("{RYou lost haha!{x\n\r",victim);
+    victim->hit = victim->max_hit;
+    victim->mana = victim->max_mana;
+    affect_strip(victim,gsn_plague);
+    affect_strip(victim,gsn_poison);
+    affect_strip(victim,gsn_blindness);
+    affect_strip(victim,gsn_sleep);
+    affect_strip(victim,gsn_curse);
+    victim->move = victim->max_move;
+    update_pos( victim );
+    do_look(victim, "auto");
+
+    /* the winner :) */
+    stop_fighting(ch,TRUE);
+    char_from_room(ch);
+    char_to_room(ch,get_room_index(ROOM_VNUM_TEMPLE));
+    send_to_char("{RYou won are you sure you didn't cheat?!? heh{x\n\r",ch);
+    ch->hit = ch->max_hit;
+    ch->mana = ch->max_mana;
+    affect_strip(ch,gsn_plague);
+    affect_strip(ch,gsn_poison);
+    affect_strip(ch,gsn_blindness);
+    affect_strip(ch,gsn_sleep);
+    affect_strip(ch,gsn_curse);
+    ch->move = ch->max_move;
+    update_pos( ch );
+    do_look(ch, "auto");
+  
+    if (IS_SET(ch->act2,ACT2_CHALLENGER))
+    REMOVE_BIT(ch->act2,ACT2_CHALLENGER);
+    if (IS_SET(victim->act2,ACT2_CHALLENGER))
+    REMOVE_BIT(victim->act2,ACT2_CHALLENGER);
+    if (IS_SET(victim->act2,ACT2_CHALLENGED))
+    REMOVE_BIT(victim->act2,ACT2_CHALLENGED);
+    if (IS_SET(ch->act2,ACT2_CHALLENGED))
+    REMOVE_BIT(ch->act2,ACT2_CHALLENGED);
+    REMOVE_BIT(ch->comm,COMM_NOCHANNELS);
+    REMOVE_BIT(ch->act,PLR_NORESTORE);
+    REMOVE_BIT(victim->comm,COMM_NOCHANNELS);
+    REMOVE_BIT(victim->act,PLR_NORESTORE);
+    arena_is_busy = FALSE;
+    return TRUE;
+    }
+<----------------Ending of code 
+NOTICE: If your using RoT you will need to do that in damage and damage_old
+    /*
+     * Payoff for killing things.
+     */
+    if ( victim->position == POS_DEAD )
+    {
+	group_gain( ch, victim );
+
+	if ( !IS_NPC(victim) )
+	{
+	    sprintf( log_buf, "%s killed by %s at %d",
+		victim->name,
+		(IS_NPC(ch) ? ch->short_descr : ch->name),
+		ch->in_room->vnum );
+	    log_string( log_buf );
+
+********** Alright now in is_safe and is_safe_spell stick this
+
+	    if (IS_SET(ch->in_room->room_flags,ROOM_ARENA)
+		&& IS_SET(victim->in_room->room_flags,ROOM_ARENA))
+		{
+	    return FALSE;
+		}
+
+***********************[act_comm.c]*************************
+
+stick this in do quit
+
+
+	if (IS_SET(ch->in_room->room_flags,ROOM_ARENA))
+	{
+	    send_to_char( "You may not leave while in the arena.\n\r", ch );
+	    return;
+	}
+
+Alright and that should be all just define the correct stuff in interp.c and interp.h and 
+I think you should be set so thats all.  Please mail me if you use this I wanna know who
+all would ever dare use something of mine :p heh anyways take care and have fun adios
+
+Faaen
+
+Just for the records I hate to censor
+
+Update on 28 Apr:
+======================
+add this to the top of fight.c 
+
+bool arena_is_busy;       
+
+-=[and then this to the top of update.c
+
+bool challenge_tme;
+bool is_challenge;
+
+

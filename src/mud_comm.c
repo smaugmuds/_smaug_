@@ -198,9 +198,17 @@ do_mpstat (CHAR_DATA * ch, char *argument)
 	     victim->mana, victim->max_mana, victim->move, victim->max_move);
 
   ch_printf (ch,
+#ifdef ENABLE_GOLD_SILVER_COPPER
+				"Lv: %d.  Class: %d.  Align: %d.  AC: %d.  Exp: %d.\n\r",
+				victim->level,       victim->class,        victim->alignment,
+				GET_AC( victim ),            victim->exp );
+	ch_printf (ch,"Gold: %d    Silver: %d   Copper: %d\n\r",
+				victim->gold, victim->silver, victim->copper);
+#else
 	     "Lv: %d.  Class: %d.  Align: %d.  AC: %d.  Gold: %d.  Exp: %d.\n\r",
 	     victim->level, victim->class, victim->alignment,
 	     GET_AC (victim), victim->gold, victim->exp);
+#endif
 
   for (mprg = victim->pIndexData->mudprogs; mprg; mprg = mprg->next)
     ch_printf (ch, "%d >%s %s\n\r%s\n\r",
@@ -3107,6 +3115,9 @@ do_mp_deposit (CHAR_DATA * ch, char *argument)
 {
   char arg[MAX_STRING_LENGTH];
   int gold;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	int money, tmpvalue;
+#endif
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
@@ -3122,11 +3133,21 @@ do_mp_deposit (CHAR_DATA * ch, char *argument)
       return;
     }
   gold = atoi (arg);
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	money = get_value(ch->gold, ch->silver, ch->copper);
+	if ( gold <= money && ch->in_room )
+		{
+		tmpvalue = money - gold;
+		conv_currency(ch, tmpvalue);	
+		boost_economy( ch->in_room->area, gold );
+		}
+#else
   if (gold <= ch->gold && ch->in_room)
     {
       ch->gold -= gold;
       boost_economy (ch->in_room->area, gold);
     }
+#endif
 }
 
 
@@ -3138,6 +3159,9 @@ do_mp_withdraw (CHAR_DATA * ch, char *argument)
 {
   char arg[MAX_STRING_LENGTH];
   int gold;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	int money, tmpvalue;
+#endif
 
   if (!IS_NPC (ch) || IS_AFFECTED (ch, AFF_CHARM))
     {
@@ -3157,7 +3181,13 @@ do_mp_withdraw (CHAR_DATA * ch, char *argument)
   if (ch->gold < 1000000000 && gold < 1000000000 && ch->in_room
       && economy_has (ch->in_room->area, gold))
     {
+#ifdef ENABLE_GOLD_SILVER_COPPER
+			money=get_value(ch->gold, ch->silver, ch->copper);
+			tmpvalue = money + gold;
+			conv_currency(ch, tmpvalue);	
+#else
       ch->gold += gold;
+#endif
       lower_economy (ch->in_room->area, gold);
     }
 }

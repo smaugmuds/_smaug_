@@ -923,20 +923,44 @@ mobile_update (void)
 	{
 	  OBJ_DATA *obj;
 	  OBJ_DATA *obj_best;
+
+#ifdef ENABLE_GOLD_SILVER_COPPER
+		int gmax;
+		int smax;
+		int cmax;
+
+		gmax = 1;
+		smax = 1;
+		cmax = 1;
+#else
 	  int max;
 
 	  max = 1;
+#endif
+
 	  obj_best = NULL;
 	  for (obj = ch->in_room->first_content; obj; obj = obj->next_content)
 	    {
+#ifdef ENABLE_GOLD_SILVER_COPPER
+				if ( CAN_WEAR(obj, ITEM_TAKE) && ((obj->gold_cost > gmax)
+					|| (obj->silver_cost > smax) || (obj->copper_cost > cmax)) 
+					&& !IS_OBJ_STAT( obj, ITEM_BURIED ) )
+					{
+					obj_best  = obj;
+					gmax  = obj->gold_cost;
+					smax  = obj->silver_cost;
+					cmax  = obj->copper_cost;
+					}
+#else
 	      if (CAN_WEAR (obj, ITEM_TAKE)
-		  && obj->cost > max
-		  && !IS_OBJ_STAT (obj, ITEM_BURIED)
-		  && !IS_OBJ_STAT (obj, ITEM_HIDDEN))
-		{
-		  obj_best = obj;
-		  max = obj->cost;
-		}
+					&& obj->cost > max
+					&& !IS_OBJ_STAT (obj, ITEM_BURIED)
+					&& !IS_OBJ_STAT (obj, ITEM_HIDDEN))
+					{
+						obj_best = obj;
+						max = obj->cost;
+					}
+#endif
 	    }
 
 	  if (obj_best)
@@ -1114,6 +1138,19 @@ char_update (void)
 
       if (ch->position == POS_STUNNED)
 				update_pos (ch);
+
+#ifdef ENABLE_ARENA
+	if ( challenge_tme != 0)
+		challenge_tme--;
+
+	if (challenge_tme == 0 && xIS_SET(ch->act, ACT_CHALLENGER) && !xIS_SET(ch->in_room->room_flags, ROOM_ARENA))
+	{
+		send_to_char ("They have not responded challenge canceled.\n\r",ch);
+		xREMOVE_BIT (ch->act,ACT_CHALLENGER);
+		is_challenge = FALSE;
+		return;
+  }
+#endif
 
       /* Expire variables */
       if (ch->variables)
@@ -1342,6 +1379,41 @@ char_update (void)
 
       if (!char_died (ch))
 	{
+#ifdef ENABLE_ARCHERY
+         OBJ_DATA *arrow = NULL;
+         int dam = 0;
+
+         if( ( arrow = get_eq_char( ch, WEAR_LODGE_RIB ) ) != NULL )
+         {
+            dam = number_range( ( 2 * arrow->value[1] ), ( 2 * arrow->value[2] ) );
+            act( AT_CARNAGE, "$n suffers damage from $p stuck in $s rib.", ch, arrow, NULL, TO_ROOM );
+            act( AT_CARNAGE, "You suffer damage from $p stuck in your rib.", ch, arrow, NULL, TO_CHAR );
+            damage( ch, ch, dam, TYPE_UNDEFINED );
+         }
+         if( char_died( ch ) )
+            continue;
+
+         if( ( arrow = get_eq_char( ch, WEAR_LODGE_LEG ) ) != NULL )
+         {
+            dam = number_range( arrow->value[1], arrow->value[2] );
+            act( AT_CARNAGE, "$n suffers damage from $p stuck in $s leg.", ch, arrow, NULL, TO_ROOM );
+            act( AT_CARNAGE, "You suffer damage from $p stuck in your leg.", ch, arrow, NULL, TO_CHAR );
+            damage( ch, ch, dam, TYPE_UNDEFINED );
+         }
+         if( char_died( ch ) )
+            continue;
+
+         if( ( arrow = get_eq_char( ch, WEAR_LODGE_ARM ) ) != NULL )
+         {
+            dam = number_range( arrow->value[1], arrow->value[2] );
+            act( AT_CARNAGE, "$n suffers damage from $p stuck in $s arm.", ch, arrow, NULL, TO_ROOM );
+            act( AT_CARNAGE, "You suffer damage from $p stuck in your arm.", ch, arrow, NULL, TO_CHAR );
+            damage( ch, ch, dam, TYPE_UNDEFINED );
+         }
+         if( char_died( ch ) )
+            continue;
+#endif
+
 	  /*
 	   * Careful with the damages here,
 	   *   MUST NOT refer to ch after damage taken, without checking
@@ -2193,6 +2265,20 @@ aggr_update (void)
 	      continue;
 	    }
 
+#ifdef ENABLE_WEAPONPROF
+    /*
+     * backstabbing mobs (Thoric)
+     */
+    if ( IS_NPC(ch) && xIS_SET(ch->attacks, ATCK_BACKSTAB ) )
+    {
+       OBJ_DATA *obj;
+
+        if( !ch->mount
+        && (obj = get_eq_char( ch, WEAR_WIELD )) != NULL
+        && (obj->value[4] == WEP_DAGGER)
+        && !victim->fighting
+        && victim->hit >= victim->max_hit )
+#else
 	  /* backstabbing mobs (Thoric) */
 	  if (IS_NPC (ch) && xIS_SET (ch->attacks, ATCK_BACKSTAB))
 	    {
@@ -2202,6 +2288,7 @@ aggr_update (void)
 		  && (obj = get_eq_char (ch, WEAR_WIELD)) != NULL
 		  && (obj->value[3] == 11 || obj->value[3] == 2)
 		  && !victim->fighting && victim->hit >= victim->max_hit)
+#endif
 		{
 		  check_attacker (ch, victim);
 		  WAIT_STATE (ch, skill_table[gsn_backstab]->beats);
@@ -2653,6 +2740,17 @@ reboot_check (time_t reset)
       sprintf (buf, _("%.24s: %d players"), ctime (&current_time),
 	       num_descriptors);
       append_to_file (USAGE_FILE, buf);
+#ifdef ENABLE_GOLD_SILVER_COPPER
+			sprintf(buf, _("%.24s:  %dptn  %dpll  %dsc %dbr  %d Gold loot  %d Silver loot   %d Copper loot"),
+					ctime(&current_time),
+					sysdata.upotion_val,
+					sysdata.upill_val,
+					sysdata.scribed_used,
+					sysdata.brewed_used,
+					sysdata.global_gold_looted, 
+					sysdata.global_silver_looted,
+					sysdata.global_copper_looted);
+#else
       sprintf (buf, _("%.24s:  %dptn  %dpll  %dsc %dbr  %d global loot"),
 	       ctime (&current_time),
 	       sysdata.upotion_val,
@@ -2660,6 +2758,7 @@ reboot_check (time_t reset)
 	       sysdata.scribed_used,
 	       sysdata.brewed_used, sysdata.global_looted);
       append_to_file (ECONOMY_FILE, buf);
+#endif
     }
 
   if (new_boot_time_t - boot_time < 60 * 60 * 18 && !set_boot_time->manual)
@@ -2708,6 +2807,260 @@ reboot_check (time_t reset)
 
 /* the auction update*/
 
+#ifdef ENABLE_GOLD_SILVER_COPPER
+/* 
+ * Gold/Silver/Copper Support -Druid
+ * This was nasty to work with...
+ */
+
+void
+auction_update (void)
+{
+    int tax, pay;
+    char buf[MAX_STRING_LENGTH];
+    char buf2[MAX_STRING_LENGTH];
+    int gbid = 0;
+    int sbid = 0;
+    int cbid = 0;
+    int wealth = 0;
+    int tmpvalue = 0;
+    
+    if(!auction->item)
+    {
+    	if(AUCTION_MEM > 0 && auction->history[0] &&
+    			++auction->hist_timer == 6*AUCTION_MEM)
+    	{
+    		int i;
+    		
+    		for(i = AUCTION_MEM - 1; i >= 0; i--)
+    		{
+    			if(auction->history[i])
+    			{
+    				auction->history[i] = NULL;
+    				auction->hist_timer = 0;
+    				break;
+    			}
+    		}
+    	}
+    	return;
+    }
+
+    switch (++auction->going) /* increase the going state */
+    {
+	case 1 : /* going once */
+	case 2 : /* going twice */
+	    if (auction->bet > auction->starting){
+	    tmpvalue = auction->bet;  
+	    gbid = tmpvalue/10000;
+	    tmpvalue=tmpvalue%10000;
+	    sbid = tmpvalue/100;
+	    tmpvalue=tmpvalue%100;		
+	    cbid = tmpvalue;
+		sprintf (buf, "%s: going %s for ", auction->item->short_descr,
+			((auction->going == 1) ? "once" : "twice") );
+			if( gbid > 0 && sbid > 0 && cbid > 0)
+			sprintf( buf2, "%d gold, %d silver, and %d copper.",gbid,sbid,cbid);
+			else if( gbid > 0 && sbid > 0 && cbid <= 0)
+			sprintf( buf2, "%d gold and %d silver.",gbid,sbid);
+			else if( gbid > 0 && sbid <= 0 && cbid > 0)
+			sprintf( buf2, "%d gold and %d copper.",gbid,cbid);
+			else if( gbid > 0 && sbid <= 0 && cbid <= 0)
+			sprintf( buf2, "%d gold.",gbid);
+			else if( gbid <= 0 && sbid > 0 && cbid <= 0)
+			sprintf( buf2, "%d silver.",sbid);
+			else if( gbid <= 0 && sbid <= 0 && cbid > 0)
+			sprintf( buf2, "%d copper.",cbid);
+			else if( gbid <= 0 && sbid > 0 && cbid > 0)
+			sprintf( buf2, "%d silver and %d copper.",sbid,cbid);
+			else sprintf( buf2, "Error in update_auction report to Ddruid!");
+			strcat(buf,buf2);
+	    } else
+		sprintf (buf, "%s: going %s (bid not received yet).",  auction->item->short_descr,
+			((auction->going == 1) ? "once" : "twice"));
+
+	    talk_auction (buf);
+	    break;
+
+	case 3 : /* SOLD! */
+	    if (!auction->buyer && auction->bet)
+	    {
+		bug( "Auction code reached SOLD, with NULL buyer, but %d gold bid", auction->bet );
+		auction->bet = 0;
+	    }
+	    if (auction->bet > 0 && auction->buyer != auction->seller)
+	    {
+	    tmpvalue = auction->bet;  
+	    gbid = tmpvalue/10000;
+	    tmpvalue=tmpvalue%10000;
+	    sbid = tmpvalue/100;
+	    tmpvalue=tmpvalue%100;		
+	    cbid = tmpvalue;
+	    
+		sprintf (buf, "%s sold to %s for ",
+			auction->item->short_descr,
+			IS_NPC(auction->buyer) ? auction->buyer->short_descr : auction->buyer->name);
+		if( gbid > 0 && sbid > 0 && cbid > 0)
+			sprintf( buf2, "%d gold, %d silver, and %d copper.",gbid,sbid,cbid);
+			else if( gbid > 0 && sbid > 0 && cbid <= 0)
+			sprintf( buf2, "%d gold and %d silver.",gbid,sbid);
+			else if( gbid > 0 && sbid <= 0 && cbid > 0)
+			sprintf( buf2, "%d gold and %d copper.",gbid,cbid);
+			else if( gbid > 0 && sbid <= 0 && cbid <= 0)
+			sprintf( buf2, "%d gold.",gbid);
+			else if( gbid <= 0 && sbid > 0 && cbid <= 0)
+			sprintf( buf2, "%d silver.",sbid);
+			else if( gbid <= 0 && sbid <= 0 && cbid > 0)
+			sprintf( buf2, "%d copper.",cbid);
+			else if( gbid <= 0 && sbid > 0 && cbid > 0)
+			sprintf( buf2, "%d silver and %d copper.",sbid,cbid);
+			else sprintf( buf2, "Error in update_auction report to Ddruid!");
+			strcat(buf,buf2);
+		talk_auction(buf);
+
+		act(AT_ACTION, "The auctioneer materializes before you, and hands you $p.",
+			auction->buyer, auction->item, NULL, TO_CHAR);
+		act(AT_ACTION, "The auctioneer materializes before $n, and hands $m $p.",
+			auction->buyer, auction->item, NULL, TO_ROOM);
+
+		if ( (auction->buyer->carry_weight 
+		+     get_obj_weight( auction->item ))
+		>     can_carry_w( auction->buyer ) )
+		{
+		    act( AT_PLAIN, "$p is too heavy for you to carry with your current inventory.", auction->buyer, auction->item, NULL, TO_CHAR );
+    		    act( AT_PLAIN, "$n is carrying too much to also carry $p, and $e drops it.", auction->buyer, auction->item, NULL, TO_ROOM );
+		    obj_to_room( auction->item, auction->buyer->in_room );
+		}
+		else
+		    obj_to_char( auction->item, auction->buyer );
+	        pay = (int)auction->bet * 0.9;
+		tax = (int)auction->bet * 0.1;
+		tmpvalue = pay;  
+	    gbid = tmpvalue/10000;
+	    tmpvalue=tmpvalue%10000;
+	    sbid = tmpvalue/100;
+	    tmpvalue=tmpvalue%100;		
+	    cbid = tmpvalue;
+		boost_economy( auction->seller->in_room->area, tax );
+                auction->seller->gold += gbid; /* give him the money, tax 10 % */
+                auction->seller->silver += sbid;
+                auction->seller->copper += cbid;
+		ch_printf( auction->seller, "The auctioneer pays you ");
+		if( gbid > 0 && sbid > 0 && cbid > 0)
+			ch_printf( auction->seller, "%d gold, %d silver, and %d copper.\n\r",gbid,sbid,cbid);
+			else if( gbid > 0 && sbid > 0 && cbid <= 0)
+		ch_printf( auction->seller, "%d gold and %d silver.\n\r",gbid,sbid);
+			else if( gbid > 0 && sbid <= 0 && cbid > 0)
+			ch_printf( auction->seller, "%d gold and %d copper.\n\r",gbid,cbid);
+			else if( gbid > 0 && sbid <= 0 && cbid <= 0)
+			ch_printf( auction->seller, "%d gold.\n\r",gbid);
+			else if( gbid <= 0 && sbid > 0 && cbid <= 0)
+			ch_printf( auction->seller, "%d silver.\n\r",sbid);
+			else if( gbid <= 0 && sbid <= 0 && cbid > 0)
+		ch_printf( auction->seller, "%d copper.\n\r",cbid);
+			else if( gbid <= 0 && sbid > 0 && cbid > 0)
+			ch_printf( auction->seller, "%d silver and %d copper.\n\r",sbid,cbid);
+			else bug("Error in update_auction report to Ddruid!");
+		 tmpvalue = tax;  
+	    gbid = tmpvalue/10000;
+	    tmpvalue=tmpvalue%10000;
+	    sbid = tmpvalue/100;
+	    tmpvalue=tmpvalue%100;		
+	    cbid = tmpvalue;
+		 ch_printf(auction->seller,"The auctioneer charged a fee of ");
+		if( gbid > 0 && sbid > 0 && cbid > 0)
+			ch_printf( auction->seller, "%d gold, %d silver, and %d copper.\n\r",gbid,sbid,cbid);
+			else if( gbid > 0 && sbid > 0 && cbid <= 0)
+		  ch_printf( auction->seller, "%d gold and %d silver.\n\r",gbid,sbid);
+			else if( gbid > 0 && sbid <= 0 && cbid > 0)
+			ch_printf( auction->seller, "%d gold and %d copper.\n\r",gbid,cbid);
+			else if( gbid > 0 && sbid <= 0 && cbid <= 0)
+			ch_printf( auction->seller, "%d gold.\n\r",gbid);
+			else if( gbid <= 0 && sbid > 0 && cbid <= 0)
+			ch_printf( auction->seller, "%d silver.\n\r",sbid);
+			else if( gbid <= 0 && sbid <= 0 && cbid > 0)
+		  ch_printf( auction->seller, "%d copper.\n\r",cbid);
+			else if( gbid <= 0 && sbid > 0 && cbid > 0)
+			ch_printf( auction->seller, "%d silver and %d copper.\n\r",sbid,cbid);
+			else bug("Error in update_auction report to Ddruid!");
+		
+                auction->item = NULL; /* reset item */
+		if ( IS_SET( sysdata.save_flags, SV_AUCTION ) )
+		{
+		    save_char_obj( auction->buyer );
+		    save_char_obj( auction->seller );
+		}
+            }
+            else /* not sold */
+            {
+                sprintf (buf, "No bids received for %s - removed from auction.\n\r",auction->item->short_descr);
+                talk_auction(buf);
+                act (AT_ACTION, "The auctioneer appears before you to return $p to you.",
+                      auction->seller,auction->item,NULL,TO_CHAR);
+                act (AT_ACTION, "The auctioneer appears before $n to return $p to $m.",
+                      auction->seller,auction->item,NULL,TO_ROOM);
+		if ( (auction->seller->carry_weight
+		+     get_obj_weight( auction->item ))
+		>     can_carry_w( auction->seller ) )
+		{
+		    act( AT_PLAIN, "You drop $p as it is just too much to carry"
+			" with everything else you're carrying.", auction->seller,
+			auction->item, NULL, TO_CHAR );
+		    act( AT_PLAIN, "$n drops $p as it is too much extra weight"
+			" for $m with everything else.", auction->seller,
+			auction->item, NULL, TO_ROOM );
+		    obj_to_room( auction->item, auction->seller->in_room );
+		}
+		else
+		    obj_to_char (auction->item,auction->seller);
+		tax = (int)get_value(auction->item->gold_cost, auction->item->silver_cost, auction->item->copper_cost) * 0.05;
+		/*tax = (int)cost * 0.05;*/
+		boost_economy( auction->seller->in_room->area, tax );
+		ch_printf(auction->seller, "The auctioneer charges you an auction fee of ");
+		tmpvalue = tax;  
+	    gbid = tmpvalue/10000;
+	    tmpvalue=tmpvalue%10000;
+	    sbid = tmpvalue/100;
+	    tmpvalue=tmpvalue%100;		
+	    cbid = tmpvalue;
+		if( gbid > 0 && sbid > 0 && cbid > 0)
+			ch_printf( auction->seller, "%d gold, %d silver, and %d copper.\n\r",gbid,sbid,cbid);
+			else if( gbid > 0 && sbid > 0 && cbid <= 0)
+		  ch_printf( auction->seller, "%d gold and %d silver.\n\r",gbid,sbid);
+			else if( gbid > 0 && sbid <= 0 && cbid > 0)
+			ch_printf( auction->seller, "%d gold and %d copper.\n\r",gbid,cbid);
+			else if( gbid > 0 && sbid <= 0 && cbid <= 0)
+			ch_printf( auction->seller, "%d gold.\n\r",gbid);
+			else if( gbid <= 0 && sbid > 0 && cbid <= 0)
+			ch_printf( auction->seller, "%d silver.\n\r",sbid);
+			else if( gbid <= 0 && sbid <= 0 && cbid > 0)
+		  ch_printf( auction->seller, "%d copper.\n\r",cbid);
+			else if( gbid <= 0 && sbid > 0 && cbid > 0)
+			ch_printf( auction->seller, "%d silver and %d copper.\n\r",sbid,cbid);
+			else bug("Error in update_auction report to Ddruid!");
+		wealth = get_value(auction->seller->gold, auction->seller->silver, auction->seller->copper);
+		if ((wealth - tax) < 0){
+		  auction->seller->gold = 0;
+		  auction->seller->silver = 0;
+		  auction->seller->copper = 0;
+		} 
+		else if(auction->seller->gold < gbid 
+		   || auction->seller->silver < sbid 
+		   || auction->seller->copper < cbid){
+    tmpvalue = wealth - tax;
+		conv_currency( auction->seller, tmpvalue);
+    send_to_char("You hand your coins to the auctioneer who quickly makes change.\n\r",auction->seller);
+	  } else {
+	  auction->seller->gold -= gbid;
+	  auction->seller->silver -= sbid;
+	  auction->seller->copper -= cbid;
+	  }
+		if ( IS_SET( sysdata.save_flags, SV_AUCTION ) )
+		    save_char_obj( auction->seller );
+	    } /* else */
+	    auction->item = NULL; /* clear auction */
+    } /* switch */
+} /* func */
+#else
 void
 auction_update (void)
 {
@@ -2845,6 +3198,7 @@ auction_update (void)
       auction->item = NULL;	/* clear auction */
     }				/* switch */
 }				/* func */
+#endif
 
 void
 subtract_times (struct timeval *etime, struct timeval *stime)

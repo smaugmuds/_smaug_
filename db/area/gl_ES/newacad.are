@@ -16,7 +16,7 @@ $
 #FLAGS
 1 3
 
-#ECONOMY 0 497818680
+#ECONOMY 0 497764260
 
 #CLIMATE 2 2 2
 
@@ -29,13 +29,14 @@ A dread wolf is hunting here
 ~
 1073741889 0 0 V
 4 0 35 44d0+1 0d0+0
-500 0
+0
+0 5 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 66692 0 2048 0 0 0
-3 25 25 25 25 25 25 0 0 0 0 0 
+6 25 25 25 25 25 25 0 0 0 0 0 
 #10301
 slug arena~
 a slimy slug~
@@ -44,13 +45,14 @@ A slimy slug is here scrounging up a meal
 ~
 65 0 0 V
 4 0 45 44d0+1 0d0+0
-500 0
+0
+0 5 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 66560 0 2048 0 0 0
-2 25 25 25 25 25 25 0 0 0 0 0 
+0 25 25 25 25 25 25 0 0 0 0 0 
 #10302
 naga arena~
 the bone naga~
@@ -61,13 +63,14 @@ this creature is something to be careful of.
 ~
 65 0 -200 V
 5 0 88 55d0+1 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 62
 0 0 0 0 131073 131073 0
 0 0 66561 0 2048 0 0 0
-6 25 25 25 25 25 25 0 0 0 0 0 
+0 25 25 25 25 25 25 0 0 0 0 0 
 #10303
 crawler arena~
 a carrion crawler~
@@ -76,13 +79,14 @@ A carrion crawler growls at you.
 ~
 65 56 0 V
 5 0 -1 55d0+1 0d0+0
-1000 0
+0
+0 10 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 1159 0 2048 0 0 0
-2 25 25 25 25 25 25 0 0 0 0 0 
+6 25 25 25 25 25 25 0 0 0 0 0 
 #10304
 ~
 the naga~
@@ -94,13 +98,14 @@ woman, and she doesn't look happy to see you.
 ~
 1073741891 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
-0 3 0 0 0 0 0
+0 3 0 0 1 1 0
 0 0 0 0 0 0 0 0
-0 25 25 25 25 25 25 0 0 0 0 0 
+6 25 25 25 25 25 25 0 0 0 0 0 
 #10305
 naga cage~
 the naga~
@@ -112,13 +117,14 @@ She does not look happy to see you.
 ~
 1073741891 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 1159 0 0 0 0 0
-1 25 25 25 25 25 25 0 0 0 0 0 
+6 25 25 25 25 25 25 0 0 0 0 0 
 #10306
 naga cage~
 the naga~
@@ -130,13 +136,14 @@ She does not look happy to see you.
 ~
 67 0 0 V
 1 0 -92 11d1+0 0d0+0
-0 0
+0
+0 0 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 1159 0 0 0 0 0
-1 25 25 25 25 25 25 0 0 0 0 0 
+4 25 25 25 25 25 25 0 0 0 0 0 
 #10307
 naga cage~
 the naga~
@@ -148,13 +155,14 @@ She does not look happy to see you.
 ~
 67 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 1159 0 0 0 0 0
-2 25 25 25 25 25 25 0 0 0 0 0 
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10308
 naga cage~
 the naga~
@@ -166,13 +174,14 @@ She does not look happy to see you.
 ~
 67 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 1159 0 0 0 0 0
-3 25 25 25 25 25 25 0 0 0 0 0 
+6 25 25 25 25 25 25 0 0 0 0 0 
 #10309
 naga cage~
 the naga~
@@ -184,13 +193,14 @@ She does not look happy to see you.
 ~
 67 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 1159 0 0 0 0 0
-4 25 25 25 25 25 25 0 0 0 0 0 
+1 25 25 25 25 25 25 0 0 0 0 0 
 #10310
 naga cage~
 the naga~
@@ -202,13 +212,14 @@ She does not look happy to see you.
 ~
 67 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 1159 0 0 0 0 0
-4 25 25 25 25 25 25 0 0 0 0 0 
+1 25 25 25 25 25 25 0 0 0 0 0 
 #10311
 naga cage~
 the naga~
@@ -220,13 +231,14 @@ She does not look happy to see you.
 ~
 67 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 1159 0 0 0 0 0
-6 25 25 25 25 25 25 0 0 0 0 0 
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10312
 gnoll cage~
 the gnoll~
@@ -237,13 +249,14 @@ He is trying to strike fear in your heart.
 ~
 35 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 0 0 0 1 1 0
 0 0 1031 0 0 0 0 0
-3 25 25 25 25 25 25 0 0 0 0 0 
+4 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 90~
 if level($n) >= 4
 if mobinroom(10312) <= 1
@@ -264,13 +277,14 @@ He is trying to strike fear in your heart.
 ~
 35 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 0 0 0 1 1 0
 0 0 1031 0 0 0 0 0
-1 25 25 25 25 25 25 0 0 0 0 0 
+6 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 90~
 if level($n) >= 4
 if mobinroom(10313) <= 1
@@ -291,7 +305,8 @@ He is trying to strike fear in your heart.
 ~
 35 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
@@ -318,13 +333,14 @@ He is trying to strike fear in your heart.
 ~
 35 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 0 0 0 1 1 0
 0 0 1031 0 0 0 0 0
-5 25 25 25 25 25 25 0 0 0 0 0 
+2 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 90~
 if level($n) >= 4
 if mobinroom(10315) <= 1
@@ -345,13 +361,14 @@ He is trying to strike fear in your heart.
 ~
 35 8 0 V
 1 0 69 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 83
 0 0 0 0 131073 131073 0
 0 0 1031 0 0 0 0 0
-2 25 25 25 25 25 25 0 0 0 0 0 
+6 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 90~
 if level($n) >= 4
 if mobinroom(10316) <= 1
@@ -372,13 +389,14 @@ He is trying to strike fear in your heart.
 ~
 35 0 0 V
 1 0 0 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 1
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 1031 0 0 0 0 0
-6 25 25 25 25 25 25 0 0 0 0 0 
+1 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 90~
 if level($n) >= 4
 if mobinroom(10317) <= 1
@@ -399,13 +417,14 @@ He is trying to strike fear in your heart.
 ~
 35 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 0 0 0 1 1 0
 0 0 1031 0 0 0 0 0
-1 25 25 25 25 25 25 0 0 0 0 0 
+0 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 90~
 if level($n) >= 4
 if mobinroom(10318) <= 1
@@ -426,13 +445,14 @@ You are sure you can beat in combat.
 ~
 35 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 3 0 0 0 131073 131072 0
 0 0 3 0 0 0 0 0
-1 25 25 25 25 25 25 0 0 0 0 0 
+2 25 25 25 25 25 25 0 0 0 0 0 
 #10320
 kobold cage~
 the kobold~
@@ -443,13 +463,14 @@ You are sure you can beat in combat.
 ~
 35 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 3 0 0 0 131073 131072 0
 0 0 3 0 0 0 0 0
-2 25 25 25 25 25 25 0 0 0 0 0 
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10321
 kobold cage~
 the kobold~
@@ -460,13 +481,14 @@ You are sure you can beat in combat.
 ~
 35 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 3 0 0 0 131073 131072 0
 0 0 3 0 0 0 0 0
-3 25 25 25 25 25 25 0 0 0 0 0 
+5 25 25 25 25 25 25 0 0 0 0 0 
 #10322
 kobold cage~
 the kobold~
@@ -477,13 +499,14 @@ You are sure you can beat in combat.
 ~
 35 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 3 0 0 0 131073 131072 0
 0 0 3 0 0 0 0 0
-5 25 25 25 25 25 25 0 0 0 0 0 
+1 25 25 25 25 25 25 0 0 0 0 0 
 #10323
 kobold cage~
 the kobold~
@@ -494,13 +517,14 @@ You are sure you can beat in combat.
 ~
 35 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 3 0 0 0 131073 131072 0
 0 0 3 0 0 0 0 0
-1 25 25 25 25 25 25 0 0 0 0 0 
+6 25 25 25 25 25 25 0 0 0 0 0 
 #10324
 kobold cage~
 the kobold~
@@ -511,13 +535,14 @@ You are sure you can beat in combat.
 ~
 35 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 3 0 0 0 131073 131072 0
 0 0 3 0 0 0 0 0
-0 25 25 25 25 25 25 0 0 0 0 0 
+5 25 25 25 25 25 25 0 0 0 0 0 
 #10325
 kobold cage~
 the kobold~
@@ -529,13 +554,14 @@ can see of it is more like a transparent mist.
 ~
 35 0 1000 V
 1 0 90 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 84
 3 0 0 0 3 2 0
 0 0 3 0 0 0 0 0
-1 25 25 25 25 25 25 0 0 0 0 0 
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10326
 minotaur cage~
 the minotaur~
@@ -546,13 +572,14 @@ looks pretty small compared to the others of its kind that you have seen.
 ~
 67 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
-0 3 0 0 0 0 0
+0 3 0 0 1 1 0
 0 0 0 0 0 0 0 0
-0 25 25 25 25 25 25 0 0 0 0 0 
+2 25 25 25 25 25 25 0 0 0 0 0 
 #10327
 minotaur cage~
 the minotaur~
@@ -563,13 +590,14 @@ looks pretty small compared to the others of its kind that you have seen.
 ~
 67 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
-0 3 0 0 0 0 0
+0 3 0 0 1 1 0
 0 0 0 0 0 0 0 0
-2 25 25 25 25 25 25 0 0 0 0 0 
+5 25 25 25 25 25 25 0 0 0 0 0 
 #10328
 minotaur cage~
 the minotaur~
@@ -580,13 +608,14 @@ looks pretty small compared to the others of its kind that you have seen.
 ~
 67 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
-0 3 0 0 0 0 0
+0 3 0 0 1 1 0
 0 0 0 0 0 0 0 0
-3 25 25 25 25 25 25 0 0 0 0 0 
+6 25 25 25 25 25 25 0 0 0 0 0 
 #10329
 minotaur cage~
 the minotaur~
@@ -597,13 +626,14 @@ looks pretty small compared to the others of its kind that you have seen.
 ~
 67 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
-0 3 0 0 0 0 0
+0 3 0 0 1 1 0
 0 0 0 0 0 0 0 0
-5 25 25 25 25 25 25 0 0 0 0 0 
+4 25 25 25 25 25 25 0 0 0 0 0 
 #10330
 minotaur cage~
 the minotaur~
@@ -614,13 +644,14 @@ looks pretty small compared to the others of its kind that you have seen.
 ~
 67 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
-0 3 0 0 0 0 0
+0 3 0 0 1 1 0
 0 0 0 0 0 0 0 0
-1 25 25 25 25 25 25 0 0 0 0 0 
+4 25 25 25 25 25 25 0 0 0 0 0 
 #10331
 minotaur cage~
 the minotaur~
@@ -631,13 +662,14 @@ looks pretty small compared to the others of its kind that you have seen.
 ~
 67 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
-0 3 0 0 0 0 0
+0 3 0 0 1 1 0
 0 0 0 0 0 0 0 0
-6 25 25 25 25 25 25 0 0 0 0 0 
+1 25 25 25 25 25 25 0 0 0 0 0 
 #10332
 minotaur cage~
 the minotaur~
@@ -648,13 +680,14 @@ looks pretty small compared to the others of its kind that you have seen.
 ~
 67 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
-0 3 0 0 0 0 0
+0 3 0 0 1 1 0
 0 0 0 0 0 0 0 0
-0 25 25 25 25 25 25 0 0 0 0 0 
+5 25 25 25 25 25 25 0 0 0 0 0 
 #10333
 healer spectre cage~
 the spectre~
@@ -666,13 +699,14 @@ can see of it is more like a transparent mist.
 ~
 3 184 1000 V
 50 0 0 20000d1+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
 18 13 13 13 13 13 0
 0 0 0 0 0
 1 0 0 0 2 3 0
 0 0 0 0 2097152 0 0 0
-5 240 240 240 240 240 240 0 0 0 0 0 
+6 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p is dying~
 mpforce 0.$n drink
 mpechoat $n Drinking fluid will help your thirst and improve your mental state.
@@ -695,13 +729,14 @@ can see of it is more like a transparent mist.
 ~
 1073741827 184 1000 V
 50 0 0 20000d1+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
 18 13 13 13 13 13 0
 0 0 0 0 0
 1 0 0 0 3 3 0
 0 0 0 0 2097152 0 0 0
-1 240 240 240 240 240 240 0 0 0 0 0 
+4 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p is dying~
 mpforce 0.$n drink
 mpechoat $n Drinking fluid will help your thirst and improve your mental state.
@@ -724,13 +759,14 @@ can see of it is more like a transparent mist.
 ~
 3 184 1000 V
 50 0 0 20000d1+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
 18 13 13 13 13 13 0
 0 0 0 0 0
 1 0 0 0 2 3 0
 0 0 0 0 2097152 0 0 0
-3 240 240 240 240 240 240 0 0 0 0 0 
+4 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p is dying~
 mpforce 0.$n drink
 mpechoat $n Drinking fluid will help your thirst and improve your mental state.
@@ -753,13 +789,14 @@ can see of it is more like a transparent mist.
 ~
 3 184 1000 V
 50 0 0 20000d1+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
 18 13 13 13 13 13 0
 0 0 0 0 0
 1 0 0 0 2 3 0
 0 0 0 0 2097152 0 0 0
-5 240 240 240 240 240 240 0 0 0 0 0 
+1 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p is dying~
 mpforce 0.$n drink
 mpechoat $n Drinking fluid will help your thirst and improve your mental state.
@@ -782,13 +819,14 @@ can see of it is more like a transparent mist.
 ~
 3 184 1000 V
 50 0 0 20000d1+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
 18 13 13 13 13 13 0
 0 0 0 0 0
 1 0 0 0 2 3 0
 0 0 0 0 2097152 0 0 0
-1 240 240 240 240 240 240 0 0 0 0 0 
+4 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p is dying~
 mpforce 0.$n drink
 mpechoat $n Drinking fluid will help your thirst and improve your mental state.
@@ -811,13 +849,14 @@ can see of it is more like a transparent mist.
 ~
 3 184 1000 V
 50 0 0 20000d1+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
 18 13 13 13 13 13 0
 0 0 0 0 0
 1 0 0 0 2 3 0
 0 0 0 0 2097152 0 0 0
-5 240 240 240 240 240 240 0 0 0 0 0 
+4 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p is dying~
 mpforce 0.$n drink
 mpechoat $n Drinking fluid will help your thirst and improve your mental state.
@@ -840,13 +879,14 @@ woman, and she doesn't look happy to see you.
 ~
 67 184 0 V
 50 0 94 20000d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 18 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 0 0 0 0 0 0
-6 240 240 240 240 240 240 0 0 0 0 0 
+2 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p is dying~
 mpforce 0.$n drink
 mpechoat $n Drinking fluid will help your thirst and improve your mental state.
@@ -870,17 +910,34 @@ Do not attempt to kill him, for you shall surely die.
 ~
 1027 4194472 1000 V
 1 0 94 1d1+1000 0d0+0
-100 0
+0
+0 1 0
 112 112 1
 13 13 13 13 13 13 0
 0 0 0 0 37
 0 4 0 0 131072 131073 0
 0 0 0 0 1059840 0 0 0
-5 25 25 25 25 25 25 0 0 0 0 0 
+0 25 25 25 25 25 25 0 0 0 0 0 
 > all_greet_prog 100~
 tell $n Are you ready for your lessons?
 ~
 |
+#10341
+Lord Midas~
+lord midas a banker~
+Lord Midas is a banker, you can deposit your gain here.
+~
+~
+1073741827&1024 0 0 V
+1 0 0 0d0+0 0d0+0
+0
+0 0 0
+112 112 0
+13 13 13 13 13 13 13
+0 0 0 0 0
+0 3 0 0 0 0 0
+0 0 0 0 0 0 0 0
+1 25 25 25 25 25 25 0 0 0 0 0 
 #10342
 Toric lord healer~
 Lord Toric~
@@ -890,15 +947,16 @@ This is Toric, a Lord of Healing.  If you grovel before him, you might
 receive extra assistance.  Groveling before the Lords will not get you
 very far in the game, but honest play, helping others and strategy will.
 ~
-1073741827&1024 4194472 1000 V
+1073741827 4194472 1000 V
 25 0 94 30000d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 1
 13 13 13 13 13 13 0
 0 0 0 0 -30
 0 6 0 0 131072 131073 0
 0 0 0 0 1058816 0 0 0
-1 100 100 100 100 100 100 0 0 0 0 0 
+2 100 100 100 100 100 100 0 0 0 0 0 
 > all_greet_prog 100~
 if isnpc($n)
 if ischarmed($n)
@@ -963,13 +1021,14 @@ patient with those still learning to use the shop.
 ~
 3 4194856 0 V
 1 0 94 1000d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 1
 18 13 13 13 13 13 0
 0 0 0 0 44
 3 0 0 0 131072 131073 0
 0 0 3 0 1048576 0 0 0
-2 25 25 25 25 25 25 0 0 0 0 0 
+1 25 25 25 25 25 25 0 0 0 0 0 
 > all_greet_prog 100~
 smile $n
 say Welcome to my store!
@@ -995,13 +1054,14 @@ This will be quite a battle, but the prize is well worth the effort.
 ~
 3 0 0 V
 4 0 35 50d1+0 0d0+0
-1000 0
+0
+0 10 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 44
 3 0 0 0 131072 131073 0
 0 0 3 0 2048 0 0 0
-3 25 25 25 25 25 25 0 0 0 0 0 
+2 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 100~
 mpoload 10307 2
 mpoload 10309 2
@@ -1017,13 +1077,14 @@ You are pretty sure you can best him in regards to combat.
 ~
 1073741827 0 0 V
 4 0 25 44d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 44
 85 0 0 0 131072 131073 0
 0 0 3 0 2048 0 0 0
-6 25 25 25 25 25 25 0 0 0 0 0 
+4 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 85~
 if level($n) >= 6
 if rand(50)
@@ -1045,13 +1106,14 @@ adventurers to the training area of their chosen class.
 ~
 3 680 1000 V
 50 0 94 15000d1+0 5d5+5
-100 0
+0
+0 1 0
 112 112 2
 13 13 13 13 13 13 0
 0 0 0 0 44
 0 0 0 0 131072 131073 0
 0 0 3 0 0 0 0 0
-3 240 240 240 240 240 240 0 0 0 0 0 
+0 240 240 240 240 240 240 0 0 0 0 0 
 > all_greet_prog 100~
 mpechoat $n Silvina looks up from her filing and appraises your needs.
 say Hello there, $n.
@@ -1152,13 +1214,14 @@ You are pretty sure you can best him in regards to combat
 ~
 1073741859 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 44
 3 0 0 0 131073 131072 0
 0 0 3 0 0 0 0 0
-1 25 25 25 25 25 25 0 0 0 0 0 
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10348
 None~
 this is a none~
@@ -1169,13 +1232,14 @@ You are pretty sure you can best him in regards to combat
 ~
 1073741859 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 44
 3 0 0 0 131073 131072 0
 0 0 3 0 0 0 0 0
-3 25 25 25 25 25 25 0 0 0 0 0 
+2 25 25 25 25 25 25 0 0 0 0 0 
 #10349
 statue mage cage~
 the statue~
@@ -1186,13 +1250,14 @@ and contains the spirit of the subject after which it was fashioned.
 ~
 3 680 1000 V
 50 0 35 40d1+0 5d5+5
-100 0
+0
+0 1 0
 112 112 1
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 0 0 0 1 1 0
 0 0 3 0 3072 0 0 0
-5 240 240 240 240 240 240 0 0 0 0 0 
+2 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p bounces around.~
 mpforce $n look
 mpecho The statue begins to move, marble transforming to flesh.
@@ -1256,13 +1321,14 @@ in a lifelike manner, like she was a real person dipped in the marble.
 ~
 3 680 1000 V
 50 0 35 40d1+0 5d5+5
-100 0
+0
+0 1 0
 112 112 2
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 1 0 0 1 1 0
 0 0 3 0 3072 0 0 0
-2 240 240 240 240 240 240 0 0 0 0 0 
+3 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p bounces around.~
 mpforce $n look
 mpecho The statue begins to move, marble transforming to flesh.
@@ -1327,7 +1393,8 @@ a living person and not a statue at all.
 ~
 3 680 1000 V
 50 0 35 40d1+0 5d5+5
-100 0
+0
+0 1 0
 112 112 1
 13 13 13 13 13 13 0
 0 0 0 0 0
@@ -1398,13 +1465,14 @@ alive.
 ~
 3 680 1000 V
 50 0 35 40d1+0 5d5+5
-100 0
+0
+0 1 0
 112 112 1
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 3 0 3072 0 0 0
-0 240 240 240 240 240 240 0 0 0 0 0 
+2 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p looks at you.~
 if class($n) == Warrior
 mpechoat $n Hello $n, I am a fellow warrior who is here to tell you a little
@@ -1469,13 +1537,14 @@ looking deep into your soul.
 ~
 3 680 1000 V
 50 0 35 40d1+0 5d5+5
-100 0
+0
+0 1 0
 112 112 2
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 4 0 0 1 1 0
 0 0 3 0 3072 0 0 0
-0 240 240 240 240 240 240 0 0 0 0 0 
+1 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p looks at you.~
 if class($n) == Vampire
 mpechoat $n Hello $n, I am a fellow vampire who is here to tell you a little
@@ -1539,13 +1608,14 @@ robes. She is made to look so natural, you are sure she is alive.
 ~
 3 680 1000 V
 50 0 35 40d1+0 5d5+5
-100 0
+0
+0 1 0
 112 112 2
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 5 0 0 1 1 0
 0 0 3 0 3072 0 0 0
-1 240 240 240 240 240 240 0 0 0 0 0 
+4 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p looks at you.~
 if class($n) == Druid
 mpechoat $n Hello $n, I am a fellow druid who is here to tell you a little
@@ -1609,13 +1679,14 @@ Then you notice a movement, you are sure it is alive.
 ~
 3 680 1000 V
 50 0 35 40d1+0 5d5+5
-100 0
+0
+0 1 0
 112 112 1
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 6 0 0 1 1 0
 0 0 3 0 3072 0 0 0
-1 240 240 240 240 240 240 0 0 0 0 0 
+5 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p bounces around.~
 mpforce $n look
 mpecho The statue begins to move, marble transforming to flesh.
@@ -1677,13 +1748,14 @@ A tiny pixie floats about you.
 ~
 3 4718632 0 V
 4 0 -100 1d1+300 0d0+0
-0 0
+0
+0 0 0
 112 112 1
 13 13 13 25 13 13 25
 0 0 0 0 0
 85 0 0 0 135619917 135619917 0
 0 0 0 0 0 0 0 0
-1 25 25 25 25 25 25 0 0 0 0 0 
+0 25 25 25 25 25 25 0 0 0 0 0 
 > act_prog p glances at you.~
 nudge $n
 if class ($n) == Cleric
@@ -1740,13 +1812,14 @@ This is a test mob.
 ~
 1073741825 0 0 V
 1 0 0 11d1+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
-0 3 0 0 0 0 0
+0 3 0 0 1 1 0
 0 0 0 0 0 0 0 0
-3 25 25 25 25 25 25 0 0 0 0 0 
+5 25 25 25 25 25 25 0 0 0 0 0 
 #10359
 None~
 this is a none~
@@ -1757,13 +1830,14 @@ in an attempt to strike fear into your heart.
 ~
 1073741859 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 37
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
-3 25 25 25 25 25 25 0 0 0 0 0 
+6 25 25 25 25 25 25 0 0 0 0 0 
 #10360
 None~
 this is a none~
@@ -1774,7 +1848,8 @@ in an attempt to strike fear into your heart.
 ~
 1073741859 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 37
@@ -1789,13 +1864,14 @@ This is a nones long
 ~
 1073741827 0 -400 V
 1 0 0 11d1+0 0d0+0
-300 0
+0
+0 3 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
-0 3 0 0 0 0 0
+0 3 0 0 1 1 0
 0 0 0 0 0 0 0 0
-3 25 25 25 25 25 25 0 0 0 0 0 
+2 25 25 25 25 25 25 0 0 0 0 0 
 #10362
 None~
 this is a none~
@@ -1806,13 +1882,14 @@ in an attempt to strike fear into your heart.
 ~
 1073741859 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 37
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
-5 25 25 25 25 25 25 0 0 0 0 0 
+6 25 25 25 25 25 25 0 0 0 0 0 
 #10363
 None~
 this is a none~
@@ -1823,7 +1900,8 @@ in an attempt to strike fear into your heart.
 ~
 1073741859 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 37
@@ -1841,13 +1919,14 @@ this thing alive. Even from a distance you can smell it's fetid breath.
 ~
 1073741889 0 -1000 V
 1 0 90 11d1+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
-0 3 0 0 0 0 0
+0 3 0 0 1 1 0
 0 0 0 0 0 0 0 0
-0 25 25 25 25 25 25 0 0 0 0 0 
+1 25 25 25 25 25 25 0 0 0 0 0 
 #10365
 None~
 this is a none~
@@ -1858,13 +1937,14 @@ He is trying to strike fear in your heart.
 ~
 1073741859 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 37
 0 0 0 0 131073 131072 0
 0 0 1031 0 0 0 0 0
-2 25 25 25 25 25 25 0 0 0 0 0 
+1 25 25 25 25 25 25 0 0 0 0 0 
 #10366
 None~
 this is a none~
@@ -1875,13 +1955,14 @@ in an attempt to strike fear into your heart.
 ~
 1073741859 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 37
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
-3 25 25 25 25 25 25 0 0 0 0 0 
+1 25 25 25 25 25 25 0 0 0 0 0 
 #10367
 None~
 this is a none~
@@ -1893,13 +1974,14 @@ heard about.
 ~
 1073741827 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 48
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
-5 25 25 25 25 25 25 0 0 0 0 0 
+2 25 25 25 25 25 25 0 0 0 0 0 
 #10368
 None~
 this is a none~
@@ -1911,13 +1993,14 @@ heard about.
 ~
 1073741827 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 48
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
-0 25 25 25 25 25 25 0 0 0 0 0 
+4 25 25 25 25 25 25 0 0 0 0 0 
 #10369
 None~
 this is a none~
@@ -1929,13 +2012,14 @@ heard about.
 ~
 1073741827 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 48
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
-6 25 25 25 25 25 25 0 0 0 0 0 
+0 25 25 25 25 25 25 0 0 0 0 0 
 #10370
 None~
 this is a none~
@@ -1947,13 +2031,14 @@ heard about.
 ~
 1073741827 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 48
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
-0 25 25 25 25 25 25 0 0 0 0 0 
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10371
 None~
 this is a none~
@@ -1965,13 +2050,14 @@ heard about.
 ~
 1073741827 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 48
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
-6 25 25 25 25 25 25 0 0 0 0 0 
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10372
 None~
 this is a none~
@@ -1983,7 +2069,8 @@ heard about.
 ~
 1073741827 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 48
@@ -1998,13 +2085,14 @@ This is a nones long
 ~
 1073742017 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
-0 3 0 0 0 0 0
+0 3 0 0 1 1 0
 0 0 0 0 0 0 0 0
-5 25 25 25 25 25 25 0 0 0 0 0 
+1 25 25 25 25 25 25 0 0 0 0 0 
 #10386
 None~
 this is a none~
@@ -2015,13 +2103,14 @@ towards you thinking you may make a good meal.
 ~
 1073742017 0 0 V
 1 0 94 11d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
-0 3 0 0 0 0 0
+0 3 0 0 1 1 0
 0 0 0 0 0 0 0 0
-5 25 25 25 25 25 25 0 0 0 0 0 
+4 25 25 25 25 25 25 0 0 0 0 0 
 #10393
 None~
 this is a none~
@@ -2033,13 +2122,14 @@ possess an "undying" loyalty to thier Queen.
 ~
 1073741857 0 0 V
 1 0 60 11d1+0 0d0+0
-300 0
+0
+0 3 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 67
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
-3 25 25 25 25 25 25 0 0 0 0 0 
+4 25 25 25 25 25 25 0 0 0 0 0 
 #10394
 Abbigayle language teacher~
 abbigayle~
@@ -2055,7 +2145,8 @@ foreign to your ears.
 ~
 1048579 4194472 0 V
 5 16 5 1000d1+0 1d6+3
-50 450
+450
+0 0 50
 112 112 2
 13 13 13 13 13 13 13
 0 0 0 0 0
@@ -2098,13 +2189,14 @@ possess an "undying" loyalty to their Queen.
 ~
 33 0 0 V
 7 0 60 1d1+50 0d0+0
-300 0
+0
+0 3 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 84 0 0 0 4097 135169 0
 0 0 0 0 0 0 0 0
-3 25 25 25 25 25 25 0 0 0 0 0 
+6 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 78~
 if level($n) >= 9
 if rand(50)
@@ -2130,13 +2222,14 @@ have allowed her to rise in power among her people.
 ~
 35 0 0 V
 7 0 80 60d1+0 0d0+0
-500 0
+0
+0 5 0
 112 112 2
 13 13 13 13 13 13 0
 0 0 0 0 62
 3 0 0 0 131073 131072 0
 0 0 0 0 0 0 0 0
-3 25 25 25 25 25 25 0 0 0 0 0 
+0 25 25 25 25 25 25 0 0 0 0 0 
 #10398
 apprentice scvital~
 an apprentice of Scarab~
@@ -2148,7 +2241,8 @@ master Scarab in his role as Archmage of the Realm's.
 ~
 1 67108872 0 V
 50 0 -200 9000d1+0 0d0+0
-0 0
+0
+0 0 0
 112 112 1
 13 13 13 13 13 13 0
 0 0 0 0 0
@@ -2167,13 +2261,14 @@ she is beautiful to gain the position of headmistress of this Academy.
 ~
 3 4194472 0 V
 1 0 0 1000d1+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
-0 3 0 0 0 0 0
+0 3 0 0 1 1 0
 0 0 0 0 0 0 0 0
-2 25 25 25 25 25 25 0 0 0 0 0 
+5 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 100~
 mpmload 10399
 say You may kill this body, but my spirit will not die!
@@ -2262,13 +2357,14 @@ caught the vitality of his subject, so much so that the statue seems alive.
 ~
 1073741827 680 1000 V
 50 0 35 40d1+0 5d5+5
-100 0
+0
+0 1 0
 112 112 1
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 7 0 0 1 1 0
 0 0 3 0 3072 0 0 0
-1 240 240 240 240 240 240 0 0 0 0 0 
+5 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p looks at you.~
 if class($n) == Augurer
 mpechoat $n Hello $n, I am a fellow Augurer who is here to tell you a little
@@ -2333,13 +2429,14 @@ can see of it is more like a transparent mist.
 ~
 3 184 1000 V
 50 0 0 20000d1+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
 18 13 13 13 13 13 0
 0 0 0 0 0
 1 0 0 0 3 2 0
 0 0 0 0 2097152 0 0 0
-4 240 240 240 240 240 240 0 0 0 0 0 
+2 240 240 240 240 240 240 0 0 0 0 0 
 > act_prog p is dying~
 mpforce 0.$n drink
 mpechoat $n Drinking fluid will help your thirst and improve your mental state.
@@ -2362,13 +2459,14 @@ woman.  She does not look happy to see you.
 ~
 67 0 0 V
 1 0 94 9d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
 0 3 0 0 1 1 0
 0 0 1159 0 0 0 0 0
-4 25 25 25 25 25 25 0 0 0 0 0 
+0 25 25 25 25 25 25 0 0 0 0 0 
 #10403
 minotaur cage~
 the minotaur~
@@ -2379,13 +2477,14 @@ looks rather small compared to others of its kind you have encountered.
 ~
 67 0 0 V
 1 0 94 8d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
-0 3 0 0 0 0 0
+0 3 0 0 1 1 0
 0 0 0 0 0 0 0 0
-5 25 25 25 25 25 25 0 0 0 0 0 
+2 25 25 25 25 25 25 0 0 0 0 0 
 #10404
 gnoll cage~
 the gnoll~
@@ -2396,13 +2495,14 @@ as he tries to strike fear in your heart.
 ~
 35 0 0 V
 1 0 94 9d1+9 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 0 0 0 0 1 1 0
 0 0 1031 0 0 0 0 0
-5 25 25 25 25 25 25 0 0 0 0 0 
+2 25 25 25 25 25 25 0 0 0 0 0 
 > death_prog 90~
 if level($n) >= 4
 if mobinroom(10404) <= 1
@@ -2423,13 +2523,14 @@ you are sure you can beat in combat.
 ~
 35 0 0 V
 1 0 94 8d1+0 0d0+0
-100 0
+0
+0 1 0
 112 112 0
 13 13 13 13 13 13 0
 0 0 0 0 0
 3 0 0 0 131073 131072 0
 0 0 3 0 0 0 0 0
-4 25 25 25 25 25 25 0 0 0 0 0 
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10406
 fire ant arena~
 a Fire Ant~
@@ -2442,13 +2543,14 @@ you will now be his next meal.
 ~
 101 33280 0 V
 7 11 25 1d10+120 1d4+6
-340 2000
+2000
+0 3 40
 112 112 1
 15 13 13 13 13 13 13
 0 0 0 0 0
 83 3 0 0 1 1 0
 0 0 1775 0 2048 0 0 0
-3 25 25 25 25 25 25 0 0 0 0 0 
+5 25 25 25 25 25 25 0 0 0 0 0 
 #10407
 ant fire arena~
 a Fire Ant~
@@ -2461,13 +2563,14 @@ you will now be his next meal.
 ~
 101 33280 0 V
 7 11 25 1d10+120 1d4+6
-340 2000
+2000
+0 3 40
 112 112 1
 15 13 13 13 13 13 13
 0 0 0 0 0
 83 3 0 0 135679493 135679493 0
 0 0 1775 0 2048 0 0 0
-6 25 25 25 25 25 25 0 0 0 0 0 
+1 25 25 25 25 25 25 0 0 0 0 0 
 #10408
 ant fire arena~
 a Fire Ant~
@@ -2480,13 +2583,14 @@ you will now be his next meal.
 ~
 101 33280 0 V
 7 11 25 1d10+120 1d4+6
-340 2000
+2000
+0 3 40
 112 112 1
 15 13 13 13 13 13 13
 0 0 0 0 0
 83 3 0 0 135679493 135679493 0
 0 0 1775 0 2048 0 0 0
-2 25 25 25 25 25 25 0 0 0 0 0 
+6 25 25 25 25 25 25 0 0 0 0 0 
 #10409
 ant fire arena~
 a Fire Ant~
@@ -2499,13 +2603,14 @@ you will now be his next meal.
 ~
 101 33280 0 V
 7 11 25 1d10+120 1d4+6
-340 2000
+2000
+0 3 40
 112 112 1
 15 13 13 13 13 13 13
 0 0 0 0 0
 83 3 0 0 135679493 135679493 0
 0 0 1775 0 2048 0 0 0
-2 25 25 25 25 25 25 0 0 0 0 0 
+1 25 25 25 25 25 25 0 0 0 0 0 
 #10410
 centipede arena~
 a centipede~
@@ -2517,7 +2622,8 @@ it. You watch in awe as those one hundred legs move in rhythm.
 ~
 65 4194816 0 V
 8 11 25 2d7+130 1d4+6
-1000 2000
+2000
+0 10 0
 112 112 1
 15 13 13 17 13 13 13
 0 0 0 0 0
@@ -2535,13 +2641,14 @@ it. You watch in awe as those one hundred legs move in rhythm.
 ~
 65 4194816 0 V
 8 11 25 2d7+130 1d4+6
-1000 2000
+2000
+0 10 0
 112 112 1
 15 13 13 17 13 13 13
 0 0 0 0 0
 83 3 0 0 135679493 135679493 0
 0 0 1775 0 2048 0 0 0
-4 25 25 25 25 25 25 0 0 0 0 0 
+0 25 25 25 25 25 25 0 0 0 0 0 
 #10412
 centipede arena~
 a centipede~
@@ -2553,13 +2660,14 @@ it. You watch in awe as those one hundred legs move in rhythm.
 ~
 65 4194816 0 V
 8 11 25 2d7+130 1d4+6
-1000 2000
+2000
+0 10 0
 112 112 1
 15 13 13 17 13 13 13
 0 0 0 0 0
 83 3 0 0 135679493 135679493 0
 0 0 1775 0 2048 0 0 0
-4 25 25 25 25 25 25 0 0 0 0 0 
+0 25 25 25 25 25 25 0 0 0 0 0 
 #10413
 centipede arena~
 a centipede~
@@ -2571,7 +2679,8 @@ it. You watch in awe as those one hundred legs move in rhythm.
 ~
 65 4194816 0 V
 8 11 25 2d7+130 1d4+6
-1000 2000
+2000
+0 10 0
 112 112 1
 15 13 13 17 13 13 13
 0 0 0 0 0
@@ -2589,13 +2698,14 @@ watch your every movement.
 ~
 65 4194816 0 V
 6 11 25 1d10+75 1d4+3
-500 2000
+2000
+0 5 0
 112 112 1
 15 13 13 14 13 13 13
 0 0 0 0 0
 77 3 0 0 135680721 135680721 0
 0 0 1775 0 2048 0 1 0
-5 25 25 25 25 25 25 0 0 0 0 0 
+1 25 25 25 25 25 25 0 0 0 0 0 
 #10415
 rat grey arena~
 a large grey rat~
@@ -2607,13 +2717,14 @@ watch your every movement.
 ~
 65 4194816 0 V
 6 11 25 1d10+75 1d4+3
-500 2000
+2000
+0 5 0
 112 112 1
 15 13 13 14 13 13 13
 0 0 0 0 0
 77 3 0 0 135680721 135680721 0
 0 0 1775 0 2048 0 1 0
-6 25 25 25 25 25 25 0 0 0 0 0 
+1 25 25 25 25 25 25 0 0 0 0 0 
 #10416
 rat grey arena~
 a large grey rat~
@@ -2625,13 +2736,14 @@ watch your every movement.
 ~
 65 4194816 0 V
 6 11 25 1d10+75 1d4+3
-500 2000
+2000
+0 5 0
 112 112 1
 15 13 13 14 13 13 13
 0 0 0 0 0
 77 3 0 0 135680721 135680721 0
 0 0 1775 0 2048 0 1 0
-4 25 25 25 25 25 25 0 0 0 0 0 
+0 25 25 25 25 25 25 0 0 0 0 0 
 #10417
 rat grey arena~
 a large grey rat~
@@ -2643,13 +2755,14 @@ watch your every movement.
 ~
 65 4194816 0 V
 6 11 25 1d10+75 1d4+3
-500 2000
+2000
+0 5 0
 112 112 1
 15 13 13 14 13 13 13
 0 0 0 0 0
 77 3 0 0 135680721 135680721 0
 0 0 1775 0 2048 0 1 0
-6 25 25 25 25 25 25 0 0 0 0 0 
+5 25 25 25 25 25 25 0 0 0 0 0 
 #10418
 mole arena~
 a mole~
@@ -2661,7 +2774,8 @@ can really see you.
 ~
 65 512 0 V
 6 11 25 1d10+99 1d4+3
-500 2000
+2000
+0 5 0
 112 112 1
 15 13 13 14 13 13 13
 0 0 0 0 0
@@ -2679,7 +2793,8 @@ can really see you.
 ~
 65 512 0 V
 6 11 25 1d10+99 1d4+3
-500 2000
+2000
+0 5 0
 112 112 1
 15 13 13 14 13 13 13
 0 0 0 0 0
@@ -2697,13 +2812,14 @@ can really see you.
 ~
 65 512 0 V
 6 11 25 1d10+99 1d4+3
-500 2000
+2000
+0 5 0
 112 112 1
 15 13 13 14 13 13 13
 0 0 0 0 0
 76 3 0 0 135680815 135680815 0
 0 0 1775 0 2048 0 0 0
-2 25 25 25 25 25 25 0 0 0 0 0 
+3 25 25 25 25 25 25 0 0 0 0 0 
 #10421
 mole arena~
 a mole~
@@ -2715,13 +2831,14 @@ can really see you.
 ~
 65 512 0 V
 6 11 25 1d10+99 1d4+3
-500 2000
+2000
+0 5 0
 112 112 1
 15 13 13 14 13 13 13
 0 0 0 0 0
 76 3 0 0 135680815 135680815 0
 0 0 1775 0 2048 0 0 0
-5 25 25 25 25 25 25 0 0 0 0 0 
+6 25 25 25 25 25 25 0 0 0 0 0 
 #10497
 hvak1 advancer~
 Hungrily, a hollow voice~
@@ -2730,13 +2847,14 @@ Hvak1 Advancer is here (should always be in 10499)
 ~
 1073741825 4194344 0 V
 50 0 0 0d0+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
-0 3 0 0 0 0 0
+0 3 0 0 1 1 0
 0 0 0 0 0 0 0 0
-1 240 240 240 240 240 240 0 0 0 0 0 
+2 240 240 240 240 240 240 0 0 0 0 0 
 #10498
 hvak2 advancer~
 A rasping voice~
@@ -2745,11 +2863,12 @@ Hvak2 Advancer is here (should always be in 10499)
 ~
 1073741825 4194344 0 V
 50 0 0 0d0+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
-0 3 0 0 0 0 0
+0 3 0 0 1 1 0
 0 0 0 0 0 0 0 0
 6 240 240 240 240 240 240 0 0 0 0 0 
 #10499
@@ -2760,13 +2879,14 @@ Some god abandoned a newly created final mob here.
 ~
 1073741825 0 0 V
 1 0 0 0d0+0 0d0+0
-0 0
+0
+0 0 0
 112 112 0
 13 13 13 13 13 13 13
 0 0 0 0 0
-0 3 0 0 0 0 0
+0 3 0 0 1 1 0
 0 0 0 0 0 0 0 0
-6 25 25 25 25 25 25 0 0 0 0 0 
+0 25 25 25 25 25 25 0 0 0 0 0 
 #0
 
 
@@ -2778,7 +2898,7 @@ A charm bracelet from the academy lies here~
 ~
 9 0 4097
 2 2 0 0
-2 0 0
+2 0 0 0 0
 E
 bracelet charm~
 This is a bracelet that will bring you luck in your travels. It can
@@ -2797,7 +2917,7 @@ A pair of black combat boots from the Academy lies here~
 ~
 9 0 65
 3 3 0 0
-3 0 0
+3 0 0 0 0
 E
 combat boots~
 This boots are so comfortable and light, you feel you can walk a lot
@@ -2816,7 +2936,7 @@ A braided leather belt from the Academy lies here~
 ~
 9 0 2049
 2 2 0 0
-2 0 0
+2 0 0 0 0
 E
 belt leather~
 This belt is made of a fine leather, braided for strength. You can get
@@ -2835,7 +2955,7 @@ Heavy mail leggings from the Academy lie here~
 ~
 9 0 33
 2 2 0 0
-3 0 0
+3 0 0 0 0
 E
 leggings~
 These leggings will offer good protection until you can get better. They
@@ -2852,7 +2972,7 @@ A wrought iron helmet from the Academy~
 ~
 9 0 17
 3 3 0 0
-2 0 0
+2 0 0 0 0
 E
 helmet iron~
 This is a helmet made of fine iron, from the Darkhaven Academy.  It will
@@ -2871,7 +2991,7 @@ A black brocade cape from the academy~
 ~
 9 0 1025
 2 2 0 0
-3 0 0
+3 0 0 0 0
 E
 cape brocade~
 This cape is made from a heavy brocade. It will offer you warmth and
@@ -2889,7 +3009,7 @@ A strong metal collar from the academy~
 ~
 9 0 5
 3 2 0 0
-5 0 0
+5 0 0 0 0
 E
 collar metal ~
 This collar fits closely around your neck. It is thick with spikes to
@@ -2906,7 +3026,7 @@ A visor of completion is here, emitting a faint glow.~
 ~
 9 64 131073
 2 0 0 0
-1 0 0
+1 0 0 0 0
 E
 visor completion~
 Congratulations! You have completed the Darkhaven Academy and can now
@@ -2928,7 +3048,7 @@ A plate of armour from the Academy lies here~
 ~
 9 0 9
 2 2 0 0
-5 0 0
+5 0 0 0 0
 E
 plate armour~
 This plate of armour will give you protection until you can find
@@ -2941,7 +3061,7 @@ Lightweight tin sleeves from the academy~
 ~
 9 0 257
 3 3 0 0
-1 0 0
+1 0 0 0 0
 E
 sleeves tin~
 This sleeves will protect your arms until you can find something better.
@@ -2960,7 +3080,7 @@ A shield with the Darkhaven Academy crest lies here~
 ~
 9 0 513
 2 2 0 0
-5 0 0
+5 0 0 0 0
 E
 shield crest~
 This is your first shield, it will help keep you safe until you can
@@ -2973,7 +3093,7 @@ A glistening orbs shines as a guiding light to new adventurers.~
 ~
 1 65 1
 0 0 -1 0
-1 0 0
+1 0 0 0 0
 A
 24 -1
 #10312
@@ -2983,7 +3103,7 @@ You see a finely honed dagger here.~
 ~
 5 64 8193
 12 1 6 11
-2 0 0
+2 0 0 0 0
 A
 18 2
 A
@@ -2995,7 +3115,7 @@ You see a finely honed sword here.~
 ~
 5 64 8193
 12 0 0 3
-2 0 0
+2 0 0 0 0
 E
 sword~
 Made of decent quality, this sword should serve you well in your battles
@@ -3012,7 +3132,7 @@ You see a dragonskin water container here.~
 ~
 17 0 1
 15 15 0 0
-1 30 3
+1 0 0 30 3
 #10315
 mace academy~
 a finely wrought mace~
@@ -3020,7 +3140,7 @@ You see a finely wrought mace here.~
 ~
 5 64 8193
 12 3 6 7
-2 0 0
+2 0 0 0 0
 E
 mace~
 Made of decent quality this weapon shall servre you well in the battles
@@ -3037,7 +3157,7 @@ A piece of wood, partly wrapped in cloth is here.~
 ~
 1 0 65537
 0 0 24 0
-1 20 2
+1 0 0 20 2
 #10317
 dried rabbit meat~
 dried rabbit meat~
@@ -3045,7 +3165,7 @@ Some sort of dried meat is on the ground here.~
 ~
 19 0 1
 24 0 0 0
-1 40 4
+1 0 0 40 4
 #10318
 shortsword sword snakebite~
 a shortsword named "Snakebite"~
@@ -3053,7 +3173,7 @@ A sword lies here, twitching on its own.~
 ~
 5 8389184 8193
 12 0 0 3
-3 0 0
+3 0 0 0 0
 A
 19 3
 A
@@ -3065,7 +3185,7 @@ A pair of kid gloves from the Academy lie here~
 ~
 9 0 129
 3 0 0 0
-2 0 0
+2 0 0 0 0
 A
 2 1
 > drop_prog 100~
@@ -3079,7 +3199,7 @@ A mage seems to have left their bag here.~
 ~
 15 0 1
 75 1 0 0
-5 0 0
+5 0 0 0 0
 E
 bag tricks~
 This bag of tricks belongs to a member of the mage class.
@@ -3091,7 +3211,7 @@ A cleric seems to have left their bag here.~
 ~
 15 0 1
 75 1 0 0
-5 0 0
+5 0 0 0 0
 E
 bag healing~
 This bag of healing belongs to a member of the clerics class.
@@ -3103,7 +3223,7 @@ A thief seems to have left their bag here.~
 ~
 15 0 1
 75 1 0 0
-5 0 0
+5 0 0 0 0
 E
 bag stealth~
 This bag of stealth belongs to a member of the thief class.
@@ -3115,7 +3235,7 @@ A warrior seems to have left their bag here.~
 ~
 15 0 1
 75 1 0 0
-5 0 0
+5 0 0 0 0
 E
 bag war~
 This bag of war belongs to a member of the warrior class.
@@ -3127,7 +3247,7 @@ A vampire seems to have left their bag here.~
 ~
 15 0 1
 75 1 0 0
-5 0 0
+5 0 0 0 0
 E
 bag darkness~
 This bag of darkness belongs to a member of the vampire class.
@@ -3139,7 +3259,7 @@ A druid seems to have left their bag here.~
 ~
 15 0 1
 75 1 0 0
-5 0 0
+5 0 0 0 0
 E
 bag nature~
 This bag of nature belongs to a member of the druid class.
@@ -3151,7 +3271,7 @@ A ranger seems to have left their bag here.~
 ~
 15 0 1
 75 1 0 0
-5 0 0
+5 0 0 0 0
 E
 bag freedom~
 This bag of freedom belongs to a member of the ranger class.
@@ -3163,7 +3283,7 @@ An odd, glowing potion lays here.~
 ~
 10 1 1
 20 -1 -1 -1
-2 0 0
+2 0 0 0 0
 'cure light' 'cure serious' 'refresh'
 E
 anti-death antideath elixir potion~
@@ -3176,7 +3296,7 @@ A dark paper covered in arcane writing lies here.~
 ~
 2 0 1
 10 -1 -1 -1
-5 0 0
+5 0 0 0 0
 'remove curse' 'cure poison' 'word of recall'
 #10333
 adventurer's guide book academy~
@@ -3185,7 +3305,7 @@ A book with "DON'T PANIC, LOOK AT ME!" written on the cover lies here.~
 ~
 9 524288 16385
 5 5 0 0
-1 1234 123
+1 0 12 34 123
 E
 sets~
 Regular equipment setup:              Equipment setup during dual wield:
@@ -3251,7 +3371,7 @@ Some god dropped a newly created kobold here.~
 ~
 13 1073741824 0
 0 0 0 0
-1 0 0
+1 0 0 0 0
 #10345
 chains Chadoyn bindings~
 the chadoyn's bindings~
@@ -3259,7 +3379,7 @@ A set of of sturdy chains attached to a collar splays over the floor.~
 ~
 9 524288 5
 0 3 0 0
-2 1 0
+2 0 0 1 0
 A
 17 -3
 #10359
@@ -3269,7 +3389,7 @@ Some god dropped a newly created gnoll here.~
 ~
 13 1073741824 0
 0 0 0 0
-1 0 0
+1 0 0 0 0
 #10360
 gnoll~
 a newly created gnoll~
@@ -3277,7 +3397,7 @@ Some god dropped a newly created gnoll here.~
 ~
 13 1073741824 0
 0 0 0 0
-1 0 0
+1 0 0 0 0
 #10362
 gnoll~
 a newly created gnoll~
@@ -3285,7 +3405,7 @@ Some god dropped a newly created gnoll here.~
 ~
 13 1073741824 0
 0 0 0 0
-1 0 0
+1 0 0 0 0
 #10363
 gnoll~
 a newly created gnoll~
@@ -3293,7 +3413,7 @@ Some god dropped a newly created gnoll here.~
 ~
 13 1073741824 0
 0 0 0 0
-1 0 0
+1 0 0 0 0
 #10365
 gnoll~
 a newly created gnoll~
@@ -3301,7 +3421,7 @@ Some god dropped a newly created gnoll here.~
 ~
 13 1073741824 0
 0 0 0 0
-1 0 0
+1 0 0 0 0
 #10366
 gnoll~
 a newly created gnoll~
@@ -3309,7 +3429,7 @@ Some god dropped a newly created gnoll here.~
 ~
 13 1073741824 0
 0 0 0 0
-1 0 0
+1 0 0 0 0
 #10367
 board academy~
 the Newbie Council Noteboard~
@@ -3317,7 +3437,7 @@ A board stands here, ready for your posts.~
 ~
 13 0 0
 0 0 0 0
-1 0 0
+1 0 0 0 0
 E
 board newbie~
 This board can be read by typing NOTE LIST and then NOTE READ <#>.
@@ -3330,7 +3450,7 @@ A magical staff shimmers on the ground.~
 ~
 4 321 16385
 5 1 1 -1
-1 60 6
+1 0 0 60 6
 'sanctuary'
 #10371
 shield shiny~
@@ -3339,7 +3459,7 @@ A shiny shield lies here, surrounded by an aura of magic.~
 ~
 9 321 16385
 2 2 0 0
-1 200 20
+1 0 2 0 20
 #10372
 map hand-drawn~
 a hand-drawn map~
@@ -3347,7 +3467,7 @@ A hand-drawn map has been carelessly forgotten.~
 ~
 35 321 1
 0 0 0 0
-1 100 10
+1 0 1 0 10
 E
 map~
 Instructions for use:
@@ -3408,7 +3528,7 @@ A map glows with a magical blessing.~
 ~
 35 321 1
 0 0 0 0
-1 100 10
+1 0 1 0 10
 E
 map~
 Instructions for use:
@@ -3463,7 +3583,7 @@ An old map lies here, crushed and decaying.~
 ~
 2 321 1
 50 -1 -1 -1
-1 1 0
+1 0 0 1 0
 'word of recall' 'NONE' 'NONE'
 E
 map~
@@ -3522,7 +3642,7 @@ An absent-minded wizard dropped a map here.~
 ~
 2 321 1
 51 -1 -1 -1
-1 100 10
+1 0 1 0 10
 'word of recall' 'NONE' 'NONE'
 E
 map~
@@ -3583,7 +3703,7 @@ A pair of black boots lies here.~
 ~
 9 0 65
 0 0 0 0
-1 0 0
+1 0 0 0 0
 #10398
 scrobes~
 midnight black robes~
@@ -3591,7 +3711,7 @@ A pile of dark cloth is lieing here.~
 ~
 9 0 1025
 0 0 0 0
-1 0 0
+1 0 0 0 0
 #10399
 scstaff~
 staff of the Arcane~
@@ -3599,7 +3719,7 @@ A staff is here, standing by itself~
 ~
 4 80 16385
 54 100 100 -1
-1 0 0
+1 0 0 0 0
 'lightning bolt'
 #10400
 bag wit~
@@ -3608,7 +3728,7 @@ An augurer seems to have left their bag here.~
 ~
 15 0 1
 75 1 0 0
-5 0 0
+5 0 0 0 0
 E
 bag wit~
 This bag of tricks belongs to a member of the augurer class.
@@ -3620,7 +3740,7 @@ A large marble fountain gushes forth here.~
 ~
 25 0 0
 50 50 0 0
-500 3000 300
+500 0 30 0 300
 E
 fountain~
 It is very nice.  Made from fine white marble.
@@ -3632,7 +3752,7 @@ A blade of metallic stone protrudes from a leather-wrapped hilt.~
 ~
 5 68 8193
 12 1 6 11
-2 0 0
+2 0 0 0 0
 E
 menacing granitic blade~
 Of rough but usable quality, it should serve you well in your early years.
@@ -3648,7 +3768,7 @@ A mace of brightly gleaming metal hums with inner power.~
 ~
 5 524610 8193
 12 0 0 7
-2 0 0
+2 0 0 0 0
 E
 adamantium mace~
 Forged of a gleaming metal, this mace will serve you well in your early years.
@@ -3664,7 +3784,7 @@ Light glints from the blade of a heavy, iron-forged broadsword.~
 ~
 5 524352 8193
 12 0 0 3
-2 0 0
+2 0 0 0 0
 E
 broadsword broad sword~
 Made of a heavy iron alloy, it will serve you well in your early years.
@@ -3680,7 +3800,7 @@ A root, covered in dirt, lies here on the ground.~
 ~
 26 537133056 16385
 20 -1 -1 -1
-3 1200 120
+3 0 12 0 120
 'cure critical' 'restore mana' 'NONE'
 A
 5 1
@@ -3693,7 +3813,7 @@ Some god dropped a newly created final object here.~
 ~
 13 1073741824 0
 0 0 0 0
-1 0 0
+1 0 0 0 0
 #0
 
 
@@ -3710,7 +3830,7 @@ Type N to move north to the next room in the Academy.  If you have already
 completed the rigors of the Academy and wish to test your combat mettle in
 the battlegrounds, type OPEN S or OPEN DOOR, then S to enter the arena.
 ~
-0 1049608 3
+0 1049608 0
 D0
 A Stone Corridor
 ~
@@ -4140,7 +4260,7 @@ This is a where you will experience a Somewhere exit. To find your way
 out, try looking at the picture on the wall. If you can not figure it out, 
 you may leave by the up exit. Good luck!
 ~
-0 3145740 0
+0 3145736 0
 D1
 Lost in Darkhaven Academy
 ~
@@ -7174,6 +7294,7 @@ M 0 10418 1 10409
 M 0 10419 1 10426
 M 0 10420 1 10422
 M 0 10421 1 10427
+M 0 10341 1 10313
 S
 
 

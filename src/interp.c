@@ -738,11 +738,14 @@ first place.  Whaddya gonna do? */
   if (!found)
     {
       if (!check_skill (ch, command, argument)
-	  && !rprog_command_trigger (ch, origarg)
-	  && !mprog_command_trigger (ch, origarg)
-	  && !oprog_command_trigger (ch, origarg)
-	  && !check_social (ch, command, argument)
-	  && !news_cmd_hook (ch, command, argument))
+				&& !rprog_command_trigger (ch, origarg)
+				&& !mprog_command_trigger (ch, origarg)
+				&& !oprog_command_trigger (ch, origarg)
+#ifdef ENABLE_ALIAS
+		  	&& !check_alias (ch, command, argument)
+#endif
+				&& !check_social (ch, command, argument)
+				&& !news_cmd_hook (ch, command, argument))
 	{
 	  EXIT_DATA *pexit;
 

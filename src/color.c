@@ -1585,7 +1585,7 @@ void send_to_pager( const char *txt, CHAR_DATA * ch )
    return;
 }
 
-void ch_printf( CHAR_DATA *ch, char *fmt, ... )
+void ch_printf( CHAR_DATA *ch, const char *fmt, ... )
 {
    char buf[MAX_STRING_LENGTH * 2];
    va_list args;
@@ -1597,7 +1597,7 @@ void ch_printf( CHAR_DATA *ch, char *fmt, ... )
    send_to_char( buf, ch );
 }
 
-void pager_printf( CHAR_DATA *ch, char *fmt, ... )
+void pager_printf( CHAR_DATA *ch, const char *fmt, ... )
 {
    char buf[MAX_STRING_LENGTH * 2];
    va_list args;
@@ -1613,7 +1613,7 @@ void pager_printf( CHAR_DATA *ch, char *fmt, ... )
  * The primary output interface for formatted output.
  */
 /* Major overhaul. -- Alty */
-void ch_printf_color( CHAR_DATA *ch, char *fmt, ... )
+void ch_printf_color( CHAR_DATA *ch, const char *fmt, ... )
 {
    char buf[MAX_STRING_LENGTH * 2];
    va_list args;
@@ -1625,7 +1625,7 @@ void ch_printf_color( CHAR_DATA *ch, char *fmt, ... )
    send_to_char( buf, ch );
 }
 
-void pager_printf_color( CHAR_DATA *ch, char *fmt, ... )
+void pager_printf_color( CHAR_DATA *ch, const char *fmt, ... )
 {
    char buf[MAX_STRING_LENGTH * 2];
    va_list args;

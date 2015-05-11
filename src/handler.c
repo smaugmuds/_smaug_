@@ -772,6 +772,12 @@ affect_modify (CHAR_DATA * ch, AFFECT_DATA * paf, bool fAdd)
       break;
     case APPLY_GOLD:
       break;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+		case APPLY_SILVER:
+      break;
+		case APPLY_COPPER:
+      break;
+#endif
     case APPLY_EXP:
       break;
 
@@ -1453,6 +1459,7 @@ char_to_room (CHAR_DATA * ch, ROOM_INDEX_DATA * pRoomIndex)
       tele->room = pRoomIndex;
       tele->timer = pRoomIndex->tele_delay;
     }
+
   if (!ch->was_in_room)
     ch->was_in_room = ch->in_room;
   return;
@@ -3845,7 +3852,13 @@ clean_obj (OBJ_INDEX_DATA * obj)
   obj->wear_flags = 0;
   obj->count = 0;
   obj->weight = 0;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	obj->gold_cost = 0;
+	obj->silver_cost = 0;
+	obj->copper_cost = 0;
+#else
   obj->cost = 0;
+#endif
   obj->value[0] = 0;
   obj->value[1] = 0;
   obj->value[2] = 0;
@@ -3914,7 +3927,12 @@ clean_mob (MOB_INDEX_DATA * mob)
   mob->position = 0;
   mob->defposition = 0;
   mob->height = 0;
-  mob->weight = 0;		/* mob->vnum            = 0;    */
+  mob->weight = 0;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	mob->silver = 0;
+	mob->copper=0;
+#endif
+/* mob->vnum            = 0;    */
   xCLEAR_BITS (mob->attacks);
   xCLEAR_BITS (mob->defenses);
 }
@@ -5001,7 +5019,13 @@ clone_object (OBJ_DATA * obj)
   clone->wear_flags = obj->wear_flags;
   clone->wear_loc = obj->wear_loc;
   clone->weight = obj->weight;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	clone->gold_cost = obj->gold_cost;
+	clone->silver_cost = obj->silver_cost;
+	clone->copper_cost = obj->copper_cost;
+#else
   clone->cost = obj->cost;
+#endif
   clone->level = obj->level;
   clone->timer = obj->timer;
   clone->value[0] = obj->value[0];
@@ -5051,7 +5075,13 @@ group_object (OBJ_DATA * obj1, OBJ_DATA * obj2)
       && obj1->wear_flags == obj2->wear_flags
       && obj1->wear_loc == obj2->wear_loc
       && obj1->weight == obj2->weight
+#ifdef ENABLE_GOLD_SILVER_COPPER
+			&& obj1->gold_cost == obj2->gold_cost
+			&& obj1->silver_cost == obj2->silver_cost
+			&& obj1->copper_cost == obj2->copper_cost
+#else
       && obj1->cost == obj2->cost
+#endif
       && obj1->level == obj2->level
       && obj1->timer == obj2->timer
       && obj1->value[0] == obj2->value[0]
@@ -5318,6 +5348,30 @@ economy_has (AREA_DATA * tarea, int gold)
  * Makes sure mob doesn't get more than 10% of that area's gold,
  * and reduces area economy by the amount of gold given to the mob
  */
+#ifdef ENABLE_GOLD_SILVER_COPPER
+/* Gold/Silver/Copper Support -Druid */
+void
+economize_mobgold (CHAR_DATA * mob)
+{
+    int gold, wealth;    
+    AREA_DATA *tarea;
+    
+    /* make sure it isn't way too much */
+    wealth = get_value(mob->gold, mob->silver, mob->copper);
+    wealth = UMIN( wealth, mob->level * mob->level * 400 );	
+		conv_currency(mob,wealth);
+    if ( !mob->in_room )
+	return;
+    tarea = mob->in_room->area;
+
+    gold = ((tarea->high_economy > 0) ? 1 : 0) * 1000000000 + tarea->low_economy;
+    wealth = URANGE( 0, wealth, gold / 10 );	
+		conv_currency(mob,wealth);
+		wealth = get_value(mob->gold, mob->silver, mob->copper); 
+    if ( wealth )
+	lower_economy( tarea, wealth );
+}
+#else
 void
 economize_mobgold (CHAR_DATA * mob)
 {
@@ -5336,7 +5390,7 @@ economize_mobgold (CHAR_DATA * mob)
   if (mob->gold)
     lower_economy (tarea, mob->gold);
 }
-
+#endif
 
 /*
  * Add another notch on that there belt... ;)

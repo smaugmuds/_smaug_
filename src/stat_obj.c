@@ -52,7 +52,13 @@ typedef struct gaso_struct GASO_STRUCT;
 struct gaso_struct
 {
   sh_int weight;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+	int gold_cost;
+	int	silver_cost;
+	int	copper_cost; 
+#else
   int cost;
+#endif
   int value[6];
   int count;
   int extra_flags[32];
@@ -114,7 +120,12 @@ gaso_level (CHAR_DATA * ch, int level)
 
   for (type = 0; type <= MAX_ITEM_TYPE; type++)
     {
+#ifdef ENABLE_GOLD_SILVER_COPPER
+			stats[type].weight = stats[type].gold_cost = stats[type].count = 0;
+			stats[type].silver_cost = stats[type].copper_cost = 0;
+#else
       stats[type].weight = stats[type].cost = stats[type].count = 0;
+#endif
       stats[type].value[0] = 0;
       stats[type].value[1] = 0;
       stats[type].value[2] = 0;
@@ -134,7 +145,13 @@ gaso_level (CHAR_DATA * ch, int level)
 	  count++;
 	  stats[obj->item_type].count++;
 	  stats[obj->item_type].weight += obj->weight;
+#ifdef ENABLE_GOLD_SILVER_COPPER
+		stats[obj->item_type].gold_cost+=obj->gold_cost;
+		stats[obj->item_type].silver_cost+=obj->silver_cost;
+		stats[obj->item_type].copper_cost+=obj->copper_cost;
+#else
 	  stats[obj->item_type].cost += obj->cost;
+#endif
 	  stats[obj->item_type].value[0] += obj->value[0];
 	  stats[obj->item_type].value[1] += obj->value[1];
 	  stats[obj->item_type].value[2] += obj->value[2];
@@ -164,9 +181,20 @@ gaso_level (CHAR_DATA * ch, int level)
 #define TODUB(x) (  (double)(1.0 * x) )
 
 	  dcount = TODUB (stats[type].count);
-	  sprintf (buf, "%d,%d,%d,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f", level, type, stats[type].count, (double) (100.0 * (dcount / TODUB (count))),	/* %-age of objs at this level */
+#ifdef ENABLE_GOLD_SILVER_COPPER
+		sprintf(buf,"%d,%d,%d,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f",
+#else
+	  sprintf (buf, "%d,%d,%d,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f",
+#endif
+			 level, type, stats[type].count, (double) (100.0 * (dcount / TODUB (count))),	/* %-age of objs at this level */
 		   (double) (TODUB (stats[type].weight) / dcount),	/* average weight of this item_type for lev */
+#ifdef ENABLE_GOLD_SILVER_COPPER
+			 (double) (TODUB (stats[type].gold_cost) / dcount),    /* average cost of this item_type for lev*/
+			 (double) (TODUB (stats[type].silver_cost) / dcount),
+			 (double) (TODUB (stats[type].copper_cost) / dcount),
+#else
 		   (double) (TODUB (stats[type].cost) / dcount),	/* average cost of this item_type for lev */
+#endif
 		   (double) (TODUB (stats[type].value[0]) / dcount),
 		   (double) (TODUB (stats[type].value[1]) / dcount),
 		   (double) (TODUB (stats[type].value[2]) / dcount),
