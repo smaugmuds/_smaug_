@@ -203,6 +203,10 @@ if ENABLE_ARENA
 libsmaug_realm_la_SOURCES += arena.c
 endif
 
+if ENABLE_QUEST
+libsmaug_realm_la_SOURCES += quest.c
+endif
+
 if MARRIAGE
 libsmaug_realm_la_SOURCES += marry.c
 endif
@@ -299,6 +303,10 @@ endif
 
 if ENABLE_HOLIDAYS
 include_HEADERS += holidays.h
+endif
+
+if ENABLE_QUEST
+include_HEADERS += quest.h
 endif
 
 if ENABLE_WEATHER

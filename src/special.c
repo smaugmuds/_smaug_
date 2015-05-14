@@ -73,8 +73,6 @@ DECLARE_SPEC_FUN (spec_poison);
 DECLARE_SPEC_FUN (spec_thief);
 DECLARE_SPEC_FUN (spec_wanderer);
 
-
-
 /*
  * Given a name, return the appropriate spec fun.
  */
@@ -210,9 +208,6 @@ summon_if_hating (CHAR_DATA * ch)
   do_cast (ch, buf);
   return;
 }
-
-
-
 
 
 
@@ -1290,3 +1285,4 @@ spec_wanderer (CHAR_DATA * ch)
     }
   return FALSE;
 }
+

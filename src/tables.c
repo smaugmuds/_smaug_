@@ -132,6 +132,8 @@ spell_function (char *name)
     return spell_dream;
   if (!str_cmp (name, "spell_earthquake"))
     return spell_earthquake;
+	if ( !str_cmp( name, "spell_enchant_armor" ))
+    return spell_enchant_armor;
   if (!str_cmp (name, "spell_enchant_weapon"))
     return spell_enchant_weapon;
   if (!str_cmp (name, "spell_energy_drain"))
@@ -224,7 +226,6 @@ spell_function (char *name)
     return spell_transport;
   if (!str_cmp (name, "spell_portal"))
     return spell_portal;
-
   if (!str_cmp (name, "spell_ethereal_fist"))
     return spell_ethereal_fist;
   if (!str_cmp (name, "spell_spectral_furor"))
@@ -235,6 +236,10 @@ spell_function (char *name)
     return spell_disruption;
   if (!str_cmp (name, "spell_sonic_resonance"))
     return spell_sonic_resonance;
+  if ( !str_cmp( name, "spell_death" ))
+    return spell_death;
+  if ( !str_cmp( name, "spell_assassinate" ))
+    return spell_assassinate;
   if (!str_cmp (name, "spell_mind_wrack"))
     return spell_mind_wrack;
   if (!str_cmp (name, "spell_mind_wrench"))
@@ -253,6 +258,8 @@ spell_function (char *name)
     return spell_magnetic_thrust;
   if (!str_cmp (name, "spell_quantum_spike"))
     return spell_quantum_spike;
+	if (!str_cmp ( name, "spell_grasp_suspiria"))
+    return spell_grasp_suspiria;
   if (!str_cmp (name, "spell_black_hand"))
     return spell_black_hand;
   if (!str_cmp (name, "spell_black_fist"))
@@ -1640,6 +1647,8 @@ spell_name (SPELL_FUN * spell)
     return "spell_dream";
   if (spell == spell_earthquake)
     return "spell_earthquake";
+	if (spell == spell_enchant_armor)
+    return "spell_enchant_armor";
   if (spell == spell_enchant_weapon)
     return "spell_enchant_weapon";
   if (spell == spell_energy_drain)
@@ -1732,7 +1741,6 @@ spell_name (SPELL_FUN * spell)
     return "spell_transport";
   if (spell == spell_portal)
     return "spell_portal";
-
   if (spell == spell_ethereal_fist)
     return "spell_ethereal_fist";
   if (spell == spell_spectral_furor)
@@ -1743,6 +1751,10 @@ spell_name (SPELL_FUN * spell)
     return "spell_disruption";
   if (spell == spell_sonic_resonance)
     return "spell_sonic_resonance";
+	if (spell == spell_death)
+    return "spell_death";
+	if (spell == spell_assassinate)
+    return "spell_assassinate";
   if (spell == spell_mind_wrack)
     return "spell_mind_wrack";
   if (spell == spell_mind_wrench)
@@ -1761,6 +1773,8 @@ spell_name (SPELL_FUN * spell)
     return "spell_magnetic_thrust";
   if (spell == spell_quantum_spike)
     return "spell_quantum_spike";
+	if (spell == spell_grasp_suspiria)
+    return "spell_grasp_suspiria";
   if (spell == spell_black_hand)
     return "spell_black_hand";
   if (spell == spell_black_fist)

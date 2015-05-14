@@ -801,6 +801,16 @@ if test "$enable_holidays" = "yes"; then
 fi
 AM_CONDITIONAL([ENABLE_HOLIDAYS], [test "$enable_holidays" = "yes"])
 
+# Enable Quest Support (-DENABLE_QUEST) #
+AC_ARG_ENABLE(quest,
+              AC_HELP_STRING([--enable-quest],
+                             [enable Quest Support @<:@default=yes@:>@]),
+              [], [enable_quest=yes])
+if test "$enable_quest" = "yes"; then
+		AC_DEFINE([ENABLE_QUEST], [], [Quest Support])
+fi
+AM_CONDITIONAL([ENABLE_QUEST], [test "$enable_quest" = "yes"])
+
 # Enable MSSP Support (-DENABLE_MSSP) #
 AC_ARG_ENABLE(mssp,
               AC_HELP_STRING([--enable-mssp],
@@ -892,6 +902,7 @@ Configured --{SMAUG}-- MUD Server features:
  * Gold Race Multirate: <$enable_gmult>
  * Weapon Proficency:   <$enable_weaponprof>
  * Archery:             <$enable_archery>
+ * Quest:               <$enable_quest>
  * Player Marry:        <$enable_marry>
  * Dice Game:           <$enable_dice>
  * DNS Resolver:        <$enable_dns>

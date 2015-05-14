@@ -1,5 +1,5 @@
 Name        Pirate~
-Class       11
+Class       20
 AttrPrime   1
 AttrSecond   0
 AttrDeficient   0
@@ -15,7 +15,60 @@ Expbase     1000
 Affected    0
 Resist	 0
 Suscept	 0
+Skill 'aggressive style' 1 95
+Skill 'aid' 6 80
+Skill 'blitz' 28 80
+Skill 'climb' 2 85
+Skill 'cook' 1 95
+Skill 'defensive style' 2 95
+Skill 'dig' 2 95
+Skill 'disarm' 20 85
+Skill 'dodge' 19 70
+Skill 'dual wield' 15 85
+Skill 'elbow' 18 90
+Skill 'enhanced damage' 1 95
+Skill 'evasive style' 2 95
+Skill 'fifth attack' 42 85
+Skill 'fourth attack' 32 90
+Skill 'grip' 25 90
+Skill 'headbutt' 25 90
+Skill 'hitall' 50 95
+Skill 'jab' 20 95
+Skill 'kick' 1 85
+Skill 'lunge' 22 90
+Skill 'mount' 3 85
+Skill 'parry' 1 85
+Skill 'pummel' 30 80
+Skill 'punch' 25 90
+Skill 'punt' 15 95
+Skill 'rescue' 4 80
+Skill 'roundhouse' 25 70
+Skill 'scan' 46 45
+Skill 'search' 5 85
+Skill 'second attack' 5 95
+Skill 'shoulder' 18 90
+Skill 'standard style' 1 95
+Skill 'strike' 2 95
+Skill 'stun' 48 85
+Skill 'third attack' 23 95
+Skill 'track' 38 85
+Skill 'uppercut' 28 80
+Skill 'bludgeons' 1 95
+Skill 'flexible arms' 1 40
+Skill 'swords' 1 95
+Skill 'pugilism' 1 95
+Skill 'talonous arms' 1 80
+Skill 'common' 1 99
+Skill 'dwarven' 1 99
+Skill 'elvish' 1 99
+Skill 'gith' 1 99
 Skill 'gnomish' 1 99
+Skill 'goblin' 1 99
+Skill 'halfling' 1 99
+Skill 'ogre' 1 99
+Skill 'orcish' 1 99
+Skill 'pixie' 1 99
+Skill 'trollese' 1 99
 Title
 Man~
 Woman~

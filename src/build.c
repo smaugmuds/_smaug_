@@ -231,7 +231,10 @@ char *const act_flags[] = {
   "undertaker",
 #endif
 #ifdef ENABLE_ARENA
-  "challenged", "challenger"
+  "challenged", "challenger",
+#endif
+#ifdef ENABLE_QUEST
+	"questmaster",
 #endif
   "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10"
 };

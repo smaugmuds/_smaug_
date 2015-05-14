@@ -1,0 +1,2152 @@
+#AREA	{35 50} Lenny   Sesame Street~
+
+
+#MOBILES
+#24000
+Ernie~
+Ernie~
+Ernie stands here, waiting to bathe.
+~
+Ernie looks the same, as if the spell didnt affect him. He is still orange,
+and has a banana in his ear. Well, what did you expect, he isnt that bright.
+~
+2|64 0 500 S
+44 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24001
+Bert~
+Bert~
+Bert is standing here.
+~
+Bert stands here with his unibrow lowered. He looks quite angry actually.
+As you look closer you see that his nose is wrong...oh wait, that's Ernies
+nose!
+~
+2|64 0 -300 S
+45 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24002
+Big Bird~
+Big Bird~
+Big Bird stands here waiting for his friend to stop by.
+~
+Big bird is a tall yellow bird with humungous feet and an annoying voice.
+He stands about 9 feet tall and is covered in yellow feathers.
+~
+2|64 0 100 S
+43 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24003
+count~
+The Count~
+The Count stands here counting away.
+~
+The count is a very distinguished looking gentleman. He wears a monacle on
+his left eye, and a black cape over his body. As you look at him he says,
+'One, one look....Ahh ahh ahh'
+~
+2|64 0 -500 S
+48 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24004
+oscar grouch~
+Oscar the Grouch~
+Oscar the grouch reeks here with the scent of garbage.
+~
+Oscar the grouch is a green muppet who looks VERY angry. You notice that
+not only does he live in a garbage can, he reeks of the smell of raw sewage.
+~
+2|64 0 -1000 S
+46 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24005
+Grover~
+Super Grover~
+Super Grover stands here wishing he could fly.
+~
+Super Grover is Grover's alter ego. He is the one man holding Mumford off here.
+Probably cause he started the fight with Mumford, that brought the evilness to 
+Sesame street.
+~
+2|64 128 500 S
+40 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24006
+Kermit frog~
+Kermit the Frog~
+Kermit the frog sings here.
+~
+Kermit is the same lovable frog as always, or is he. As you look closer you
+can see an evil gleem in his eye.
+~
+2|64 8192 -500 S
+42 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24007
+Kookie Monster~
+Kookie Monster~
+Kookie Monster stands here munching on cookies.
+~
+After a glance at Kookie monster, you realize you wouldn't be able to tell
+if he was turned evil or not. He has crumbs all over his body from the way
+he sloppily eats cookies.
+~
+64 0 0 S
+39 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24008
+Gordon~
+Gordon~
+Gordon stands here fixing a radio.
+~
+Gordon is a handsome man in his 40's. He seems to be always working on a new
+project.
+~
+2|64 0 0 S
+36 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24009
+Hooper mr. hooper~
+Mr. Hooper~
+Mr. Hooper stands here.
+~
+Mr.Hooper is a short balding old man who appears to be dead.
+~
+2|64 8192 -400 S
+38 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24010
+luis~
+Luis~
+Luis strums away on his guitar here.
+~
+Luis is a middle aged man who liked to sit and play his guitar for the 
+children who used to come here when it was Sesame Street.
+~
+2|64 0 200 S
+42 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24011
+Mommy Grover~
+Mommy Grover~
+Mommy Grover stands here.
+~
+Mommy Grover looks distinctively like Grover, so you can tell where he got it
+from. The only real difference would be the hair, since this is a muppet.
+~
+2|64 0 100 S
+36 0 0 0d0+0 0d0+0
+0 0
+8 8 2
+#24012
+Guy Smily~
+Guy Smily~
+Guy Smily stands here yelling 'Yaaayyyyy.'
+~
+Guy Smily has a dashing smile and a charming personality. His dexterity is 
+probably the reason his show can still air.
+~
+32|64 128 300 S
+43 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24013
+Sherlock Hemlock~
+Sherlock Hemlock~
+Sherlock Hemlock stands here looking for clues.
+~
+Sherlock Hemlock is the muppet version of Sherlock Holmes. They look vaguely
+alike and even dress the same.
+~
+2|64 0 0 S
+37 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24014
+cartoon kid~
+a cartoon kid~
+A cartoon kid stands here chanting to himself.
+~
+This kid looks like a generic cartoon character, but he keeps mumbling 
+something under his breath. You can barely pick it out. 'A loaf of bread,
+a carton of milk, and a stick of butter.'
+~
+2|64 0 200 S
+35 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24015
+Rodeo Rosie~
+Rodeo Rosie~
+Rodeo Rosie stands here.
+~
+Rodeo Rosie is a muppet dressed like a cowgirl. She looks like she is one
+tough and ornery philly.
+~
+32|64 8192 -400 S
+46 0 0 0d0+0 0d0+0
+0 0
+8 8 2
+#24016
+Slimey worm~
+Slimey, Oscar's pet worm~
+Slimey, Oscars pet worms slithers here.
+~
+Slimey is a small little muppet worm. He has a cute little smile and of 
+course the traditional striped shirt of muppets on.
+~
+2|64 0 0 S
+37 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24017
+muppet~
+a muppet~
+A muppet stands here.
+~
+This muppet is just a plain walk on muppet. Has been used for many scenes,
+but never named. This allows for his salary to be kept low.
+~
+2|64 0 -500 S
+43 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+#24018
+muppet~
+a muppet~
+A muppet stands here.
+~
+This muppet is here to pester and bother you. He pokes you in the eyes and
+says 'What are you looking at?'
+~
+32|64 0 -1000 S
+39 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24019
+alien muppet yep~
+an alien muppet~
+An alien muppet says 'Yup yup yup yup yup yup.'
+~
+This muppet is peculiar looking. He has a large mouth and small eyes. The
+only thing you hear him say is 'Yup' Very agreeable dont you think?
+~
+32|64 0 0 S
+42 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24020
+alien muppet nope~
+an alien muppet~
+An alien muppet stands here.
+~
+This muppet is another alien. He seems very disagreeable, cause all he says
+is no. Very strange.
+~
+32|64 0 -300 S
+42 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24021
+receptionist~
+a receptionist~
+A receptionist sits here.
+~
+This receptionist looks very bored about her job. When you ask to go in she 
+just asks who you are. Not much of a help.
+~
+2|64 0 -500 S
+38 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+#24022
+muppet monkey~
+a muppet monkey~
+A muppet monkey stands here.
+~
+This monkey looks like it was made from the scraps of other muppets. The
+limbs dont exactly match each other and the body doesnt quite have the form it 
+should.
+~
+32|64|128 0 0 S
+40 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+#24023
+The Amazing Mumford~
+the Amazing Mumford~
+The Amazing Mumford utters the words 'Ala Peanut Butter Sandwiches'
+~
+Mumford is the cause for the darkness and evil at Sesame street. Apparantly
+he had a quarrel with Grover about a fork, and decided to take it out on 
+everyone.
+~
+2|8|64 128|8192 -1000 S
+50 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24024
+Forgetful jones~
+Forgetful Jones~
+Forgetful Jones stands here.
+~
+Forgetful Jones cant remember anything, not even what he wanted to kill.
+Perhaps it was you? He isnt wearing anything, cause he forgot it.
+~
+64 8 200 S
+38 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24025
+Evil muppet~
+an evil muppet~
+An evil muppet stands here.
+~
+This is a mean looking muppet, who is in the gang that now runs this place.
+He isnt bad alone, but if he is with his friends, looks out.
+~
+32|64 8192 -900 S
+38 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24026
+Gang muppet~
+a gang muppet~
+A gang muppet stands here causing trouble.
+~
+This is an incredibly mean looking muppet. From the look on his face, he
+likes to fight, and really enjoys taunting people.
+~
+32|64 8192 -950 S
+39 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24027
+Gang leader muppet~
+the muppet gang leader~
+The muppet gang leader stands here.
+~
+This leader is a twisted muppet. He has orange skin and a blue nose. He looks
+like trouble, cause he is. He is Mumford's right hand man.
+~
+2|32|64 8192 -990 S
+46 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24028
+Beeker~
+Beeker~
+Beeker stands here mixing away.
+~
+Beeker has a pointy head, and orange hair. He is wearing a white lab coat.
+He came to Sesame street once it became evil, so he could finally expiriment
+with what he wanted.
+~
+2|64 8 0 S
+37 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#24029
+Snuffulupagus~
+Snuffulupagus~
+Snuffulupagus stands here.
+~
+Snuffulupagus is an invisble friend of Big Birds. He looks like a large,
+brown, shaggy elephant. It is rumored that Snuffulupagus doesnt even exist.
+Guess he does!
+~
+2|64 2|8192 300 S
+39 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+#24030
+bruiser muppet~
+a big mean bruiser muppet~
+A big mean bruiser muppet stands here.
+~
+This muppet is huge. His 24" pythons are gonna come down on you!!!
+~
+32|64 2|8192 -800 S
+41 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+#0
+
+
+#OBJECTS
+#24000
+Rubber Ducky~
+a rubber ducky~
+A plastic rubber duck lies here.~
+~
+5 0 1|8192
+0 0 0 0 
+7 25 0
+A
+18 4
+A
+19 4
+A
+17 -10
+#24001
+striped shirt~
+a striped shirt~
+An orange and purple striped shirt lies here.~
+~
+9 0 1|8
+0 0 0 0 
+4 0 0
+A
+2 2
+A
+17 -5
+A
+25 -2
+#24002
+loaf bread~
+a loaf of bread~
+A loaf of bread rises here.~
+~
+19 0 1|16384
+0 0 0 0 
+1 0 0
+#24003
+carton milk~
+a carton of milk~
+A carton of milk sits here.~
+~
+17 0 1|16384
+12 0 0 0 
+1 0 0
+#24004
+stick butter~
+a stick of butter~
+A stick of butter melts here.~
+~
+19 0 1|16384
+20 20 10 0 
+1 0 0
+#24005
+acoustic guitar~
+an acoustic guitar~
+An acoustic guitar lies here.~
+~
+5 2 1|8192
+0 0 0 0 
+7 0 0
+A
+3 2
+A
+18 4
+A
+19 4
+#24006
+cape~
+super Grover's cape~
+A cape with a G on it lies here.~
+~
+9 64 1|1024
+0 0 0 0 
+3 0 0
+A
+1 2
+A
+14 50
+A
+18 2
+A
+19 2
+#24007
+helmet~
+super Grover's helmet~
+A strange looking helmet lies here.~
+~
+9 64 1|16
+0 0 0 0 
+4 0 0
+A
+17 -20
+A
+1 1
+A
+4 1
+A
+18 2
+A
+19 2
+A
+25 2
+#24008
+microphone~
+a microphone~
+A microphone lies here.~
+~
+5 2 1|8192
+0 0 0 0 
+7 0 0
+A
+2 2
+A
+18 4
+A
+19 3
+#24009
+monacle~
+a monacle~
+A monacle lies here.~
+~
+9 1|256 1|16
+0 0 0 0 
+2 0 0
+A
+3 2
+A
+17 -10
+#24010
+Cape count~
+the Count's cape~
+A cape has been carelessly tossed here.~
+~
+9 16|256 1|1024
+0 0 0 0 
+3 0 0
+A
+4 1
+A
+12 25
+A
+17 -15
+A
+18 2
+A
+19 2
+#24011
+lasso rope~
+a lasso~
+A pile of rope lies here.~
+~
+5 1 1|8192
+0 0 0 0 
+7 0 0
+A
+18 3
+A
+19 3
+#24012
+Cowboy hat~
+a cowboy hat~
+A cowboy hat sits here.~
+~
+9 16 1|16
+0 0 0 0 
+3 0 0
+A
+3 -1
+A
+17 -10
+A
+18 2
+#24013
+Cowboy boots~
+cowboy boots~
+A pair of cowboy boots lie here.~
+~
+9 128 1|64
+0 0 0 0 
+4 0 0
+A
+5 1
+A
+14 20
+A
+17 -20
+A
+18 1
+A
+19 1
+#24014
+magnifying glass~
+a magnifying glass~
+A magnifying glass lies here.~
+~
+9 64 1|16384
+0 0 0 0 
+3 0 0
+A
+2 2
+A
+4 2
+A
+12 15
+A
+17 -20
+A
+18 1
+#24015
+tweed coat overcoat~
+a tweed overcoat~
+A tweed overcoat lies here.~
+~
+9 0 1|1024
+0 0 0 0 
+8 0 0
+A
+3 2
+A
+17 -20
+#24016
+pipe~
+a pipe~
+A pipe lies here smoking away.~
+~
+1 1 1|16384
+0 0 -1 0 
+5 0 0
+A
+13 -30
+A
+18 2
+A
+19 2
+#24017
+hat chef chef's cookie~
+a chef's hat~
+A chef's hat has been left here.~
+~
+9 0 1|16
+0 0 0 0 
+3 0 0
+A
+1 1
+#24018
+spatula~
+a spatula~
+A spatula lies here, ready to be used.~
+~
+5 256 1|8192
+0 0 0 0 
+7 0 0
+A
+1 2
+A
+18 5
+A
+19 5
+#24019
+beak big bird bird's~
+big Bird's beak~
+A long yellow beak sits here.~
+~
+5 4096 1|8192
+0 0 0 9 
+7 0 0
+A
+3 -1
+A
+18 2
+A
+19 2
+#24020
+Garbage can lid~
+a garbage can lid~
+A dented and battered garbage can lid.~
+~
+5 4|4096 1|8192
+0 0 0 5 
+7 0 0
+A
+17 -25
+A
+18 4
+A
+19 4
+#24021
+garbage can~
+a garbage can~
+A dented and beat up garbage can sits here.~
+~
+9 16 1|1024
+0 0 0 0 
+6 0 0
+A
+17 -50
+A
+14 -50
+A
+18 2
+A
+19 1
+#24022
+hair net~
+a hair net~
+A hair net sits her.~
+~
+9 0 1|16
+0 0 0 0 
+3 0 0
+#24023
+frog collar~
+a frog collar~
+A green 5 pointed frog collar sits here.~
+~
+9 128|256 1|4
+0 0 0 0 
+3 0 0
+A
+3 2
+A
+17 -30
+A
+18 3
+A
+19 3
+#24024
+Sparkling sequenned jacket~
+a sparkling sequenned jacket~
+A shiny jacket lies here.~
+~
+9 1 1|1024
+0 0 0 0 
+5 0 0
+A
+4 -1
+A
+12 25
+A
+17 20
+A
+18 3
+A
+19 2
+A
+25 3
+#24025
+banana~
+a banana in your ear~
+A banana sits here.~
+~
+9 0 1|16
+0 0 0 0 
+3 0 0
+A
+3 -1
+A
+18 2
+#24026
+Ernies Ernie's nose~
+ernie's nose~
+A nose from a muppet lies here.~
+~
+9 0 1|16
+0 0 0 0 
+3 0 0
+A
+25 -1
+#24027
+mud pie~
+a mud pie~
+A delicious looking mud pie lies here.~
+~
+19 4 1
+10 0 0 1 
+3 0 0
+#24028
+Funky pants~
+funky pants~
+A pair of funky muppet pants lie here.~
+~
+9 1 1|32
+0 0 0 0 
+3 0 0
+A
+17 -20
+A
+25 1
+#24029
+Lab coat~
+a white lab coat~
+A white lab coat sits here.~
+~
+9 4 1|1024
+0 0 0 0 
+3 0 0
+A
+3 2
+A
+4 2
+A
+17 -30
+#24030
+Magic Dust~
+some dark magic dust~
+Some dark magic dust lies here.~
+~
+26 4 1|16384
+35 3 7 61 
+1 0 0
+#24031
+Mumford wand mumfords~
+mumford's wand~
+A dark glowing wand lies here.~
+~
+3 1|4 1|16384
+55 35 20 204 
+3 0 0
+#24032
+Peanut butter sandwich~
+a peanut butter sandwich~
+A peanut butter sandwhich lies here.~
+~
+19 64 1|16384
+20 0 0 0 
+2 0 0
+#24033
+fork~
+a fork~
+A dirty fork lies here waiting to be cleaned.~
+~
+5 4 1|8192
+0 0 0 0 
+7 0 0
+A
+3 2
+A
+12 25
+A
+18 9
+A
+19 8
+#24034
+Leader's ring~
+a leader's ring~
+A ring with a leadership quality lies here.~
+~
+9 4096 1|2
+0 0 0 0 
+2 0 0
+A
+4 2
+A
+1 1
+A
+12 20
+A
+17 -15
+A
+18 2
+A
+19 2
+A
+25 2
+#24035
+Bracelet leader~
+a leader's bracelet~
+A really nice bracelet has been left here.~
+~
+9 4096 1|4096
+0 0 0 0 
+3 0 0
+A
+5 2
+A
+12 15
+A
+17 -15
+A
+18 3
+A
+19 2
+#24036
+Ring evilness~
+a ring of evilness~
+A ring that has an evil aura lies here.~
+~
+9 4|512 1|2
+0 0 0 0 
+2 0 0
+A
+1 2
+A
+17 -20
+A
+18 4
+A
+19 3
+A
+25 -2
+#24037
+Bandana Bracelet~
+a bandana bracelet~
+A bandana bracelet marks your membership in the gang.~
+~
+9 128|4096 1|4096
+0 0 0 0 
+3 0 0
+A
+3 -1
+A
+4 -1
+A
+17 -30
+A
+18 1
+A
+19 1
+#24038
+oven~
+an oven~
+An oven sits here baking away.~
+~
+15 0 0
+50 1 0 0 
+1200 0 0
+#24039
+Cookie~
+freshly baked chocolate chip cookie~
+A freshly baked chocolate chip cookie melts here.~
+~
+19 0 1
+10 0 0 0 
+1 0 0
+#24040
+vase~
+a vase~
+A vase sits here holding flowers.~
+~
+15 0 1
+0 0 0 0 
+10 0 0
+#24041
+Roses~
+a dozen long stemmed roses~
+A dozen long stemmed roses beautifully bloom here.~
+~
+8 256 1|16384
+0 0 0 0 
+1 0 0
+#24042
+table~
+a table~
+A beautifully carved oak table stands here.~
+~
+12 0 0
+0 0 0 0 
+200 0 0
+#24043
+Pile clothes~
+a pile of clothes~
+A pile of clothes is heaped here.~
+~
+13 0 0
+0 0 0 0 
+2 0 0
+#24044
+phone pay~
+a pay phone~
+A pay phone lies broken here, better check the coin return slot.~
+~
+15 0 0
+120 0 0 0 
+200 0 0
+#24045
+quarter~
+a quarter~
+A quarter lies here.~
+~
+8 0 1
+0 0 0 0 
+1 0 0
+#24046
+Foosball table~
+a foosball table~
+A foosball table sits here.~
+~
+12 0 0
+0 0 0 0 
+300 0 0
+#24047
+Pool table~
+a pool table~
+A pool table sits here.~
+~
+12 0 0
+0 0 0 0 
+500 0 0
+#24048
+bar~
+a bar~
+A nice looking bar, carved into and graffiti'd up with the gangs logos.~
+~
+15 0 0
+200 0 0 0 
+200 0 0
+#24049
+glass Milk~
+a glass of milk~
+A glass of milk rests here.~
+~
+17 0 1
+2 2 2 0 
+2 0 0
+#24050
+Water glass~
+a glass of water~
+A glass of water rests here.~
+~
+17 0 1
+2 2 0 0 
+2 0 0
+#0
+
+
+#ROOMS
+#24000
+Bus Stop~
+You stand at a bus stop in the middle of nowhere. The area looks vaguely
+familiar, but you are not sure. There is trash and graffiti everywhere. One
+really noticeable sign reads 'Sesame Street'. The street runs north from 
+here.
+~
+0 1|4 1
+D0
+~
+~
+0 0 24001
+S
+#24001
+Recognition~
+You suddenly realize that you are on Sesame Street. From the looks of it
+this is not the same street you once knew and loved. The streets are fairly
+empty and filled with trash and graffiti. You wonder what has become of this
+once proud neighborhood. There is a door to a small house to the east, or you
+can proceed down the street.
+~
+0 1 1
+D0
+~
+~
+0 0 24004
+D1
+~
+~
+1 -1 24002
+D2
+~
+~
+0 0 24000
+S
+#24002
+Small House~
+You have entered a run down old house. From the looks of it the tenants
+here are very poor. There is a door to the kitchen to the north, or you can
+return to the street to the west.
+~
+0 1|8 0
+D0
+~
+~
+1 -1 24003
+D3
+~
+~
+1 -1 24001
+S
+#24003
+Poor Kitchen~
+You have walked into a kitchen. The cupboards are empty, and you see a list
+written on the fridge. As you read the note, you see 'A loaf of bread, a carton
+of milk, and a stick of butter. The only exit is to the south.
+~
+0 1|8 0
+D2
+~
+~
+1 -1 24002
+S
+#24004
+The Street~
+The street is filled with gloominess and despair here as you walk along.
+There is a fairly nice house to the east and a telephone booth to the west.
+It seems kind of odd that the house doesnt look as run down as the rest.
+~
+0 1 1
+D0
+~
+~
+0 0 24011
+D1
+~
+~
+1 -1 24007
+D2
+~
+~
+0 0 24001
+D3
+~
+Telephone booth
+~
+1 -1 24006
+S
+#24006
+Telephone Booth~
+You stand in a telephone booth that looks very unoperationable. The
+phone itself has been ripped off the wall, and it seems to have been smashed
+by a blunt object. There is also a pile of clothes lying here.
+~
+0 1|8 0
+D1
+~
+~
+1 -1 24004
+S
+#24007
+Grover's House~
+You have walked into a quaint little house, that seems to have been here
+a long time. The house is very old fashioned looking, and you can smell a
+sweet smell from the kitchen in the north. As you look around, you see a bed
+in each of the other rooms.
+~
+0 1|8 0
+D0
+~
+~
+0 0 24010
+D1
+~
+~
+0 0 24009
+D2
+~
+~
+0 0 24008
+D3
+~
+~
+1 -1 24004
+S
+#24008
+Grovers Room~
+This is Grover's room. It has pictures of the Sesame street from when it
+was grand. There are also pictures of some of his old chums, Kermit, Cookie
+monster, and the Count. This room seems empty now however.
+~
+0 1|8 0
+D0
+~
+~
+0 0 24007
+S
+#24009
+Mommy Grovers Bedroom~
+This is mommy Grover's bedroom. There is a scent of incense here, a vase
+with fresh flowers rests on a table in the middle of the room. This room is
+where mommy Grover comes and cries about the evil that has taken over.
+~
+0 1|8 0
+D3
+~
+~
+0 0 24007
+S
+#24010
+Grovers Kitchen~
+You stand in Grovers kitchen. The scent of freshly baked muppet cookies
+comes from the stove. Maybe you can sneak one from out of the stove? There is an exit south and a refrigerator to the west.
+~
+0 1|8 3
+D2
+~
+~
+0 0 24007
+D3
+~
+fridge~
+1 -1 7908
+S
+#24011
+Sesame Street~
+The street begins to darken here, as if a magical force is present. To
+your west you see Ernie and Bert's house, and to the east is an abandonned
+lot. You can also proceed to the north and south still.
+~
+0 1 1
+D0
+~
+~
+0 0 24018
+D1
+~
+~
+0 0 24012
+D2
+~
+~
+0 0 24004
+D3
+~
+Door
+~
+1 -1 24013
+S
+#24012
+Abandoned Lot~
+You stand in the ruins of a home that used to be on Sesame Street. It
+looks as though there was a mighty blaze. It also appears as if it were burned
+intentionally, from the gas cans lying around.
+~
+0 1 1
+D3
+~
+~
+0 0 24011
+S
+#24013
+Ernie and Bert's House~
+You are standing in Ernie and Bert's house. There are pictures of this 
+duo all over doing miscellaneous things. There is soft music coming from the
+stereo..'La la la la....lemon, la la la la ...linoleum' You can tell that this
+is one of Bert and Ernie's popular songs.
+~
+0 1|8 0
+D1
+~
+door
+~
+1 -1 24011
+D3
+~
+~
+0 0 24014
+S
+#24014
+Living Room~
+This is where Ernie and Bert spend most of there time. There is a large 
+picture on the wall of Bert and Ernie with there arms around each other. There
+are two recliners here for the duo to relax in. There are exits to the east
+and west.
+~
+0 1|8 0
+D1
+~
+~
+0 0 24013
+D3
+~
+~
+0 0 24015
+S
+#24015
+Bert and Ernies Bedroom~
+This room is a quaint little bedroom for Bert and Ernie. Even though they
+are old enough to date they share a room. Its a good thing they are muppets.
+~
+0 1|8 0
+D1
+~
+~
+0 0 24014
+D2
+~
+door
+~
+1 -1 24017
+S
+#24017
+Ernie's Tub~
+You have walked in to Ernie and Bert's bath room. There is a bath drawn,
+and the steam makes it extremely hard to see. The onlt apparent exit is to
+the north.
+~
+0 1|8 0
+D0
+~
+Door
+~
+1 -1 24015
+S
+#24018
+Sesame Street~
+This section of road looks very familiar, except for the gloominess that
+has been cast upon it. You can see the heavy gang activity, and notice that
+people are really scared. You can go down into Oscar the Grouch's can, or
+east to Gordons repair shop. A familiar looking alley lies to the east, or
+you can proceed down the street.
+~
+0 1 1
+D0
+~
+~
+0 0 24028
+D1
+~
+~
+0 0 24019
+D2
+~
+~
+0 0 24011
+D3
+~
+~
+0 0 24020
+D5
+~
+~
+0 0 24022
+S
+#24019
+Gordons Repair Shop~
+You are standing in Gordons repair shop. There are broken gadgets laying 
+about and and Gordon is here working away. The only apparent exit is to the 
+west.
+~
+0 1|8 0
+D3
+~
+~
+0 0 24018
+S
+#24020
+Familiar Alley~
+You stand in an alley that looks like you belong here. You can still feel
+the evil effects of the spell cast upon the street, but it doesnt seem to hit
+as hard here. There is a REALLY big door here to the west, or you can return
+to the east.
+~
+0 1 1
+D1
+~
+~
+0 0 24018
+D3
+~
+really big door
+~
+1 -1 24021
+S
+#24021
+Big Bird's Nest~
+You are standing in Big Birds nest. This is where he and Snufflupugus
+come and hang out. This is a mighty big nest, but then you remember, he is
+a Big Bird.
+~
+0 1|8 0
+D1
+~
+Really big door
+~
+1 -1 24020
+S
+#24022
+Grouch Can~
+You have entered Oscar's can, I must admit that takes guts. The stench in
+here is attrocious! There is scattered garbage everywhere here scattered about.
+You can hardly move in this muck.
+~
+0 1|8|512 0
+D1
+~
+~
+0 0 24023
+D2
+~
+~
+0 0 24025
+D4
+~
+~
+0 0 24018
+S
+#24023
+Inside the Can~
+The size of this can is actually quite amazing. You could not tell from
+its appearance that there would be this much stuff in here. You can now tell
+why Oscar is such a grouch.
+~
+0 1|8 0
+D2
+~
+~
+0 0 24024
+D3
+~
+~
+0 0 24022
+S
+#24024
+Oscars Can~
+The stench is even worse here than anywhere else in the can. You can see
+a large pile of used socks here. Your stomach starts to turn as you see that
+Slimy, Oscar's pet worm is playing on that pile of socks.
+~
+0 1|8 0
+D0
+~
+~
+0 0 24023
+D3
+~
+~
+0 0 24025
+S
+#24025
+Oscars House~
+The stench here is definately not human. You wonder how anyone can live
+like this, but then you remember that's why he is so grouchy. Too bad he doesnt
+win the lottery to move or hire a maid to clean.
+~
+0 1|8 0
+D0
+~
+~
+0 0 24022
+D1
+~
+~
+0 0 24024
+S
+#24028
+Bend in the Road~
+You have come to a bend in the road here. There is a desolate playground
+to your north and east, and the road continues to your west. From here you
+can see the entire length of the street, and see the effects the evil has
+done here. Who could have possibly done this?
+~
+0 1 1
+D0
+~
+~
+0 0 24031
+D1
+~
+~
+0 0 24029
+D2
+~
+~
+0 0 24018
+D3
+~
+~
+0 0 24032
+S
+#24029
+The Playground~
+You stand in an old playground that is hardly used anymore, since the 
+children are afraid of Sesame street now. There is a sand box to the north,
+where the playground continues, or you can go back to the street to the west.
+~
+0 1 1
+D0
+~
+~
+0 0 24030
+D3
+~
+~
+0 0 24028
+S
+#24030
+Sand Box~
+You are in a fairly large sand box that doesnt seem to have been used in
+a while. Besides the gang muppets, there is little use at all for the play 
+ground, and the gangs only come to catch kids to beat up. The play ground
+continues to the south and west.
+~
+0 1 1
+D2
+~
+~
+0 0 24029
+D3
+~
+~
+0 0 24031
+S
+#24031
+Playground~
+This desolate play ground shows no signs of life usually, since the evil
+spell was cast on the street. Only the truly brave or extremely ignorant come
+here to play, and most dont return. There is a path to the north, or you can 
+return to the street to the south.
+~
+0 1 1
+D0
+~
+~
+0 0 24050
+D2
+~
+~
+0 0 24028
+S
+#24032
+Continuing Down the Street~
+As you proceed down the street, you can feel the evil growing stronger
+and stronger. You only hope you can stop this evil and return Sesame street
+back to its cute old self. However, some of you more evil types feel right at
+home. Mr.Hooper's store is to the north, and Maria's apartment is to the south.
+~
+0 1 1
+D0
+~
+door
+~
+1 -1 24033
+D1
+~
+~
+0 0 24028
+D2
+~
+Door
+~
+1 -1 24034
+D3
+~
+~
+0 0 24035
+S
+#24033
+Hooper's Store~
+You are in old Mr.Hooper's Store. This business was hit hard by the evil,
+and he doesn't have quite the variety as he used to. He is still fairly happy,
+and enjoys to babble endlessly to anyone who comes in.
+~
+0 1|8 0
+D2
+~
+door
+~
+1 -1 24032
+S
+#24034
+Maria's Apartment~
+You have entered Maria's apartment. This is where ole Gordo comes after
+a long hard day of fixing things and rests. This apartment is small, but
+seems to block the evil out.
+~
+0 1|8 0
+D0
+~
+door
+~
+1 -1 24032
+S
+#24035
+Further Yet~
+You are further down the street and start to wonder if you can make it
+back. The evil here is getting to strong to take. To the north is a run down
+shack, that seems pretty popular.
+~
+0 1 1
+D0
+~
+~
+1 -1 24048
+D1
+~
+~
+0 0 24032
+D3
+~
+~
+0 0 24036
+S
+#24036
+Even Further~
+The evil that surrounds you now is more great than any you have felt. The
+source for this has got to be pretty close. To your north you see the Counts
+castle, and to your south you see an abandonned house.
+~
+0 1 1
+D0
+~
+door
+~
+1 -1 24037
+D1
+~
+~
+0 0 24035
+D2
+~
+~
+0 0 24045
+D3
+~
+~
+0 0 24041
+S
+#24037
+Count's Entry Way~
+You stand in the entry way to the Count's Castle. Everything here is
+numbered, and renumbered at least a hundred times. You can faintly here a
+'Wah ah ah' sound in the distance. The is a door to the north or you can 
+return to the street to the south.
+~
+0 1|8 0
+D0
+~
+door
+~
+1 -1 24038
+D2
+~
+~
+1 -1 24036
+S
+#24038
+Count's Living Loom~
+This is where the count hangs out most of the time counting. He used to
+get out more, but the evil is even to evil for him. You can see lightning,
+even though you are indoors. Everything in this room, like the other has been
+counted and counted again and again.
+~
+0 1|8 0
+D1
+~
+~
+0 0 24039
+D2
+~
+door
+~
+1 -1 24037
+D3
+~
+~
+0 0 24040
+S
+#24039
+The Count's Count Room~
+This is where the Count comes to count numbers, count people, count his
+blessings, and do accounting. The walls(all four of them) are filled with
+scribbles. The only exit appears to be to the west.
+~
+0 1|8 0
+D3
+~
+~
+0 0 24038
+S
+#24040
+The Count's room~
+This is the bedroom of the count. This room has less scribbles on the wall,
+and you think there might be a reason for the notches in the bedpost. The only
+exit appears to be back to the east.
+~
+0 1|8 0
+D1
+~
+~
+0 0 24038
+S
+#24041
+Almost at the End~
+You stand very near the end of Sesame street, and the evil is as thick
+as you can possibly take. There are no sounds of laughter any more, you can
+here a mumbling noise in the distance. You can go into the studio to the 
+south or brave what stands at the end of the street?
+~
+0 1 1
+D1
+~
+~
+0 0 24036
+D2
+~
+~
+0 0 24042
+D3
+~
+~
+0 0 24044
+S
+#24042
+Tv Studio~
+You stand in the entryway to where the actual show about Sesame street 
+was taped. The walls here are not too badly vandalized, but there is a little
+graffiti saying 'Mumford di....' It looks to have been scratched in blood.
+There is a door to the south, or you can return to the north.
+~
+0 1|8 0
+D0
+~
+~
+0 0 24041
+D2
+~
+door
+~
+1 -1 24043
+S
+#24043
+Studio~
+You stand on the set for the Guy Smily show. This is where Guy does all
+of his work. His is the only show still on the air, he must have cut some sort
+of deal with the evil. The only exit appears to be to the north.
+~
+0 1|8 0
+D0
+~
+door
+~
+1 -1 24042
+S
+#24044
+The Dead End~
+You have reached the end, the DEAD END. You now see where the evilness
+comes from, the Amazing Mumford. He is chatting those evil spells on Sesame
+street. He utters the words 'Ala Peanut Butter Sandwiches!' You notice that
+there is no return from here.
+~
+0 1|4 1
+S
+#24045
+Abandoned House~
+You stand in an abandoned house on Sesame street. The inhabitants from
+here must have left very quickly for the place seems like a mess. From the
+looks of things, the evilness must have drove them away. It appears that 
+some of the evil muppets have taken residence here.
+~
+0 1|8 0
+D0
+~
+~
+0 0 24036
+D2
+~
+~
+0 0 24046
+S
+#24046
+Back Room~
+This room used to be a bedroom it looks like. It has been vandalized so 
+badly now, you can hardly even tell. It appears to still be used by the
+derelicts who walk these streets now.
+~
+0 1|8 0
+D0
+~
+~
+0 0 24045
+S
+#24048
+The Gang House~
+You have entered the hang out of the Antistab gang. Better watch your
+back, after all, you have see some of this mean looking gang. The hallway
+continues to your north, or you can heed my warning and go south.
+~
+0 1|8 0
+D0
+~
+~
+0 0 24060
+D2
+~
+~
+0 0 24035
+S
+#24050
+Start of the Path~
+You are on a path from the playground to the old pond. This path seems
+very peaceful, but you can feel someone watching you. There are many wild
+flowers and trees lining both sides of the trail.
+~
+0 1 2
+D0
+~
+~
+0 0 24051
+D2
+~
+~
+0 0 24031
+S
+#24051
+A Turn in the Path~
+The path turns here, and you can see the pond ahead. The path doesnt
+seem trodden, or at least not much lately. The forestry is starting to take
+over its hold on the path. The path continues to the east or south.
+~
+0 1 2
+D1
+~
+~
+0 0 24052
+D2
+~
+~
+0 0 24050
+S
+#24052
+Along the Pond~
+You stand along side the pond. Besides the beer bottles and garbage, and
+tires, the water looks incredibly mucky. Makes you kind of feel like taking
+a swim. You think you can see something in the middle of the pond.
+~
+0 1 2
+D1
+~
+~
+0 0 24053
+D2
+~
+~
+0 0 24053
+D3
+~
+~
+0 0 24051
+S
+#24053
+Along the Pond~
+Standing along side the pond, you see how badly a little pollution really
+affects things. This pond doesnt look fit to supply life to anything, yet
+there are some bizarre looking life forms in it. You can see something to 
+your east, on the pond.
+~
+0 1 2
+D0
+~
+~
+0 0 24052
+D1
+~
+~
+0 0 24056
+D2
+~
+~
+0 0 24054
+S
+#24054
+The Path~
+This part of the path looks much more frequently used. To your south you
+can see a house that looks very much in use. The forest ends here abruptly,
+as you can see the remains of trees from bonfires that the gang has.
+~
+0 1 2
+D0
+~
+~
+0 0 24053
+D2
+~
+~
+0 0 24055
+S
+#24055
+A Path~
+There is a path here that seems like it was used for the gang to get away,
+when the muppet police were still on the job. Every now and then they still
+get raided, so its very much in use. The path continues to the north, or you
+can enter the house to the south.
+~
+0 1 2
+D0
+~
+~
+0 0 24054
+D2
+~
+~
+0 0 24066
+S
+#24056
+The Pond~
+You float atop a small pond that seems to be almost thick enough to stand
+on. Kermit the frog is here singing. Kermit sings 'It's not easy being Green'
+You wonder if that's because he's a frog, or because he has drunk some of this
+pond water.
+~
+0 0 7
+D3
+~
+~
+0 0 24053
+S
+#24060
+Hallway~
+You stand where the hallway can go in any direction. To your east you see
+a pool table and a bar, and your west has a foosball table. This must be where
+the gang hangs out. The hallway continues to the north and south.
+~
+0 1|8 0
+D0
+~
+~
+0 0 24063
+D1
+~
+~
+0 0 24061
+D2
+~
+~
+0 0 24048
+D3
+~
+~
+0 0 24062
+S
+#24061
+Pool Room~
+This is a rec room that the gang uses. There is a pool table in the
+center of the room, and a bar in the corner. This room has a haze from all
+the smoke. The ashtrays are full and there are cigarette butts everywhere.
+~
+0 1|8 0
+D3
+~
+~
+0 0 24060
+S
+#24062
+Rec Room~
+This is another recreation room that the gang has. Whenever they arent
+out ruining the town or molesting people. The only apparent exit is to the
+east.
+~
+0 1|8 0
+D1
+~
+~
+0 0 24060
+S
+#24063
+The Hallway~
+The walls in this hallway are thoroughly ruined. Every inch of the
+decor is covered in some graffiti. Big letters spell out 'All hail Mumford!'
+You can continue down the hallway, or go into the bedrooms to the east and
+west.
+~
+0 1|8 0
+D0
+~
+~
+0 0 24066
+D1
+~
+~
+0 0 24064
+D2
+~
+~
+0 0 24060
+D3
+~
+~
+0 0 24065
+S
+#24064
+Master Bedroom~
+This is the master bedroom of the gang house. There is only one bed in
+this room, and it is fairly large. This room is incredibly clean and orderly
+compared to the rest of the house. The only apparent exit is to the west.
+~
+0 1|8 0
+D3
+~
+~
+0 0 24063
+S
+#24065
+Bedroom~
+This is a bedroom in the gang house. There are many cots and mattresses
+laying about, that anyone can use. This house usually sleeps about 20 so it 
+gets pretty hard to sleep. The only apparent exit is to the east.
+~
+0 1|8 0
+D1
+~
+~
+0 0 24063
+S
+#24066
+End of the Hall~
+You stand at the end of the hall. There is some graffiti here that reads
+'Mumford is the man' and 'I love peanut butter sandwiches' The kitchen lies
+to the west, you can return to your south, or exit the house to the north.
+~
+0 1|8 0
+D0
+~
+Door
+~
+2 -1 24055
+D2
+~
+~
+0 0 24063
+D3
+~
+~
+0 0 24067
+S
+#24067
+The Kitchen~
+You are in a kitchen, though it wouldn't appear so from appearance. There
+are empty pizza boxes lying everywhere and piles of garbage everywhere. You
+notice that there is a sort of path to the sink, and scrapings on the floor 
+by it. The only apparent exit is to the east.
+~
+0 1|8 0
+D0
+~
+Sink
+~
+2 0 24068
+D1
+~
+~
+0 0 24066
+S
+#24068
+The Lab~
+You are standing in a drug lab. There are vials and beakers everywhere.
+There is a small hole to the east in case of raids, and the exit to the
+south. You better hurry, I am sure the gang wouldn't want you in here.
+~
+0 1|8 0
+D1
+~
+hole
+~
+0 0 24055
+D2
+~
+~
+2 -1 24067
+S
+#24069
+The Meat Locker~
+You are in a meat locker filled with various slabs of body parts. As you
+look around, you notice many people on the Farside now "reside" here. On one
+hook you see Lenny's head rotting away. On another, you see Worthy's half-eaten
+torso. On yet another hook, you see the individual body parts of Macaroni,
+Cookie, Res, and Lok. On the far wall, you see the half eaten leg of Snikt, 
+while rats chew on the remains of RoX and Dizzy. Garth is here also, his echos
+of grief can still be heard. you sigh with relief as you notice that you still
+have your body parts.
+~
+0 1|4 0
+S
+#0
+
+
+#RESETS
+M 1 24000 1 24017
+E 1 24000 1 16
+E 1 24025 1 6
+M 1 24001 1 24014
+E 1 24001 1 5
+E 1 24026 1 6
+M 1 24002 1 24021
+E 1 24019 1 16
+M 1 24003 1 24039
+E 1 24009 1 6
+E 1 24010 1 13
+M 1 24004 1 24025
+E 1 24020 1 16
+E 1 24021 1 13
+M 1 24005 1 24006
+E 1 24006 1 13
+E 1 24007 1 6
+M 1 24006 1 24056
+E 1 24023 1 16
+M 1 24007 1 24030
+E 1 24018 1 16
+E 1 24017 1 6
+G 1 24039 1			0
+M 1 24008 1 24019
+M 1 24009 1 24033
+G 1 24002 1			0
+G 1 24003 1			0
+G 1 24004 1			0
+M 1 24010 1 24034
+E 1 24005 1 16
+M 1 24011 1 24010
+E 1 24022 1 6
+M 1 24012 1 24043
+E 1 24008 1 16
+E 1 24024 1 13
+M 1 24013 1 24018
+E 1 24015 1 13
+E 1 24016 1 17
+G 1 24014 1			-1
+M 1 24014 1 24011
+M 1 24015 1 24035
+E 1 24011 1 16
+E 1 24012 1 6
+E 1 24013 1 8
+M 1 24016 1 24024
+M 1 24017 1 24029
+E 1 24028 1 7
+M 1 24018 1 24036
+E 1 24001 1 5
+M 1 24019 1 24012
+M 1 24020 1 24012
+M 1 24021 1 24042
+M 1 24022 1 24046
+M 1 24023 1 24044
+E 1 24031 1 17
+E 1 24033 1 16
+G 1 24032 1			-1
+M 1 24024 1 24033
+M 1 24025 6 24031
+E 1 24030 1 17
+E 1 24036 1 2
+M 1 24026 6 24030
+E 1 24037 1 14
+M 1 24026 2 24061
+E 1 24037 1 14
+M 1 24026 2 24062
+E 1 24037 1 14
+M 1 24026 2 24065
+E 1 24037 1 14
+M 1 24027 1 24064
+E 1 24034 1 2
+E 1 24035 1 14
+M 1 24028 1 24068
+E 1 24029 1 12
+E 1 24030 1 17
+M 1 24029 1 24021
+O 1 24043 1 24006
+O 1 24042 1 24009
+O 1 24040 1 24009
+P 1 24041 1 24040
+O 1 24038 1 24010
+P 1 24039 3 24038
+O 1 24044 1 24006
+O 1 24046 1 24062
+O 1 24047 1 24061
+O 1 24048 1 24061
+P 1 24049 1 24048
+P 1 24050 1 24048
+P 1 24045 1 24044
+D 1 24010 3 1			; Grovers Kitchen Close West
+S
+
+
+#SPECIALS
+M  24023 spec_cast_mage			the Amazing Mumford
+M  24024 spec_thief			Forgetful Jones
+M  24029 spec_cast_undead			Snuffulupagus
+S
+
+
+#$

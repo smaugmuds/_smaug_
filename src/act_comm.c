@@ -1015,7 +1015,7 @@ do_music (CHAR_DATA * ch, char *argument)
   return;
 }
 
-
+#ifndef ENABLE_QUEST
 void
 do_quest (CHAR_DATA * ch, char *argument)
 {
@@ -1027,6 +1027,7 @@ do_quest (CHAR_DATA * ch, char *argument)
   talk_channel (ch, argument, CHANNEL_QUEST, "quest");
   return;
 }
+#endif
 
 void
 do_ask (CHAR_DATA * ch, char *argument)
@@ -3681,7 +3682,7 @@ do_group (CHAR_DATA * ch, char *argument)
 			   IS_NPC (gch) ? "Mob" : class_table[gch->
 							      class]->who_name,
 			   capitalize (PERS (gch, ch)), "????", "????",
-			   "????", "????", IS_VAMPIRE (gch) ? "bp" : "mana",
+			   "????", "????", IS_VAMPIRE(gch) || IS_DEMON(gch) ? "bp" : "mana",
 			   "????", "????", "?????");
 	      else if (gch->alignment > 750)
 		sprintf (buf, " A");
@@ -3718,15 +3719,15 @@ do_group (CHAR_DATA * ch, char *argument)
 	      ch_printf (ch, "%5d", gch->hit);
 	      set_char_color (AT_GREY, ch);
 	      ch_printf (ch, "/%-5d ", gch->max_hit);
-	      if (IS_VAMPIRE (gch))
+	      if (IS_VAMPIRE (gch) || IS_DEMON (gch))
 		set_char_color (AT_BLOOD, ch);
 	      else
 		set_char_color (AT_LBLUE, ch);
 	      if (gch->class != CLASS_WARRIOR)
 		ch_printf (ch, "%5d/%-5d ",
-			   IS_VAMPIRE (gch) ? gch->
+			   IS_VAMPIRE (gch) || IS_DEMON(gch) ? gch->
 			   pcdata->condition[COND_BLOODTHIRST] : gch->mana,
-			   IS_VAMPIRE (gch) ? 10 +
+			   IS_VAMPIRE (gch) || IS_DEMON(gch) ? 10 +
 			   gch->level : gch->max_mana);
 	      else
 		send_to_char ("            ", ch);

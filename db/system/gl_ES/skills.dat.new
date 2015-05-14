@@ -2160,17 +2160,11 @@ Mana         40
 Rounds       8
 Code         spell_smaug
 Dammsg       ~
-Wearoff      Your levitation spell wears off and you return to the
-
-ground.~
+Wearoff      Your levitation spell wears off and you return to the ground.~
 Hitchar      You slowly rise into the air.~
 Hitvict      Your feet slowly rise off of the ground.~
-Hitroom      $N bows $S head in concentration and $S feet rise off the
-
-ground.~
-Misschar     You concentrate heavily, but your feet stay anchored to the
-
-earth.~
+Hitroom      $N bows $S head in concentration and $S feet rise off the ground.~
+Misschar     You concentrate heavily, but your feet stay anchored to the earth.~
 Affect       'l*23' 26 'floating' 21
 Minlevel     27
 End
@@ -2513,11 +2507,7 @@ Rounds       10
 Code         spell_smaug
 Dammsg       occular explosium~
 Hitchar      You nearly cause $N's eyes to explode!~
-Hitvict      Blood spurts from your eye sockets as you experience the pain
-
-of oc
-
-cular explosium!~
+Hitvict      Blood spurts from your eye sockets as you experience the pain of occular explosium!~
 Dice         20d1~
 Components   v+49~
 Affect       '' 60 '95' -1
@@ -2545,6 +2535,19 @@ Affect       '' 60 '227' -1
 Affect       'l+25' 26 'paranoia' -1
 Affect       'l+25' 3 '-1' -1
 Minlevel     38
+End
+
+#SKILL
+Name         nuke~
+Type         Spell
+Flags        0
+Minpos       7
+Mana         400
+Rounds       4
+Code         spell_nuke
+Dammsg       surge of radiaton~
+Wearoff      !NUKE!~
+Minlevel     50
 End
 
 #SKILL
@@ -3623,9 +3626,7 @@ Wearoff      The venom in your blood is finally purged.~
 Hitchar      Toxic venom passes into the body of $N.~
 Hitvict      You shiver as $n reaches towards you and infuses you with toxic venom!~
 Hitroom      $N shivers as $n infuses $M body with toxic venom.~
-Misschar     You reach a hand toward $N, but $E evades your venomous
-
-touch.~
+Misschar     You reach a hand toward $N, but $E evades your venomous touch.~
 Minlevel     5
 End
 
@@ -5178,9 +5179,7 @@ Dammsg       ~
 Wearoff      Your footsteps and form once again become discernible.~
 Hitchar      Your steps become silent and your form hidden.~
 Hitvict      Your steps become silent and your form hidden.~
-Misschar     You clumsily attempt to mask your footsteps and hide in
-
-shadows.~
+Misschar     You clumsily attempt to mask your footsteps and hide in shadows.~
 Missvict     You attempt to mask your footsteps.~
 Affect       'l*6' 26 'sneak' 15
 Affect       'l*6' 26 'hide' 16
@@ -5292,6 +5291,96 @@ End
 
 #SKILL
 Name         talonous arms~
+Type         Weapon
+Info         0
+Flags        0
+Code         spell_null
+Dammsg       ~
+Minlevel     1
+End
+
+#SKILL
+Name         swords~
+Type         Weapon
+Info         0
+Flags        0
+Code         spell_null
+Dammsg       ~
+Minlevel     1
+End
+
+#SKILL
+Name         daggers~
+Type         Weapon
+Info         0
+Flags        0
+Code         spell_null
+Dammsg       ~
+Minlevel     1
+End
+
+#SKILL
+Name         whips~
+Type         Weapon
+Info         0
+Flags        0
+Code         spell_null
+Dammsg       ~
+Minlevel     1
+End
+
+#SKILL
+Name         maces~
+Type         Weapon
+Info         0
+Flags        0
+Code         spell_null
+Dammsg       ~
+Minlevel     1
+End
+
+#SKILL
+Name         blowguns~
+Type         Weapon
+Info         0
+Flags        0
+Code         spell_null
+Dammsg       ~
+Minlevel     1
+End
+
+#SKILL
+Name         slings~
+Type         Weapon
+Info         0
+Flags        0
+Code         spell_null
+Dammsg       ~
+Minlevel     1
+End
+
+#SKILL
+Name         axes~
+Type         Weapon
+Info         0
+Flags        0
+Code         spell_null
+Dammsg       ~
+Minlevel     1
+End
+
+#SKILL
+Name         spears~
+Type         Weapon
+Info         0
+Flags        0
+Code         spell_null
+Dammsg       ~
+Minlevel     1
+End
+
+#SKILL
+Name         staves~
 Type         Weapon
 Info         0
 Flags        0

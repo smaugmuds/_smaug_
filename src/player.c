@@ -451,7 +451,7 @@ do_score (CHAR_DATA * ch, char *argument)
 							  PLR_AUTOEXIT) ? 'X'
 		: ' ');
 
-  if (IS_VAMPIRE (ch))
+  if (IS_VAMPIRE(ch) || IS_DEMON(ch))
     pager_printf (ch,
 		  _("XP   : %-9d       Blood: %-5d of %5d   MKills:  %-5.5d    AutoLoot(%c)\n"),
 		  ch->exp, ch->pcdata->condition[COND_BLOODTHIRST],
@@ -1365,7 +1365,7 @@ do_score (CHAR_DATA * ch, char *argument)
 						     PLR_AUTOEXIT) ? 'X' :
 		      ' ');
 
-  if (IS_VAMPIRE (ch))
+  if (IS_VAMPIRE(ch) || IS_DEMON(ch))
     pager_printf_color (ch,
 			_("&GXP   : &w%-9d       &GBlood: &R%-5d &Gof &R%5d   &GMKills:  &w%-5.5d    &GAutoLoot&g(&w%c&g)\n"),
 			ch->exp, ch->pcdata->condition[COND_BLOODTHIRST],
@@ -1919,7 +1919,7 @@ do_altscore (CHAR_DATA * ch, char *argument)
 						     PLR_AUTOEXIT) ? 'X' :
 		      ' ');
 
-  if (IS_VAMPIRE (ch))
+  if (IS_VAMPIRE(ch) || IS_DEMON(ch))
     pager_printf_color (ch,
 			_("&GEXP  : &P%-9d       &GBlood: &R%-5d &Gof &R%5d   &GMKills:  &W%5d    &GAutoLoot&g(&W%c&g)\n"),
 			ch->exp, ch->pcdata->condition[COND_BLOODTHIRST],
@@ -2432,6 +2432,7 @@ do_oldscore (CHAR_DATA * ch, char *argument)
     pager_printf (ch, _("You are mobinvis at level %d.\n"), ch->mobinvis);
 
   if (!IS_NPC (ch) && IS_VAMPIRE (ch))
+  if (!IS_NPC (ch) && IS_DEMON (ch))
     pager_printf (ch,
 		  _("You have %d/%d hit, %d/%d blood level, %d/%d moves, %d practices.\n"),
 		  ch->hit, ch->max_hit,
@@ -3480,7 +3481,7 @@ do_statreport (CHAR_DATA * ch, char *argument)
       return;
     }
 
-  if (IS_VAMPIRE (ch))
+  if (IS_VAMPIRE(ch) || IS_DEMON(ch))
     {
       ch_printf (ch, "You report: %d/%d hp %d/%d blood %d/%d mv %d xp.\n\r",
 		 ch->hit, ch->max_hit,
@@ -3535,7 +3536,7 @@ do_stat (CHAR_DATA * ch, char *argument)
       return;
     }
 
-  if (IS_VAMPIRE (ch))
+  if (IS_VAMPIRE(ch) || IS_DEMON(ch))
     ch_printf (ch, "You report: %d/%d hp %d/%d blood %d/%d mv %d xp.\n\r",
 	       ch->hit, ch->max_hit, ch->pcdata->condition[COND_BLOODTHIRST],
 	       10 + ch->level, ch->move, ch->max_move, ch->exp);
@@ -3574,7 +3575,7 @@ do_report (CHAR_DATA * ch, char *argument)
     }
 
 
-  if (IS_VAMPIRE (ch))
+  if (IS_VAMPIRE(ch) || IS_DEMON(ch))
     ch_printf (ch,
 	       "You report: %d/%d hp %d/%d blood %d/%d mv %d xp.\n\r",
 	       ch->hit, ch->max_hit,
@@ -3586,7 +3587,7 @@ do_report (CHAR_DATA * ch, char *argument)
 	       ch->hit, ch->max_hit,
 	       ch->mana, ch->max_mana, ch->move, ch->max_move, ch->exp);
 
-  if (IS_VAMPIRE (ch))
+  if (IS_VAMPIRE(ch) || IS_DEMON(ch))
     sprintf (buf, "$n reports: %d/%d hp %d/%d blood %d/%d mv %d xp.\n\r",
 	     ch->hit, ch->max_hit,
 	     ch->pcdata->condition[COND_BLOODTHIRST], 10 + ch->level,

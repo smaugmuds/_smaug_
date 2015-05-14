@@ -1,0 +1,5081 @@
+#AREA	{22 30} Yaegar Deathtrap Dungeon~
+
+
+#HELPS
+0 'deathtrap dungeon'~
+Deathtrap Dungeon is the second area i have written based on the works of
+Steve Jackson and Ian Livingstone, the first being The Warlock of Firetop
+Mountain. This area is significantly harder, though I trust it will prove
+to be as equally exciting and challenging to players as my first attempt
+proved to be.
+
+-- Yaegar, June 1996.
+~
+
+0 $~
+
+
+#MOBILES
+#18000
+baron sukumvit~
+Baron Sukumvit~
+Baron Sukumvit welcomes you to the Dungeon of Fang.
+~
+The baron is a portly man with a long flowing beard. His stern grey eyes
+gaze solemnly at you from above a large nose.  he is clad in the bright robes
+of his office, including a very ostentatious piece of headwear, much like
+those worn by the Timelords of Gallifrey, not that the baron would know that.
+~
+2|8|64|131072 4|8|16|32|128|512|8192 0 S
+120 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_say~
+Welcome to Deathtrap Dungeon! Fight well and try to stay alive!
+~
+#18001
+spectator~
+a spectator~
+A spectator cheers wildly as you prepare to enter the dungeon.
+~
+The locals of Fang love their dungeon and the adventurers it attracts for
+the Trial of Champions.
+~
+2|64|128 0 0 S
+5 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_act~
+cheers wildly!
+~
+E
+.arrive_say~
+Huzzah!
+~
+#18002
+spectator~
+a spectator~
+A spectator faints with excitement as you prepare to enter the dungeon.
+~
+The locals of Fang love their dungeon and the adventurers it attracts for
+the Trial of Champions.
+~
+2|64|128 0 0 S
+5 0 0 0d0+0 0d0+0
+0 0
+8 8 2
+E
+.arrive_act~
+cheers wildly!
+~
+E
+.arrive_say~
+Huzzah!
+~
+#18003
+hobgoblin~
+a hobgoblin~
+A large hobgoblin is here scuffling with another of his kind.
+~
+These two appear to be fighting over the leather bag. Perhaps it contains
+something of value? If so you may wish to take it for yourself. And who is
+gonna stop you? This HOBGOBLIN? Please.
+~
+2|64 512 -400 S
+20 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_say~
+Give me that! It's mine!
+~
+E
+.arrive_act~
+throws a mean punch at the other hobgoblin.
+~
+E
+.tell_tell~
+Piss off! I'm busy!
+~
+#18004
+hobgoblin~
+a hobgoblin~
+A small hobgoblin is here scuffling with another of his kind.
+~
+These two appear to be fighting over the leather bag. Perhaps it contains
+something of value? If so you may wish to take it for yourself. And who is
+gonna stop you? This HOBGOBLIN? Please.
+~
+2|64 512 -400 S
+19 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_say~
+Give me that! It's mine!
+~
+E
+.arrive_act~
+kicks the other hobgoblin in the groin.
+~
+E
+.tell_tell~
+Piss off! I'm busy!
+~
+#18005
+caveman~
+a caveman~
+A caveman grumbles deep in his throat and lunges at you!
+~
+This primitive neanderthal is an aggressive inhabitant of this section of
+corridor, employed by the dungeon masters to slay any adventurers. He loves
+his job.
+~
+2|32|64 0 0 S
+22 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_say~
+Ugh!
+~
+E
+.arrive_act~
+scratches at his head lice and stares dumbly at you.
+~
+E
+.die_say~
+Auaaaahhhhh!
+~
+#18006
+orc~
+a fierce-looking orc~
+A fierce-looking orc snarls and swings his morning star at your head!
+~
+This ferocious humanoid wanders the dungeon with his companions in search of
+adventurers to slay. He is tall for an Orc, standing at roughly six feet,
+with his greasy black hair gathered in a topknot, making his already
+fearsome features appear even more menacing. When he snarls you see two rows
+of sharp, stained teeth, from which gobs of green saliva drip, as it eagerly
+anticipates the coming battle.
+~
+2|32|64 512 -700 S
+22 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_act~
+grins evilly.
+~
+E
+.arrive_say~
+Prepare to die, humanoid!
+~
+#18007
+flying guardian~
+a flying guardian~
+A flying guardian moves to assist its companion in attacking you.
+~
+This grotesque resembles nothing so much as a giant stuffed bird- a large
+vulture, perhaps, or a buzzard. Their eyes glow with an evil red light,
+which suffuses their beaks with an unearthly hue. You shiver involuntarily
+as you prepare to fight them.
+~
+2|32|64 512|524288 -500 S
+22 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+E
+.arrive_act~
+creaks into life.
+~
+#18008
+fly larvae~
+a writhing mass of fly larvae~
+A writhing, disgusting mass of fly larvae squirms about in this pit.
+~
+These foul worms are the offspring of a BIG fly. They are cold, slimy and
+generally nauseating. Enough to put you off your tea, really.
+~
+2|64 512 0 S
+18 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+E
+.arrive_act~
+squirms around your legs.
+~
+#18009
+giant fly~
+a giant fly~
+A giant fly buzzes about here.
+~
+This massive insect has limbs as thick as your thighs, black, hairy affairs
+which it is groping at you with. Large, round, multi-faceted eyes glare at
+you with an alien, evil intelligence, and this combined with the loud buzzing
+of its six feet long wings makes you feel disoriented and weak.
+~
+2|32|64 512|8192|524288 -500 S
+22 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+E
+.arrive_act~
+moves to protect its young.
+~
+E
+.die_act~
+explodes in a mess of blood and ichor!
+~
+#18010
+skeleton warrior~
+a skeleton warrior~
+A skeleton warrior lurches into life as you approach.
+~
+This undead creature was once an adventurer like you, who fell foul of one
+of the many traps or monsters here in Deathtrap Dungeon. It is now jealously
+attempting to slay you and reduce you to the same state as it.
+~
+2|32|64 128|512 -1000 S
+24 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+E
+.arrive_act~
+slowly stands up and creaks toward you.
+~
+E
+.die_act~
+collapses in a tangle of bones and armor!
+~
+#18011
+throm barbarian~
+a barbarian~
+A barbarian, one of your rival competitors, stands here.
+~
+You recognize this fellow from the pre-trial feasts, and realize he is one
+of your six rivals. His name is Throm, and he is a good, capable fighter
+with immensely strong arms. You'd do best to leave him be and go your own
+way.
+~
+2|8|64 512|8192 400 S
+26 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_tell~
+Greetings.
+~
+E
+.arrive_say~
+I'm off west. You may come too if you like.
+~
+E
+.give_say~
+Thanks!
+~
+#18012
+cave troll~
+a cave troll~
+A savage cave troll roars and charges at you.
+~
+With claws that can cut steel and teeth that can grin rock, this massive
+beast is sure to inflict a fair amount of damage on you. You wince in
+disgust at the foul odor it exudes- perhaps trolls haven't heard of bathing?
+~
+2|32|64 512 -800 S
+25 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_act~
+drools and attacks!
+~
+E
+.die_act~
+falls to the ground, gurgling as its guts fall out.
+~
+#18013
+mouse~
+a tiny mouse~
+A tiny mouse squeaks in fear and runs past you.
+~
+This little rodent is no threat to anyone, except maybe some wet behind the
+ears newbie, who shouldn't (and indeed couldn't) make it this far.
+~
+2|64|128 512 0 S
+2 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_act~
+squeaks and tries to flee.
+~
+#18014
+cobra~
+a cobra~
+A deadly cobra strikes!
+~
+This hooded ophidian stores a lethal venom, which it will attempt to inject
+into you, thus providing it with a substantial meal...
+~
+2|32|64|128 512 0 S
+18 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_act~
+hisses and strikes!
+~
+#18015
+minotaur~
+a minotaur~
+An enraged minotaur charges at you.
+~
+This monstrous bull-headed man has only one thing on his mind, and you're
+about to find out what it is the hard way. You grimace and prepare to meet
+the beast as it charges.
+~
+2|32|64 512 -400 S
+24 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_act~
+raises its axe and attacks!
+~
+#18016
+giant scorpion~
+a giant scorpion~
+A giant scorpion scuttles across the sand toward you.
+~
+This creature is a ten foot version of your garden variety scorpion. It has
+a bright red carapace, and a massive yellow-tinged stinger, dripping with
+a potent venom that hisses and melts the sand where it drips.
+~
+2|32|64 512|8192 -400 S
+25 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+E
+.arrive_act~
+scuttles across the sand toward you, venom dripping from its tail.
+~
+#18017
+dwarf~
+a rough dwarf~
+A rough-looking dwarf clad in finely-made chainmail stares calmly at you.
+~
+This rugged rogue is one of Sukumvit's hand-picked trialmasters, and you
+will have to slay him to continue. His confident manner and skill with his
+weapons indicates clearly that this won't be an easy task.
+~
+2|8|64 4|8|32|128|512|8192 -400 S
+25 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_say~
+To go further you must get past me!
+~
+E
+.arrive_act~
+readies his weapons and glares menacingly at you.
+~
+E
+.die_act~
+Agh! Death finally claimeth me!
+~
+E
+.give_give~
+18127
+~
+#18018
+servant~
+a crippled, shackled servant~
+A crippled, shackled servant shambles along here.
+~
+This poor unfortunate was an adventurer many years ago, but is now a servant
+of the trialmasters, shackled and crippled to prevent him escaping. If you
+give him something to cheer him up, he may give you a clue.
+~
+2|64|128 0 0 S
+15 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_say~
+Refreshments for sale.
+~
+E
+.give_say~
+Thanks! Search the Demon Bird chair for a magic potion!
+~
+E
+.leave_say~
+Take care!
+~
+#18019
+mirror demon~
+a mirror demon~
+A multi-limbed and faced mirror demon attacks you.
+~
+This inhabitant of the lower planes resembles a beautiful naked woman, seen
+from front on at every angle, so she appears to have many heads, limbs and
+torsos. It is a disturbing sight, and you move to quickly end its foul
+existence.
+~
+2|32|64 8|32|128|512|1048576 -1000 S
+25 0 0 0d0+0 0d0+0
+0 0
+8 8 2
+E
+.arrive_act~
+screams insanely!
+~
+E
+.arrive_yell~
+The mirror shall claim another victim!
+~
+E
+.die_yell~
+Oh bugger!
+~
+#18020
+insect swarm~
+a swarm of insects~
+A swarm of angry insects of every species imaginable covers you!
+~
+This unearthly swarm is enraged at your intrusion, and they quickly move to
+avenge it. You spot hundreds of varieties of insects in the swarm, including
+bees, wasps, hornets, beetles, cockroaches, flies, mosquitoes and dragonflies.
+~
+2|32|64 512|8192|524288 0 S
+22 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+E
+.arrive_act~
+swarms around you, biting and stinging.
+~
+#18021
+medusa~
+a medusa~
+A medusa hisses and attacks!
+~
+You quickly avert your gaze, so as not to be petrified (literally) by this
+gorgon, but you managed to catch a glimpse of a beautiful face, contorted in
+a demonic fury, topped by a writhing mane of hundreds of tiny asps. You
+steel yourself and prepare to do away with this anti-social menace.
+~
+2|32|64 4|8|16|32|512|8192 -1000 S
+24 0 0 0d0+0 0d0+0
+0 0
+8 8 2
+E
+.arrive_say~
+Help! Get me out of here! Quickly!
+~
+#18022
+leprechaun~
+a leprechaun~
+A leprechaun graps at your gear!
+~
+These pesky thieves will rob you blind if you don't leave quickly, unless you
+(evil grin) SLAY THEM. But, looking at them in their cute little green hats,
+and cute little green vests and pants, smoking cute little green pipes, you
+feel your resolve to kill them weaken. Until one of them suddenly makes off
+with 1000 gold coins!
+~
+64|128|8388608 8|32|512|8192|32768|65536 400 S
+15 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_act~
+laughs as he robs you blind!
+~
+#18023
+bloodbeast~
+the bloodbeast~
+The bloodbeast gibbers and drools here.
+~
+The bloodbeast is a massive bloated reptile with dozens of eyes on its
+broad head, and a massive stinger at the end of its spiky limbless torso. It
+looks quite horrible, wallowing here in this fetid pool, but you hesitate
+as it attacks, remembering how tough this beast is rumored to be.
+~
+2|32|64|8388608 4|8|16|32|128|512|8192 -1000 S
+28 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+E
+.arrive_act~
+rolls its tremendous bulk over and moves to attack.
+~
+E
+.die_act~
+explodes into thousands of bloody chunks!
+~
+#18024
+mimic~
+a mimic~
+A door with a fist painted upon it is set in the west wall.
+~
+This "door" is actually a deadly mimic, an amorphous creature that can
+assume the form of any inanimate object it wishes, in order to lure unwary
+adventurers to an early demise.
+~
+2|32|64 512|8192 -500 S
+22 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+E
+.arrive_act~
+slams you in the face with a fist!
+~
+#18025
+green slime~
+a pool of green slime~
+A pool of green slime lies here.
+~
+This seemingly-harmless substance is actually a mindless predator that seeks
+only to dissolve all it comes into contact with!
+~
+2|32|64 8|512 0 S
+25 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+E
+.arrive_act~
+drips from the walls here.
+~
+#18026
+boa constrictor~
+a boa constrictor~
+A boa constrictor is wrapped round an elven thief here.
+~
+This massive ophidian is too "wrapped up" (ha ha funny pun ha ha *roll*) in
+his work to notice your entry, and it continues to squeeze the life from a
+hapless elf.
+~
+2|64 512 0 S
+25 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_act~
+is squeezing the life from an elf!
+~
+#18027
+elf thief~
+an elven thief~
+An elven thief squirms about on the floor here, in obvious pain.
+~
+This elf is one of your fellow competitors in the trial of champions, and she
+looks as if she is in need of serious help. Mind you, she may "repay" you
+with a dagger in the back, as there can be only one winner...
+~
+2|64|128 512 0 S
+23 0 0 0d0+0 0d0+0
+0 0
+8 8 2
+E
+.arrive_say~
+I thank you for your aid!
+~
+E
+.attack_yell~
+Coward! Traitor!
+~
+E
+.give_give~
+18095
+~
+#18028
+trog troglodyte~
+a primitive troglodyte~
+A primitive troglodyte dances about a crude idol here.
+~
+These primitive reptilian tribesmen don't immediately notice your intrusion,
+obsessed as they are with their barbaric pagan rituals. Perhaps you'd do best
+not to disturb them...
+~
+2|8|64|128 512 -400 S
+22 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_act~
+chants and screams gibberish.
+~
+#18029
+trog troglodyte~
+a primitive troglodyte~
+A primitive troglodyte utters ritualized phrases in a strange tongue.
+~
+These primitive reptilian tribesmen don't immediately notice your intrusion,
+obsessed as they are with their barbaric pagan rituals. Perhaps you'd do best
+not to disturb them...
+~
+2|8|64|128 512 -400 S
+22 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_say~
+Oogah Boogah Oogah Boogah.
+~
+#18030
+trog troglodyte~
+a primitive troglodyte~
+A primitive troglodyte chants and drools in a mad religious frenzy.
+~
+These primitive reptilian tribesmen don't immediately notice your intrusion,
+obsessed as they are with their barbaric pagan rituals. Perhaps you'd do best
+not to disturb them...
+~
+2|8|64|128 512 -400 S
+22 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_act~
+writhes in a near orgasmic state of joy.
+~
+#18031
+trog troglodyte~
+a primitive troglodyte~
+A primitive troglodyte waves his spear about wildly.
+~
+These primitive reptilian tribesmen don't immediately notice your intrusion,
+obsessed as they are with their barbaric pagan rituals. Perhaps you'd do best
+not to disturb them...
+~
+2|8|64|128 512 -400 S
+22 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_say~
+AAAAAIIIIIIAAAAGGGHHH!
+~
+#18032
+old man~
+an old man~
+An old man stands here, indicating which way to go.
+~
+This elderly fellow appears to be of semitic origin, and is dressed in
+appropriate attire. He bows and smiles at you, and makes no move to impede
+or assault you. Obviously a lackey of the trialmasters, you should just
+ignore him, but perhaps not his advice.
+~
+2|64|128 0 0 S
+18 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_say~
+Welcome! For an item I'll give you a key to get up from here! And that's where
+you want to be!
+~
+E
+.give_give~
+18129
+~
+E
+.give_say~
+Off you go!
+~
+#18033
+poison ivy troll~
+poison ivy~
+A giant female troll grunts and demands payment as you enter.
+~
+This huge, hideous troll is quite strong and powerful, and you consider
+giving her all your gold, until foolish avarice overcomes sensible caution,
+and you decide to ignore her request, as well has her babblings about her
+brother Sourbelly, who is apparently a troll of some importance in some
+place called Port Blacksand.
+~
+2|64 512|8192 -400 S
+26 0 0 0d0+0 0d0+0
+0 0
+8 8 2
+E
+.arrive_act~
+grunts at you.
+~
+E
+.arrive_say~
+Ivy want item too!
+~
+E
+.arrive_act~
+growls menacingly.
+~
+#18034
+guard dog~
+a guard dog~
+A guard dog barks and snarls as you enter.
+~
+These Alsatians look quite mean, but you are sure you can easily defeat
+them. You assume they have been placed here to warn others of intruders
+with their loud barking than for actual fighting ability. Then again, you
+have been known to be wrong...
+~
+2|32|64 512|8192 -230 S
+22 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+E
+.arrive_act~
+howls and bites!
+~
+#18035
+guard dog~
+a guard dog~
+A guard dog barks and snarls as you enter.
+~
+These Alsatians look quite mean, but you are sure you can easily defeat
+them. You assume they have been placed here to warn others of intruders
+with their loud barking than for actual fighting ability. Then again, you
+have been known to be wrong...
+~
+2|32|64 512|8192 -230 S
+22 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+E
+.arrive_act~
+howls and bites!
+~
+#18036
+ninja~
+a ninja~
+A black-clad ninja steps from behind a pillar and attacks.
+~
+This fellow is one of your fellow competitors, and rumored to be the most
+lethal of them. He utters no words of either anger or insult as he attacks,
+and his silence is eerie. You ready your weapons and move to do battle with
+him.
+~
+2|32|64|128 8|32|128|8192|32768|65536 -800 S
+26 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_say~
+Now you die!
+~
+E
+.die_say~
+I was so close...
+~
+#18037
+manticore~
+a manticore~
+A manticore bounds toward you and releases a volley of tail spikes.
+~
+You shudder with horror as you face the man-headed lion that is the final
+monster you must face in Deathtrap Dungeon. You dodge a volley of spikes
+from its barbed tail and move to close range to do battle.
+~
+2|32|64 8|32|512|8192|524288 -1000 S
+30 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_yell~
+RRRRRRRRRRRRRROOOOOOOOOOOOOOOOAAAAAAAAAAAAAAAAAAAAARRRRRRRRRRRRR!!!!!!!!!!
+~
+#18038
+gnome trialmaster~
+a gnomish trialmaster~
+A gnomish trialmaster stands before the gates.
+~
+This diminutive trialmaster instructs you that you must have three gems-
+emerald, sapphire and diamond- to open the doors that lead outside. If you
+do not, you must recall and try again. He laughs evilly and watches as you
+attempt to unlock the doors.
+~
+2|64|128 8|32|128|512|8192 -350 S
+23 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_say~
+Well done! Now you must needs have 3 gems to unlock 3 doors!
+~
+E
+.arrive_act~
+smiles happily.
+~
+#18039
+orc~
+a savage orc~
+A savage orc snarls and readies its vicious weapons.
+~
+This ferocious humanoid wanders the dungeon with his companions in search of
+adventurers to slay. He is tall for an Orc, standing at roughly six feet,
+with his greasy black hair gathered in a topknot, making his already
+fearsome features appear even more menacing. When he snarls you see two rows
+of sharp, stained teeth, from which gobs of green saliva drip, as it eagerly
+anticipates the coming battle.
+~
+2|32|64 512 -700 S
+21 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_act~
+grins evilly.
+~
+#18040
+flying guardian~
+a flying guardian~
+A flying guardian screeches and moves to block your intrusion.
+~
+This grotesque resembles nothing so much as a giant stuffed bird- a large
+vulture, perhaps, or a buzzard. Their eyes glow with an evil red light,
+which suffuses their beaks with an unearthly hue. You shiver involuntarily
+as you prepare to fight them.
+~
+2|32|64 512|524288 -500 S
+23 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+#18041
+black widow spider~
+a black widow spider~
+A black widow spider crawls along here.
+~
+This spider is small but it can inject a lethal venom. It might be better
+to leave this deadly arachnid alone.
+~
+2|64|128 512|32768|65536 -400 S
+12 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+#18042
+giant spore ball~
+a giant spore ball~
+A spongy, giant spore ball fills the corridor here.
+~
+There is actually room to squeeze past this strange lifeform, but you may
+attack it if you wish, though you have heard tales of strange effects from
+attacking molds and spores.
+~
+2|64 128|8192 0 S
+22 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+#18043
+column light~
+a column of light~
+A column of light full of hundreds of ghostly faces shines down here.
+~
+There are dozens of different faces, all laughing, crying, singing, talking,
+shouting and screaming different things. You do manage to discern what a
+couple of them are saying, however.
+~
+2|64 8|32|128 0 S
+1 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+E
+.arrive_say~
+Greetings. When you get to the pool dive in and head north. Good luck!
+~
+E
+.leave_say~
+Don't forget the pool!
+~
+#18044
+prisoner~
+a one-handed prisoner~
+A ragged prisoner with only one hand is chained to the wall here.
+~
+He is totally malnourished and exhausted, and begs for food, water and
+freedom. He had his hand removed as punishment by the trialmasters for a
+minor infringement.
+~
+2|64|128 0 0 S
+15 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_say~
+Help me! At least give me some food or water!
+~
+E
+.give_say~
+Thanks! I will tell you this- you need gems to get out of here!
+~
+E
+.leave_say~
+Good luck! Remember to collect gems! Oh, and avoid the Leprechauns!
+~
+#18045
+spectre~
+a spectre~
+A transparent spectre, one of the trialmasters, hovers here.
+~
+The spectre laughs at you and wishes you "luck" in succeeding in finding the
+way out of the dungeon. You notice something glinting on its right ring
+finger.
+~
+2|64 2|4|8|16|32|128|524288|1048576 -800 S
+24 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+E
+.arrive_say~
+Welcome to Sukumvit's Dungeon!
+~
+E
+.tell_tell~
+Don't tell me! I only work here!
+~
+E
+.say_say~
+Speak up! I can't hear you!
+~
+E
+.give_say~
+Thanks!
+~
+#18046
+rock grub~
+a rock grub~
+A rock grub burst forth from the ground and attacks!
+~
+Rock grubs are gigantic subterranean burrowers, whose strong mandibles can
+crush stone. Imagine what they'll do to bone and sinew...
+~
+2|8388608 1|8192 0 S
+24 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+E
+.arrive_act~
+swings itself toward you.
+~
+E
+.die_act~
+explodes into thousands of bloody chunks.
+~
+#18047
+goblin~
+a goblin~
+A nasty goblin snarls and strikes!
+~
+This irritating little humanoid is actually quite a competent guard, and you
+quickly find yourself sorry for underestimating him.
+~
+2|64 512 -400 S
+22 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_say~
+AIEEEEE! DIE!
+~
+#18048
+goblin~
+a goblin~
+A vicious goblin howls and licks his weapons.
+~
+This irritating little humanoid is actually quite a competent guard, and you
+quickly find yourself sorry for underestimating him.
+~
+2|64 512 -400 S
+22 0 0 0d0+0 0d0+0
+0 0
+8 8 1
+E
+.arrive_tell~
+You're Dog meat, pal!
+~
+E
+.tell_tell~
+Hey, screw you too!
+~
+E
+.die_yell~
+It's not fair!
+~
+#18049
+pit fiend~
+a pit fiend~
+A savage pit fiend lumbers at you.
+~
+Pit Fiends resembles the T-Rex, save that they are a little shorter, and a
+LOT more aggressive.
+~
+2|32|64 512|8192 -765 S
+27 0 0 0d0+0 0d0+0
+0 0
+8 8 0
+E
+.arrive_yell~
+RRRRRRRRRRRRRROOOOOOOOOOOOOOOOAAAAAAAAAAAAAAAAAAAAARRRRRRRRRRRRR!!!!!!!!!!
+~
+#0
+
+
+#OBJECTS
+#18000
+box~
+a box with your name written on it~
+A box with your name written on its lid lies here.~
+~
+15 0 1
+5 5 0 0 
+1 0 0
+#18001
+gold~
+some gold~
+Some gold has been dropped here. Looks like just two bits.~
+~
+20 0 1
+2 0 0 0 
+1 0 0
+#18002
+note parchment~
+a note written on a small piece of parchment~
+A note written on a small piece of parchment lies here.~
+~
+13 0 1
+0 0 0 0 
+1 0 0
+E
+note parchment~
+The note is addressed to you, and it reads-
+
+"Well done. At least you had the sense to stop and take advantage of the
+token aid given to you. Now I can advise you that you will need to find and
+use several items if you hope to pass trimumphantly through my Deathtrap
+Dungeon. Signed Sukumvit."
+~
+#18003
+large iron bell~
+a large iron bell~
+A large iron bell hangs from the ceiling here.~
+~
+12 0 1
+0 0 0 0 
+1000 0 0
+E
+bell~
+Ringing it may be dangerous, so you decide not to.
+~
+#18004
+leather bag~
+a leather bag~
+A leather bag lies in the dust here.~
+~
+15 0 1
+5 1 0 0 
+1 0 0
+#18005
+corked earthenware jug~
+a corked earthenware jug~
+A corked earthenware jug rolls about on the floor here.~
+~
+10 0 1
+20 200 33 33 
+1 0 0
+E
+corked earthenware jug~
+It smells slightly acidic...
+~
+#18006
+club~
+a club~
+A rather crude club has been left here, perhaps intentionally.~
+~
+5 0 1|8192
+0 0 0 8 
+10 0 0
+A
+18 -2
+A
+19 4
+#18007
+leather wristband~
+a leather wristband from which 4 small rat skulls hang~
+A leather wristband decorated with small rat skulls lies here.~
+~
+13 0 1|4096
+0 0 0 0 
+1 0 0
+A
+2 -2
+A
+3 -2
+A
+18 -2
+E
+leather wristband skull skulls~
+It looks like a piece of Hag jewellery, items that are traditionally thought
+to bear terrible curses for anyone who wears them other than the Hag who
+created them. Be careful!
+~
+#18008
+large leather backpack~
+a large leather backpack~
+A large leather backpack has been abandoned here.~
+~
+15 0 1|8
+150 5 0 0 
+5 0 0
+E
+leather backpack~
+It looks sturdy and dependable.
+~
+#18009
+coin~
+a gold coin~
+A gold coin has been left here. Tsk.~
+~
+20 0 1
+1 0 0 0 
+1 0 0
+#18010
+water bamboo tube~
+a bamboo tube~
+A bamboo tube rests against one wall here.~
+~
+17 0 1|16384
+5 5 0 0 
+1 0 0
+E
+bamboo tube~
+The tube is full of what looks like water.
+~
+#18011
+coil rope~
+a coil of rope~
+A coil of rope lies here. Useless in muds, really.~
+~
+9 0 1|2048
+0 0 0 0 
+2 0 0
+#18012
+morning star~
+a morning star~
+A spiked ball attached to a long chain with a wooden handle lies here.~
+~
+5 16 1|8192
+0 0 0 7 
+12 0 0
+A
+18 2
+A
+19 4
+E
+morning star~
+This is a truly wicked weapon.
+~
+#18013
+hollow wooden tube~
+a hollow wooden tube~
+A hollow wooden tube has been discarded here.~
+~
+27 0 1|16
+0 0 1 0 
+1 0 0
+E
+tube~
+This tube would allow you to stay underwater for a brief period.
+~
+#18014
+corpse~
+the corpse of a barbarian~
+The corpse of one of your competitors is impaled on a nasty trap here.~
+~
+23 0 1
+0 0 0 0 
+100 0 0
+E
+corpse~
+This barbarian was impaled on a spiked board that popped up out of
+the floor when he tripped a wire.
+~
+#18015
+spiked board~
+a spiked board~
+A spiked board has impaled a barbarian here.~
+~
+12 0 0
+0 0 0 0 
+1000 0 0
+E
+spiked board~
+This cunning trap impales whoever trips the trip wire by springing up from
+the floor and impaling them.
+~
+#18016
+rubbish debris~
+accumulated rubbish and debris~
+Piles of accumulated rubbish and debris litter the floor.~
+~
+13 0 0
+0 0 0 0 
+1903 0 0
+E
+rubbish debris~
+Doubtless this debris made the tripwire impossible for the barbarian to see.
+~
+#18017
+silver goblet~
+a silver goblet~
+A silver goblet rests in an alcove here.~
+~
+10 0 1|16384
+20 43 43 43 
+3 0 0
+E
+silver goblet~
+It is filled with a red liquid.
+~
+#18018
+pouch~
+a small pouch~
+A small pouch has fallen on the ground here.~
+~
+15 0 1|2048
+5 1 0 0 
+1 0 0
+E
+pouch~
+It appears to be a herb pouch.
+~
+#18019
+herbal meat~
+some herbal meat~
+Some herbal meat has been left here.~
+~
+26 0 1
+20 39 81 16 
+1 1500 0
+E
+herbal meat~
+It smells GOOD!
+~
+#18020
+emerald jewel gem~
+a large emerald~
+A large green jewel lies here, forgotten.~
+~
+18 1 1|16384
+0 0 0 0 
+1 10000 0
+E
+emerald jewel gem~
+This looks to be some sort of key...
+~
+#18021
+opal studded dagger~
+an opal-studded dagger~
+An opal-studded dagger is stuck in the ground here.~
+~
+5 1|64 1|8192
+0 0 0 11 
+5 0 0
+A
+18 6
+#18022
+mirror~
+a wall-length mirror~
+A wall-length mirror is affixed to the wall here.~
+~
+12 0 1|16384
+0 0 0 0 
+150 0 0
+A
+3 -3
+A
+4 -3
+E
+mirror~
+The mirror looks to be firmly attached, though with a bit of effort you are
+sure you could break it free. Looking into it, you notice your image is
+strangely distorted, and you begin to experience a severe headache. Perhaps
+you'd be better off leaving it be...
+~
+#18023
+stone statue~
+a stone statue~
+A stone statue of a paladin stands here.~
+~
+12 0 0
+0 0 0 0 
+250 0 0
+E
+statue paladin~
+The paladin's face is contorted in a grimace of pain, as if he had suddenly
+suffered some horrid wound.
+~
+#18024
+stone statue~
+a stone statue~
+A stone statue of a monk stands here.~
+~
+12 0 0
+0 0 0 0 
+250 0 0
+E
+statue monk~
+The monk's face is contorted in a grimace of pain, as if he had suddenly
+suffered some horrid wound.
+~
+#18025
+stone statue~
+a stone statue~
+A stone statue of a wizard stands here.~
+~
+12 0 0
+0 0 0 0 
+250 0 0
+E
+statue wizard~
+The wizard's face is contorted in a grimace of pain, as if he had suddenly
+suffered some horrid wound.
+~
+#18026
+stone statue~
+a stone statue~
+A stone statue of a thief stands here.~
+~
+12 0 0
+0 0 0 0 
+250 0 0
+E
+statue thief~
+The thief's face is contorted in a grimace of pain, as if he had suddenly
+suffered some horrid wound.
+~
+#18027
+ornate helm~
+an ornate helm~
+An ornate helm rests here. It looks to be centuries old.~
+~
+9 16|512 1|16
+0 0 0 0 
+5 0 0
+A
+3 1
+A
+4 1
+A
+12 20
+#18028
+bloodstealer sword~
+a bloodstained sword~
+A sword smeared with dried blood lies here.~
+~
+5 16|64|512|4096 1|8192
+0 0 0 0 
+15 0 0
+A
+1 2
+A
+5 1
+A
+18 8
+A
+19 8
+A
+25 -2
+#18029
+parchment~
+a piece of parchment~
+An old piece of parchment lies here.~
+~
+13 0 1|16384
+0 0 0 0 
+1 0 0
+E
+parchment~
+The parchment bears a sketch of a man-headed lion, with an inscription
+beneath-
+"Should you meet the Manticore,
+ Of its tail beware.
+ Shield yourself against the spikes
+ Flying through the air."
+~
+#18030
+boots~
+a pair of leather boots~
+A pair of leather boots rest here.~
+~
+9 16|512 1|64
+0 0 0 0 
+2 0 0
+A
+2 1
+A
+14 100
+#18031
+cloak~
+a tattered cloak~
+A tattered cloak lies neglected on the floor here.~
+~
+9 16|512 1|4
+0 0 0 0 
+4 0 0
+A
+13 50
+#18032
+scale mail~
+a suit of archaic scale mail~
+This suit of scale mail must be at least 200 years old...~
+~
+9 16|512 1|8
+0 0 0 0 
+10 0 0
+A
+17 -20
+#18033
+ring~
+the ring of Yaegar~
+This ring is granted by Yaegar to his trusted agents.~
+~
+9 16|64|512|4096 1|2
+0 0 0 0 
+1 0 0
+A
+18 2
+A
+19 2
+A
+23 -2
+A
+24 -2
+A
+25 3
+#18034
+mushrooms~
+some tasty-looking mushrooms~
+Some tasty-looking mushrooms grow here.~
+~
+26 0 1
+25 39 39 39 
+1 0 0
+E
+mushrooms~
+They appear to be free of contamination.
+~
+#18035
+short sword~
+a sharp short sword~
+A sharp short sword lies here.~
+~
+5 0 1|8192
+0 0 0 11 
+5 0 0
+A
+18 4
+#18036
+spear~
+a short throwing spear~
+A short throwing spear has been thrust into the dirt here.~
+~
+30 0 1|8192|16384
+0 0 0 0 
+3 0 0
+#18037
+skull~
+a human skull~
+A human skull rests here.~
+~
+15 0 1|16384
+0 0 0 0 
+2 0 0
+E
+skull~
+It appears to contain some yellow stones...
+~
+#18038
+jewel yellow topaz gem~
+a topaz~
+A yellow jewel lies here.~
+~
+8 0 1|16384
+0 0 0 0 
+1 500 0
+E
+topaz~
+Yawn. A semi-precious stone.
+~
+#18039
+jewel yellow topaz gem~
+a topaz~
+A yellow jewel lies here.~
+~
+8 0 1|16384
+0 0 0 0 
+1 500 0
+E
+topaz~
+Yawn. A semi-precious stone.
+~
+#18040
+loaded crossbow~
+a loaded crossbow~
+A loaded crossbow is aimed fair at you.~
+~
+5 0 1|32768
+0 0 0 2 
+18 5000 0
+A
+19 7
+#18041
+marble plinth~
+a marble plinth~
+A marble plinth stands in the center of the room.~
+~
+15 0 0
+100 5 0 0 
+1000 0 0
+E
+plinth~
+It appears to be hollow...
+~
+#18042
+wooden ball red~
+a red wooden ball~
+A red wooden ball rolls across the floor.~
+~
+30 0 1|8192|16384
+0 0 0 0 
+2 0 0
+#18043
+wooden ball blue~
+a blue wooden ball~
+A blue wooden ball rolls across the floor.~
+~
+30 0 1|8192|16384
+0 0 0 0 
+2 0 0
+#18044
+withered hand~
+a withered hand~
+A withered hand is nailed to the door here.~
+~
+19 0 1|16384
+0 0 0 1 
+2 0 0
+E
+hand~
+It is rather badly decayed.
+~
+#18045
+box~
+a wooden box~
+A small wooden box rests here.~
+~
+15 0 1
+10 5 0 0 
+2 0 0
+E
+box~
+It is covered with slime, and rattles when you shake it.
+~
+#18046
+iron key~
+an iron key~
+An iron key lies here.~
+~
+18 0 1|16384
+0 0 0 0 
+1 0 0
+E
+iron key~
+Despite having spent considerable time in a damp sewer, it is free of
+corrosion.
+~
+#18047
+large gem sapphire~
+a sapphire~
+A large gem lies forgotten here.~
+~
+18 1 1|16384
+0 0 0 0 
+1 6000 0
+E
+sapphire gem~
+It appears to be a key of some sort...
+~
+#18048
+axe~
+a broad axe~
+A broad axe lies on the ground.~
+~
+5 0 1|32768
+0 0 0 3 
+22 0 0
+A
+1 3
+A
+18 2
+A
+19 8
+#18049
+loincloth~
+a loincloth~
+A loincloth fashioned from bear furs has been dropped here.~
+~
+9 0 1|2048
+0 0 0 0 
+5 0 0
+E
+loincloth~
+It is badly stained.
+~
+#18050
+fur lined boots~
+a pair of fur-lined boots~
+A pair of fur-lined boots, good for walking, rest here.~
+~
+9 0 1|64
+0 0 0 0 
+8 0 0
+A
+5 1
+A
+14 120
+#18051
+throwing dagger~
+a throwing dagger~
+A throwing dagger is stuck in the ground here.~
+~
+30 0 1|8192|16384
+0 0 0 0 
+5 0 0
+A
+18 4
+E
+throwing dagger~
+It is well-balanced.
+~
+#18052
+tattoo~
+a tattoo~
+A rough tattoo has been torn from someone's arm.~
+~
+9 4096 1|256
+0 0 0 0 
+1 0 0
+A
+5 2
+E
+tattoo~
+It appears to be some sort of primitive tribal symbol.
+~
+#18053
+piece paper brown curled~
+a piece of brown, curled paper~
+A piece of paper, brown and curled with age, is pinned to the wall.~
+~
+13 0 1|16384
+0 0 0 0 
+1 0 0
+E
+paper~
+A message written in blood says- "BEWARE THE TRIALMASTERS".
+~
+#18054
+red leather bound book~
+a red leather-bound book~
+A dusty red leather-bound book rests on a stone ledge here.~
+~
+2 0 1|16384
+0 0 0 0 
+5 2000 0
+E
+red leather book~
+It is an ancient treatise on the nature of Bloodbeasts, and may be worth no
+small amount to a dealer in such items.
+~
+#18055
+black leather bound book~
+a black leather-bound book~
+A dusty black leather-bound book rests on a stone ledge here.~
+~
+15 0 1|16384
+2 4 0 0 
+10 0 0
+E
+black leather book~
+Upon closer examination, you notice that this "book" is in fact hollow,
+with the pages having been cut out and stuck together to form a storage
+cache.
+~
+#18056
+small corked bottle clear liquid~
+a small corked bottle~
+A small corked bottle containing a clear liquid lies here.~
+~
+10 64 1|16384
+20 19 20 44 
+1 0 0
+E
+bottle~
+It is a long, narrow affair, much like a test tube.
+~
+E
+liquid~
+You tell me!
+~
+#18057
+bone ring talisman~
+a bone ring~
+A bone ring has been dropped here.~
+~
+9 2|64|1024 1|2
+0 0 0 0 
+1 0 0
+A
+1 1
+A
+5 1
+A
+13 25
+A
+18 1
+A
+19 1
+E
+bone ring~
+It is engraved with symbols that identify it as some sort of Druidic
+talisman.
+~
+#18058
+leather pouch~
+a small leather pouch~
+A small leather pouch lies nearby.~
+~
+15 0 1
+10 0 0 0 
+1 0 0
+E
+pouch~
+It wouldn't hold very damn much.
+~
+#18059
+wicker basket~
+a wicker basket~
+A wicker basket, much like those used by snake charmers, rests here.~
+~
+15 0 1
+25 0 0 0 
+1 0 0
+#18060
+crossbow~
+a light crossbow~
+A light crossbow, cocked and ready to fire, has been left here.~
+~
+5 0 1|8192
+0 0 0 11 
+5 0 0
+A
+18 2
+A
+19 4
+A
+25 -1
+#18061
+dwarven mail finely made chainmail~
+a suit of finely-made chainmail~
+A suit of Dwarven mail lies here.~
+~
+9 64 1|8
+0 0 0 0 
+8 0 0
+A
+17 -20
+E
+dwarven mail armor~
+It affords excellent protection to its wearer.
+~
+#18062
+guiness~
+a pint of guiness~
+A pint of guiness foams away here.~
+~
+17 0 1|16384
+2 2 25 0 
+1 0 0
+E
+guiness stout~
+It's fockin' good!
+~
+#18063
+roast meal~
+a roast meal~
+A steaming meal of vegetables and beef sits here.~
+~
+19 0 1
+24 0 0 0 
+3 0 0
+E
+roast meal~
+It looks and smells delicious.
+~
+#18064
+casket~
+a wooden casket~
+A small wooden casket rests here.~
+~
+15 0 1
+10 5 0 0 
+2 0 0
+E
+casket~
+It rattles when you shake it.
+~
+#18065
+velvet bag~
+a velvet bag~
+A velvet bag lies here, forgotten.~
+~
+15 0 1
+5 0 0 0 
+1 1000 0
+E
+velvet bag~
+It is very finely embroidered.
+~
+#18066
+large pearl~
+a large pearl~
+A large pearl, fresh from the sea, rests here.~
+~
+8 0 1|16384
+0 0 0 0 
+1 500 0
+E
+pearl~
+It is large but probably not as valuable as you may think.
+~
+#18067
+crown~
+a crown~
+A crown set with magnificent jewels sparkles here.~
+~
+13 0 1|16
+0 0 0 0 
+1 10 0
+E
+crown~
+Upon closer inspection, you notice that the "jewels" are in fact cheap glass
+and paste.
+~
+#18068
+plate food~
+a plate of food~
+A plate of food sits here, untouched.~
+~
+19 0 1
+4 0 0 1 
+1 0 0
+#18069
+tray~
+a serving tray~
+A heavy serving tray has been dropped here.~
+~
+5 0 1|32768
+0 0 0 7 
+10 0 0
+E
+tray~
+It weighs a lot, and would doubtless do someone an injury if you hit them
+on the head with it.
+~
+#18070
+glass water~
+a glass of water~
+A glass of water sits here.~
+~
+17 0 1|16384
+1 1 0 1 
+1 0 0
+#18071
+chair bird~
+a chair~
+A chair carved in the shape of a grotesque bird sits near one wall.~
+~
+15 0 0
+5 4 0 0 
+1000 0 0
+E
+chair~
+You notice a small panel which may slide open...
+~
+#18072
+glass phial~
+a glass phial~
+A glass phial rests here.~
+~
+10 64 1|16384
+20 83 0 0 
+1 0 0
+#18073
+helm~
+a magnificent winged helm~
+A magnificent winged helm rests on a stick here.~
+~
+9 1|2|64|1024|2048 1|16
+0 0 0 0 
+5 0 0
+A
+3 1
+A
+4 1
+A
+17 -7
+A
+18 4
+A
+25 2
+E
+helm winged~
+It is truly magnificent. The stuff of legend, really.
+~
+#18074
+west cherub fountain~
+a fountain carved in the shape of a cherub~
+A fountain carved in the shape of a cherub rests near the west wall.~
+~
+25 0 0
+0 0 0 1 
+10000 0 0
+E
+fountain~
+The water looks cool and refreshing.
+~
+#18075
+east cherub fountain~
+a fountain carved in the shape of a cherub~
+A fountain carved in the shape of a cherub rests near the east wall.~
+~
+25 0 0
+0 0 0 0 
+10000 0 0
+E
+fountain~
+The water looks cool and refreshing.
+~
+#18076
+dagger~
+a dagger~
+A small dagger is stuck in the ground here.~
+~
+5 1|64 1|8192
+0 0 0 11 
+5 0 0
+A
+18 4
+E
+dagger~
+It is of elven make.
+~
+#18077
+snake skin~
+a snake skin~
+This skin would make a funky-ass belt.~
+~
+9 0 1|2048
+0 0 0 0 
+3 0 0
+#18078
+elven boots~
+a pair of elven boots~
+A pair of soft elven boots lie here.~
+~
+9 64 1|64
+0 0 0 0 
+1 0 0
+A
+2 3
+#18079
+metal grille~
+a metal grille~
+A metal grille is set in the floor here.~
+~
+15 0 0
+1000 0 0 0 
+10000 0 0
+E
+grille~
+You fancy you can see something shiny within.
+~
+#18080
+grappling iron~
+a grappling iron~
+A grappling iron has been left here.~
+~
+5 0 1|8192
+0 0 0 8 
+8 0 0
+E
+grappling iron~
+This would make a simple but effective weapon.
+~
+#18081
+chest~
+a large oak chest~
+A large oak chest bound with bands of iron rest here.~
+~
+15 0 1
+500 5 0 0 
+100 0 0
+E
+chest~
+It looks rather heavy but you think you could lift it.
+~
+#18082
+pendant~
+a silver pendant~
+A silver pendant, once set with a stone now long gone, lies here.~
+~
+8 0 1|4
+0 0 0 0 
+1 250 0
+E
+pendant~
+Even without the gem the silver is worth a fair bit.
+~
+#18083
+large golden effigy~
+a large golden effigy~
+A large golden effigy that serves as a Troglodyte totem stands tall here.~
+~
+12 0 0
+0 0 0 0 
+10000 0 0
+E
+effigy~
+Its kinda hard to describe. Grab a copy of Deathtrap Dungeon and check out
+the picture with reference 230. ;)
+~
+#18084
+stone axe~
+a crude stone axe~
+A crude stone axe.~
+~
+5 0 1|8192
+0 0 0 7 
+7 0 0
+#18085
+crude wooden spear~
+a crude wooden spear~
+A crude wooden spear.~
+~
+5 0 1|8192
+0 0 0 2 
+5 0 0
+#18086
+loincloth~
+a shit-stained loincloth~
+A loincloth stained with Troglodyte shit lies here, unwanted (!).~
+~
+9 16 1|2048
+0 0 0 0 
+3 0 0
+E
+loincloth~
+DON'T wear THAT!
+~
+#18087
+dust~
+magic dust~
+Some magic dust floats about here.~
+~
+4 1|64 1|16384
+25 1 1 56 
+1 800 0
+#18088
+pair green boots~
+a pair of green boots~
+A pair of green boots with bright gold buckles have been left here.~
+~
+9 64|1024 1|64
+0 0 0 0 
+3 0 0
+A
+2 1
+#18089
+brown belt~
+a brown belt with a gold buckle~
+A brown belt with a shiny gold buckle has been dropped here.~
+~
+9 64|1024 1|2048
+0 0 0 0 
+2 0 0
+A
+2 1
+A
+13 10
+#18090
+green breeches~
+a pair of sturdy green breeches~
+A pair of sturdy green breeches have been neatly folded up here.~
+~
+9 64|1024 1|32
+0 0 0 0 
+5 0 0
+A
+5 1
+A
+17 -10
+#18091
+green tunic~
+a bright green tunic~
+A homespun bright green tunic has been hung from a hook here.~
+~
+9 64|1024 1|8
+0 0 0 0 
+4 0 0
+A
+12 25
+A
+23 -1
+A
+24 -1
+#18092
+pipe~
+a pipe~
+A pipe smokes away here.~
+~
+1 1 1|65536
+0 0 -1 0 
+1 0 0
+A
+5 -2
+#18093
+green hat~
+a green hat with a gold buckle~
+A green puritan style hat with a gold buckle sits here.~
+~
+9 64|1024 1|16
+0 0 0 0 
+3 0 0
+A
+3 1
+A
+4 1
+#18094
+leather backpack~
+a leather backpack~
+A magical leather backpack rest here, half-open.~
+~
+15 0 1|8
+250 1 0 0 
+5 0 0
+#18095
+unleavened bread~
+some elven unleavened bread~
+A loaf of elven bread sits here.~
+~
+26 64 1
+25 61 43 81 
+1 0 0
+E
+elven bread~
+Elven bread is rumored to have magical qualities.
+~
+#18096
+mirror~
+a small silvered mirror~
+A small silvered mirror rests here.~
+~
+3 64 1|16384
+25 10 10 4 
+1 0 0
+#18097
+bone monkey charm~
+a bone monkey charm~
+A bone monkey charm attached to a leather thong has been discarded here.~
+~
+9 64 1|4
+0 0 0 0 
+1 0 0
+A
+12 50
+#18098
+leather pouch~
+a small leather pouch~
+A small leather pouch has fallen on the ground here.~
+~
+15 0 1|2048
+5 4 0 0 
+1 0 0
+#18099
+tiny brass bell~
+a tiny brass bell~
+A tiny brass bell rests here.~
+~
+13 0 1
+0 0 0 0 
+1 0 0
+E
+tiny brass bell~
+?
+~
+#18100
+ninja to~
+a ninja-to~
+A sharp ninja-to rests here in its scabbard.~
+~
+5 64 1|8192
+0 0 0 3 
+8 0 0
+A
+18 8
+A
+19 8
+#18101
+tiger claws~
+a pair of ninja tiger claws~
+A pair of a ninja's tiger claws lie here.~
+~
+9 0 1|128
+0 0 0 0 
+2 0 0
+A
+18 3
+A
+19 4
+#18102
+shuriken~
+a shuriken~
+A sharp shuriken is deply imbedded in the wall here.~
+~
+30 64 1|8192|16384
+0 0 0 0 
+1 0 0
+A
+18 3
+A
+19 3
+#18103
+black robes~
+black ninja robes~
+Black ninja robes lie here.~
+~
+9 4 1|8
+0 0 0 0 
+5 0 0
+A
+2 1
+A
+14 25
+A
+17 -10
+#18104
+long knife~
+a long knife~
+A long knife lies on the floor here.~
+~
+5 0 1|8192
+0 0 0 11 
+5 1000 0
+#18105
+flask water~
+a flask of water~
+A flask of water lies here.~
+~
+17 0 1|16384
+8 8 0 0 
+2 0 0
+#18106
+rice palm leaf~
+rice wrapped in palm leaf~
+Some rice wrapped in palm leaf sits here.~
+~
+19 0 1
+4 0 0 0 
+1 0 0
+#18107
+jar healing ointment~
+a jar of healing ointment~
+A jar of healing ointment rests here.~
+~
+4 64 1|16384
+26 5 5 15 
+2 0 0
+E
+jar healing ointment~
+There is enough of this herbal mixture for five applications.
+~
+#18108
+diamond~
+a beautiful diamond~
+A beautiful diamond has been tossed aside here.~
+~
+18 1 1|16384
+0 0 0 0 
+1 8000 0
+E
+diamond~
+It appears to be some sort of key.
+~
+#18109
+basket~
+a large basket~
+A large basket affixed to a rope allows people to be hauled up.~
+~
+12 0 0
+0 0 0 0 
+100 0 0
+#18110
+bone~
+a bone~
+A bone. Go on, have a gnaw.~
+~
+19 0 1
+6 0 0 0 
+3 0 0
+#18111
+broken stool~
+a broken stool~
+A broken stool rests crazily on its remaining three legs.~
+~
+5 0 1|8192
+0 0 0 7 
+6 0 0
+#18112
+collar~
+a spiked dog collar~
+A spiked dog collar lies here.~
+~
+15 0 1|4
+5 4 0 0 
+1 0 0
+E
+collar~
+The collar appears to have a small secret compartment.
+~
+#18113
+shield~
+a magnificent shield~
+A maginificent shield lies here, gleaming.~
+~
+9 1|64 1|512
+10 0 0 0 
+5 0 0
+A
+17 -20
+A
+18 1
+A
+19 1
+A
+23 -3
+A
+24 -3
+#18114
+cupboard~
+a bare cupboard~
+This cupboard appears to be rather bare...~
+~
+15 0 0
+100 1 0 0 
+700 0 0
+#18115
+metal capsule~
+a metal capsule~
+A small metal capsule lies here.~
+~
+9 1|64 1|16384
+1 0 0 0 
+1 0 0
+A
+4 1
+A
+12 50
+#18116
+leather armor~
+a suit of leather armor~
+(Smelly) A suit of Orcish armor lies here.~
+~
+9 0 1|8
+0 0 0 0 
+7 0 0
+#18117
+animal hides~
+animal hides~
+Some uncured animal hides are stinking up the room here.~
+~
+9 0 1|8
+0 0 0 0 
+12 0 0
+A
+5 -1
+A
+13 20
+A
+17 -10
+E
+hides~
+They STINK!
+~
+#18118
+gold ring~
+a gold ring~
+A gold ring gleams here.~
+~
+9 2|16|512|4096 1|2
+0 0 0 0 
+1 0 0
+A
+5 1
+A
+18 3
+A
+19 3
+A
+25 1
+#18119
+mandibles~
+a pair of mandibles~
+A pair of stone-crushing mandibles lie here.~
+~
+5 0 32768
+0 0 0 0 
+10 0 0
+A
+18 10
+A
+19 12
+#18120
+mallet~
+a wooden mallet~
+A wooden mallet rests here.~
+~
+5 0 1|8192
+0 0 0 7 
+3 0 0
+#18121
+iron spike~
+an iron spike~
+An iron spike rests here.~
+~
+5 0 1|8192
+0 0 0 11 
+5 0 0
+A
+18 -2
+A
+19 2
+#18122
+cupboard~
+a small cupboard~
+A small cupboard rests near one wall.~
+~
+15 0 1
+100 1 0 0 
+100 0 0
+#18123
+orc corpse~
+the corpse of an orc~
+The corpse of one of the dungeon's Orcish guards lies here.~
+~
+23 0 1
+0 0 0 0 
+75 0 0
+E
+corpse orc~
+From the look of it, this Orc was slain by a large fellow wielding a heavy
+axe. Seems a barbarian competitor is still going...
+~
+#18124
+orc corpse~
+the corpse of an orc~
+The corpse of one of the dungeon's Orcish guards lies here.~
+~
+23 0 1
+0 0 0 0 
+75 0 0
+E
+corpse orc~
+From the look of it, this Orc was slain by a large fellow wielding a heavy
+axe. Seems a barbarian competitor is still going...
+~
+#18125
+bone necklace amulet strength~
+an amulet of strength~
+A bone necklace has been discarded here.~
+~
+9 2 1|4
+0 0 0 0 
+1 0 0
+A
+1 2
+A
+5 1
+#18126
+test chamber key~
+a test chamber key~
+This key will allow you to open the door leading north from the chambers.~
+~
+18 2 1|16384
+0 0 0 0 
+1 0 0
+#18127
+dungeon key~
+a dungeon key~
+This key will allow you to proceed into the next stage of the dungeon.~
+~
+18 2 1|16384
+0 0 0 0 
+1 0 0
+#18128
+brooch garnet~
+a brooch set with a large garnet~
+A brooch set with a large garnet lies here.~
+~
+8 0 1|8
+0 0 0 0 
+1 2452 0
+#18129
+shell~
+a basket shell~
+This shell allows you to travel up in the basket. Unlock it now!~
+~
+18 0 1|16384
+0 0 0 0 
+1 0 0
+E
+shell~
+Don't stare at it! USE IT!!!
+~
+#18130
+lots money~
+lots of money!~
+Piled all around is lots and lots of money!~
+~
+20 0 1
+20000 0 0 0 
+1 0 0
+#18131
+chute~
+a chute~
+This filthy chute leads into a sewer. You sure you wanna enter?~
+~
+33 0 0
+18117 0 0 0
+1 0 0
+#0
+
+
+#ROOMS
+#18000
+The Streets Outside the Dungeon~
+You are making your way through the crowds to the entrance of the infamous
+Deathtrap Dungeon, wherein you, along with several other adventurers, will
+quest for fame, glory and, of course, gold. Five other adventurers are
+gathered outside, waiting for the Baron to begin the Trial of Champions,
+at which point you will enter the maze, and find your way through to the
+finish, at which point you will be granted a fabulous reward! Four of them
+enter before you- then its your turn, and you stride purposefully into the
+dungeon, taking the first few steps of what is known as "The Walk".
+~
+0 4 1
+D0
+~
+~
+1 -1 18001
+D2
+~
+~
+0 -1 31011
+E
+entrance dungeon~
+The entrance is flanked by two massive pillars, covered with carvings of
+snakes, demons and witches, all screaming soundlessly or leering evilly.
+You shiver and decide not to think about what this portends...
+~
+S
+#18001
+Inside the Dungeon~
+You enter into the gloomy interior, walking along a damp earth floor that
+runs far to the north. Presently, all exterior light has dissipated, and
+you have to rely solely on your own light source. Water drips occasionally
+from the ceiling, the soft plop it makes as it hits the floor echoing
+eerily in this stony tunnel. Tiny insects, disturbed by your light and noise,
+scurry away into many tiny cracks and holes in the walls. The sets of the
+footprints of those who entered before you can be seen on the ground.
+~
+0 1|4|8 0
+D0
+~
+~
+0 -1 18002
+D2
+~
+~
+1 -1 18000
+S
+#18002
+A Junction~
+You have reached a junction, where you may proceed east, west or south.  A
+white arrow on the wall opposite the southern branch points west, and judging
+by the footprints several of your opponents decided to follow its silent
+advice- three pairs head in that direction. One pair, however, heads east.
+~
+0 1|8 0
+D1
+~
+~
+0 -1 18003
+D2
+~
+~
+0 -1 18001
+D3
+~
+~
+0 -1 18015
+S
+#18003
+An Eastern Path~
+You are heading along a narrow passage that runs east away from the entrance
+junction. At this point the corridor is quite damp and dark, and you have
+to proceed slowly.
+~
+0 1|8 0
+D1
+~
+~
+0 -1 18004
+D3
+~
+~
+0 -1 18002
+S
+#18004
+A Bend in the Passage~
+At this point the passage bends, heading north and west. The passage to the
+west is damp and dark, while to the north it grows suddenly dry, hot even.
+You can feel a sudden wave of heat from the north.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18005
+D3
+~
+~
+0 -1 18003
+S
+#18005
+A Hot Corridor~
+Proceeding along this dry corridor, you suddenly begin to sweat profusely as
+it grows unbearably hot. You steel yourself and rush onward to minimise the
+damage you may suffer from the heat.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18006
+D2
+~
+~
+0 -1 18004
+S
+#18006
+Outside An Iron Door~
+Further along on the western wall there is an iron door, with an iron plate
+at chest height which can be slid aside to allow one to gaze within. From
+the north you can hear grunting and cursing, while from the south comes a
+sudden wave of intense heat.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18009
+D2
+~
+~
+0 -1 18005
+D3
+Peering through the eyehole, you see a small room which contains a deep pit.
+It doesn't look to be very interesting.
+~
+door west iron plate~
+1 0 18007
+S
+#18007
+A Pit Chamber~
+The center of this chamber is dominated by a deep pit, which you barely
+avoid falling into as you enter. It has plenty of finger and toe holds,
+however, should you wish to climb into (or out of) it.
+~
+0 1|4|8 0
+D1
+~
+~
+1 0 18006
+D5
+~
+~
+0 -1 18008
+S
+#18008
+A Pit~
+You are in a pit, whether by design or mishap. It is a crude affair, having
+been roughly carved from the earth using small shovels, if the marks in the
+earth are any indication.
+~
+0 1|8 0
+D4
+~
+~
+0 -1 18007
+S
+#18009
+A Sudden Corner~
+Rounding the corner here, you find yourself in a position where you can head
+west or south. There are tracks in the dirt here, Orcish by the look of them.
+There is also a faint Orcish odor here- perhaps you'd better remain alert in
+case the horrid humanoids lair near here...?
+~
+0 1|8 0
+D2
+~
+~
+0 -1 18006
+D3
+~
+~
+0 -1 18010
+S
+#18010
+A Long Corridor~
+The humidity has returned to the air in this section of the corridor, and
+you can once again see footprints in the dirt- heading from the east to a
+door north of here. But they don't appear to lead out again... Ominous. You
+can see nothing else of interest besides the iron door.
+~
+0 1|8 0
+D0
+A heavy iron door, unlocked.
+~
+door iron~
+1 0 18011
+D1
+~
+~
+0 -1 18009
+D3
+~
+~
+0 -1 18012
+S
+#18011
+A Horrid Fate...~
+You stumble into a debris-strewn chamber, gagging at the stench of death.
+You then learn rather graphically the fate of one of your opponents. He
+is impaled on a rather lethal trap, evidently one he triggered quite
+unknowingly (well, he wouldn't do it KNOWINGLY, would he now? tsk.) while
+heading for an alcove on the far wall...
+~
+0 1|8 0
+D2
+~
+~
+1 0 18010
+S
+#18012
+A Junction~
+Paths head in all four cardinal directions at this point, with footprints
+leading back and forth each way. You cannot see or hear anything from here,
+but the passage does appear to be lit far to the north, by what you cannot
+tell...
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18021
+D1
+~
+~
+0 -1 18010
+D2
+~
+~
+0 -1 18013
+D3
+~
+~
+0 -1 18020
+S
+#18013
+A Long Corridor~
+This section of the corridor is particularly cold, dark and silent, and you
+shiver as you consider your options. The ground is too hard and shrouded in
+darkness to yield any substantial tracks. From the south you suddenly hear
+a faint grunt, either of pain or anger, you aren't sure which.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18012
+D2
+~
+~
+0 -1 18014
+S
+#18014
+A Cave~
+The passage widens sufficently here to form a small cave, in which you spy
+the remains of a campfire and the bones of someone's recent meal. It
+suddenly occurs to you that the occupant may not be too far away...
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18013
+D2
+~
+~
+0 -1 18015
+S
+#18015
+A Junction in the Wet Passageway~
+The footprints are clear in the muddy ground here- two pairs head west, and
+one pair heads north along the northern branch. A vile smell wafts from the
+north, and you crinkle your nose in disgust.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18014
+D1
+~
+~
+0 -1 18002
+D3
+~
+~
+0 -1 18016
+S
+#18016
+A Western Passageway~
+You are advancing along a passage that heads west away from the entrance
+junction, skirting two sets of muddy footprints that head westward. There is
+a large bell hanging here, which looks extremely heavy (and useless).
+~
+0 1|8 0
+D1
+~
+~
+0 -1 18015
+D3
+~
+~
+0 -1 18017
+S
+#18017
+A Bend~
+Here you may proceed north or east. Two sets of footprints head from the east
+round this bend to the north, from where you can hear a tremendous howling
+and snarling!
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18018
+D1
+~
+~
+0 -1 18016
+S
+#18018
+A Dimly Lit Section of Corridor~
+At this point a dim light pervades the corridor from some distant crack in
+the ceiling, illuminating a small circular area, which seems to be serving
+as some sort of fighting ground for two angry hobgoblins, battling over
+whatever is lying on the floor.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18019
+D2
+~
+~
+0 -1 18017
+S
+#18019
+A Corner~
+The passage bends sharply here, heading off to the south and east. You see
+that both sets of tracks that you saw to the south continue east from here-
+evidently your opponents are making good time!
+~
+0 1|8 0
+D1
+~
+~
+0 -1 18020
+D2
+~
+~
+0 -1 18018
+S
+#18020
+Poles~
+A series of poles have been laid across the passageway here, and you must
+step between them to continue. Gingerly you do so, avoiding touching any-
+a gut feeling tells you that that would be a very bad thing to do...
+~
+0 1|8 0
+D1
+~
+~
+0 -1 18012
+D3
+~
+~
+0 -1 18019
+S
+#18021
+A Large Cavern~
+You have entered a large cavern, the floor of which is much drier than that
+to the south, but it is also much darker. A massive gold idol of some
+oriental deity rises in the center of the room. You may climb up it, to its
+head, where you spy two large gems which depict the idol's eyes, as well as
+two large stuffed birds, which seem almost alive somehow...
+~
+0 1|4|8 0
+D0
+~
+~
+0 -1 18023
+D2
+~
+~
+0 -1 18012
+D4
+~
+~
+0 -1 18022
+S
+#18022
+Atop the Idol~
+As you near the top, you notice the birds move slightly, and you ready
+yourself for what could be a mad dash for the gems. Then, suddenly, they
+come to life with an angry squawk, and you know you are in trouble.
+~
+0 1|8 0
+D5
+~
+~
+0 -1 18021
+S
+#18023
+A North South Passage~
+This passage heads north and south, disappearing into the darkness in
+each direction before and behind you. To the west a metal door is set into
+the ancient cracked wall. Listening at it, you hear nothing. In fact the
+only noise you can hear is a constant dripping far to the south, and a faint
+humming noise from the north.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18025
+D2
+~
+~
+0 -1 18021
+D3
+~
+~
+1 -1 18024
+S
+#18024
+An Empty Chamber~
+This bare room has a damp, earthy odor, and the mold and moisture you have
+encountered in other parts of the dungeon is even more prevalent here.
+~
+0 1|8 0
+D1
+~
+~
+1 0 18023
+S
+#18025
+The Passage Continues~
+The passage continues without event, running to the north and south as far
+as you can see with your limited light source. There are at least two pairs
+of footprints in the dirt that covers the floor.
+~
+0 0 0
+D0
+~
+~
+0 -1 18026
+D2
+~
+~
+0 -1 18023
+S
+#18026
+The Passage Continues~
+The passage continues without event, running to the north and south as far
+as you can see with your limited light source. There are at least two pairs
+of footprints in the dirt that covers the floor.
+
+From behind a door to the east you can hear a faint humming sound, as of
+bees, or other insects.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18029
+D1
+~
+~
+1 0 18027
+D2
+~
+~
+0 -1 18025
+S
+#18027
+A Chamber~
+This chamber is dominated by a large circular pit, which you could climb
+down into if you so desired. The humming is now very loud, and you peer
+about expectantly, looking for its source. You may wish you didn't find it.
+You see something moving about down in the pit, a squirming, wriggling mass
+of... something.
+~
+0 1|8 0
+D3
+~
+~
+1 0 18026
+D5
+Your torchlight does not penetrate deep enough into the darkness to be sure,
+but it looks like worms or grubs crawling around down there.
+~
+pit~
+0 -1 18028
+S
+#18028
+A Breeding Pit~
+Some sort of giant insect, a fly or mosquito, has chosen to raise its many
+offspring in this damp, warm pit. Larvae crawl about all around you, their
+disgusting slimy ichor and stench making you feel rather nauseous.
+~
+0 1|8 0
+D4
+~
+~
+0 -1 18027
+S
+#18029
+A Junction~
+At this point, there are three passages to the east, south and west, all
+stretching away into the dimness. From the west you can hear what sounds like
+rock being crushed, while to the south you can hear a faint humming.
+~
+0 1|8 0
+D1
+~
+~
+0 -1 18033
+D2
+~
+~
+0 -1 18026
+D3
+~
+~
+0 -1 18030
+S
+#18030
+Rock Grubs!~
+At this point, a massive rock grub has burst through the north wall,
+collapsing the old stone sufficiently to allow it to enter the corridor from
+its tunnel. Slime-covered rocks and other debris litter the corridor. You
+may proceed east or west, or venture into its tunnel to the north...
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18031
+D1
+~
+~
+0 -1 18029
+D3
+~
+~
+0 -1 18032
+S
+#18031
+A Dead End~
+The tunnel ends after a short distance in a cave-in, and you see the bloated
+corpse of a rock grub half-buried under the rubble. Evidently the rock grubs
+are not qualified excavators... But perhaps there is still another one
+around...?
+~
+0 1|8 0
+D2
+~
+~
+0 -1 18030
+S
+#18032
+A Dead End~
+The passage ends at a sudden dead end, a newly-constructed brick wall barring
+further passage onwards. However, there may still be something of interest
+lying about...
+~
+0 1|8 0
+D1
+~
+~
+0 -1 18030
+S
+#18033
+A Deep, Dark Pit~
+You have reached a point where a large pit gapes in the middle of the
+corridor. It is rather narrow, however, and you could easily jump across it,
+and continue east.
+~
+0 1|8 0
+D1
+~
+~
+0 -1 18034
+D3
+~
+~
+0 -1 18029
+E
+pit~
+You are too scared to look down.
+~
+S
+#18034
+A Turn~
+The passage turns at this point, heading north and west as far as you can
+see. A large pit looms to the west, while to the north you see a couple of
+doors on the western wall.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18035
+D3
+~
+~
+0 -1 18033
+S
+#18035
+A North-South Passage~
+At this point there is a wooden door set in the west wall. No noise can be
+heard from whatever lurks within. The path continues north and south.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18037
+D2
+~
+~
+0 -1 18034
+D3
+~
+~
+1 0 18036
+S
+#18036
+A...Museum???~
+This room is littered with a variety of stone statues, depicting all types of
+classes and races. They are strikingly realistic... STRIKINGLY realistic...
+and the subjects appear to have been in great pain at the time they posed for
+these replicas. The room is currently empty, the trialmaster who works here
+being called away on other business (lunch), and you think maybe it would
+be best if you were not present upon his return...
+~
+0 1|8 0
+D1
+~
+~
+1 0 18035
+S
+#18037
+A North-South Passage~
+At this point there is a wooden door set in the west wall. No noise can be
+heard from whatever lurks within. A large "X" has been scrawled upon it in
+blood. The path continues north and south, though the path northward looks
+rather suspicious and barren...
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18038
+D2
+~
+~
+0 -1 18035
+D3
+~
+~
+1 0 18040
+S
+#18038
+North~
+Ok. So you decided to head up here anyway. Well you proceed for several
+hundred meters along a totally featureless passageway, with neither door nor
+monster to relieve the tedium. Presently, you detect a faint rumbling sound
+from the north that grows steadily louder, and you think you can see something
+large and solid moving down the passageway toward you. Perhpas you'd better
+turn back...
+~
+0 1|8|8192 0
+D0
+~
+~
+0 -1 18039
+D2
+~
+~
+0 -1 18037
+S
+#18039
+BOULDER DASH!~
+Ack! Haven't you seen Indiana Jones? You have just run smack into a huge
+boulder, which rumbles right down onto you, squashing you flat before
+continuing down the corridor. You lay in its wake for a few minutes, very
+badly injured, before realizing you are too hurt to continue, and you will
+have to recall. Next time, be more careful, hmmm?
+~
+0 1|4|8 0
+S
+#18040
+A Chamber... Or a Crypt?~
+This dark chamber is devoid of any items of interest, save for an alcove
+you can enter to the west, and a large stone chair containing a skeleton,
+who appears to be not quite dead yet...
+
+A sudden crash from outside that sounds very much like a large boulder
+connecting with solid stone can suddenly be heard, and without even testing
+you get the feeling your eastern exit has been blocked...
+~
+0 1|8 0
+D1
+~
+~
+1 0 18037
+D3
+The alcove is surrounded by what looks like a large crop of mushrooms.
+~
+alcove~
+0 -1 18041
+S
+#18041
+The Alcove~
+You proceed down a short flight of steps into a rubbish-strewn cellar, and
+on top of the rubbish grows a large crop of mushrooms. An archway on the
+opposite wall allows one to proceed west into a crystal-lit tunnel.
+~
+0 8 0
+D1
+~
+~
+0 -1 18040
+D3
+~
+~
+0 -1 18042
+S
+#18042
+The Tunnel~
+The tunnel ends here at a set of stone steps leading up to a trapdoor, from
+behind which you can hear the voices of Goblins. Light streams through
+cracks in the trapdoor, and you are grateful that you will soon be in a nice
+brightly lit room instead of a gloomy dungeon, even though you may have to
+share it with aggressive humanoids.
+~
+0 8 0
+D1
+~
+~
+0 -1 18041
+D4
+Through the cracks you can see two Goblins sharpening and cleaning their
+weapons, chatting about girls, drinking and the tough trialmasters as they do.
+~
+trapdoor trap door~
+1 0 18043
+S
+#18043
+The Guard Room~
+You emerge into a brightly-lit, sparsely furnished guard room. There are
+two chairs and a table, as well as a small cupboard. The room is in
+surprisingly good order for Goblin quarters.
+
+Doors lead to the north and west, as well as back down.
+~
+0 8 0
+D0
+~
+~
+1 0 18045
+D3
+~
+~
+1 0 18044
+D5
+~
+~
+1 0 18042
+S
+#18044
+Another Tunnel~
+You are in a rough hewn east west tunnel that ends in a door to the east
+and a bend to the north far to the west. There is a wooden door to the north
+here.
+~
+0 1|8 0
+D0
+~
+~
+1 0 18047
+D1
+~
+~
+1 0 18043
+D3
+~
+~
+0 -1 18048
+S
+#18045
+An Ascending Tunnel~
+This passage heads steadily uphill to the north at a slight angle, before
+evening out near a door on the east wall, to which a hand has been nailed.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18049
+D1
+The hand is human.
+~
+door hand~
+1 0 18046
+D2
+~
+~
+1 0 18043
+S
+#18046
+A Jail Cell~
+You have entered one of the Trialmasters' punishment cells. A man with one
+hand missing has been chained to the far wall. You feel anger at their
+cruelty, but don't know if you want to get involved. Perhaps the prisoner
+may be able to tell you something useful, though?
+~
+0 1|8 0
+D3
+~
+~
+1 0 18045
+S
+#18047
+A Game~
+You have entered a room containing several items of interest, which you
+may explore at leisure. You see what was once apparently a crossbow trap
+of some sort, though your entry doesn't seem to trigger it...
+~
+0 1|8 0
+D2
+~
+~
+1 0 18044
+S
+#18048
+A Gallery~
+At the bend, you gaze northward into what appears to be a gallery of mirrors,
+while to the east lies damp, dark tunnel. There appears to be someone or
+something moving about to the north, and you suddenly feel rather uneasy.
+~
+0 8 0
+D0
+~
+~
+0 -1 18052
+D1
+~
+~
+0 -1 18044
+S
+#18049
+A Pipe~
+You reach a bend in the passage, with passages heading south down a slope to
+a locked door, and west to a junction. To the east gapes the entrance to a
+smelly, slimy sewerage pipe, which you can enter if you wish *shudder*.
+~
+0 1|8 0
+D1
+Looks bad, smells bad.
+~
+pipe~
+0 -1 18050
+D2
+~
+~
+0 -1 18045
+D3
+~
+~
+0 -1 18054
+S
+#18050
+Inside the Pipe~
+This slimy affair is barely more than a meter in diameter, and you are forced
+to crawl on your hands and knees through the sludge. You feel that the tunnel
+is beginning to slope ever so slightly downward, and you get the distinct
+impression that were you to continue, you would not be able to find sufficient
+purchase on the slimy walls to slow your descent and you would most certainly
+plummet far down into the murky depths. So NOW WOULD BE A GOOD TIME TO HEAD
+BACK!
+~
+0 1|8 0
+D1
+~
+~
+0 -1 18051
+D3
+~
+~
+0 -1 18049
+S
+#18051
+A Slimy Death~
+You ignore all your instincts and proceed deeper into the pipe. Suddenly, you
+feel the pipe drastically change its angle, and you feel yourself sliding
+very quickly down the sludge into a wide pipe that goes down for over 50
+meters. You plummet screaming into the depths, and land with a soft squelch
+in a lake of sewerage. Dying, exhausted and filthy, you have no option but
+to be grateful you are still alive and recall.
+~
+0 1|4|8 0
+S
+#18052
+A Gallery~
+You are walking along a long corridor lined with hundreds of mirrors. The
+sheer number of reflections you cast boggles you, and you barely notice the
+presence of another, more sinister, traveller... It is only when you see
+a skeleton that looks like it has been half-dragged into a mirror do you
+really begin to realize you could be in serious trouble.
+
+A staircase fashioned of skulls allows one to proceed upward from this place.
+~
+0 8 0
+D2
+~
+~
+0 -1 18048
+D4
+Like I said, totally composed of skulls.
+~
+staircase~
+0 -1 18053
+S
+#18053
+A Bend~
+The passage turns here, heading east toward a junction and south toward a
+staircase heading down into a mirrored hall.
+~
+0 1|8 0
+D1
+~
+~
+0 -1 18054
+D5
+~
+~
+0 -1 18052
+S
+#18054
+A Battle~
+Bloodstained walls and floors indicate that a battle took place only recently
+at this junction. Evidently some of your competitors have also made it this
+far. The passage to the north seems to be the one to take from here.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18055
+D1
+~
+~
+0 -1 18049
+D3
+~
+~
+0 -1 18053
+S
+#18055
+A Junction~
+You have reached a T-junction, with passages heading east, south and west.
+The north wall is heavily decorated with gruesome murals depicting screaming
+humans being chased by foul demons. You shudder and decide which way to
+go.
+~
+0 1|8 0
+D1
+~
+~
+0 -1 18056
+D2
+~
+~
+0 -1 18054
+D3
+~
+~
+0 -1 18057
+S
+#18056
+A Dead End~
+A dead end with nothing to recommend it. Perhaps there IS something of
+interest left lying around, though...
+~
+0 1|8 0
+D3
+~
+~
+0 -1 18055
+S
+#18057
+A Chasm~
+The passage ends at the lip of a narrow ravine here. You may proceed down
+into the ravine, or back east. Suddenly, you hear voices from the west,
+across the ravine, and see crowds of cheering people, hailing you and telling
+you that you have made it through, and to come out and celebrate.
+~
+0 1|8 0
+D1
+~
+~
+0 -1 18055
+D3
+~
+~
+0 -1 18058
+D5
+~
+~
+0 -1 18059
+S
+#18058
+The End~
+With great joy, you leap across and run into the crowd, rejoicing in your
+triumph. Suddenly, the crowd of admirers turns into a pile of corpses, and
+the air around you grows thick and heavy. You gaze about in panic and see
+that you are locked in a small room littered with the bodies of those fooled
+before you. Cursing, you realize that you have been tricked by the Baron,
+and will have to recall and try again...
+~
+0 1|4|8 0
+S
+#18059
+A Ravine~
+You are standing at the bottom of a ravine. The only way onward from here
+is north- the climb back up is too arduous for someone of your limited
+mountaineering skills.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18060
+S
+#18060
+A Bend~
+You proceed along the tunnel to a sharp bend, where you can proceed east or
+south. You hear footsteps, grunting and heavy breathing coming from the east,
+and your nose detects the unmistakable odor of trolls.
+~
+0 1|8 0
+D1
+~
+~
+0 -1 18061
+D2
+~
+~
+0 -1 18059
+S
+#18061
+Trolls n' Stuff~
+You stumble right into the lair of a rather large and angry troll. It has
+just discovered the corpse of one of its fellows, slain by one of yours,
+and it is in a rage!
+~
+0 1|8 0
+D1
+~
+~
+0 -1 18062
+D3
+~
+~
+0 -1 18060
+S
+#18062
+A Cavern~
+You enter a dimly-lit cavern, illuminated by the phosphorescent glow of some
+subterranean mold that can be seen between the many stalagmites and
+stalactites that grow here. There is a large oak door to the east of here.
+~
+0 1|8 0
+D1
+~
+~
+1 0 18063
+D3
+~
+~
+0 -1 18061
+S
+#18063
+A Testing Chamber~
+You have entered a testing chamber, but the Trialmaster of this room is
+nowhere to be seen. You hear a click as the door locks behind you, and
+realize that the only way out is to the north.
+~
+0 8 0
+D0
+~
+~
+0 -1 18064
+D3
+~
+~
+1 0 18062
+S
+#18064
+The Central Area~
+There are three doors and a southern passage leading from this room. There is
+also an empty snake basket in the center of this room- where is its
+occupant...?
+~
+0 8 0
+D0
+~
+~
+1 18126 18067
+D1
+This door has "NO CROP IS" written upon it.
+~
+door east~
+1 0 18066
+D2
+~
+~
+0 -1 18063
+D3
+This door has "RUIN MOAT" written upon it.
+~
+door west~
+1 0 18065
+S
+#18065
+A Bloodstained Arena~
+The floor of this place is covered in bloodstained sand. You can smell the
+scent of death, heavy on the air, and wonder if any or all of your
+competitors have met their ends here.
+~
+0 8 0
+D1
+~
+~
+1 -1 18064
+S
+#18066
+A Bloodstained Arena~
+The floor of this place is covered in bloodstained sand. You can smell the
+scent of death, heavy on the air, and wonder if any or all of your
+competitors have met their ends here.
+~
+0 8 0
+D3
+~
+~
+1 -1 18064
+S
+#18067
+The Final Test~
+Here, there is a small but securely locked door leading back into the
+dungeons, the key to which is held by the trialmaster. He is willing to
+give it to you in exchange for another item, but would much rather have a
+good fight over it.
+~
+0 8 0
+D0
+~
+~
+1 18127 18068
+D2
+~
+~
+1 18126 18064
+S
+#18068
+A Divided Tunnel~
+Paths run to the north and west from this point. Passage southward is blocked
+by a door that cannot be opened from this side.
+
+You hear a faint buzzing coming from the west.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18075
+D3
+~
+~
+0 -1 18069
+S
+#18069
+A Glass Door~
+You pass a glass door set in the north wall here. Looking through it, you
+see a swarm of nasty insects circling round a bejewelled crown that is resting
+in the center of the room. It looks very valuable.
+~
+0 1|8 0
+D0
+You see that the crown is totally encrusted with gems. The catch is how to
+get it out without being overwhelmed by the swarm...
+~
+glass door crown~
+1 0 18070
+D1
+~
+~
+0 -1 18068
+D3
+~
+~
+0 -1 18071
+S
+#18070
+Insects~
+You are surrounded by thousands of biting, stinging insects of all
+descriptions. You curse and swat as you are constantly stung and more than
+once you have to remove insects from your hair and mouth.
+~
+0 1|8 0
+D2
+~
+~
+1 0 18069
+S
+#18071
+A Long Passageway~
+You are travelling along a narrow passage, the walls of which are lined with
+deep cracks. You hear slow, shuffling footsteps approaching, and prepare to
+see who or what is coming.
+~
+0 1|8 0
+D1
+~
+~
+0 -1 18069
+D3
+~
+~
+0 -1 18072
+S
+#18072
+A Junction~
+From this point you may head north, east or west. A faint buzzing is barely
+audible from the east, while from the north comes the faint sound of running
+water. To the west, you see a bend in the corridor, with a door on the east
+wall of the bend. You fancy you can hear cries for help emanating from this
+direction...
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18073
+D1
+~
+~
+0 -1 18071
+D3
+~
+~
+0 -1 18085
+S
+#18073
+A Pit Stop~
+At this point in the passage, a rather ugly chair has been placed in a
+recess. Deeply suspicious of everything in this place by now, you consider
+what you should do.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18074
+D2
+~
+~
+0 -1 18072
+S
+#18074
+A Deep Pool~
+The passage heads down a small slope toward a deep, still pool. You may
+enter the pool if you wish, or you may head back up to the chair.
+~
+0 1|8 0
+D2
+~
+~
+0 -1 18073
+D5
+It appears safe enough.
+~
+pool~
+0 -1 18096
+S
+#18075
+A Cobwebby Passage~
+You proceed along a section of corridor that is enshrouded in spider webs.
+As you cut and tear your way through them, you find yourself fervently
+hoping that you don't run into whatever made them...
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18076
+D2
+~
+~
+0 -1 18068
+S
+#18076
+Two Doors...Or is it..?~
+You enter a chamber with doors on the east and west walls. You can hear
+nothing from behind the east door, but as you go to check the west door,
+you suddenly see, or think you see, it *move* somehow, and you instinctively
+draw your weapon.
+~
+0 1|8 0
+D1
+~
+~
+1 0 18077
+D2
+~
+~
+0 -1 18075
+S
+#18077
+A Bend~
+You come to yet another of the many bends in the corridor in this place. To
+the north, you can see what looks like two fountains, while to the west the
+passage ends in a door.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18078
+D3
+~
+~
+1 0 18076
+S
+#18078
+Fountain Room~
+This room contains two fountains, one on the east wall and one on the west,
+each of which is filled with clear fresh drinking water. Wondering what the
+dungeon has in store for you now, you cautiously approach.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18079
+D2
+~
+~
+0 -1 18077
+S
+#18079
+Slime...~
+The walls of this section of corridor are covered in acidic green slime.
+Being in here even for a few seconds, you can feel it beginning to eat away
+at your clothes and skin. You exclaim in pain and hurry onwards.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18080
+D2
+~
+~
+0 -1 18078
+S
+#18080
+More Slime...~
+The walls of this section of corridor are covered in acidic green slime.
+Being in here even for a few seconds, you can feel it beginning to eat away
+at your clothes and skin. You exclaim in pain and hurry onwards.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18081
+D2
+~
+~
+0 -1 18079
+S
+#18081
+A Side Passage~
+At this point a narrow passage branches off this one, forming a junction
+where you may head north, west or south. There is a potent odor emanating
+from the south, while you can hear a crackling sound from the west.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18083
+D2
+~
+~
+0 -1 18080
+D3
+~
+~
+0 -1 18082
+S
+#18082
+An Energy Field~
+The corridor at this point is suffused with a barely visible energy field,
+crackling and humming as is sparks about here. You hesitate before continuing,
+until you find that the field actually blocks the passage onward.
+~
+0 8 0
+D1
+~
+~
+0 -1 18081
+S
+#18083
+The End of the Corridor~
+At this point any further passage forward is impossible. The north wall
+contains a narrow chute leading down into darkness, however, which you may
+enter if you wish. To the west, a set of ornate double doors stand partially
+open, and you think that you may be able to see whats inside if you look
+through the crack.
+~
+0 1|8 0
+D2
+~
+~
+0 -1 18081
+D3
+You see a dead warrior with his hand outstretched, clasping a huge diamond.
+The room appears deserted otherwise.
+~
+door room west double ornate~
+1 0 18084
+S
+#18084
+The Story Falls Flat~
+As you enter, the door slams behind you, but you do not notice- your
+avaricious gaze is directed solely at the huge diamond. Suddenly both the
+corpse and the gem disappear, and a faint click is followed by a loud
+rumbling. Staring upwards, you see that the ceiling is slowly but surely
+descending upon you. With despair, you realize that your only option is to
+recall and try again, or be crushed to death by one of the Baron's favorite
+traps.
+~
+0 1|4|8 0
+S
+#18085
+Another Bend, Another Mob~
+I'm sick of writing it and you're sick of reading it. Yes, it's another
+BEND. You can head north or east. You can hear someone crying for help
+from a door to the west. It is standing slightly ajar, allowing you to
+peek in if you wish.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18088
+D1
+~
+~
+0 -1 18072
+D3
+Peeking in, you see a cage covered with a heavy drape, and the cries are
+coming from behind this. Hmmm...
+~
+door ajar west help whatever~
+1 0 18086
+S
+#18086
+A Strange Sight~
+Upon entering the room, you see a cage covered with a heavy drape. There is
+a rope with which you can pull the drape back and thus enter the cage. The
+voice is crying louder now, as if the occupant knows you are here, crying
+for release.
+~
+0 1|8 0
+D1
+~
+~
+1 0 18085
+D3
+The drape is quite heavy and dirty. There are several holes in it around
+head height, as if tiny animals had been biting at it.
+~
+drape cage west door~
+1 0 18087
+S
+#18087
+Inside the Cage~
+Oops. Upon entering the cage, you quickly notice that it was never in fact
+locked. Indeed, it is starting to look more and more like a trap. You ready
+your weapons and prepare to deal with whatever is lurking in here.
+~
+0 1|8 0
+D1
+~
+~
+1 0 18086
+S
+#18088
+Old Tunnels, New Tunnels~
+You may at this point head north or south along a long, narrow tunnel, or
+west along a short one that ends in a bend to the north. You can see a door
+on the east wall to the north, and one on the west wall, at a bend to the
+east in the southern tunnel. From this end you can hear cries for help.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18091
+D2
+~
+~
+0 -1 18085
+D3
+~
+~
+0 -1 18089
+S
+#18089
+A Mysterious Corner~
+Rounding the bend here, you can here high pitched whispering and sniggering
+coming from the north. Wondering what sort of subterfugal skullduggery is
+being perpetrated, you hesitate before continuing.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18090
+D1
+~
+~
+0 -1 18088
+S
+#18090
+A Jolly Sight~
+You emerge into a long tunnel and suddenly find yourself overwhelmed by
+leprechauns, emerging from tiny secret doors to bound alongside, over and
+underneath you. You feel hands groping at your possessions, and start to
+angrily force your way through. Perhaps a bit more of a physical deterrent
+is needed to be rid of these noisome pests, say, a sword to their heads?:)
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18094
+D2
+~
+~
+0 -1 18089
+S
+#18091
+A Curtain~
+At this point, a brown velvet curtain hangs over an archway on the eastern
+wall. You cannot hear anything from behind it, though you may be able to
+peek through before you enter.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18095
+D1
+You peek through and see a tightrope stretched across a deep chasm, and on
+the other side rests a magnificent winged helm.
+~
+drape east door arch archway~
+1 0 18092
+D2
+~
+~
+0 -1 18088
+S
+#18092
+A Chasm~
+You step out onto a tightrope, almost losing your balance in surprise. It
+stretches across a small chasm to a helm stuck on a pole on the far side.
+A few short steps will take you across to fetch it, should you wish.
+~
+0 8 0
+D1
+~
+~
+0 -1 18093
+D3
+~
+drape arch archway door west~
+1 0 18091
+S
+#18093
+The Far Side~
+You make it across without mishap, and can now grab the helm abd be off.
+~
+0 8 0
+D3
+~
+~
+0 -1 18092
+S
+#18094
+A Corner~
+Here the passage turns, heading east toward a large chute, and south. To
+the south you can hear high pitched whispering and sniggering, and it makes
+you feel both amused and uneasy.
+~
+0 1|8 0
+D1
+~
+~
+0 -1 18095
+D2
+~
+~
+0 -1 18090
+S
+#18095
+A Chute~
+There is little of interest at this bend save for a chute, from which a
+horrid smell emanates. You CAN enter it if you so desire...
+~
+0 1|8 0
+D2
+~
+~
+0 -1 18091
+D3
+~
+~
+0 -1 18094
+S
+#18096
+In the Pool~
+You are swimming along a narrow underwater passage. A strong current suddenly
+grabs you and drags you forward!
+~
+0 1|4|8|32768 11
+D0
+~
+~
+0 -1 18097
+D4
+~
+~
+0 -1 18074
+S
+#18097
+The Other Side~
+The current carries you under a wall and into another area. Up above you can
+see the surface, and you strike out for it.
+~
+0 1|4|8 11
+D2
+~
+~
+0 -1 18096
+D4
+~
+~
+0 -1 18098
+S
+#18098
+A New Corridor~
+You crawl from the pool onto a small stone ledge, and examine your immediate
+surroundings. A long passageway stretches away to the north, as far as you
+can see, while to your immediate west there is a door, which is slightly
+ajar. You can hear sounds of a struggle coming from here.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18100
+D3
+Peering through, you see a nubile female elf in the crushing grip of a huge
+Boa Constrictor. You recognize the girl as one of your competitors, and you
+pause to wonder if it would be prudent to save her or not...
+~
+door ajar west~
+1 0 18099
+S
+#18099
+Snake Bowl~
+You enter the room and see a young elven thief rolling about, attempting to
+free herself of the crushing embrace of just about the biggest Boa anyone's
+ever seen. Neither of them have noticed your entry.
+~
+0 1|8 0
+D1
+~
+door~
+1 0 18098
+S
+#18100
+A Long Corridor~
+You continue along this north-south corridor. It is rather plain and
+featureless, though you do see something interesting on the floor here...
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18101
+D2
+~
+~
+0 -1 18098
+S
+#18101
+A Long Corridor~
+At this point, there is a wooden door set in the west wall. Listening at it,
+you hear nothing, not unusual in this place as you have already seen. You
+can hear what sounds like chanting coming from the north, though.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18103
+D2
+~
+~
+0 -1 18100
+D3
+You see nothing unusual. The handle turns easily.
+~
+door west~
+1 0 18102
+S
+#18102
+A Treasure Room~
+You are excited to see a large wooden chest with iron bands sitting on a
+stone base on the far side of the room. Your excitement fades when you spot
+the footprints in the dust on the floor leading to and from the chest, and
+the fact that the chest is standing open. Still, might be worth a look.
+~
+0 1|8 0
+D1
+~
+~
+1 0 18101
+S
+#18103
+A Huge Cavern~
+The passage ends in a huge cavern, which is filled with a small tribe of
+Troglodytes dancing about a golden effigy. They are immersed in their ritual
+and don't seem to notice you. On the far side you see a bridge spanning a
+dark, deep river.
+~
+0 8 0
+D0
+~
+~
+0 -1 18104
+D2
+~
+~
+0 -1 18102
+S
+#18104
+On the Bridge~
+This bridge spans a rather sinister-looking black river full of strange
+fish, and you are glad you don't need to go in there. In front of you is a
+large iron door, which is securely locked. Hope you have the key...
+~
+0 8 0
+D0
+The door is quite strong and beyond your means to bash down or pick.
+~
+iron door~
+1 18046 18105
+D2
+~
+~
+0 -1 18103
+S
+#18105
+The Other Side~
+You slip through the door and find yourself in a short passage that runs
+north to a junction. You proceed.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18106
+D2
+~
+~
+1 18046 18104
+S
+#18106
+A Junction~
+You reach a junction where the paths to the east and west end in dead ends,
+and the passage to the south ends at a locked iron door. A voice suddenly
+calls from the north, beckoning you, and you proceed.
+~
+0 1|8 0
+D0
+~
+~
+0 -1 18107
+D2
+~
+~
+0 -1 18105
+S
+#18107
+A Bend~
+The passage bends sharply to the east here. An old man crouched near a basket
+is visible there, while to the south you can see a junction.
+~
+0 1|8 0
+D1
+~
+~
+0 -1 18108
+D2
+~
+~
+0 -1 18106
+S
+#18108
+The Only Way is Up?~
+Here, an elderly man is selling people rides in his basket, taking them
+up to the next level. To get the key to go up, simply give him something.
+He asks you not to kill him, for then you won't know the secret. Alternatively
+you can continue east or west.
+~
+0 8 0
+D1
+~
+~
+0 -1 18109
+D3
+~
+~
+0 -1 18107
+D4
+The basket is affixed to a pulley which is pulled by someone quite strong
+up above.
+~
+up basket~
+1 18129 18111
+S
+#18109
+Continuing East~
+You head east along a passage toward what looks like some sort of electrical
+field, though it only seems to stop people coming from the east to here,
+and you find you can pass through it without harm should you wish.
+~
+0 1|8 0
+D1
+~
+~
+0 -1 18082
+D3
+~
+~
+0 -1 18108
+S
+#18110
+A Marble Hall~
+You enter a spacious marble hall, lined with elegant Doric columns that
+run from floor to ceiling on either side. There seems to be no other exit
+from here save for a small chute in the far wall. However, you may not be
+here alone...
+~
+0 8 0
+D2
+~
+~
+0 -1 18116
+S
+#18111
+Ivy's Room~
+This room serves as the quarters of Poison Ivy, the brawn in the partnership
+with the man downstairs. She hardly ever gets paid anything, and she seems
+awful upset about it...
+~
+0 8 0
+D1
+From behind the door you can hear barking...
+~
+door~
+1 0 18112
+D5
+~
+~
+1 18129 18108
+S
+#18112
+The Corridor Ends~
+You find the corridor ends here in a flight of steps leading down. Something
+large and hungry, probably rabid too, is down there. It is barking and
+howling, as if it has caught your scent and is anticipating the upcoming
+feast...
+~
+0 1|8 0
+D3
+~
+~
+1 0 18111
+D5
+~
+~
+0 -1 18113
+S
+#18113
+Dog Kennels~
+Here two large savage guard dogs are quartered by the Trialmasters to help
+track down runaway slaves. They haven't been used for quite some time, and
+are restless and hungry. Unfortunately for you.
+~
+0 1|8 0
+D1
+~
+~
+0 -1 18114
+D4
+~
+~
+0 -1 18112
+S
+#18114
+A-roarin'~
+The passage you are in turns suddenly northward, where it ends at a wooden
+door. From behind the door comes the most godawful roaring you have ever
+heard. Whatever lives behind there is big, bad and ANGRY!
+~
+0 1|8 0
+D0
+~
+~
+1 0 18115
+D3
+~
+~
+0 -1 18113
+S
+#18115
+The Pit Fiend's Lair~
+You have stumbled into the lair of the Pit Fiend, a ten-metre green-skinned
+T-Rex with sharp enough teeth to crush rock and steel. It has seen you, and
+has decided to take out its frustration at its captivity on you.
+~
+0 1|8 0
+D0
+~
+~
+1 0 18116
+D2
+~
+~
+1 0 18114
+S
+#18116
+A Red Line~
+At this point, a large sign has been erected near a dotted red line on the
+floor. The sign reads-
+
+                    "NO WEAPONS BEYOND THIS POINT"
+
+and below that-
+
+                   "Violators will be disqualified"
+
+Looks like you better get rid of your weapons if you want your prize.
+~
+0 8 0
+D0
+~
+~
+0 -1 18110
+D2
+~
+~
+1 0 18115
+S
+#18117
+The Pool of Slime~
+You emerge from the chute in a pool of fetid slime, in which lives quite
+possibly the most repulsive creature you have ever seen. Unless you were
+extremely lucky and landed here just after someone else did it in. If you
+aren't lucky, you are going to have a heck of a fight on your hands!
+~
+0 1|8 0
+D0
+~
+~
+1 0 18118
+S
+#18118
+A Marble Hall~
+You enter a spacious marble hall, lined with elegant Doric columns that
+run from floor to ceiling on either side. There is an iron door on the far
+wall, leading (hopefully) to the exit! However, you may not be in here
+alone...
+~
+0 8 0
+D0
+~
+~
+1 0 18119
+D2
+~
+door south~
+1 -1 18117
+S
+#18119
+The End is Nigh~
+You have reached the final chamber of the Dungeon! Congratulations. Few
+get this far. As you stand here looking around, you notice a locked door
+on the far wall. If you wait, a Trialmaster should be along to tell you
+what you need to do. Or you may already know...
+
+If you don't have the right items needed to finish, you will have to recall
+and start again.
+~
+0 8 0
+D0
+~
+~
+1 18020 18120
+D2
+~
+~
+1 0 18118
+S
+#18120
+The Next Door~
+Well Done! You had the Emerald! Now, try the next door...
+~
+0 1|8 0
+D0
+~
+~
+1 18047 18121
+D2
+~
+~
+1 18020 18119
+S
+#18121
+The Final Door~
+Well Done! You had the Emerald and the Sapphire! Now, try the last door...
+~
+0 1|8 0
+D0
+~
+~
+1 18108 18122
+D2
+~
+~
+1 18047 18120
+S
+#18122
+The Exit!~
+Fabulous! You opened all three! You emerge into bright sunlight, and a crowd
+of thousands, who roar with approval as you exit. The baron himself is here,
+congratulating you, and your prize lies here, awaiting you. Well done! You
+feel all warm and fuzzy, and you brush a tear from your eye as you are
+proclaimed the conquerer of Deathtrap Dungeon!
+~
+0 4 2
+S
+#0
+
+
+#RESETS
+D 1 18001 2 2
+D 1 18006 3 1
+D 1 18007 1 1
+D 1 18010 0 1
+D 1 18011 2 1
+D 1 18023 3 1
+D 1 18024 1 1
+D 1 18026 1 1
+D 1 18027 3 1
+D 1 18035 3 1
+D 1 18036 1 1
+D 1 18037 3 1
+D 1 18040 1 2
+D 1 18042 4 1
+D 1 18043 0 1
+D 1 18043 3 1
+D 1 18043 5 1
+D 1 18044 0 1
+D 1 18044 1 1
+D 1 18045 1 1
+D 1 18045 2 1
+D 1 18046 3 1
+D 1 18047 2 1
+D 1 18062 1 1
+D 1 18063 3 1
+D 1 18064 0 2
+D 1 18064 1 1
+D 1 18064 3 1
+D 1 18065 1 1
+D 1 18066 3 1
+D 1 18067 0 2
+D 1 18067 2 2
+D 1 18069 0 1
+D 1 18070 2 1
+D 1 18076 1 1
+D 1 18077 3 1
+D 1 18083 3 1
+D 1 18085 3 1
+D 1 18086 1 1
+D 1 18086 3 1
+D 1 18087 1 1
+D 1 18091 1 1
+D 1 18092 3 1
+D 1 18098 3 1
+D 1 18099 1 1
+D 1 18101 3 1
+D 1 18102 1 1
+D 1 18104 0 2
+D 1 18105 2 2
+D 1 18108 4 2
+D 1 18111 1 1
+D 1 18111 5 2
+D 1 18114 0 1
+D 1 18115 2 1
+D 1 18115 0 1
+D 1 18116 2 1
+D 1 18117 0 1
+D 1 18118 2 1
+D 1 18118 0 1
+D 1 18119 0 2
+D 1 18119 2 1
+D 1 18120 0 2
+D 1 18120 2 2
+D 1 18121 0 2
+D 1 18121 2 2
+*
+M 1 18000 1 18000    baron
+M 1 18001 5 18000    spectators
+M 1 18002 5 18000    spectators
+*
+O 1 18000 1 18001    loads box
+P 1 18001 1 18000    gold
+P 1 18002 1 18000    note
+*
+M 1 18042 1 18003    spore
+*
+O 1 18010 1 18004    bamboo
+*
+O 1 18011 1 18008    rope
+*
+M 1 18006 1 18009    orc
+E 1 18116 1 5       leather armor
+E 1 18012 1 16      morning star
+G 1 18013 0			0        tube
+M 1 18039 1 18009    orc
+E 1 18116 1 5       leather armor
+E 1 18012 1 16      morning star
+*
+O 1 18014 1 18011    corpse
+O 1 18015 1 18011    frame
+O 1 18016 1 18011    rubbish
+O 1 18017 1 18011    goblet
+O 1 18018 1 18011    pouch
+P 1 18019 1 18018    meat
+*
+M 1 18041 1 18013    black widow
+O 1 18008 1 18013    backpack
+P 1 18009 1 18008    coin
+*
+M 1 18005 1 18014    caveman
+E 1 18117 1 5       hides
+E 1 18006 1 16      club
+E 1 18007 1 14      wristband
+*
+O 1 18003 1 18016    bell
+*
+M 1 18003 1 18018    hobgoblin
+M 1 18004 1 18018    hobgoblin
+O 1 18004 1 18018    bag
+P 1 18005 1 18004    jug
+*
+M 1 18007 1 18022    guardian
+M 1 18040 1 18022    guardian
+O 1 18020 1 18022    emerald
+*
+M 1 18045 1 18024    spectre
+E 1 18118 1 1       ring
+*
+M 1 18043 1 18025    light
+*
+M 1 18009 1 18027    giant fly
+*
+M 1 18008 1 18028    larvae
+G 1 18021 0			0        dagger
+*
+M 1 18046 1 18031    rock grub
+*
+O 1 18022 1 18032    mirror
+*
+O 1 18023 1 18036    statue
+O 1 18024 1 18036    statue
+O 1 18025 1 18036    statue
+O 1 18026 1 18036    statue
+*
+M 1 18010 1 18040    skeleton warrior
+E 1 18027 1 6       helm
+E 1 18028 1 16      sword
+E 1 18029 1 17      parchment
+E 1 18030 1 8       boots
+E 1 18031 1 3       cloak
+E 1 18032 1 5       scale mail
+E 1 18033 1 1       ring
+*
+O 1 18034 1 18041    mushrooms
+*
+O 1 18122 1 18043    cupboard
+P 1 18120 1 18122    mallet
+P 1 18121 1 18122    iron spike
+M 1 18047 1 18043    goblin
+E 1 18035 1 16      sword
+E 1 18036 1 17      spear
+M 1 18048 1 18043    goblin
+E 1 18035 1 16      sword
+E 1 18036 1 17      spear
+*
+O 1 18044 1 18045    hand
+*
+M 1 18044 1 18046    prisoner
+*
+O 1 18041 1 18047    plinth
+P 1 18037 1 18041    skull
+P 1 18038 1 18037    topaz
+P 1 18039 1 18037    topaz
+O 1 18040 1 18047    crossbow
+O 1 18042 1 18047    red ball
+O 1 18043 1 18047    blue ball
+*
+O 1 18045 1 18050    box
+P 1 18046 1 18045    key
+P 1 18047 1 18045    sapphire
+*
+M 1 18019 1 18052    mirror demon
+*
+M 1 18011 1 18055    throm
+E 1 18048 1 16      axe
+E 1 18049 1 13      loincloth
+E 1 18050 1 8       boots
+E 1 18052 1 10      tattoos
+G 1 18051 0			0        dagger
+*
+O 1 18053 1 18056    paper
+*
+O 1 18054 1 18059    red book
+O 1 18055 1 18059    black book
+P 1 18056 1 18055    vial
+*
+M 1 18012 1 18061    troll
+E 1 18057 1 1       ring
+*
+O 1 18058 1 18062    pouch
+M 1 18013 1 18062    mouse
+*
+O 1 18059 1 18064    basket
+O 1 18062 1 18064    guiness
+O 1 18063 1 18064    meal
+M 1 18014 1 18064    cobra
+*
+M 1 18015 1 18065    minotaur
+G 1 18126 0			0        key
+*
+M 1 18016 1 18066    scorpion
+G 1 18126 0			0        key
+*
+M 1 18017 1 18067    dwarf
+E 1 18040 1 16      crossbow
+E 1 18041 1 5       mail
+G 1 18127 0			0        key
+*
+O 1 18067 1 18070    crown
+M 1 18020 1 18070    swarm
+*
+M 1 18018 1 18071    servant
+E 1 18069 1 16      tray
+G 1 18068 0			0        food
+G 1 18070 0			0        water
+*
+O 1 18071 1 18073    chair
+P 1 18072 1 18071    phial
+*
+O 1 18064 1 18075    casket
+P 1 18065 1 18064    bag
+P 1 18066 1 18065    pearl
+*
+M 1 18024 1 18076    mimic
+*
+O 1 18074 1 18078    fountain
+O 1 18075 1 18078    fountain
+*
+M 1 18025 1 18080    slime
+M 1 18021 1 18087    medusa
+E 1 18128 1 5       brooch
+*
+M 1 18022 5 18090    leprechauns
+E 1 18087 1 17      dust
+E 1 18088 1 8       boots
+E 1 18089 1 13      belt
+E 1 18090 1 7       breeches
+E 1 18091 1 5       tunic
+E 1 18092 1 0       pipe
+E 1 18093 1 6       hat
+*
+O 1 18073 1 18093    helm
+*
+M 1 18026 1 18099    boa
+G 1 18077 0			0        skin
+M 1 18027 1 18099    elf
+E 1 18076 1 16      dagger
+E 1 18078 1 8       boots
+E 1 18094 1 5       pack
+P 1 18095 1 18094    bread
+P 1 18096 1 18094    mirror
+P 1 18097 1 18094    charm
+*
+O 1 18079 1 18100    grille
+P 1 18098 1 18079    pouch
+P 1 18080 1 18098    iron
+P 1 18099 1 18098    bell
+*
+O 1 18081 1 18102    chest
+P 1 18082 1 18081    pendant
+*
+O 1 18083 1 18103    effigy
+M 1 18028 3 18103    trogs
+E 1 18084 1 16      axe
+E 1 18085 1 17      spear
+E 1 18086 1 13      lioncloth
+M 1 18029 3 18103    trogs
+E 1 18084 1 16      axe
+E 1 18085 1 17      spear
+E 1 18086 1 13      lioncloth
+M 1 18030 3 18103    trogs
+E 1 18084 1 16      axe
+E 1 18085 1 17      spear
+E 1 18086 1 13      lioncloth
+M 1 18031 3 18103    trogs
+E 1 18084 1 16      axe
+E 1 18085 1 17      spear
+E 1 18086 1 13      lioncloth
+*
+O 1 18109 1 18108    basket
+M 1 18032 1 18108    old man
+*
+M 1 18036 1 18110    ninja
+E 1 18100 1 16      ninjato
+E 1 18101 1 9       bagh nakh
+E 1 18102 1 17      shuriken
+E 1 18103 1 5       robes
+G 1 18104 0			0        knife
+G 1 18102 0			0        shuriken
+G 1 18105 0			0        water
+G 1 18106 0			0        rice
+G 1 18107 0			0        ointment
+G 1 18108 0			0        diamond
+*
+M 1 18033 1 18111    ivy
+E 1 18111 1 16      stool
+O 1 18114 1 18111    cupboard
+P 1 18110 1 18114    bone
+*
+M 1 18034 1 18113    dog
+E 1 18112 1 3       collar
+P 1 18112 1 1112    pill
+M 1 18035 1 18113    dog
+E 1 18112 1 3       collar
+*
+M 1 18049 1 18115    pit fiend
+G 1 18113 0			0        shield
+M 1 18023 1 18117    bloodbeast
+*
+M 1 18037 1 18118    manticore
+*
+M 1 18038 1 18119    gnome
+*
+O 1 18130 1 18122    reward!
+*
+*PORTALS
+O 1 18131 1 18083
+O 1 18131 1 18095
+O 1 18131 1 18110
+S
+
+
+#SHOPS
+18018 0 0 0 0 0 120 80 0 23
+0
+
+
+#SPECIALS
+M  18003 spec_thief			a hobgoblin
+M  18004 spec_thief			a hobgoblin
+M  18008 spec_poison			a writhing mass of fly larvae
+M  18009 spec_poison			a giant fly
+M  18010 spec_cast_undead			a skeleton warrior
+M  18014 spec_poison			a cobra
+M  18016 spec_poison			a giant scorpion
+M  18017 spec_cast_judge			a rough dwarf
+M  18018 spec_janitor			a crippled, shackled servant
+M  18019 spec_cast_mage			a mirror demon
+M  18020 spec_poison			a swarm of insects
+M  18021 spec_poison			a medusa
+M  18022 spec_thief			a leprechaun
+M  18023 spec_breath_acid			the bloodbeast
+M  18025 spec_breath_acid			a pool of green slime
+M  18027 spec_thief			an elven thief
+M  18032 spec_janitor			an old man
+M  18033 spec_fido			poison ivy
+M  18034 spec_fido			a guard dog
+M  18035 spec_fido			a guard dog
+M  18036 spec_thief			a ninja
+M  18037 spec_poison			a manticore
+M  18038 spec_cast_mage			a gnomish trialmaster
+M  18041 spec_poison			a black widow spider
+M  18042 spec_cast_judge			a giant spore ball
+M  18043 spec_grue                      light
+M  18045 spec_cast_undead			a spectre
+M  18046 spec_fido			a rock grub
+M  18049 spec_fido			a pit fiend
+R  18005 specr_fireplane
+R  18070 specr_swarm
+R  18079 specr_acidpool
+R  18080 specr_acidpool
+S
+
+#TRIGGERS
+M 18000 trigm_alive
+M 18001 trigm_alive
+M 18002 trigm_alive
+M 18003 trigm_alive
+M 18004 trigm_alive
+M 18005 trigm_alive
+M 18006 trigm_alive
+M 18007 trigm_alive
+M 18008 trigm_alive
+M 18009 trigm_alive
+M 18010 trigm_alive
+M 18011 trigm_alive
+M 18012 trigm_alive
+M 18013 trigm_alive
+M 18014 trigm_alive
+M 18015 trigm_alive
+M 18016 trigm_alive
+M 18017 trigm_alive
+M 18018 trigm_alive
+M 18019 trigm_alive
+M 18020 trigm_alive
+M 18021 trigm_alive
+M 18022 trigm_alive
+M 18023 trigm_alive
+M 18024 trigm_alive
+M 18025 trigm_alive
+M 18026 trigm_alive
+M 18027 trigm_alive
+M 18028 trigm_alive
+M 18029 trigm_alive
+M 18030 trigm_alive
+M 18031 trigm_alive
+M 18032 trigm_alive
+M 18033 trigm_alive
+M 18034 trigm_alive
+M 18035 trigm_alive
+M 18036 trigm_alive
+M 18037 trigm_alive
+M 18038 trigm_alive
+M 18039 trigm_alive
+M 18043 trigm_alive
+M 18044 trigm_alive
+M 18045 trigm_alive
+M 18046 trigm_alive
+M 18047 trigm_alive
+M 18048 trigm_alive
+M 18049 trigm_alive
+O 18081 trigo_trapg_pcloud
+S
+
+#$

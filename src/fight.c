@@ -997,7 +997,7 @@ multi_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
   /* Very high chance of hitting compared to chance of going berserk */
   /* 40% or higher is always hit.. don't learn anything here though. */
   /* -- Altrag */
-  chance = IS_NPC (ch) ? 100 : (LEARNED (ch, gsn_berserk) * 5 / 2);
+  chance = IS_NPC (ch) ? 100 : (LEARNED (ch, gsn_berserk) * 6 / 2);
   if (IS_AFFECTED (ch, AFF_BERSERK) && number_percent () < chance)
     if ((retcode = one_hit (ch, victim, dt)) != rNONE ||
 	who_fighting (ch) != victim)
@@ -1111,6 +1111,30 @@ multi_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
     }
   else
     learn_from_failure (ch, gsn_fifth_attack);
+
+    chance = IS_NPC(ch) ? ch->level
+	   : (int) ((ch->pcdata->learned[gsn_sixth_attack]+(dual_bonus*4))/4);
+    if ( number_percent( ) < chance )
+    {
+	learn_from_success( ch, gsn_sixth_attack );
+	retcode = one_hit( ch, victim, dt );
+	if ( retcode != rNONE || who_fighting( ch ) != victim )
+	    return retcode;
+    }
+    else
+	learn_from_failure( ch, gsn_sixth_attack );
+
+    chance = IS_NPC(ch) ? ch->level
+	   : (int) ((ch->pcdata->learned[gsn_seventh_attack]+(dual_bonus*5))/4);
+    if ( number_percent( ) < chance )
+    {
+	learn_from_success( ch, gsn_seventh_attack );
+	retcode = one_hit( ch, victim, dt );
+	if ( retcode != rNONE || who_fighting( ch ) != victim )
+	    return retcode;
+    }
+    else
+	learn_from_failure( ch, gsn_seventh_attack );
 
   retcode = rNONE;
 
@@ -2684,7 +2708,7 @@ damage (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt)
   /*
    * Vampire self preservation                                -Thoric
    */
-  if (IS_VAMPIRE (victim))
+  if ( IS_VAMPIRE(victim) || IS_DEMON(victim) )
     {
       if (dam >= (victim->max_hit / 10))	/* get hit hard, lose blood */
 	gain_condition (victim, COND_BLOODTHIRST, -1 - (victim->level / 20));
@@ -4121,7 +4145,7 @@ neutral when they die given the difficulting of changing align */
     }
   victim->pcdata->condition[COND_FULL] = 12;
   victim->pcdata->condition[COND_THIRST] = 12;
-  if (IS_VAMPIRE (victim))
+  if ( IS_VAMPIRE(victim) || IS_DEMON(victim) )
     victim->pcdata->condition[COND_BLOODTHIRST] = (victim->level / 2);
 
   if (IS_SET (sysdata.save_flags, SV_DEATH))
@@ -4189,6 +4213,19 @@ group_gain (CHAR_DATA * ch, CHAR_DATA * victim)
       sprintf (buf, "You receive %d experience points.\n\r", xp);
       send_to_char (buf, gch);
       gain_exp (gch, xp);
+
+#ifdef ENABLE_QUEST
+        if (xIS_SET(ch->act, PLR_QUESTOR)&&IS_NPC(victim))
+        {
+            if (ch->questmob == victim->pIndexData->vnum)
+            {
+                send_to_char("You have almost completed your QUEST!\n\r",ch);
+                send_to_char("Return to the questmaster before your time runs out!\n\r",ch);
+                ch->questmob = -1;
+            }
+        }
+
+#endif
 
       for (obj = ch->first_carrying; obj; obj = obj_next)
 	{

@@ -58,10 +58,10 @@
 
 char *const npc_race[MAX_NPC_RACE] = {
 
-  "human", "elf", "dwarf", "halfling", "pixie", "vampire", "half-ogre",
-  "half-orc", "half-troll", "half-elf", "gith", "drow", "sea-elf",
-  "lizardman", "gnome", "demon", "angel", "r7", "r8", "troll",
-  "ant", "ape", "baboon", "bat", "bear", "bee",
+	"human", "elf", "dwarf", "halfling", "pixie", "half-ogre", "half-orc",
+	"half-troll", "half-elf", "gith", "drow", "sea-elf", "vampire", "demon",
+	"lizardman", "gnome", "angel", "r2", "r3", "r4", "r5", "r6", "r7", "r8",
+	"troll", "ant", "ape", "baboon", "bat", "bear", "bee",
   "beetle", "boar", "bugbear", "cat", "dog", "dragon", "ferret", "fly",
   "gargoyle", "gelatin", "ghoul", "gnoll", "gnome", "goblin", "golem",
   "gorgon", "harpy", "hobgoblin", "kobold", "lizardman", "locust",
@@ -90,8 +90,8 @@ char *const npc_race[MAX_NPC_RACE] = {
 
 char *const npc_class[MAX_NPC_CLASS] = {
   "mage", "cleric", "thief", "warrior", "vampire", "druid", "ranger",
-  "augurer", "paladin", "nephandi", "savage", "pirate", "archer", "assassin",
-  "demon", "angel", "pc16", "pc17", "pc18", "pc19",
+  "augurer", "paladin", "nephandi", "savage", "phantomer", "archer", "demon",
+  "assassin", "angel", "werewolf", "licanthrope", "lich", "monger", "pirate",
   "baker", "butcher", "blacksmith", "mayor", "king", "queen"
 };
 

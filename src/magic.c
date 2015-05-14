@@ -1831,7 +1831,7 @@ do_cast (CHAR_DATA * ch, char *argument)
        * Vampire spell casting                                -Thoric
        */
       blood = UMAX (1, (mana + 4) / 8);	/* NPCs don't have PCDatas. -- Altrag */
-      if (IS_VAMPIRE (ch))
+      if (IS_VAMPIRE(ch) || IS_DEMON(ch))
 	{
 	  if (ch->pcdata->condition[COND_BLOODTHIRST] < blood)
 	    {
@@ -1871,7 +1871,7 @@ do_cast (CHAR_DATA * ch, char *argument)
 						skill->
 						skill_level[ch->class]));
 	  blood = UMAX (1, (mana + 4) / 8);
-	  if (IS_VAMPIRE (ch))
+	  if (IS_VAMPIRE(ch) || IS_DEMON(ch))
 	    gain_condition (ch, COND_BLOODTHIRST, -UMAX (1, blood / 3));
 	  else if (ch->level < LEVEL_IMMORTAL)	/* so imms dont lose mana */
 	    ch->mana -= mana / 3;
@@ -1934,7 +1934,7 @@ do_cast (CHAR_DATA * ch, char *argument)
 		    act (AT_MAGIC, "$N channels $S energy into $n!", ch, NULL,
 			 tmp, TO_NOTVICT);
 		    learn_from_success (tmp, sn);
-		    if (IS_VAMPIRE (ch))
+		    if (IS_VAMPIRE(ch) || IS_DEMON(ch))
 		      gain_condition (tmp, COND_BLOODTHIRST, -blood);
 		    else
 		      tmp->mana -= mana;
@@ -1956,7 +1956,7 @@ do_cast (CHAR_DATA * ch, char *argument)
 	      send_to_char
 		("There was not enough power for the spell to succeed...\n\r",
 		 ch);
-	      if (IS_VAMPIRE (ch))
+	      if (IS_VAMPIRE(ch) || IS_DEMON(ch))
 		gain_condition (ch, COND_BLOODTHIRST, -UMAX (1, blood / 2));
 	      else if (ch->level < LEVEL_IMMORTAL)	/* so imms dont lose mana */
 		ch->mana -= mana / 2;
@@ -1978,7 +1978,7 @@ do_cast (CHAR_DATA * ch, char *argument)
    */
   if (!process_spell_components (ch, sn))
     {
-      if (IS_VAMPIRE (ch))
+      if (IS_VAMPIRE(ch) || IS_DEMON(ch))
 	gain_condition (ch, COND_BLOODTHIRST, -UMAX (1, blood / 2));
       else if (ch->level < LEVEL_IMMORTAL)	/* so imms dont lose mana */
 	ch->mana -= mana / 2;
@@ -2046,7 +2046,7 @@ do_cast (CHAR_DATA * ch, char *argument)
 	    ("You get a mental block mid-way through the casting.\n\r", ch);
 	  break;
 	}
-      if (IS_VAMPIRE (ch))
+      if (IS_VAMPIRE(ch) || IS_DEMON(ch))
 	gain_condition (ch, COND_BLOODTHIRST, -UMAX (1, blood / 2));
       else if (ch->level < LEVEL_IMMORTAL)	/* so imms dont lose mana */
 	ch->mana -= mana / 2;
@@ -2055,7 +2055,7 @@ do_cast (CHAR_DATA * ch, char *argument)
     }
   else
     {
-      if (IS_VAMPIRE (ch))
+      if (IS_VAMPIRE(ch) || IS_DEMON(ch))
 	gain_condition (ch, COND_BLOODTHIRST, -blood);
       else
 	ch->mana -= mana;
@@ -6329,7 +6329,7 @@ spell_animate_dead (int sn, int level, CHAR_DATA * ch, void *vo)
 
   if (!IS_NPC (ch))
     {
-      if (IS_VAMPIRE (ch))
+      if (IS_VAMPIRE(ch) || IS_DEMON(ch))
 	{
 	  if (!IS_IMMORTAL (ch) && ch->pcdata->condition[COND_BLOODTHIRST] -
 	      (pMobIndex->level / 3) < 0)
@@ -8498,3 +8498,7 @@ spell_grasp_suspiria (int sn, int level, CHAR_DATA * ch, void *vo)
        victim, TO_NOTVICT);
   return damage (ch, victim, dam, sn);
 }
+
+
+
+

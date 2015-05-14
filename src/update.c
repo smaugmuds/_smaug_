@@ -66,6 +66,9 @@ void char_check args ((void));
 void drunk_randoms args ((CHAR_DATA * ch));
 void hallucinations args ((CHAR_DATA * ch));
 void subtract_times args ((struct timeval * etime, struct timeval * stime));
+#ifdef ENABLE_QUEST
+void quest_update args ((void)); /* Vassago - quest.c */
+#endif
 
 /* weather functions - FB */
 void adjust_vectors args ((WEATHER_DATA * weather));
@@ -161,7 +164,7 @@ advance_level (CHAR_DATA * ch)
     }
   if (ch->level < LEVEL_IMMORTAL)
     {
-      if (IS_VAMPIRE (ch))
+      if ( IS_VAMPIRE(ch) ||  IS_DEMON(ch) )
 	sprintf (buf,
 		 _("Your gain is: %d/%d hp, %d/%d bp, %d/%d mv %d/%d prac.\n"),
 		 add_hp, ch->max_hit,
@@ -344,8 +347,8 @@ hit_gain (CHAR_DATA * ch)
 	  break;
 	}
 
-      if (IS_VAMPIRE (ch))
-	{
+  if (IS_VAMPIRE(ch) || IS_DEMON(ch))
+	  {
 	  if (ch->pcdata->condition[COND_BLOODTHIRST] <= 1)
 	    gain /= 2;
 	  else if (ch->pcdata->condition[COND_BLOODTHIRST] >= (8 + ch->level))
@@ -453,7 +456,7 @@ move_gain (CHAR_DATA * ch)
 	  break;
 	}
 
-      if (IS_VAMPIRE (ch))
+      if ( IS_VAMPIRE(ch) || IS_DEMON(ch) )
 	{
 	  if (ch->pcdata->condition[COND_BLOODTHIRST] <= 1)
 	    gain /= 2;
@@ -514,7 +517,7 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
       switch (iCond)
 	{
 	case COND_FULL:
-	  if (ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE)
+			if (( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE) || ( ch->level < LEVEL_AVATAR && ch->class != CLASS_DEMON ))
 	    {
 	      set_char_color (AT_HUNGRY, ch);
 	      send_to_char (_("You are STARVING!\n"), ch);
@@ -527,7 +530,7 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 	  break;
 
 	case COND_THIRST:
-	  if (ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE)
+			if (( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE) || ( ch->level < LEVEL_AVATAR && ch->class != CLASS_DEMON))
 	    {
 	      set_char_color (AT_THIRSTY, ch);
 	      send_to_char (_("You are DYING of THIRST!\n"), ch);
@@ -577,7 +580,7 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
       switch (iCond)
 	{
 	case COND_FULL:
-	  if (ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE)
+			if (( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE) || ( ch->level < LEVEL_AVATAR && ch->class != CLASS_DEMON))
 	    {
 	      set_char_color (AT_HUNGRY, ch);
 	      send_to_char (_("You are really hungry.\n"), ch);
@@ -589,7 +592,7 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 	  break;
 
 	case COND_THIRST:
-	  if (ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE)
+	  if (( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE) || ( ch->level < LEVEL_AVATAR && ch->class != CLASS_DEMON))
 	    {
 	      set_char_color (AT_THIRSTY, ch);
 	      send_to_char (_("You are really thirsty.\n"), ch);
@@ -632,7 +635,7 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
       switch (iCond)
 	{
 	case COND_FULL:
-	  if (ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE)
+	  if (( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE) || ( ch->level < LEVEL_AVATAR && ch->class != CLASS_DEMON))
 	    {
 	      set_char_color (AT_HUNGRY, ch);
 	      send_to_char (_("You are hungry.\n"), ch);
@@ -640,7 +643,7 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 	  break;
 
 	case COND_THIRST:
-	  if (ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE)
+	  if (( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE) || ( ch->level < LEVEL_AVATAR && ch->class != CLASS_DEMON))
 	    {
 	      set_char_color (AT_THIRSTY, ch);
 	      send_to_char (_("You are thirsty.\n"), ch);
@@ -667,7 +670,7 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
       switch (iCond)
 	{
 	case COND_FULL:
-	  if (ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE)
+	  if (( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE) || ( ch->level < LEVEL_AVATAR && ch->class != CLASS_DEMON))
 	    {
 	      set_char_color (AT_HUNGRY, ch);
 	      send_to_char (_("You are a mite peckish.\n"), ch);
@@ -675,7 +678,7 @@ gain_condition (CHAR_DATA * ch, int iCond, int value)
 	  break;
 
 	case COND_THIRST:
-	  if (ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE)
+	  if (( ch->level < LEVEL_AVATAR && ch->class != CLASS_VAMPIRE) || ( ch->level < LEVEL_AVATAR && ch->class != CLASS_DEMON))
 	    {
 	      set_char_color (AT_THIRSTY, ch);
 	      send_to_char
@@ -1314,7 +1317,7 @@ char_update (void)
 	  gain_condition (ch, COND_FULL,
 			  -1 + race_table[ch->race]->hunger_mod);
 
-	  if (ch->class == CLASS_VAMPIRE && ch->level >= 10)
+	   if (( ch->class == CLASS_VAMPIRE && ch->level >= 10 ) || ( ch->class == CLASS_DEMON && ch->level >= 10 ))
 	    {
 	      if (time_info.hour < 21 && time_info.hour > 5)
 		gain_condition (ch, COND_BLOODTHIRST, -1);
@@ -2587,7 +2590,12 @@ update_handler (void)
 
   if (--pulse_area <= 0)
     {
+#ifdef ENABLE_QUEST
+		  pulse_area = PULSE_AREA;
+      quest_update ();
+#else
       pulse_area = number_range (PULSE_AREA / 2, 3 * PULSE_AREA / 2);
+#endif
       area_update ();
     }
 

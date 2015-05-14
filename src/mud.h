@@ -295,10 +295,10 @@ typedef ch_ret SPELL_FUN args ((int sn, int level, CHAR_DATA * ch, void *vo));
 #define MAX_REXITS		   20	/* Maximum exits allowed in 1 room */
 #define MAX_SKILL		  500
 #define SPELL_SILENT_MARKER   "silent"	/* No OK. or Failed. */
-#define MAX_CLASS           	   20
-#define MAX_NPC_CLASS		   26
+#define MAX_CLASS           	   27
+#define MAX_NPC_CLASS		   27
 #define MAX_RACE                   26
-#define MAX_NPC_RACE		  190
+#define MAX_NPC_RACE		  200
 #define MAX_MSG			   18
 
 extern int MAX_PC_RACE;
@@ -375,6 +375,10 @@ extern int MAX_PC_CLASS;
 
 #ifdef ENABLE_TIMEZONE
 #include "timezone.h"
+#endif
+
+#ifdef ENABLE_QUEST
+#include "quest.h"
 #endif
 
 #ifdef ENABLE_WEATHER
@@ -1001,9 +1005,9 @@ struct lck_app_type
 /* the races */
 typedef enum
 {
-  RACE_HUMAN, RACE_ELF, RACE_DWARF, RACE_HALFLING, RACE_PIXIE, RACE_VAMPIRE,
-  RACE_HALF_OGRE, RACE_HALF_ORC, RACE_HALF_TROLL, RACE_HALF_ELF, RACE_GITH,
-  RACE_DROW, RACE_SEA_ELF, RACE_LIZARDMAN, RACE_DEMON
+  RACE_HUMAN, RACE_ELF, RACE_DWARF, RACE_HALFLING, RACE_PIXIE, RACE_HALF_OGRE,
+	RACE_HALF_ORC, RACE_HALF_TROLL, RACE_HALF_ELF, RACE_GITH, RACE_DROW, RACE_SEA_ELF,
+  RACE_VAMPIRE, RACE_DEMON,  RACE_LIZARDMAN, RACE_GNOME, RACE_ANGEL
 } race_types;
 
 /* npc races */
@@ -1029,6 +1033,8 @@ typedef enum
 #define CLASS_WEREWOLF	   16
 #define CLASS_LICANTHROPE  17
 #define CLASS_LICH	   18
+#define CLASS_MONGER   19
+#define CLASS_PIRATE	 20
 
 /*
  * Languages -- Altrag
@@ -1725,7 +1731,8 @@ struct smaug_affect
 #define ACT_UNDERTAKER	    43  /* Undertaker */
 #define ACT_CHALLENGED	    44  /* Arena Challenged */
 #define ACT_CHALLENGER	    45  /* Arena Challenger */
-#define MAX_ACT_FLAGS       46  /* Always last */
+#define ACT_QUESTMASTER     46  /* Quest Masters */
+#define MAX_ACT_FLAGS       47  /* Always last */
 
 /*
  * Bits for 'affected_by'.
@@ -2469,6 +2476,9 @@ typedef enum
   PLR_NOFOLLOW, PLR_LANDED, PLR_BLOCKING, PLR_IS_CLONE, PLR_IS_DREAMFORM,
   PLR_IS_SPIRITFORM, PLR_IS_PROJECTION, PLR_CLOAK, PLR_COMPASS,
   PLR_NOHOMEPAGE
+#ifdef ENABLE_QUEST
+	, PLR_QUESTOR
+#endif
 } player_flags;
 
 /* Bits for pc_data->flags. */
@@ -2824,6 +2834,14 @@ struct char_data
 #endif
 #ifdef ENABLE_COLOR
    short colors[MAX_COLORS];
+#endif
+#ifdef ENABLE_QUEST
+    CHAR_DATA * questgiver; /* Vassago */
+    int         questpoints;  /* Vassago */
+    sh_int      nextquest; /* Vassago */
+    sh_int      countdown; /* Vassago */
+    sh_int      questobj; /* Vassago */
+    sh_int      questmob; /* Vassago */
 #endif
 };
 
@@ -3590,6 +3608,8 @@ extern sh_int gsn_second_attack;
 extern sh_int gsn_third_attack;
 extern sh_int gsn_fourth_attack;
 extern sh_int gsn_fifth_attack;
+extern sh_int gsn_sixth_attack;
+extern sh_int gsn_seventh_attack;
 extern sh_int gsn_dual_wield;
 
 extern sh_int gsn_feed;
@@ -3950,6 +3970,9 @@ do								\
 #define IS_VAMPIRE(ch)		(!IS_NPC(ch)				    \
 				&& ((ch)->race==RACE_VAMPIRE		    \
 				||  (ch)->class==CLASS_VAMPIRE))
+#define IS_DEMON(ch)		(!IS_NPC(ch)				    \
+				&& ((ch)->race==RACE_DEMON		    \
+				||  (ch)->class==CLASS_DEMON))
 #define IS_GOOD(ch)		((ch)->alignment >= 350)
 #define IS_EVIL(ch)		((ch)->alignment <= -350)
 #define IS_NEUTRAL(ch)		(!IS_GOOD(ch) && !IS_EVIL(ch))
@@ -5111,6 +5134,7 @@ DECLARE_SPELL_FUN (spell_dispel_magic);
 DECLARE_SPELL_FUN (spell_disenchant_weapon);
 DECLARE_SPELL_FUN (spell_dream);
 DECLARE_SPELL_FUN (spell_earthquake);
+DECLARE_SPELL_FUN (spell_enchant_armor);
 DECLARE_SPELL_FUN (spell_enchant_weapon);
 DECLARE_SPELL_FUN (spell_energy_drain);
 DECLARE_SPELL_FUN (spell_faerie_fire);
@@ -5159,12 +5183,13 @@ DECLARE_SPELL_FUN (spell_scorching_surge);
 DECLARE_SPELL_FUN (spell_helical_flow);
 DECLARE_SPELL_FUN (spell_transport);
 DECLARE_SPELL_FUN (spell_portal);
-
 DECLARE_SPELL_FUN (spell_ethereal_fist);
 DECLARE_SPELL_FUN (spell_spectral_furor);
 DECLARE_SPELL_FUN (spell_hand_of_chaos);
 DECLARE_SPELL_FUN (spell_disruption);
 DECLARE_SPELL_FUN (spell_sonic_resonance);
+DECLARE_SPELL_FUN (spell_death);
+DECLARE_SPELL_FUN (spell_assassinate);
 DECLARE_SPELL_FUN (spell_mind_wrack);
 DECLARE_SPELL_FUN (spell_mind_wrench);
 DECLARE_SPELL_FUN (spell_revive);
@@ -5174,6 +5199,7 @@ DECLARE_SPELL_FUN (spell_acetum_primus);
 DECLARE_SPELL_FUN (spell_galvanic_whip);
 DECLARE_SPELL_FUN (spell_magnetic_thrust);
 DECLARE_SPELL_FUN (spell_quantum_spike);
+DECLARE_SPELL_FUN (spell_grasp_suspiria);
 DECLARE_SPELL_FUN (spell_black_hand);
 DECLARE_SPELL_FUN (spell_black_fist);
 DECLARE_SPELL_FUN (spell_black_lightning);

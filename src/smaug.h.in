@@ -81,6 +81,9 @@
 /* OasisOLC Extras Support */
 #undef ENABLE_OLC2_EXTRAS
 
+/* Quest Support */
+#undef ENABLE_QUEST
+
 /* Timezone Support */
 #undef ENABLE_TIMEZONE
 

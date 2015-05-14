@@ -277,7 +277,7 @@ check_skill (CHAR_DATA * ch, char *command, char *argument)
 					    skill_table[sn]->
 					    skill_level[ch->class]));
       blood = UMAX (1, (mana + 4) / 8);	/* NPCs don't have PCDatas. -- Altrag */
-      if (IS_VAMPIRE (ch))
+      if (IS_VAMPIRE(ch) || IS_DEMON(ch))
 	{
 	  if (ch->pcdata->condition[COND_BLOODTHIRST] < blood)
 	    {
@@ -449,7 +449,7 @@ check_skill (CHAR_DATA * ch, char *command, char *argument)
 	  learn_from_failure (ch, sn);
 	  if (mana)
 	    {
-	      if (IS_VAMPIRE (ch))
+	      if (IS_VAMPIRE(ch) || IS_DEMON(ch))
 		gain_condition (ch, COND_BLOODTHIRST, -blood / 2);
 	      else
 		ch->mana -= mana / 2;
@@ -458,7 +458,7 @@ check_skill (CHAR_DATA * ch, char *command, char *argument)
 	}
       if (mana)
 	{
-	  if (IS_VAMPIRE (ch))
+	  if (IS_VAMPIRE(ch) || IS_DEMON(ch))
 	    gain_condition (ch, COND_BLOODTHIRST, -blood);
 	  else
 	    ch->mana -= mana;
@@ -503,7 +503,7 @@ check_skill (CHAR_DATA * ch, char *command, char *argument)
 
   if (mana)
     {
-      if (IS_VAMPIRE (ch))
+      if (IS_VAMPIRE(ch) || IS_DEMON(ch))
 	gain_condition (ch, COND_BLOODTHIRST, -blood);
       else
 	ch->mana -= mana;
@@ -3503,7 +3503,7 @@ do_bloodlet (CHAR_DATA * ch, char *argument)
 {
   OBJ_DATA *obj;
 
-  if (IS_NPC (ch) || !IS_VAMPIRE (ch))
+  if (IS_NPC (ch) || !IS_VAMPIRE (ch) || !IS_DEMON (ch))
     return;
 
   if (ch->fighting)
@@ -3559,9 +3559,9 @@ do_feed (CHAR_DATA * ch, char *argument)
     }
 
   if (!IS_NPC (ch) && !IS_VAMPIRE (ch))
+	if (!IS_NPC (ch) && !IS_DEMON (ch))
     {
-      send_to_char
-	("It is not of your nature to feed on living creatures.\n\r", ch);
+      send_to_char ("It is not of your nature to feed on living creatures.\n\r", ch);
       return;
     }
   if (!can_use_skill (ch, 0, gsn_feed))
@@ -5387,7 +5387,7 @@ do_scan (CHAR_DATA * ch, char *argument)
       return;
     }
 
-  if (IS_VAMPIRE (ch))
+  if (IS_VAMPIRE(ch) || IS_DEMON(ch))
     {
       if (time_info.hour < 21 && time_info.hour > 5)
 	{

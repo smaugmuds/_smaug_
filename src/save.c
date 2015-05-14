@@ -489,6 +489,15 @@ fwrite_char (CHAR_DATA * ch, FILE * fp)
    }
 #endif
 
+#ifdef ENABLE_QUEST
+    if (ch->questpoints != 0)
+        fprintf( fp, "QuestPnts %d\n",  ch->questpoints );
+    if (ch->nextquest != 0)
+        fprintf( fp, "QuestNext %d\n",  ch->nextquest   );
+    else if (ch->countdown != 0)
+        fprintf( fp, "QuestNext %d\n",  10              );
+#endif
+
   /* If ch is ignoring players then store those players */
   {
     IGNORE_DATA *temp;
@@ -1827,6 +1836,13 @@ fread_char (CHAR_DATA * ch, FILE * fp, bool preload)
 	      break;
 	    }
 	  break;
+
+#ifdef ENABLE_QUEST
+	case 'Q':
+		  KEY( "QuestPnts",   ch->questpoints,        fread_number( fp ) );
+		  KEY( "QuestNext",   ch->nextquest,          fread_number( fp ) );
+		  break;
+#endif
 
 	case 'R':
 	  KEY ("Race", ch->race, fread_number (fp));

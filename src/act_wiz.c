@@ -2336,7 +2336,7 @@ do_mstat (CHAR_DATA * ch, char *argument)
   sprintf (hpbuf, "%d/%d", victim->hit, victim->max_hit);
   sprintf (mnbuf, "%d/%d", victim->mana, victim->max_mana);
   sprintf (mvbuf, "%d/%d", victim->move, victim->max_move);
-  if (IS_VAMPIRE (victim) && !IS_NPC (victim))
+  if ((IS_VAMPIRE(victim) && !IS_NPC(victim)) || (IS_DEMON(victim) && !IS_NPC(victim)))
     {
       sprintf (bdbuf, "%d/%d", victim->pcdata->condition[COND_BLOODTHIRST],
 	       10 + victim->level);

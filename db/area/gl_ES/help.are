@@ -27169,3 +27169,42 @@ To remove an alias, type 'alias' followed by the shortcut you
 wish to remove.
 
 ~
+0 QUEST QUESTS~
+Certain characters in the game will allow you to go on quests to recover an
+item or kill another mob. To go on a quest, you must be in the same room with
+a questmaster. When you successfully complete a quest, you will receive a
+certain number of quest points. These points may be saved up and used to buy
+incredible items from the questmaster.
+
+The QUEST command is used for information about your current quest, to request
+a quest from a questmaster, etc. Commands are as follows:
+
+QUEST POINTS - Gives your current number of quest points. This command may be
+used anywhere.
+
+QUEST INFO - If you are on a quest, this will remind you who or what you are
+after.
+
+QUEST TIME - Gives the amount of time remaining on your current quest, or the
+amount of time until you can request another quest. This command may be used
+anywhere.
+
+QUEST REQUEST - Petitions the questmaster to send you on a quest. If you
+accept the quest, you will be given a realtime limit (in minutes) in which you
+must complete the quest. If you are on a quest to kill a creature, when you
+come across that creature you will see a [TARGET] notice before it. This is
+the creature you are to kill.
+
+QUEST COMPLETE - Once you have completed your quest and recovered the item or
+killed the mob or whatever, you must return to the questmaster who sent you on
+the quest and use this command. If you have successfully completed your quest,
+he will reward you with gold and quest points. Once you complete a quest you
+cannot request another for 10 minutes.
+
+QUEST LIST - Displays the list of fabulous items for sale by the questmaster.
+These items are not buyable via gold, they must be purchased with quest points.
+
+QUEST BUY <item> - Purchases an item from the questmaster and deducts the cost
+of the item from your quest points.
+~
+

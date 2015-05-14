@@ -1,39 +1,10 @@
 #SKILL
-Name         reserved~
-Type         Spell
-Info         0
-Flags        0
-Minpos       112
-Slot         95
-Code         spell_null
-Dammsg       ~
-Wearoff      ???~
-Minlevel     51
-End
-
-#SKILL
 Name         venomshield~
 Type         unknown
 Info         0
 Flags        0
 Code         spell_smaug
 Dammsg       ~
-Minlevel     51
-End
-
-#SKILL
-Name         Wrath of Dominus~
-Type         Spell
-Info         0
-Flags        33792
-Target       2
-Minpos       109
-Slot         246
-Mana         10
-Code         spell_smaug
-Dammsg       ~
-Affect       '10' 13 '-75' -1
-Affect       '10' 31 '-3' -1
 Minlevel     51
 End
 
@@ -50,7 +21,7 @@ Rounds       8
 Code         spell_acetum_primus
 Dammsg       Acetum Primus~
 Wearoff      !WEAROFF!~
-Minlevel     37
+Minlevel     35
 End
 
 #SKILL
@@ -131,7 +102,7 @@ Rounds       12
 Code         spell_animate_dead
 Dammsg       ~
 Wearoff      !Animate Dead!~
-Minlevel     23
+Minlevel     10
 End
 
 #SKILL
@@ -213,12 +184,12 @@ Info         0
 Flags        0
 Minpos       112
 Slot         90
-Mana         60
+Mana         30
 Rounds       12
 Code         spell_astral_walk
 Dammsg       ~
 Wearoff      !Astral Walk!~
-Minlevel     30
+Minlevel     12
 End
 
 #SKILL
@@ -303,7 +274,7 @@ Rounds       8
 Code         spell_black_fist
 Dammsg       Black Fist~
 Wearoff      !WEAROFF!~
-Minlevel     23
+Minlevel     51
 End
 
 #SKILL
@@ -320,7 +291,7 @@ Code         spell_black_hand
 Dammsg       Black Hand~
 Wearoff      !WEAROFF!~
 Teachers     10340~
-Minlevel     2
+Minlevel     51
 End
 
 #SKILL
@@ -336,7 +307,7 @@ Rounds       8
 Code         spell_black_lightning
 Dammsg       Black Lightning~
 Wearoff      !WEAROFF!~
-Minlevel     46
+Minlevel     51
 End
 
 #SKILL
@@ -352,8 +323,7 @@ Rounds       8
 Code         spell_smaug
 Dammsg       blasphemy~
 Wearoff      You are no longer afflicted by the curse of the Nephandi!~
-Hitchar      You utter a curse against the Gods and bring their wrath upon
-$N!~
+Hitchar      You utter a curse against the Gods and bring their wrath upon $N!~
 Hitvict      $n has BLASPHEMED you!~
 Hitroom      $n utters Edaj and infuriates the Gods!~
 Dice         50d1~
@@ -534,7 +504,7 @@ Rounds       8
 Code         spell_caustic_fount
 Dammsg       Caustic Fount~
 Wearoff      !WEAROFF!~
-Minlevel     34
+Minlevel     51
 End
 
 #SKILL
@@ -610,7 +580,7 @@ Rounds       12
 Code         spell_charm_person
 Dammsg       ~
 Wearoff      You feel more self-confident.~
-Minlevel     14
+Minlevel     9
 End
 
 #SKILL
@@ -642,7 +612,7 @@ Rounds       12
 Code         spell_colour_spray
 Dammsg       colour spray~
 Wearoff      !Colour Spray!~
-Minlevel     11
+Minlevel     51
 End
 
 #SKILL
@@ -872,7 +842,21 @@ Rounds       12
 Code         spell_curse
 Dammsg       curse~
 Wearoff      The curse wears off.~
-Minlevel     12
+Minlevel     9
+End
+
+#SKILL
+Name         death~
+Type         Spell
+Flags        904
+Target       1
+Minpos       7
+Mana         35
+Rounds       8
+Code         spell_death
+Dammsg       Death Spell~
+Wearoff      !WEAROFF!~
+Minlevel     50
 End
 
 #SKILL
@@ -933,7 +917,7 @@ Wearoff      Your leathery skin grows thinner as your spell wanes.~
 Hitvict      Your skin becomes thick and leathery, similar to that of a demon.~
 Hitroom      $N's skin becomes thick and leathery, similar to that of a demon.~
 Affect       'l*23' 27 '64' -1
-Minlevel     14
+Minlevel     8
 End
 
 #SKILL
@@ -1112,7 +1096,7 @@ Rounds       8
 Code         spell_disruption
 Dammsg       Disruption~
 Wearoff      !WEAROFF!~
-Minlevel     8
+Minlevel     51
 End
 
 #SKILL
@@ -1260,6 +1244,20 @@ Minlevel     3
 End
 
 #SKILL
+Name         enchant armor~
+Type         Spell
+Flags        0
+Target       4
+Minpos       8
+Mana         100
+Rounds       24
+Code         spell_enchant_armor
+Dammsg       ~
+Wearoff      !Enchant Armor!~
+Minlevel     12
+End
+
+#SKILL
 Name         enchant weapon~
 Type         Spell
 Info         0
@@ -1272,7 +1270,7 @@ Rounds       24
 Code         spell_enchant_weapon
 Dammsg       ~
 Wearoff      !Enchant Weapon!~
-Minlevel     12
+Minlevel     51
 End
 
 #SKILL
@@ -1417,8 +1415,8 @@ Rounds       24
 Code         spell_smaug
 Dammsg       !EXTRADIMENSIONAL_PORTAL!~
 Wearoff      !EXTRADIMENSIONAL_PORTAL!~
-Value        63
-Minlevel     13
+Value        23
+Minlevel     20
 End
 
 #SKILL
@@ -1558,7 +1556,7 @@ Hitchar      Mystical flames rise to enshroud $N.~
 Hitvict      Mystical flames rise to enshroud you.~
 Hitroom      Mystical flames rise to enshroud $N.~
 Affect       '(l*4)+8' 26 'fireshield' 25
-Minlevel     28
+Minlevel     20
 End
 
 #SKILL
@@ -1651,7 +1649,7 @@ Hitchar      $N begins to float in mid-air...~
 Hitvict      You begin to float in mid-air...~
 Hitroom      $N begins to float in mid-air...~
 Affect       'l*24' 26 'float' 21
-Minlevel     1
+Minlevel     6
 End
 
 #SKILL
@@ -1721,7 +1719,7 @@ Rounds       8
 Code         spell_galvanic_whip
 Dammsg       Galvanic Whip~
 Wearoff      !WEAROFF!~
-Minlevel     4
+Minlevel     51
 End
 
 #SKILL
@@ -1736,7 +1734,7 @@ Rounds       4
 Code         spell_gas_breath
 Dammsg       blast of gas~
 Wearoff      !Gas Breath!~
-Minlevel     45
+Minlevel     38
 End
 
 #SKILL
@@ -1801,7 +1799,7 @@ Rounds       8
 Code         spell_hand_of_chaos
 Dammsg       Hand of Chaos~
 Wearoff      !WEAROFF!~
-Minlevel     37
+Minlevel     51
 End
 
 #SKILL
@@ -1817,7 +1815,7 @@ Rounds       12
 Code         spell_harm
 Dammsg       harm spell~
 Wearoff      !Harm!~
-Minlevel     13
+Minlevel     9
 End
 
 #SKILL
@@ -1835,7 +1833,7 @@ Dammsg       ~
 Wearoff      !Heal!~
 Hitchar      You lay a hand of healing upon $N.~
 Hitvict      A warm feeling fills your body.~
-Affect       '' 13 '100' -1
+Affect       '' 13 '150' -1
 Minlevel     14
 End
 
@@ -1846,12 +1844,12 @@ Info         0
 Flags        0
 Minpos       110
 Slot         298
-Mana         180
+Mana         80
 Rounds       12
 Code         spell_helical_flow
 Dammsg       ~
 Wearoff      !Helical Flow!~
-Minlevel     42
+Minlevel     22
 End
 
 #SKILL
@@ -1944,7 +1942,7 @@ Hitchar      A glistening shield of ice encompasses $N!~
 Hitvict      A glistening shield of ice encompasses you!~
 Hitroom      A glistening hail of ice encompasses $N.~
 Affect       '(l*4)+8' 26 'iceshield' 28
-Minlevel     22
+Minlevel     20
 End
 
 #SKILL
@@ -1959,7 +1957,7 @@ Rounds       24
 Code         spell_identify
 Dammsg       ~
 Wearoff      !Identify!~
-Minlevel     10
+Minlevel     3
 End
 
 #SKILL
@@ -2109,7 +2107,7 @@ Rounds       12
 Code         spell_knock
 Dammsg       ~
 Wearoff      !Knock!~
-Minlevel     32
+Minlevel     1
 End
 
 #SKILL
@@ -2162,15 +2160,53 @@ Rounds       8
 Code         spell_smaug
 Dammsg       ~
 Wearoff      Your levitation spell wears off and you return to the
-ground.~
+
+ground.~
 Hitchar      You slowly rise into the air.~
 Hitvict      Your feet slowly rise off of the ground.~
 Hitroom      $N bows $S head in concentration and $S feet rise off the
-ground.~
+
+ground.~
 Misschar     You concentrate heavily, but your feet stay anchored to the
-earth.~
+
+earth.~
 Affect       'l*23' 26 'floating' 21
 Minlevel     27
+End
+
+#SKILL
+Name         life force~
+Type         Spell
+Flags        0
+Target       2
+Minpos       7
+Slot         61
+Mana         50
+Rounds       30
+Code         spell_smaug
+Dammsg       ~
+Wearoff      !Heal!~
+Hitchar      You restore $N's Life Force!.~
+Hitvict      You feel as if your life has suddenly been restored.~
+Affect       '' 13 '1000' 0
+Minlevel     50
+End
+
+#SKILL
+Name         lifelift~
+Type         Spell
+Flags        67174400
+Minpos       8
+Mana         50
+Rounds       16
+Code         spell_smaug
+Dammsg       ~
+Hitchar      You reach across the planes and restore $N...~
+Hitvict      A mystical hand appears from nowhere and restores you...~
+Hitroom      A mystical hand appears from nowhere and restores $N...~
+Misschar     A barrier in the planes prevents you from reaching them.~
+Affect       '' 13 '200' 0
+Minlevel     40
 End
 
 #SKILL
@@ -2250,7 +2286,7 @@ Rounds       8
 Code         spell_magnetic_thrust
 Dammsg       Magnetic Thrust~
 Wearoff      !WEAROFF!~
-Minlevel     27
+Minlevel     25
 End
 
 #SKILL
@@ -2316,6 +2352,24 @@ Minlevel     44
 End
 
 #SKILL
+Name         metallic skin~
+Type         Spell
+Flags        0
+Target       2
+Minpos       8
+Slot         246
+Mana         40
+Rounds       18
+Code         spell_smaug
+Dammsg       ~
+Wearoff      Your skin feels soft again.~
+Hitvict      Your skin feels like a plate of steel.~
+Hitroom      $N's skin turns into a plate of steel.~
+Affect       'l*23' 17 '-150' 0
+Minlevel     27
+End
+
+#SKILL
 Name         midas touch~
 Type         Spell
 Info         1552
@@ -2328,7 +2382,7 @@ Rounds       24
 Code         spell_midas_touch
 Dammsg       !MIDAS_TOUCH!~
 Wearoff      !MIDAS_TOUCH!~
-Minlevel     13
+Minlevel     51
 End
 
 #SKILL
@@ -2408,8 +2462,8 @@ Hitchar      You drain $N's life essence.~
 Hitvict      Your life energies are stolen by $n!~
 Hitroom      $n drains the life essence from $N!~
 Dice         150d2~
-Affect       '' 1013 '2d75' -1
-Minlevel     40
+Affect       '' 1013 '4d75' -1
+Minlevel     31
 End
 
 #SKILL
@@ -2459,8 +2513,10 @@ Code         spell_smaug
 Dammsg       occular explosium~
 Hitchar      You nearly cause $N's eyes to explode!~
 Hitvict      Blood spurts from your eye sockets as you experience the pain
-of oc
-cular explosium!~
+
+of oc
+
+cular explosium!~
 Dice         20d1~
 Components   v+49~
 Affect       '' 60 '95' -1
@@ -2488,6 +2544,19 @@ Affect       '' 60 '227' -1
 Affect       'l+25' 26 'paranoia' -1
 Affect       'l+25' 3 '-1' -1
 Minlevel     38
+End
+
+#SKILL
+Name         nuke~
+Type         Spell
+Flags        0
+Minpos       7
+Mana         400
+Rounds       4
+Code         spell_smaug
+Dammsg       surge of radiaton~
+Wearoff      !NUKE!~
+Minlevel     50
 End
 
 #SKILL
@@ -2641,7 +2710,7 @@ Code         spell_possess
 Dammsg       possess~
 Wearoff      You return to your body.~
 Components   v+13~
-Minlevel     35
+Minlevel     50
 End
 
 #SKILL
@@ -3491,18 +3560,6 @@ Minlevel     30
 End
 
 #SKILL
-Name         unknown~
-Type         Spell
-Info         0
-Flags        0
-Minpos       105
-Slot         95
-Code         spell_smaug
-Dammsg       ~
-Minlevel     51
-End
-
-#SKILL
 Name         unravel defense~
 Type         Spell
 Info         0
@@ -3578,8 +3635,7 @@ Wearoff      The venom in your blood is finally purged.~
 Hitchar      Toxic venom passes into the body of $N.~
 Hitvict      You shiver as $n reaches towards you and infuses you with toxic venom!~
 Hitroom      $N shivers as $n infuses $M body with toxic venom.~
-Misschar     You reach a hand toward $N, but $E evades your venomous
-touch.~
+Misschar     You reach a hand toward $N, but $E evades your venomous touch.~
 Minlevel     5
 End
 
@@ -3747,6 +3803,19 @@ Code         do_aid
 Dammsg       ~
 Wearoff      !Aid!~
 Minlevel     4
+End
+
+#SKILL
+Name         assassinate~
+Type         Skill
+Flags        0
+Target       1
+Minpos       8
+Rounds       12
+Code         spell_assassinate
+Dammsg       ~
+Wearoff      !WEAROFF!~
+Minlevel     50
 End
 
 #SKILL
@@ -4224,23 +4293,15 @@ End
 #SKILL
 Name         grasp suspiria~
 Type         Skill
-Info         8591
-Flags        0
+Flags        908
 Target       1
-Minpos       105
-Saves        5
-Mana         15
-Rounds       12
-Code         spell_smaug
-Dammsg       suspiric grasp~
-Hitchar      $N's deathrattle fills the air as you drain $S life...~
-Hitvict      A Deathrattle escapes your throat as $n drains your life.~
-Hitroom      A deathrattle escapes $N's throat as $n drains $S life.~
-Misschar     You clench a clawed fist in anger as $N escapes your grasp.~
-Missroom     $n grimaces at $N, clenching a clawed fist in anger...~
-Immchar      $N is unphased by your grasp...~
-Dice         (7d4*i)+20~
-Minlevel     50
+Minpos       7
+Mana         10
+Rounds       8
+Code         spell_grasp_suspiria
+Dammsg       grasp~
+Wearoff      !WEAROFF!~
+Minlevel     45
 End
 
 #SKILL
@@ -4694,6 +4755,26 @@ Minlevel     25
 End
 
 #SKILL
+Name         reveal~
+Type         Skill
+Flags        0
+Target       3
+Minpos       8
+Mana         20
+Rounds       12
+Code         spell_smaug
+Dammsg       ~
+Wearoff      You no longer see invisible objects.~
+Hitvict      Your eyes glow bright red as they gain the ability to see anything unseen.~
+Hitroom      $N's eyes glow bright red as they gain the ability to see anything unseen.~
+Affect       'l*24' 26 'detect evil' 4
+Affect       'l*24' 26 'detect hidden' 32
+Affect       'l*24' 26 'detect invis' 8
+Affect       'l*24' 26 'detect magic' 16
+Minlevel     2
+End
+
+#SKILL
 Name         scan~
 Type         Skill
 Info         0
@@ -5086,7 +5167,8 @@ Wearoff      Your footsteps and form once again become discernible.~
 Hitchar      Your steps become silent and your form hidden.~
 Hitvict      Your steps become silent and your form hidden.~
 Misschar     You clumsily attempt to mask your footsteps and hide in
-shadows.~
+
+shadows.~
 Missvict     You attempt to mask your footsteps.~
 Affect       'l*6' 26 'sneak' 15
 Affect       'l*6' 26 'hide' 16
@@ -5116,6 +5198,24 @@ Affect       '12' 19 '-(l/8)' -1
 Affect       '12' 24 'l/18' -1
 Affect       '12' 31 '-1' -1
 Minlevel     13
+End
+
+#SKILL
+Name         visual defiance~
+Type         Skill
+Flags        0
+Minpos       8
+Slot         29
+Mana         5
+Rounds       12
+Code         spell_invis
+Dammsg       ~
+Wearoff      You are no longer invisible.~
+Hitchar      $N fades from existence.~
+Hitvict      You fade from existence.~
+Hitroom      $N fades from existence.~
+Affect       'l*11' 26 'invis' 2
+Minlevel     2
 End
 
 #SKILL
@@ -5181,6 +5281,106 @@ End
 
 #SKILL
 Name         talonous arms~
+Type         Weapon
+Info         0
+Flags        0
+Code         spell_null
+Dammsg       ~
+Minlevel     1
+End
+
+#SKILL
+Name         swords~
+Type         Weapon
+Info         0
+Flags        0
+Code         spell_null
+Dammsg       ~
+Minlevel     1
+End
+
+#SKILL
+Name         daggers~
+Type         Weapon
+Info         0
+Flags        0
+Code         spell_null
+Dammsg       ~
+Minlevel     1
+End
+
+#SKILL
+Name         whips~
+Type         Weapon
+Info         0
+Flags        0
+Code         spell_null
+Dammsg       ~
+Minlevel     1
+End
+
+#SKILL
+Name         maces and hammers~
+Type         Weapon
+Info         0
+Flags        0
+Code         spell_null
+Dammsg       ~
+Minlevel     1
+End
+
+#SKILL
+Name         blowguns~
+Type         Weapon
+Info         0
+Flags        0
+Code         spell_null
+Dammsg       ~
+Minlevel     1
+End
+
+#SKILL
+Name         slings~
+Type         Weapon
+Info         0
+Flags        0
+Code         spell_null
+Dammsg       ~
+Minlevel     1
+End
+
+#SKILL
+Name         axes~
+Type         Weapon
+Info         0
+Flags        0
+Code         spell_null
+Dammsg       ~
+Minlevel     1
+End
+
+#SKILL
+Name         spears~
+Type         Weapon
+Info         0
+Flags        0
+Code         spell_null
+Dammsg       ~
+Minlevel     1
+End
+
+#SKILL
+Name         staves~
+Type         Weapon
+Info         0
+Flags        0
+Code         spell_null
+Dammsg       ~
+Minlevel     1
+End
+
+#SKILL
+Name         archery~
 Type         Weapon
 Info         0
 Flags        0

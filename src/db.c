@@ -175,6 +175,8 @@ sh_int gsn_second_attack;
 sh_int gsn_third_attack;
 sh_int gsn_fourth_attack;
 sh_int gsn_fifth_attack;
+sh_int gsn_sixth_attack;
+sh_int gsn_seventh_attack;
 sh_int gsn_dual_wield;
 sh_int gsn_punch;
 sh_int gsn_bash;
@@ -750,6 +752,8 @@ else
     ASSIGN_GSN (gsn_third_attack, "third attack");
     ASSIGN_GSN (gsn_fourth_attack, "fourth attack");
     ASSIGN_GSN (gsn_fifth_attack, "fifth attack");
+		ASSIGN_GSN (gsn_sixth_attack,	"sixth attack");
+		ASSIGN_GSN (gsn_seventh_attack, "seventh attack");
     ASSIGN_GSN (gsn_dual_wield, "dual wield");
     ASSIGN_GSN (gsn_punch, "punch");
     ASSIGN_GSN (gsn_bash, "bash");

@@ -154,6 +154,8 @@ Here are just some of the features **--{SMAUG II}--** has:
   - Gold loot rate by race.
 	- Banking System.
   - Undertaker.
+	- Questmasters.
+  - New Classes & Races.
 	- Player marriage system.
 	- A Dice Game.
 	- Mongoose web server with jta26 as Online MUD Web Client.
@@ -194,6 +196,8 @@ Realm Areas:
 	* Changes from **SMAUG 1.8b** to **--{SMAUG II}--**:
 ```
 		- Moved all "KEY" definitions to "mud.h".
+		- Added Quest Masters.
+		- Added new Classes & Races.
 		- Added Customizable Command Aliases.
 		- Added Arena Challenge.
 		- Added Weapon Proficency snippet and Archery.

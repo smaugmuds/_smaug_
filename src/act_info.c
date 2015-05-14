@@ -667,6 +667,11 @@ show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
   if (!IS_NPC (victim) && xIS_SET (victim->act, PLR_AFK))
     strcat (buf, _("[AFK] "));
 
+#ifdef ENABLE_QUEST
+    if (IS_NPC(victim) &&ch->questmob > 0 && victim->pIndexData->vnum == ch->questmob)
+        strcat( buf, "[TARGET] ");
+#endif
+
   if ((!IS_NPC (victim) && xIS_SET (victim->act, PLR_WIZINVIS))
       || (IS_NPC (victim) && xIS_SET (victim->act, ACT_MOBINVIS)))
     {
