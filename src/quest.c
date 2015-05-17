@@ -558,7 +558,13 @@ void generate_quest(CHAR_DATA *ch, CHAR_DATA *questman)
         }
 
         questitem = create_object( get_obj_index(objvnum), ch->level );
+
+#ifdef OVERLANDCODE
+        obj_to_room(questitem, room, ch);
+#else
         obj_to_room(questitem, room);
+#endif
+
         ch->questobj = questitem->pIndexData->vnum;
 
         sprintf(buf, "Vile pilferers have stolen %s from the royal treasury!",questitem->short_descr);

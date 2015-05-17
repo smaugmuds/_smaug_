@@ -36,12 +36,6 @@
 #define MAX_X 1000
 #define MAX_Y 1000
 
-/* Change these filenames to match yours */
-#define MAP_DIR "../maps/"
-#define ENTRANCE_FILE "entrances.dat"
-#define LANDMARK_FILE "landmarks.dat"
-#define MAPRESET_FILE "mapresets.dat"
-
 /* Adjust these to suit your world */
 typedef enum
 {
@@ -124,15 +118,6 @@ struct sect_color_type
 
 extern const struct sect_color_type sect_show[];
 
-DECLARE_DO_FUN( do_mapedit ); /* Map OLC function */
-DECLARE_DO_FUN( do_setexit ); /* Map OLC support to handle exits */
-DECLARE_DO_FUN( do_setmark ); /* Map OLC support to handle landmarks */
-DECLARE_DO_FUN( do_mreset );  /* Map OLC support to handle resets */
-DECLARE_DO_FUN( do_coords );  /* To jump to different coordinates on the map */
-DECLARE_DO_FUN( do_survey );  /* The overland survey command */
-DECLARE_DO_FUN( do_landmarks );  /* Command to list landmarks */
-DECLARE_DO_FUN( do_mapresets );  /* Command to list map resets */
-
 void enter_map( CHAR_DATA * ch, int x, int y, int continent );
 void leave_map( CHAR_DATA * ch, CHAR_DATA * victim, ROOM_INDEX_DATA * target );
 void display_map( CHAR_DATA * ch );
@@ -169,7 +154,7 @@ typedef enum
 #define REMOVE_ACT_FLAG(var, bit)      xREMOVE_BIT((var)->act, (bit))
 #define SET_OBJ_STAT(obj,stat)     	   (xSET_BIT((obj)->extra_flags, (stat)))
 #define REMOVE_OBJ_STAT(obj,stat)      (xREMOVE_BIT((obj)->extra_flags, (stat)))
-#define IS_ROOM_FLAG(var, bit)         IS_SET((var)->room_flags, (bit))
+#define IS_ROOM_FLAG(var, bit)         xIS_SET((var)->room_flags, (bit))
 #define IS_EXIT_FLAG(var, bit)         IS_SET((var)->exit_info, (bit))
 #define SET_EXIT_FLAG(var, bit)        SET_BIT((var)->exit_info, (bit))
 #define REMOVE_EXIT_FLAG(var, bit)     REMOVE_BIT((var)->exit_flags, (bit))

@@ -671,6 +671,11 @@ fwrite_char (CHAR_DATA * ch, FILE * fp)
 	       ch->pcdata->killed[sn].vnum, ch->pcdata->killed[sn].count);
     }
 
+#ifdef OVERLANDCODE
+    /* Overland Map - Samson 7-31-99 */
+    fprintf( fp, "Coordinates	%d %d %d\n", ch->x, ch->y, ch->map );
+#endif
+
 #ifdef ENABLE_COLOR
    {
       int x;
@@ -825,6 +830,9 @@ fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest, sh_int os_type
 #else
   if (obj->cost != obj->pIndexData->cost)
     fprintf (fp, "Cost         %d\n", obj->cost);
+#endif
+#ifdef OVERLANDCODE
+    fprintf( fp, "Coords	%d %d %d\n", obj->x, obj->y, obj->map );
 #endif
   if (obj->value[0] || obj->value[1] || obj->value[2]
       || obj->value[3] || obj->value[4] || obj->value[5])
@@ -987,6 +995,10 @@ load_char_obj (DESCRIPTOR_DATA * d, char *name, bool preload)
   ch->pcdata->tell_history = NULL;	/* imm only lasttell cmnd */
   ch->pcdata->lt_index = 0;	/* last tell index */
   ch->morph = NULL;
+
+#ifdef OVERLANDCODE
+  ch->pcdata->secedit = SECT_OCEAN; /* Initialize Map OLC sector - Samson 8-1-99 */
+#endif
 
 #ifdef ENABLE_HOTBOOT
   ch->pcdata->hotboot = FALSE;  /* Never changed except when PC is saved during hotboot save */
@@ -1485,6 +1497,25 @@ fread_char (CHAR_DATA * ch, FILE * fp, bool preload)
 	      fMatch = TRUE;
 	      break;
 	    }
+
+#ifdef OVERLANDCODE
+	    if ( !str_cmp( word, "Coordinates" ) )
+	    {
+		ch->x = fread_number( fp );
+		ch->y = fread_number( fp );
+		ch->map	 = fread_number( fp );
+
+		if( !IS_PLR_FLAG( ch, PLR_ONMAP ) )
+	      {
+		   ch->x = -1;
+		   ch->y = -1;
+		   ch->map	    = -1;
+		}
+
+		fMatch = TRUE;
+		break;
+	    }
+#endif
 
 	  if (!strcmp (word, "Council"))
 	    {
@@ -2081,6 +2112,9 @@ fread_char (CHAR_DATA * ch, FILE * fp, bool preload)
 		  number_range (race_table[ch->race]->weight * .9,
 				race_table[ch->race]->weight * 1.1);
 
+#ifdef OVERLANDCODE
+				REMOVE_PLR_FLAG( ch, PLR_MAPEDIT ); /* In case they saved while editing */
+#endif
 	      return 0;
 	    }
 	  KEY ("Exp", ch->exp, fread_number (fp));
@@ -2233,6 +2267,11 @@ fread_obj (CHAR_DATA * ch, FILE * fp, sh_int os_type)
   obj->count = 1;
   obj->wear_loc = -1;
   obj->weight = 1;
+#ifdef OVERLANDCODE
+  obj->map = -1;
+  obj->x = -1;
+  obj->y = -1;
+#endif
   obj->owner = STRALLOC ("");
 
   fNest = TRUE;			/* Requiring a Nest 0 is a waste */
@@ -2299,6 +2338,16 @@ fread_obj (CHAR_DATA * ch, FILE * fp, sh_int os_type)
 	  break;
 
 	case 'C':
+#ifdef OVERLANDCODE
+	    if( !strcmp( word, "Coords" ) )
+	    {
+				obj->x = fread_number( fp );
+			 	obj->y = fread_number( fp );
+				obj->map = fread_number( fp );
+	      fMatch = TRUE;
+		break;
+	    }
+#endif
 #ifdef ENABLE_GOLD_SILVER_COPPER
 		/* Leave cost for compatibility -Druid */
 		KEY( "Cost",	obj->gold_cost,		fread_number( fp ) );
@@ -2410,11 +2459,19 @@ fread_obj (CHAR_DATA * ch, FILE * fp, sh_int os_type)
 		      if (room->vnum == ROOM_VNUM_HALLOFFALLEN
 			  && obj->first_content)
 			obj->timer = -1;
+#ifdef OVERLANDCODE
+		      obj = obj_to_room (obj, room, ch);
+#else
 		      obj = obj_to_room (obj, room);
+#endif
 		    }
 		  else if (os_type == OS_VAULT && room)
 		    {
+#ifdef OVERLANDCODE
+		      obj = obj_to_room (obj, room, ch);
+#else
 		      obj = obj_to_room (obj, room);
+#endif
 		    }
 		  else if (iNest == 0 || rgObjNest[iNest] == NULL)
 		    {
@@ -2829,6 +2886,9 @@ fwrite_mobile (FILE * fp, CHAR_DATA * mob)
 	     (mob->in_room == get_room_index (ROOM_VNUM_LIMBO)
 	      && mob->was_in_room)
 	     ? mob->was_in_room->vnum : mob->in_room->vnum);
+#ifdef OVERLANDCODE
+ 		fprintf( fp, "Coordinates  %d %d %d\n", mob->x, mob->y, mob->map );
+#endif
   if (QUICKMATCH (mob->name, mob->pIndexData->player_name) == 0)
     fprintf (fp, "Name     %s~\n", mob->name);
   if (QUICKMATCH (mob->short_descr, mob->pIndexData->short_descr) == 0)
@@ -2915,6 +2975,19 @@ fread_mobile (FILE * fp)
 	case '#':
 	  if (!strcmp (word, "#OBJECT"))
 	    fread_obj (mob, fp, OS_CARRY);
+#ifdef OVERLANDCODE
+	case 'C':
+	      if ( !str_cmp( word, "Coordinates" ) )
+	      {
+		  mob->x = fread_number( fp );
+		  mob->y = fread_number( fp );
+		  mob->map	 = fread_number( fp );
+
+		  fMatch = TRUE;
+		  break;
+	      }
+		break;
+#endif
 	case 'D':
 	  KEY ("Description", mob->description, fread_string (fp));
 	  break;

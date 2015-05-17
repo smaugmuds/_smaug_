@@ -2092,7 +2092,7 @@ void new_map_to_char( CHAR_DATA * ch, short startx, short starty, short endx, sh
          {
             if( !IS_PLR_FLAG( ch, PLR_HOLYLIGHT ) )
             {
-               strncat( secbuf, " ", MAX_STRING_LENGTH );
+               mudstrlcat( secbuf, " ", MAX_STRING_LENGTH );
                lastsector = -1;
                continue;
             }
@@ -2139,14 +2139,14 @@ void new_map_to_char( CHAR_DATA * ch, short startx, short starty, short endx, sh
          }
 
          if( object && !other && !aship )
-            strncat( secbuf, "&Y$", MAX_STRING_LENGTH );
+            mudstrlcat( secbuf, "&Y$", MAX_STRING_LENGTH );
 
          if( other && !aship )
          {
             if( npc )
-               strncat( secbuf, "&B@", MAX_STRING_LENGTH );
+               mudstrlcat( secbuf, "&B@", MAX_STRING_LENGTH );
             else
-               strncat( secbuf, "&P@", MAX_STRING_LENGTH );
+               mudstrlcat( secbuf, "&P@", MAX_STRING_LENGTH );
          }
 
          if( aship )
@@ -2155,9 +2155,9 @@ void new_map_to_char( CHAR_DATA * ch, short startx, short starty, short endx, sh
          if( x == ch->x && y == ch->y && !aship )
          {
             if( group )
-               strncat( secbuf, "&Y@", MAX_STRING_LENGTH );
+               mudstrlcat( secbuf, "&Y@", MAX_STRING_LENGTH );
             else
-               strncat( secbuf, "&R@", MAX_STRING_LENGTH );
+               mudstrlcat( secbuf, "&R@", MAX_STRING_LENGTH );
             other = TRUE;
             lastsector = -1;
          }
@@ -2165,16 +2165,16 @@ void new_map_to_char( CHAR_DATA * ch, short startx, short starty, short endx, sh
          if( !other && !object && !aship )
          {
             if( lastsector == sector )
-               strncat( secbuf, sect_show[sector].symbol, MAX_STRING_LENGTH );
+               mudstrlcat( secbuf, sect_show[sector].symbol, MAX_STRING_LENGTH );
             else
             {
                lastsector = sector;
-               strncat( secbuf, sect_show[sector].color, MAX_STRING_LENGTH );
-               strncat( secbuf, sect_show[sector].symbol, MAX_STRING_LENGTH );
+               mudstrlcat( secbuf, sect_show[sector].color, MAX_STRING_LENGTH );
+               mudstrlcat( secbuf, sect_show[sector].symbol, MAX_STRING_LENGTH );
             }
          }
       }
-      strncat( secbuf, "\r\n", MAX_STRING_LENGTH );
+      mudstrlcat( secbuf, "\r\n", MAX_STRING_LENGTH );
    }
 
    /*
@@ -3590,7 +3590,7 @@ char *bamf_print( char *fmt, CHAR_DATA * ch )
 
    for( fp = strstr( fmt, "$n" ); fp; fmt = fp + 2, fp = strstr( fmt, "$n" ) )
       bp += snprintf( bp, MAX_STRING_LENGTH - ( bp - buf ), "%.*s%s", ( fp - fmt ), fmt, ch->name );
-   strncpy( bp, fmt, MAX_STRING_LENGTH - ( bp - buf ) );
+   mudstrlcpy( bp, fmt, MAX_STRING_LENGTH - ( bp - buf ) );
    return buf;
 }
 

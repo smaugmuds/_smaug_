@@ -754,8 +754,13 @@ talk_channel (CHAR_DATA * ch, char *argument, int channel, const char *verb)
 	    if (vch->race != ch->race)
 	      continue;
 
-	  if (xIS_SET (ch->act, PLR_WIZINVIS) &&
-	      can_see (vch, ch) && IS_IMMORTAL (vch))
+	  if (xIS_SET (ch->act, PLR_WIZINVIS)
+#ifdef OVERLANDCODE
+				&& can_see (vch, ch, FALSE)
+#else
+				&& can_see (vch, ch)
+#endif
+				&& IS_IMMORTAL (vch))
 	    {
 	      sprintf (lbuf, "(%d) ", (!IS_NPC (ch)) ? ch->pcdata->wizinvis
 		       : ch->mobinvis);
@@ -1172,10 +1177,12 @@ do_say_to (CHAR_DATA * ch, char *argument)
       else
 	{
 	  set_char_color (AT_IGNORE, victim);
-	  ch_printf (victim, _("You attempt to ignore %s, but "
-		     "are unable to do so.\n"), !can_see (victim,
-							   ch) ? _("Someone") :
-		     ch->name);
+	  ch_printf (victim, _("You attempt to ignore %s, but are unable to do so.\n"),
+#ifdef OVERLANDCODE
+			 !can_see (victim, ch, FALSE) ? _("Someone") : ch->name);
+#else
+			 !can_see (victim, ch) ? _("Someone") : ch->name);
+#endif
 	}
     }
 
@@ -1207,7 +1214,11 @@ do_say_to (CHAR_DATA * ch, char *argument)
 	      set_char_color (AT_IGNORE, vch);
 	      ch_printf (vch,
 			 _("You attempt to ignore %s, but are unable to do so.\n"),
+#ifdef OVERLANDCODE
+			 !can_see (vch, ch, FALSE) ? _("Someone") : ch->name);
+#else
 			 !can_see (vch, ch) ? _("Someone") : ch->name);
+#endif
 	    }
 	}
 
@@ -1430,6 +1441,13 @@ do_say (CHAR_DATA * ch, char *argument)
       if (vch == ch)
 	continue;
 
+#ifdef OVERLANDCODE
+	/* Check to see if a player on a map is at the same coords as the recipient 
+	   don't need to verify the PLR_ONMAP flags here, it's a room occupants check */
+	if( !is_same_map( vch, ch ) )
+		continue;
+#endif
+
       /* Check to see if character is ignoring speaker */
       if (is_ignoring (vch, ch))
 	{
@@ -1439,10 +1457,12 @@ do_say (CHAR_DATA * ch, char *argument)
 	  else
 	    {
 	      set_char_color (AT_IGNORE, vch);
-	      ch_printf (vch, _("You attempt to ignore %s, but"
-			 " are unable to do so.\n"), !can_see (vch,
-								ch) ?
-			 _("Someone") : ch->name);
+	      ch_printf (vch, _("You attempt to ignore %s, but are unable to do so.\n"),
+#ifdef OVERLANDCODE
+				!can_see (vch, ch, FALSE) ? _("Someone") : ch->name);
+#else
+				!can_see (vch, ch) ? _("Someone") : ch->name);
+#endif
 	    }
 	}
 
@@ -1625,10 +1645,12 @@ do_whisper (CHAR_DATA * ch, char *argument)
       else
 	{
 	  set_char_color (AT_IGNORE, victim);
-	  ch_printf (victim, "You attempt to ignore %s, but "
-		     "are unable to do so.\n", !can_see (victim,
-							   ch) ? _("Someone") :
-		     ch->name);
+	  ch_printf (victim, "You attempt to ignore %s, but are unable to do so.\n",
+#ifdef OVERLANDCODE
+			!can_see (victim, ch, FALSE) ? _("Someone") : ch->name);
+#else
+			!can_see (victim, ch) ? _("Someone") : ch->name);
+#endif
 	}
     }
 
@@ -1741,9 +1763,13 @@ do_beckon (CHAR_DATA * ch, char *argument)
   if (!IS_IMMORTAL (ch))
     WAIT_STATE (ch, 1 * PULSE_VIOLENCE);
   set_char_color (AT_ACTION, victim);
+#ifdef OVERLANDCODE
+  ch_printf (ch, "You beckon to %s...\n", PERS (victim, ch, FALSE));
+  ch_printf (victim, "%s beckons you...\n\a", capitalize (PERS (ch, victim, FALSE)));
+#else
   ch_printf (ch, "You beckon to %s...\n", PERS (victim, ch));
-  ch_printf (victim, "%s beckons you...\n\a",
-	     capitalize (PERS (ch, victim)));
+  ch_printf (victim, "%s beckons you...\n\a", capitalize (PERS (ch, victim)));
+#endif
   return;
 }
 
@@ -1916,10 +1942,12 @@ do_tell (CHAR_DATA * ch, char *argument)
       else
 	{
 	  set_char_color (AT_IGNORE, victim);
-	  ch_printf (victim, _("You attempt to ignore %s, but "
-		     "are unable to do so.\n"), !can_see (victim,
-							   ch) ? _("Someone") :
-		     ch->name);
+	  ch_printf (victim, _("You attempt to ignore %s, but are unable to do so.\n"),
+#ifdef OVERLANDCODE
+			!can_see (victim, ch, FALSE) ? _("Someone") : ch->name);
+#else
+			!can_see (victim, ch) ? _("Someone") : ch->name);
+#endif
 	}
     }
 
@@ -2022,8 +2050,14 @@ do_reply (CHAR_DATA * ch, char *argument)
       return;
     }
 
-  if (!IS_NPC (victim) && (victim->switched)
-      && can_see (ch, victim) && (get_trust (ch) > LEVEL_AVATAR))
+  if (!IS_NPC (victim)
+			&& (victim->switched)
+#ifdef OVERLANDCODE
+      && can_see (ch, victim, FALSE)
+#else
+      && can_see (ch, victim)
+#endif
+			&& (get_trust (ch) > LEVEL_AVATAR))
     {
       send_to_char (_("That player is switched.\n"), ch);
       return;
@@ -2097,10 +2131,12 @@ do_reply (CHAR_DATA * ch, char *argument)
       else
 	{
 	  set_char_color (AT_IGNORE, victim);
-	  ch_printf (victim, _("You attempt to ignore %s, but "
-		     "are unable to do so.\n"), !can_see (victim,
-							   ch) ? _("Someone") :
-		     ch->name);
+	  ch_printf (victim, _("You attempt to ignore %s, but are unable to do so.\n"),
+#ifdef OVERLANDCODE
+			!can_see (victim, ch, FALSE) ? _("Someone") : ch->name);
+#else
+			!can_see (victim, ch) ? _("Someone") : ch->name);
+#endif
 	}
     }
 
@@ -2299,10 +2335,12 @@ do_retell (CHAR_DATA * ch, char *argument)
       else
 	{
 	  set_char_color (AT_IGNORE, victim);
-	  ch_printf (victim, _("You attempt to ignore %s, but "
-		     "are unable to do so.\n"), !can_see (victim,
-							   ch) ? _("Someone") :
-		     ch->name);
+	  ch_printf (victim, _("You attempt to ignore %s, but are unable to do so.\n"),
+#ifdef OVERLANDCODE
+			!can_see (victim, ch, FALSE) ? _("Someone") : ch->name);
+#else
+			!can_see (victim, ch) ? _("Someone") : ch->name);
+#endif
 	}
     }
 
@@ -2461,6 +2499,13 @@ do_emote (CHAR_DATA * ch, char *argument)
     {
       char *sbuf = buf;
 
+#ifdef OVERLANDCODE
+		/* Check to see if a player on a map is at the same coords as the recipient 
+		   don't need to verify the PLR_ONMAP flags here, it's a room occupants check */
+		if( !is_same_map( vch, ch ) )
+			continue;
+#endif
+
       /* Check to see if character is ignoring emoter */
       if (is_ignoring (vch, ch))
 	{
@@ -2470,10 +2515,12 @@ do_emote (CHAR_DATA * ch, char *argument)
 	  else
 	    {
 	      set_char_color (AT_IGNORE, vch);
-	      ch_printf (vch, _("You attempt to ignore %s, but"
-			 " are unable to do so.\n"), !can_see (vch,
-								ch) ?
-			 _("Someone") : ch->name);
+	      ch_printf (vch, _("You attempt to ignore %s, but are unable to do so.\n"),
+#ifdef OVERLANDCODE
+					!can_see (vch, ch, FALSE) ? _("Someone") : ch->name);
+#else
+					!can_see (vch, ch) ? _("Someone") : ch->name);
+#endif
 	    }
 	}
 #ifndef SCRAMBLE
@@ -3469,7 +3516,11 @@ add_follower (CHAR_DATA * ch, CHAR_DATA * master)
   if (IS_NPC (ch) && xIS_SET (ch->act, ACT_PET) && !IS_NPC (master))
     master->pcdata->pet = ch;
 
+#ifdef OVERLANDCODE
+  if (can_see (master, ch, FALSE))
+#else
   if (can_see (master, ch))
+#endif
     act (AT_ACTION, _("$n now follows you."), ch, NULL, master, TO_VICT);
 
   act (AT_ACTION, _("You now follow $N."), ch, NULL, master, TO_CHAR);
@@ -3515,7 +3566,11 @@ stop_follower (CHAR_DATA * ch)
 	ch->master->pcdata->charmies--;
     }
 
+#ifdef OVERLANDCODE
+  if (can_see (ch->master, ch, FALSE))
+#else
   if (can_see (ch->master, ch))
+#endif
     if (!
 	(!IS_NPC (ch->master) && IS_IMMORTAL (ch)
 	 && !IS_IMMORTAL (ch->master)))
@@ -3668,7 +3723,11 @@ do_group (CHAR_DATA * ch, char *argument)
       set_char_color (AT_DGREEN, ch);
       ch_printf (ch,
 		 "\nFollowing %-12.12s     [hitpnts]   [ magic ] [mst] [mvs] [race]%s\n",
+#ifdef OVERLANDCODE
+		 PERS (leader, ch, TRUE),
+#else
 		 PERS (leader, ch),
+#endif
 		 ch->level < LEVEL_AVATAR ? " [to lvl]" : "");
       for (gch = first_char; gch; gch = gch->next)
 	{
@@ -3681,7 +3740,11 @@ do_group (CHAR_DATA * ch, char *argument)
 			   gch->level,
 			   IS_NPC (gch) ? "Mob" : class_table[gch->
 							      class]->who_name,
+#ifdef OVERLANDCODE
+			   capitalize (PERS (gch, ch, TRUE)), "????", "????",
+#else
 			   capitalize (PERS (gch, ch)), "????", "????",
+#endif
 			   "????", "????", IS_VAMPIRE(gch) || IS_DEMON(gch) ? "bp" : "mana",
 			   "????", "????", "?????");
 	      else if (gch->alignment > 750)
@@ -3709,7 +3772,11 @@ do_group (CHAR_DATA * ch, char *argument)
 	      set_char_color (AT_DGREEN, ch);
 	      send_to_char ("]  ", ch);
 	      set_char_color (AT_GREEN, ch);
+#ifdef OVERLANDCODE
+	      ch_printf (ch, "%-12.12s ", capitalize (PERS (gch, ch, TRUE)));
+#else
 	      ch_printf (ch, "%-12.12s ", capitalize (PERS (gch, ch)));
+#endif
 	      if (gch->hit < gch->max_hit / 4)
 		set_char_color (AT_DANGER, ch);
 	      else if (gch->hit < gch->max_hit / 2.5)
@@ -3810,7 +3877,11 @@ do_group (CHAR_DATA * ch, char *argument)
 	{
 	  if (ch != rch
 	      && !IS_NPC (rch)
+#ifdef OVERLANDCODE
+	      && can_see (ch, rch, FALSE)
+#else
 	      && can_see (ch, rch)
+#endif
 	      && !is_same_group (rch, ch)
 	      && rch->master == ch
 	      && !ch->master

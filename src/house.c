@@ -917,7 +917,11 @@ do_accessories (CHAR_DATA * ch, char *argument)
 	  OBJ_DATA *obj;
 
 	  obj = create_object (objindex, objindex->level);
+#ifdef OVERLANDCODE
+	  obj_to_room (obj, location, ch);
+#else
 	  obj_to_room (obj, location);
+#endif
 	}
       else
 	{
@@ -2085,7 +2089,11 @@ load_house_file (char *name)
   while ((obj = supermob->first_carrying) != NULL)
     {
       obj_from_char (obj);
+#ifdef OVERLANDCODE
+      obj_to_room (obj, pRoom, supermob);
+#else
       obj_to_room (obj, pRoom);
+#endif
     }
 
   release_supermob ();

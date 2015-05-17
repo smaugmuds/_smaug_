@@ -486,6 +486,9 @@
 /* Some strange OS */
 #undef OTHEROS
 
+/* Overland Support */
+#undef OVERLANDCODE
+
 /* Name of package */
 #undef PACKAGE
 

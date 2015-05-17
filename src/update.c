@@ -45,8 +45,6 @@
 #include <time.h>
 #include "mud.h"
 
-
-
 /*
  * Local functions.
  */
@@ -66,6 +64,12 @@ void char_check args ((void));
 void drunk_randoms args ((CHAR_DATA * ch));
 void hallucinations args ((CHAR_DATA * ch));
 void subtract_times args ((struct timeval * etime, struct timeval * stime));
+
+#ifdef OVERLANDCODE
+/* Overland Map movement - Samson 7-31-99 */
+bool map_wander( CHAR_DATA *ch, short map, short x, short y, short sector );
+#endif
+
 #ifdef ENABLE_QUEST
 void quest_update args ((void)); /* Vassago - quest.c */
 #endif
@@ -987,7 +991,62 @@ mobile_update (void)
 	  && (!xIS_SET (ch->act, ACT_STAY_AREA)
 	      || pexit->to_room->area == ch->in_room->area))
 	{
-	  retcode = move_char (ch, pexit, 0);
+#ifdef OVERLANDCODE
+      /* Map wanderers - Samson 7-29-00 */
+      if( IS_ACT_FLAG( ch, ACT_ONMAP ) )
+	{
+	   short sector = get_terrain( ch->map, ch->x, ch->y );
+	   short map = ch->map;
+	   short x = ch->x;
+	   short y = ch->y;
+           short dir = number_bits( 5 );
+
+	   if( dir < DIR_SOMEWHERE && dir != DIR_UP && dir != DIR_DOWN )
+	   {
+		switch( dir )
+		{
+		   case DIR_NORTH:
+			if( map_wander( ch, map, x, y-1, sector ) )
+			   move_char( ch, NULL, 0, DIR_NORTH );
+		   break;
+		   case DIR_NORTHEAST:
+			if( map_wander( ch, map, x+1, y-1, sector ) )
+			   move_char( ch, NULL, 0, DIR_NORTHEAST );
+		   break;
+		   case DIR_EAST:
+			if( map_wander( ch, map, x+1, y, sector ) )
+			   move_char( ch, NULL, 0, DIR_EAST );
+		   break;
+		   case DIR_SOUTHEAST:
+			if( map_wander( ch, map, x+1, y+1, sector ) )
+			   move_char( ch, NULL, 0, DIR_SOUTHEAST );
+		   break;
+		   case DIR_SOUTH:
+			if( map_wander( ch, map, x, y+1, sector ) )
+			   move_char( ch, NULL, 0, DIR_SOUTH );
+		   break;
+		   case DIR_SOUTHWEST:
+			if( map_wander( ch, map, x-1, y+1, sector ) )
+			   move_char( ch, NULL, 0, DIR_SOUTHWEST );
+		   break;
+		   case DIR_WEST:
+			if( map_wander( ch, map, x-1, y, sector ) )
+			   move_char( ch, NULL, 0, DIR_WEST );
+		   break;
+		   case DIR_NORTHWEST:
+			if( map_wander( ch, map, x-1, y-1, sector ) )
+			   move_char( ch, NULL, 0, DIR_NORTHWEST );
+		   break;
+		}
+	   }
+	   if( char_died(ch) )
+		continue;
+	}
+
+		  retcode = move_char (ch, pexit, 0, door);
+#else
+		  retcode = move_char (ch, pexit, 0);
+#endif
 	  /* If ch changes position due
 	     to it's or someother mob's
 	     movement via MOBProgs,
@@ -1037,7 +1096,11 @@ mobile_update (void)
 		}
 	    }
 	  if (found)
-	    retcode = move_char (ch, pexit, 0);
+#ifdef OVERLANDCODE
+		  retcode = move_char (ch, pexit, 0, door);
+#else
+		  retcode = move_char (ch, pexit, 0);
+#endif
 	}
     }
 
@@ -1337,6 +1400,29 @@ char_update (void)
 	      gain_condition (ch, COND_FULL, --value);
 	    }
 
+#ifdef OVERLANDCODE
+	   if ( ch->in_room )
+	   {
+	      int sector;
+
+	      if( IS_PLR_FLAG( ch, PLR_ONMAP ) )
+		   sector = get_terrain( ch->map, ch->x, ch->y );
+	      else
+	         sector = ch->in_room->sector_type;
+
+	      switch( sector )
+	      {
+	         default:
+	            gain_condition( ch, COND_THIRST, -1 + race_table[ch->race]->thirst_mod);  break;
+	         case SECT_DESERT:
+		    gain_condition( ch, COND_THIRST, -3 + race_table[ch->race]->thirst_mod);  break;
+	         case SECT_UNDERWATER:
+	         case SECT_OCEANFLOOR:
+	         if ( number_bits(1) == 0 )
+		    gain_condition( ch, COND_THIRST, -1 + race_table[ch->race]->thirst_mod);  break;
+	      }
+	   }
+#else
 	  if (ch->in_room)
 	    switch (ch->in_room->sector_type)
 	      {
@@ -1355,7 +1441,7 @@ char_update (void)
 				  -1 + race_table[ch->race]->thirst_mod);
 		break;
 	      }
-
+#endif
 	}
       if (!IS_NPC (ch) && !IS_IMMORTAL (ch) && ch->pcdata->release_date > 0 &&
 	  ch->pcdata->release_date <= current_time)
@@ -1988,7 +2074,11 @@ char_check (void)
 		  && (!xIS_SET (ch->act, ACT_STAY_AREA)
 		      || pexit->to_room->area == ch->in_room->area))
 		{
+#ifdef OVERLANDCODE
+		  retcode = move_char (ch, pexit, 0, door);
+#else
 		  retcode = move_char (ch, pexit, 0);
+#endif
 		  if (char_died (ch))
 		    continue;
 		  if (retcode != rNONE || xIS_SET (ch->act, ACT_SENTINEL)
@@ -2098,7 +2188,11 @@ char_check (void)
 		      || IS_AFFECTED (wch, AFF_CHARM)
 		      || !IS_AWAKE (wch)
 		      || (xIS_SET (wch->act, ACT_WIMPY) && IS_AWAKE (ch))
+#ifdef OVERLANDCODE
+		      || !can_see (wch, ch, FALSE))
+#else
 		      || !can_see (wch, ch))
+#endif
 		    continue;
 
 		  if (is_hating (wch, ch))
@@ -2222,7 +2316,11 @@ aggr_update (void)
 	      || IS_AFFECTED (ch, AFF_CHARM)
 	      || !IS_AWAKE (ch)
 	      || (xIS_SET (ch->act, ACT_WIMPY) && IS_AWAKE (wch))
+#ifdef OVERLANDCODE
+	      || !can_see (ch, wch, FALSE))
+#else
 	      || !can_see (ch, wch))
+#endif
 	    continue;
 
 	  if (is_hating (ch, wch))
@@ -2254,7 +2352,11 @@ aggr_update (void)
 		   || xIS_SET (vch->act, ACT_ANNOYING))
 		  && vch->level < LEVEL_IMMORTAL
 		  && (!xIS_SET (ch->act, ACT_WIMPY) || !IS_AWAKE (vch))
+#ifdef OVERLANDCODE
+		  && can_see (ch, vch, FALSE))
+#else
 		  && can_see (ch, vch))
+#endif
 		{
 		  if (number_range (0, count) == 0)
 		    victim = vch;
@@ -2936,7 +3038,11 @@ auction_update (void)
 		{
 		    act( AT_PLAIN, "$p is too heavy for you to carry with your current inventory.", auction->buyer, auction->item, NULL, TO_CHAR );
     		    act( AT_PLAIN, "$n is carrying too much to also carry $p, and $e drops it.", auction->buyer, auction->item, NULL, TO_ROOM );
+#ifdef OVERLANDCODE
+		    obj_to_room( auction->item, auction->buyer->in_room, auction->buyer );
+#else
 		    obj_to_room( auction->item, auction->buyer->in_room );
+#endif
 		}
 		else
 		    obj_to_char( auction->item, auction->buyer );
@@ -3016,7 +3122,11 @@ auction_update (void)
 		    act( AT_PLAIN, "$n drops $p as it is too much extra weight"
 			" for $m with everything else.", auction->seller,
 			auction->item, NULL, TO_ROOM );
+#ifdef OVERLANDCODE
+		    obj_to_room( auction->item, auction->seller->in_room, auction->seller );
+#else
 		    obj_to_room( auction->item, auction->seller->in_room );
+#endif
 		}
 		else
 		    obj_to_char (auction->item,auction->seller);
@@ -3144,7 +3254,11 @@ auction_update (void)
 	      act (AT_PLAIN,
 		   "$n is carrying too much to also carry $p, and $e drops it.",
 		   auction->buyer, auction->item, NULL, TO_ROOM);
+#ifdef OVERLANDCODE
+	      obj_to_room (auction->item, auction->buyer->in_room, auction->buyer);
+#else
 	      obj_to_room (auction->item, auction->buyer->in_room);
+#endif
 	    }
 	  else
 	    obj_to_char (auction->item, auction->buyer);
@@ -3186,7 +3300,11 @@ auction_update (void)
 	      act (AT_PLAIN, "$n drops $p as it is too much extra weight"
 		   " for $m with everything else.", auction->seller,
 		   auction->item, NULL, TO_ROOM);
+#ifdef OVERLANDCODE
+	      obj_to_room (auction->item, auction->seller->in_room, auction->seller);
+#else
 	      obj_to_room (auction->item, auction->seller->in_room);
+#endif
 	    }
 	  else
 	    obj_to_char (auction->item, auction->seller);

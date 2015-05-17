@@ -103,7 +103,11 @@ do_owhere (CHAR_DATA * ch, char *argument)
       sprintf (buf, "%3d %5d %-18s ", ++icnt, obj->pIndexData->vnum, field);
       if (outer_obj->carried_by)
 	{
+#ifdef OVERLANDCODE
+	  sprintf (field, "%-18s", PERS (outer_obj->carried_by, ch, TRUE));
+#else
 	  sprintf (field, "%-18s", PERS (outer_obj->carried_by, ch));
+#endif
 	  truncs (field, 18);
 	  sprintf (buf + strlen (buf), "%5d %-18s ",
 		   (IS_NPC (outer_obj->carried_by) ?
@@ -2326,7 +2330,12 @@ do_diagnose (CHAR_DATA * ch, char *argument)
 
       for (dsrc = first_descriptor; dsrc; dsrc = dsrc_next)
 	{
-	  if ((dsrc->character && !can_see (ch, dsrc->character))
+	  if ((dsrc->character
+#ifdef OVERLANDCODE
+				&& !can_see (ch, dsrc->character, FALSE))
+#else
+				&& !can_see (ch, dsrc->character))
+#endif
 	      || !dsrc->user || !dsrc->host)
 	    {
 	      dsrc_next = dsrc->next;
@@ -2345,7 +2354,12 @@ do_diagnose (CHAR_DATA * ch, char *argument)
 
 	      if (dsrc == ddst)
 		continue;
-	      if ((ddst->character && !can_see (ch, dsrc->character))
+	      if ((ddst->character
+#ifdef OVERLANDCODE
+				&& !can_see (ch, dsrc->character, FALSE))
+#else
+				&& !can_see (ch, dsrc->character))
+#endif
 		  || !ddst->user || !ddst->host)
 		continue;
 
@@ -2533,7 +2547,12 @@ do_diagnose (CHAR_DATA * ch, char *argument)
 
       for (dsrc = first_descriptor; dsrc; dsrc = dsrc_next)
 	{
-	  if ((dsrc->character && !can_see (ch, dsrc->character))
+	  if ((dsrc->character
+#ifdef OVERLANDCODE
+				&& !can_see (ch, dsrc->character, FALSE))
+#else
+				&& !can_see (ch, dsrc->character))
+#endif
 	      || !dsrc->user || !dsrc->host)
 	    {
 	      dsrc_next = dsrc->next;
@@ -2552,7 +2571,12 @@ do_diagnose (CHAR_DATA * ch, char *argument)
 
 	      if (dsrc == ddst)
 		continue;
-	      if ((ddst->character && !can_see (ch, dsrc->character))
+	      if ((ddst->character
+#ifdef OVERLANDCODE
+				&& !can_see (ch, dsrc->character, FALSE))
+#else
+				&& !can_see (ch, dsrc->character))
+#endif
 		  || !ddst->user || !ddst->host)
 		continue;
 

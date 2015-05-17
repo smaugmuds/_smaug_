@@ -935,7 +935,11 @@ violence_update (void)
 		      for (vch = ch->in_room->first_person; vch;
 			   vch = vch->next)
 			{
+#ifdef OVERLANDCODE
+			  if (can_see (rch, vch, FALSE)
+#else
 			  if (can_see (rch, vch)
+#endif
 			      && is_same_group (vch, victim)
 			      && number_range (0, number) == 0)
 			    {
@@ -1142,21 +1146,30 @@ multi_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
   if (number_percent () < chance)
     retcode = one_hit (ch, victim, dt);
 
+#ifdef OVERLANDCODE
+  if ( retcode == rNONE && !char_died(ch) )
+#else
   if (retcode == rNONE)
+#endif
     {
       int move;
 
       if (!IS_AFFECTED (ch, AFF_FLYING) && !IS_AFFECTED (ch, AFF_FLOATING))
-	move =
-	  encumbrance (ch,
-		       movement_loss[UMIN
-				     (SECT_MAX - 1,
-				      ch->in_room->sector_type)]);
+#ifdef OVERLANDCODE
+        move = encumbrance( ch, sect_show[ch->in_room->sector_type].move );
+#else
+				move = encumbrance (ch, movement_loss[UMIN(SECT_MAX - 1, ch->in_room->sector_type)]);
+#endif
       else
-	move = encumbrance (ch, 1);
-      if (ch->move)
-	ch->move = UMAX (0, ch->move - move);
+				move = encumbrance (ch, 1);
+#ifdef OVERLANDCODE
+      if ( ch->move > 0 )
+#else
+     	if (ch->move)
+#endif
+				ch->move = UMAX (0, ch->move - move);
     }
+
   return retcode;
 }
 
@@ -1490,7 +1503,11 @@ one_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
   /* if you can't see what's coming... */
   if (wield && !can_see_obj (victim, wield))
     victim_ac += 1;
+#ifdef OVERLANDCODE
+  if (!can_see (ch, victim, FALSE))
+#else
   if (!can_see (ch, victim))
+#endif
     victim_ac -= 4;
 
   /*
@@ -1852,7 +1869,11 @@ projectile_hit (CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * wield,
   /* if you can't see what's coming... */
   if (!can_see_obj (victim, projectile))
     victim_ac += 1;
+#ifdef OVERLANDCODE
+  if (!can_see (ch, victim, FALSE))
+#else
   if (!can_see (ch, victim))
+#endif
     victim_ac -= 4;
 
   /* Weapon proficiency bonus */
@@ -1879,7 +1900,11 @@ projectile_hit (CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * wield,
 	    obj_from_obj (projectile);
 	  if (projectile->carried_by)
 	    obj_from_char (projectile);
+#ifdef OVERLANDCODE
+	  obj_to_room (projectile, victim->in_room, victim);
+#else
 	  obj_to_room (projectile, victim->in_room);
+#endif
 	}
       damage (ch, victim, 0, dt);
       tail_chain ();
@@ -2018,7 +2043,11 @@ projectile_hit (CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * wield,
 		    obj_from_obj (projectile);
 		  if (projectile->carried_by)
 		    obj_from_char (projectile);
+#ifdef OVERLANDCODE
+		  obj_to_room (projectile, victim->in_room, victim);
+#else
 		  obj_to_room (projectile, victim->in_room);
+#endif
 		}
 	      return rNONE;
 	    }
@@ -2052,7 +2081,11 @@ projectile_hit (CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * wield,
 	    obj_from_obj (projectile);
 	  if (projectile->carried_by)
 	    obj_from_char (projectile);
+#ifdef OVERLANDCODE
+	  obj_to_room (projectile, victim->in_room, victim);
+#else
 	  obj_to_room (projectile, victim->in_room);
+#endif
 	}
       return retcode;
     }
@@ -3982,7 +4015,11 @@ death_cry (CHAR_DATA * ch)
       STRFREE (obj->description);
       obj->description = STRALLOC (buf);
 
+#ifdef OVERLANDCODE
+      obj = obj_to_room (obj, ch->in_room, ch);
+#else
       obj = obj_to_room (obj, ch->in_room);
+#endif
     }
 
   if (IS_NPC (ch))
@@ -4243,7 +4280,11 @@ group_gain (CHAR_DATA * ch, CHAR_DATA * victim)
 	      if (in_arena (ch))
 		obj = obj_to_char (obj, ch);
 	      else
+#ifdef OVERLANDCODE
+		obj = obj_to_room (obj, ch->in_room, ch);
+#else
 		obj = obj_to_room (obj, ch->in_room);
+#endif
 	      oprog_zap_trigger (ch, obj);	/* mudprogs */
 	      if (char_died (ch))
 		return;
@@ -4798,6 +4839,11 @@ do_flee (CHAR_DATA * ch, char *argument)
   int attempt, los;
   sh_int door;
   EXIT_DATA *pexit;
+#ifdef OVERLANDCODE
+  int oldmap = ch->map;
+  int oldx = ch->x;
+  int oldy = ch->y;
+#endif
 
   if (!who_fighting (ch))
     {
@@ -4856,10 +4902,27 @@ do_flee (CHAR_DATA * ch, char *argument)
       affect_strip (ch, gsn_sneak);
       xREMOVE_BIT (ch->affected_by, AFF_SNEAK);
       if (ch->mount && ch->mount->fighting)
-	stop_fighting (ch->mount, TRUE);
+				stop_fighting (ch->mount, TRUE);
+
+#ifdef OVERLANDCODE
+	move_char( ch, pexit, 0, door );
+	if( IS_PLR_FLAG( ch, PLR_ONMAP ) || IS_ACT_FLAG( ch, ACT_ONMAP ) )
+	{
+	   now_in = ch->in_room;
+	   if( ch->map == oldmap && ch->x == oldx && ch->y == oldy )
+		continue;
+	}
+	else
+	{
+	   if ( ( now_in = ch->in_room ) == was_in )
+	     continue;
+	}
+#else
       move_char (ch, pexit, 0);
       if ((now_in = ch->in_room) == was_in)
-	continue;
+				continue;
+#endif
+
       ch->in_room = was_in;
       act (AT_FLEE, "$n flees head over heels!", ch, NULL, NULL, TO_ROOM);
       ch->in_room = now_in;

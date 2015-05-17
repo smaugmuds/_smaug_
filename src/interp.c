@@ -764,7 +764,11 @@ first place.  Whaddya gonna do? */
 		    send_to_char (_("You cannot do that here.\n"), ch);
 		  return;
 		}
+#ifdef OVERLANDCODE
+	      move_char (ch, pexit, 0, pexit->vdir);
+#else
 	      move_char (ch, pexit, 0);
+#endif
 	      return;
 	    }
 	  send_to_char (_("Huh?\n"), ch);
@@ -948,10 +952,12 @@ check_social (CHAR_DATA * ch, char *command, char *argument)
 	  else
 	    {
 	      set_char_color (AT_IGNORE, victim);
-	      ch_printf (victim, "You attempt to ignore %s,"
-			 " but are unable to do so.\n\r", !can_see (victim,
-								    ch) ?
-			 "Someone" : ch->name);
+	      ch_printf (victim, "You attempt to ignore %s, but are unable to do so.\n\r",
+#ifdef OVERLANDCODE
+					 !can_see (victim, ch, FALSE) ? "Someone" : ch->name);
+#else
+					 !can_see (victim, ch) ? "Someone" : ch->name);
+#endif
 	    }
 	}
     }

@@ -57,7 +57,9 @@
 #define SUMMER_THIRST 1
 #define SUMMER_THIRST_DESERT 2
 
+#ifndef OVERLANDCODE
 #define SECT_ICE 3
+#endif
 
 char *const day_name[MAX_STRING_LENGTH];
 char *const month_name[MAX_STRING_LENGTH];

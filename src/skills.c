@@ -2070,9 +2070,24 @@ do_dig (CHAR_DATA * ch, char *argument)
 	}
       else
 	{
+#ifdef OVERLANDCODE
+	  int sector;
+
+		if( IS_PLR_FLAG(ch, PLR_ONMAP) || IS_ACT_FLAG(ch, ACT_ONMAP) )
+		    sector = map_sector[ch->map][ch->x][ch->y];
+		else
+		    sector = ch->in_room->sector_type;
+		
+	  switch( sector )
+#else
 	  switch (ch->in_room->sector_type)
+#endif
 	    {
 	    case SECT_CITY:
+#ifdef OVERLANDCODE
+		    send_to_char( "The road is too hard to dig through.\r\n", ch );
+		    return;
+#endif
 	    case SECT_INSIDE:
 	      send_to_char ("The floor is too hard to dig through.\n\r", ch);
 	      return;
@@ -3531,7 +3546,11 @@ do_bloodlet (CHAR_DATA * ch, char *argument)
       obj = create_object (get_obj_index (OBJ_VNUM_BLOODLET), 0);
       obj->timer = 1;
       obj->value[1] = 6;
+#ifdef OVERLANDCODE
+      obj_to_room (obj, ch->in_room, ch);
+#else
       obj_to_room (obj, ch->in_room);
+#endif
       damage (ch, ch, ch->level / 5, gsn_bloodlet);
     }
   else
@@ -3699,7 +3718,11 @@ disarm (CHAR_DATA * ch, CHAR_DATA * victim)
       obj->action_desc = STRALLOC ("");
     }
   else
+#ifdef OVERLANDCODE
+    obj_to_room (obj, victim->in_room, victim);
+#else
     obj_to_room (obj, victim->in_room);
+#endif
   return;
 }
 
@@ -5288,8 +5311,14 @@ do_hitall (CHAR_DATA * ch, char *argument)
   for (vch = ch->in_room->first_person; vch; vch = vch_next)
     {
       vch_next = vch->next_in_room;
-      if (is_same_group (ch, vch) || !is_legal_kill (ch, vch) ||
-	  !can_see (ch, vch) || is_safe (ch, vch, TRUE))
+      if (is_same_group (ch, vch)
+				|| !is_legal_kill (ch, vch)
+#ifdef OVERLANDCODE
+				|| !can_see (ch, vch, FALSE)
+#else
+				|| !can_see (ch, vch)
+#endif
+				|| is_safe (ch, vch, TRUE))
 	continue;
       if (++nvict > ch->level / 5)
 	break;
@@ -5696,7 +5725,11 @@ ranged_got_target (CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * weapon,
 		obj_from_obj (projectile);
 	      if (projectile->carried_by)
 		obj_from_char (projectile);
-	      obj_to_room (projectile, victim->in_room);
+#ifdef OVERLANDCODE
+    obj_to_room (projectile, victim->in_room, victim);
+#else
+    obj_to_room (projectile, victim->in_room);
+#endif
 	    }
 	}
       return damage (ch, victim, 0, dt);
@@ -5762,7 +5795,11 @@ ranged_got_target (CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * weapon,
 		obj_from_obj (projectile);
 	      if (projectile->carried_by)
 		obj_from_char (projectile);
+#ifdef OVERLANDCODE
+	      obj_to_room (projectile, victim->in_room, victim);
+#else
 	      obj_to_room (projectile, victim->in_room);
+#endif
 	    }
 	}
     }
@@ -6114,7 +6151,11 @@ ranged_attack (CHAR_DATA * ch, char *argument, OBJ_DATA * weapon,
 		obj_from_obj (projectile);
 	      if (projectile->carried_by)
 		obj_from_char (projectile);
+#ifdef OVERLANDCODE
+	      obj_to_room (projectile, ch->in_room, ch);
+#else
 	      obj_to_room (projectile, ch->in_room);
+#endif
 	    }
 	  else
 	    {
@@ -6139,7 +6180,11 @@ ranged_attack (CHAR_DATA * ch, char *argument, OBJ_DATA * weapon,
 		obj_from_obj (projectile);
 	      if (projectile->carried_by)
 		obj_from_char (projectile);
+#ifdef OVERLANDCODE
+	      obj_to_room (projectile, ch->in_room, ch);
+#else
 	      obj_to_room (projectile, ch->in_room);
+#endif
 	    }
 	  else
 	    {

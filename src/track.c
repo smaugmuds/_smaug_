@@ -298,7 +298,11 @@ found_prey (CHAR_DATA * ch, CHAR_DATA * victim)
 
   sprintf (victname, IS_NPC (victim) ? victim->short_descr : victim->name);
 
+#ifdef OVERLANDCODE
+  if (!can_see (ch, victim, FALSE))
+#else
   if (!can_see (ch, victim))
+#endif
     {
       if (number_percent () < 90)
 	return;
@@ -435,7 +439,11 @@ hunt_victim (CHAR_DATA * ch)
 	  bug ("Hunt_victim: lost exit?", 0);
 	  return;
 	}
+#ifdef OVERLANDCODE
+      move_char (ch, pexit, FALSE, pexit->vdir);
+#else
       move_char (ch, pexit, FALSE);
+#endif
 
       /* Crash bug fix by Shaddai */
       if (char_died (ch))

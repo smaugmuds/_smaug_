@@ -3231,25 +3231,49 @@ act_string (const char *format, CHAR_DATA * to, CHAR_DATA * ch,
 	      break;
 	    case 'n':
 	      if (ch->morph == NULL)
+#ifdef OVERLANDCODE
+		i = (to ? PERS (ch, to, FALSE) : NAME (ch));
+#else
 		i = (to ? PERS (ch, to) : NAME (ch));
+#endif
 	      else if (!IS_SET (flags, STRING_IMM))
+#ifdef OVERLANDCODE
+		i = (to ? MORPHPERS (ch, to, FALSE) : MORPHNAME (ch));
+#else
 		i = (to ? MORPHPERS (ch, to) : MORPHNAME (ch));
+#endif
 	      else
 		{
 		  sprintf (temp, _("(MORPH) %s"),
+#ifdef OVERLANDCODE
+			   (to ? PERS (ch, to, FALSE) : NAME (ch)));
+#else
 			   (to ? PERS (ch, to) : NAME (ch)));
+#endif
 		  i = temp;
 		}
 	      break;
 	    case 'N':
 	      if (vch->morph == NULL)
+#ifdef OVERLANDCODE
+		i = (to ? PERS (vch, to, FALSE) : NAME (vch));
+#else
 		i = (to ? PERS (vch, to) : NAME (vch));
+#endif
 	      else if (!IS_SET (flags, STRING_IMM))
+#ifdef OVERLANDCODE
+		i = (to ? MORPHPERS (vch, to, FALSE) : MORPHNAME (vch));
+#else
 		i = (to ? MORPHPERS (vch, to) : MORPHNAME (vch));
+#endif
 	      else
 		{
 		  sprintf (temp, _("(MORPH) %s"),
+#ifdef OVERLANDCODE
+			   (to ? PERS (vch, to, FALSE) : NAME (vch)));
+#else
 			   (to ? PERS (vch, to) : NAME (vch)));
+#endif
 		  i = temp;
 		}
 	      break;
@@ -3534,10 +3558,53 @@ act (sh_int AType, const char *format, CHAR_DATA * ch, const void *arg1,
 	  || !IS_AWAKE (to))
 	continue;
 
+#ifdef OVERLANDCODE
+	if( type == TO_CHAR )
+	{
+	   if( to != ch )
+	      continue;
+
+	   if( !is_same_map( ch, to ) )
+	      continue;
+	}
+#else
       if (type == TO_CHAR && to != ch)
 	continue;
+#endif
       if (type == TO_VICT && (to != vch || to == ch))
 	continue;
+#ifdef OVERLANDCODE
+	if( type == TO_ROOM )
+	{
+	   if( to == ch )
+	      continue;
+
+	   if( !is_same_map( ch, to ) )
+	      continue;
+        }
+	if( type == TO_NOTVICT )
+	{
+	   if( to == ch || to == vch )
+	      continue;
+
+	   if( !is_same_map( ch, to ) )
+	      continue;
+	}
+	if( type == TO_CANSEE )
+	{
+ 	   if( to == ch )
+		continue;
+
+	   if( IS_IMMORTAL(ch) && IS_PLR_FLAG( ch, PLR_WIZINVIS ) )
+	   {
+ 		if( to->level < ch->pcdata->wizinvis )
+		continue;
+	   }
+
+	   if( !is_same_map( ch, to ) )
+	      continue;
+	}
+#else
       if (type == TO_ROOM && to == ch)
 	continue;
       if (type == TO_NOTVICT && (to == ch || to == vch))
@@ -3548,11 +3615,13 @@ act (sh_int AType, const char *format, CHAR_DATA * ch, const void *arg1,
 				     && (get_trust (to) <
 					 (ch->pcdata ? ch->
 					  pcdata->wizinvis : 0))))))
-#ifdef ENABLE_OLC2
 	    continue;
-	if ( to->desc && is_inolc(to->desc) )
 #endif
+
+#ifdef ENABLE_OLC2
+	if ( to->desc && is_inolc(to->desc) )
 	continue;
+#endif
 
       if (IS_IMMORTAL (to))
 	txt = act_string (format, to, ch, arg1, arg2, STRING_IMM);

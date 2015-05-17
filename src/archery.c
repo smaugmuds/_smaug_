@@ -325,7 +325,11 @@ ch_ret projectile_hit( CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * wield, OBJ
     */
    if( !can_see_obj( victim, projectile ) )
       victim_ac += 1;
+#ifdef OVERLANDCODE
+   if( !can_see( ch, victim, FALSE ) )
+#else
    if( !can_see( ch, victim ) )
+#endif
       victim_ac -= 4;
 
    /*
@@ -356,7 +360,11 @@ ch_ret projectile_hit( CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * wield, OBJ
       {
          if( projectile->carried_by )
             obj_from_char( projectile );
+#ifdef OVERLANDCODE
+         obj_to_room( projectile, victim->in_room, victim );
+#else
          obj_to_room( projectile, victim->in_room );
+#endif
       }
       damage( ch, victim, 0, dt );
       tail_chain(  );
@@ -517,7 +525,11 @@ ch_ret projectile_hit( CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * wield, OBJ
             {
                if( projectile->carried_by )
                   obj_from_char( projectile );
+#ifdef OVERLANDCODE
+               obj_to_room( projectile, victim->in_room, victim );
+#else
                obj_to_room( projectile, victim->in_room );
+#endif
             }
             return rNONE;
          }
@@ -584,7 +596,11 @@ ch_ret projectile_hit( CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * wield, OBJ
       {
          if( projectile->carried_by )
             obj_from_char( projectile );
+#ifdef OVERLANDCODE
+         obj_to_room( projectile, victim->in_room, victim );
+#else
          obj_to_room( projectile, victim->in_room );
+#endif
       }
       return retcode;
    }
@@ -686,7 +702,11 @@ ch_ret ranged_got_target( CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * weapon,
                     obj_from_obj(projectile);
                 if ( projectile->carried_by )
                     obj_from_char(projectile);
+#ifdef OVERLANDCODE
                 obj_to_room(projectile, victim->in_room, victim);
+#else
+                obj_to_room(projectile, victim->in_room);
+#endif
             }
         }
 	return damage( ch, victim, 0, dt );
@@ -751,7 +771,11 @@ ch_ret ranged_got_target( CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * weapon,
          {
             if( projectile->carried_by )
                obj_from_char( projectile );
+#ifdef OVERLANDCODE
+            obj_to_room( projectile, victim->in_room, victim );
+#else
             obj_to_room( projectile, victim->in_room );
+#endif
          }
       }
    }
@@ -1171,7 +1195,11 @@ ch_ret ranged_attack( CHAR_DATA * ch, char *argument, OBJ_DATA * weapon, OBJ_DAT
                obj_from_obj( projectile );
             if( projectile->carried_by )
                obj_from_char( projectile );
+#ifdef OVERLANDCODE
+            obj_to_room( projectile, ch->in_room, ch );
+#else
             obj_to_room( projectile, ch->in_room );
+#endif
          }
          else
          {
@@ -1193,7 +1221,11 @@ ch_ret ranged_attack( CHAR_DATA * ch, char *argument, OBJ_DATA * weapon, OBJ_DAT
                obj_from_obj( projectile );
             if( projectile->carried_by )
                obj_from_char( projectile );
+#ifdef OVERLANDCODE
+            obj_to_room( projectile, ch->in_room, ch );
+#else
             obj_to_room( projectile, ch->in_room );
+#endif
          }
          else
          {

@@ -348,8 +348,10 @@ skill_function (char *name)
 	return do_astat;
       if (!str_cmp (name, "do_at"))
 	return do_at;
+#ifndef OVERLANDCODE
       if (!str_cmp (name, "do_atobj"))
 	return do_atobj;
+#endif
       if (!str_cmp (name, "do_auction"))
 	return do_auction;
       if (!str_cmp (name, "do_authorize"))
@@ -493,6 +495,10 @@ skill_function (char *name)
 	return do_consider;
       if (!str_cmp (name, "do_cook"))
 	return do_cook;
+#ifdef OVERLANDCODE
+      if (!str_cmp (name, "do_coords"))
+	return do_coords;
+#endif
       if (!str_cmp (name, "do_council_induct"))
 	return do_council_induct;
       if (!str_cmp (name, "do_council_outcast"))
@@ -771,6 +777,10 @@ skill_function (char *name)
 	return do_kill;
       break;
     case 'l':
+#ifdef OVERLANDCODE
+      if (!str_cmp (name, "do_landmarks"))
+	return do_landmarks;
+#endif
       if (!str_cmp (name, "do_languages"))
 	return do_languages;
       if (!str_cmp (name, "do_last"))
@@ -837,6 +847,10 @@ skill_function (char *name)
 	return do_makeshop;
       if (!str_cmp (name, "do_makewizlist"))
 	return do_makewizlist;
+#ifdef OVERLANDCODE
+      if (!str_cmp (name, "do_mapedit"))
+	return do_mapedit;
+#endif
       if (!str_cmp (name, "do_mapout"))
 	return do_mapout;
       if (!str_cmp (name, "do_massign"))
@@ -1356,6 +1370,12 @@ skill_function (char *name)
 	return do_setcouncil;
       if (!str_cmp (name, "do_setdeity"))
 	return do_setdeity;
+#ifdef OVERLANDCODE
+      if (!str_cmp (name, "do_setexit"))
+	return do_setexit;
+      if (!str_cmp (name, "do_setmark"))
+	return do_setmark;
+#endif
 #ifdef LIQUIDSYSTEM
       if (!str_cmp (name, "do_setmixture"))
 	return do_setmixture;
@@ -1466,6 +1486,10 @@ skill_function (char *name)
 	return do_style;
       if (!str_cmp (name, "do_supplicate"))
 	return do_supplicate;
+#ifdef OVERLANDCODE
+      if (!str_cmp (name, "do_survey"))
+	return do_survey;
+#endif
       if (!str_cmp (name, "do_switch"))
 	return do_switch;
       if (!str_cmp (name, "do_showlayers"))
@@ -1860,8 +1884,10 @@ skill_name (DO_FUN * skill)
     return "do_astat";
   if (skill == do_at)
     return "do_at";
+#ifndef OVERLANDCODE
   if (skill == do_atobj)
     return "do_atobj";
+#endif
   if (skill == do_auction)
     return "do_auction";
   if (skill == do_authorize)
@@ -1995,6 +2021,10 @@ skill_name (DO_FUN * skill)
     return "do_connect";
   if (skill == do_consider)
     return "do_consider";
+#ifdef OVERLANDCODE
+  if (skill == do_coords)
+    return "do_coords";
+#endif
   if (skill == do_cook)
     return "do_cook";
   if (skill == do_council_induct)
@@ -2255,6 +2285,10 @@ skill_name (DO_FUN * skill)
     return "do_kick";
   if (skill == do_kill)
     return "do_kill";
+#ifdef OVERLANDCODE
+  if (skill == do_landmarks)
+    return "do_landmarks";
+#endif
   if (skill == do_languages)
     return "do_languages";
   if (skill == do_last)
@@ -2319,6 +2353,10 @@ skill_name (DO_FUN * skill)
     return "do_makeshop";
   if (skill == do_makewizlist)
     return "do_makewizlist";
+#ifdef OVERLANDCODE
+  if (skill == do_mapedit)
+    return "do_mapedit";
+#endif
   if (skill == do_mapout)
     return "do_mapout";
   if (skill == do_massign)
@@ -2819,6 +2857,12 @@ skill_name (DO_FUN * skill)
     return "do_setcouncil";
   if (skill == do_setdeity)
     return "do_setdeity";
+#ifdef OVERLANDCODE
+  if (skill == do_setexit)
+    return "do_setexit";
+  if (skill == do_setmark)
+    return "do_setmark";
+#endif
 #ifdef LIQUIDSYSTEM
   if (skill == do_setmixture)
     return "do_setmixture";
@@ -2927,6 +2971,10 @@ skill_name (DO_FUN * skill)
     return "do_stun";
   if (skill == do_style)
     return "do_style";
+#ifdef OVERLANDCODE
+  if (skill == do_survey)
+    return "do_survey";
+#endif
   if (skill == do_supplicate)
     return "do_supplicate";
   if (skill == do_switch)
@@ -5003,7 +5051,11 @@ fread_storage (int rnum, char *filename)
 	{
 	  tobj_next = tobj->next_content;
 	  obj_from_char (tobj);
+#ifdef OVERLANDCODE
+	  obj_to_room (tobj, storeroom, supermob);
+#else
 	  obj_to_room (tobj, storeroom);
+#endif
 	}
       release_supermob ();
     }

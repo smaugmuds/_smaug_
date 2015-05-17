@@ -60,7 +60,11 @@ make_fire (ROOM_INDEX_DATA * in_room, sh_int timer)
 
   fire = create_object (get_obj_index (OBJ_VNUM_FIRE), 0);
   fire->timer = number_fuzzy (timer);
+#ifdef OVERLANDCODE
+  obj_to_room (fire, in_room, NULL);
+#else
   obj_to_room (fire, in_room);
+#endif
   return;
 }
 
@@ -96,6 +100,16 @@ make_scraps (OBJ_DATA * obj)
   scraps = create_object (get_obj_index (OBJ_VNUM_SCRAPS), 0);
   scraps->timer = number_range (5, 15);
 
+#ifdef OVERLANDCODE
+  if( IS_OBJ_STAT( obj, ITEM_ONMAP ) )
+  {
+	SET_OBJ_STAT( scraps, ITEM_ONMAP );
+	scraps->map = obj->map;
+	scraps->x = obj->x;
+	scraps->y = obj->y;
+  }
+#endif
+
   /* don't make scraps of scraps of scraps of ... */
   if (obj->pIndexData->vnum == OBJ_VNUM_SCRAPS)
     {
@@ -124,7 +138,11 @@ make_scraps (OBJ_DATA * obj)
 	      get_eq_char (obj->carried_by, WEAR_DUAL_WIELD)) != NULL)
 	tmpobj->wear_loc = WEAR_WIELD;
 
+#ifdef OVERLANDCODE
+      obj_to_room (scraps, obj->carried_by->in_room, ch);
+#else
       obj_to_room (scraps, obj->carried_by->in_room);
+#endif
     }
   else if (obj->in_room)
     {
@@ -135,7 +153,11 @@ make_scraps (OBJ_DATA * obj)
 	  act (AT_OBJECT, "$p is reduced to little more than scraps.", ch,
 	       obj, NULL, TO_CHAR);
 	}
+#ifdef OVERLANDCODE
+      obj_to_room (scraps, obj->in_room, ch);
+#else
       obj_to_room (scraps, obj->in_room);
+#endif
     }
   if ((obj->item_type == ITEM_CONTAINER || obj->item_type == ITEM_KEYRING
        || obj->item_type == ITEM_QUIVER || obj->item_type == ITEM_CORPSE_PC)
@@ -291,7 +313,11 @@ make_corpse (CHAR_DATA * ch, CHAR_DATA * killer)
 	extract_obj (obj);
       else if (IS_OBJ_STAT (obj, ITEM_DEATHDROP))
 	{
+#ifdef OVERLANDCODE
+	  obj_to_room (obj, ch->in_room, ch);
+#else
 	  obj_to_room (obj, ch->in_room);
+#endif
 	  oprog_drop_trigger (ch, obj);	/* mudprogs */
 	}
       else
@@ -300,11 +326,23 @@ make_corpse (CHAR_DATA * ch, CHAR_DATA * killer)
 
 #ifdef ENABLE_MORGUE
     if ( IS_NPC(ch) || ch->level > MAX_MORGUE_LEVEL )
-        obj_to_room( corpse,ch->in_room );
+#ifdef OVERLANDCODE
+        obj_to_room( corpse, ch->in_room, ch );
+#else
+        obj_to_room( corpse, ch->in_room );
+#endif
     else
-	    obj_to_room( corpse,location );
+#ifdef OVERLANDCODE
+	    obj_to_room( corpse, location, ch );
+#else
+	    obj_to_room( corpse, location );
+#endif
 #else	
+#ifdef OVERLANDCODE
+      obj_to_room (corpse, ch->in_room, ch);
+#else
       obj_to_room (corpse, ch->in_room);
+#endif
 #endif
   
   return;
@@ -343,7 +381,11 @@ make_puddle (CHAR_DATA * ch, OBJ_DATA * cont)
       obj->value[1] += cont->value[1];
       obj->value[2] = cont->value[2];
       obj->value[3] = cont->value[3];
+#ifdef OVERLANDCODE
+      obj_to_room (obj, ch->in_room, ch);
+#else
       obj_to_room (obj, ch->in_room);
+#endif
     }
 
   if (obj->value[1] > 15)
@@ -384,7 +426,11 @@ make_blood (CHAR_DATA * ch)
   obj = create_object (get_obj_index (OBJ_VNUM_BLOOD), 0);
   obj->timer = number_range (2, 4);
   obj->value[1] = number_range (3, UMIN (5, ch->level));
+#ifdef OVERLANDCODE
+  obj_to_room (obj, ch->in_room, ch);
+#else
   obj_to_room (obj, ch->in_room);
+#endif
 }
 
 
@@ -395,7 +441,11 @@ make_bloodstain (CHAR_DATA * ch)
 
   obj = create_object (get_obj_index (OBJ_VNUM_BLOODSTAIN), 0);
   obj->timer = number_range (1, 2);
+#ifdef OVERLANDCODE
+  obj_to_room (obj, ch->in_room, ch);
+#else
   obj_to_room (obj, ch->in_room);
+#endif
 }
 
 

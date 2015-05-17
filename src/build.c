@@ -77,6 +77,9 @@ char *const ex_flags[] = {
   "dig", "eatkey", "nopassdoor", "hidden", "passage", "portal", "r1", "r2",
   "can_climb", "can_enter", "can_leave", "auto", "noflee", "searchable",
   "bashed", "bashproof", "nomob", "window", "can_look", "isbolt", "bolted"
+#ifdef OVERLANDCODE
+	, "overland"
+#endif
 };
 
 char *const sec_flags[] = {
@@ -93,7 +96,11 @@ char *const r_flags[] = {
   "nosummon", "noastral", "teleport", "teleshowdesc", "nofloor",
   "nosupplicate", "arena", "nomissile", "auction", "nohover", "prototype",
   "dnd", "_track_", "light", "nolog", "color", "nowhere", "noyell", "noquit",
-  "notrack", "nosuppcorpse", "nosupprecall",
+  "notrack", "nosuppcorpse",
+#ifdef OVERLANDCODE
+	"map",
+#endif
+  "nosupprecall",
   "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10"
 };
 
@@ -170,13 +177,14 @@ char *const o_types[] = {
   "trap",
   "map", "portal", "paper", "tinder", "lockpick", "spike", "disease", "oil",
   "fuel", "puddle", "abacus", "missileweapon", "projectile", "quiver",
-  "shovel",
+  "shovel", "salve", "cook", "keyring", "odor", "chance",
 #ifdef ENABLE_GOLD_SILVER_COPPER
-  "salve", "cook", "keyring", "odor", "chance", "piece", "housekey", "silver", "copper"
-#else
-  "salve", "cook", "keyring", "odor", "chance", "piece", "housekey",
+  "silver", "copper",
 #endif
-  "journal",
+#ifdef OVERLANDCODE
+	"onmap"
+#endif
+  "piece", "housekey", "journal", "mixture"
   "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10"
 };
 
@@ -236,6 +244,9 @@ char *const act_flags[] = {
 #ifdef ENABLE_QUEST
 	"questmaster",
 #endif
+#ifdef OVERLANDCODE
+	"onmap",
+#endif
   "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10"
 };
 
@@ -261,8 +272,14 @@ char *const plr_flags[] = {
   "deny", "freeze", "thief", "killer", "litterbug", "ansi", "rip", "nice",
   "flee", "autogold", "automap", "afk", "invisprompt", "roomvis", "nofollow",
   "landed", "blocking", "is_clone", "is_dreamform", "is_spiritform",
-  "is_projection", "cloak", "compass", "nohomepage", "r1", "r2", "r3", "r4",
-  "r5", "r6", "r7", "r8", "r9", "r10"
+  "is_projection", "cloak", "compass", "nohomepage",
+#ifdef ENABLE_QUEST
+	"questmaster",
+#endif
+#ifdef OVERLANDCODE
+	"onmap", "mapedit",
+#endif
+  "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10"
 };
 
 char *const trap_flags[] = {
@@ -406,6 +423,15 @@ can_rmodify (CHAR_DATA * ch, ROOM_INDEX_DATA * room)
 
   if (IS_NPC (ch))
     return FALSE;
+
+#ifdef OVERLANDCODE
+	if( IS_PLR_FLAG( ch, PLR_ONMAP ) )
+	{
+	    send_to_char( "You cannot use redit from the overland maps.\r\n", ch );
+	    return FALSE;
+	}
+#endif
+
   if (get_trust (ch) >= sysdata.level_modify_proto)
     return TRUE;
   if (!xIS_SET (room->room_flags, ROOM_PROTOTYPE))
@@ -1141,6 +1167,100 @@ do_assist (CHAR_DATA * ch, char *argument)
   return;
 }
 
+#ifdef OVERLANDCODE
+void goto_char( CHAR_DATA *ch, CHAR_DATA *wch, char *argument )
+{
+    ROOM_INDEX_DATA *location, *in_room;
+
+    set_char_color( AT_IMMORT, ch );
+    location = wch->in_room;
+
+    if( is_ignoring( wch, ch ) )
+    {
+	send_to_char( "No such location.\r\n", ch );
+	return;
+    }
+
+    if ( room_is_private( location ) )
+    {
+      if ( get_trust( ch ) < LEVEL_GREATER )
+      {
+	   send_to_char( "That room is private right now.\r\n", ch );
+	   return;
+      }
+      else
+      {
+	   send_to_char( "Overriding private flag!\r\n", ch );
+      }
+    }
+
+    in_room = ch->in_room;
+    if ( ch->fighting )
+	stop_fighting( ch, TRUE );
+
+    /* Modified bamfout processing by Altrag, installed by Samson 12-10-97 */
+       if (ch->pcdata && ch->pcdata->bamfout[0])
+         act(AT_IMMORT, "$T", ch, NULL,
+         bamf_print(ch->pcdata->bamfout, ch), TO_CANSEE);
+       else
+         act(AT_IMMORT, "$n vanishes suddenly into thin air.", ch, NULL, NULL, TO_CANSEE);
+
+    ch->regoto = ch->in_room->vnum;
+    leave_map( ch, wch, location );
+
+    /* Modified bamfin processing by Altrag, installed by Samson 12-10-97 */
+       if (ch->pcdata && ch->pcdata->bamfin[0])
+          act(AT_IMMORT, "$T", ch, NULL,
+          bamf_print(ch->pcdata->bamfin, ch), TO_CANSEE);
+       else
+          act(AT_IMMORT, "$n appears suddenly out of thin air.", ch, NULL, NULL, TO_CANSEE);
+
+    return;
+}
+
+void goto_obj( CHAR_DATA *ch, OBJ_DATA *obj, char *argument )
+{
+    ROOM_INDEX_DATA *location;
+
+    set_char_color( AT_IMMORT, ch );
+    location = obj->in_room;
+
+    if ( room_is_private( location ) )
+    {
+      if ( get_trust( ch ) < LEVEL_GREATER )
+      {
+	   send_to_char( "That room is private right now.\r\n", ch );
+	   return;
+      }
+      else
+      {
+	   send_to_char( "Overriding private flag!\r\n", ch );
+      }
+    }
+
+    if ( ch->fighting )
+	stop_fighting( ch, TRUE );
+
+    /* Modified bamfout processing by Altrag, installed by Samson 12-10-97 */
+       if (ch->pcdata && ch->pcdata->bamfout[0])
+         act(AT_IMMORT, "$T", ch, NULL,
+         bamf_print(ch->pcdata->bamfout, ch), TO_CANSEE);
+       else
+         act(AT_IMMORT, "$n vanishes suddenly into thin air.", ch, NULL, NULL, TO_CANSEE);
+
+    ch->regoto = ch->in_room->vnum;
+    leave_map( ch, NULL, location );
+
+    /* Modified bamfin processing by Altrag, installed by Samson 12-10-97 */
+       if (ch->pcdata && ch->pcdata->bamfin[0])
+          act(AT_IMMORT, "$T", ch, NULL,
+          bamf_print(ch->pcdata->bamfin, ch), TO_CANSEE);
+       else
+          act(AT_IMMORT, "$n appears suddenly out of thin air.", ch, NULL, NULL, TO_CANSEE);
+
+    return;
+}
+#endif
 
 void
 do_goto (CHAR_DATA * ch, char *argument)
@@ -1149,6 +1269,10 @@ do_goto (CHAR_DATA * ch, char *argument)
   ROOM_INDEX_DATA *location, *in_room;
   CHAR_DATA *fch, *fch_next, *victim;
   AREA_DATA *pArea;
+#ifdef OVERLANDCODE
+  CHAR_DATA *wch;
+  OBJ_DATA *obj;
+#endif
   int vnum;
 
   one_argument (argument, arg);
@@ -1157,6 +1281,87 @@ do_goto (CHAR_DATA * ch, char *argument)
       send_to_char ("Goto where?\n\r", ch);
       return;
     }
+
+#ifdef OVERLANDCODE
+    /* Begin Overland Map additions */
+    if ( !str_cmp( arg, "map" ) )
+    {
+	char arg1[MAX_INPUT_LENGTH];
+	char arg2[MAX_INPUT_LENGTH];
+	int x, y;
+	int map = -1;
+
+      argument = one_argument( argument, arg1 );
+      argument = one_argument( argument, arg2 );
+
+	if( arg1[0] == '\0' )
+      {
+	   send_to_char( "Goto which map??\r\n", ch );
+	   return;
+	}
+      
+      if( !str_cmp( arg1, "map1" ) )
+	   map = ACON_C1;
+
+      if( !str_cmp( arg1, "map2" ) )
+	   map = ACON_C2;
+
+	if( !str_cmp( arg1, "map3" ) )
+	   map = ACON_C3;
+
+      if( map == -1 )
+	{
+        ch_printf( ch, "There isn't a map for '%s'.\r\n", arg1 );
+        return;
+	}
+
+	if( arg2[0] == '\0' && argument[0] == '\0' )
+	{
+	   enter_map( ch, 499, 499, map );
+	   return;
+	}
+
+	if( arg2[0] == '\0' || argument[0] == '\0' )
+	{
+	   send_to_char( "Usage: goto map <mapname> <X> <Y>\r\n", ch );
+	   return;
+	}
+
+      x = atoi( arg2 );
+	y = atoi( argument );
+
+      if( x < 0 || x >= MAX_X )
+      {
+	   ch_printf( ch, "Valid x coordinates are 0 to %d.\r\n", MAX_X - 1 );
+	   return;
+      }
+
+      if( y < 0 || y >= MAX_Y )
+      {
+	   ch_printf( ch, "Valid y coordinates are 0 to %d.\r\n", MAX_Y - 1 );
+	   return;
+      }
+
+	enter_map( ch, x, y, map );
+	return;
+    }
+
+    if( !is_number( arg ) )
+    {
+      if ( ( wch = get_char_world( ch, arg ) ) != NULL && wch->in_room != NULL )
+      {
+	  goto_char( ch, wch, arg );
+	  return;
+      }
+
+      if ( ( obj = get_obj_world( ch, arg ) ) != NULL )
+      {
+	  goto_obj( ch, obj, arg );
+	  return;
+      }
+    }
+    /* End of Overland Map additions */
+#endif
 
   if (!is_number (arg) && (fch = get_char_world (ch, arg)))
     {
@@ -1251,6 +1456,9 @@ do_goto (CHAR_DATA * ch, char *argument)
 #endif
 
   ch->regoto = ch->in_room->vnum;
+#ifdef OVERLANDCODE
+  leave_map( ch, NULL, location );
+#else
   char_from_room (ch);
   if (ch->mount)
     {
@@ -1258,6 +1466,7 @@ do_goto (CHAR_DATA * ch, char *argument)
       char_to_room (ch->mount, location);
     }
   char_to_room (ch, location);
+#endif
 
 #ifdef ENABLE_BUILDWALK
     if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) && !IS_NPC( ch ) )
@@ -5189,7 +5398,11 @@ do_redit (CHAR_DATA * ch, char *argument)
       send_to_char ("\n\r", ch);
       send_to_char ("Field being one of:\n\r", ch);
       send_to_char ("  name desc ed rmed\n\r", ch);
+#ifdef OVERLANDCODE
+			send_to_char ("  exit bexit exdesc exflags exname exkey excoord\n\r",	ch );
+#else
       send_to_char ("  exit bexit exdesc exflags exname exkey\n\r", ch);
+#endif
       send_to_char ("  flags sector teledelay televnum tunnel\n\r", ch);
       send_to_char ("  rlist exdistance pulltype pull push\n\r", ch);
       return;
@@ -5562,6 +5775,56 @@ do_redit (CHAR_DATA * ch, char *argument)
       send_to_char (_("Done.\n"), ch);
       return;
     }
+
+#ifdef OVERLANDCODE
+    if ( !str_cmp( arg, "excoord" ) )
+    {
+	int x, y;
+
+	argument = one_argument( argument, arg2 );
+	argument = one_argument( argument, arg3 );
+	if ( arg2[0] == '\0' || arg3[0] == '\0' || argument[0] == '\0' )
+	{
+	    send_to_char( "Usage: redit excoord <dir> <X> <Y>\r\n", ch );
+	    return;
+	}
+	if ( arg2[0] == '#' )
+	{
+	    edir = atoi( arg2+1 );
+	    xit = get_exit_num( location, edir );
+	}
+	else
+	{
+	    edir = get_dir( arg2 );
+	    xit = get_exit( location, edir );
+	}
+
+	x = atoi( arg3 );
+      y = atoi( argument );
+
+      if( x < 0 || x >= MAX_X )
+	{
+	    ch_printf( ch, "Valid X coordinates are 0 to %d.\r\n", MAX_X - 1 );
+	    return;
+	}
+
+	if( y < 0 || y >= MAX_Y )
+	{
+	    ch_printf( ch, "Valid Y coordinates are 0 to %d.\r\n", MAX_Y - 1 );
+	    return;
+	}
+
+	if ( !xit )
+	{
+	    send_to_char( "No exit in that direction.  Use 'redit exit ...' first.\r\n", ch );
+	    return;
+	}
+	xit->x = x;
+	xit->y = y;
+	send_to_char( "Exit coordinates set.\r\n", ch );
+	return;
+    }
+#endif
 
   if (!str_cmp (arg, "exname"))
     {
@@ -6429,6 +6692,12 @@ do_mcreate (CHAR_DATA * ch, char *argument)
     }
   mob = create_mobile (pMobIndex);
   char_to_room (mob, ch->in_room);
+
+#ifdef OVERLANDCODE
+  /* If you create one on the map, make sure it gets placed properly - Samson 8-21-99 */
+  fix_maps( ch, mob );
+#endif
+
   act (AT_IMMORT, "$n waves $s arms about, and $N appears at $s command!", ch,
        NULL, mob, TO_ROOM);
   ch_printf_color (ch,
@@ -7127,6 +7396,10 @@ fold_area (AREA_DATA * tarea, char *filename, bool install)
   fprintf (fpout, "#ECONOMY %d %d\n\n", tarea->high_economy,
 	   tarea->low_economy);
 
+#ifdef OVERLANDCODE
+  fprintf( fpout, "#CONTINENT %s~\n\n", continents[tarea->continent] );
+#endif
+
   /* Climate info - FB */
   fprintf (fpout, "#CLIMATE %d %d %d\n\n", tarea->weather->climate_temp,
 	   tarea->weather->climate_precip, tarea->weather->climate_wind);
@@ -7464,6 +7737,25 @@ fprintf( fpout, "%d %d %d %d %d\n",	pObjIndex->weight,
 	  fprintf (fpout, "D%d\n", xit->orig_door);
 	  fprintf (fpout, "%s~\n", strip_cr (xit->description));
 	  fprintf (fpout, "%s~\n", strip_cr (xit->keyword));
+
+#ifdef OVERLANDCODE
+	   if ( xit->distance > 1 || xit->pull )
+	     fprintf( fpout, "%d %d %d %d %d %d %d %d\n",
+	     					xit->exit_info & ~EX_BASHED,
+	   					xit->key,
+	   					xit->vnum,
+						xit->distance,
+						xit->x, xit->y,
+	   					xit->pulltype,
+	   					xit->pull );
+
+	   else
+	     fprintf( fpout, "%d %d %d %d %d\n",
+						xit->exit_info & ~EX_BASHED,
+	   					xit->key,
+	   					xit->vnum,
+						xit->x, xit->y );
+#else
 	  if (xit->distance > 1 || xit->pull)
 	    fprintf (fpout, "%d %d %d %d %d %d\n",
 		     xit->exit_info & ~EX_BASHED,
@@ -7472,6 +7764,7 @@ fprintf( fpout, "%d %d %d %d %d\n",	pObjIndex->weight,
 	  else
 	    fprintf (fpout, "%d %d %d\n", xit->exit_info & ~EX_BASHED,
 		     xit->key, xit->vnum);
+#endif
 	}
       for (ed = room->first_extradesc; ed; ed = ed->next)
 	fprintf (fpout, "E\n%s~\n%s~\n",
@@ -8255,6 +8548,9 @@ do_astat (CHAR_DATA * ch, char *argument)
   ch_printf_color (ch, "&wResetmsg: &W%s\n\r", tarea->resetmsg ? tarea->resetmsg : "(default)");	/* Rennard */
   ch_printf_color (ch, "&wReset frequency: &W%d &wminutes.\n\r",
 		   tarea->reset_frequency ? tarea->reset_frequency : 15);
+#ifdef OVERLANDCODE
+  ch_printf_color( ch, "&wContinent or Plane: &W%s\r\n", continents[tarea->continent] );
+#endif
 }
 
 
@@ -8335,6 +8631,32 @@ do_aset (CHAR_DATA * ch, char *argument)
       send_to_char (_("Done.\n"), ch);
       return;
     }
+
+#ifdef OVERLANDCODE
+    if ( !str_cmp( arg2, "continent" ) )
+    {
+      /* Area continent editing - Samson 8-8-98 */
+    	if ( !argument || argument[0] == '\0' )
+	{
+	    send_to_char( _("Set the area's continent.\n"), ch );
+	    send_to_char( _("Usage: aset continent <name>\n"), ch );
+	    return;
+	}
+	argument = one_argument( argument, arg2 );
+	value = get_continent( arg2 );
+	if ( value < 0 || value > ACON_MAX )
+	{
+	   tarea->continent = 0;
+	   send_to_char( _("Invalid area continent, set to 'alsherok' by default.\n"), ch );
+	}
+	else
+	{
+	   tarea->continent = value;
+	   ch_printf ( ch, _("Area continent set to %s.\n"), arg2 );
+	}
+	return;
+    }
+#endif
 
   if (!str_cmp (arg2, "low_economy"))
     {

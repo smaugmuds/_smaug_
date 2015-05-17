@@ -522,6 +522,16 @@ do_get (CHAR_DATA * ch, char *argument)
 	      if ((fAll || nifty_is_name (chk, obj->name))
 		  && can_see_obj (ch, obj))
 		{
+#ifdef OVERLANDCODE
+		    if( IS_OBJ_STAT( obj, ITEM_ONMAP ) )
+		    {
+			if( ch->map != obj->map	|| ch->x != obj->x || ch->y != obj->y )
+			{
+			   found = FALSE;
+			   continue;
+			}
+		    }
+#endif
 		  found = TRUE;
 		  if (number && (cnt + obj->count) > number)
 		    split_obj (obj, number - cnt);
@@ -1281,17 +1291,29 @@ do_drop (CHAR_DATA * ch, char *argument)
 	    }
 		if ( type == 0) {
 	    act( AT_ACTION, "$n drops some gold.", ch, NULL, NULL, TO_ROOM );
+#ifdef OVERLANDCODE
+	    obj_to_room( create_money( number, 0 ), ch->in_room, ch );
+#else
 	    obj_to_room( create_money( number, 0 ), ch->in_room );
+#endif
 	    send_to_char( "You let the gold slip from your hand.\n\r", ch );
 	    }
 	    if ( type == 1) {
 	    act( AT_ACTION, "$n drops some silver.", ch, NULL, NULL, TO_ROOM );
+#ifdef OVERLANDCODE
+	    obj_to_room( create_money( number, 1 ), ch->in_room, ch );
+#else
 	    obj_to_room( create_money( number, 1 ), ch->in_room );
+#endif
 	    send_to_char( "You let the silver slip from your hand.\n\r", ch );
 	    }
 	    if ( type == 2) {
 	    act( AT_ACTION, "$n drops some copper.", ch, NULL, NULL, TO_ROOM );
+#ifdef OVERLANDCODE
+	    obj_to_room( create_money( number, 2 ), ch->in_room, ch );
+#else
 	    obj_to_room( create_money( number, 2 ), ch->in_room );
+#endif
 	    send_to_char( "You let the copper slip from your hand.\n\r", ch );
 	    }
 	    if ( IS_SET( sysdata.save_flags, SV_DROP ) )
@@ -1337,7 +1359,11 @@ do_drop (CHAR_DATA * ch, char *argument)
 	    }
 
 	  act (AT_ACTION, "$n drops some gold.", ch, NULL, NULL, TO_ROOM);
+#ifdef OVERLANDCODE
+	  obj_to_room (create_money (number), ch->in_room, ch);
+#else
 	  obj_to_room (create_money (number), ch->in_room);
+#endif
 	  send_to_char ("You let the gold slip from your hand.\n\r", ch);
 	  /* Band-aid alert :) lets save all the time players normally
 	     don't drop money until I setup a save on dropgold flag
@@ -1378,7 +1404,11 @@ do_drop (CHAR_DATA * ch, char *argument)
       act (AT_ACTION, "You drop $p.", ch, obj, NULL, TO_CHAR);
 
       obj_from_char (obj);
+#ifdef OVERLANDCODE
+      obj = obj_to_room (obj, ch->in_room, ch);
+#else
       obj = obj_to_room (obj, ch->in_room);
+#endif
       oprog_drop_trigger (ch, obj);	/* mudprogs */
 
       if (char_died (ch) || obj_extracted (obj))
@@ -1453,7 +1483,11 @@ do_drop (CHAR_DATA * ch, char *argument)
 		}
 	      act (AT_ACTION, "$n drops $p.", ch, obj, NULL, TO_ROOM);
 	      act (AT_ACTION, "You drop $p.", ch, obj, NULL, TO_CHAR);
+#ifdef OVERLANDCODE
+	      obj = obj_to_room (obj, ch->in_room, ch);
+#else
 	      obj = obj_to_room (obj, ch->in_room);
+#endif
 	      oprog_drop_trigger (ch, obj);	/* mudprogs */
 	      if (char_died (ch))
 		return;
@@ -2046,7 +2080,11 @@ wear_obj (CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace, sh_int wear_bit)
 	   TO_ROOM);
       if (obj->carried_by)
 	obj_from_char (obj);
+#ifdef OVERLANDCODE
+      obj_to_room (obj, ch->in_room, ch);
+#else
       obj_to_room (obj, ch->in_room);
+#endif
       oprog_zap_trigger (ch, obj);
       ch->hit = ch->hit * .5;
       if (IS_SET (sysdata.save_flags, SV_ZAPDROP) && !char_died (ch))
@@ -4254,7 +4292,11 @@ obj_fall (OBJ_DATA * obj, bool through)
 	}
       obj_from_room (obj);
       is_falling = TRUE;
+#ifdef OVERLANDCODE
+      obj = obj_to_room (obj, to_room, obj->in_room->first_person);
+#else
       obj = obj_to_room (obj, to_room);
+#endif
       is_falling = FALSE;
 
       if (obj->in_room->first_person)

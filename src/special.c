@@ -342,7 +342,11 @@ spec_cast_adept (CHAR_DATA * ch)
   for (victim = ch->in_room->first_person; victim; victim = v_next)
     {
       v_next = victim->next_in_room;
+#ifdef OVERLANDCODE
+      if (victim != ch && can_see (ch, victim, FALSE) && number_bits (1) == 0)
+#else
       if (victim != ch && can_see (ch, victim) && number_bits (1) == 0)
+#endif
 	break;
     }
 
@@ -736,13 +740,25 @@ spec_fido (CHAR_DATA * ch)
       if (corpse->item_type != ITEM_CORPSE_NPC)
 	continue;
 
+#ifdef OVERLANDCODE
+      if( IS_ACT_FLAG( ch, ACT_ONMAP ) )
+	{
+	   if( ch->map != corpse->map || ch->x != corpse->x || ch->y != corpse->y )
+	    	continue;
+	}
+#endif
+
       act (AT_ACTION, "$n savagely devours a corpse.", ch, NULL, NULL,
 	   TO_ROOM);
       for (obj = corpse->first_content; obj; obj = obj_next)
 	{
 	  obj_next = obj->next_content;
 	  obj_from_obj (obj);
+#ifdef OVERLANDCODE
+	  obj_to_room (obj, ch->in_room, ch);
+#else
 	  obj_to_room (obj, ch->in_room);
+#endif
 	}
       extract_obj (corpse);
       return TRUE;
@@ -838,6 +854,15 @@ spec_janitor (CHAR_DATA * ch)
       if (!IS_SET (trash->wear_flags, ITEM_TAKE)
 	  || IS_OBJ_STAT (trash, ITEM_BURIED))
 	continue;
+
+#ifdef OVERLANDCODE
+      if( IS_ACT_FLAG( ch, ACT_ONMAP ) )
+	{
+	   if( ch->map != trash->map || ch->x != trash->x || ch->y != trash->y )
+	    	continue;
+	}
+#endif
+
       if (trash->item_type == ITEM_DRINK_CON
 	  || trash->item_type == ITEM_TRASH
 #ifdef ENABLE_GOLD_SILVER_COPPER
@@ -903,7 +928,11 @@ spec_mayor (CHAR_DATA * ch)
     case '1':
     case '2':
     case '3':
+#ifdef OVERLANDCODE
+      move_char (ch, get_exit (ch->in_room, path[pos] - '0'), 0, path[pos] - '0');
+#else
       move_char (ch, get_exit (ch->in_room, path[pos] - '0'), 0);
+#endif
       break;
 
     case 'W':
@@ -1009,7 +1038,11 @@ bool spec_thief( CHAR_DATA *ch )
 	if ( IS_NPC(victim)
 	||   victim->level >= LEVEL_IMMORTAL
 	||   number_bits( 2 ) != 0
+#ifdef OVERLANDCODE
+	||   !can_see( ch, victim, FALSE ) )	/* Thx Glop */
+#else
 	||   !can_see( ch, victim ) )	/* Thx Glop */
+#endif
 	    continue;
 
 	if ( IS_AWAKE(victim) && number_range( 0, ch->level ) == 0 )
@@ -1096,7 +1129,14 @@ spec_thief (CHAR_DATA * ch)
     {
       v_next = victim->next_in_room;
 
-      if (IS_NPC (victim) || victim->level >= LEVEL_IMMORTAL || number_bits (2) != 0 || !can_see (ch, victim))	/* Thx Glop */
+      if (IS_NPC (victim)
+				|| victim->level >= LEVEL_IMMORTAL
+				|| number_bits (2) != 0
+#ifdef OVERLANDCODE
+				|| !can_see (ch, victim, FALSE))	/* Thx Glop */
+#else
+				|| !can_see (ch, victim))	/* Thx Glop */
+#endif
 	continue;
 
       if (IS_AWAKE (victim) && number_range (0, ch->level) == 0)
@@ -1261,7 +1301,11 @@ spec_wanderer (CHAR_DATA * ch)
 		      act (AT_ACTION, "$n growls and throws $p $T.", ch,
 			   trash, dir_name[pexit->vdir], TO_ROOM);
 		      obj_from_char (trash);
+#ifdef OVERLANDCODE
+		      obj_to_room (trash, pexit->to_room, ch);
+#else
 		      obj_to_room (trash, pexit->to_room);
+#endif
 		      char_from_room (ch);
 		      char_to_room (ch, pexit->to_room);
 		      act (AT_CYAN, "$p thrown by $n lands in the room.", ch,

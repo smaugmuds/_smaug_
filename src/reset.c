@@ -1578,7 +1578,11 @@ obj->copper_cost = 0;
 #else
 	  obj->cost = 0;
 #endif
+#ifdef OVERLANDCODE
+	  obj_to_room (obj, pRoomIndex, mob);
+#else
 	  obj_to_room (obj, pRoomIndex);
+#endif
 	  lastobj = obj;
 	  break;
 
@@ -1694,7 +1698,11 @@ obj->copper_cost = 0;
 		break;
 	      to_obj =
 		make_trap (pReset->arg2, pReset->arg1, 10, pReset->extra);
+#ifdef OVERLANDCODE
+	      obj_to_room (to_obj, pRoomIndex, mob);
+#else
 	      obj_to_room (to_obj, pRoomIndex);
+#endif
 	    }
 	  break;
 

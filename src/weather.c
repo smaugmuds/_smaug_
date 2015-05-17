@@ -3191,6 +3191,17 @@ void do_weather( CHAR_DATA *ch, char *argument)
 {
    struct WeatherCell *cell = getWeatherCell( ch->in_room->area );
 
+#ifdef OVERLANDCODE
+      if( !IS_PLR_FLAG( ch, PLR_ONMAP ) )
+      {
+        if ( !IS_OUTSIDE(ch) || INDOOR_SECTOR(ch->in_room->sector_type) )
+        {
+	    send_to_char( "You can't see the sky from here.\r\n", ch );
+	    return;
+        }
+      }
+#endif
+
    if( IS_NPC( ch ) )
    {
       send_to_char( "Mob's can't check the weather.\r\n", ch );

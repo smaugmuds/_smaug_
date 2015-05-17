@@ -293,7 +293,7 @@ typedef ch_ret SPELL_FUN args ((int sn, int level, CHAR_DATA * ch, void *vo));
 #define MIN_EXP_WORTH		   20
 
 #define MAX_REXITS		   20	/* Maximum exits allowed in 1 room */
-#define MAX_SKILL		  500
+#define MAX_SKILL		  600
 #define SPELL_SILENT_MARKER   "silent"	/* No OK. or Failed. */
 #define MAX_CLASS           	   27
 #define MAX_NPC_CLASS		   27
@@ -414,12 +414,13 @@ bool DONT_UPPER;
 int area_version;
 #define HAS_SPELL_INDEX     -1
 /* MAKE COMMENTS BELOW FOR AREA VERSION INCREASES */
-#define AREA_VERSION_WRITE 3
-#define MIN_SAVE_VERSION   3
+#define AREA_VERSION_WRITE 4
+#define MIN_SAVE_VERSION   4
 /***********************
 *AREA_VERSION_WRITE  1  - Original 4k area version
 *AREA_VERSION_WRITE  2  - Added level in the settable/saveable index values of objects
 *AREA_VERSION_WRITE  3  - Fixed major fuck up of the above area version in saving the flags/level/layers line of objects
+*AREA_VERSION_WRITE  4  - Overland Continent
 *
 ************************/
 
@@ -913,6 +914,9 @@ typedef enum
   SUB_HELP_EDIT, SUB_WRITING_MAP, SUB_PERSONAL_BIO, SUB_REPEATCMD,
   SUB_RESTRICTED, SUB_DEITYDESC, SUB_MORPH_DESC, SUB_MORPH_HELP,
   SUB_PROJ_DESC, SUB_JOURNAL_WRITE, SUB_NEWS_POST, SUB_NEWS_EDIT,
+#ifdef OVERLANDCODE
+	SUB_OVERLAND_DESC,
+#endif
   /* timer types ONLY below this point */
   SUB_TIMER_DO_ABORT = 128, SUB_TIMER_CANT_ABORT
 } char_substates;
@@ -1732,7 +1736,8 @@ struct smaug_affect
 #define ACT_CHALLENGED	    44  /* Arena Challenged */
 #define ACT_CHALLENGER	    45  /* Arena Challenger */
 #define ACT_QUESTMASTER     46  /* Quest Masters */
-#define MAX_ACT_FLAGS       47  /* Always last */
+#define ACT_ONMAP           47  /* Overland On Map */
+#define MAX_ACT_FLAGS       48  /* Always last */
 
 /*
  * Bits for 'affected_by'.
@@ -2093,17 +2098,15 @@ typedef enum
   ITEM_PUDDLE, ITEM_ABACUS, ITEM_MISSILE_WEAPON, ITEM_PROJECTILE, ITEM_QUIVER,
   ITEM_SHOVEL, ITEM_SALVE, ITEM_COOK, ITEM_KEYRING, ITEM_ODOR, ITEM_CHANCE,
 #ifdef ENABLE_GOLD_SILVER_COPPER
-  ITEM_PIECE, ITEM_HOUSEKEY, ITEM_JOURNAL, ITEM_DRINK_MIX, ITEM_SILVER, ITEM_COPPER
-#else
-  ITEM_PIECE, ITEM_HOUSEKEY, ITEM_JOURNAL, ITEM_DRINK_MIX
+  ITEM_SILVER, ITEM_COPPER,
 #endif
+#ifdef OVERLANDCODE
+	ITEM_ONMAP,
+#endif
+  ITEM_PIECE, ITEM_HOUSEKEY, ITEM_JOURNAL, ITEM_DRINK_MIX
 } item_types;
 
-#ifdef ENABLE_GOLD_SILVER_COPPER
-#define MAX_ITEM_TYPE		     ITEM_COPPER
-#else
 #define MAX_ITEM_TYPE		     ITEM_DRINK_MIX
-#endif
 
 /*
  * Extra flags.
@@ -2312,7 +2315,11 @@ typedef enum
   ROOM_TELESHOWDESC, ROOM_NOFLOOR, ROOM_NOSUPPLICATE, ROOM_ARENA,
   ROOM_NOMISSILE, ROOM_AUCTION, ROOM_NOHOVER, ROOM_PROTOTYPE, ROOM_DND,
   ROOM_TRACK, ROOM_LIGHT, ROOM_NOLOG, ROOM_COLOR, ROOM_NOWHERE, ROOM_NOYELL,
-  ROOM_NOQUIT, ROOM_NOTRACK, ROOM_NS_CORPSE, ROOM_NS_RECALL
+  ROOM_NOQUIT, ROOM_NOTRACK, ROOM_NS_CORPSE,
+#ifdef OVERLANDCODE
+	ROOM_MAP,
+#endif
+  ROOM_NS_RECALL
 } room_flags;
 
 #define MAX_ROOM_FLAG	ROOM_NS_RECALL
@@ -2385,12 +2392,34 @@ typedef enum
 #define EX_xLOOK		  BV26
 #define EX_ISBOLT		  BV27
 #define EX_BOLTED		  BV28
+
+#ifdef OVERLANDCODE
+#define EX_OVERLAND   BV29
+#define MAX_EXFLAG		  29
+#else
 #define MAX_EXFLAG		  28
+#endif
 
 /*
  * Sector types.
  * Used in #ROOMS.
  */
+
+#ifdef OVERLANDCODE
+typedef enum
+{
+   SECT_INSIDE, SECT_CITY, SECT_FIELD, SECT_FOREST, SECT_HILLS, SECT_MOUNTAIN,
+   SECT_WATER_SWIM, SECT_WATER_NOSWIM, SECT_AIR, SECT_UNDERWATER, SECT_DESERT,
+   SECT_RIVER, SECT_OCEANFLOOR, SECT_UNDERGROUND, SECT_JUNGLE, SECT_SWAMP,
+   SECT_TUNDRA, SECT_ICE, SECT_OCEAN, SECT_LAVA, SECT_SHORE, SECT_TREE, SECT_STONE,
+   SECT_QUICKSAND, SECT_WALL, SECT_GLACIER, SECT_EXIT, SECT_TRAIL, SECT_BLANDS,
+   SECT_GRASSLAND, SECT_SCRUB, SECT_BARREN, SECT_BRIDGE, SECT_ROAD, SECT_DUNNO,
+#ifdef DRAGONFLIGHT
+   SECT_LANDING,
+#endif
+   SECT_MAX
+} sector_types;
+#else
 typedef enum
 {
   SECT_INSIDE, SECT_CITY, SECT_FIELD, SECT_FOREST, SECT_HILLS, SECT_MOUNTAIN,
@@ -2398,9 +2427,10 @@ typedef enum
   SECT_DUNNO, SECT_OCEANFLOOR, SECT_UNDERGROUND, SECT_LAVA, SECT_SWAMP,
   SECT_MAX
 } sector_types;
+#endif
 
 /*
- * Equpiment wear locations.
+ * Equipment wear locations.
  * Used in #RESETS.
  */
 typedef enum
@@ -2478,6 +2508,9 @@ typedef enum
   PLR_NOHOMEPAGE
 #ifdef ENABLE_QUEST
 	, PLR_QUESTOR
+#endif
+#ifdef OVERLANDCODE
+	, PLR_ONMAP, PLR_MAPEDIT
 #endif
 } player_flags;
 
@@ -2843,6 +2876,12 @@ struct char_data
     sh_int      questobj; /* Vassago */
     sh_int      questmob; /* Vassago */
 #endif
+#ifdef OVERLANDCODE
+   short x; /* Coordinates on the overland map - Samson 7-31-99 */
+   short y;
+   short map; /* Which map are they on? - Samson 8-3-99 */
+   short sector; /* Type of terrain to restrict a wandering mob to on overland - Samson 7-27-00 */
+#endif
 };
 
 
@@ -2977,6 +3016,9 @@ struct pc_data
 #ifdef ENABLE_ARENA
 	int akills;
 	int adeaths;
+#endif
+#ifdef OVERLANDCODE
+   short secedit; /* Overland Map OLC - Samson 8-1-99 */
 #endif
 };
 
@@ -3141,6 +3183,11 @@ struct obj_data
 #ifdef ENABLE_HOTBOOT
   int room_vnum; /* hotboot tracker */
 #endif
+#ifdef OVERLANDCODE
+   short x; /* Object coordinates on overland maps - Samson 8-21-99 */
+   short y;
+   short map; /* Which map is it on? - Samson 8-21-99 */
+#endif
 };
 
 
@@ -3164,6 +3211,10 @@ struct exit_data
   sh_int distance;		/* how far to the next room     */
   sh_int pull;			/* pull of direction (current)  */
   sh_int pulltype;		/* type of pull (current, wind) */
+#ifdef OVERLANDCODE
+   short x; /* Coordinates to Overland Map - Samson 7-31-99 */
+   short y;
+#endif
 };
 
 
@@ -3266,6 +3317,9 @@ struct area_data
 #ifdef ENABLE_WEATHER
   int weatherx;
   int weathery;
+#endif
+#ifdef OVERLANDCODE
+   short continent; /* Added for Overland support - Samson 9-16-00 */
 #endif
 };
 
@@ -4138,6 +4192,15 @@ do								\
 /*
  * Description macros.
  */
+#ifdef OVERLANDCODE
+#define PERS(ch, looker, from)	( can_see( (looker), (ch), (from) ) ?		\
+				( IS_NPC(ch) ? (ch)->short_descr	\
+				: (ch)->name ) : "someone" )
+
+#define MORPHPERS(ch, looker, from)   ( can_see( (looker), (ch), (from) ) ?           \
+                                (ch)->morph->morph->short_desc       \
+                                : "someone" )
+#else
 #define PERS(ch, looker)	( can_see( (looker), (ch) ) ?		\
 				( IS_NPC(ch) ? (ch)->short_descr	\
 				: (ch)->name ) : "someone" )
@@ -4145,7 +4208,7 @@ do								\
 #define MORPHPERS(ch, looker)   ( can_see( (looker), (ch) ) ?           \
                                 (ch)->morph->morph->short_desc       \
                                 : "someone" )
-
+#endif
 
 #define log_string(txt)		( log_string_plus( (_(txt)), LOG_NORMAL, LEVEL_LOG ) )
 #define dam_message(ch, victim, dam, dt)	( new_dam_message((ch), (victim), (dam), (dt), NULL) )
@@ -4542,6 +4605,9 @@ DECLARE_DO_FUN (do_config);
 DECLARE_DO_FUN (do_connect);
 DECLARE_DO_FUN (do_consider);
 DECLARE_DO_FUN (do_cook);
+#ifdef OVERLANDCODE
+DECLARE_DO_FUN (do_coords);
+#endif
 DECLARE_DO_FUN (do_council_induct);
 DECLARE_DO_FUN (do_council_outcast);
 DECLARE_DO_FUN (do_councils);
@@ -4681,6 +4747,9 @@ DECLARE_DO_FUN (do_journal);
 DECLARE_DO_FUN (do_khistory);
 DECLARE_DO_FUN (do_kick);
 DECLARE_DO_FUN (do_kill);
+#ifdef OVERLANDCODE
+DECLARE_DO_FUN (do_landmarks);
+#endif
 DECLARE_DO_FUN (do_languages);
 DECLARE_DO_FUN (do_last);
 DECLARE_DO_FUN (do_laws);
@@ -4698,6 +4767,7 @@ DECLARE_DO_FUN (do_loadup);
 DECLARE_DO_FUN (do_lock);
 DECLARE_DO_FUN (do_log);
 DECLARE_DO_FUN (do_look);
+DECLARE_DO_FUN (do_lookmap);
 DECLARE_DO_FUN (do_loop);
 DECLARE_DO_FUN (do_low_purge);
 DECLARE_DO_FUN (do_mailroom);
@@ -4715,6 +4785,13 @@ DECLARE_DO_FUN (do_makecasino);
 DECLARE_DO_FUN (do_makeshop);
 DECLARE_DO_FUN (do_makeretiredlist);
 DECLARE_DO_FUN (do_makewizlist);
+#ifdef OVERLANDCODE
+DECLARE_DO_FUN (do_mapedit);
+#endif
+DECLARE_DO_FUN (do_mapout);
+#ifdef OVERLANDCODE
+DECLARE_DO_FUN( do_mapresets );  /* Command to list map resets */
+#endif
 DECLARE_DO_FUN (do_massign);
 #ifdef MARRIAGE
 DECLARE_DO_FUN (do_marry);
@@ -4747,6 +4824,9 @@ DECLARE_DO_FUN (do_mphate);
 DECLARE_DO_FUN (do_mphunt);
 DECLARE_DO_FUN (do_mpoowner);
 DECLARE_DO_FUN (do_mpplace);
+#ifdef OVERLANDCODE
+DECLARE_DO_FUN( do_mreset );  /* Map OLC support to handle resets */
+#endif
 DECLARE_DO_FUN (do_mset);
 DECLARE_DO_FUN (do_mstat);
 DECLARE_DO_FUN (do_murde);
@@ -4909,6 +4989,10 @@ DECLARE_DO_FUN (do_setclan);
 DECLARE_DO_FUN (do_setclass);
 DECLARE_DO_FUN (do_setcouncil);
 DECLARE_DO_FUN (do_setdeity);
+#ifdef OVERLANDCODE
+DECLARE_DO_FUN (do_setexit);
+DECLARE_DO_FUN (do_setmark);
+#endif
 #ifdef LIQUIDSYSTEM
 DECLARE_DO_FUN (do_setmixture);
 DECLARE_DO_FUN (do_setliquid);
@@ -4970,6 +5054,9 @@ DECLARE_DO_FUN (do_ststat);
 DECLARE_DO_FUN (do_stun);
 DECLARE_DO_FUN (do_style);
 DECLARE_DO_FUN (do_supplicate);
+#ifdef OVERLANDCODE
+DECLARE_DO_FUN (do_survey);
+#endif
 DECLARE_DO_FUN (do_switch);
 DECLARE_DO_FUN (do_showlayers);
 DECLARE_DO_FUN (do_tail);
@@ -5442,6 +5529,14 @@ char *sha256_crypt args ((const char *key, const char *salt));
 #define MOB_FILE		 		"mobs.dat"  /* For storing mobs across hotboots */
 #endif
 
+#ifdef OVERLANDCODE
+/* Change these filenames to match yours */
+#define MAP_DIR 				RUNDIR       "maps/"
+#define ENTRANCE_FILE                "entrances.dat"
+#define LANDMARK_FILE                "landmarks.dat"
+#define MAPRESET_FILE                "mapresets.dat"
+#endif
+
 /*
  * Our function prototypes.
  * One big lump ... this is every function in Merc.
@@ -5498,7 +5593,11 @@ ED *find_door args ((CHAR_DATA * ch, char *arg, bool quiet));
 ED *get_exit args ((ROOM_INDEX_DATA * room, sh_int dir));
 ED *get_exit_to args ((ROOM_INDEX_DATA * room, sh_int dir, int vnum));
 ED *get_exit_num args ((ROOM_INDEX_DATA * room, sh_int count));
+#ifdef OVERLANDCODE
+ch_ret move_char( CHAR_DATA *ch, EXIT_DATA *pexit, int fall, int direction );
+#else
 ch_ret move_char args ((CHAR_DATA * ch, EXIT_DATA * pexit, int fall));
+#endif
 void teleport args ((CHAR_DATA * ch, int room, int flags));
 sh_int encumbrance args ((CHAR_DATA * ch, sh_int move));
 bool will_fall args ((CHAR_DATA * ch, int fall));
@@ -5955,7 +6054,11 @@ void equip_char args ((CHAR_DATA * ch, OBJ_DATA * obj, int iWear));
 void unequip_char args ((CHAR_DATA * ch, OBJ_DATA * obj));
 int count_obj_list args ((OBJ_INDEX_DATA * obj, OBJ_DATA * list));
 void obj_from_room args ((OBJ_DATA * obj));
+#ifdef OVERLANDCODE
+OD *obj_to_room( OBJ_DATA *obj, ROOM_INDEX_DATA *pRoomIndex, CHAR_DATA *ch );
+#else
 OD *obj_to_room args ((OBJ_DATA * obj, ROOM_INDEX_DATA * pRoomIndex));
+#endif
 OD *obj_to_obj args ((OBJ_DATA * obj, OBJ_DATA * obj_to));
 void obj_from_obj args ((OBJ_DATA * obj));
 void extract_obj args ((OBJ_DATA * obj));
@@ -5982,7 +6085,11 @@ int get_real_obj_weight args ((OBJ_DATA * obj));
 bool room_is_dark args ((ROOM_INDEX_DATA * pRoomIndex));
 bool room_is_private args ((ROOM_INDEX_DATA * pRoomIndex));
 CD *room_is_dnd args ((CHAR_DATA * ch, ROOM_INDEX_DATA * pRoomIndex));
+#ifdef OVERLANDCODE
+bool can_see( CHAR_DATA *ch, CHAR_DATA *victim, bool override );
+#else
 bool can_see args ((CHAR_DATA * ch, CHAR_DATA * victim));
+#endif
 bool can_see_obj args ((CHAR_DATA * ch, OBJ_DATA * obj));
 bool can_drop_obj args ((CHAR_DATA * ch, OBJ_DATA * obj));
 char *item_type_name args ((OBJ_DATA * obj));
@@ -6355,9 +6462,6 @@ extern const char control_help_page[];
 /*
  *   Map Structures
  */
-
-DECLARE_DO_FUN (do_mapout);
-DECLARE_DO_FUN (do_lookmap);
 
 struct map_data			/* contains per-room data */
 {

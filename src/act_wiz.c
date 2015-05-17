@@ -1493,7 +1493,11 @@ do_transfer (CHAR_DATA * ch, char *argument)
 {
   char arg1[MAX_INPUT_LENGTH];
   char arg2[MAX_INPUT_LENGTH];
+#ifdef OVERLANDCODE
+  ROOM_INDEX_DATA *location, *original;
+#else
   ROOM_INDEX_DATA *location;
+#endif
   DESCRIPTOR_DATA *d;
   CHAR_DATA *victim;
 
@@ -1513,7 +1517,12 @@ do_transfer (CHAR_DATA * ch, char *argument)
 	  if (d->connected == CON_PLAYING
 	      && d->character != ch
 	      && d->character->in_room
-	      && d->newstate != 2 && can_see (ch, d->character))
+	      && d->newstate != 2
+#ifdef OVERLANDCODE
+				&& can_see (ch, d->character, TRUE))
+#else
+				&& can_see (ch, d->character))
+#endif
 	    {
 	      char buf[MAX_STRING_LENGTH];
 	      sprintf (buf, "%s %s", d->character->name, arg2);
@@ -1583,8 +1592,14 @@ do_transfer (CHAR_DATA * ch, char *argument)
   act (AT_MAGIC, "$n disappears in a cloud of swirling colors.", victim, NULL,
        NULL, TO_ROOM);
   victim->retran = victim->in_room->vnum;
+#ifdef OVERLANDCODE
+	 original = victim->in_room;
+   leave_map( victim, ch, location );
+#else
   char_from_room (victim);
   char_to_room (victim, location);
+#endif
+
   act (AT_MAGIC, "$n arrives from a puff of smoke.", victim, NULL, NULL,
        TO_ROOM);
   if (ch != victim)
@@ -1635,6 +1650,107 @@ do_regoto (CHAR_DATA * ch, char *argument)
 /*  Added do_at and do_atobj to reduce lag associated with at
  *  --Shaddai
  */
+#ifdef OVERLANDCODE
+void do_at( CHAR_DATA *ch, char *argument )
+{
+    char arg[MAX_INPUT_LENGTH];
+    ROOM_INDEX_DATA *location;
+    ROOM_INDEX_DATA *original;
+    CHAR_DATA *wch;
+    OBJ_DATA *obj;
+    short origmap, origx, origy;
+
+    argument = one_argument( argument, arg );
+
+    if ( arg[0] == '\0' || argument[0] == '\0' )
+    {
+	send_to_char( "At where what?\r\n", ch );
+	return;
+    }
+
+    if( !is_number( arg ) )
+    {
+      if ( ( wch = get_char_world( ch, arg ) ) != NULL && wch->in_room != NULL )
+      {
+	  atmob( ch, wch, argument );
+	  return;
+      }
+
+      if ( ( obj = get_obj_world( ch, arg ) ) != NULL && obj->in_room != NULL )
+      {
+	  atobj( ch, obj, argument );
+	  return;
+      }
+
+	send_to_char( "No such mob or object.\r\n", ch );
+	return;
+    }
+
+    if ( ( location = find_location( ch, arg ) ) == NULL )
+    {
+	send_to_char( "No such location.\r\n", ch );
+	return;
+    }
+
+    if ( room_is_private( location ) )
+    {
+      if ( get_trust( ch ) < LEVEL_GREATER )
+      {
+	   send_to_char( "That room is private right now.\r\n", ch );
+	   return;
+      }
+      else
+      {
+	   send_to_char( "Overriding private flag!\r\n", ch );
+      }
+      
+    }
+
+    origmap = ch->map;
+    origx = ch->x;
+    origy = ch->y;
+
+    /* Since we're this far down, it's a given that the location isn't on a map since
+	 a vnum had to be specified to get here. Therefore you want to be off map, and
+	 at coords of -1, -1 to avoid problems - Samson */
+    REMOVE_PLR_FLAG( ch, PLR_ONMAP );
+    ch->map = -1;
+    ch->x = -1;
+    ch->y = -1;
+    
+    original = ch->in_room;
+    char_from_room( ch );
+    char_to_room( ch, location );
+
+    interpret( ch, argument );
+
+    /* And even if you weren't on a map to begin with, this will still work fine */
+    if( IS_PLR_FLAG( ch, PLR_ONMAP ) && IS_ROOM_FLAG( original, ROOM_MAP ) )
+	REMOVE_PLR_FLAG( ch, PLR_ONMAP );
+    else if( !IS_PLR_FLAG( ch, PLR_ONMAP ) && IS_ROOM_FLAG( original, ROOM_MAP ) )
+	SET_PLR_FLAG( ch, PLR_ONMAP );
+
+    ch->map = origmap;
+    ch->x = origx;
+    ch->y = origy;
+
+    /*
+     * See if 'ch' still exists before continuing!
+     * Handles 'at XXXX quit' case.
+     */
+    for ( wch = first_char; wch; wch = wch->next )
+    {
+	if ( wch == ch )
+	{
+	    char_from_room( ch );
+	    char_to_room( ch, original );
+	    break;
+	}
+    }
+
+    return;
+}
+#else
 void
 do_at (CHAR_DATA * ch, char *argument)
 {
@@ -1775,6 +1891,7 @@ do_atobj (CHAR_DATA * ch, char *argument)
     }
   return;
 }
+#endif
 
 void
 do_rat (CHAR_DATA * ch, char *argument)
@@ -1973,7 +2090,11 @@ do_rstat (CHAR_DATA * ch, char *argument)
   send_to_char_color ("&cCharacters: &w", ch);
   for (rch = location->first_person; rch; rch = rch->next_in_room)
     {
+#ifdef OVERLANDCODE
+      if (can_see (ch, rch, FALSE))
+#else
       if (can_see (ch, rch))
+#endif
 	{
 	  send_to_char (" ", ch);
 	  one_argument (rch->name, buf);
@@ -2062,6 +2183,10 @@ do_ostat (CHAR_DATA * ch, char *argument)
   ch_printf_color (ch, "&cCost: &Y%d  ", obj->cost);
 #endif
   ch_printf_color (ch, "&cRent: &w%d  ", obj->pIndexData->rent);
+#ifdef OVERLANDCODE
+    ch_printf_color( ch, "\r\n&cOn map: &w%s ",	IS_OBJ_STAT( obj, ITEM_ONMAP ) ? map_names[obj->map] : "(none)" );
+    ch_printf_color( ch, "&cCoords: &w%d %d\r\n", obj->x, obj->y );
+#endif
   send_to_char_color ("&cTimer: ", ch);
   if (obj->timer > 0)
     ch_printf_color (ch, "&R%d  ", obj->timer);
@@ -2448,6 +2573,11 @@ do_mstat (CHAR_DATA * ch, char *argument)
 			      victim->pcdata->nuisance->power,
 			      ctime (&victim->pcdata->nuisance->time));
 	}
+#ifdef OVERLANDCODE
+	pager_printf_color( ch, "&RMap   : &c%s &w &cCoords: &w%d %d\r\n",
+		IS_PLR_FLAG( victim, PLR_ONMAP ) ? map_names[victim->map] : "none",
+		victim->x, victim->y );
+#endif
     }
   if (victim->morph)
     {
@@ -2824,7 +2954,13 @@ do_gwhere (CHAR_DATA * ch, char *argument)
       for (d = first_descriptor; d; d = d->next)
 	if ((d->connected == CON_PLAYING || d->connected == CON_EDITING)
 	    && (victim = d->character) != NULL && !IS_NPC (victim)
-	    && victim->in_room && can_see (ch, victim) && victim->level >= low
+	    && victim->in_room
+#ifdef OVERLANDCODE
+			&& can_see (ch, victim, TRUE)
+#else
+			&& can_see (ch, victim)
+#endif
+			&& victim->level >= low
 	    && victim->level <= high)
 	  {
 	    found = TRUE;
@@ -2841,8 +2977,14 @@ do_gwhere (CHAR_DATA * ch, char *argument)
     {
       for (victim = first_char; victim; victim = victim->next)
 	if (IS_NPC (victim)
-	    && victim->in_room && can_see (ch, victim)
-	    && victim->level >= low && victim->level <= high)
+	    && victim->in_room
+#ifdef OVERLANDCODE
+			&& can_see (ch, victim, TRUE)
+#else
+			&& can_see (ch, victim)
+#endif
+	    && victim->level >= low
+			&& victim->level <= high)
 	  {
 	    found = TRUE;
 	    pager_printf_color (ch,
@@ -2905,8 +3047,15 @@ do_gfighting (CHAR_DATA * ch, char *argument)
       for (d = first_descriptor; d; d = d->next)
 	if ((d->connected == CON_PLAYING || d->connected == CON_EDITING)
 	    && (victim = d->character) != NULL && !IS_NPC (victim)
-	    && victim->in_room && can_see (ch, victim) && victim->fighting
-	    && victim->level >= low && victim->level <= high)
+	    && victim->in_room
+#ifdef OVERLANDCODE
+			&& can_see (ch, victim, TRUE)
+#else
+			&& can_see (ch, victim)
+#endif
+			&& victim->fighting
+	    && victim->level >= low
+			&& victim->level <= high)
 	  {
 	    found = TRUE;
 	    pager_printf_color (ch,
@@ -2929,8 +3078,14 @@ do_gfighting (CHAR_DATA * ch, char *argument)
     {
       for (victim = first_char; victim; victim = victim->next)
 	if (IS_NPC (victim)
-	    && victim->in_room && can_see (ch, victim)
-	    && victim->fighting && victim->level >= low
+	    && victim->in_room
+#ifdef OVERLANDCODE
+			&& can_see (ch, victim, TRUE)
+#else
+			&& can_see (ch, victim)
+#endif
+	    && victim->fighting
+			&& victim->level >= low
 	    && victim->level <= high)
 	  {
 	    found = TRUE;
@@ -2954,8 +3109,14 @@ do_gfighting (CHAR_DATA * ch, char *argument)
     {
       for (victim = first_char; victim; victim = victim->next)
 	if (IS_NPC (victim)
-	    && victim->in_room && can_see (ch, victim)
-	    && victim->hating && victim->level >= low
+	    && victim->in_room
+#ifdef OVERLANDCODE
+			&& can_see (ch, victim, TRUE)
+#else
+			&& can_see (ch, victim)
+#endif
+	    && victim->hating
+			&& victim->level >= low
 	    && victim->level <= high)
 	  {
 	    found = TRUE;
@@ -2979,8 +3140,14 @@ do_gfighting (CHAR_DATA * ch, char *argument)
     {
       for (victim = first_char; victim; victim = victim->next)
 	if (IS_NPC (victim)
-	    && victim->in_room && can_see (ch, victim)
-	    && victim->hunting && victim->level >= low
+	    && victim->in_room
+#ifdef OVERLANDCODE
+			&& can_see (ch, victim, TRUE)
+#else
+			&& can_see (ch, victim)
+#endif
+	    && victim->hunting
+			&& victim->level >= low
 	    && victim->level <= high)
 	  {
 	    found = TRUE;
@@ -3084,7 +3251,11 @@ do_bodybag (CHAR_DATA * ch, char *argument)
     {
       if (IS_NPC (owner))
 	continue;
+#ifdef OVERLANDCODE
+      if (can_see (ch, owner, TRUE) && !str_cmp (arg1, owner->name))
+#else
       if (can_see (ch, owner) && !str_cmp (arg1, owner->name))
+#endif
 	break;
     }
   if (owner == NULL)
@@ -3761,6 +3932,13 @@ do_minvoke (CHAR_DATA * ch, char *argument)
 
   victim = create_mobile (pMobIndex);
   char_to_room (victim, ch->in_room);
+
+#ifdef OVERLANDCODE
+    /* If you load one on the map, make sure it gets placed properly - Samson 8-21-99 */
+    fix_maps( ch, victim );
+    victim->sector = get_terrain( ch->map, ch->x, ch->y );
+#endif
+
   act (AT_IMMORT, "$n invokes $N!", ch, NULL, victim, TO_ROOM);
   /*How about seeing what we're invoking for a change. -Blodkai */
   ch_printf_color (ch, "&YYou invoke %s (&W#%d &Y- &W%s &Y- &Wlvl %d&Y)\n\r",
@@ -3912,7 +4090,11 @@ do_oinvoke (CHAR_DATA * ch, char *argument)
     }
   else
     {
+#ifdef OVERLANDCODE
+      obj = obj_to_room (obj, ch->in_room, ch);
+#else
       obj = obj_to_room (obj, ch->in_room);
+#endif
       act (AT_IMMORT, "$n fashions $p from ether!", ch, obj, NULL, TO_ROOM);
     }
 
@@ -3936,7 +4118,11 @@ void
 do_purge (CHAR_DATA * ch, char *argument)
 {
   char arg[MAX_INPUT_LENGTH];
+#ifdef OVERLANDCODE
+  CHAR_DATA *victim, *tch;
+#else
   CHAR_DATA *victim;
+#endif
   OBJ_DATA *obj;
 
   set_char_color (AT_IMMORT, ch);
@@ -3948,6 +4134,42 @@ do_purge (CHAR_DATA * ch, char *argument)
       CHAR_DATA *vnext;
       OBJ_DATA *obj_next;
 
+#ifdef OVERLANDCODE
+	for ( victim = ch->in_room->first_person; victim; victim = vnext )
+	{
+	    vnext = victim->next_in_room;
+
+	    /* GACK! Why did this get removed?? */
+	    if( !IS_NPC( victim ) )
+		continue;
+
+          for ( tch = ch->in_room->first_person; tch; tch = tch->next_in_room )
+            if ( !IS_NPC(tch) && tch->dest_buf == victim )
+               break;
+
+          if ( tch && !IS_NPC(tch) && tch->dest_buf == victim )
+            continue;
+
+	    /* This will work in normal rooms too since they should always be -1,-1,-1 outside of the maps. */
+          if( is_same_map( ch, victim ) )
+		extract_char( victim, TRUE );
+      }
+
+	for ( obj = ch->in_room->first_content; obj; obj = obj_next )
+	{
+	    obj_next = obj->next_content;
+
+          for ( tch = ch->in_room->first_person; tch; tch = tch->next_in_room )
+              if ( !IS_NPC(tch) && tch->dest_buf == obj )
+                  break;
+          if ( tch && !IS_NPC(tch) && tch->dest_buf == obj )
+             continue;
+
+	    /* This will work in normal rooms too since they should always be -1,-1,-1 outside of the maps. */
+	    if( ch->map == obj->map && ch->x == obj->x && ch->y == obj->y )
+		extract_obj( obj );
+	}
+#else
       for (victim = ch->in_room->first_person; victim; victim = vnext)
 	{
 	  vnext = victim->next_in_room;
@@ -3960,7 +4182,7 @@ do_purge (CHAR_DATA * ch, char *argument)
 	  obj_next = obj->next_content;
 	  extract_obj (obj);
 	}
-
+#endif
       act (AT_IMMORT, "$n purges the room!", ch, NULL, NULL, TO_ROOM);
       act (AT_IMMORT, "You have purged the room!", ch, NULL, NULL, TO_CHAR);
       save_house_by_vnum (ch->in_room->vnum);	/* Prevent House Object Duplication */
@@ -4916,7 +5138,11 @@ do_strew (CHAR_DATA * ch, char *argument)
 	{
 	  obj_next = obj_lose->next_content;
 	  obj_from_char (obj_lose);
+#ifdef OVERLANDCODE
+	  obj_to_room (obj_lose, pRoomIndex, ch);
+#else
 	  obj_to_room (obj_lose, pRoomIndex);
+#endif
 	  pager_printf_color (ch, "\t&w%s sent to %d\n\r",
 			      capitalize (obj_lose->short_descr),
 			      pRoomIndex->vnum);
@@ -5901,7 +6127,11 @@ do_users (CHAR_DATA * ch, char *argument)
       if (arg[0] == '\0')
 	{
 	  if (get_trust (ch) >= LEVEL_SUPREME
+#ifdef OVERLANDCODE
+	      || (d->character && can_see (ch, d->character, TRUE)))
+#else
 	      || (d->character && can_see (ch, d->character)))
+#endif
 	    {
 	      count++;
 	      sprintf (buf,
@@ -5921,7 +6151,11 @@ do_users (CHAR_DATA * ch, char *argument)
       else
 	{
 	  if ((get_trust (ch) >= LEVEL_SUPREME
-	       || (d->character && can_see (ch, d->character)))
+#ifdef OVERLANDCODE
+	      || (d->character && can_see (ch, d->character, TRUE)))
+#else
+	      || (d->character && can_see (ch, d->character)))
+#endif
 	      && (!str_prefix (arg, d->host)
 		  || (d->character && !str_prefix (arg, d->character->name))))
 	    {
@@ -6531,7 +6765,11 @@ do_loadup (CHAR_DATA * ch, char *argument)
     {
       if (IS_NPC (temp))
 	continue;
+#ifdef OVERLANDCODE
+      if (can_see (ch, temp, TRUE) && !str_cmp (name, temp->name))
+#else
       if (can_see (ch, temp) && !str_cmp (name, temp->name))
+#endif
 	break;
     }
   if (temp != NULL)
@@ -8546,7 +8784,11 @@ do_vassign (CHAR_DATA * ch, char *argument)
       return;
     }
   obj = create_object (pObjIndex, 0);
+#ifdef OVERLANDCODE
+  obj_to_room (obj, room, ch);
+#else
   obj_to_room (obj, room);
+#endif
 
   /* Initialize last obj in range */
   pObjIndex = make_object (hi, 0, "last obj");
@@ -8556,7 +8798,11 @@ do_vassign (CHAR_DATA * ch, char *argument)
       return;
     }
   obj = create_object (pObjIndex, 0);
+#ifdef OVERLANDCODE
+  obj_to_room (obj, room, ch);
+#else
   obj_to_room (obj, room);
+#endif
 
   /* Save character and newly created zone */
   save_char_obj (victim);
@@ -8614,7 +8860,11 @@ do_vsearch (CHAR_DATA * ch, char *argument)
 	pager_printf (ch, "[%2d] Level %d %s carried by %s.\n\r",
 		      obj_counter,
 		      obj->level, obj_short (obj),
+#ifdef OVERLANDCODE
+		      PERS (in_obj->carried_by, ch, TRUE));
+#else
 		      PERS (in_obj->carried_by, ch));
+#endif
       else
 	pager_printf (ch, "[%2d] [%-5d] %s in %s.\n\r", obj_counter,
 		      ((in_obj->in_room) ? in_obj->in_room->vnum : 0),
@@ -11997,8 +12247,13 @@ do_ipcompare (CHAR_DATA * ch, char *argument)
 	  IPCOMPARE_DATA *temp;
 
 	  if ((d->connected != CON_PLAYING && d->connected != CON_EDITING)
-	      || d->character == NULL || !CAN_PKILL (d->character)
+	      || d->character == NULL
+				|| !CAN_PKILL (d->character)
+#ifdef OVERLANDCODE
+	      || !can_see (ch, d->character, TRUE))
+#else
 	      || !can_see (ch, d->character))
+#endif
 	    continue;
 	  CREATE (temp, IPCOMPARE_DATA, 1);
 	  temp->host = str_dup (d->host);
@@ -12019,7 +12274,12 @@ do_ipcompare (CHAR_DATA * ch, char *argument)
 	{
 	  fMatch = FALSE;
 	  if ((d->connected != CON_PLAYING && d->connected != CON_EDITING)
-	      || d->character == NULL || !can_see (ch, d->character))
+	      || d->character == NULL
+#ifdef OVERLANDCODE
+	      || !can_see (ch, d->character, TRUE))
+#else
+	      || !can_see (ch, d->character))
+#endif
 	    continue;
 	  for (hmm = first_ip; hmm; hmm = hmm->next)
 	    {
@@ -12145,7 +12405,11 @@ do_ipcompare (CHAR_DATA * ch, char *argument)
     {
       if (!d->character || (d->connected != CON_PLAYING &&
 			    d->connected != CON_EDITING)
-	  || !can_see (ch, d->character))
+#ifdef OVERLANDCODE
+	      || !can_see (ch, d->character, TRUE))
+#else
+	      || !can_see (ch, d->character))
+#endif
 	continue;
       if (inroom && ch->in_room != d->character->in_room)
 	continue;

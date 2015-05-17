@@ -583,6 +583,16 @@ if test "$enable_olc2extras" = "yes"; then
 fi
 AM_CONDITIONAL([ENABLE_OLC2_EXTRAS], [test "$enable_olc2extras" = "yes"])
 
+# Enable Overland Support (-DOVERLANDCODE) #
+AC_ARG_ENABLE(overland,
+              AC_HELP_STRING([--enable-overland],
+                             [enable Overland Support @<:@default=no@:>@]),
+              [], [enable_overland=yes])
+if test "$enable_overland" = "yes"; then
+		AC_DEFINE([OVERLANDCODE], [], [Overland Support])
+fi
+AM_CONDITIONAL([OVERLANDCODE], [test "$enable_overland" = "yes"])
+
 # Enable BuildWalk Support (-DENABLE_BUILDWALK) #
 AC_ARG_ENABLE(buildwalk,
               AC_HELP_STRING([--enable-buildwalk],
@@ -871,6 +881,7 @@ Configured --{SMAUG}-- MUD Server features:
  * SMAUG 2.0:           <$enable_smaug2>
  * Oasis OLC:           <$enable_olc2>
  * Oasis OLC Extras:    <$enable_olc2extras>
+ * Overland:            <$enable_overland>
  * Buildwalk:           <$enable_buildwalk>
  * Billion MAX_VNUM:    <$enable_bvnum>
  * Password Encryption: <$enable_crypt>

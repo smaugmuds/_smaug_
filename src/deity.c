@@ -1299,7 +1299,11 @@ do_supplicate (CHAR_DATA * ch, char *argument)
 	      /* what kinda deity doesn't unbury your corpse? :P  Eddy */
 	      if (IS_OBJ_STAT (obj, ITEM_BURIED))
 		xREMOVE_BIT (obj->extra_flags, ITEM_BURIED);
+#ifdef OVERLANDCODE
+	      obj = obj_to_room (obj, ch->in_room, ch);
+#else
 	      obj = obj_to_room (obj, ch->in_room);
+#endif
 	      retr = TRUE;
 	    }
 	}
@@ -1402,7 +1406,11 @@ do_supplicate (CHAR_DATA * ch, char *argument)
       if (CAN_WEAR (obj, ITEM_TAKE))
 	obj = obj_to_char (obj, ch);
       else
+#ifdef OVERLANDCODE
+	obj = obj_to_room (obj, ch->in_room, ch);
+#else
 	obj = obj_to_room (obj, ch->in_room);
+#endif
 
       sprintf (buf, "sigil %s", ch->pcdata->deity->name);
       STRFREE (obj->name);
@@ -1514,6 +1522,9 @@ do_supplicate (CHAR_DATA * ch, char *argument)
 
       act (AT_MAGIC, "$n disappears in a column of divine power.", ch, NULL,
 	   NULL, TO_ROOM);
+#ifdef OVERLANDCODE
+      leave_map( ch, NULL, location );
+#else
       char_from_room (ch);
       char_to_room (ch, location);
       if (ch->mount)
@@ -1521,6 +1532,7 @@ do_supplicate (CHAR_DATA * ch, char *argument)
 	  char_from_room (ch->mount);
 	  char_to_room (ch->mount, location);
 	}
+#endif
       act (AT_MAGIC, "$n appears in the room from a column of divine mist.",
 	   ch, NULL, NULL, TO_ROOM);
       do_look (ch, "auto");

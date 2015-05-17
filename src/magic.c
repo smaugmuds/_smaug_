@@ -476,7 +476,11 @@ dispel_casting (AFFECT_DATA * paf, CHAR_DATA * ch, CHAR_DATA * victim,
   set_char_color (AT_MAGIC, ch);
   set_char_color (AT_HITME, victim);
 
-  if (!can_see (ch, victim))
+#ifdef OVERLANDCODE
+	  if (!can_see (ch, victim, FALSE))
+#else
+	  if (!can_see (ch, victim))
+#endif
     strcpy (buf, "Someone");
   else
     {
@@ -839,8 +843,10 @@ say_spell (CHAR_DATA * ch, int sn)
   for (rch = ch->in_room->first_person; rch; rch = rch->next_in_room)
     {
       if (rch != ch)
-	act (AT_MAGIC, ch->class == rch->class ? buf : buf2,
-	     ch, NULL, rch, TO_VICT);
+#ifdef OVERLANDCODE
+		   if (is_same_map (ch, rch))
+#endif
+				act (AT_MAGIC, ch->class == rch->class ? buf : buf2, ch, NULL, rch, TO_VICT);
     }
 
   return;
@@ -2731,7 +2737,11 @@ spell_create_food (int sn, int level, CHAR_DATA * ch, void *vo)
   mushroom->value[0] = 5 + level;
   act (AT_MAGIC, "$p suddenly appears.", ch, mushroom, NULL, TO_ROOM);
   act (AT_MAGIC, "$p suddenly appears.", ch, mushroom, NULL, TO_CHAR);
+#ifdef OVERLANDCODE
+  mushroom = obj_to_room (mushroom, ch->in_room, ch);
+#else
   mushroom = obj_to_room (mushroom, ch->in_room);
+#endif
   return rNONE;
 }
 
@@ -5655,6 +5665,160 @@ spell_close_portal (int sn, int level, CHAR_DATA * ch, void *vo)
   return rNONE;
 }
 
+#ifdef OVERLANDCODE
+/*
+ * Syntax portal (mob/char) 
+ * opens a 2-way EX_PORTAL from caster's room to room inhabited by  
+ *  mob or character won't mess with existing exits
+ *
+ * do_mp_open_passage, combined with spell_astral
+ */
+ch_ret spell_portal( int sn, int level, CHAR_DATA *ch, void *vo )
+{
+    CHAR_DATA *victim;
+    ROOM_INDEX_DATA *targetRoom, *fromRoom;
+    int targetRoomVnum;
+    OBJ_DATA *portalObj;
+    EXIT_DATA *pexit;
+    char buf[MAX_STRING_LENGTH];
+    SKILLTYPE *skill = get_skilltype(sn);
+
+    if( ( victim = get_char_world( ch, target_name ) ) == NULL )
+    {
+	failed_casting( skill, ch, victim, NULL );
+	return rSPELL_FAILED;
+    }
+
+    if ( victim == ch )
+    {
+	send_to_char( "What?? Make a portal to yourself?\r\n", ch );
+	return rSPELL_FAILED;
+    }
+
+    if( IS_PLR_FLAG( ch, PLR_ONMAP ) || IS_PLR_FLAG( victim, PLR_ONMAP ) 
+     || IS_ACT_FLAG( ch, ACT_ONMAP ) || IS_ACT_FLAG( victim, ACT_ONMAP ) )
+    {
+	send_to_char( "Portals cannot be created to or from overland maps.\r\n", ch );
+	return rSPELL_FAILED;
+    }
+
+    /* No go if all kinds of things aren't just right, including the caster
+       and victim are not both pkill or both peaceful. -- Narn
+    */
+    if ( !victim->in_room
+    ||   xIS_SET(victim->in_room->room_flags, ROOM_PRIVATE)
+    ||   xIS_SET(victim->in_room->room_flags, ROOM_SOLITARY)
+    ||   xIS_SET(victim->in_room->room_flags, ROOM_NO_ASTRAL)
+    ||   xIS_SET(victim->in_room->room_flags, ROOM_DEATH)
+    ||   xIS_SET(victim->in_room->room_flags, ROOM_NO_RECALL)
+    ||   xIS_SET(victim->in_room->room_flags, ROOM_PROTOTYPE)
+    ||   xIS_SET(ch->in_room->room_flags, ROOM_NO_RECALL)
+    ||   xIS_SET(ch->in_room->room_flags, ROOM_NO_ASTRAL)
+    ||   victim->level >= level + 15
+    ||	(IS_NPC(victim) && xIS_SET(victim->act, ACT_PROTOTYPE))
+    ||  (IS_NPC(victim) && saves_spell_staff( level, victim )) 
+    ||  (!IS_NPC(victim) && CAN_PKILL(ch) != CAN_PKILL(victim)) )
+    {
+	failed_casting( skill, ch, victim, NULL );
+	return rSPELL_FAILED;
+    }
+
+    if (victim->in_room == ch->in_room)
+    {
+	send_to_char("They are right beside you!", ch);
+	return rSPELL_FAILED;
+    }
+    
+    targetRoomVnum = victim->in_room->vnum;
+    fromRoom = ch->in_room;
+    targetRoom = victim->in_room;
+
+    /* Check if there already is a portal in either room. */
+    for ( pexit = fromRoom->first_exit; pexit; pexit = pexit->next )
+    {
+	if ( IS_SET( pexit->exit_info, EX_PORTAL ) ) 
+	{
+	    send_to_char("There is already a portal in this room.\r\n",ch);
+	    return rSPELL_FAILED;
+	}
+ 
+	if ( pexit->vdir == DIR_PORTAL )
+	{
+	    send_to_char("You may not create a portal in this room.\r\n",ch);
+	    return rSPELL_FAILED;
+	}
+    }
+
+    for ( pexit = targetRoom->first_exit; pexit; pexit = pexit->next )
+	if ( pexit->vdir == DIR_PORTAL )
+	{
+	    failed_casting( skill, ch, victim, NULL );
+            return rSPELL_FAILED;
+	}
+
+    pexit = make_exit( fromRoom, targetRoom, DIR_PORTAL ); 
+    pexit->keyword 	= STRALLOC( "portal" );
+    pexit->description	= STRALLOC( "You gaze into the shimmering portal...\r\n" );
+    pexit->key     	= -1;
+    pexit->exit_info	= EX_PORTAL | EX_xENTER | EX_HIDDEN | EX_xLOOK;
+    pexit->vnum    	= targetRoomVnum;
+
+    portalObj = create_object( get_obj_index( OBJ_VNUM_PORTAL ), 0 );
+    portalObj->timer = 3;
+    sprintf( buf, "a portal created by %s", ch->name );
+    STRFREE( portalObj->short_descr );
+    portalObj->short_descr = STRALLOC( buf ); 
+
+    /* support for new casting messages */
+    if ( !skill->hit_char || skill->hit_char[0] == '\0' )
+    {
+	set_char_color( AT_MAGIC, ch );
+	send_to_char("You utter an incantation, and a portal forms in front of you!\r\n", ch);
+    }
+    else
+#ifndef ENABLE_COLOR
+	act( AT_COLORIZE, skill->hit_char, ch, NULL, victim, TO_CHAR );
+#else
+	act( AT_MAGIC, skill->hit_char, ch, NULL, victim, TO_CHAR );
+#endif
+    if ( !skill->hit_room || skill->hit_room[0] == '\0' )
+#ifndef ENABLE_COLOR
+	act( AT_COLORIZE, "$n utters an incantation, and a portal forms in front of you!", ch, NULL, NULL, TO_ROOM );
+#else
+	act( AT_MAGIC, "$n utters an incantation, and a portal forms in front of you!", ch, NULL, NULL, TO_ROOM );
+#endif
+    else
+#ifndef ENABLE_COLOR
+	act( AT_COLORIZE, skill->hit_room, ch, NULL, victim, TO_ROOM );
+#else
+	act( AT_MAGIC, skill->hit_room, ch, NULL, victim, TO_ROOM );
+#endif
+    if ( !skill->hit_vict || skill->hit_vict[0] == '\0' )
+	act( AT_MAGIC, "A shimmering portal forms in front of you!", victim, NULL, NULL, TO_ROOM );
+    else
+#ifndef ENABLE_COLOR
+	act( AT_COLORIZE, skill->hit_vict, victim, NULL, victim, TO_ROOM );
+#else
+	act( AT_MAGIC, skill->hit_vict, victim, NULL, victim, TO_ROOM );
+#endif
+
+    portalObj = obj_to_room( portalObj, ch->in_room, ch );
+
+    pexit = make_exit( targetRoom, fromRoom, DIR_PORTAL );
+    pexit->keyword 	= STRALLOC( "portal" );
+    pexit->description	= STRALLOC( "You gaze into the shimmering portal...\r\n" );
+    pexit->key          = -1;
+    pexit->exit_info    = EX_PORTAL | EX_xENTER | EX_HIDDEN;
+    pexit->vnum         = targetRoomVnum;
+
+    portalObj = create_object( get_obj_index( OBJ_VNUM_PORTAL ), 0 );
+    portalObj->timer = 3;
+    STRFREE( portalObj->short_descr );
+    portalObj->short_descr = STRALLOC( buf ); 
+    portalObj = obj_to_room( portalObj, targetRoom, NULL );
+    return rNONE;
+}
+#else
 ch_ret
 spell_portal (int sn, int level, CHAR_DATA * ch, void *vo)
 {
@@ -5780,8 +5944,8 @@ spell_portal (int sn, int level, CHAR_DATA * ch, void *vo)
 #else
     act (AT_MAGIC, skill->hit_vict, victim, NULL, victim, TO_ROOM);
 #endif
-  portalObj = obj_to_room (portalObj, ch->in_room);
 
+  portalObj = obj_to_room (portalObj, ch->in_room);
   pexit = make_exit (targetRoom, fromRoom, DIR_PORTAL);
   pexit->keyword = STRALLOC ("portal");
   pexit->description =
@@ -5803,6 +5967,7 @@ spell_portal (int sn, int level, CHAR_DATA * ch, void *vo)
 */
   return rNONE;
 }
+#endif
 
 ch_ret
 spell_farsight (int sn, int level, CHAR_DATA * ch, void *vo)
@@ -5811,6 +5976,9 @@ spell_farsight (int sn, int level, CHAR_DATA * ch, void *vo)
   ROOM_INDEX_DATA *original;
   CHAR_DATA *victim;
   SKILLTYPE *skill = get_skilltype (sn);
+#ifdef OVERLANDCODE
+  int origmap, origx, origy;
+#endif
 
   /* The spell fails if the victim isn't playing, the victim is the caster,
      the target room has private, solitary, noastral, death or proto flags,
@@ -5842,8 +6010,53 @@ spell_farsight (int sn, int level, CHAR_DATA * ch, void *vo)
       failed_casting (skill, ch, victim, NULL);
       return rSPELL_FAILED;
     }
+
   successful_casting (skill, ch, victim, NULL);
   original = ch->in_room;
+
+#ifdef OVERLANDCODE
+    origmap = ch->map;
+    origx = ch->x;
+    origy = ch->y;
+
+    /* Bunch of checks to make sure the caster is on the same grid as the target - Samson */
+    if( IS_ROOM_FLAG( location, ROOM_MAP ) && !IS_PLR_FLAG( ch, PLR_ONMAP ) )
+    {
+			SET_PLR_FLAG( ch, PLR_ONMAP );
+			ch->map = victim->map;
+			ch->x = victim->x;
+			ch->y = victim->y;
+    }
+    else if( IS_ROOM_FLAG( location, ROOM_MAP ) && IS_PLR_FLAG( ch, PLR_ONMAP ) )
+    {
+			ch->map = victim->map;
+			ch->x = victim->x;
+			ch->y = victim->y;
+    }
+    else if( !IS_ROOM_FLAG( location, ROOM_MAP ) && IS_PLR_FLAG( ch, PLR_ONMAP ) )
+    {
+			REMOVE_PLR_FLAG( ch, PLR_ONMAP );
+			ch->map = -1;
+			ch->x = -1;
+			ch->y = -1;
+    }
+
+    char_from_room( ch );
+    char_to_room( ch, location );
+
+    do_look( ch, "auto" );
+    char_from_room( ch );
+    char_to_room( ch, original );
+
+    if( IS_PLR_FLAG( ch, PLR_ONMAP ) && !IS_ROOM_FLAG( original, ROOM_MAP ) )
+			REMOVE_PLR_FLAG( ch, PLR_ONMAP );
+    else if( !IS_PLR_FLAG( ch, PLR_ONMAP ) && IS_ROOM_FLAG( original, ROOM_MAP ) )
+			SET_PLR_FLAG( ch, PLR_ONMAP );
+
+    ch->map = origmap;
+    ch->x = origx;
+    ch->y = origy;
+#else
   char_from_room (ch);
   if (sysdata.magichell && ch->level > 35)
     {
@@ -5868,10 +6081,12 @@ spell_farsight (int sn, int level, CHAR_DATA * ch, void *vo)
   do_look (ch, "auto");
   char_from_room (ch);
   char_to_room (ch, original);
+#endif
 
   if (chance_attrib (victim, 20, get_curr_wis (victim)) && !IS_PKILL (ch))
     send_to_char ("You get an uneasy feeling that you are being watched.\n\r",
 		  victim);
+
   return rNONE;
 }
 
@@ -6207,7 +6422,11 @@ spell_remove_invis (int sn, int level, CHAR_DATA * ch, void *vo)
 
       if (victim)
 	{
+#ifdef OVERLANDCODE
+	  if (!can_see (ch, victim, FALSE))
+#else
 	  if (!can_see (ch, victim))
+#endif
 	    {
 	      ch_printf (ch, "You don't see %s!\n\r", target_name);
 	      return rSPELL_FAILED;
@@ -6414,7 +6633,11 @@ spell_animate_dead (int sn, int level, CHAR_DATA * ch, void *vo)
 	  {
 	    obj_next = obj->next_content;
 	    obj_from_obj (obj);
+#ifdef OVERLANDCODE
+	    obj_to_room (obj, corpse->in_room, mob);
+#else
 	    obj_to_room (obj, corpse->in_room);
+#endif
 	  }
 
       separate_obj (corpse);
@@ -6567,7 +6790,11 @@ spell_dream (int sn, int level, CHAR_DATA * ch, void *vo)
 
   set_char_color (AT_TELL, victim);
   ch_printf (victim, "You have dreams about %s telling you '%s'.\n\r",
+#ifdef OVERLANDCODE
+	     PERS (ch, victim, FALSE), target_name);
+#else
 	     PERS (ch, victim), target_name);
+#endif
   successful_casting (get_skilltype (sn), ch, victim, NULL);
 /*  send_to_char("Ok.\n\r", ch);*/
   return rNONE;
@@ -6875,6 +7102,12 @@ spell_area_attack (int sn, int level, CHAR_DATA * ch, void *vo)
 
       if (is_safe (ch, vch, FALSE))
 	continue;
+
+#ifdef OVERLANDCODE
+      /* Verify they're in the same spot */
+      if ( vch == ch || !is_same_map( vch, ch ) )
+	   continue;
+#endif
 
       if (!IS_NPC (ch) && !IS_NPC (vch) && !in_arena (ch) && (!IS_PKILL (ch)
 							      ||
@@ -7558,7 +7791,11 @@ spell_create_obj (int sn, int level, CHAR_DATA * ch, void *vo)
   if (CAN_WEAR (obj, ITEM_TAKE))
     obj_to_char (obj, ch);
   else
+#ifdef OVERLANDCODE
+    obj_to_room (obj, ch->in_room, ch);
+#else
     obj_to_room (obj, ch->in_room);
+#endif
   return rNONE;
 }
 
@@ -8237,7 +8474,11 @@ spell_midas_touch (int sn, int level, CHAR_DATA * ch, void *vo)
 		       NULL, NULL, TO_CHAR);
 		  act (AT_ACTION, "You drop $p.", ch, obj, NULL, TO_CHAR);
 		  act (AT_ACTION, "$n drops $p.", ch, obj, NULL, TO_ROOM);
+#ifdef OVERLANDCODE
+		  obj_to_room (obj, ch->in_room, ch);
+#else
 		  obj_to_room (obj, ch->in_room);
+#endif
 		}
 	      else
 		obj_to_char (obj, ch);
@@ -8281,7 +8522,11 @@ spell_midas_touch (int sn, int level, CHAR_DATA * ch, void *vo)
 		   NULL, NULL, TO_CHAR);
 	      act (AT_ACTION, "You drop $p.", ch, obj, NULL, TO_CHAR);
 	      act (AT_ACTION, "$n drops $p.", ch, obj, NULL, TO_ROOM);
+#ifdef OVERLANDCODE
+	      obj_to_room (obj, ch->in_room, ch);
+#else
 	      obj_to_room (obj, ch->in_room);
+#endif
 	    }
 	  else
 	    obj_to_char (obj, ch);

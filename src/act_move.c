@@ -560,7 +560,11 @@ will_fall (CHAR_DATA * ch, int fall)
 	}
       set_char_color (AT_FALLING, ch);
       send_to_char (_("You're falling down...\n"), ch);
+#ifdef OVERLANDCODE
+      move_char (ch, get_exit (ch->in_room, DIR_DOWN), ++fall, DIR_DOWN);
+#else
       move_char (ch, get_exit (ch->in_room, DIR_DOWN), ++fall);
+#endif
       return TRUE;
     }
   return FALSE;
@@ -663,7 +667,11 @@ generate_exit (ROOM_INDEX_DATA * in_room, EXIT_DATA ** pexit)
 }
 
 ch_ret
+#ifdef OVERLANDCODE
+move_char( CHAR_DATA *ch, EXIT_DATA *pexit, int fall, int direction )
+#else
 move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
+#endif
 {
   ROOM_INDEX_DATA *in_room;
   ROOM_INDEX_DATA *to_room;
@@ -683,6 +691,42 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
       if (IS_DRUNK (ch, 2) && (ch->position != POS_SHOVE)
 	  && (ch->position != POS_DRAG))
 	drunk = TRUE;
+
+#ifdef OVERLANDCODE
+
+    if( IS_PLR_FLAG( ch, PLR_ONMAP ) || IS_ACT_FLAG( ch, ACT_ONMAP ) )
+    {
+	int newx = ch->x;
+	int newy = ch->y;
+
+      switch( direction )
+	{
+	   default: 
+		break;
+	   case DIR_NORTH:
+		newy = ch->y - 1; break;
+	   case DIR_EAST:
+		newx = ch->x + 1; break;
+	   case DIR_SOUTH:
+		newy = ch->y + 1; break;
+	   case DIR_WEST:
+		newx = ch->x - 1; break;
+	   case DIR_NORTHEAST:
+		newx = ch->x + 1; newy = ch->y - 1; break;
+	   case DIR_NORTHWEST:
+		newx = ch->x - 1; newy = ch->y - 1; break;
+	   case DIR_SOUTHEAST:
+		newx = ch->x + 1; newy = ch->y + 1; break;
+	   case DIR_SOUTHWEST:
+		newx = ch->x - 1; newy = ch->y + 1; break;
+	}
+	if( newx == ch->x && newy == ch->y )
+	   return rNONE;
+
+	retcode = process_exit( ch, ch->map, newx, newy, direction );
+	return retcode;
+    }
+#endif
 
       /* Nuisance flag, makes them walk in random directions 50% of the time
        * -Shaddai
@@ -798,6 +842,80 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
       send_to_char (_("Alas, you cannot go that way.\n"), ch);
       return rNONE;
     }
+
+#ifdef OVERLANDCODE
+    /* Overland Map stuff - Samson 7-31-99 */
+    /* Upgraded 4-28-00 to allow mounts and charmies to follow PC - Samson */
+    if ( IS_SET( pexit->exit_info, EX_OVERLAND ) )
+    {
+      CHAR_DATA *fch;
+      CHAR_DATA *nextinroom;
+      int chars = 0, count = 0;
+
+      if( pexit->x < 0 || pexit->x >= MAX_X || pexit->y < 0 || pexit->y >= MAX_Y )
+	{
+	  sprintf( log_buf, "move_char: Room #%d - Invalid exit coordinates: %d %d", in_room->vnum, pexit->x, pexit->y );
+	  bug( log_buf, 0 );
+	  send_to_char( "Oops. Something is wrong with this map exit - notify the immortals.\r\n", ch );
+	  return rNONE;
+	}
+
+      if( !IS_NPC( ch ) )
+	{
+	  enter_map( ch, pexit->x, pexit->y, -1 );
+
+        for ( fch = from_room->first_person; fch; fch = fch->next_in_room )
+          chars++;
+
+        for ( fch = from_room->first_person; fch && ( count < chars ); fch = nextinroom )
+        {
+	     nextinroom = fch->next_in_room;
+           count++;
+	     if ( fch != ch		/* loop room bug fix here by Thoric */
+	       && fch->master == ch
+	       && (fch->position == POS_STANDING || fch->position == POS_MOUNTED) )
+	     {
+		  if( !IS_NPC( fch ) )
+		  {
+	          act( AT_ACTION, "You follow $N.", fch, NULL, ch, TO_CHAR );
+		    move_char( fch, pexit, 0, direction );
+		  }
+		  else
+		    enter_map( fch, pexit->x, pexit->y, -1 );
+	     }
+        }
+	}
+	else
+	{
+	  if( !IS_EXIT_FLAG( pexit, EX_NOMOB ) )
+	  {
+	    enter_map( ch, pexit->x, pexit->y, -1 );
+
+          for ( fch = from_room->first_person; fch; fch = fch->next_in_room )
+            chars++;
+
+          for ( fch = from_room->first_person; fch && ( count < chars ); fch = nextinroom )
+          {
+	       nextinroom = fch->next_in_room;
+             count++;
+	       if ( fch != ch		/* loop room bug fix here by Thoric */
+	         && fch->master == ch
+	         && (fch->position == POS_STANDING || fch->position == POS_MOUNTED) )
+	       {
+		   if( !IS_NPC( fch ) )
+		   {
+	           act( AT_ACTION, "You follow $N.", fch, NULL, ch, TO_CHAR );
+		     move_char( fch, pexit, 0, direction );
+		   }
+		   else
+		     enter_map( fch, pexit->x, pexit->y, -1 );
+	       }
+          }
+	  }
+      }
+	return rNONE;
+    }
+#endif
 
   if (IS_SET (pexit->exit_info, EX_PORTAL) && IS_NPC (ch))
     {
@@ -1015,7 +1133,11 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 		  learn_from_failure (ch, gsn_climb);
 		  if (pexit->vdir == DIR_DOWN)
 		    {
+#ifdef OVERLANDCODE
+		      retcode = move_char (ch, pexit, 1, pexit->vdir);
+#else
 		      retcode = move_char (ch, pexit, 1);
+#endif
 		      return retcode;
 		    }
 		  set_char_color (AT_HURT, ch);
@@ -1078,6 +1200,24 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 	      break;
 	    }
 
+#ifdef OVERLANDCODE
+	  if ( !IS_FLOATING(ch->mount) )
+	    move = sect_show[in_room->sector_type].move;
+	  else
+	    move = 1;
+	  if ( ch->mount->move < move )
+	  {
+	    send_to_char( "Your mount is too exhausted.\r\n", ch );
+	    return rNONE;
+	  }
+	}
+	else
+	{
+	  if ( !IS_FLOATING(ch) )
+	    move = encumbrance( ch, sect_show[in_room->sector_type].move );
+	  else
+	    move = 1;
+#else
 	  if (!IS_FLOATING (ch->mount))
 	    move = movement_loss[UMIN (SECT_MAX - 1, in_room->sector_type)];
 	  else
@@ -1098,6 +1238,7 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 					  in_room->sector_type)]);
 	  else
 	    move = 1;
+#endif
 	  if (ch->move < move)
 	    {
 	      send_to_char (_("You are too exhausted.\n"), ch);
@@ -1335,7 +1476,11 @@ move_char (CHAR_DATA * ch, EXIT_DATA * pexit, int fall)
 	      && fch->master == ch && fch->position == POS_STANDING)
 	    {
 	      act (AT_ACTION, _("You follow $N."), fch, NULL, ch, TO_CHAR);
+#ifdef OVERLANDCODE
+	      move_char (fch, pexit, 0, pexit->vdir);
+#else
 	      move_char (fch, pexit, 0);
+#endif
 	    }
 	}
     }
@@ -1398,18 +1543,30 @@ do_north (CHAR_DATA * ch, char *argument)
 
         if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
         {
+#ifdef OVERLANDCODE
+            move_char( ch, get_exit( ch->in_room, DIR_NORTH ), 0, DIR_NORTH );
+#else
             move_char( ch, get_exit( ch->in_room, DIR_NORTH ), 0 );
+#endif
             return;
         }
     }
     if ( IS_NPC( ch ) )
     {
+#ifdef OVERLANDCODE
+        move_char( ch, get_exit( ch->in_room, DIR_NORTH ), 0, DIR_NORTH );
+#else
         move_char( ch, get_exit( ch->in_room, DIR_NORTH ), 0 );
+#endif
         return;
     }
 #else
+#ifdef OVERLANDCODE
+  move_char( ch, get_exit( ch->in_room, DIR_NORTH ), 0, DIR_NORTH );
+#else
   move_char (ch, get_exit (ch->in_room, DIR_NORTH), 0);
   return;
+#endif
 #endif
 }
 
@@ -1428,17 +1585,29 @@ do_east (CHAR_DATA * ch, char *argument)
 
         if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
         {
+#ifdef OVERLANDCODE
+            move_char( ch, get_exit( ch->in_room, DIR_EAST ), 0, DIR_EAST );
+#else
             move_char( ch, get_exit( ch->in_room, DIR_EAST ), 0 );
+#endif
             return;
         }
     }
     if ( IS_NPC( ch ) )
     {
+#ifdef OVERLANDCODE
+        move_char( ch, get_exit( ch->in_room, DIR_EAST ), 0, DIR_EAST );
+#else
         move_char( ch, get_exit( ch->in_room, DIR_EAST ), 0 );
+#endif
         return;
     }
 #else
+#ifdef OVERLANDCODE
+  move_char( ch, get_exit( ch->in_room, DIR_EAST ), 0, DIR_EAST );
+#else
   move_char (ch, get_exit (ch->in_room, DIR_EAST), 0);
+#endif
   return;
 #endif
 }
@@ -1458,17 +1627,29 @@ do_south (CHAR_DATA * ch, char *argument)
 
         if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
         {
+#ifdef OVERLANDCODE
+            move_char( ch, get_exit( ch->in_room, DIR_SOUTH ), 0, DIR_SOUTH );
+#else
             move_char( ch, get_exit( ch->in_room, DIR_SOUTH ), 0 );
+#endif
             return;
         }
     }
     if ( IS_NPC( ch ) )
     {
+#ifdef OVERLANDCODE
+        move_char( ch, get_exit( ch->in_room, DIR_SOUTH ), 0, DIR_SOUTH );
+#else
         move_char( ch, get_exit( ch->in_room, DIR_SOUTH ), 0 );
+#endif
         return;
     }
 #else
+#ifdef OVERLANDCODE
+  move_char( ch, get_exit( ch->in_room, DIR_SOUTH ), 0, DIR_SOUTH );
+#else
   move_char (ch, get_exit (ch->in_room, DIR_SOUTH), 0);
+#endif
   return;
 #endif
 }
@@ -1488,17 +1669,29 @@ do_west (CHAR_DATA * ch, char *argument)
 
         if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
         {
+#ifdef OVERLANDCODE
+            move_char( ch, get_exit( ch->in_room, DIR_WEST ), 0, DIR_WEST );
+#else
             move_char( ch, get_exit( ch->in_room, DIR_WEST ), 0 );
+#endif
             return;
         }
     }
     if ( IS_NPC( ch ) )
     {
+#ifdef OVERLANDCODE
+        move_char( ch, get_exit( ch->in_room, DIR_WEST ), 0, DIR_WEST );
+#else
         move_char( ch, get_exit( ch->in_room, DIR_WEST ), 0 );
+#endif
         return;
     }
 #else
+#ifdef OVERLANDCODE
+  move_char( ch, get_exit( ch->in_room, DIR_WEST ), 0, DIR_WEST );
+#else
   move_char (ch, get_exit (ch->in_room, DIR_WEST), 0);
+#endif
   return;
 #endif
 }
@@ -1518,17 +1711,29 @@ do_up (CHAR_DATA * ch, char *argument)
 
         if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
         {
+#ifdef OVERLANDCODE
+            move_char( ch, get_exit( ch->in_room, DIR_UP ), 0, DIR_UP );
+#else
             move_char( ch, get_exit( ch->in_room, DIR_UP ), 0 );
+#endif
             return;
         }
     }
     if ( IS_NPC( ch ) )
     {
+#ifdef OVERLANDCODE
+        move_char( ch, get_exit( ch->in_room, DIR_UP ), 0, DIR_UP );
+#else
         move_char( ch, get_exit( ch->in_room, DIR_UP ), 0 );
+#endif
         return;
     }
 #else
+#ifdef OVERLANDCODE
+  move_char( ch, get_exit( ch->in_room, DIR_UP ), 0, DIR_UP );
+#else
   move_char (ch, get_exit (ch->in_room, DIR_UP), 0);
+#endif
   return;
 #endif
 }
@@ -1548,17 +1753,29 @@ do_down (CHAR_DATA * ch, char *argument)
 
         if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
         {
+#ifdef OVERLANDCODE
+            move_char( ch, get_exit( ch->in_room, DIR_DOWN ), 0, DIR_DOWN );
+#else
             move_char( ch, get_exit( ch->in_room, DIR_DOWN ), 0 );
+#endif
             return;
         }
     }
     if ( IS_NPC( ch ) )
     {
+#ifdef OVERLANDCODE
+        move_char( ch, get_exit( ch->in_room, DIR_DOWN ), 0, DIR_DOWN );
+#else
         move_char( ch, get_exit( ch->in_room, DIR_DOWN ), 0 );
+#endif
         return;
     }
 #else
+#ifdef OVERLANDCODE
+  move_char( ch, get_exit( ch->in_room, DIR_DOWN ), 0, DIR_DOWN );
+#else
   move_char (ch, get_exit (ch->in_room, DIR_DOWN), 0);
+#endif
   return;
 #endif
 }
@@ -1577,17 +1794,29 @@ do_northeast (CHAR_DATA * ch, char *argument)
 
         if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
         {
+#ifdef OVERLANDCODE
+            move_char( ch, get_exit( ch->in_room, DIR_NORTHEAST ), 0, DIR_NORTHEAST );
+#else
             move_char( ch, get_exit( ch->in_room, DIR_NORTHEAST ), 0 );
+#endif
             return;
         }
     }
     if ( IS_NPC( ch ) )
     {
+#ifdef OVERLANDCODE
+        move_char( ch, get_exit( ch->in_room, DIR_NORTHEAST ), 0, DIR_NORTHEAST );
+#else
         move_char( ch, get_exit( ch->in_room, DIR_NORTHEAST ), 0 );
+#endif
         return;
     }
 #else
+#ifdef OVERLANDCODE
+  move_char( ch, get_exit( ch->in_room, DIR_NORTHEAST ), 0, DIR_NORTHEAST );
+#else
   move_char (ch, get_exit (ch->in_room, DIR_NORTHEAST), 0);
+#endif
   return;
 #endif
 }
@@ -1606,17 +1835,29 @@ do_northwest (CHAR_DATA * ch, char *argument)
 
         if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
         {
+#ifdef OVERLANDCODE
+            move_char( ch, get_exit( ch->in_room, DIR_NORTHWEST ), 0, DIR_NORTHWEST );
+#else
             move_char( ch, get_exit( ch->in_room, DIR_NORTHWEST ), 0 );
+#endif
             return;
         }
     }
     if ( IS_NPC( ch ) )
     {
+#ifdef OVERLANDCODE
+        move_char( ch, get_exit( ch->in_room, DIR_NORTHWEST ), 0, DIR_NORTHWEST );
+#else
         move_char( ch, get_exit( ch->in_room, DIR_NORTHWEST ), 0 );
+#endif
         return;
     }
 #else
+#ifdef OVERLANDCODE
+  move_char( ch, get_exit( ch->in_room, DIR_NORTHWEST ), 0, DIR_NORTHWEST );
+#else
   move_char (ch, get_exit (ch->in_room, DIR_NORTHWEST), 0);
+#endif
   return;
 #endif
 }
@@ -1635,17 +1876,29 @@ do_southeast (CHAR_DATA * ch, char *argument)
 
         if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
         {
+#ifdef OVERLANDCODE
+            move_char( ch, get_exit( ch->in_room, DIR_SOUTHEAST ), 0, DIR_SOUTHEAST );
+#else
             move_char( ch, get_exit( ch->in_room, DIR_SOUTHEAST ), 0 );
+#endif
             return;
         }
     }
     if ( IS_NPC( ch ) )
     {
+#ifdef OVERLANDCODE
+        move_char( ch, get_exit( ch->in_room, DIR_SOUTHEAST ), 0, DIR_SOUTHEAST );
+#else
         move_char( ch, get_exit( ch->in_room, DIR_SOUTHEAST ), 0 );
+#endif
         return;
     }
 #else
+#ifdef OVERLANDCODE
+  move_char( ch, get_exit( ch->in_room, DIR_SOUTHEAST ), 0, DIR_SOUTHEAST );
+#else
   move_char (ch, get_exit (ch->in_room, DIR_SOUTHEAST), 0);
+#endif
   return;
 #endif
 }
@@ -1664,17 +1917,29 @@ do_southwest (CHAR_DATA * ch, char *argument)
 
         if ( !IS_SET( ch->pcdata->flags, PCFLAG_BUILDWALK ) )
         {
+#ifdef OVERLANDCODE
+            move_char( ch, get_exit( ch->in_room, DIR_SOUTHWEST ), 0, DIR_SOUTHWEST );
+#else
             move_char( ch, get_exit( ch->in_room, DIR_SOUTHWEST ), 0 );
+#endif
             return;
         }
     }
     if ( IS_NPC( ch ) )
     {
+#ifdef OVERLANDCODE
+        move_char( ch, get_exit( ch->in_room, DIR_SOUTHWEST ), 0, DIR_SOUTHWEST );
+#else
         move_char( ch, get_exit( ch->in_room, DIR_SOUTHWEST ), 0 );
+#endif
         return;
     }
 #else
+#ifdef OVERLANDCODE
+  move_char( ch, get_exit( ch->in_room, DIR_SOUTHWEST ), 0, DIR_SOUTHWEST );
+#else
   move_char (ch, get_exit (ch->in_room, DIR_SOUTHWEST), 0);
+#endif
   return;
 #endif
 }
@@ -2720,7 +2985,11 @@ teleport (CHAR_DATA * ch, int room, int flags)
 	{
 	  obj_next = obj->next_content;
 	  obj_from_room (obj);
+#ifdef OVERLANDCODE
+	  obj_to_room (obj, dest, ch);
+#else
 	  obj_to_room (obj, dest);
+#endif
 	}
     }
 }
@@ -2740,7 +3009,11 @@ do_climb (CHAR_DATA * ch, char *argument)
       for (pexit = ch->in_room->first_exit; pexit; pexit = pexit->next)
 	if (IS_SET (pexit->exit_info, EX_xCLIMB))
 	  {
+#ifdef OVERLANDCODE
+	    move_char (ch, pexit, 0, pexit->vdir);
+#else
 	    move_char (ch, pexit, 0);
+#endif
 	    return;
 	  }
       send_to_char (_("You cannot climb here.\n"), ch);
@@ -2750,7 +3023,11 @@ do_climb (CHAR_DATA * ch, char *argument)
   if ((pexit = find_door (ch, argument, TRUE)) != NULL
       && IS_SET (pexit->exit_info, EX_xCLIMB))
     {
-      move_char (ch, pexit, 0);
+#ifdef OVERLANDCODE
+	    move_char (ch, pexit, 0, pexit->vdir);
+#else
+	    move_char (ch, pexit, 0);
+#endif
       return;
     }
   send_to_char (_("You cannot climb there.\n"), ch);
@@ -2772,7 +3049,11 @@ do_enter (CHAR_DATA * ch, char *argument)
       for (pexit = ch->in_room->first_exit; pexit; pexit = pexit->next)
 	if (IS_SET (pexit->exit_info, EX_xENTER))
 	  {
+#ifdef OVERLANDCODE
+	    move_char (ch, pexit, 0, pexit->vdir);
+#else
 	    move_char (ch, pexit, 0);
+#endif
 	    return;
 	  }
       if (ch->in_room->sector_type != SECT_INSIDE && IS_OUTSIDE (ch))
@@ -2781,7 +3062,11 @@ do_enter (CHAR_DATA * ch, char *argument)
 				 || xIS_SET (pexit->to_room->room_flags,
 					     ROOM_INDOORS)))
 	    {
-	      move_char (ch, pexit, 0);
+#ifdef OVERLANDCODE
+	  		 move_char (ch, pexit, 0, pexit->vdir);
+#else
+	  	 	 move_char (ch, pexit, 0);
+#endif
 	      return;
 	    }
       send_to_char (_("You cannot find an entrance here.\n"), ch);
@@ -2791,7 +3076,11 @@ do_enter (CHAR_DATA * ch, char *argument)
   if ((pexit = find_door (ch, argument, TRUE)) != NULL
       && IS_SET (pexit->exit_info, EX_xENTER))
     {
-      move_char (ch, pexit, 0);
+#ifdef OVERLANDCODE
+	    move_char (ch, pexit, 0, pexit->vdir);
+#else
+	    move_char (ch, pexit, 0);
+#endif
       return;
     }
   send_to_char (_("You cannot enter that.\n"), ch);
@@ -2813,7 +3102,11 @@ do_leave (CHAR_DATA * ch, char *argument)
       for (pexit = ch->in_room->first_exit; pexit; pexit = pexit->next)
 	if (IS_SET (pexit->exit_info, EX_xLEAVE))
 	  {
+#ifdef OVERLANDCODE
+	    move_char (ch, pexit, 0, pexit->vdir);
+#else
 	    move_char (ch, pexit, 0);
+#endif
 	    return;
 	  }
       if (ch->in_room->sector_type == SECT_INSIDE || !IS_OUTSIDE (ch))
@@ -2821,7 +3114,11 @@ do_leave (CHAR_DATA * ch, char *argument)
 	  if (pexit->to_room && pexit->to_room->sector_type != SECT_INSIDE
 	      && !xIS_SET (pexit->to_room->room_flags, ROOM_INDOORS))
 	    {
-	      move_char (ch, pexit, 0);
+#ifdef OVERLANDCODE
+	    move_char (ch, pexit, 0, pexit->vdir);
+#else
+	    move_char (ch, pexit, 0);
+#endif
 	      return;
 	    }
       send_to_char (_("You cannot find an exit here.\n"), ch);
@@ -2831,7 +3128,11 @@ do_leave (CHAR_DATA * ch, char *argument)
   if ((pexit = find_door (ch, argument, TRUE)) != NULL
       && IS_SET (pexit->exit_info, EX_xLEAVE))
     {
-      move_char (ch, pexit, 0);
+#ifdef OVERLANDCODE
+	    move_char (ch, pexit, 0, pexit->vdir);
+#else
+	    move_char (ch, pexit, 0);
+#endif
       return;
     }
   send_to_char (_("You cannot leave that way.\n"), ch);
@@ -2999,7 +3300,11 @@ pullcheck (CHAR_DATA * ch, int pulse)
 
       /* as if player moved in that direction him/herself */
     case PULL_UNDEFINED:
+#ifdef OVERLANDCODE
+			return move_char (ch, xit, 0, xit->vdir);
+#else
       return move_char (ch, xit, 0);
+#endif
 
       /* all other cases ALWAYS move */
     default:
@@ -3148,7 +3453,11 @@ pullcheck (CHAR_DATA * ch, int pulse)
 
       /* move the char */
       if (xit->pulltype == PULL_SLIP)
+#ifdef OVERLANDCODE
+	return move_char (ch, xit, 1, xit->vdir);
+#else
 	return move_char (ch, xit, 1);
+#endif
 
       char_from_room (ch);
       char_to_room (ch, xit->to_room);
@@ -3216,7 +3525,11 @@ pullcheck (CHAR_DATA * ch, int pulse)
 		act (AT_PLAIN, destob, xit->to_room->first_person, obj, dtxt,
 		     TO_ROOM);
 	      obj_from_room (obj);
+#ifdef OVERLANDCODE
+	      obj_to_room (obj, xit->to_room, ch);
+#else
 	      obj_to_room (obj, xit->to_room);
+#endif
 	    }
 	}
     }
@@ -3419,6 +3732,10 @@ void do_build_walk( CHAR_DATA *ch, char *argument )
 
         return;
     }
+#ifdef OVERLANDCODE
+    move_char( ch, get_exit( ch->in_room, edir ), 0, edir );
+#else
     move_char( ch, get_exit( ch->in_room, edir ), 0 );
+#endif
 }
 #endif

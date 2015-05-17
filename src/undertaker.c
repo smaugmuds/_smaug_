@@ -1,25 +1,49 @@
-/****************************************************************************
- * [S]imulated [M]edieval [A]dventure multi[U]ser [G]ame      |   \\._.//   *
- * -----------------------------------------------------------|   (0...0)   *
- * SMAUG 1.4 (C) 1994, 1995, 1996, 1998  by Derek Snider      |    ).:.(    *
- * -----------------------------------------------------------|    {o o}    *
- * SMAUG code team: Thoric, Altrag, Blodkai, Narn, Haus,      |   / ' ' \   *
- * Scryn, Rennard, Swordbearer, Gorog, Grishnakh, Nivek,      |~'~.VxvxV.~'~*
- * Tricops and Fireblade                                      |             *
- * ------------------------------------------------------------------------ *
- * Merc 2.1 Diku Mud improvments copyright (C) 1992, 1993 by Michael        *
- * Chastain, Michael Quan, and Mitchell Tse.                                *
- * Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,          *
- * Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.     *
- * Win32 port by Nick Gammon                                                *
- * ------------------------------------------------------------------------ *
- *                          Undertaker Module                               *
- * ------------------------------------------------------------------------ *
- * Part of this code is from act_wiz.c : do_owhere(). Structure follows     *
- * that of the ROM healer port by Desden, el Chaman Tibetano.               *
- * Brought together by Cyrus & Robcon (ROC2). Please send suggestions to    *
- *    cyrus@cx.net                                                          *
- ****************************************************************************/
+/*
+                     R E A L M S    O F    D E S P A I R  !
+   ___________________________________________________________________________
+  //            /                                                            \\
+ [|_____________\   ********   *        *   ********   *        *   *******   |]
+ [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
+ [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
+ [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
+ [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
+ [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
+ [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
+ [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
+ [|_____________\  **********  **      **  **      **  **********  *********  |]
+ [|             /  *********   *        *  *        *   ********    *******   |]
+  \\____________\____________________________________________________________//
+     |                                                                     |
+     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
+     |_____________________________________________________________________|
+     |                                                                     |
+     |                      -*- Undertaker Module -*-                      |
+     |_____________________________________________________________________|
+     |                                                                     |
+     | Part of this code is from act_wiz.c : do_owhere(). Structure        |
+     | follows that of the ROM healer port by Desden, el Chaman Tibetano.  |
+     | Brought together by Cyrus & Robcon (ROC2). Please send suggestions  |
+     | to cyrus@cx.net                                                     |
+     |_____________________________________________________________________|
+    //                                                                     \\
+   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+   [|                                                                       |]
+   [|  AFKMud Copyright 1997-2007 by Roger Libiez (Samson),                 |]
+   [|  Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),       |]
+   [|  Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine,            |]
+   [|  Xorith, and Adjani.                                                  |]
+   [|  All Rights Reserved. External contributions from Remcon, Quixadhal,  |]
+   [|  Zarius and many others.                                              |]
+   [|                                                                       |]
+   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
+   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
+   [|                                                                       |]
+   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
+   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
+   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
+   [|  Nyboe. Win32 port Nick Gammon.                                       |]
+    \\_____________________________________________________________________//
+*/
 
 #include <stdio.h>
 #include <string.h>
@@ -104,7 +128,11 @@ void do_corpse( CHAR_DATA *ch, char *argument )
 
         separate_obj( outer_obj );
         obj_from_room( outer_obj );
+#ifdef OVERLANDCODE
+        obj_to_room( outer_obj, ch->in_room, ch );
+#else
         obj_to_room( outer_obj, ch->in_room );
+#endif
 
 #ifdef ENABLE_GOLD_SILVER_COPPER
         ch->copper -= cost;

@@ -113,7 +113,11 @@ find_keeper (CHAR_DATA * ch)
   if (who_fighting (ch))
     {
       ch_printf (ch, "%s doesn't seem to want to get involved.\n\r",
+#ifdef OVERLANDCODE
+		 PERS (keeper, ch, FALSE));
+#else
 		 PERS (keeper, ch));
+#endif
       return NULL;
     }
 
@@ -159,7 +163,11 @@ find_keeper (CHAR_DATA * ch)
   /*
    * Invisible or hidden people.
    */
+#ifdef OVERLANDCODE
+  if (!can_see (keeper, ch, FALSE))
+#else
   if (!can_see (keeper, ch))
+#endif
     {
       do_say (keeper, "I don't trade with folks I can't see.");
       return NULL;
@@ -247,7 +255,11 @@ find_fixer (CHAR_DATA * ch)
   if (!IS_NPC (ch) && who_fighting (ch))
     {
       ch_printf (ch, "%s doesn't seem to want to get involved.\n\r",
+#ifdef OVERLANDCODE
+		 PERS (keeper, ch, FALSE));
+#else
 		 PERS (keeper, ch));
+#endif
       return NULL;
     }
 
@@ -293,7 +305,11 @@ find_fixer (CHAR_DATA * ch)
   /*
    * Invisible or hidden people.
    */
+#ifdef OVERLANDCODE
+  if (!can_see (keeper, ch, FALSE))
+#else
   if (!can_see (keeper, ch))
+#endif
     {
       do_say (keeper, "I don't trade with folks I can't see.");
       return NULL;
@@ -661,7 +677,6 @@ do_buy( CHAR_DATA *ch, char *argument )
 	scost = tmpvalue/100;
 	tmpvalue=tmpvalue%100;		
 	ccost = tmpvalue;
-	
 	
 	if ( (tvalue <=0) || !can_see_obj( ch, obj ) )
 	{

@@ -171,6 +171,10 @@ else
 libsmaug_realm_la_SOURCES += colorize.c
 endif
 
+if OVERLANDCODE
+libsmaug_realm_la_SOURCES += overland.c
+endif
+
 if ENABLE_MAPPER
 libsmaug_realm_la_SOURCES += mapper.c
 endif
@@ -319,6 +323,10 @@ endif
 
 if ENABLE_OLC2
 include_HEADERS += olc.h
+endif
+
+if OVERLANDCODE
+include_HEADERS += overland.h
 endif
 
 if ENABLE_ALIAS

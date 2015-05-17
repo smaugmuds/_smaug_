@@ -914,7 +914,11 @@ do_make (CHAR_DATA * ch, char *argument)
   if (CAN_WEAR (obj, ITEM_TAKE))
     obj = obj_to_char (obj, ch);
   else
+#ifdef OVERLANDCODE
+    obj = obj_to_room (obj, ch->in_room, ch);
+#else
     obj = obj_to_room (obj, ch->in_room);
+#endif
   act (AT_MAGIC, "$n makes $p!", ch, obj, NULL, TO_ROOM);
   act (AT_MAGIC, "You make $p!", ch, obj, NULL, TO_CHAR);
   return;
@@ -2576,7 +2580,11 @@ act( AT_ACTION, buf, ch, NULL, NULL, TO_ROOM );
   victim->position = POS_SHOVE;
   act (AT_ACTION, "You shove $M.", ch, NULL, victim, TO_CHAR);
   act (AT_ACTION, "$n shoves you.", ch, NULL, victim, TO_VICT);
+#ifdef OVERLANDCODE
+  move_char (victim, get_exit (ch->in_room, exit_dir), 0, exit_dir);
+#else
   move_char (victim, get_exit (ch->in_room, exit_dir), 0);
+#endif
   if (!char_died (victim))
     victim->position = temp;
   WAIT_STATE (ch, 12);
@@ -2800,11 +2808,19 @@ act( AT_ACTION, buf, ch, NULL, NULL, TO_ROOM );
 	   TO_CHAR);
       act (AT_ACTION, "$n grabs your hair and drags you.", ch, NULL, victim,
 	   TO_VICT);
+#ifdef OVERLANDCODE
+      move_char (victim, get_exit (ch->in_room, exit_dir), 0, exit_dir);
+#else
       move_char (victim, get_exit (ch->in_room, exit_dir), 0);
+#endif
       if (!char_died (victim))
 	victim->position = temp;
 /* Move ch to the room too.. they are doing dragging - Scryn */
+#ifdef OVERLANDCODE
+      move_char (ch, get_exit (ch->in_room, exit_dir), 0, exit_dir);
+#else
       move_char (ch, get_exit (ch->in_room, exit_dir), 0);
+#endif
       WAIT_STATE (ch, 12);
       return;
     }

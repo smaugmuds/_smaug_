@@ -952,7 +952,11 @@ do_mpoload (CHAR_DATA * ch, char *argument)
   if (CAN_WEAR (obj, ITEM_TAKE))
     obj_to_char (obj, ch);
   else
+#ifdef OVERLANDCODE
+    obj_to_room (obj, ch->in_room, ch);
+#else
     obj_to_room (obj, ch->in_room);
+#endif
 
   return;
 }
@@ -1171,16 +1175,32 @@ do_mppurge (CHAR_DATA * ch, char *argument)
     {
       /* 'purge' */
       CHAR_DATA *vnext;
+#ifdef OVERLANDCODE
+			OBJ_DATA *obj_next;
+#endif
 
       for (victim = ch->in_room->first_person; victim; victim = vnext)
 	{
 	  vnext = victim->next_in_room;
+#ifdef OVERLANDCODE
+	  if ( IS_NPC( victim ) && victim != ch && is_same_map( victim, ch ))
+#else
 	  if (IS_NPC (victim) && victim != ch)
+#endif
 	    extract_char (victim, TRUE);
 	}
-      while (ch->in_room->first_content)
-	extract_obj (ch->in_room->first_content);
+#ifdef OVERLANDCODE
+	for( obj = ch->in_room->first_content; obj; obj = obj_next )
+	{
+	   obj_next = obj->next_content;
 
+	   if( ch->map == obj->map && ch->x == obj->x && ch->y == obj->y )
+	      extract_obj( obj );
+	}
+#else
+      while (ch->in_room->first_content)
+				extract_obj (ch->in_room->first_content);
+#endif
       return;
     }
 
@@ -1577,7 +1597,11 @@ do_mptransfer (CHAR_DATA * ch, char *argument)
 
 	  if (victim == ch
 	      || NOT_AUTHED (victim)
+#ifdef OVERLANDCODE
+	      || !can_see (ch, victim, FALSE)
+#else
 	      || !can_see (ch, victim)
+#endif
 	      || !in_hard_range (victim, destination->area))
 	    continue;
 
@@ -1595,7 +1619,11 @@ do_mptransfer (CHAR_DATA * ch, char *argument)
 	{
 	  if (!d->character
 	      || (d->connected != CON_PLAYING && d->connected != CON_EDITING)
+#ifdef OVERLANDCODE
+	      || !can_see (ch, d->character, FALSE)
+#else
 	      || !can_see (ch, d->character)
+#endif
 	      || !d->character->in_room
 	      || ch->in_room->area != d->character->in_room->area
 	      || NOT_AUTHED (d->character)
@@ -1697,7 +1725,11 @@ do_mpforce (CHAR_DATA * ch, char *argument)
       CHAR_DATA *vch;
 
       for (vch = ch->in_room->first_person; vch; vch = vch->next_in_room)
+#ifdef OVERLANDCODE
+	if (!IS_IMMORTAL (vch) && can_see (ch, vch, FALSE))
+#else
 	if (!IS_IMMORTAL (vch) && can_see (ch, vch))
+#endif
 	  {
 	    mst = vch->mental_state;
 	    vch->mental_state = 0;
@@ -2433,7 +2465,11 @@ do_mp_damage (CHAR_DATA * ch, char *argument)
       for (victim = ch->in_room->first_person; victim; victim = nextinroom)
 	{
 	  nextinroom = victim->next_in_room;
+#ifdef OVERLANDCODE
+	  if (victim != ch && can_see (ch, victim, FALSE))	/* Could go either way */
+#else
 	  if (victim != ch && can_see (ch, victim))	/* Could go either way */
+#endif
 	    {
 	      sprintf (buf, "'%s' %s", victim->name, arg2);
 	      do_mp_damage (ch, buf);

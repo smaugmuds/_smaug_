@@ -911,7 +911,11 @@ doneargs:
 	}
       if (!str_cmp (chck, "cansee"))
 	{
+#ifdef OVERLANDCODE
+	  return can_see (mob, chkchar, FALSE);
+#else
 	  return can_see (mob, chkchar);
+#endif
 	}
       if (!str_cmp (chck, "isriding"))
 	{
@@ -1738,7 +1742,11 @@ else
     case 'n':
       if (actor && !char_died (actor))
 	{
+#ifdef OVERLANDCODE
+	  if (can_see (mob, actor, FALSE))
+#else
 	  if (can_see (mob, actor))
+#endif
 	    one_argument (actor->name, t);
 	  if (!IS_NPC (actor))
 	    *t = UPPER (*t);
@@ -1750,7 +1758,11 @@ else
     case 'N':
       if (actor && !char_died (actor))
 	{
+#ifdef OVERLANDCODE
+	  if (can_see (mob, actor, FALSE))
+#else
 	  if (can_see (mob, actor))
+#endif
 	    if (IS_NPC (actor))
 	      strcpy (t, actor->short_descr);
 	    else
@@ -1768,7 +1780,11 @@ else
     case 't':
       if (vict && !char_died (vict))
 	{
+#ifdef OVERLANDCODE
+	  if (can_see (mob, vict, FALSE))
+#else
 	  if (can_see (mob, vict))
+#endif
 	    one_argument (vict->name, t);
 	  if (!IS_NPC (vict))
 	    *t = UPPER (*t);
@@ -1781,7 +1797,11 @@ else
     case 'T':
       if (vict && !char_died (vict))
 	{
+#ifdef OVERLANDCODE
+	  if (can_see (mob, vict, FALSE))
+#else
 	  if (can_see (mob, vict))
+#endif
 	    if (IS_NPC (vict))
 	      strcpy (t, vict->short_descr);
 	    else
@@ -1800,7 +1820,11 @@ else
     case 'r':
       if (rndm && !char_died (rndm))
 	{
+#ifdef OVERLANDCODE
+	  if (can_see (mob, rndm, FALSE))
+#else
 	  if (can_see (mob, rndm))
+#endif
 	    {
 	      one_argument (rndm->name, t);
 	    }
@@ -1816,7 +1840,11 @@ else
     case 'R':
       if (rndm && !char_died (rndm))
 	{
+#ifdef OVERLANDCODE
+	  if (can_see (mob, rndm, FALSE))
+#else
 	  if (can_see (mob, rndm))
+#endif
 	    if (IS_NPC (rndm))
 	      strcpy (t, rndm->short_descr);
 	    else
@@ -1835,7 +1863,11 @@ else
     case 'e':
       if (actor && !char_died (actor))
 	{
+#ifdef OVERLANDCODE
+	  can_see (mob, actor, FALSE) ? strcpy (t, he_she[actor->sex])
+#else
 	  can_see (mob, actor) ? strcpy (t, he_she[actor->sex])
+#endif
 	    : strcpy (t, "someone");
 	}
       else
@@ -1845,7 +1877,11 @@ else
     case 'm':
       if (actor && !char_died (actor))
 	{
+#ifdef OVERLANDCODE
+	  can_see (mob, actor, FALSE) ? strcpy (t, him_her[actor->sex])
+#else
 	  can_see (mob, actor) ? strcpy (t, him_her[actor->sex])
+#endif
 	    : strcpy (t, "someone");
 	}
       else
@@ -1855,7 +1891,11 @@ else
     case 's':
       if (actor && !char_died (actor))
 	{
+#ifdef OVERLANDCODE
+	  can_see (mob, actor, FALSE) ? strcpy (t, his_her[actor->sex])
+#else
 	  can_see (mob, actor) ? strcpy (t, his_her[actor->sex])
+#endif
 	    : strcpy (t, "someone's");
 	}
       else
@@ -1865,7 +1905,11 @@ else
     case 'E':
       if (vict && !char_died (vict))
 	{
+#ifdef OVERLANDCODE
+	  can_see (mob, vict, FALSE) ? strcpy (t, he_she[vict->sex])
+#else
 	  can_see (mob, vict) ? strcpy (t, he_she[vict->sex])
+#endif
 	    : strcpy (t, "someone");
 	}
       else
@@ -1875,7 +1919,11 @@ else
     case 'M':
       if (vict && !char_died (vict))
 	{
+#ifdef OVERLANDCODE
+	  can_see (mob, vict, FALSE) ? strcpy (t, him_her[vict->sex])
+#else
 	  can_see (mob, vict) ? strcpy (t, him_her[vict->sex])
+#endif
 	    : strcpy (t, "someone");
 	}
       else
@@ -1885,7 +1933,11 @@ else
     case 'S':
       if (vict && !char_died (vict))
 	{
+#ifdef OVERLANDCODE
+	  can_see (mob, vict, FALSE) ? strcpy (t, his_her[vict->sex])
+#else
 	  can_see (mob, vict) ? strcpy (t, his_her[vict->sex])
+#endif
 	    : strcpy (t, "someone's");
 	}
       else
@@ -1928,7 +1980,11 @@ else
     case 'J':
       if (rndm && !char_died (rndm))
 	{
+#ifdef OVERLANDCODE
+	  can_see (mob, rndm, FALSE) ? strcpy (t, he_she[rndm->sex])
+#else
 	  can_see (mob, rndm) ? strcpy (t, he_she[rndm->sex])
+#endif
 	    : strcpy (t, "someone");
 	}
       else
@@ -1938,7 +1994,11 @@ else
     case 'K':
       if (rndm && !char_died (rndm))
 	{
+#ifdef OVERLANDCODE
+	  can_see (mob, rndm, FALSE) ? strcpy (t, him_her[rndm->sex])
+#else
 	  can_see (mob, rndm) ? strcpy (t, him_her[rndm->sex])
+#endif
 	    : strcpy (t, "someone's");
 	}
       else
@@ -1948,7 +2008,11 @@ else
     case 'L':
       if (rndm && !char_died (rndm))
 	{
+#ifdef OVERLANDCODE
+	  can_see (mob, rndm, FALSE) ? strcpy (t, his_her[rndm->sex])
+#else
 	  can_see (mob, rndm) ? strcpy (t, his_her[rndm->sex])
+#endif
 	    : strcpy (t, "someone");
 	}
       else
@@ -2110,7 +2174,11 @@ mprog_driver (char *com_list, CHAR_DATA * mob, CHAR_DATA * actor,
 
   count = 0;
   for (vch = mob->in_room->first_person; vch; vch = vch->next_in_room)
+#ifdef OVERLANDCODE
+    if (!IS_NPC (vch) && can_see (mob, vch, FALSE))
+#else
     if (!IS_NPC (vch) && can_see (mob, vch))
+#endif
       {
 	if (number_range (0, count) == 0)
 	  rndm = vch;
@@ -2900,7 +2968,12 @@ mprog_bribe_trigger (CHAR_DATA * mob, CHAR_DATA * ch, int amount)
   OBJ_DATA *obj;
 
   if (IS_NPC (mob)
-      && can_see (mob, ch) && HAS_PROG (mob->pIndexData, BRIBE_PROG))
+#ifdef OVERLANDCODE
+      && can_see (mob, ch, FALSE)
+#else
+      && can_see (mob, ch)
+#endif
+			&& HAS_PROG (mob->pIndexData, BRIBE_PROG))
     {
       /* Don't let a mob trigger itself, nor one instance of a mob
          trigger another instance. */
@@ -2969,7 +3042,13 @@ mprog_login_trigger (CHAR_DATA * ch)
     {
       vmob_next = vmob->next_in_room;
       if (!IS_NPC (vmob)
-	  || !can_see (vmob, ch) || vmob->fighting || !IS_AWAKE (vmob))
+#ifdef OVERLANDCODE
+			  || !can_see (vmob, ch, FALSE)
+#else
+			  || !can_see (vmob, ch)
+#endif
+				|| vmob->fighting
+				|| !IS_AWAKE (vmob))
 	continue;
 
       if (IS_NPC (ch) && ch->pIndexData == vmob->pIndexData)
@@ -2997,7 +3076,13 @@ mprog_void_trigger (CHAR_DATA * ch)
     {
       vmob_next = vmob->next_in_room;
       if (!IS_NPC (vmob)
-	  || !can_see (vmob, ch) || vmob->fighting || !IS_AWAKE (vmob))
+#ifdef OVERLANDCODE
+	  		|| !can_see (vmob, ch, FALSE)
+#else
+	  		|| !can_see (vmob, ch)
+#endif
+				|| vmob->fighting
+				|| !IS_AWAKE (vmob))
 	continue;
 
       if (IS_NPC (ch) && ch->pIndexData == vmob->pIndexData)
@@ -3036,7 +3121,12 @@ mprog_give_trigger (CHAR_DATA * mob, CHAR_DATA * ch, OBJ_DATA * obj)
   MPROG_DATA *mprg;
 
   if (IS_NPC (mob)
-      && can_see (mob, ch) && HAS_PROG (mob->pIndexData, GIVE_PROG))
+#ifdef OVERLANDCODE
+      && can_see (mob, ch, FALSE)
+#else
+      && can_see (mob, ch)
+#endif
+			&& HAS_PROG (mob->pIndexData, GIVE_PROG))
     {
       /* Don't let a mob trigger itself, nor one instance of a mob
          trigger another instance. */
@@ -3067,7 +3157,12 @@ mprog_sell_trigger (CHAR_DATA * mob, CHAR_DATA * ch, OBJ_DATA * obj)
   MPROG_DATA *mprg;
 
   if (IS_NPC (mob)
-      && can_see (mob, ch) && HAS_PROG (mob->pIndexData, SELL_PROG))
+#ifdef OVERLANDCODE
+      && can_see (mob, ch, FALSE)
+#else
+      && can_see (mob, ch)
+#endif
+			&& HAS_PROG (mob->pIndexData, SELL_PROG))
     {
 
       if (IS_NPC (ch) && ch->pIndexData == mob->pIndexData)
@@ -3120,10 +3215,15 @@ mprog_greet_trigger (CHAR_DATA * ch)
   for (vmob = ch->in_room->first_person; vmob && mnum < MAX_MOB_ROOM;
        vmob = vmob->next_in_room)
     {
-      if (!IS_NPC (vmob) || !can_see (vmob, ch)
-	  || (vmob->fighting
+      if (!IS_NPC (vmob)
+#ifdef OVERLANDCODE
+				|| !can_see (vmob, ch, FALSE)
+#else
+				|| !can_see (vmob, ch)
+#endif
+			  || (vmob->fighting
 	      && !HAS_PROG (vmob->pIndexData, GREET_IN_FIGHT_PROG))
-	  || !IS_AWAKE (vmob))
+	  		|| !IS_AWAKE (vmob))
 	continue;
       /* Don't let a mob trigger itself, nor one instance of a mob
          trigger another instance. */
@@ -3368,6 +3468,15 @@ set_supermob (OBJ_DATA * obj)
     {
       char_from_room (supermob);
       char_to_room (supermob, room);
+#ifdef OVERLANDCODE
+		  if( IS_OBJ_STAT( obj, ITEM_ONMAP ) )
+		  {
+				SET_ACT_FLAG( supermob, ACT_ONMAP );
+				supermob->map = obj->map;
+				supermob->x = obj->x;
+				supermob->y = obj->y;
+		  }
+#endif
     }
 }
 
@@ -3376,6 +3485,15 @@ release_supermob ()
 {
   char_from_room (supermob);
   char_to_room (supermob, get_room_index (3));
+#ifdef OVERLANDCODE
+  if( IS_ACT_FLAG( supermob, ACT_ONMAP ) )
+  {
+     REMOVE_ACT_FLAG( supermob, ACT_ONMAP );
+     supermob->map = -1;
+     supermob->x = -1;
+     supermob->y = -1;
+  }
+#endif
 }
 
 
@@ -4235,7 +4353,11 @@ void mprog_bribe_trigger_silver( CHAR_DATA *mob, CHAR_DATA *ch, int amount)
   OBJ_DATA   *obj;
 
   if ( IS_NPC( mob )
+#ifdef OVERLANDCODE
+      && can_see( mob, ch, FALSE )
+#else
       && can_see( mob, ch )
+#endif
       && HAS_PROG( mob->pIndexData, BRIBE_SILVER_PROG ) )
     {
       /* Don't let a mob trigger itself, nor one instance of a mob
@@ -4272,7 +4394,11 @@ void mprog_bribe_trigger_copper( CHAR_DATA *mob, CHAR_DATA *ch, int amount)
   OBJ_DATA   *obj;
 
   if ( IS_NPC( mob )
+#ifdef OVERLANDCODE
+      && can_see( mob, ch, FALSE )
+#else
       && can_see( mob, ch )
+#endif
       && HAS_PROG( mob->pIndexData, BRIBE_SILVER_PROG ) )
     {
       /* Don't let a mob trigger itself, nor one instance of a mob

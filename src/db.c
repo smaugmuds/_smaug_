@@ -300,6 +300,12 @@ char strAreaPath[MAX_INPUT_LENGTH];
  */
 void init_mm args ((void));
 
+#ifdef OVERLANDCODE
+void load_maps args ((void)); /* Load in Overland Maps - Samson 8-1-99 */
+void load_mapresets args ((void)); /* Load resets for Overland Maps - Samson 1-13-01 */
+void load_continent args ((AREA_DATA *tarea, FILE *fp)); /* Continent support - Samson 9-16-00 */
+#endif
+
 void boot_log args ((const char *str, ...));
 void load_area args ((FILE * fp));
 void load_author args ((AREA_DATA * tarea, FILE * fp));
@@ -470,6 +476,11 @@ boot_db (void)
       sysdata.mud_name = str_dup ("(Name not set)");
       sysdata.port_name = str_dup ("mud");
     }
+
+#ifdef OVERLANDCODE
+  log_string (_("Loading Overland maps ..."));
+  load_maps ();
+#endif
 
   log_string ( _("Loading socials ...") );
   load_socials ();
@@ -885,6 +896,10 @@ else
     randomize_stances ();
     log_string ( _("Resetting areas ...") );
     area_update ();
+#ifdef OVERLANDCODE
+		log_string( _("Loading Overland resets ...") );
+		load_mapresets();
+#endif
     log_string ( _("Loading buildlist...") );
     load_buildlist ();
 #ifdef LIQUIDSYSTEM
@@ -976,6 +991,9 @@ load_area (FILE * fp)
   pArea->low_hard_range = 0;
   pArea->hi_hard_range = MAX_LEVEL;
   pArea->spelllimit = 0;
+#ifdef OVERLANDCODE
+  pArea->continent = 0;
+#endif
 
   /* initialize weather data - FB */
   CREATE (pArea->weather, WEATHER_DATA, 1);
@@ -1095,6 +1113,41 @@ load_economy (AREA_DATA * tarea, FILE * fp)
   tarea->low_economy = fread_number (fp);
   return;
 }
+
+#ifdef OVERLANDCODE
+/* Load a continent - Samson 9-16-00 */
+void load_continent( AREA_DATA *tarea, FILE *fp )
+{
+   char *pointer;
+   int value;
+
+   if( !tarea )
+   {
+      bug( "Load_continent: no #AREA seen yet." );
+      if( fBootDb )
+      {
+         shutdown_mud( "No #AREA" );
+         exit( 1 );
+      }
+      else
+         return;
+   }
+
+   pointer = fread_string_nohash(fp);
+   value = get_continent( pointer );
+   DISPOSE( pointer );
+
+   if( value < 0 || value > ACON_MAX )
+   {
+      tarea->continent = 0;
+      bug( "load_continent: Invalid area continent, set to 'alsherok' by default.", 0 );
+   }
+   else
+      tarea->continent = value;
+
+   return;
+}
+#endif
 
 /* Reset Message Load, Rennard */
 void
@@ -1868,7 +1921,11 @@ load_objects (AREA_DATA * tarea, FILE * fp)
       /*
        * Translate spell "slot numbers" to internal "skill numbers."
        */
+#ifdef OVERLANDCODE
+      if (area_version > 0)
+#else
       if (area_version == 0)
+#endif
 	switch (pObjIndex->item_type)
 	  {
 	  case ITEM_PILL:
@@ -2187,8 +2244,10 @@ load_rooms (AREA_DATA * tarea, FILE * fp)
       int iHash;
       bool tmpBootDb;
       bool oldroom;
-      int x1, x2, x3, x4, x5, x6;
-      int x7;
+      int x1, x2, x3, x4, x5, x6, x7;
+#ifdef OVERLANDCODE
+      int x8;
+#endif
 
       letter = fread_letter (fp);
       if (letter != '#')
@@ -2296,6 +2355,63 @@ load_rooms (AREA_DATA * tarea, FILE * fp)
 		  if (fBootDb)
 		    exit (1);
 		}
+#ifdef OVERLANDCODE
+		else
+		{
+		  if( area_version < 4 )
+		  {
+		  	pexit = make_exit( pRoomIndex, NULL, door );
+		  	pexit->description	= fread_string( fp );
+		  	pexit->keyword	= fread_string( fp );
+		  	pexit->exit_info	= 0;
+		  	ln = fread_line( fp );
+		  	x1=x2=x3=x4=x5=x6=0;
+		  	sscanf( ln, "%d %d %d %d %d %d",
+		        &x1, &x2, &x3, &x4, &x5, &x6 );
+
+		  	locks			= x1;
+		  	pexit->key		= x2;
+		  	pexit->vnum		= x3;
+		  	pexit->vdir		= door;
+			  pexit->distance	= x4;
+		  	pexit->pulltype	= x5;
+		  	pexit->pull		= x6;
+		  }
+		  else
+		  {
+		  	pexit = make_exit( pRoomIndex, NULL, door );
+		  	pexit->description	= fread_string( fp );
+		  	pexit->keyword	= fread_string( fp );
+		  	pexit->exit_info	= 0;
+		  	ln = fread_line( fp );
+		  	x1=x2=x3=x4=x5=x6=x7=x8=0;
+		  	sscanf( ln, "%d %d %d %d %d %d %d %d",
+		        &x1, &x2, &x3, &x4, &x5, &x6, &x7, &x8 );
+
+		  	locks			= x1;
+		  	pexit->key		= x2;
+		  	pexit->vnum		= x3;
+		  	pexit->vdir		= door;
+				pexit->distance	= x4;
+				pexit->x		= x5;
+				pexit->y		= x6;
+		  	pexit->pulltype	= x7;
+		  	pexit->pull		= x8;
+		  }
+
+		  switch ( locks )
+		  {
+		    case 1:
+				  pexit->exit_info = EX_ISDOOR;
+          break;
+		    case 2:
+					pexit->exit_info = EX_ISDOOR | EX_PICKPROOF;
+					break;
+		    default:
+					pexit->exit_info = locks;
+		  }
+		}
+#else
 	      else
 		{
 		  pexit = make_exit (pRoomIndex, NULL, door);
@@ -2328,6 +2444,7 @@ load_rooms (AREA_DATA * tarea, FILE * fp)
 		      pexit->exit_info = locks;
 		    }
 		}
+#endif
 	    }
 	  else if (letter == 'E')
 	    {
@@ -2949,6 +3066,10 @@ create_mobile (MOB_INDEX_DATA * pMobIndex)
   mob->level = number_fuzzy (pMobIndex->level);
   mob->act = pMobIndex->act;
 
+#ifdef OVERLANDCODE
+  mob->sector = -1;
+#endif
+
   if (xIS_SET (mob->act, ACT_MOBINVIS))
     mob->mobinvis = mob->level;
 
@@ -3085,6 +3206,12 @@ create_object (OBJ_INDEX_DATA * pObjIndex, int level)
      obj->cost                = number_fuzzy( 10 )
      * number_fuzzy( level ) * number_fuzzy( level );
    */
+#endif
+
+#ifdef OVERLANDCODE
+  obj->x = -1;
+  obj->y = -1;
+  obj->map = -1;
 #endif
 
   /*
@@ -3308,6 +3435,11 @@ clear_char (CHAR_DATA * ch)
   ch->mod_cha = 0;
   ch->mod_con = 0;
   ch->mod_lck = 0;
+#ifdef OVERLANDCODE
+  ch->x	= -1; /* Overland Map - Samson 7-31-99 */
+  ch->y	= -1;
+  ch->map = -1;
+#endif
   ch->pagelen = 24;		/* BUILD INTERFACE */
   ch->inter_page = NO_PAGE;	/* BUILD INTERFACE */
   ch->inter_type = NO_TYPE;	/* BUILD INTERFACE */
@@ -6453,6 +6585,10 @@ make_exit (ROOM_INDEX_DATA * pRoomIndex, ROOM_INDEX_DATA * to_room,
   pexit->orig_door = door;
   pexit->rvnum = pRoomIndex->vnum;
   pexit->to_room = to_room;
+#ifdef OVERLANDCODE
+	pexit->x			= 0;
+	pexit->y			= 0;
+#endif
   pexit->distance = 1;
   if (to_room)
     {
@@ -6606,6 +6742,10 @@ load_area_file (AREA_DATA * tarea, char *filename)
 	load_ranges (tarea, fpArea);
       else if (!str_cmp (word, "ECONOMY"))
 	load_economy (tarea, fpArea);
+#ifdef OVERLANDCODE
+			else if (!str_cmp (word, "CONTINENT"))
+  load_continent (tarea, fpArea);
+#endif
       else if (!str_cmp (word, "RESETMSG"))
 	load_resetmsg (tarea, fpArea);
       /* Rennard */

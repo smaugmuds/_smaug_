@@ -636,7 +636,11 @@ show_visible_affects_to_char (CHAR_DATA * victim, CHAR_DATA * ch)
       && victim->switched && IS_AFFECTED (victim->switched, AFF_POSSESS))
     {
       set_char_color (AT_MAGIC, ch);
+#ifdef OVERLANDCODE
+      strcpy (buf, PERS (victim, ch, FALSE));
+#else
       strcpy (buf, PERS (victim, ch));
+#endif
       strcat (buf, " appears to be in a deep trance...\n\r");
     }
 }
@@ -843,7 +847,11 @@ show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
 	    }
 	  else
 	    {
+#ifdef OVERLANDCODE
+	      strcat (buf, PERS (victim, ch, FALSE));
+#else
 	      strcat (buf, PERS (victim, ch));
+#endif
 	      if (!IS_NPC (victim) && !xIS_SET (ch->act, PLR_BRIEF))
 		strcat (buf, victim->pcdata->title);
 	      strcat (buf, ".\n\r");
@@ -859,9 +867,17 @@ show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
     {
       if (victim->morph != NULL && victim->morph->morph != NULL &&
 	  !IS_IMMORTAL (ch))
-	strcat (buf, MORPHPERS (victim, ch));
+#ifdef OVERLANDCODE
+	      strcat (buf, MORPHPERS (victim, ch, FALSE));
+#else
+	      strcat (buf, MORPHPERS (victim, ch));
+#endif
       else
-	strcat (buf, PERS (victim, ch));
+#ifdef OVERLANDCODE
+	      strcat (buf, PERS (victim, ch, FALSE));
+#else
+	      strcat (buf, PERS (victim, ch));
+#endif
     }
 
   if (!IS_NPC (victim) && !xIS_SET (ch->act, PLR_BRIEF))
@@ -971,7 +987,11 @@ show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
 	    strcat (buf, _("your back."));
 	  else if (victim->in_room == victim->mount->in_room)
 	    {
+#ifdef OVERLANDCODE
+	      strcat (buf, PERS (victim->mount, ch, FALSE));
+#else
 	      strcat (buf, PERS (victim->mount, ch));
+#endif
 	      strcat (buf, ".");
 	    }
 	  else
@@ -997,7 +1017,11 @@ show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
 	    strcat (buf, _("YOU!"));
 	  else if (victim->in_room == victim->fighting->who->in_room)
 	    {
+#ifdef OVERLANDCODE
+	      strcat (buf, PERS (victim->fighting->who, ch, FALSE));
+#else
 	      strcat (buf, PERS (victim->fighting->who, ch));
+#endif
 	      strcat (buf, ".");
 	    }
 	  else
@@ -1021,7 +1045,11 @@ show_char_to_char_1 (CHAR_DATA * victim, CHAR_DATA * ch)
   int iWear;
   bool found;
 
+#ifdef OVERLANDCODE
+  if (can_see (victim, ch, FALSE) && !IS_NPC (ch)
+#else
   if (can_see (victim, ch) && !IS_NPC (ch)
+#endif
       && !xIS_SET (ch->act, PLR_WIZINVIS))
     {
       act (AT_ACTION, _("$n looks at you."), ch, NULL, victim, TO_VICT);
@@ -1057,7 +1085,11 @@ show_char_to_char_1 (CHAR_DATA * victim, CHAR_DATA * ch)
   if (victim->stance > STANCE_NORMAL)
     {
       ch_printf (ch, _("\n%s is in a %s fighting stance.\n"),
+#ifdef OVERLANDCODE
+		 capitalize (PERS (victim, ch, FALSE)),
+#else
 		 capitalize (PERS (victim, ch)),
+#endif
 		 get_stance_name (victim->stance));
     }
 
@@ -1146,7 +1178,11 @@ show_char_to_char (CHAR_DATA * list, CHAR_DATA * ch)
       if (rch == ch)
 	continue;
 
+#ifdef OVERLANDCODE
+      if (can_see (ch, rch, FALSE))
+#else
       if (can_see (ch, rch))
+#endif
 	{
 	  show_char_to_char_0 (rch, ch);
 	}
@@ -1280,6 +1316,22 @@ do_look (CHAR_DATA * ch, char *argument)
 
   if (arg1[0] == '\0' || !str_cmp (arg1, "auto"))
     {
+#ifdef OVERLANDCODE
+      if( IS_PLR_FLAG( ch, PLR_ONMAP ) || IS_ACT_FLAG( ch, ACT_ONMAP ) )
+	{
+	    display_map( ch );
+#ifdef DRAGONFLIGHT
+	    if( !ch->inflight )
+	    {
+#endif
+ 	       show_list_to_char( ch->in_room->first_content, ch, FALSE, FALSE );
+       	 show_char_to_char( ch->in_room->first_person,  ch );
+#ifdef DRAGONFLIGHT
+	    }
+#endif
+	    return;
+	}
+#endif
       switch (ch->inter_page)	/* rmenu */
 	{
 	case ROOM_PAGE_A:
@@ -1542,6 +1594,30 @@ do_look (CHAR_DATA * ch, char *argument)
 	      if (pexit->vdir == DIR_PORTAL
 		  && IS_SET (pexit->exit_info, EX_PORTAL))
 		{
+#ifdef OVERLANDCODE
+	    if ( room_is_private( pexit->to_room ) && ch->level < sysdata.level_override_private )
+	    {
+		set_char_color( AT_WHITE, ch );
+		send_to_char( "The room ahead is private!\r\n", ch );
+		return;
+	    }
+
+	    if( IS_EXIT_FLAG( pexit, EX_OVERLAND ) )
+	    {
+		original = ch->in_room;
+		enter_map( ch, pexit->x, pexit->y, -1 );
+		leave_map( ch, NULL, original );
+	    }
+	    else
+	    {
+	      original = ch->in_room;
+	      char_from_room( ch );
+	      char_to_room( ch, pexit->to_room );
+	      do_look( ch, "auto" );
+	      char_from_room( ch );
+	      char_to_room( ch, original );
+	    }
+#else
 		  if (room_is_private (pexit->to_room)
 		      && get_trust (ch) < sysdata.level_override_private)
 		    {
@@ -1556,6 +1632,7 @@ do_look (CHAR_DATA * ch, char *argument)
 		  char_from_room (ch);
 		  char_to_room (ch, original);
 		  return;
+#endif
 		}
 	    }
 	  send_to_char ("You see swirling chaos...\n\r", ch);
@@ -1667,6 +1744,30 @@ do_look (CHAR_DATA * ch, char *argument)
 		    }
 		}
 	    }
+#ifdef OVERLANDCODE
+	    if ( room_is_private( pexit->to_room ) && ch->level < sysdata.level_override_private )
+	    {
+		set_char_color( AT_WHITE, ch );
+		send_to_char( "The room ahead is private!\r\n", ch );
+		return;
+	    }
+
+	    if( IS_EXIT_FLAG( pexit, EX_OVERLAND ) )
+	    {
+		original = ch->in_room;
+		enter_map( ch, pexit->x, pexit->y, -1 );
+		leave_map( ch, NULL, original );
+	    }
+	    else
+	    {
+	      original = ch->in_room;
+	      char_from_room( ch );
+	      char_to_room( ch, pexit->to_room );
+	      do_look( ch, "auto" );
+	      char_from_room( ch );
+	      char_to_room( ch, original );
+	    }
+#else
 	  if (room_is_private (pexit->to_room)
 	      && get_trust (ch) < sysdata.level_override_private)
 	    {
@@ -1680,6 +1781,7 @@ do_look (CHAR_DATA * ch, char *argument)
 	  do_look (ch, "auto");
 	  char_from_room (ch);
 	  char_to_room (ch, original);
+#endif
 	}
       return;
     }
@@ -1814,7 +1916,12 @@ show_race_line (CHAR_DATA * ch, CHAR_DATA * victim)
       feet = victim->height / 12;
       inches = victim->height % 12;
       sprintf (buf, _("%s is %d'%d\" and weighs %d pounds.\n"),
-	       PERS (victim, ch), feet, inches, victim->weight);
+#ifdef OVERLANDCODE
+	       PERS (victim, ch, FALSE),
+#else
+	       PERS (victim, ch),
+#endif
+				 feet, inches, victim->weight);
       send_to_char (buf, ch);
       return;
     }
@@ -1845,7 +1952,11 @@ show_condition (CHAR_DATA * ch, CHAR_DATA * victim)
 
   if (victim != ch)
     {
+#ifdef OVERLANDCODE
+      strcpy (buf, PERS (victim, ch, FALSE));
+#else
       strcpy (buf, PERS (victim, ch));
+#endif
       if (percent >= 100)
 	strcat (buf, _(" is in perfect health.\n"));
       else if (percent >= 90)
@@ -1954,7 +2065,11 @@ do_glance (CHAR_DATA * ch, char *argument)
     }
   else
     {
+#ifdef OVERLANDCODE
+      if (can_see (victim, ch, FALSE))
+#else
       if (can_see (victim, ch))
+#endif
 	{
 	  act (AT_ACTION, "$n glances at you.", ch, NULL, victim, TO_VICT);
 	  act (AT_ACTION, "$n glances at $N.", ch, NULL, victim, TO_NOTVICT);
@@ -2400,6 +2515,17 @@ do_weather (CHAR_DATA * ch, char *argument)
   char *combo, *single;
   char buf[MAX_INPUT_LENGTH];
   int temp, precip, wind;
+
+#ifdef OVERLANDCODE
+  if( !IS_PLR_FLAG( ch, PLR_ONMAP ) )
+  {
+    if ( !IS_OUTSIDE(ch) || INDOOR_SECTOR(ch->in_room->sector_type) )
+    {
+  send_to_char( "You can't see the sky from here.\r\n", ch );
+  return;
+    }
+  }
+#endif
 
   if (!IS_OUTSIDE (ch))
     {
@@ -3004,7 +3130,11 @@ indent_whogr (CHAR_DATA * looker, struct whogr_s *whogr, int ilev)
 	  CHAR_DATA *wch =
 	    (whogr->d->original ? whogr->d->original : whogr->d->character);
 
+#ifdef OVERLANDCODE
+	  if (can_see (looker, wch, TRUE) && !IS_IMMORTAL (wch))
+#else
 	  if (can_see (looker, wch) && !IS_IMMORTAL (wch))
+#endif
 	    nlev += 3;
 	  indent_whogr (looker, whogr->follower, nlev);
 	}
@@ -3343,7 +3473,12 @@ do_who (CHAR_DATA * ch, char *argument)
       char const *class;
 
       if ((d->connected != CON_PLAYING && d->connected != CON_EDITING)
-	  || !can_see (ch, d->character) || d->original)
+#ifdef OVERLANDCODE
+	  || !can_see (ch, d->character, TRUE)
+#else
+	  || !can_see (ch, d->character)
+#endif
+		|| d->original)
 	continue;
       wch = d->original ? d->original : d->character;
       if (wch->level < iLevelLower
@@ -3958,7 +4093,12 @@ do_cwho (CHAR_DATA * ch, char *argument)
       char const *class;
 
       if ((d->connected != CON_PLAYING && d->connected != CON_EDITING)
-	  || !can_see (ch, d->character) || d->original)
+#ifdef OVERLANDCODE
+	  || !can_see (ch, d->character, FALSE)
+#else
+	  || !can_see (ch, d->character)
+#endif
+		|| d->original)
 	continue;
       wch = d->original ? d->original : d->character;
       if (wch->level < iLevelLower
@@ -4473,7 +4613,11 @@ do_where (CHAR_DATA * ch, char *argument)
 	      && ((victim->in_room->area == ch->in_room->area)
 		  && (!xIS_SET (victim->in_room->room_flags, ROOM_HOUSE)
 		      || in_same_house (victim, ch)))
+#ifdef OVERLANDCODE
+	      && can_see (ch, victim, TRUE)
+#else
 	      && can_see (ch, victim)
+#endif
 	      && (victim->in_room == ch->in_room
 		  || IS_IMMORTAL (ch)
 		  || (!IS_SET (ch->in_room->area->flags, AFLAG_NOWHERE)
@@ -4534,11 +4678,21 @@ do_where (CHAR_DATA * ch, char *argument)
 		  || IS_IMMORTAL (ch)
 		  || ch->in_room == victim->in_room)
 	      && !IS_AFFECTED (victim, AFF_SNEAK)
-	      && can_see (ch, victim) && is_name (arg, victim->name))
+#ifdef OVERLANDCODE
+	      && can_see (ch, victim, TRUE)
+#else
+	      && can_see (ch, victim)
+#endif
+				&& is_name (arg, victim->name))
 	    {
 	      found = TRUE;
 	      pager_printf_color (ch, _("&g| &G%s is currently at &w%s&w\n"),
-				  PERS (victim, ch), victim->in_room->name);
+#ifdef OVERLANDCODE
+				  PERS (victim, ch, TRUE),
+#else
+				  PERS (victim, ch),
+#endif
+					victim->in_room->name);
 	      break;
 	    }
 	}

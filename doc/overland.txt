@@ -1994,27 +1994,27 @@ bool can_see( CHAR_DATA *ch, CHAR_DATA *victim, bool override )
 
    Then locate ALL calls to can_see in the following functions:
 
-   do_where [act_info.c]
-   indent_whogr [act_info.c]
-   do_who [act_info.c]
+   do_where       [act_info.c]
+   indent_whogr   [act_info.c]
+   do_who         [act_info.c]
    get_char_world [handler.c]
-   do_transfer [act_wiz.c]
-   do_gwhere [act_wiz.c]
-   do_gfighting [act_wiz.c]
-   do_bodybag [act_wiz.c]
-   do_users [act_wiz.c]
-   do_loadup [act_wiz.c]
-   do_ipcompare [act_wiz.c]
+   do_transfer    [act_wiz.c]
+   do_gwhere      [act_wiz.c]
+   do_gfighting   [act_wiz.c]
+   do_bodybag     [act_wiz.c]
+   do_users       [act_wiz.c]
+   do_loadup      [act_wiz.c]
+   do_ipcompare   [act_wiz.c]
 
    Add a TRUE argument to the calls. 
    Then locate ALL other calls to can_see and add a FALSE argument to those.
 
    Then locate ALL calls to the PERS and MORPHPERS macros in the following functions:
 
-   do_group [act_comm.c]
-   do_where [act_info.c]
-   do_owhere [act_wiz.c]
-   do_owhere [grub.c]
+   do_group   [act_comm.c]
+   do_where   [act_info.c]
+   do_owhere  [act_wiz.c]
+   do_owhere  [grub.c]
    do_vsearch [act_wiz.c]
 
    Add a TRUE argument to the calls.
