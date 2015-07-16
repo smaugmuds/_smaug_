@@ -260,7 +260,7 @@ break;
 	
 if (!extra_descr_free)
 	  {
-ed = pvalloc (sizeof (*ed));
+ed = malloc (sizeof (*ed));
 }
 	else
 	  {
@@ -318,7 +318,7 @@ break;
 	
 if (!extra_descr_free)
 	  {
-ed = pvalloc (sizeof (*ed));
+ed = malloc (sizeof (*ed));
 }
 	else
 	  {

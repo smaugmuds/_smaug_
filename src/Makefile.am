@@ -48,11 +48,6 @@ ARCH = `uname -m`
 localedir = $(datadir)/locale
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
-# Uncomment the two lines below if compiling on a Solaris box
-
-# SOLARIS_FLAG = -Dsun -DSYSV
-# SOLARIS_LINK = -lnsl -lsocket
-
 CLEANFILES = *~ *.o *.lo *.la *.a *.so smaug.h \
 smaug$(EXEEXT) smaug-resolv$(EXEEXT) smaug-httpd$(EXEEXT) stamp-h1
 
@@ -96,9 +91,9 @@ endif
 if ENABLE_OLC2
 # libsmaug-olc #
 
-libsmaug_olc_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_olc_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_olc_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
+libsmaug_olc_la_CXXFLAGS = -Wl,-rpath
+libsmaug_olc_la_CFLAGS = -Wl,-rpath
+libsmaug_olc_la_LDFLAGS = -Wl,-rpath $(LTLIBINTL)
 
 libsmaug_olc_la_SOURCES = \
 ooedit.c oredit.c omedit.c
@@ -107,25 +102,25 @@ endif
 if ENABLE_DNS_RESOLV
 # libsmaug-dns #
 
-libsmaug_dns_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_dns_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_dns_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
+libsmaug_dns_la_CXXFLAGS = -Wl,-rpath
+libsmaug_dns_la_CFLAGS = -Wl,-rpath
+libsmaug_dns_la_LDFLAGS = -Wl,-rpath $(LTLIBINTL)
 
 libsmaug_dns_la_SOURCES = dns.c
 endif
 
 # lib/libsmaug-act.so (shared lib) #
-libsmaug_act_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_act_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_act_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
+libsmaug_act_la_CXXFLAGS = -Wl,-rpath
+libsmaug_act_la_CFLAGS = -Wl,-rpath
+libsmaug_act_la_LDFLAGS = -Wl,-rpath $(LTLIBINTL)
 
 libsmaug_act_la_SOURCES = \
 act_comm.c act_info.c act_move.c act_obj.c act_wiz.c fight.c misc.c 
 
 # lib/libsmaug-player.so (shared lib) #
-libsmaug_player_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_player_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_player_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
+libsmaug_player_la_CXXFLAGS = -Wl,-rpath
+libsmaug_player_la_CFLAGS = -Wl,-rpath
+libsmaug_player_la_LDFLAGS = -Wl,-rpath $(LTLIBINTL)
 
 libsmaug_player_la_SOURCES = \
 player.c polymorph.c update.c save.c ban.c
@@ -135,17 +130,17 @@ libsmaug_player_la_SOURCES += alias.c
 endif
 
 # lib/libsmaug-mudprog.so (shared lib) #
-libsmaug_mudprog_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_mudprog_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_mudprog_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
+libsmaug_mudprog_la_CXXFLAGS = -Wl,-rpath
+libsmaug_mudprog_la_CFLAGS = -Wl,-rpath
+libsmaug_mudprog_la_LDFLAGS = -Wl,-rpath $(LTLIBINTL)
 
 libsmaug_mudprog_la_SOURCES = \
 mud_comm.c mud_prog.c
 
 # lib/libsmaug-info.so (shared lib) #
-libsmaug_info_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_info_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_info_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
+libsmaug_info_la_CXXFLAGS = -Wl,-rpath
+libsmaug_info_la_CFLAGS = -Wl,-rpath
+libsmaug_info_la_LDFLAGS = -Wl,-rpath $(LTLIBINTL)
 
 libsmaug_info_la_SOURCES = \
 boards.c comments.c hint.c news.c requests.c 
@@ -155,9 +150,9 @@ libsmaug_info_la_SOURCES += mssp.c
 endif
 
 # lib/libsmaug-realm.so (shared lib) #
-libsmaug_realm_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_realm_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_realm_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
+libsmaug_realm_la_CXXFLAGS = -Wl,-rpath
+libsmaug_realm_la_CFLAGS = -Wl,-rpath
+libsmaug_realm_la_LDFLAGS = -Wl,-rpath $(LTLIBINTL)
 
 libsmaug_realm_la_SOURCES = \
 adminlist.c build.c clans.c deity.c grub.c house.c \
@@ -221,9 +216,9 @@ endif
 
 # bin/smaug #
 
-smaug_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-smaug_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-smaug_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
+smaug_CXXFLAGS = -Wl,-rpath
+smaug_CFLAGS = -Wl,-rpath
+smaug_LDFLAGS = -Wl,-rpath $(LTLIBINTL)
 
 smaug_SOURCES = smaug.c \
 i18n.c const.c db.c handler.c hashstr.c \
@@ -248,17 +243,17 @@ endif
 if HTTPD
 # libsmaug-httpd #
 
-libsmaug_httpd_la_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_httpd_la_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-libsmaug_httpd_la_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
+libsmaug_httpd_la_CXXFLAGS = -Wl,-rpath
+libsmaug_httpd_la_CFLAGS = -Wl,-rpath
+libsmaug_httpd_la_LDFLAGS = -Wl,-rpath $(LTLIBINTL)
 
 libsmaug_httpd_la_SOURCES = mongoose.c
 
 # bin/smaug-httpd #
 
-smaug_httpd_CXXFLAGS = -g -O0 -Wl,-rpath $(SOLARIS_FLAG) -I../.. -pthread -DMONGOOSE_ENABLE_THREADS -DNS_ENABLE_SSL -lssl
-smaug_httpd_CFLAGS = -g -O0 -Wl,-rpath $(SOLARIS_FLAG) -I../.. -pthread -DMONGOOSE_ENABLE_THREADS -DNS_ENABLE_SSL -lssl
-smaug_httpd_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
+smaug_httpd_CXXFLAGS = -g -O0 -Wl,-rpath -I../.. -pthread -DMONGOOSE_ENABLE_THREADS -DNS_ENABLE_SSL -lssl
+smaug_httpd_CFLAGS = -g -O0 -Wl,-rpath -I../.. -pthread -DMONGOOSE_ENABLE_THREADS -DNS_ENABLE_SSL -lssl
+smaug_httpd_LDFLAGS = -Wl,-rpath $(LTLIBINTL)
 
 smaug_httpd_SOURCES = httpd.c
 
@@ -268,9 +263,9 @@ endif
 if ENABLE_DNS_RESOLV
 # bin/smaug-resolv #
 
-smaug_resolv_CXXFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-smaug_resolv_CFLAGS = -Wl,-rpath $(SOLARIS_FLAG)
-smaug_resolv_LDFLAGS = -Wl,-rpath $(SOLARIS_LINK) $(LTLIBINTL)
+smaug_resolv_CXXFLAGS = -Wl,-rpath
+smaug_resolv_CFLAGS = -Wl,-rpath
+smaug_resolv_LDFLAGS = -Wl,-rpath $(LTLIBINTL)
 
 smaug_resolv_SOURCES = resolv.c
 endif

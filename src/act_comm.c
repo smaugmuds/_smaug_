@@ -4835,7 +4835,7 @@ int
 is_profane (char *what)
 {
 #ifndef WIN32
-#if defined(__CYGWIN__)
+#ifndef __CYGWIN__
   int ret;
 
   ret = re_exec (what);

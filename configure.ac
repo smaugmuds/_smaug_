@@ -311,7 +311,7 @@ AC_SUBST([NEON_CFLAGS])
 
 case "$host_os" in
 	*mingw*)
-	  AC_MSG_NOTICE([OS MinGW detected])
+	    AC_MSG_NOTICE([OS MinGW detected])
       AC_DEFINE_UNQUOTED(MINGW,1,[This is a MinGW system])
       AC_DEFINE_UNQUOTED(WIN32,1,[This is a Windows system])
       AC_DEFINE_UNQUOTED(WINDOWS,1,[This is a Windows system])
@@ -332,26 +332,26 @@ case "$host_os" in
       os_is_windows="yes"
       os_is_native_w32="yes"
       have_socket="no"
-	  enable_crypt="no"
+	    enable_crypt="no"
       ;;
 	freebsd*)
-	  AC_MSG_NOTICE([OS FreeBSD detected])
+	    AC_MSG_NOTICE([OS FreeBSD detected])
       AC_DEFINE_UNQUOTED(SOMEBSD,1,[This is a BSD system])
       AC_DEFINE_UNQUOTED(FREEBSD,1,[This is a FreeBSD system])
       ;;
 	openbsd*)
-	  AC_MSG_NOTICE([OS OpenBSD detected])
+	    AC_MSG_NOTICE([OS OpenBSD detected])
       AC_DEFINE_UNQUOTED(SOMEBSD,1,[This is a BSD system])
       AC_DEFINE_UNQUOTED(OPENBSD,1,[This is an OpenBSD system])
       ;;
 	netbsd*)
-	  AC_MSG_NOTICE([OS NetBSD detected])
+	    AC_MSG_NOTICE([OS NetBSD detected])
       AC_DEFINE_UNQUOTED(SOMEBSD,1,[This is a BSD system])
       AC_DEFINE_UNQUOTED(NETBSD,1,[This is a NetBSD system])
       ;;
 
 	*solaris*)
-	  AC_MSG_NOTICE([OS Solaris detected])
+	    AC_MSG_NOTICE([OS Solaris detected])
       AC_DEFINE_UNQUOTED(SOLARIS,1,[This is a Solaris system])
       AC_DEFINE_UNQUOTED(_REENTRANT,1,[Need with solaris or errno doesnt work])
       AC_SEARCH_LIBS(gethostbyname, nsl)
@@ -362,36 +362,39 @@ case "$host_os" in
           requirement_elm_libs="-lsocket ${requirement_elm_libs}"
          ],
          [have_socket="no"])
+      CFLAGS="-Dsun -DSYSV $CFLAGS"
+      LDFLAGS="-lnsl -lsocket $LDFLAGS"
       ;;
-    *darwin* | *rhapsody* | *macosx*)
-	  AC_MSG_NOTICE([OS MacOSX detected])
+  *darwin* | *rhapsody* | *macosx*)
+	    AC_MSG_NOTICE([OS MacOSX detected])
       AC_DEFINE_UNQUOTED(OSX,1,[This is an OS X system])
       CFLAGS="-no-cpp-precomp -fno-common $CFLAGS"
       have_socket="yes"
       ;;
 	*arm-linux*)
-	  AC_MSG_NOTICE([OS ARM GNU/Linux detected])
+	    AC_MSG_NOTICE([OS ARM GNU/Linux detected])
       AC_DEFINE_UNQUOTED(LINUX,1,[This is a Linux kernel])
       AC_DEFINE_UNQUOTED(HAVE_LISTEN_SHUTDOWN,1,[can use shutdown on listen sockets])
       CFLAGS="-fPIC -pipe $CFLAGS"
       ;;
 	*linux*)
-	  AC_MSG_NOTICE([OS GNU/Linux detected])
+	    AC_MSG_NOTICE([OS GNU/Linux detected])
       AC_DEFINE_UNQUOTED(LINUX,1,[This is a Linux kernel])
       AC_DEFINE_UNQUOTED(HAVE_LISTEN_SHUTDOWN,1,[can use shutdown on listen sockets])
       ;;
 	*cygwin*)
-	  AC_MSG_NOTICE([OS Cygwin detected])
+	    AC_MSG_NOTICE([OS Cygwin detected])
       AC_DEFINE_UNQUOTED(__CYGWIN__,1,[This is a Cygwin system])
       os_is_windows="yes"
-      have_socket="no"
-	  enable_crypt="no"
+      have_socket="yes"
+	    enable_crypt="no"
+      enable_regex="no"
       ;;
-    *openedition*)
-	  AC_MSG_NOTICE([OS Open Edition detected])
+  *openedition*)
+	    AC_MSG_NOTICE([OS Open Edition detected])
       AC_DEFINE_UNQUOTED(OS390,1,[This is a OS/390 system])
       ;;
-   *)
+  *)
       AC_MSG_WARN([Unrecognised OS $host_os])
       AC_DEFINE_UNQUOTED(OTHEROS,1,[Some strange OS])
       have_socket="yes"
@@ -494,7 +497,7 @@ AC_ARG_ENABLE(regex,
 if test "$enable_regex" = "yes"; then
 		# Manage undefined re_exec errors
 		AC_DEFINE([REGEX], [], [Regex Support])
-		# LDFLAGS="$LDFLAGS -lgnuregex"
+		LDFLAGS="$LDFLAGS -lgnuregex"
 fi
 
 # Enable Password Encription Support (-DCRYPT) #
@@ -504,7 +507,7 @@ AC_ARG_ENABLE(crypt,
               [], [enable_crypt=yes])
 if test "$enable_crypt" = "yes"; then
 		AC_DEFINE([CRYPT], [], [Password Encryption Support])
-		# LDFLAGS="$LDFLAGS -lcrypt"
+		LDFLAGS="$LDFLAGS -lcrypt"
 else
 		AC_DEFINE([NOCRYPT], [], [Disable Password Encryption Support])
 fi
@@ -868,7 +871,7 @@ AC_OUTPUT
 # Show configure build flags & options #
 
 AC_MSG_RESULT
-AC_MSG_RESULT([Configured --{SMAUG}-- build flags:
+AC_MSG_RESULT([Configured --{ SMAUG }-- build flags:
 
  * Time Format fix:     <$enable_time>
  * RE_EXEC fix:         <$enable_regex>
@@ -876,7 +879,7 @@ AC_MSG_RESULT([Configured --{SMAUG}-- build flags:
  * Developer flags:     <$enable_devel>
  * Performance flags:   <$enable_performance>
 
-Configured --{SMAUG}-- MUD Server features:
+Configured --{ SMAUG }-- MUD Server features:
 
  * SMAUG 2.0:           <$enable_smaug2>
  * Oasis OLC:           <$enable_olc2>

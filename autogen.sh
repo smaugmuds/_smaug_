@@ -33,7 +33,7 @@
 #    \\_____________________________________________________________________//
 
 echo
-echo "-- --{SMAUG 2.0}-- -* Autogen *- by (@burzumishi) --"
+echo "-- --{ SMAUG II }-- -* Autogen *- by (@burzumishi) --"
 echo
 
 echo "Backup configure.ac Makefile.am src/Makefile.am ...";
