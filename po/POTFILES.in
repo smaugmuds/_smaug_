@@ -3,7 +3,6 @@ src/mud.h
 src/adminlist.c
 src/boards.c
 src/build.c
-src/calendar.c
 src/clans.c
 src/color.c
 src/comments.c
