@@ -159,21 +159,25 @@ devdistclean: distclean-local distclean-doc
 
 install-data-hook:
 	@echo "Creating <@PACKAGE@> directory to store log files ..."; \
-	mkdir -pv $(localstatedir)/log/@PACKAGE@; \
+	mkdir -pv $(DESTDIR)$(localstatedir)/log/@PACKAGE@; \
 	echo "Creating <@PACKAGE@> directories to store lock and run files ..."; \
-	mkdir -pv $(localstatedir)/lock/@PACKAGE@; \
-	mkdir -pv $(localstatedir)/run/; \
+	mkdir -pv $(DESTDIR)$(localstatedir)/lock/@PACKAGE@; \
+	mkdir -pv $(DESTDIR)$(localstatedir)/run/; \
 	echo "Installing <@PACKAGE@> Database files ..."; \
-	mkdir -pv $(sharedstatedir)/@PACKAGE@; \
-	cp -rvf db/* $(sharedstatedir)/@PACKAGE@; \
+	mkdir -pv $(DESTDIR)$(sharedstatedir)/@PACKAGE@; \
+	cp -rvf db/* $(DESTDIR)$(sharedstatedir)/@PACKAGE@; \
 	echo "Installing <@PACKAGE@> Website files ..."; \
-	mkdir -pv $(localstatedir)/www/@PACKAGE@; \
-	cp -rvf www/* $(localstatedir)/www/@PACKAGE@; \
+	mkdir -pv $(DESTDIR)$(localstatedir)/www/@PACKAGE@; \
+	cp -rvf www/* $(DESTDIR)$(localstatedir)/www/@PACKAGE@; \
 	echo "Creating user <$(USER)> and group <$(GROUP)> ..."; \
 	groupadd $(GROUP) &>/dev/null; \
 	useradd $(USER) -g $(GROUP) &>/dev/null; \
 	echo "Setting up <$(prefix)> permissions to <$(USER):$(GROUP)> ..."; \
-	chown -R $(USER):$(GROUP) $(prefix); \
+	chown -R $(USER):$(GROUP) $(DESTDIR)$(localstatedir)/lock/@PACKAGE@); \
+	chown -R $(USER):$(GROUP) $(DESTDIR)$(localstatedir)/log/@PACKAGE@); \
+	chown -R $(USER):$(GROUP) $(DESTDIR)$(localstatedir)/run/@PACKAGE@); \
+	chown -R $(USER):$(GROUP) $(DESTDIR)$(localstatedir)/www/@PACKAGE@); \
+	chown -R $(USER):$(GROUP) $(DESTDIR)$(sharedstatedir)/@PACKAGE@); \
 	echo ""; \
 	echo "<@PACKAGE@> has ben installed to <$(prefix)> directory!"; \
 	echo "You can execute <$(sysconfdir)/init.d/smaugd start> now!"; \
