@@ -173,11 +173,11 @@ install-data-hook:
 	groupadd $(GROUP) &>/dev/null; \
 	useradd $(USER) -g $(GROUP) &>/dev/null; \
 	echo "Setting up <$(prefix)> permissions to <$(USER):$(GROUP)> ..."; \
-	chown -R $(USER):$(GROUP) $(DESTDIR)$(localstatedir)/lock/@PACKAGE@); \
-	chown -R $(USER):$(GROUP) $(DESTDIR)$(localstatedir)/log/@PACKAGE@); \
-	chown -R $(USER):$(GROUP) $(DESTDIR)$(localstatedir)/run/@PACKAGE@); \
-	chown -R $(USER):$(GROUP) $(DESTDIR)$(localstatedir)/www/@PACKAGE@); \
-	chown -R $(USER):$(GROUP) $(DESTDIR)$(sharedstatedir)/@PACKAGE@); \
+	chown -R $(USER):$(GROUP) $(DESTDIR)$(localstatedir)/lock/@PACKAGE@; \
+	chown -R $(USER):$(GROUP) $(DESTDIR)$(localstatedir)/log/@PACKAGE@; \
+	chown -R $(USER):$(GROUP) $(DESTDIR)$(localstatedir)/run/@PACKAGE@; \
+	chown -R $(USER):$(GROUP) $(DESTDIR)$(localstatedir)/www/@PACKAGE@; \
+	chown -R $(USER):$(GROUP) $(DESTDIR)$(sharedstatedir)/@PACKAGE@; \
 	echo ""; \
 	echo "<@PACKAGE@> has ben installed to <$(prefix)> directory!"; \
 	echo "You can execute <$(sysconfdir)/init.d/smaugd start> now!"; \
