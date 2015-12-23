@@ -52,10 +52,10 @@ ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = etc bin src po
 
-EXTRA_DIST = m4/ChangeLog  config.rpath m4/ChangeLog autogen.sh tools \
+EXTRA_DIST = m4/ChangeLog  config.rpath m4/ChangeLog autogen.sh data tools \
 	doc etc src man db README.md LICENSE m4 libtool bin autom4te.cache \
 	missing compile config.guess config.sub depcomp aclocal.m4 \
-	Doxyfile.in po ABOUT-NLS *.m4 TODO www
+	Doxyfile.in doc/html po ABOUT-NLS *.m4 TODO smaug-2.0.pc.in
 
 do_subst = sed -e 's,[@]sharedstatedir[@],$(sharedstatedir),g' \
 		-e 's,[@]localstatedir[@],$(localstatedir),g' \
@@ -87,6 +87,10 @@ localedir = $(datadir)/locale
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
 man_MANS = man/smaug.1 man/smaugd.1
+
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = smaug-2.0.pc
+
 
 CLEANDEVELFILES = compile configure depcomp src/smaug.h src/*.la ar-lib \
 	autom4te.cache config.guess config.sub install-sh missing src/.libs \
@@ -159,25 +163,21 @@ devdistclean: distclean-local distclean-doc
 
 install-data-hook:
 	@echo "Creating <@PACKAGE@> directory to store log files ..."; \
-	mkdir -pv $(DESTDIR)$(localstatedir)/log/@PACKAGE@; \
+	mkdir -pv $(localstatedir)/log/@PACKAGE@; \
 	echo "Creating <@PACKAGE@> directories to store lock and run files ..."; \
-	mkdir -pv $(DESTDIR)$(localstatedir)/lock/@PACKAGE@; \
-	mkdir -pv $(DESTDIR)$(localstatedir)/run/; \
+	mkdir -pv $(localstatedir)/lock/@PACKAGE@; \
+	mkdir -pv $(localstatedir)/run/; \
 	echo "Installing <@PACKAGE@> Database files ..."; \
-	mkdir -pv $(DESTDIR)$(sharedstatedir)/@PACKAGE@; \
-	cp -rvf db/* $(DESTDIR)$(sharedstatedir)/@PACKAGE@; \
+	mkdir -pv $(sharedstatedir)/@PACKAGE@; \
+	cp -rvf db/* $(sharedstatedir)/@PACKAGE@; \
 	echo "Installing <@PACKAGE@> Website files ..."; \
-	mkdir -pv $(DESTDIR)$(localstatedir)/www/@PACKAGE@; \
-	cp -rvf www/* $(DESTDIR)$(localstatedir)/www/@PACKAGE@; \
+	mkdir -pv $(localstatedir)/www/@PACKAGE@; \
+	cp -rvf www/* $(localstatedir)/www/@PACKAGE@; \
 	echo "Creating user <$(USER)> and group <$(GROUP)> ..."; \
 	groupadd $(GROUP) &>/dev/null; \
 	useradd $(USER) -g $(GROUP) &>/dev/null; \
 	echo "Setting up <$(prefix)> permissions to <$(USER):$(GROUP)> ..."; \
-	chown -R $(USER):$(GROUP) $(DESTDIR)$(localstatedir)/lock/@PACKAGE@; \
-	chown -R $(USER):$(GROUP) $(DESTDIR)$(localstatedir)/log/@PACKAGE@; \
-	chown -R $(USER):$(GROUP) $(DESTDIR)$(localstatedir)/run/@PACKAGE@; \
-	chown -R $(USER):$(GROUP) $(DESTDIR)$(localstatedir)/www/@PACKAGE@; \
-	chown -R $(USER):$(GROUP) $(DESTDIR)$(sharedstatedir)/@PACKAGE@; \
+	chown -R $(USER):$(GROUP) $(prefix); \
 	echo ""; \
 	echo "<@PACKAGE@> has ben installed to <$(prefix)> directory!"; \
 	echo "You can execute <$(sysconfdir)/init.d/smaugd start> now!"; \

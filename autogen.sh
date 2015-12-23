@@ -1,125 +1,61 @@
-#!/bin/env bash
+#!/bin/sh
 
-#                     R E A L M S    O F    D E S P A I R  !
-#   ___________________________________________________________________________
-#  //            /                                                            \\
-# [|_____________\   ********   *        *   ********   *        *   *******   |]
-# [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
-# [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
-# [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
-# [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
-# [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
-# [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
-# [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
-# [|_____________\  **********  **      **  **      **  **********  *********  |]
-# [|             /  *********   *        *  *        *   ********    *******   |]
-#  \\____________\____________________________________________________________//
-#     |                                                                     |
-#     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
-#     |_____________________________________________________________________|
-#     |                                                                     |
-#     |                         -*- Autogen -*-                             |
-#     |_____________________________________________________________________|
-#    //                                                                     \\
-#   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
-#   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
-#   [|                                                                       |]
-#   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
-#   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
-#   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
-#   [|  Nyboe. Win32 port Nick Gammon.                                       |]
-#   [|                                                                       |]
-#   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
-#    \\_____________________________________________________________________//
+srcdir=`dirname $0`
 
-echo
-echo "-- --{ SMAUG II }-- -* Autogen *- by (@burzumishi) --"
-echo
+test -z "$srcdir" && srcdir=.
 
-echo "Backup configure.ac Makefile.am src/Makefile.am ...";
-cp -v configure.ac configure.ac.autogen-bak
-cp -v Makefile.am Makefile.am.autogen-bak
-cp -v src/Makefile.am src/Makefile.am.autogen-bak
-
-echo "Running libtoolize ..."
-libtoolize
-
-if test -f "acinclude.m4"; then rm -v acinclude.m4; fi;
-
-if test ! -f "m4/nls.m4"; then
-	if test -f "ABOUT-NLS"; then rm -v ABOUT-NLS; fi;
-	if test -f "po/Makefile.in.in"; then rm -v po/Makefile.in.in; fi;
-	echo "Running gettextize --copy ...";
-	gettextize --copy
-fi;
-
-for file in libtool ltoptions ltsugar ltversion lt~obsolete; do
-	echo "Appending m4/$file.m4 to acinclude.m4 ..."
-	cat m4/$file.m4 >> acinclude.m4
-done
-
-for file in argz bison-i18n codeset expat fcntl-o gettext glib glib-gettext \
-		iconv intldir intl intltool intmax inttypes_h inttypes-pri ltdl \
-		lcmessage lib-ld lib-link lib-prefix libtool lock longlong ltoptions \
-		ltsugar ltversion pkg po printf-posix progtest size_max stdint_h \
-		threadlib uintmax_t visibility wchar_t wint_t ; do
-			if test ! -f "m4/$file.m4" && test -f "/usr/share/aclocal/$file.m4"; then
-				echo "Copying /usr/share/aclocal/$file.m4 -> m4/$file.m4 ..."
-				cp -v /usr/share/aclocal/$file.m4 m4/$file.m4
-			fi;
-done;
-
-for file in m4/Makefile.am; do
-	if test ! -f "$file"; then
-		echo "Creating $file ..."
-		touch $file;
-	fi;
-done;
-
-echo "Restore configure.ac Makefile.am src/Makefile.am ...";
-cp -v configure.ac.autogen-bak configure.ac
-cp -v Makefile.am.autogen-bak Makefile.am
-cp -v src/Makefile.am.autogen-bak src/Makefile.am
-
-echo "Running aclocal ...";
-aclocal -I m4
-
-echo "Running autoheader ...";
-autoheader
-
-echo "Running autoconf ...";
-autoconf
-
-for doc in INSTALL README AUTHORS NEWS ChangeLog; do
-	if test ! -f "$doc"; then
-		echo "Linking README.md -> $doc ..."
-		ln -svf README.md $doc
+__intltoolize() {
+	if test -d "po"; then
+		echo "Running: intltoolize -f -c ..." \
+		&& intltoolize --force --copy \
+		&& cp /usr/share/aclocal/intltool.m4 m4/ || exit 1
 	fi
-done
+}
 
-if test ! -f "COPYING"; then
-	echo "Linking LICENSE -> COPYING ..."
-	ln -svf LICENSE COPYING
-fi;
+__autogen_verbose() {
+	test -d "m4" || mkdir m4
 
-echo "Running automake ...";
-automake --add-missing
-automake m4/Makefile
+	echo "Running: libtoolize -f -i -r -c ..." \
+	&& libtoolize --force --verbose --install --recursive --copy || exit 1
 
-if test ! -f "src/gettext.h"; then
-	echo "Copying gettext.h -> src/ ..."
-	cp -v /usr/share/gettext/gettext.h src/
-fi;
+	__intltoolize
 
-test -x configure || exit
+	echo "Running: aclocal -I m4 ..." \
+	&& aclocal --force --verbose -W all -I m4 \
+	&& echo "Running: automake -g -a -c ..." \
+	&& automake --gnu --add-missing --copy --verbose -W all  \
+	&& echo "Running: autoconf -f ..." \
+	&& autoconf --force --verbose -W all || exit 1
+}
 
-CONFIGURE_USER_OPTIONS=$*;
+__autogen() {
+	test -d "m4" || mkdir m4
 
-echo "Running: ./configure --prefix=/opt/smaug --disable-static --enable-shared --enable-nls $CONFIGURE_USER_OPTIONS";
+	echo "Running: libtoolize -f -i -r -c ..." \
+	&& libtoolize --force --install --recursive --copy || exit 1
 
-sleep 2;
+	__intltoolize
 
-./configure --prefix=/opt/smaug --disable-static --enable-shared --enable-nls $CONFIGURE_USER_OPTIONS;
+	echo "Running: aclocal -I m4 ..." \
+	&& aclocal --force -W all -I m4 \
+	&& echo "Running: automake -g -a -c ..." \
+	&& automake --gnu --add-missing --copy -W all  \
+	&& echo "Running: autoconf -f ..." \
+	&& autoconf --force -W all || exit 1
+}
+
+# Options
+case "$1" in
+        -h|--help) echo "$0 [--help] [--version] [--verbose]"; exit;
+        ;;
+        -v|--verbose) __autogen_verbose || exit 1;
+        ;;
+        -V|--version) echo "$0 3.0.0"; exit;
+        ;;
+	-*) echo "$0 [--help] [--version] [--verbose]"; exit 1;
+	;;
+        *) __autogen || exit 1;
+        ;;
+esac
 
 exit
-

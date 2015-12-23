@@ -1,0 +1,85 @@
+body {
+	font: normal 15px/20px "Open Sans","Symbola","Code2000","DejaVu Sans","Lucida Console","Apple Symbols",Helvetica,Arial,sans-serif !important;
+	font-family: "Open Sans","Symbola","Code2000","DejaVu Sans","Lucida Console","Apple Symbols",Helvetica,Arial,sans-serif !important;
+	font-size: 15px;
+}
+
+h1, h2, h3, h4, h5, h6, .app .out {
+	font-family: "Open Sans","Symbola","Code2000","DejaVu Sans","Lucida Console","Apple Symbols",Helvetica,Arial,sans-serif !important;
+}
+
+/* Spin around infinitely on Y axis */
+
+@-webkit-keyframes yspinner { 
+	from { 
+		-webkit-transform: rotateY(0deg); 
+	} 
+	to { 
+		-webkit-transform: rotateY(-360deg); 
+	} 
+} 
+ 
+ /* all other browsers */ 
+@keyframes yspinner { 
+	from { 
+		-moz-transform: rotateY(0deg); 
+		-ms-transform: rotateY(0deg); 
+		transform: rotateY(0deg); 
+	} 
+	to { 
+		-moz-transform: rotateY(360deg); 
+		-ms-transform: rotateY(360deg); 
+		transform: rotateY(360deg); 
+	} 
+}
+ 
+.ani {
+	position: absolute;
+	z-index: 4;
+	height: 54px;
+	width: 54px;
+}
+
+.havoc-spinner {
+	-webkit-animation-name: yspinner; 
+	-webkit-animation-timing-function: ease-out; 
+	-webkit-animation-iteration-count: infinite; 
+	-webkit-animation-duration: 2s; 
+	animation-name: yspinner; 
+	animation-timing-function: ease-out; 
+	animation-iteration-count: infinite; 
+	animation-duration: 2s; 
+} 
+
+/* Hexagonal grid */
+
+.hex-grid {
+	margin: 0px; 
+	padding: 0px;
+	top: 0px;
+	left: -25px;
+	position: absolute;
+	z-index: 0;
+}
+
+.hex {
+    float: left;
+    margin-right: -18px;
+    margin-bottom: -34px;
+	width: 72px;
+	height: 72px;
+}
+
+.hex-row {
+	height: 72px;
+	float: left;
+    clear: both;
+}
+
+.hex:nth-child(even) {
+    margin-top: -36px;
+}
+
+.hex .middle:hover, .app .inbar {
+	background: rgba(0, 0, 0, 0.4);
+}

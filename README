@@ -1,4 +1,4 @@
-##[_--{SMAUG}--_] (http://smaugmuds.github.io/_smaug_)
+##[_--{SMAUG II}--_] (http://smaugmuds.github.io/_smaug_)
 
 ###Introduction
 
@@ -23,72 +23,86 @@
     |                                                                     |
     |                              README                                 |
     |_____________________________________________________________________|
+    |                                                                     |
+    |                          --{SMAUG II}--                             |
+    |_____________________________________________________________________|
    //                                                                     \\
-  [|  SMAUG 1.4 � 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
+  [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+  [|                                                                       |]
+  [|  AFKMud Copyright 1997-2007 by Roger Libiez (Samson),                 |]
+  [|  Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),       |]
+  [|  Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine,            |]
+  [|  Xorith, and Adjani.                                                  |]
+  [|  All Rights Reserved. External contributions from Remcon, Quixadhal,  |]
+  [|  Zarius and many others.                                              |]
+  [|                                                                       |]
+  [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
   [|                                                                       |]
-  [|  Merc 2.1 Diku Mud improvments � 1992-1993 Michael Chastain, Michael  |]
-  [|  Quan, and Mitchell Tse. Original Diku Mud � 1990-1991 by Sebastian   |]
+  [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
+  [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
   [|  Nyboe. Win32 port Nick Gammon.                                       |]
-  [|                                                                       |]
-  [|  SMAUG 2.0 � 2014-2015 Antonio Cao (@burzumishi)                      |]
    \\_____________________________________________________________________//
 
 ```
 
 **--{ [S]imulated [M]edieval [A]dventure Multi-[U]ser [G]ame }--**
 
-**--{SMAUG}--** is a multiplayer text-based role-playing game, which is a type of MUD. It can be used and modified to create your own game server.
+**--{SMAUG II}--** is a **Merc** and **DikuMUD** derived MUD server. Its name is a backronym inspired by the dragon **Smaug** found in **J. R. R. Tolkien's** fiction. **--{SMAUG II}--** is a multiplayer text-based role-playing game in a real-time virtual world, which is a type of MUD. Modern massively multiplayer online role-playing games **(MMORPGs)** traces directly back to the MUD genre.
 
-**--{SMAUG 2.0}--** is an enhancenment of **SMAUG 1.8b**, this project was started to have an stable source code structure, which will build, install and run in most modern distributed system environments. **--{SMAUG 2.0}--** is ready to add, enable and disable new code snippets using the new **GNU Autotools** build system. Many bug fixes and additions were made to the **SMAUG 1.8b** source code, always trying to keep the compatibility with **SMAUG** previous revisions. All path definitions for data files and directories were modified, **--{SMAUG}--** installation is now stored into a modern system directory distribution. Old "**startd**" script was replaced with "**smaugd**" and "**smaugd-monitor**", these scripts will start up and keep your MUD server running. If the **--{SMAUG}--** server process fails, "**smaugd-monitor**" will respawn it again. To know more about all these new changes, take a look at the section **--{SMAUG}-- ChangeLog**.
+**--{SMAUG II}--** is an enhancenment of **SMAUG 1.8b**, this project was started to have a source code structure which builds, installs and runs in most modern distributed system environments. **--{SMAUG II}--** is ready to add, enable and disable new code snippets using the **GNU Autotools** build system. Many bug fixes and additions were made to the **SMAUG 1.8b** source code, always trying to keep the compatibility with **SMAUG 1.8b**. All paths for data files and directories were modified, because **--{SMAUG II}--** installation is stored into a **LSB** directory distribution. All code is internationalized using **GNU Gettext**, all zones, clases, races and some system files were modified to be translated. Old "**startd**" script was replaced with "**smaugd**" and "**smaugd-monitor**", these scripts will start up and keep your MUD server running. If **--{SMAUG II}--** server process fails, "**smaugd-monitor**" will respawn it again. To know more about all these new changes, take a look at the section **--{SMAUG II}-- ChangeLog**. Some new code snippets were extracted and adapted from **AFKMud** and **SMAUGfuss**. All licenses and mentions to the original **SMAUG** code authors are displayed in source code header files.
 
 **SMAUG 1.8b**, is an fixed **SMAUG 1.4a** which is a heavily modified derivative of the **Merc 2.1** distribution. **SMAUG 1.4a** is close to six times the size of **Merc 2.1**, and has major changes to the inner workings of the code, hence making porting of code from other Diku-derivatives non-trivial to the non-coder. Due to the ability to edit most everything online, you will most likely find the online help pages more informative. **SMAUG** is the base code that runs the popular **Realms of Despair** MUD. Through the years it has been tweaked, modified, and enhanced to become one of the most feature packed branches of the **MERC** family of codebases. 
 
-**SMAUG** is a derivative of **Merc Diku Mud** is a **Diku Mud** with many enhancements and contributions. It was written in 1990 and 1991 by **Sebastian Hammer**, **Tom Madsen**, **Katja Nyboe**, **Michael Seifert**, and **Hans Henrik Stærfeldt** at **DIKU** _(Datalogisk Institut Københavns Universitet) at the department of computer science at the University of Copenhagen in Copenhagen, Denmark_. Commonly referred to as simply **"Diku"**, the game was greatly inspired by **AberMUD**, though **Diku** became one of the first multi-usergames to become popular as a freely-available program for its gameplay and similarity to **Dungeons & Dragons**.
+**SMAUG** is a derivative of **Merc Diku Mud** is a **Diku Mud** with many enhancements and contributions. It was written in 1990 and 1991 by **Sebastian Hammer**, **Tom Madsen**, **Katja Nyboe**, **Michael Seifert**, and **Hans Henrik StÃŠrfeldt** at **DIKU** _(Datalogisk Institut KÃžbenhavns Universitet) at the department of computer science at the University of Copenhagen in Copenhagen, Denmark_. Commonly referred to as simply **"Diku"**, the game was greatly inspired by **AberMUD**, though **Diku** became one of the first multi-usergames to become popular as a freely-available program for its gameplay and similarity to **Dungeons & Dragons**.
 
 **AberMUD** was the first popular open source MUD. It was named after the town _Aberystwyth_, in which it was written. The first version was written in **B** by **Alan Cox**, **Richard Acott**, **Jim Finnis**,and **Leon Thrane** based at **University of Wales**, _Aberystwyth_ for an old **Honeywell** mainframe and opened in 1987.
 
 
-### **--{SMAUG}--** Releases
+### **--{SMAUG II}--** Releases
 
-**--{SMAUG}--** version **2.0** is HERE! With many bugfixes as well as important and useful new code and build features.
+**--{SMAUG II}--** version **2.0** is HERE! With many bugfixes as well as important and useful new code and build features.
 
- * **[--{SMAUG 2.0}-- Release] (https://github.com/smaugmuds/_smaug_/releases/tag/2.0) �Launch!**
+ * **[--{SMAUG II}-- Release] (https://github.com/smaugmuds/_smaug_/releases/tag/2.0) ¡Launch!**
+
 
 #### Contents of the Release
 
-	- src:              Source files.
-	- bin:	            Init Scripts.
-	- etc:              smaugd Script Config Files.
-	- etc/init.d:       smaugd Init Scripts.
-	- doc:              Documentation.
-	- man:              Man Pages.
-	- data/area:        Realm Area files.
-	- data/backup:      Backup Player files (initially empty).
-	- data/boards:      Boards files.
-	- data/building:    Building System files.
-	- data/clans:       Clans files.
-	- data/classes:     Classes files.
-	- data/councils:    Councils files.
-	- data/corpses:     Death corpses (initially empty).
-	- data/deity:	    	Realm Deities.
-	- data/deleted:     Deleted Player files (initially empty).
-	- data/houses:      Houses files.
-	- data/gods:        God players.
-	- data/mudprogs:    MUD Program files.
-	- data/player:      Player files (initially empty).
-	- data/system:      MUD Game System files.
-	- data/races:	    	Races files.
-	- data/vault:	    	Guilds Vaults
+	- src:                Source files.
+	- bin:	              Init Scripts.
+	- etc:                smaugd & httpd Script Config Files.
+	- etc/init.d:         smaugd & httpd Init Scripts.
+	- doc:                Documentation.
+	- man:                Man Pages.
+	- data/area/LC_ALL:   Realm Area files.
+	- data/backup:        Backup Player files (initially empty).
+	- data/boards:        Boards files.
+	- data/building:      Building System files.
+	- data/clans:         Clans files.
+	- data/classes:       Classes files.
+	- data/councils:      Councils files.
+	- data/corpses:       Death corpses (initially empty).
+	- data/deity:	    	  Realm Deities.
+	- data/deleted:       Deleted Player files (initially empty).
+	- data/houses:        Houses files.
+	- data/gods:          God players.
+	- data/mudprogs:      MUD Program files.
+	- data/player:        Player files (initially empty).
+	- data/system/LC_ALL: MUD Game System files.
+	- data/races:	    	  Races files.
+	- data/vault:	    	  Guilds Vaults
+	- data/web:	    	    Web files & Online Client
 
 
 #### Features
 
-Here are just some of the features **--{SMAUG}--** has:
+Here are just some of the features **--{SMAUG II}--** has:
 
-	- Full featured, bug-free command-line online building (including shops, resets, repairshops, etc)
-	- Optional easy to use menu-based online building
+	- Full featured, Command-Line Online Building (including shops, resets, repairshops, etc)
+	- Optional, easy to use menu-based online building
+	- Online building updated to Oasis OLCII
+	- New Online Building features and Buildwalk
 	- Damageable and repairable equipment
 	- MUDPrograms/scripts (mob, obj and room programs)
 	- Monsters that will remember you, hunt you down, and summon you
@@ -126,12 +140,25 @@ Here are just some of the features **--{SMAUG}--** has:
 	- Configurable color codes online
 	- Projectiles are fully supported
 	- Extended bit vectors for when 32 are just not enough
-	- SHA256 player passwords encryption
-	- MUD Mapper and Planes
+	- SHA256 player passwords encryption.
+	- New personalized Colors.
+	- Room Mapper.
+	- New Weather.
+	- Timezone.
+	- Holidays.
+	- Server and Characters Translations.
+	- Room Planes
 	- Mounts and much much more
-	- Liquids & Mixtures.
+	- Fixed Liquids & Mixtures.
+  - Gold, Silver and Copper based economy.
+  - Gold loot rate by race.
 	- Banking System.
-  - Player marriage system.
+  - Undertaker.
+	- Questmasters.
+  - New Classes & Races.
+	- Player marriage system.
+	- A Dice Game.
+	- Mongoose web server with jta26 as Online MUD Web Client.
 
 Realm Areas:
 ```
@@ -164,20 +191,31 @@ Realm Areas:
 ```
 
 
-#### **--{SMAUG}--** ChangeLog
+#### **--{SMAUG II}--** ChangeLog
 
-	* Changes from **SMAUG 1.8b** to **--{SMAUG 2.0}--**:
+	* Changes from **SMAUG 1.8b** to **--{SMAUG II}--**:
 ```
-
-		- Moved "KEY" definition to "mud.h".
-		- Added GNU Gettext support.
-		- Added Manteinance Message Aplication (announce.c).
+		- Moved all "KEY" definitions to "mud.h".
+		- Added Quest Masters.
+		- Added new Classes & Races.
+		- Added Customizable Command Aliases.
+		- Added Arena Challenge.
+		- Added Weapon Proficency snippet and Archery.
+		- Added Gold, Silver and Copper based economy.
+		- Enabled Gold loot multirate by race.
+		- Added Undertaker snippet (ACT_UNDERTAKER).
+		- Added "Banking" code snippet.
+		- Added "Marriage" code snippet.
+		- Added a Dice game.
+		- Added Oasis OLCII Online editor, new features and "do_buildwalk".
+		- Defined new MUD default colors.
+		- Adapted Room Mapper, Colors, Weather, Timezone, Holidays systems from AFKMud.
+		- Added Mongoose web server with JTA26.jar MUD WebClient.
+		- Added GNU Gettext support. Translated: Server, Areas, Races, Classes, Commands, Skills & Socials.
 		- Required runtime data directories moved to "data".
 		- Renamed "services.c" to "win32srv.c".
 		- Renamed "comm.c" to "smaug.c".
 		- Removed all InterMud code: "IMC2" & "ICE(D)". If you want Intermud support maybe you can implement I3 or any other Intermud Chat source snippet.
-		- Added "Banking" code snippet.
-		- Added "Marriage" code snippet.
 		- Fixed "Liquids & Mixtures" system, replaces old "do_drink", "do_empty" & "do_fill" from "misc.c" routines.
 		- Fixed many bugs and redundant definitions.
 		- Indented code with GNU style.
@@ -191,38 +229,50 @@ Realm Areas:
 		- Configure checks for "cc", "gcc", "g++", "(g)awk", "-ldl", "-lz", "-lcrypt", "-lssl", "basic C# libraries", "C# headers & functions", "bash", "env", "perl".
 		- Configure options to include required definitions for enabling or disabling code snippets and flags:
 
-				Configured --{SMAUG}-- build flags:
+			Configured --{SMAUG}-- build flags:
 
-				 * Time Format fix:     <no>
-				 * RE_EXEC fix:         <yes>
-				 * Profiling flags:     <no>
-				 * Developer flags:     <no>
-				 * Performance flags:   <yes>
+			 * Time Format fix:     <no>
+			 * RE_EXEC fix:         <yes>
+			 * Profiling flags:     <yes>
+			 * Developer flags:     <no>
+			 * Performance flags:   <yes>
 
-				Configured --{SMAUG}-- MUD Server basic features:
+			Configured --{SMAUG}-- MUD Server features:
 
-				 * Password Encryption: <yes>
-				 * Request Support:     <no>
-				 * Planes:              <yes>
-				 * Who arguments:       <no>
-				 * Honour Code:         <yes>
-				 * Housing:             <yes>
-				 * House Mobs:          <yes>
-				 * Extended Rooms:      <yes>
-				 * Act Comm Scramble:   <no>
-				 * Liquids System:      <yes>
+			 * SMAUG 2.0:           <yes>
+			 * Oasis OLC:           <yes>
+			 * Oasis OLC Extras:    <yes>
+			 * Buildwalk:           <yes>
+			 * Billion MAX_VNUM:    <yes>
+			 * Password Encryption: <yes>
+			 * Request Support:     <no>
+			 * Room Planes:         <yes>
+			 * Who Arguments:       <no>
+			 * MUD HotBoot:         <yes>
+			 * New Score Tables:    <yes>
+			 * Show Stance Info:    <yes>
+			 * Player Bleeding:     <yes>
+			 * New Colors:          <yes>
+			 * New MUD Mapper:      <yes>
+			 * MSSP Support:        <yes>
+			 * New Weather:         <yes>
+			 * Timezone:            <yes>
+			 * Holidays:            <yes>
+			 * Honour Code:         <yes>
+			 * Player Houses:       <yes>
+			 * House Mobs:          <yes>
+			 * Extended Rooms:      <yes>
+			 * Liquids System:      <yes>
+			 * Act Comm Scramble:   <no>
+			 * Undertaker:          <yes>
+			 * Gold Silver Copper:  <yes>
+			 * Gold Race Rate:      <yes>
+			 * Bank:                <yes>
+			 * Player Marry:        <yes>
+			 * Dice Game:           <yes>
+			 * DNS Resolver:        <yes>
+			 * Web Server:          <yes>
 
-				Configured --{SMAUG}-- MUD Server extra features:
-
-				 * SMAUG 2.0:           <yes>
-				 * New Score Tables:    <yes>
-				 * Show Stance Info:    <yes>
-				 * Banking:             <yes>
-				 * Marry:               <yes>
-				 * Player Bleeding:     <yes>
-				 * DNS Resolver:        <yes>
-				 * Web Server:          <yes>
-				 * HotBoot:             <no>
 ```
 
 #### TODO
@@ -244,19 +294,19 @@ This is a list of TODO stuff:
  
 ### Authors and Contributors
 
-**--{SMAUG 2.0}--** by **Antonio Cao** ([@burzumishi] (https://github.com/burzumishi))
+**--{SMAUG II}--** by **Antonio Cao** ([@burzumishi] (https://github.com/burzumishi))
 Wed Jun 11 14:49:27 CEST 2014
 
-Feel free to contribute with **--{SMAUG}-- in GitHub**.
+Feel free to contribute with **--{SMAUG II}-- in GitHub**.
 
 
 ### Support or Contact
 
-Having trouble with **--{SMAUG}--**?
+Having trouble with **--{SMAUG II}--**?
 
-First, check out the documentation at **[--{SMAUG}-- Wiki] (https://github.com/smaugmuds/xmerc/wiki)** or send an Issue and we'll help you sort it out.
+First, check out the documentation at **[--{SMAUG II}-- Wiki] (https://github.com/smaugmuds/xmerc/wiki)** or send an Issue and we'll help you sort it out.
 
-We rewrote all of the documentation files for the **--{SMAUG}-- 2.0 Release**, and have been keeping them up-to-date since.
+We rewrote all of the documentation files for the **--{SMAUG II}-- Release**, and have been keeping them up-to-date since.
 
 Also check the **'wizhelp'**, **'help'**, **'hlist'** commands and read the **'help'** descriptions for the individual immortal commands.
 
@@ -279,10 +329,10 @@ The license terms boil down to this: the people who wrote this mud want due cred
 
 **SMAUG** is a derivative of the version **2.1** distribution of **Merc Diku Mud**. **SMAUG** contains substantial enhancements to **Merc Diku Mud**, including some features of the original **Diku Mud** that were removed by the Merc team.
 
-**--{SMAUG}--** is a derivative of the original **SMAUG** and is subject to their copyright and license agreement. **--{SMAUG}--** contains substantial enhancements to **SMAUG**.  These enhancements are copyright 2014-2015 by **Antonio Cao** ([@burzumishi] (https://github.com/burzumishi)) under the **'GNU GPL v2 LICENSE'**.
+**--{SMAUG II}--** is a derivative of the original **SMAUG** and is subject to their copyright and license agreement. **--{SMAUG II}--** contains substantial enhancements to **SMAUG**.  These enhancements are copyright 2014-2015 by **Antonio Cao** ([@burzumishi] (https://github.com/burzumishi)) under the **'GNU GPL v2 LICENSE'**.
 
 **Thanks to the SMAUG Code Team!**
 
 ==============
 
-_**--{SMAUG}--** (c) 2014-2015 Antonio Cao (@burzumishi)_
+_**--{SMAUG II}--** (c) 2014-2015 Antonio Cao (@burzumishi)_

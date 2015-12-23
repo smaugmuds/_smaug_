@@ -1274,7 +1274,7 @@ load_helps (AREA_DATA * tarea, FILE * fp)
 	  continue;
 	}
 
-      if (!str_cmp (pHelp->keyword, _("greeting")))
+      if (!str_cmp (pHelp->keyword, "greeting"))
 	help_greeting = pHelp->text;
       add_help (pHelp);
     }

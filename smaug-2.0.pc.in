@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+
+Name: @PACKAGE_NAME@
+Description: @DESCRIPTION@
+Version: @VERSION@
+Requires:
+Libs:
+Cflags:

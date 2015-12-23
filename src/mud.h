@@ -414,8 +414,13 @@ bool DONT_UPPER;
 int area_version;
 #define HAS_SPELL_INDEX     -1
 /* MAKE COMMENTS BELOW FOR AREA VERSION INCREASES */
+#ifdef OVERLANDCODE
 #define AREA_VERSION_WRITE 4
 #define MIN_SAVE_VERSION   4
+#else
+#define AREA_VERSION_WRITE 3
+#define MIN_SAVE_VERSION   3
+#endif
 /***********************
 *AREA_VERSION_WRITE  1  - Original 4k area version
 *AREA_VERSION_WRITE  2  - Added level in the settable/saveable index values of objects

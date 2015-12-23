@@ -8685,17 +8685,17 @@ spell_assassinate (int sn, int level, CHAR_DATA * ch, void *vo)
   if (ch->mount)
     {
       send_to_char ("You can't get close enough while mounted.\n\r", ch);
-      return;
+      return rSPELL_FAILED;
     }
 
   if (victim == ch)
     {
       send_to_char ("How can you sneak up on yourself?\n\r", ch);
-      return;
+      return rSPELL_FAILED;
     }
 
   if (is_safe (ch, victim, TRUE))
-    return;
+    return rNONE;
 
   /* Added Stabbing Weapon -Tsunami */
   if ((obj = get_eq_char (ch, WEAR_WIELD)) == NULL
@@ -8703,7 +8703,7 @@ spell_assassinate (int sn, int level, CHAR_DATA * ch, void *vo)
     {
       send_to_char ("You need to wield a piercing or stabbing weapon.\n\r",
 		    ch);
-      return;
+      return rSPELL_FAILED;
     }
 
 
@@ -8711,7 +8711,7 @@ spell_assassinate (int sn, int level, CHAR_DATA * ch, void *vo)
     {
       send_to_char ("You can't assassinate someone who is in combat.\n\r",
 		    ch);
-      return;
+      return rSPELL_FAILED;
     }
 
   /* Can assassinate a char even if it's hurt as long as it's sleeping. -Tsunami */
@@ -8719,7 +8719,7 @@ spell_assassinate (int sn, int level, CHAR_DATA * ch, void *vo)
     {
       act (AT_PLAIN, "$N is hurt and suspicious ... you can't sneak up.",
 	   ch, NULL, victim, TO_CHAR);
-      return;
+      return rSPELL_FAILED;
     }
 
   raw_kill (ch, victim);

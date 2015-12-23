@@ -899,7 +899,7 @@ new_descriptor (int new_desc)
   CREATE (dnew->outbuf, char, dnew->outsize);
 
   strcpy (buf, inet_ntoa (sock.sin_addr));
-  sprintf (log_buf, _("Sock.sinaddr:  %s, port %hd."), buf, dnew->port);
+  sprintf (log_buf, "Sock.sinaddr:  %s, port %hd.", buf, dnew->port);
   log_string_plus (log_buf, LOG_COMM, sysdata.log_level);
   if (sysdata.NO_NAME_RESOLVING)
     dnew->host = STRALLOC (buf);
