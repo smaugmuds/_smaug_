@@ -11,9 +11,19 @@ make -j4
 sudo make install
 
 
+2. Configuracion
+----------------
 
-2. Ejecutar servidor + webclient
+Modificar el fichero /opt/smaug/com/system/sysdata.dat
+
+Waitforauth    1    (Cambiar a "0")
+Wizlock        1    (Cambiar a "0")
+
+
+3. Ejecutar servidor + webclient
 --------------------------------
+
+Durante la instalación se crea el usuario y grupo "smaug", los scripts de inicio se ejecutan como "root" pero ejecutan los servicios como "smaug":
 
 cd /opt/smaug/etc/init.d
 ./smaugd start
