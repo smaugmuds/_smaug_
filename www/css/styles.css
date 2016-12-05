@@ -1,0 +1,157 @@
+html {
+  background: url("../images/keltois_rage_bg1.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+body{
+	font: 62.5% "Trebuchet MS", sans-serif;
+	margin: 10px;
+	overflow: hidden;
+}
+
+h1 {
+	color: #f1f1f1;
+}
+
+.Headers {
+	color: #FFF;
+}
+
+#dialog_link {
+	padding: .4em 1em .4em 20px;
+	text-decoration: none;
+	position: relative;
+}
+
+#dialog_link span.ui-icon {
+	margin: 0 5px 0 0;
+	position: absolute;
+	left: .2em;
+	top: 50%;
+	margin-top: -8px;
+}
+
+ul#icons {
+	margin: 0;
+	padding: 0;
+}
+
+ul#icons li {
+	margin: 2px;
+	position: relative;
+	padding: 4px 0;
+	cursor: pointer;
+	float: left;
+	list-style: none;
+}
+
+ul#icons span.ui-icon {
+	float: left;
+	margin: 0 4px;
+}
+
+#panel {
+	display: block;
+	text-align: center;
+}
+
+#panel h2 {
+	text-align: left;
+}
+
+#draggable-panel {
+	width: 280px;
+	height: 350px;
+	padding: 0.5em;
+	background: url("../images/black_pix.png");
+	display: block;
+	position: relative;
+}
+
+#draggable-panel-tabbed {
+	width: 600px;
+	height: 130px;
+	padding: 0.5em;
+	bottom: 10px;
+	background: url("../images/black_pix.png");
+	display: block;
+	position: absolute;
+}
+
+#draggable-wrapper-window {
+	width: 650px;
+	height: 500px;
+	padding: 0.5em;
+	display: none;
+	top: 100px;
+	left: 100px;
+  background: url("../images/black_pix.png");
+	position: absolute;
+}
+
+#draggable-clock {
+	width: 195px;
+	height: 210px;
+	padding: 0.5em;
+	background: url("../images/black_pix.png");
+	display: block;
+	position: relative;
+}
+
+.float-right {
+	float: right;
+}
+
+.float-left {
+	float: left;
+}
+
+ul.icons-panel li {
+	display: block;
+	list-style:none;
+	cursor: pointer;
+}
+
+.icon {
+	width: 52px;
+	height: 52px;
+	-webkit-box-shadow: 0 0 10px rgb(255,255,255);
+	-moz-box-shadow: 0 0 10px rgb(255,255,255);
+	-o-box-shadow: 0 0 10px rgb(255,255,255);
+	box-shadow: 0 0 10px rgb(255,255,255);
+}
+
+.a.img.hover {
+	-webkit-box-shadow: 0 0 10px rgb(255,255,255);
+	-moz-box-shadow: 0 0 10px rgb(255,255,255);
+	-o-box-shadow: 0 0 10px rgb(255,255,255);
+	box-shadow: 0 0 10px rgb(255,255,255);
+ }
+
+.shadow {
+	-webkit-box-shadow: 0 0 10px rgb(0,0,0);
+	-moz-box-shadow: 0 0 10px rgb(0,0,0);
+	-o-box-shadow: 0 0 10px rgb(0,0,0);
+	box-shadow: 0 0 10px rgb(0,0,0);
+}
+
+#clock {
+	display: block;
+	color: #f1f1f1;
+	font-size: 26px;
+	font-style: bold;
+	width: 195px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+#wrapperiframe {
+	margin: 0 auto 0 auto;
+	width: 100%;
+	height: 90%;
+	border: 0px;
+	overflow: auto;
+}

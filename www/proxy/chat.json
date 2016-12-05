@@ -1,0 +1,113 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "chat",
+        "scope": null,
+        "escapedName": "chat",
+        "name": "chat",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/opt/smaug/var/www/smaug"
+    ]
+  ],
+  "_from": "chat@latest",
+  "_id": "chat@0.6.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/chat",
+  "_npmUser": {
+    "name": "damonoehlman",
+    "email": "damon.oehlman@sidelab.com"
+  },
+  "_npmVersion": "1.1.62",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "chat",
+    "scope": null,
+    "escapedName": "chat",
+    "name": "chat",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/chat/-/chat-0.6.0.tgz",
+  "_shasum": "65ecf56158345c5eb15255555c43078595226194",
+  "_shrinkwrap": null,
+  "_spec": "chat",
+  "_where": "/opt/smaug/var/www/smaug",
+  "author": {
+    "name": "Damon Oehlman",
+    "email": "damon.oehlman@sidelab.com"
+  },
+  "bugs": {
+    "url": "http://github.com/DamonOehlman/scuttlechat/issues"
+  },
+  "contributors": [],
+  "dependencies": {
+    "crdt": "3.4.x",
+    "debug": "*",
+    "mux-demux": "3.5.x",
+    "uuid": "1.4.x"
+  },
+  "description": "Eventually consistent chat rooms via CRDT",
+  "devDependencies": {
+    "debug": "*",
+    "mocha": "1.8.x",
+    "random-name": "0.1.x",
+    "websocket-stream": "0.0.x",
+    "ws": "0.4.x"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "65ecf56158345c5eb15255555c43078595226194",
+    "tarball": "https://registry.npmjs.org/chat/-/chat-0.6.0.tgz"
+  },
+  "engines": {
+    "node": ">= 0.8.x < 0.9.0"
+  },
+  "homepage": "https://github.com/DamonOehlman/scuttlechat#readme",
+  "maintainers": [
+    {
+      "name": "damonoehlman",
+      "email": "damon.oehlman@sidelab.com"
+    }
+  ],
+  "name": "chat",
+  "optionalDependencies": {},
+  "readme": "# Chat\n\nPure Streaming Chat for Node.  This is a simple library which implements the core concepts of chat (rooms and connections) without getting tying chat to any particular transport.\n\n## Getting Started\n\nThe first thing you are going to want to do is create a room:\n\n```js\nvar chat = require('chat'),\n    room = chat.room();\n```\n\nOnce you have a room, you can then start connecting clients to the room:\n\n```js\nvar client = chat.client(room);\n```\n\nAt this point, we should probably start listening for messages in the room:\n\n```js\nroom.on('message', function(msg) {\n    if (msg.data) {\n        console.log(msg.data);\n    }\n});\n```\n\nThe code above looks specifically for just the data messages that are captured by the room.  In addition to the data messages, control messages are also sent which can be captured by examining the `type` property of the message.\n\nAt this point, it's probably worth attempting to communicate with the room.  This is done using the `write` method of the client:\n\n```js\nclient.write('hello');\n```\n\nStrange, we didn't capture any output.  This is because as far as the room is concerned, an unknown client is attempting to send messages and this isn't permitted.  While the chat package doesn't perform any authentication it does assume that a package using chat (such as [iceman](https://github.com/DamonOehlman/iceman)) will.  So at a base level, it requires identification:\n\n```js\nclient.identify({ nick: 'Bill' });\n```\n\nCalling `identify` on the client stream kicks off a handshake process with the room, and thus we should wait for the client to become ready before writing any messages:\n\n```js\nclient.once('ready', function(metadata) {\n    client.write('hello'); \n});\n```\n\nFor the full example, see [examples/hello.js](examples/hello.js).\n\n## Transport Free\n\nObviously, this isn't the first chat implementation written in Node.  It is, however, one of the first to be written that isn't tied to a specific transport implementation (usually WebSockets).\n\nAn example of a pure socket level chat server and client can be found in the [examples](examples/) directory.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/DamonOehlman/scuttlechat.git"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec -t 2s"
+  },
+  "tags": [
+    "chat",
+    "interaction",
+    "realtime"
+  ],
+  "version": "0.6.0",
+  "warnings": [
+    {
+      "code": "ENOTSUP",
+      "required": {
+        "node": ">= 0.8.x < 0.9.0"
+      },
+      "pkgid": "chat@0.6.0"
+    },
+    {
+      "code": "ENOTSUP",
+      "required": {
+        "node": ">= 0.8.x < 0.9.0"
+      },
+      "pkgid": "chat@0.6.0"
+    }
+  ]
+}

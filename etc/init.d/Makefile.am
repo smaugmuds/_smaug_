@@ -40,7 +40,7 @@
 #    \\_____________________________________________________________________//
 
 SVdir = $(sysconfdir)/init.d
-SV_SCRIPTS = smaugd smaugd-httpd
+SV_SCRIPTS = smaugd smaugd-httpd smaugd-wsproxy
 
 CLEANFILES = $(SV_SCRIPTS) *~
 
@@ -73,4 +73,8 @@ smaugd-httpd: smaugd-httpd.in Makefile
 	$(do_subst) < $(srcdir)/smaugd-httpd.in > smaugd-httpd; \
 	chmod +x smaugd-httpd;
 
-all-local: smaugd
+smaugd-wsproxy: smaugd-wsproxy.in Makefile
+	$(do_subst) < $(srcdir)/smaugd-wsproxy.in > smaugd-wsproxy; \
+	chmod +x smaugd-wsproxy;
+
+all-local: smaugd smaugd-httpd smaugd-wsproxy

@@ -94,9 +94,9 @@ pkgconfig_DATA = smaug-2.0.pc
 
 CLEANDEVELFILES = compile configure depcomp src/smaug.h src/*.la ar-lib \
 	autom4te.cache config.guess config.sub install-sh missing src/.libs \
-	config.status ltmain.sh depcomp README COPYING NEWS po/*.gmo m4 *.m4 \
+	config.status ltmain.sh depcomp  po/*.gmo m4 *.m4 \
 	src/smaug src/smaug-resolv src/smaug-httpd Doxyfile po/POTFILES po/stamp-po \
-	AUTHORS ChangeLog INSTALL config.lt libtool src/.deps src/*.o src/*.lo \
+	smaug-2.0.pc config.lt libtool src/.deps src/*.o src/*.lo \
 	`find $(srcdir) -iname "Makefile.in"` \
 	`find $(srcdir) -iname "*.autogen-bak"` \
 	`find $(srcdir) -iname "*~"`

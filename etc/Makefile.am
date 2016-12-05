@@ -35,9 +35,9 @@
 SUBDIRS = init.d
 
 etcdir = $(sysconfdir)/$(PACKAGE)
-etc_DATA = smaugd.conf httpd.conf
+etc_DATA = smaugd.conf httpd.conf wsproxy.conf
 
-CLEANFILES = $(etc_DATA) *~
+CLEANFILES = smaugd.conf httpd.conf wsproxy.conf *~
 
 do_subst = sed -e 's,[@]sharedstatedir[@],$(sharedstatedir),g' \
 		-e 's,[@]localstatedir[@],$(localstatedir),g' \
@@ -66,4 +66,7 @@ smaugd.conf: smaugd.conf.in Makefile
 httpd.conf: httpd.conf.in Makefile
 	$(do_subst) < $(srcdir)/httpd.conf.in > httpd.conf
 
-all-local: smaugd.conf httpd.conf
+wsproxy.conf: wsproxy.conf.in Makefile
+	$(do_subst) < $(srcdir)/wsproxy.conf.in > wsproxy.conf
+
+all-local: smaugd.conf httpd.conf wsproxy.conf

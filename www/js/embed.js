@@ -1,6 +1,6 @@
 document.body.innerHTML+='<style>\
 		.portal-button:before {\
-		    background-image: url("images/smaug.jpg");\
+		    background-image: url("//www.mudportal.com/templates/yoo_drive/images/tools/button_primary_effect.png");\
 			background-position: 50% 0;\
 		    background-repeat: no-repeat;\
 		    content: "";\

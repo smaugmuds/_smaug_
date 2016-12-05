@@ -1,0 +1,21 @@
+
+*** WebClient ***
+
+
+1. Instalacion
+--------------
+
+sh autogen.sh
+./configure --prefix=/opt/smaug
+make -j4
+sudo make install
+
+
+
+2. Ejecutar servidor + webclient
+--------------------------------
+
+cd /opt/smaug/etc/init.d
+./smaugd start
+./smaugd-wsproxy start
+./smaugd-httpd start

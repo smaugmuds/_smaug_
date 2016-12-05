@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+	<title>Genuine Desktop</title>
+	<link type="text/css" href="css/ui-darkness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+	<link type="text/css" href="css/styles-window.css" rel="stylesheet" />	
+	<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+	<script type="text/javascript" src="js/clock.js"></script>
+	<script type="text/javascript" src="js/windows.js"></script>
+	<script type="text/javascript" src="js/open_url.js"></script>
+</head>
+
+<body>
+
+<h1>Conéctese a Facebook!</h1>
+<h2>Manténgase al día con sus contactos!</h2>
+
+<div id="fb-root"></div>
+
+<script src="http://connect.facebook.net/en_US/all.js"></script>
+
+<script>
+	FB.init({ 
+		appId:'212000308862113', cookie:true, 
+		status:true, xfbml:true 
+	});
+</script>
+
+<fb:login-button registration-url="https://developers.facebook.com/docs/plugins/registration" />Entrar en Facebook</fb:login-button>
+
+<br><br>
+
+<fb:registration 
+	fields="name,birthday,gender,location,email" 
+	redirect-uri="https://www.facebook.com"
+	width="530">
+
+</fb:registration>
+
+</body>
+</html>
