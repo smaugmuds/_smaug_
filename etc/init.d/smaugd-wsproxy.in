@@ -44,16 +44,20 @@ source @sysconfdir@/@PACKAGE@/@PACKAGE@d.conf
 true=0;
 false=1;
 
+# dirty fix for systems having "node" instead "nodejs" as executable name
+NODEJS="$($SU $USER -c 'command -v nodejs || command -v node')"
+test $($NODEJS -v) == "v4.6.1" || { echo "$NODEJS -v mismatch"; exit $false; }
+
 test -f "$PROXY_DIR/wsproxy.js" || exit $false;
 
 set -e;
 
 start_daemon() {
 	if test ! -f "$PROXY_PIDFILE"; then
-		($SU $USER -c "nodejs $PROXY_DIR/wsproxy.js" &>>$PROXY_LOGFILE &) &
+		($SU $USER -c "$NODEJS $PROXY_DIR/wsproxy.js" &>>$PROXY_LOGFILE &) &
 	fi;
 
-	until	pidof nodejs > $PROXY_PIDFILE; do
+	until	pidof $NODEJS > $PROXY_PIDFILE; do
 		sleep 2;
 	done;
 
