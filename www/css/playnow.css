@@ -54,7 +54,7 @@ footer {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-	background-color: rgba(0, 0, 0, 0.5);
+	/* background-color: rgba(0, 0, 0, 0.5);*/
 	padding: 10px;
 	font-size: 12px;
 }
@@ -91,8 +91,8 @@ a {
 	margin-top:0;
 	margin-bottom:0;
 	/* height: 575px;
-	max-height: 600px; */
-	background-color: rgba(0, 0, 0, 0.5);
+	max-height: 600px;
+	background-color: rgba(0, 0, 0, 0.5); */
 	-webkit-border-bottom-right-radius: 10px;
 	-webkit-border-bottom-left-radius: 10px;
 	-moz-border-radius-bottomright: 10px;
