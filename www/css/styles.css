@@ -63,7 +63,7 @@ ul#icons span.ui-icon {
 }
 
 #draggable-panel {
-	width: 280px;
+	width: 290px;
 	height: 350px;
 	padding: 0.5em;
 	background: url("../images/black_pix.png");
@@ -72,10 +72,10 @@ ul#icons span.ui-icon {
 }
 
 #draggable-panel-tabbed {
-	width: 600px;
-	height: 130px;
+	width: 290px;
+	height: 170px;
 	padding: 0.5em;
-	bottom: 10px;
+	bottom: 50px;
 	background: url("../images/black_pix.png");
 	display: block;
 	position: absolute;
@@ -86,8 +86,8 @@ ul#icons span.ui-icon {
 	height: 500px;
 	padding: 0.5em;
 	display: none;
-	top: 100px;
-	left: 100px;
+	top: 10px;
+	left: 350px;
   background: url("../images/black_pix.png");
 	position: absolute;
 }

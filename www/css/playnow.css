@@ -42,12 +42,12 @@ footer {
 #console {
 	/* background-color: #000; */
 	/* display: block; */
-	float: right !important;
+	float: left !important;
 	/* position: relative; */
 	color: #eee;
-	width: 95%;
+/*	width: 95%;
 	height: 425px;
-	max-height: 435px;
+	max-height: 435px; */
 	margin-right: 20px;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -85,13 +85,13 @@ a {
 }
 
 #wrapper{
-	width:90%;
+	/* width:90%; */
 	margin-left:auto;
 	margin-right:auto;
 	margin-top:0;
 	margin-bottom:0;
-	height: 575px;
-	max-height: 600px;
+	/* height: 575px;
+	max-height: 600px; */
 	background-color: rgba(0, 0, 0, 0.5);
 	-webkit-border-bottom-right-radius: 10px;
 	-webkit-border-bottom-left-radius: 10px;

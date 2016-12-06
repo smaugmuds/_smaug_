@@ -1,17 +1,17 @@
 
 <!--
 Copyright (c) 2011 Sam Phippen <samphippen@googlemail.com>
- 
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
- 
+
 The above copyright notice and this permission notice shall be included in
 all copies or substantial portions of the Software.
- 
+
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -19,10 +19,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
---> 
-<html> 
-<head> 
-<title>--{ SMAUG II }--</title> 
+-->
+<html>
+<head>
+<title>Keltoi's Rage</title>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,38 +36,19 @@ THE SOFTWARE.
 
 <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
 <link rel="stylesheet" href="css/app.css" type="text/css" />
-<link rel="stylesheet" href="css/style.css"/>
+<link rel="stylesheet" href="css/playnow.css"/>
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
 
 <script>
     var j = jQuery;
 </script>
-</head> 
-<body> 
+</head>
+<body>
 
 <div id="wrapper">
 
-	<header>
-		<h1><a href="http://smaugmuds.github.io/smaug">--{ SMAUG II }--</a></h1>
-		<h3>[S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame</h3>
-	</header>
-
-    <div id="webnavbar">
-
-      <ul class="webside-nav">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="play.html?host=localhost&port=4000">Play Now!</a></li>
-        <li><a href="muds.html">MUDs</a></li>
-        <li><a href="downloads.html">Downloads</a></li>
-        <li><a href="support.html">Support</a></li>
-        <li><a href="authors.html">Authors</a></li>
-        <li><a href="license.html">License</a></li>
-      </ul>
-
-    </div>
-
-		<script type="text/javascript"> 
+		<script type="text/javascript">
 			var Typer={
 			text: null,
 			accessCountimer:null,
@@ -83,16 +64,16 @@ THE SOFTWARE.
 					Typer.text = Typer.text.slice(0, Typer.text.length-1);
 				});
 			},
-		 
+
 			content:function(){
 				return $("#console").html();// get console content
 			},
-		 
+
 			write:function(str){// append to console content
 				$("#console").append(str);
 				return false;
 			},
-		 
+
 			makeAccess:function(){//create Access Granted popUp      FIXME: popup is on top of the page and doesn't show is the page is scrolled
 				Typer.hidepop(); // hide all popups
 				Typer.accessCount=0; //reset count
@@ -111,15 +92,15 @@ THE SOFTWARE.
 				$(document.body).prepend(ddiv);// prepend div to body
 				return false;
 			},
-		 
+
 			hidepop:function(){// remove all existing popups
 				$("#deni").remove();
 				$("#gran").remove();
 			},
-		 
+
 			addText:function(key){//Main function to add the code
 				if(key.keyCode==18){// key 18 = alt key
-					Typer.accessCount++; //increase counter 
+					Typer.accessCount++; //increase counter
 					if(Typer.accessCount>=3){// if it's presed 3 times
 						Typer.makeAccess(); // make access popup
 					}
@@ -137,37 +118,37 @@ THE SOFTWARE.
 					if(key.keyCode!=8){ // if key is not backspace
 						Typer.index+=Typer.speed;	// add to the index the speed
 					}else{
-						if(Typer.index>0) // else if index is not less than 0 
+						if(Typer.index>0) // else if index is not less than 0
 							Typer.index-=Typer.speed;//	remove speed for deleting text
 					}
 					var text=Typer.text.substring(0,Typer.index)// parse the text for stripping html enities
 					var rtn= new RegExp("\n", "g"); // newline regex
-	
+
 					// $("#console").html(text.replace(rtn,"<br/>"));// replace newline chars with br, tabs with 4 space and blanks with an html blank
 					$("#console").html(text.replace(rtn,""));// replace newline chars with br, tabs with 4 space and blanks with an html blank
 					window.scrollBy(0,50); // scroll to make sure bottom is always visible
 				}
 				if ( key.preventDefault && key.keyCode != 122 ) { // prevent F11(fullscreen) from being blocked
 					key.preventDefault()
-				};  
+				};
 				if(key.keyCode != 122){ // otherway prevent keys default behavior
 					key.returnValue = false;
 				}
 			},
-		 
+
 			updLstChr:function(){ // blinking cursor
-				var cont=this.content(); // get console 
+				var cont=this.content(); // get console
 				if(cont.substring(cont.length-1,cont.length)=="|") // if last char is the cursor
 					$("#console").html($("#console").html().substring(0,cont.length-1)); // remove it
 				else
 					this.write("|"); // else write it
 			}
 		}
-		 
+
 		function replaceUrls(text) {
 			var http = text.indexOf("http://");
 			var space = text.indexOf(".me ", http);
-			if (space != -1) { 
+			if (space != -1) {
 				var url = text.slice(http, space-1);
 				return text.replace(url, "<a href=\""  + url + "\">" + url + "</a>");
 			} else {
@@ -176,9 +157,9 @@ THE SOFTWARE.
 		}
 
 		Typer.speed=3;
-		Typer.file="smaug_downloads.html";
+		Typer.file="smaug_license.html";
 		Typer.init();
-		 
+
 		var timer = setInterval("t();", 30);
 		function t() {
 			Typer.addText({"keyCode": 123748});
@@ -186,16 +167,12 @@ THE SOFTWARE.
 				clearInterval(timer);
 			}
 		}
-		 
-		</script> 
 
-		<div id="console"></div> 
+		</script>
 
-		<footer>
-			<p><em><strong>--{ SMAUG II }--</strong> &copy; 2014-2015 by Antonio Cao (@burzumishi)</em></p>
-		</footer>
+		<div id="console"></div>
 
 </div>
 
-</body> 
-</html> 
+</body>
+</html>
