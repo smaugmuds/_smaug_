@@ -67,14 +67,14 @@
 #include "smaug.h"
 
 /* Include Gettext */
-#include <libintl.h> 
+#include <libintl.h>
 #include <locale.h>
 #include "i18n.h"
 
 typedef int ch_ret;
 typedef int obj_ret;
 
-/* 
+/*
  * Accommodate old non-Ansi compilers.
  */
 #if defined(TRADITIONAL)
@@ -266,7 +266,7 @@ typedef ch_ret SPELL_FUN args ((int sn, int level, CHAR_DATA * ch, void *vo));
 #define MAX_STRING_LENGTH	 8192	/* buf */
 #define MAX_INPUT_LENGTH	 1024	/* arg */
 #define MAX_INBUF_SIZE		 1024
-#define MSL                MAX_STRING_LENGTH 
+#define MSL                MAX_STRING_LENGTH
 #define MIL                MAX_INPUT_LENGTH
 
 #define HASHSTR			/* use string hashing */
@@ -340,6 +340,8 @@ extern int MAX_PC_CLASS;
 #define LEVEL_LOG		    LEVEL_LESSER
 #define LEVEL_HIGOD		    LEVEL_GOD
 
+#include "protocol.h"
+
 #ifdef ENABLE_ALIAS
 #include "alias.h"
 #endif
@@ -408,7 +410,7 @@ bool DONT_UPPER;
 #define PULSE_AUCTION				 (9 * PULSE_PER_SECOND)
 #define PULSE_CASINO                             (8 * PULSE_PER_SECOND)
 
-/* 
+/*
  * Stuff for area versions --Shaddai
  */
 int area_version;
@@ -1796,7 +1798,7 @@ typedef enum
 
 /* 23 RIS's*/
 
-/* 
+/*
  * Attack types
  */
 typedef enum
@@ -2471,7 +2473,7 @@ typedef enum
  */
 typedef enum
 {
-  COND_DRUNK, COND_FULL, COND_THIRST, COND_BLOODTHIRST, 
+  COND_DRUNK, COND_FULL, COND_THIRST, COND_BLOODTHIRST,
 #ifdef BLEEDING
 	COND_BLEEDING,
 #endif
@@ -3357,7 +3359,7 @@ struct system_data
 #ifdef ENABLE_GOLD_SILVER_COPPER
   int	global_gold_looted;		/* Gold looted this boot */
 	int	global_silver_looted; /* Global Silver taken */
-	int	global_copper_looted; /* Global copper taken */ 
+	int	global_copper_looted; /* Global copper taken */
 #else
   int global_looted;		/* Gold looted this boot */
 #endif
@@ -4560,7 +4562,7 @@ DECLARE_DO_FUN (do_bstat);
 DECLARE_DO_FUN (do_bug);
 
 #ifdef ENABLE_BUILDWALK
-DECLARE_DO_FUN (do_buildwalk);  
+DECLARE_DO_FUN (do_buildwalk);
 #endif
 
 DECLARE_DO_FUN (do_bury);
@@ -5918,7 +5920,7 @@ void mprog_bribe_trigger args ((CHAR_DATA * mob, CHAR_DATA * ch, int amount));
 void	mprog_bribe_trigger_silver     args ( ( CHAR_DATA* mob, CHAR_DATA* ch,
 		                        int amount) );
 void	mprog_bribe_trigger_copper     args ( ( CHAR_DATA* mob, CHAR_DATA* ch,
-		                        int amount) );   
+		                        int amount) );
 #endif
 bool mprog_command_trigger args ((CHAR_DATA * ch, char *argument));
 void mprog_entry_trigger args ((CHAR_DATA * mob));

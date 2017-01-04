@@ -115,7 +115,7 @@ libsmaug_act_la_CFLAGS = -Wl,-rpath
 libsmaug_act_la_LDFLAGS = -Wl,-rpath $(LTLIBINTL)
 
 libsmaug_act_la_SOURCES = \
-act_comm.c act_info.c act_move.c act_obj.c act_wiz.c fight.c misc.c 
+act_comm.c act_info.c act_move.c act_obj.c act_wiz.c fight.c misc.c
 
 # lib/libsmaug-player.so (shared lib) #
 libsmaug_player_la_CXXFLAGS = -Wl,-rpath
@@ -143,7 +143,7 @@ libsmaug_info_la_CFLAGS = -Wl,-rpath
 libsmaug_info_la_LDFLAGS = -Wl,-rpath $(LTLIBINTL)
 
 libsmaug_info_la_SOURCES = \
-boards.c comments.c hint.c news.c requests.c 
+boards.c comments.c hint.c news.c requests.c
 
 if ENABLE_MSSP
 libsmaug_info_la_SOURCES += mssp.c
@@ -187,7 +187,7 @@ libsmaug_realm_la_SOURCES += weather.c
 endif
 
 if BANK_INSTALLED
-libsmaug_realm_la_SOURCES += bank.c 
+libsmaug_realm_la_SOURCES += bank.c
 endif
 
 if ENABLE_UNDERTAKER
@@ -221,7 +221,7 @@ smaug_CFLAGS = -Wl,-rpath
 smaug_LDFLAGS = -Wl,-rpath $(LTLIBINTL)
 
 smaug_SOURCES = smaug.c \
-i18n.c const.c db.c handler.c hashstr.c \
+i18n.c const.c db.c handler.c hashstr.c protocol.c \
 ident.c imm_host.c interp.c win32srv.c sha256.c
 
 if ENABLE_HOTBOOT
@@ -233,11 +233,11 @@ libsmaug-act.la libsmaug-player.la \
 libsmaug-mudprog.la libsmaug-info.la libsmaug-realm.la
 
 if ENABLE_DNS_RESOLV
-smaug_LDADD += libsmaug-dns.la 
+smaug_LDADD += libsmaug-dns.la
 endif
 
 if ENABLE_OLC2
-smaug_LDADD += libsmaug-olc.la 
+smaug_LDADD += libsmaug-olc.la
 endif
 
 if HTTPD
@@ -274,7 +274,7 @@ endif
 
 include_HEADERS = \
 smaug.h mud.h bet.h hint.h i18n.h house.h \
-liquids.h news.h sha256.h gettext.h 
+liquids.h news.h sha256.h gettext.h protocol.h
 
 if HTTPD
 include_HEADERS += mongoose.h
