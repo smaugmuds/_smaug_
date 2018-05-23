@@ -221,7 +221,7 @@ smaug_CFLAGS = -Wl,-rpath
 smaug_LDFLAGS = -Wl,-rpath $(LTLIBINTL)
 
 smaug_SOURCES = smaug.c \
-i18n.c const.c db.c handler.c hashstr.c protocol.c \
+i18n.c const.c db.c handler.c hashstr.c \
 ident.c imm_host.c interp.c win32srv.c sha256.c
 
 if ENABLE_HOTBOOT
@@ -274,7 +274,7 @@ endif
 
 include_HEADERS = \
 smaug.h mud.h bet.h hint.h i18n.h house.h \
-liquids.h news.h sha256.h gettext.h protocol.h
+liquids.h news.h sha256.h gettext.h
 
 if HTTPD
 include_HEADERS += mongoose.h

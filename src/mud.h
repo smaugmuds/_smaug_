@@ -340,8 +340,6 @@ extern int MAX_PC_CLASS;
 #define LEVEL_LOG		    LEVEL_LESSER
 #define LEVEL_HIGOD		    LEVEL_GOD
 
-#include "protocol.h"
-
 #ifdef ENABLE_ALIAS
 #include "alias.h"
 #endif
