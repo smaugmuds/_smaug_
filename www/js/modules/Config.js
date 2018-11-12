@@ -4,7 +4,7 @@ var Config = {
 	
 	host: param('host'),
 	
-	port: param('port'),
+	port: param('port') || 4000,
 	
 	name: param('name'),
 	
