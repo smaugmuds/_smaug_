@@ -1,0 +1,107 @@
+#!/usr/bin/env /bin/bash
+
+#                     R E A L M S    O F    D E S P A I R  !
+#   ___________________________________________________________________________
+#  //            /                                                            \\
+# [|_____________\   ********   *        *   ********   *        *   *******   |]
+# [|   \\._.//   /  **********  **      **  **********  **      **  *********  |]
+# [|   (0...0)   \  **********  ***    ***  **********  ***    ***  *********  |]
+# [|    ).:.(    /  ***         ****  ****  ***    ***  ***    ***  ***        |]
+# [|    {o o}    \  *********   **********  **********  ***    ***  *** ****   |]
+# [|   / ' ' \   /   *********  *** ** ***  **********  ***    ***  ***  ****  |]
+# [|-'- /   \ -`-\         ***  ***    ***  ***    ***  ***    ***  ***   ***  |]
+# [|   .VxvxV.   /   *********  ***    ***  ***    ***  **********  *********  |]
+# [|_____________\  **********  **      **  **      **  **********  *********  |]
+# [|             /  *********   *        *  *        *   ********    *******   |]
+#  \\____________\____________________________________________________________//
+#     |                                                                     |
+#     |    --{ [S]imulated [M]edieval [A]dventure Multi[U]ser [G]ame }--    |
+#     |_____________________________________________________________________|
+#     |                                                                     |
+#     |                       -*- Service Init -*-                          |
+#     |_____________________________________________________________________|
+#    //                                                                     \\
+#   [|  SMAUG 2.0 © 2014-2015 Antonio Cao (@burzumishi)                      |]
+#   [|                                                                       |]
+#   [|  AFKMud Copyright 1997-2007 by Roger Libiez (Samson),                 |]
+#   [|  Levi Beckerson (Whir), Michael Ward (Tarl), Erik Wolfe (Dwip),       |]
+#   [|  Cameron Carroll (Cam), Cyberfox, Karangi, Rathian, Raine,            |]
+#   [|  Xorith, and Adjani.                                                  |]
+#   [|  All Rights Reserved. External contributions from Remcon, Quixadhal,  |]
+#   [|  Zarius and many others.                                              |]
+#   [|                                                                       |]
+#   [|  SMAUG 1.4 © 1994-1998 Thoric/Altrag/Blodkai/Narn/Haus/Scryn/Rennard  |]
+#   [|  Swordbearer/Gorog/Grishnakh/Nivek/Tricops/Fireblade/Edmond/Conran    |]
+#   [|                                                                       |]
+#   [|  Merc 2.1 Diku Mud improvments © 1992-1993 Michael Chastain, Michael  |]
+#   [|  Quan, and Mitchell Tse. Original Diku Mud © 1990-1991 by Sebastian   |]
+#   [|  Hammer, Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, Katja    |]
+#   [|  Nyboe. Win32 port Nick Gammon.                                       |]
+#    \\_____________________________________________________________________//
+
+source /opt/smaug/etc/smaug/smaugd.conf
+
+true=0;
+false=1;
+
+test -x $BINDIR/$HTTPD || exit $false;
+
+set -e;
+
+start_daemon() {
+	if test ! -f "$HTTPD_PIDFILE"; then
+		($SU $USER -c $BINDIR/$HTTPD &>>$HTTPD_LOGFILE &) &
+	fi;
+
+	until	pidof $HTTPD > $HTTPD_PIDFILE; do
+		sleep 2;
+	done;
+
+	echo -n "$HTTPD ($(cat $HTTPD_PIDFILE)) ... ";
+}
+
+stop_daemon() {
+	if test -f "$HTTPD_PIDFILE"; then
+		if test -f "/proc/$(cat $HTTPD_PIDFILE)/status"; then
+			kill -9 $(cat $HTTPD_PIDFILE) &>/dev/null;
+		fi;
+
+		$SU $USER -c "rm -f $HTTPD_PIDFILE";
+	fi;
+
+	echo -n "$HTTPD (Stopped) ... ";
+}
+
+status_daemon() {
+	if test -f "$HTTPD_PIDFILE"; then
+		echo -n "$HTTPD ($(cat $HTTPD_PIDFILE)) ... ";
+	else
+		echo -n "$HTTPD (Stopped) ... ";
+	fi;
+}
+
+case $1 in
+  start) echo -n "Starting HTTPD $DESC ... ";
+         start_daemon;
+				 echo "done.";
+	;;
+  stop) echo -n "Stopping HTTPD $DESC ... ";
+        stop_daemon;
+			  echo "done.";
+	;;
+	status) echo -n "Status HTTPD $DESC ... ";
+					status_daemon;
+				  echo "done.";
+	;;
+  restart) echo -n "Restarting HTTPD $DESC ... ";
+        	 stop_daemon;
+					 sleep 2;
+					 start_daemon;
+					 echo "done.";
+	;;
+  *) echo "Usage: $0 {start|stop|restart|status}" >&2;
+		 exit $false;
+	;;
+esac;
+
+exit $true;
