@@ -10,7 +10,7 @@
         "spec": "latest",
         "type": "tag"
       },
-      "/opt/smaug/var/www/smaug"
+      "/opt/app-root/src/var/www/smaug"
     ]
   ],
   "_from": "chat@latest",
@@ -40,7 +40,7 @@
   "_shasum": "65ecf56158345c5eb15255555c43078595226194",
   "_shrinkwrap": null,
   "_spec": "chat",
-  "_where": "/opt/smaug/var/www/smaug",
+  "_where": "/opt/app-root/src/var/www/smaug",
   "author": {
     "name": "Damon Oehlman",
     "email": "damon.oehlman@sidelab.com"
