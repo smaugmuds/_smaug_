@@ -80,12 +80,12 @@ srv = {
 	
 	ttype: {
 		enabled: 1,		
-		portal:	["localhost", "XTERM-256color", "MTTS 141"]
+		portal:	["mudportal.com", "XTERM-256color", "MTTS 141"]
 	},
 	
 	gmcp: {
 		enabled: 1,
-		portal: ['client localhost', 'client_version 1.0']
+		portal: ['client mudportal.com', 'client_version 1.0']
 	},
 	
 	prt: {
@@ -583,17 +583,17 @@ srv = {
 				}
 			}
 		}
-	/*	
+		
 		if (!s.echo_negotiated) {
 			for (i = 0; i < data.length; i++)	{
 				if (data[i] == p.IAC && data[i+1] == p.WILL && data[i+2] == p.ECHO) {
-					// s.ts.send(new Buffer([p.IAC, p.WONT, p.ECHO]));
+					//s.ts.send(new Buffer([p.IAC, p.WILL, p.ECHO]));
 					srv.log("IAC WILL ECHO <- IAC WONT ECHO");
 					s.echo_negotiated = 1;
 				}
 			}
 		}
-	*/	
+		
 		if (!s.sga_negotiated) {
 			for (i = 0; i < data.length; i++)	{
 				if (data[i] == p.IAC && data[i+1] == p.WILL && data[i+2] == p.SGA) {

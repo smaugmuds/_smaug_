@@ -1,7 +1,7 @@
 var Socket = function(o) {
 	
 	var self = this, ws = {}, out = o.out || Config.ScrollView, connected = 0;	
-	var proxy = o.proxy || 'ws://localhost:6200/';
+	var proxy = o.proxy || 'ws://www.cloudgamer.org:6200/';
 	o.type = o.type||'telnet';
 	var host = o.host, port = o.port;
 	var buff = '';
@@ -10,7 +10,7 @@ var Socket = function(o) {
 	var cmds = [], cmdi = 0, echo = 1;
 	var keepcom = (Config.getSetting('keepcom') == null || Config.getSetting('keepcom') == 1);
 	
-	if (proxy.has('localhost'))
+	if (proxy.has('cloudgamer'))
 		delete o.proxy;
 	
 	var prot = {
@@ -161,9 +161,9 @@ var Socket = function(o) {
 		process();
 	};
   
-//	var	onError = function(evt) {
-//		out.add('<span style="font-size: 13px; color: red;">Error: telnet proxy may be down.<br></span>');
-//	};
+	var	onError = function(evt) {
+		out.add('<span style="font-size: 13px; color: red;">Error: telnet proxy may be down.<br></span>');
+	};
 
 	var getHistory = function() {
 		//log(cmds);
