@@ -68,7 +68,7 @@ srv = {
 	
 	ws_port: 6200, /* this websocket proxy port */
 	
-	tn_host: "127.0.0.1", /* default telnet host */
+	tn_host: "172.17.0.15", /* default telnet host */
 	
 	tn_port: 4000, /* default telnet/target port */
 	
@@ -80,12 +80,12 @@ srv = {
 	
 	ttype: {
 		enabled: 1,		
-		portal:	["localhost", "XTERM-256color", "MTTS 141"]
+		portal:	["172.17.0.15", "XTERM-256color", "MTTS 141"]
 	},
 	
 	gmcp: {
 		enabled: 1,
-		portal: ['client localhost', 'client_version 1.0']
+		portal: ['client 172.17.0.15', 'client_version 1.0']
 	},
 	
 	prt: {
