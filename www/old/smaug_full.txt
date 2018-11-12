@@ -1,0 +1,48 @@
+<span id="a">root@xsmaug</span>:<span id="b">~</span><span id="c">$</span><h1><a href="http://smaugmuds.github.io/xsmaug">XSMAUG</a></h1>
+<h2>Ne[X]t Generation of [S]imulated [M]edieval [A]dventure Multi-[U]ser [G]ame</h2>
+<p>     <a href="https://github.com/smaugmuds/xsmaug/zipball/master">Download XSMAUG as .zip</a>
+     <a href="https://github.com/smaugmuds/xsmaug/tarball/master">Download XSMAUG as .tar.gz</a>
+     <a href="https://github.com/smaugmuds/xsmaug">View XSMAUG Project on GitHub</a></p>
+<h3>Introduction</h3>
+<p><strong>XSMAUG</strong> is an enhancenment of <strong>SMAUGFuss 1.9</strong>, the goal is to develop a new structure to build and run in modern distributed system environments.
+<strong>SMAUGFuss 1.9</strong>, an fixed <strong>SMAUG 1.4a</strong> which is a heavily modified derivative of the <strong>Merc 2.1</strong> distribution.
+<strong>SMAUG 1.4a</strong> is close to six times the size of <strong>Merc 2.1</strong>, and has major changes to the inner workings of the code, hence making porting of code from other Diku-derivatives non-trivial to the non-coder.
+Due to the ability to edit most everything online, you will most likely find the online help pages more informative.
+<strong>SMAUG</strong> is the base code that runs the popular <strong>Realms of Despair</strong> MUD. Through the years it has been tweaked, modified, and enhanced to become one of the most feature packed branches of the <strong>MERC</strong> family of codebases.
+<strong>SMAUG</strong> is a derivative of <strong>Merc Diku Mud</strong> is a <strong>Diku Mud</strong> with many enhancements and contributions.</p>
+<h3>XSMAUG Releases</h3>
+<ul><li><strong><a href="https://github.com/smaugmuds/xsmaug/releases/tag/2.0">XSMAUG Phoenix Release 2.0</a></strong> <strong>¡¡¡NEW!!!</strong></li>
+<li><strong><a href="https://github.com/smaugmuds/xsmaug/releases/tag/2.1">XSMAUG Phoenix Release 2.1</a></strong> <strong>¡Update!</strong></li>
+<li><strong><a href="https://github.com/smaugmuds/xsmaug/releases/tag/2.2">XSMAUG Phoenix Release 2.2</a></strong> <strong>¡Update!</strong></li></ul>
+<h4>ChangeLog</h4>
+* XSMAUG 2.1 -&gt; XSMAUG 2.2
+    - Conversion to GNU Package: configure, make, make install
+    - Configure checks for cc, gcc, g++, (g)awk, -ldl, -lz, -lcrypt, basic c libraries, headers and functions
+    - Indented code with GNU style.
+    - New structure.
+<h4>Supported Operating Systems</h4>
+      - Linux
+      - BSD
+      - Solaris
+      - Windows
+      - MAC
+<h3>Authors and Contributors</h3>
+<p><strong>XSMAUG Phoenix Release</strong> by <strong>Antonio Cao</strong> (<a href="https://github.com/burzumishi">@burzumishi</a>)
+Wed Jun 11 14:49:27 CEST 2014.
+Feel free to contribute with <strong>XSMAUG in GitHub</strong>.</p>
+<h3>Support or Contact</h3>
+<p>Having trouble with <strong>XSMAUG</strong>?
+First, check out the documentation at <strong><a href="https://github.com/smaugmuds/xmerc/wiki">XSMAUG Wiki</a></strong> or send an Issue and we’ll help you sort it out.
+We rewrote all of the documentation files for the <strong>XSMAUG 2.0 Phoenix Release</strong>, and have been keeping them up-to-date since.
+Also check the <strong>'wizhelp'</strong> command and read the <strong>'help'</strong> descriptions for the individual immortal commands.
+When you write us, we need to know what kind of machine you're running on.  If you can give us specific information about the problem, that helps too.
+Specific information means: an adb or gdb stack trace (if you're reporting a crash), or a syslog with the relevant commands logged.  The player files are ascii files -- dump them into your mail message too.
+You can also read the Documentation in the <strong>'doc'</strong> directory.</p>
+<h3>Copyrights and Licenses</h3>
+<p><strong>Diku Mud</strong> is copyright (C) 1990, 1991 by Sebastian Hammer, Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.  Their license agreement is in the file <strong>'license.doc'</strong>.
+<strong>Merc Diku Mud</strong> is a derivative of the original <strong>Diku Mud</strong> and is subject to their copyright and license agreement.  <strong>Merc Diku Mud</strong> contains substantial enhancements to <strong>Diku Mud</strong>.  These enhancements are copyright 1992, 1993 by Michael Chastain, Michael Quan, and Mitchell Tse.  Our license agreement is in <strong>'license.txt'</strong>.
+The license terms boil down to this: the people who wrote this mud want due credit for their work.
+<strong>MERC Industries</strong> had officially disolved October 13, 1993.  <strong>MERC 2.2</strong> is a compilation of various bug and typo fixes along with a few new worlds.  <strong>MERC 2.2</strong> also has a variable line pager, MOBPrograms, and player settable prompt.
+<strong>SMAUG</strong> is a derivative of the version <strong>2.1</strong> distribution of <strong>Merc Diku Mud</strong>. <strong>SMAUG</strong> contains substantial enhancements to <strong>Merc Diku Mud</strong>, including some features of the original <strong>Diku Mud</strong> that were removed by the Merc team.
+<strong>XSMAUG</strong> is a derivative of the original <strong>SMAUG</strong> and is subject to their copyright and license agreement.  <strong>XSMAUG</strong> contains substantial enhancements to <strong>SMAUG</strong>.  These enhancements are copyright 2014 by <strong>Antonio Cao</strong> (<a href="https://github.com/burzumishi">@burzumishi</a>) under the <strong>'GNU GPL v2 LICENSE'</strong>.
+<strong>Thanks to the SMAUG Code Team!</strong></p>

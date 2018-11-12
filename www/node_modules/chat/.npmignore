@@ -1,0 +1,4 @@
+.DS_Store
+.orientdb_history
+node_modules
+logs

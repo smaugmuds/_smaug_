@@ -65,14 +65,10 @@ dump = function(o) {
 srv = {
 
 	path: __dirname,
-
-	ws_host: "127.0.0.1",
 	
 	ws_port: 6200, /* this websocket proxy port */
-
-	ws_listen: "127.0.0.1:6200",
 	
-	tn_host: "127.0.0.1", /* default telnet host */
+	tn_host: "localhost", /* default telnet host */
 	
 	tn_port: 4000, /* default telnet/target port */
 	
@@ -84,12 +80,12 @@ srv = {
 	
 	ttype: {
 		enabled: 1,		
-		portal:	["127.0.0.1", "XTERM-256color", "MTTS 141"]
+		portal:	["localhost", "XTERM-256color", "MTTS 141"]
 	},
 	
 	gmcp: {
 		enabled: 1,
-		portal: ['client 127.0.0.1', 'client_version 1.0']
+		portal: ['client localhost', 'client_version 1.0']
 	},
 	
 	prt: {
@@ -177,8 +173,8 @@ srv = {
 			srv.log(err);
 		});
 
-		webserver.listen(srv.ws_port, srv.ws_host, function() {
-			srv.log('(ws) server listening: port ' + srv.ws_host + ':' + srv.ws_port);
+		webserver.listen(srv.ws_port, function() {
+			srv.log('(ws) server listening: port ' + srv.ws_port);
 		});
 
 		wsServer = new ws({
@@ -587,17 +583,17 @@ srv = {
 				}
 			}
 		}
-		
+	/*	
 		if (!s.echo_negotiated) {
 			for (i = 0; i < data.length; i++)	{
 				if (data[i] == p.IAC && data[i+1] == p.WILL && data[i+2] == p.ECHO) {
-					//s.ts.send(new Buffer([p.IAC, p.WILL, p.ECHO]));
+					// s.ts.send(new Buffer([p.IAC, p.WONT, p.ECHO]));
 					srv.log("IAC WILL ECHO <- IAC WONT ECHO");
 					s.echo_negotiated = 1;
 				}
 			}
 		}
-		
+	*/	
 		if (!s.sga_negotiated) {
 			for (i = 0; i < data.length; i++)	{
 				if (data[i] == p.IAC && data[i+1] == p.WILL && data[i+2] == p.SGA) {

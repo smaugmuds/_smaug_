@@ -1,15 +1,9 @@
-/* body { height: auto; width: 99%; font-size: 11px; background: #000000 url(../images/dark-metal.jpg) 50% 50% repeat; } */
-
 @import url("../font/stylesheet.css");
 @import url("http://fonts.googleapis.com/css?family=Open+Sans");
 
 body {
-	outline: 0 none !important;
 	font-family: "Open Sans","Lucida Console","DejaVu Sans Mono","DejaVu Sans",Arial,Helvetica,sans-serif;
 	font-size: 12px;
-	min-height: 100%;
-	min-width: 100%;
-	position: absolute;
 }
 
 a {
@@ -296,7 +290,7 @@ button.disabled {
 	position: absolute;
 	z-index: auto;
 	margin: 0px auto;
-	border: 0.5px solid rgba(255, 255, 255, 0.15);
+	/* border: 0.5px solid rgba(255, 255, 255, 0.15); */
 }
 
 .app .handle { 
@@ -322,10 +316,12 @@ button.disabled {
 	top: 18px;
 	left: 0px;
 	padding: 0px;
-	background-color: black; 
+	background-color: rgba(0, 0, 0, 0) !important; 
 	color: #ccc; 
 	clear: both; 
 	overflow: hidden;
+  line-height: 14px;
+  border-radius: 5px;
 }
 
 .app .window .tab-content {

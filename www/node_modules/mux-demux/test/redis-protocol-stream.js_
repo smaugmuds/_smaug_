@@ -1,0 +1,29 @@
+
+//test with stream of plain javascript objects
+
+var es = require('event-stream')
+var ms = require('redis-protocol-stream')
+
+function wrapper (stream) { 
+  //return rps.serialize(stream)
+  return es.pipeline(ms.parse(), 
+    es.log('<<'),
+    es.map(function (ary) {
+      if(ary[1] === 'new')
+        ary[2] = JSON.parse(ary[2])
+      return ary
+    }),
+    stream,
+    es.map(function (ary) {
+      if(ary[1] === 'new')
+        ary[2] = JSON.stringify(ary[2])
+      return ary
+    }),
+    es.log('>>'),
+    ms.stringify(),
+    es.log('>>')
+  )
+}
+
+require('./')(wrapper)
+//require('./disconnections')(wrapper)

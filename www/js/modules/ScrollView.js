@@ -394,7 +394,7 @@ var ScrollView = function(o) {
 	var ws = new Socket({
 		host: param('host'),
 		port: param('port'),
-		proxy: Config.proxy,
+		// proxy: Config.proxy,
 		out: self
 	});
 	

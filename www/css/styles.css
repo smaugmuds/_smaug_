@@ -1,11 +1,5 @@
 html {
-  /* Favorites */
-  /*
-  background: url("../images/keltois_rage_bg0.jpg") no-repeat center center fixed;
   background: url("../images/keltois_rage_bg1.jpg") no-repeat center center fixed;
-  background: url("../images/keltois_rage_bg2.jpg") no-repeat center center fixed;
-  */
-  background: url("../images/keltois_rage_bg2.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -69,7 +63,7 @@ ul#icons span.ui-icon {
 }
 
 #draggable-panel {
-	width: 290px;
+	width: 280px;
 	height: 350px;
 	padding: 0.5em;
 	background: url("../images/black_pix.png");
@@ -78,10 +72,10 @@ ul#icons span.ui-icon {
 }
 
 #draggable-panel-tabbed {
-	width: 290px;
-	height: 170px;
+	width: 600px;
+	height: 130px;
 	padding: 0.5em;
-	bottom: 50px;
+	bottom: 10px;
 	background: url("../images/black_pix.png");
 	display: block;
 	position: absolute;
@@ -92,8 +86,8 @@ ul#icons span.ui-icon {
 	height: 500px;
 	padding: 0.5em;
 	display: none;
-	top: 10px;
-	left: 350px;
+	top: 100px;
+	left: 100px;
   background: url("../images/black_pix.png");
 	position: absolute;
 }
