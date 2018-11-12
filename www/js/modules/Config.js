@@ -2,7 +2,7 @@ var Config = {
 	
 	debug: param('debug') || 0,
 	
-	host: param('host') || "0.0.0.0",
+	host: param('host') || "127.0.0.1",
 	
 	port: param('port') || 4000,
 	
@@ -40,7 +40,7 @@ var Config = {
 
 	separator: window.location.search.has('separator') ? param('separator') : ';',
 
-	proxy: param('proxy') || 'ws://0.0.0.0:6200/',
+	proxy: param('proxy') || 'ws://127.0.0.1:6200/',
 
 	view: param('host') + ':' + param('port') + ':' + window.screen.width + 'x' + window.screen.height,
 	

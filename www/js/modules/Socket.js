@@ -1,7 +1,7 @@
 var Socket = function(o) {
 	
 	var self = this, ws = {}, out = o.out || Config.ScrollView, connected = 0;	
-	var proxy = o.proxy || 'ws://0.0.0.0:6200/';
+	var proxy = o.proxy || 'ws://127.0.0.1:6200/';
 	o.type = o.type||'telnet';
 	var host = o.host, port = o.port;
 	var buff = '';
