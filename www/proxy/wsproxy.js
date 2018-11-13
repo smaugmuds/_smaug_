@@ -65,7 +65,9 @@ dump = function(o) {
 srv = {
 
 	path: __dirname,
-	
+
+	ws_host: "localhost",
+
 	ws_port: 6200, /* this websocket proxy port */
 	
 	tn_host: "localhost", /* default telnet host */
@@ -173,8 +175,8 @@ srv = {
 			srv.log(err);
 		});
 
-		webserver.listen(srv.ws_port, function() {
-			srv.log('(ws) server listening: port ' + srv.ws_port);
+		webserver.listen(srv.ws_port, srv.ws_host, function() {
+			srv.log('(ws) server listening: ' + srv.ws_host + ':' + srv.ws_port);
 		});
 
 		wsServer = new ws({
