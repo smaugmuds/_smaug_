@@ -10,7 +10,7 @@ var Socket = function(o) {
 	var cmds = [], cmdi = 0, echo = 1;
 	var keepcom = (Config.getSetting('keepcom') == null || Config.getSetting('keepcom') == 1);
 	
-	if (proxy.has('localhost'))
+	if (proxy.has('cloudgamer.com'))
 		delete o.proxy;
 	
 	var prot = {
