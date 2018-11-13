@@ -2,7 +2,7 @@ var Config = {
 
 	debug: param('debug') || 1,
 
-	host: param('host') || localhost,
+	host: param('host') || 'localhost',
 
 	port: param('port') || 4000,
 
