@@ -1,5 +1,5 @@
 Installation Instructions
-*************************
+=========================
 
 Copyright (C) 1994-1996, 1999-2002, 2004-2013 Free Software Foundation,
 Inc.
@@ -10,7 +10,7 @@ notice and this notice are preserved.  This file is offered as-is,
 without warranty of any kind.
 
 Basic Installation
-==================
+------------------
 
    Briefly, the shell command `./configure && make && make install'
 should configure, build, and install this package.  The following
@@ -94,7 +94,7 @@ of `autoconf'.
      This target is generally not run by end users.
 
 Compilers and Options
-=====================
+---------------------
 
    Some systems require unusual options for compilation or linking that
 the `configure' script does not know about.  Run `./configure --help'
@@ -109,7 +109,7 @@ is an example:
    *Note Defining Variables::, for more details.
 
 Compiling For Multiple Architectures
-====================================
+------------------------------------
 
    You can compile the package for more than one kind of computer at the
 same time, by placing the object files for each architecture in their
@@ -139,7 +139,7 @@ may have to build one architecture at a time and combine the results
 using the `lipo' tool if you have problems.
 
 Installation Names
-==================
+------------------
 
    By default, `make install' installs the package's commands under
 `/usr/local/bin', include files under `/usr/local/include', etc.  You
@@ -190,7 +190,7 @@ when some directory options were not specified in terms of `${prefix}'
 at `configure' time.
 
 Optional Features
-=================
+-----------------
 
    If the package supports it, you can cause programs to be installed
 with an extra prefix or suffix on their names by giving `configure' the
@@ -216,7 +216,7 @@ overridden with `make V=1'; while running `./configure
 overridden with `make V=0'.
 
 Particular systems
-==================
+------------------
 
    On HP-UX, the default C compiler is not ANSI C compatible.  If GNU
 CC is not installed, it is recommended to use the following options in
@@ -253,7 +253,7 @@ not `/usr/local'.  It is recommended to use the following options:
      ./configure --prefix=/boot/common
 
 Specifying the System Type
-==========================
+--------------------------
 
    There may be some features `configure' cannot figure out
 automatically, but needs to determine by the type of machine the package
@@ -284,7 +284,7 @@ platform different from the build platform, you should specify the
 eventually be run) with `--host=TYPE'.
 
 Sharing Defaults
-================
+----------------
 
    If you want to set default values for `configure' scripts to share,
 you can create a site shell script called `config.site' that gives
@@ -295,7 +295,7 @@ default values for variables like `CC', `cache_file', and `prefix'.
 A warning: not all `configure' scripts look for a site script.
 
 Defining Variables
-==================
+------------------
 
    Variables not defined in a site shell script can be set in the
 environment passed to `configure'.  However, some packages may run
@@ -315,7 +315,7 @@ this workaround:
      CONFIG_SHELL=/bin/bash ./configure CONFIG_SHELL=/bin/bash
 
 `configure' Invocation
-======================
+----------------------
 
    `configure' recognizes the following options to control how it
 operates.
